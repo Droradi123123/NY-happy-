@@ -1,6 +1,6 @@
 // Cloudflare Workers, static assets only: the whole site is the dist/ folder.
-// Cloudflare builds this from GitHub (Workers Builds): root directory `site`,
-// build command `npm run build`, deploy command `npx wrangler deploy`.
+// Deployed by .github/workflows/deploy-site.yml (`npx wrangler deploy` from site/).
+// The custom domain needs the yaynyc.com zone in the same Cloudflare account.
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "yaynyc",
@@ -10,5 +10,6 @@
     "html_handling": "drop-trailing-slash",
     "not_found_handling": "404-page"
   },
+  "routes": [{ "pattern": "yaynyc.com", "custom_domain": true }],
   "observability": { "enabled": true }
 }

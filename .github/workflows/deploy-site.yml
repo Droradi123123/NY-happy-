@@ -1,0 +1,52 @@
+# Builds yaynyc.com from Supabase and deploys it to Cloudflare Workers (static assets).
+# Runs on every push to main, every morning (ended parties drop off, new data and
+# photos go live), and on demand from the Actions tab.
+#
+# Needs, in GitHub > Settings > Secrets and variables > Actions:
+#   secret   CLOUDFLARE_API_TOKEN   (template "Edit Cloudflare Workers")
+#   variable CLOUDFLARE_ACCOUNT_ID
+#   variable PUBLIC_GA_ID           (G-XXXXXXX; optional, no analytics without it)
+name: Deploy yaynyc.com
+
+on:
+  push:
+    branches: [main]
+    paths: ['site/**', '.github/workflows/deploy-site.yml']
+  schedule:
+    - cron: '17 9 * * *' # 5:17am in New York (4:17am in winter)
+  workflow_dispatch:
+
+concurrency:
+  group: deploy-site
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: site/package-lock.json
+      # photos are downloaded once and kept between builds (Wikimedia asks for gentle use)
+      - uses: actions/cache@v4
+        with:
+          path: site/public/img
+          key: photos-${{ github.run_id }}
+          restore-keys: photos-
+      - run: npm ci
+      - run: npm run build
+        env:
+          PUBLIC_GA_ID: ${{ vars.PUBLIC_GA_ID }}
+      - name: Deploy to Cloudflare
+        if: ${{ vars.CLOUDFLARE_ACCOUNT_ID != '' }}
+        run: npx wrangler deploy
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
