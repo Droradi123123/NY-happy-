@@ -145,13 +145,17 @@ function filterParties(rows: Row[], st: State, here: [number, number] | null) {
 
 // ---------- rendering ----------
 
+const boro = (b: string | null) => (b ? b.toLowerCase().replace(/^the /, '').replace(/\s+/g, '-') : 'nyc');
+const thumb = (r: Row) => (r.im
+  ? `<figure class="xcard-img"><img src="${esc(r.im[0])}" alt="" width="500" height="281" loading="lazy" decoding="async"><figcaption>${esc(r.im[1])}</figcaption></figure>`
+  : `<div class="xcard-art xart-${boro(r.bo)}" aria-hidden="true"><span>${esc(r.vn || r.hn || 'NYC')}</span></div>`);
 function barCard(r: Row, st: State) {
   const now = st.day === 'now';
   const live = now && r._until !== null ? `<span class="chip badge-live">Happy hour now · until ${ampm(r._until % 1440)}</span>` : '';
   const sub = r.st ? `<span class="sub">${r.ln.map(bullet).join('')} ${esc(r.st)}${r.wm ? ` · ${r.wm} min walk` : ''}</span>` : '';
   const deal = r.d ? `<p class="deal">${esc(r.d)}</p>` : `<p class="deal muted">Times published, deal not listed</p>`;
   const dist = r._dist !== null && r._dist !== undefined ? `<span class="dist">${miles(r._dist)}</span>` : '';
-  return `<article class="xcard"><div class="xcard-top"><h3><a href="/bars/${esc(r.s)}">${esc(r.n)}</a></h3>${dist}</div>
+  return `<article class="xcard">${thumb(r)}<div class="xcard-top"><h3><a href="/bars/${esc(r.s)}">${esc(r.n)}</a></h3>${dist}</div>
   <p class="where">${esc(r.hn)}${r.bo && r.bo !== r.hn ? `, ${esc(r.bo)}` : ''}</p>${deal}<p class="sch">${esc(r.sch)}</p>
   <div class="xcard-foot">${live}${sub}</div>${r.ck ? `<p class="checked">Checked ${new Date(r.ck + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p>` : ''}</article>`;
 }
@@ -159,7 +163,7 @@ function partyCard(r: Row) {
   const date = new Date(`${r.nd}T12:00:00`).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
   const genres = r.g.slice(0, 3).map((g: string) => `<span class="chip">${esc(g.replace(/-/g, ' '))}</span>`).join('');
   const dist = r._dist !== null && r._dist !== undefined ? `<span class="dist">${miles(r._dist)}</span>` : '';
-  return `<article class="xcard party"><div class="xcard-top"><p class="when">${esc(date)}${r.tm ? ` · ${esc(r.tm)}` : ''}</p>${dist}</div>
+  return `<article class="xcard party">${thumb(r)}<div class="xcard-top"><p class="when">${esc(date)}${r.tm ? ` · ${esc(r.tm)}` : ''}</p>${dist}</div>
   <h3><a href="/parties/${esc(r.s)}">${esc(r.t)}</a></h3><p class="where">${esc(r.vn)}${r.h ? ` · ${esc(r.h)}` : ''}</p>
   <div class="xcard-foot">${r.so ? '<span class="chip dark">Sold out</span>' : `<span class="chip outline">${esc(r.pl)}</span>`}${r.a ? `<span class="chip outline">${r.a}+</span>` : ''}${genres}</div></article>`;
 }

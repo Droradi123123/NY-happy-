@@ -1,8 +1,43 @@
 ---
 import Base from '../layouts/Base.astro';
+import { photos, allBars, allHoods, partyData } from '../lib/data';
+const list = [...photos().values()];
+const bars = new Map((await allBars()).map((b) => [b.slug, b]));
+const hoods = new Map((await allHoods()).map((h) => [h.slug, h]));
+const { venues } = await partyData();
+const vmap = new Map(venues.map((v) => [v.id, v]));
+const where = (kind: string, key: string): [string, string | null] => {
+  if (kind === 'bar') { const b = bars.get(key); return [b?.name ?? key, b ? `/bars/${key}` : null]; }
+  if (kind === 'venue') { const v = vmap.get(key); return [v?.name ?? key, v ? `/parties/venue/${key}` : null]; }
+  const h = hoods.get(key); return [h?.name ?? key, null];
+};
 ---
-<Base title="Image Credits and Takedown" description="Where the images on YaY NYC come from, their licences, and how to ask for one to be removed.">
+<Base title="Image Credits and Takedown" description="Every photo on YaY NYC, its author and license, and how to ask for one to be removed within 24 hours.">
   <h1>Image credits and takedown</h1>
-  <p>Every photo on YaY NYC is either ours, given to us by the venue, licensed from a stock library, or published under a free licence (such as Creative Commons) that allows this use, with its author and licence credited next to it. Maps use OpenStreetMap data.</p>
-  <p>If you own an image on this site and believe it is used wrongly, <a href="/contact">contact us</a> with the page and the image. We remove it within 24 hours while we look into it.</p>
+  <p class="lede">Every photo on YaY NYC is published by its author under a free license that allows this use: Creative Commons CC0, CC BY or CC BY-SA, or the public domain. We never take photos from bar, club or ticketing sites, Google or Instagram.</p>
+  <p>Each photo comes from Wikimedia Commons and is shown with its author, license and a link to the original file. We serve a resized copy from our own site; nothing else is changed. Where there is no free photo, we show a map and the facts instead.</p>
+  <p>If you are the author or the person in a photo and want it removed, <a href="/contact">tell us which page and which photo</a>. We take it down within 24 hours while we look into it.</p>
+  {list.length > 0 && (
+    <section class="section">
+      <h2>Photos on this site ({list.length})</h2>
+      <ul class="credits">
+        {list.map((p) => {
+          const [name, url] = where(p.kind, p.key);
+          return <li>
+            <img src={p.thumb} alt="" width="120" height="68" loading="lazy" />
+            <div>
+              <strong>{url ? <a href={url}>{name}</a> : name}</strong>
+              <span>{p.authorUrl ? <a href={p.authorUrl} rel="nofollow noopener" target="_blank">{p.author}</a> : (p.author ?? 'Unknown author')}, {p.licenseUrl ? <a href={p.licenseUrl} rel="license nofollow noopener" target="_blank">{p.license}</a> : p.license}, <a href={p.page} rel="nofollow noopener" target="_blank">{p.file.replace(/^File:/, '')}</a></span>
+            </div>
+          </li>;
+        })}
+      </ul>
+    </section>
+  )}
 </Base>
+<style>
+  .credits { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; }
+  .credits li { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 14px; align-items: center; font-size: 15px; }
+  .credits img { width: 120px; height: 68px; object-fit: cover; border-radius: 8px; }
+  .credits span { display: block; color: var(--muted); overflow-wrap: anywhere; }
+</style>

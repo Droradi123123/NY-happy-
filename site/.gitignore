@@ -2,3 +2,5 @@ node_modules
 dist
 .astro
 .wrangler
+public/img
+src/data/images.json

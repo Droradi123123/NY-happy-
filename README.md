@@ -35,3 +35,19 @@ The first data came from `nyc-parties-oct-dec-2026-v2.xlsx` (`scripts/parties/xl
 
 **Google Places:** store the key once in the Supabase SQL editor:
 `select vault.create_secret('<key>', 'google_maps_api_key');` (it stays inside the database).
+
+## Photos (legal by construction)
+
+Every photo on yaynyc.com is a freely licensed file from Wikimedia Commons: CC0, public
+domain, CC BY or CC BY-SA. Nothing is taken from bar, club or ticket sites, Google or Instagram.
+
+- `image_rights` holds every candidate with its author, license, source page and verdict.
+  Rules (in `img_ingest()`): photo MIME, allowed license, no Commons restrictions template,
+  the file names the bar/venue and says it is in NYC, not a performer or portrait, ≥800px wide,
+  an author to credit unless CC0/PD. Neighborhoods use the lead photo of their Wikipedia article.
+- A pg_cron job (`yay-images`, every minute) runs `img_ingest()` then `img_request(4)`;
+  everything is re-checked every 60 days.
+- `site_images` (public view) gives one photo per bar / venue / neighborhood.
+- The site build (`site/scripts/fetch-images.mjs`) downloads them and serves them from our
+  own domain, with the credit next to each photo and a full list on `/image-credits`.
+- Takedown: `select img_remove('File:Name.jpg');` then rebuild. It stays removed.

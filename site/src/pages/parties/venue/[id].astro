@@ -2,7 +2,8 @@
 import Base from '../../../layouts/Base.astro';
 import PartyCard from '../../../components/PartyCard.astro';
 import MiniMap from '../../../components/MiniMap.astro';
-import { partyData, type Party, type Venue } from '../../../lib/data';
+import Photo from '../../../components/Photo.astro';
+import { partyData, photoOf, type Party, type Venue } from '../../../lib/data';
 import { crumbs, itemList } from '../../../lib/seo';
 
 /** a venue keeps its page between nights (HappyTLV lesson): built for every venue with a published night */
@@ -17,6 +18,7 @@ const { venue: v, nights } = Astro.props as { venue: Venue; nights: Party[] };
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li><li aria-current="page">{v.name}</li></ol></nav>
   <h1>{v.name}</h1>
   <p class="lede">{v.address?.replace(/, United States$|, USA$/, '')}{v.rooms.length > 0 && ` · Rooms: ${v.rooms.join(', ')}`}</p>
+  {photoOf('venue', v.id) && <Photo photo={photoOf('venue', v.id)!} alt={`${v.name}, ${v.neighborhood ?? v.borough ?? 'New York'}`} hero />}
   {v.lat && <MiniMap lat={v.lat} lng={v.lng!} label={v.name} />}
   <h2 class="section">Upcoming at {v.name}</h2>
   <div class="xgrid">{nights.map((p) => <PartyCard party={p} venue={v} />)}</div>

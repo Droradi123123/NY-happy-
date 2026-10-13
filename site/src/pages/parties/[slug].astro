@@ -2,7 +2,8 @@
 import Base from '../../layouts/Base.astro';
 import PartyCard from '../../components/PartyCard.astro';
 import MiniMap from '../../components/MiniMap.astro';
-import { partyData, venueOf, cleanTitle, nightDate, nyTime, nyDate, priceLabel, fmtDate, GENRE_NAME, type Party, type Venue } from '../../lib/data';
+import Photo from '../../components/Photo.astro';
+import { partyData, photoOf, venueOf, cleanTitle, nightDate, nyTime, nyDate, priceLabel, fmtDate, GENRE_NAME, type Party, type Venue } from '../../lib/data';
 import { partyTitle, partyDescription, partyJsonLd, crumbs, faqLd, SITE } from '../../lib/seo';
 
 export async function getStaticPaths() {
@@ -74,6 +75,7 @@ const lastSeen = p.sources?.find((s) => s.name === 'DICE')?.checked_at ?? p.last
       <p class="small">Sources: {(p.sources ?? []).filter((s) => s.name !== 'found via').map((s, i) => <>{i > 0 && ', '}<a href={s.url} rel="nofollow noopener" target="_blank">{host(s.url)}</a> ({fmtDate(s.checked_at)})</>)}. Details change: the ticket page has the final word.</p>
     </div>
     <aside>
+      {v && photoOf('venue', v.id) && <Photo photo={photoOf('venue', v.id)!} alt={`${v.name}, ${v.neighborhood ?? v.borough ?? 'New York'}`} ratio="4 / 3" />}
       {v?.lat && <MiniMap lat={v.lat} lng={v.lng!} label={v.name} />}
       {atVenue.length > 0 && <div class="section"><h2 class="h3">More at {v?.name}</h2><div class="xgrid one">{atVenue.map((o) => <PartyCard party={o} venue={v} />)}</div></div>}
     </aside>

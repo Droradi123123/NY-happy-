@@ -3,7 +3,8 @@ import Base from '../../layouts/Base.astro';
 import BarCard from '../../components/BarCard.astro';
 import Line from '../../components/Line.astro';
 import MiniMap from '../../components/MiniMap.astro';
-import { allBars, DAYS, DAY_NAME, daysLabel, windowLabel, dealLabel, fmtDate, meters, type Bar } from '../../lib/data';
+import Photo from '../../components/Photo.astro';
+import { allBars, photoOf, DAYS, DAY_NAME, daysLabel, windowLabel, dealLabel, fmtDate, meters, type Bar } from '../../lib/data';
 import { barTitle, barDescription, barJsonLd, crumbs, faqLd, SITE } from '../../lib/seo';
 
 export async function getStaticPaths() {
@@ -17,6 +18,7 @@ const { bar: b, bars, hoodPage } = Astro.props as { bar: Bar; bars: Bar[]; hoodP
 const hoodUrl = hoodPage ? `/happy-hours/${b.hoodSlug}` : `/happy-hours?hood=${b.hoodSlug}`;
 const url = `${SITE}/bars/${b.slug}`;
 const deal = dealLabel(b);
+const ph = photoOf('bar', b.slug);
 const drinks = b.offers.filter((o) => o.kind === 'drink');
 const food = b.offers.filter((o) => o.kind === 'food');
 const near = b.onMap
@@ -46,6 +48,8 @@ const faq = [
         </ul>
         <p class="checked-line">Checked {fmtDate(b.checked)} on {b.source ? <a href={b.source} rel="nofollow noopener" target="_blank">{host(b.source)}</a> : "the bar's own website"}. Deals change: confirm before you go.</p>
       </section>
+
+      {ph && <Photo photo={ph} alt={`${b.name}, ${b.hood}${ph.title && ph.title !== b.name ? `: ${ph.title}` : ''}`} />}
 
       {(drinks.length > 0 || food.length > 0) && (
         <section class="section">

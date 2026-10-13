@@ -1,0 +1,18 @@
+---
+/**
+ * A freely licensed photo with the credit its license requires: author (linked when the
+ * file page links one), license (linked), and the Commons file page. Never cropped into
+ * something else: object-fit only frames it.
+ */
+import type { Photo } from '../lib/data';
+interface Props { photo: Photo; alt: string; hero?: boolean; ratio?: string }
+const { photo: p, alt, hero = false, ratio = '16 / 9' } = Astro.props;
+---
+<figure class="photo" style={`--ratio:${ratio}`}>
+  <img src={p.src} alt={alt} width={p.w} height={p.h} loading={hero ? 'eager' : 'lazy'} fetchpriority={hero ? 'high' : 'auto'} decoding="async" />
+  <figcaption>
+    Photo: {p.authorUrl ? <a href={p.authorUrl} rel="nofollow noopener" target="_blank">{p.author}</a> : (p.author ?? 'unknown author')},
+    {p.licenseUrl ? <a href={p.licenseUrl} rel="license nofollow noopener" target="_blank">{p.license}</a> : p.license},
+    via <a href={p.page} rel="nofollow noopener" target="_blank">Wikimedia Commons</a>
+  </figcaption>
+</figure>

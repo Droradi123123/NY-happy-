@@ -110,3 +110,20 @@ main.wide { padding-bottom: 0; }
 .muted { color: var(--muted); }
 .line + .line { margin-left: 3px; }
 .see-all { margin-top: 16px; font-weight: 700; }
+
+/* photos: always credited (author, license, source) */
+.photo { margin: 0; }
+.photo img { display: block; width: 100%; aspect-ratio: var(--ratio, 16 / 9); object-fit: cover; border-radius: var(--radius); background: #EDE8DA; }
+.photo figcaption { font-size: 12px; color: var(--muted); margin-top: 6px; line-height: 1.4; }
+.photo figcaption a { color: var(--muted); text-decoration-thickness: 1px; }
+.xcard-img { margin: -16px -16px 6px; position: relative; }
+.xcard-img img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius) var(--radius) 0 0; background: #EDE8DA; }
+.xcard-img figcaption { position: absolute; right: 6px; bottom: 6px; max-width: calc(100% - 12px); background: rgba(20, 20, 20, 0.72); color: #fff; font-size: 11px; line-height: 1.3; padding: 2px 6px; border-radius: 6px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.hood-hero { margin: 8px 0 4px; }
+.xcard-art { margin: -16px -16px 6px; aspect-ratio: 16 / 9; border-radius: var(--radius) var(--radius) 0 0; display: flex; align-items: flex-end; padding: 14px 16px 26px; position: relative; overflow: hidden; background: var(--yellow); color: var(--ink); }
+.xcard-art span { font-weight: 800; font-size: clamp(24px, 2.4vw, 32px); line-height: 1; letter-spacing: -0.03em; overflow-wrap: anywhere; }
+.xcard-art::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 12px; background: repeating-linear-gradient(90deg, currentColor 0 12px, transparent 12px 24px); opacity: 0.9; }
+.xart-brooklyn { background: var(--magenta); color: #fff; }
+.xart-queens { background: var(--ink); color: var(--yellow); }
+.xart-bronx { background: var(--green); color: #fff; }
+.xart-staten-island { background: #2850AD; color: #fff; }

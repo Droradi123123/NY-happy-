@@ -1,9 +1,12 @@
 ---
-import { cleanTitle, nightDate, nyTime, priceLabel, GENRE_NAME, type Party, type Venue } from '../lib/data';
+import { cleanTitle, nightDate, nyTime, priceLabel, GENRE_NAME, photoOf, creditShort, boroughSlug, type Party, type Venue } from '../lib/data';
 interface Props { party: Party; venue: Venue | null }
 const { party: p, venue: v } = Astro.props;
+const ph = photoOf('venue', p.venue_id);
 ---
 <article class="xcard party">
+  {ph && <figure class="xcard-img"><img src={ph.thumb} alt="" width="500" height="281" loading="lazy" decoding="async" /><figcaption>{creditShort(ph)}</figcaption></figure>}
+  {!ph && <div class={`xcard-art xart-${boroughSlug(p.borough)}`} aria-hidden="true"><span>{v?.name ?? p.neighborhood ?? 'NYC'}</span></div>}
   <div class="xcard-top"><p class="when">{nightDate(p.night_date, { weekday: 'short', month: 'short', day: 'numeric' })}{nyTime(p.doors_at ?? p.starts_at) && ` · ${nyTime(p.doors_at ?? p.starts_at)}`}</p></div>
   <h3><a href={`/parties/${p.slug}`}>{cleanTitle(p.title)}</a></h3>
   <p class="where">{v?.name}{p.neighborhood && ` · ${p.neighborhood}`}</p>

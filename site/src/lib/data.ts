@@ -307,3 +307,26 @@ export const GENRE_NAME: Record<string, string> = {
   edm: 'EDM', pop: 'Pop', emo: 'Emo', '80s': "'80s", '90s': "'90s", '2000s': '2000s', 'k-pop': 'K-pop', jazz: 'Jazz', 'funk-soul': 'Funk & soul',
   experimental: 'Experimental', electro: 'Electro', garage: 'Garage',
 };
+
+// ---------- photos ----------
+
+/** A freely licensed photo, self-hosted by scripts/fetch-images.mjs, with what its credit line needs. */
+export interface Photo {
+  kind: 'bar' | 'venue' | 'hood'; key: string; src: string; thumb: string; w: number; h: number;
+  title: string | null; author: string | null; authorUrl: string | null;
+  license: string; licenseUrl: string | null; page: string; file: string;
+}
+let photoCache: Map<string, Photo> | null = null;
+export function photos(): Map<string, Photo> {
+  if (!photoCache) {
+    let list: Photo[] = [];
+    try { list = JSON.parse(readFileSync(join(process.cwd(), 'src', 'data', 'images.json'), 'utf-8')); } catch { /* no photos yet */ }
+    photoCache = new Map(list.map((p) => [`${p.kind}:${p.key}`, p]));
+  }
+  return photoCache;
+}
+export const photoOf = (kind: Photo['kind'], key: string | null | undefined) => (key ? photos().get(`${kind}:${key}`) ?? null : null);
+/** "Jane Doe · CC BY-SA 4.0": what a thumbnail carries; the full credit is on the page and /image-credits */
+/** card header without a photo: borough color + place name (CSS class xart-{slug}) */
+export const boroughSlug = (b: string | null) => (b ? b.toLowerCase().replace(/^the /, '').replace(/\s+/g, '-') : 'nyc');
+export const creditShort = (p: Photo) => `${p.author ?? 'Wikimedia Commons'} · ${p.license}`;
