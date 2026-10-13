@@ -1,0 +1,183 @@
+---
+/**
+ * Filters + list + map. The first cards are rendered here (they work without
+ * JavaScript and are what search engines read); scripts/explorer.ts takes over in the
+ * browser. `preset` fixes filters for a page (a neighborhood page presets hood).
+ */
+import { GENRE_NAME } from '../lib/data';
+
+interface Props {
+  kind: 'bars' | 'parties';
+  preset?: Record<string, string | string[]>;
+  hide?: string[];
+  hoods?: { slug: string; name: string }[];
+  genres?: string[];
+  venues?: { id: string; name: string }[];
+  heading?: string;
+  mode?: 'split' | 'list' | 'map';
+}
+const { kind, preset = {}, hide = [], hoods = [], genres = [], heading, mode = 'split' } = Astro.props;
+const show = (k: string) => !hide.includes(k);
+const LINES = ['1', '2', '3', '4', '5', '6', '7', 'A', 'C', 'E', 'B', 'D', 'F', 'M', 'G', 'J', 'Z', 'L', 'N', 'Q', 'R', 'W', 'S'];
+const LINE_STYLE: Record<string, string> = {};
+for (const [ls, bg, fg] of [['123', '#EE352E', '#fff'], ['456', '#00933C', '#fff'], ['7', '#B933AD', '#fff'], ['ACE', '#0039A6', '#fff'], ['BDFM', '#FF6319', '#fff'], ['G', '#6CBE45', '#141414'], ['JZ', '#996633', '#fff'], ['L', '#A7A9AC', '#141414'], ['NQRW', '#FCCC0A', '#141414'], ['S', '#808183', '#fff']])
+  for (const l of ls) LINE_STYLE[l] = `background:${bg};color:${fg}`;
+const BOROUGHS = ['Manhattan', 'Brooklyn', 'Queens', 'The Bronx', 'Staten Island'];
+const DAYS = [['mon', 'Mon'], ['tue', 'Tue'], ['wed', 'Wed'], ['thu', 'Thu'], ['fri', 'Fri'], ['sat', 'Sat'], ['sun', 'Sun']];
+const TIMES = [[900, '3pm'], [960, '4pm'], [1020, '5pm'], [1080, '6pm'], [1140, '7pm'], [1200, '8pm'], [1260, '9pm'], [1320, '10pm'], [1380, '11pm']];
+const BAR_TAGS = [['drinks', 'Drink deals'], ['food', 'Food deals'], ['oysters', 'Oysters'], ['2for1', '2-for-1'], ['late', 'Late night'], ['allday', 'All day'], ['weekend', 'Weekends'], ['early', 'Starts before 4pm'], ['rooftop', 'Rooftop'], ['outdoor', 'Outdoor'], ['sports', 'Sports'], ['cocktails', 'Cocktails'], ['wine', 'Wine'], ['cheap-beer', 'Cheap beer'], ['pub', 'Pubs']];
+const PARTY_TAGS = [['rooftop', 'Rooftop'], ['lgbtq', 'LGBTQ+'], ['drag', 'Drag'], ['day', 'Day party'], ['boat', 'Boat'], ['costume', 'Costumes'], ['openbar', 'Open bar']];
+const WHEN = [['tonight', 'Tonight'], ['tomorrow', 'Tomorrow'], ['weekend', 'This weekend'], ['week', 'Next 7 days'], ['all', 'All dates']];
+---
+<section class="explorer" data-kind={kind} data-src={`/data/${kind}.json`} data-preset={JSON.stringify(preset)} data-mode={mode} aria-label={heading ?? 'Find'}>
+  <div class="ex-bar">
+    <label class="ex-search"><span class="sr">Search</span>
+      <input type="search" data-f="q" placeholder={kind === 'bars' ? 'Bar, neighborhood or subway stop' : 'Party, artist, venue'} autocomplete="off" />
+    </label>
+    <button type="button" class="btn ghost small-btn" data-near>Near me</button>
+    <div class="ex-views" role="group" aria-label="View">
+      <button type="button" data-view="list" aria-pressed={String(mode === 'list')}>List</button>
+      <button type="button" data-view="split" aria-pressed={String(mode === 'split')} class="split-only">List + map</button>
+      <button type="button" data-view="map" aria-pressed={String(mode === 'map')}>Map</button>
+    </div>
+  </div>
+
+  <details class="ex-filters" open>
+    <summary>Filters <span class="ex-count" data-count aria-live="polite"></span></summary>
+    <div class="ex-groups">
+      {kind === 'bars' && show('day') && (
+        <fieldset class="ex-group"><legend>When</legend>
+          <div class="chips">
+            <button type="button" class="fchip hot" data-f="day" data-v="now" aria-pressed="false">Happening now</button>
+            <button type="button" class="fchip" data-f="day" data-v="today" aria-pressed="false">Today</button>
+            {DAYS.map(([v, l]) => <button type="button" class="fchip" data-f="day" data-v={v} aria-pressed="false">{l}</button>)}
+          </div>
+          <label class="sel">Happy hour on at
+            <select data-f="time"><option value="">any time</option>{TIMES.map(([v, l]) => <option value={String(v)}>{l}</option>)}</select>
+          </label>
+        </fieldset>
+      )}
+      {kind === 'parties' && (
+        <fieldset class="ex-group"><legend>When</legend>
+          <div class="chips">{WHEN.map(([v, l]) => <button type="button" class="fchip" data-f="when" data-v={v} aria-pressed="false">{l}</button>)}</div>
+          <label class="sel">Date <input type="date" data-f="when" /></label>
+        </fieldset>
+      )}
+      {show('where') && (
+        <fieldset class="ex-group"><legend>Where</legend>
+          <div class="chips">{BOROUGHS.map((b) => <button type="button" class="fchip" data-f="bo" data-v={b} aria-pressed="false">{b}</button>)}</div>
+          {hoods.length > 0 && (
+            <label class="sel">Neighborhood
+              <select data-f="hood"><option value="">all neighborhoods</option>{hoods.map((h) => <option value={kind === 'bars' ? h.slug : h.name}>{h.name}</option>)}</select>
+            </label>
+          )}
+        </fieldset>
+      )}
+      {kind === 'bars' && show('line') && (
+        <fieldset class="ex-group"><legend>Subway line</legend>
+          <div class="chips lines">{LINES.map((l) => <button type="button" class="fline" style={LINE_STYLE[l]} data-f="line" data-v={l} aria-pressed="false" aria-label={`${l} train`}>{l}</button>)}</div>
+        </fieldset>
+      )}
+      {kind === 'bars' && (
+        <fieldset class="ex-group"><legend>Deal and vibe</legend>
+          <div class="chips">{BAR_TAGS.map(([v, l]) => <button type="button" class="fchip" data-f="tag" data-v={v} aria-pressed="false">{l}</button>)}</div>
+          <div class="row-sel">
+            <label class="sel">Cheapest drink up to
+              <select data-f="max"><option value="">any price</option><option value="5">$5</option><option value="7">$7</option><option value="8">$8</option><option value="10">$10</option><option value="12">$12</option></select>
+            </label>
+            <label class="check"><input type="checkbox" data-f="book" /> Can book a table</label>
+          </div>
+        </fieldset>
+      )}
+      {kind === 'parties' && genres.length > 0 && (
+        <fieldset class="ex-group"><legend>Music</legend>
+          <div class="chips">{genres.map((g) => <button type="button" class="fchip" data-f="genre" data-v={g} aria-pressed="false">{GENRE_NAME[g] ?? g}</button>)}</div>
+        </fieldset>
+      )}
+      {kind === 'parties' && (
+        <fieldset class="ex-group"><legend>Vibe and price</legend>
+          <div class="chips">
+            <button type="button" class="fchip" data-f="th" data-v="halloween" aria-pressed="false">Halloween</button>
+            <button type="button" class="fchip" data-f="th" data-v="nye" aria-pressed="false">New Year's Eve</button>
+            {PARTY_TAGS.map(([v, l]) => <button type="button" class="fchip" data-f="tag" data-v={v} aria-pressed="false">{l}</button>)}
+          </div>
+          <div class="row-sel">
+            <label class="sel">Price up to
+              <select data-f="max"><option value="">any price</option><option value="0">Free</option><option value="20">$20</option><option value="40">$40</option><option value="75">$75</option></select>
+            </label>
+            <label class="check"><input type="checkbox" data-f="age" value="18" /> 18+ welcome</label>
+            <label class="check"><input type="checkbox" data-f="avail" /> Hide sold out</label>
+          </div>
+        </fieldset>
+      )}
+      <div class="ex-actions">
+        <label class="sel">Sort
+          <select data-f="sort">
+            {kind === 'bars'
+              ? <><option value="">best match</option><option value="cheap">cheapest drink</option><option value="ending">ending soonest</option><option value="near">nearest</option></>
+              : <><option value="">soonest</option><option value="cheap">cheapest</option><option value="near">nearest</option></>}
+          </select>
+        </label>
+        <button type="button" class="linkbtn" data-reset>Clear filters</button>
+      </div>
+    </div>
+  </details>
+
+  <div class="ex-body">
+    <div class="ex-list">
+      <div class="xgrid" data-list><slot /></div>
+      <button type="button" class="btn ghost more" data-more hidden>Show more</button>
+    </div>
+    <div class="ex-map" data-map role="region" aria-label="Map"></div>
+  </div>
+</section>
+
+<script>
+  import { initExplorer } from '../scripts/explorer';
+  document.querySelectorAll<HTMLElement>('.explorer').forEach((el) => initExplorer(el));
+</script>
+
+<style is:global>
+  .explorer { margin: 20px 0 8px; }
+  .ex-bar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+  .ex-search { flex: 1 1 260px; }
+  .ex-search input { width: 100%; height: 50px; border: 2px solid var(--ink); border-radius: 14px; padding: 0 16px; font: inherit; background: #fff; }
+  .small-btn { min-height: 50px; }
+  .ex-views { display: inline-flex; border: 2px solid var(--ink); border-radius: 14px; overflow: hidden; }
+  .ex-views button { border: 0; background: #fff; font: inherit; font-weight: 700; padding: 0 14px; min-height: 46px; cursor: pointer; }
+  .ex-views button[aria-pressed='true'] { background: var(--ink); color: var(--yellow); }
+  @media (max-width: 899px) { .split-only { display: none; } }
+  .ex-filters { margin-top: 14px; background: #fff; border: 1.5px solid var(--line); border-radius: var(--radius); padding: 0 16px; }
+  .ex-filters summary { font-weight: 800; font-size: 18px; padding: 14px 0; cursor: pointer; display: flex; gap: 12px; align-items: baseline; }
+  .ex-count { font-weight: 700; color: var(--magenta); }
+  .ex-groups { display: grid; gap: 16px; padding-bottom: 16px; }
+  @media (min-width: 900px) { .ex-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .ex-group { border: 0; padding: 0; margin: 0; min-width: 0; }
+  .ex-group legend { font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 8px; padding: 0; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .fchip { border: 1.5px solid var(--ink); background: #fff; border-radius: 999px; padding: 0 14px; min-height: 40px; font: inherit; font-size: 15px; font-weight: 700; cursor: pointer; }
+  .fchip:hover { background: var(--yellow-soft); }
+  .fchip[aria-pressed='true'] { background: var(--ink); color: var(--yellow); }
+  .fchip.hot[aria-pressed='true'] { background: var(--green); color: #fff; border-color: var(--green); }
+  .lines { gap: 6px; }
+  .fline { width: 40px; height: 40px; border-radius: 50%; border: 3px solid transparent; font: inherit; font-weight: 800; cursor: pointer; }
+  .fline[aria-pressed='true'] { border-color: var(--ink); box-shadow: 0 0 0 3px var(--yellow); }
+  .sel { display: inline-flex; align-items: center; gap: 8px; margin-top: 10px; font-weight: 700; font-size: 15px; flex-wrap: wrap; }
+  .sel select, .sel input { min-height: 40px; border: 1.5px solid var(--ink); border-radius: 10px; padding: 0 10px; font: inherit; background: #fff; }
+  .row-sel { display: flex; flex-wrap: wrap; gap: 6px 18px; align-items: center; }
+  .check { display: inline-flex; align-items: center; gap: 8px; font-weight: 700; font-size: 15px; margin-top: 10px; min-height: 40px; }
+  .check input { width: 20px; height: 20px; accent-color: var(--ink); }
+  .ex-actions { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .linkbtn { background: none; border: 0; padding: 0; font: inherit; font-weight: 700; text-decoration: underline; text-decoration-color: var(--magenta); text-underline-offset: 3px; cursor: pointer; min-height: 40px; }
+  .ex-body { display: grid; gap: 18px; margin-top: 18px; }
+  .ex-map { min-height: 420px; border-radius: var(--radius); overflow: hidden; border: 1.5px solid var(--line); background: #EDE8DA; }
+  .explorer[data-mode='list'] .ex-map { display: none; }
+  .explorer[data-mode='map'] .ex-list { display: none; }
+  .explorer[data-mode='map'] .ex-map { min-height: 72vh; }
+  @media (min-width: 900px) {
+    .explorer[data-mode='split'] .ex-body { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
+    .explorer[data-mode='split'] .ex-map { position: sticky; top: 84px; height: calc(100vh - 110px); min-height: 480px; }
+  }
+  @media (max-width: 899px) { .explorer[data-mode='split'] .ex-map { display: none; } }
+  .maplibregl-popup-content { border-radius: 12px; font-family: var(--font); padding: 12px 14px; }
+</style>

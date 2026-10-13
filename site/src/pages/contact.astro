@@ -1,0 +1,47 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Report a Change or Add a Place" description="Tell YaY NYC about a happy hour that changed, a bar that closed, a party we missed, or a mistake on any page.">
+  <h1>Report a change or add a place</h1>
+  <p class="lede">Happy hours change all the time. If something on YaY NYC is wrong, or you know a place we're missing, tell us and we'll check it.</p>
+  <form class="report card" id="report">
+    <label>What is it about?
+      <select name="kind" required>
+        <option value="correction">A happy hour or party detail is wrong</option>
+        <option value="closed">A place closed or stopped its happy hour</option>
+        <option value="new_place">A happy hour you're missing</option>
+        <option value="new_party">A party you're missing</option>
+        <option value="business">I run this place / partnership</option>
+        <option value="other">Something else</option>
+      </select>
+    </label>
+    <label>Place or party name <input name="place" maxlength="200" /></label>
+    <label>What should we know? <textarea name="details" required minlength="5" maxlength="3000" rows="6"></textarea></label>
+    <label>Your email (optional, only to follow up) <input name="contact" type="email" maxlength="200" /></label>
+    <button class="btn" type="submit">Send</button>
+    <p class="small" role="status" id="report-status"></p>
+  </form>
+</Base>
+<script>
+  const f = document.getElementById('report') as HTMLFormElement;
+  const st = document.getElementById('report-status')!;
+  const q = new URLSearchParams(location.search);
+  if (q.get('place')) (f.elements.namedItem('place') as HTMLInputElement).value = q.get('place')!;
+  f.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const d = Object.fromEntries(new FormData(f)) as Record<string, string>;
+    st.textContent = 'Sending…';
+    const r = await fetch('https://zqfscuwkxcoktpjhaebv.supabase.co/rest/v1/site_reports', {
+      method: 'POST',
+      headers: { apikey: 'sb_publishable_JxdYGXYsOzPNAC9avS8wfA_SExSJIHc', 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+      body: JSON.stringify({ kind: d.kind, place: d.place || null, details: d.details, contact: d.contact || null, page: document.referrer.slice(0, 300) || null }),
+    }).catch(() => null);
+    st.textContent = r && r.ok ? 'Thank you! We\'ll check it.' : 'That did not go through. Please try again in a minute.';
+    if (r && r.ok) f.reset();
+  });
+</script>
+<style>
+  .report { display: grid; gap: 16px; max-width: 640px; }
+  .report label { display: grid; gap: 6px; font-weight: 700; }
+  .report input, .report select, .report textarea { font: inherit; font-weight: 400; border: 1.5px solid var(--ink); border-radius: 10px; padding: 10px 12px; min-height: 46px; background: #fff; }
+</style>

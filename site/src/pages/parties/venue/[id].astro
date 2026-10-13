@@ -1,0 +1,23 @@
+---
+import Base from '../../../layouts/Base.astro';
+import PartyCard from '../../../components/PartyCard.astro';
+import MiniMap from '../../../components/MiniMap.astro';
+import { partyData, type Party, type Venue } from '../../../lib/data';
+import { crumbs, itemList } from '../../../lib/seo';
+
+/** a venue keeps its page between nights (HappyTLV lesson): built for every venue with a published night */
+export async function getStaticPaths() {
+  const { parties, venues } = await partyData();
+  return venues.filter((v) => parties.some((p) => p.venue_id === v.id)).map((venue) => ({ params: { id: venue.id }, props: { venue, nights: parties.filter((p) => p.venue_id === venue.id) } }));
+}
+const { venue: v, nights } = Astro.props as { venue: Venue; nights: Party[] };
+---
+<Base title={`${v.name} NYC: Upcoming Parties and Tickets`} description={`Upcoming parties at ${v.name}${v.neighborhood ? `, ${v.neighborhood}` : ''}: dates, doors, age and tickets for ${nights.length} night${nights.length === 1 ? '' : 's'}.`}
+  jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [v.name, `/parties/venue/${v.id}`]]), itemList(`Parties at ${v.name}`, nights.map((p) => `/parties/${p.slug}`))]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li><li aria-current="page">{v.name}</li></ol></nav>
+  <h1>{v.name}</h1>
+  <p class="lede">{v.address?.replace(/, United States$|, USA$/, '')}{v.rooms.length > 0 && ` · Rooms: ${v.rooms.join(', ')}`}</p>
+  {v.lat && <MiniMap lat={v.lat} lng={v.lng!} label={v.name} />}
+  <h2 class="section">Upcoming at {v.name}</h2>
+  <div class="xgrid">{nights.map((p) => <PartyCard party={p} venue={v} />)}</div>
+</Base>

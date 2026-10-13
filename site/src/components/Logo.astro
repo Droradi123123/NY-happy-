@@ -1,0 +1,16 @@
+---
+/** The YaY NYC wordmark: Y·a·Y with the lowercase a in magenta, then NYC. Exact spelling, always. */
+interface Props { size?: number; light?: boolean }
+const { size = 34, light = false } = Astro.props;
+---
+<span class="logo" style={`font-size:${size}px`} data-light={light ? '' : undefined}>
+  <span class="logo-yay">Y<span class="logo-a">a</span>Y</span><span class="logo-nyc">NYC</span>
+</span>
+<style>
+  .logo { display: inline-flex; align-items: baseline; gap: 0.22em; font-weight: 800; line-height: 1; color: var(--ink); white-space: nowrap; }
+  .logo-yay { letter-spacing: -0.05em; }
+  .logo-nyc { letter-spacing: -0.03em; }
+  .logo-a { color: var(--magenta); }
+  .logo[data-light] { color: var(--yellow); }
+  .logo[data-light] .logo-a { color: var(--pink-on-dark); }
+</style>

@@ -1,0 +1,91 @@
+---
+import Base from '../../layouts/Base.astro';
+import PartyCard from '../../components/PartyCard.astro';
+import MiniMap from '../../components/MiniMap.astro';
+import { partyData, venueOf, cleanTitle, nightDate, nyTime, nyDate, priceLabel, fmtDate, GENRE_NAME, type Party, type Venue } from '../../lib/data';
+import { partyTitle, partyDescription, partyJsonLd, crumbs, faqLd, SITE } from '../../lib/seo';
+
+export async function getStaticPaths() {
+  const { parties, venues } = await partyData();
+  return parties.map((party) => ({ params: { slug: party.slug }, props: { party, venue: venueOf(party, venues), parties, venues } }));
+}
+const { party: p, venue: v, parties, venues } = Astro.props as { party: Party; venue: Venue | null; parties: Party[]; venues: Venue[] };
+const url = `${SITE}/parties/${p.slug}`;
+const c = p.copy ?? {};
+const x = (p.extra ?? {}) as Record<string, any>;
+const doors = nyTime(p.doors_at ?? p.starts_at), ends = nyTime(p.ends_at);
+const endsNextDay = p.ends_at && nyDate(p.ends_at, { month: 'short', day: 'numeric' }) !== nyDate(p.starts_at, { month: 'short', day: 'numeric' });
+const host = (u: string) => { try { return new URL(u).host.replace(/^www\./, ''); } catch { return u; } };
+const sameNight = parties.filter((o) => o.slug !== p.slug && o.night_date === p.night_date).slice(0, 6);
+const atVenue = parties.filter((o) => o.slug !== p.slug && o.venue_id === p.venue_id).slice(0, 4);
+const faq = c.faq?.length ? c.faq : [
+  { q: 'What time are doors?', a: doors ? `Doors at ${doors}${ends ? `; the listing ends at ${ends}${endsNextDay ? ' the next morning' : ''}` : ''}.` : 'Not listed.' },
+  { q: 'What is the age limit?', a: p.age_min ? `${p.age_min}+. Bring a government-issued photo ID.` : 'Not listed: check with the venue.' },
+  { q: 'Can I get a refund?', a: p.refund_terms ?? 'Not listed: check the terms on the ticket page.' },
+];
+const lastSeen = p.sources?.find((s) => s.name === 'DICE')?.checked_at ?? p.last_checked;
+---
+<Base title={partyTitle(p, v)} description={partyDescription(p, v)} jsonld={[partyJsonLd(p, v, url), crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [cleanTitle(p.title), `/parties/${p.slug}`]]), faqLd(faq)]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li>{v && <li><a href={`/parties/venue/${v.id}`}>{v.name}</a></li>}<li aria-current="page">{nightDate(p.night_date, { month: 'short', day: 'numeric' })}</li></ol></nav>
+  <div class="cols">
+    <div>
+      <p class="when-big">{nightDate(p.night_date)}{x.multi_day ? ' (multi-day)' : ''}</p>
+      <h1>{cleanTitle(p.title)}</h1>
+      <div class="tagrow">
+        {p.event_status === 'sold_out' && <span class="chip dark">Sold out</span>}
+        {p.event_status === 'rescheduled' && <span class="chip dark">Rescheduled: check the date</span>}
+        {p.age_min && <span class="chip outline">{p.age_min}+</span>}
+        {p.genres.map((g) => <span class="chip">{GENRE_NAME[g] ?? g}</span>)}
+        {p.themes.includes('halloween') && <a class="chip" href="/parties/halloween">Halloween</a>}
+      </div>
+
+      <section class="ticket card">
+        <dl class="facts">
+          <dt>Doors</dt><dd>{doors ?? 'not listed'}{ends && <> · ends {ends}{endsNextDay ? ' (next morning)' : ''}</>}</dd>
+          <dt>Venue</dt><dd>{v ? <a href={`/parties/venue/${v.id}`}>{v.name}</a> : 'not listed'}{p.room && ` · ${p.room}`}{p.neighborhood && `, ${p.neighborhood}`}</dd>
+          {v?.address && <><dt>Address</dt><dd>{v.address.replace(/, United States$|, USA$/, '')}</dd></>}
+          {x.entrance && <><dt>Entrance</dt><dd>{x.entrance}</dd></>}
+          <dt>Price</dt><dd>{priceLabel(p)}{p.price_from ? ` (lowest ${p.ticket_vendor} ticket incl. fees, seen ${fmtDate(lastSeen)})` : ''}</dd>
+          {p.organizer && <><dt>Presented by</dt><dd>{p.organizer}</dd></>}
+        </dl>
+        {p.event_status !== 'sold_out' && <a class="btn" href={p.ticket_url} rel="sponsored noopener" target="_blank">Tickets on {p.ticket_vendor}</a>}
+        {p.event_status === 'sold_out' && <a class="btn ghost" href={p.ticket_url} rel="noopener" target="_blank">Check for resale or waiting list</a>}
+      </section>
+
+      {c.about && <section class="section"><h2>About the party</h2><p>{c.about}</p></section>}
+      {c.expect && <section class="section"><h2>What to expect</h2><p>{c.expect}</p></section>}
+      <section class="section"><h2>Music and lineup</h2>
+        {c.music && <p>{c.music}</p>}
+        {p.performers.length > 0 && <p><strong>Listed on {p.ticket_vendor}:</strong> {p.performers.join(', ')}.</p>}
+        {!c.music && !p.performers.length && <p>The lineup is not listed yet.</p>}
+      </section>
+      <section class="section"><h2>Before you go</h2>
+        {c.before_you_go && <p>{c.before_you_go}</p>}
+        <dl class="facts">
+          {x.id_required && <><dt>ID</dt><dd>{x.id_required}</dd></>}
+          {x.reentry && <><dt>Re-entry</dt><dd>{x.reentry}</dd></>}
+          {x.dress && <><dt>Dress</dt><dd>{x.dress}</dd></>}
+          {x.photo_policy && <><dt>Photos</dt><dd>{x.photo_policy}</dd></>}
+          {x.accessibility && <><dt>Access</dt><dd>{x.accessibility}</dd></>}
+          {c.refunds_by_seller ? Object.entries(c.refunds_by_seller).map(([k, val]) => <><dt>Refunds ({k})</dt><dd>{val}</dd></>) : p.refund_terms && <><dt>Refunds</dt><dd>{p.refund_terms}</dd></>}
+        </dl>
+      </section>
+      <section class="section faq"><h2>Questions</h2>{faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}</section>
+      <p class="small">Sources: {(p.sources ?? []).filter((s) => s.name !== 'found via').map((s, i) => <>{i > 0 && ', '}<a href={s.url} rel="nofollow noopener" target="_blank">{host(s.url)}</a> ({fmtDate(s.checked_at)})</>)}. Details change: the ticket page has the final word.</p>
+    </div>
+    <aside>
+      {v?.lat && <MiniMap lat={v.lat} lng={v.lng!} label={v.name} />}
+      {atVenue.length > 0 && <div class="section"><h2 class="h3">More at {v?.name}</h2><div class="xgrid one">{atVenue.map((o) => <PartyCard party={o} venue={v} />)}</div></div>}
+    </aside>
+  </div>
+  {sameNight.length > 0 && <section class="section"><h2>Also on {nightDate(p.night_date, { weekday: 'long' })}</h2><div class="xgrid">{sameNight.map((o) => <PartyCard party={o} venue={venueOf(o, venues)} />)}</div></section>}
+</Base>
+<style>
+  .when-big { font-size: 20px; font-weight: 800; color: var(--magenta); margin: 0 0 6px; }
+  .tagrow { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
+  .tagrow a.chip { text-decoration: none; }
+  .ticket { background: var(--yellow); border: 0; }
+  .ticket .btn { margin-top: 16px; }
+  .xgrid.one { grid-template-columns: 1fr; }
+  .h3 { font-size: 20px; }
+</style>

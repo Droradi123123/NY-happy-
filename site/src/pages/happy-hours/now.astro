@@ -1,0 +1,15 @@
+---
+import Base from '../../layouts/Base.astro';
+import Explorer from '../../components/Explorer.astro';
+import { allHoods, allBars } from '../../lib/data';
+import { crumbs } from '../../lib/seo';
+const bars = await allBars();
+const hoods = (await allHoods()).filter((h) => bars.some((b) => b.hoodSlug === h.slug)).sort((a, b) => a.name.localeCompare(b.name));
+---
+<Base title="Happy Hour Right Now in NYC: What's On Near You" description="Every NYC happy hour that is on at this minute, by New York time, with when it ends. Tap 'Near me' to see the closest ones."
+  jsonld={[crumbs([['YaY NYC', '/'], ['Happy hours', '/happy-hours'], ['Right now', '/happy-hours/now']])]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/happy-hours">Happy hours</a></li><li aria-current="page">Right now</li></ol></nav>
+  <h1>Happy Hour Right Now</h1>
+  <p class="lede">Happy hours on at this minute, New York time, sorted by which ends first. Tap <strong>Near me</strong> for the closest.</p>
+  <Explorer kind="bars" preset={{ day: 'now' }} hoods={hoods} heading="Happy hours on now" />
+</Base>

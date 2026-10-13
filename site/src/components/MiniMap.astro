@@ -1,0 +1,40 @@
+---
+/** One pin on a small map, loaded only when it scrolls into view. */
+interface Props { lat: number; lng: number; label: string; points?: { lat: number; lng: number; name: string; url: string }[] }
+const { lat, lng, label, points = [] } = Astro.props;
+---
+<div class="minimap" data-lat={lat} data-lng={lng} data-label={label} data-points={JSON.stringify(points)} role="region" aria-label={`Map: ${label}`}></div>
+<script>
+  const els = document.querySelectorAll<HTMLElement>('.minimap');
+  const io = new IntersectionObserver(async (entries) => {
+    for (const e of entries) {
+      if (!e.isIntersecting) continue;
+      io.unobserve(e.target);
+      const el = e.target as HTMLElement;
+      const maplibregl = (await import('maplibre-gl')).default;
+      await import('maplibre-gl/dist/maplibre-gl.css');
+      const c: [number, number] = [Number(el.dataset.lng), Number(el.dataset.lat)];
+      const pts = JSON.parse(el.dataset.points || '[]') as { lat: number; lng: number; name: string; url: string }[];
+      const map = new maplibregl.Map({ container: el, style: 'https://tiles.openfreemap.org/styles/positron', center: c, zoom: 15.2, attributionControl: { compact: true }, cooperativeGestures: true });
+      map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
+      for (const p of pts) {
+        const dot = document.createElement('a');
+        dot.href = p.url; dot.className = 'mm-dot'; dot.setAttribute('aria-label', p.name); dot.title = p.name;
+        new maplibregl.Marker({ element: dot }).setLngLat([p.lng, p.lat]).addTo(map);
+      }
+      const pin = document.createElement('div');
+      pin.className = 'mm-pin';
+      new maplibregl.Marker({ element: pin, anchor: 'bottom' }).setLngLat(c).addTo(map);
+      if (pts.length) {
+        const lo = [...pts.map((p) => p.lng), c[0]], la = [...pts.map((p) => p.lat), c[1]];
+        map.fitBounds([[Math.min(...lo), Math.min(...la)], [Math.max(...lo), Math.max(...la)]], { padding: 40, maxZoom: 16, duration: 0 });
+      }
+    }
+  }, { rootMargin: '300px' });
+  els.forEach((el) => io.observe(el));
+</script>
+<style is:global>
+  .minimap { height: 300px; border-radius: var(--radius); overflow: hidden; border: 1.5px solid var(--line); background: #EDE8DA; }
+  .mm-pin { width: 26px; height: 26px; background: var(--yellow); border: 3px solid var(--ink); border-radius: 50% 50% 50% 0; transform: rotate(-45deg); }
+  .mm-dot { display: block; width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 2.5px solid var(--ink); }
+</style>

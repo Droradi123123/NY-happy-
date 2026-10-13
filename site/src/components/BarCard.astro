@@ -1,0 +1,16 @@
+---
+/** Server-rendered twin of explorer.ts barCard(): same markup, so the page does not jump. */
+import { dealLabel, scheduleLabel, fmtDate, type Bar } from '../lib/data';
+import Line from './Line.astro';
+interface Props { bar: Bar; note?: string }
+const { bar: b, note } = Astro.props;
+const deal = dealLabel(b);
+---
+<article class="xcard">
+  <div class="xcard-top"><h3><a href={`/bars/${b.slug}`}>{b.name}</a></h3>{note && <span class="dist">{note}</span>}</div>
+  <p class="where">{b.hood}{b.borough && b.borough !== b.hood ? `, ${b.borough}` : ''}</p>
+  {deal ? <p class="deal">{deal}</p> : <p class="deal muted">Times published, deal not listed</p>}
+  <p class="sch">{scheduleLabel(b)}</p>
+  {b.subway && <div class="xcard-foot"><span class="sub">{b.subway.lines.map((l) => <Line l={l} />)} {b.subway.station} · {b.subway.walk_min} min walk</span></div>}
+  {b.checked && <p class="checked">Checked {fmtDate(b.checked)?.replace(/, \d{4}$/, '')}</p>}
+</article>

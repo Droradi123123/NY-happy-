@@ -1,0 +1,10 @@
+---
+/** A subway line bullet in its official route color. */
+interface Props { l: string }
+const { l } = Astro.props;
+const C: Record<string, [string, string]> = {};
+for (const [ls, bg, fg] of [['123', '#EE352E', '#fff'], ['456', '#00933C', '#fff'], ['7', '#B933AD', '#fff'], ['ACE', '#0039A6', '#fff'], ['BDFM', '#FF6319', '#fff'], ['G', '#6CBE45', '#141414'], ['JZ', '#996633', '#fff'], ['L', '#A7A9AC', '#141414'], ['NQRW', '#FCCC0A', '#141414'], ['S', '#808183', '#fff']] as const)
+  for (const x of ls) C[x] = [bg, fg];
+const [bg, fg] = C[l] ?? ['#555', '#fff'];
+---
+<span class="line" style={`background:${bg};color:${fg}`} aria-label={`${l} train`}>{l}</span>

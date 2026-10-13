@@ -1,0 +1,27 @@
+---
+import Base from '../../layouts/Base.astro';
+import Explorer from '../../components/Explorer.astro';
+import PartyCard from '../../components/PartyCard.astro';
+import { partyData, venueOf } from '../../lib/data';
+import { crumbs, itemList, faqLd } from '../../lib/seo';
+
+const { parties, venues } = await partyData();
+const list = parties.filter((p) => p.themes.includes('halloween'));
+const genres = [...new Set(list.flatMap((p) => p.genres))].sort();
+const year = 2026;
+const faq = [
+  { q: `When is Halloween ${year} in NYC?`, a: `Halloween ${year} is on Saturday, October 31, so the big party weekend is Friday October 30 to Sunday November 1. Many venues also run parties the weekend before.` },
+  { q: 'Do I need a costume?', a: 'Each party page says whether costumes are encouraged or required. Where it is not stated, we say so rather than guess.' },
+  { q: 'When do Halloween parties sell out?', a: 'The biggest nights sell out weeks ahead. Sold-out parties are marked; use "Hide sold out" to see what you can still get into.' },
+];
+---
+<Base title={`Halloween Parties NYC ${year}: ${list.length} Parties With Tickets`} description={`Every Halloween ${year} party in NYC we track: ${list.length} nights across clubs, rooftops and boats, with doors, age, price and tickets. Filter by date, music and price.`}
+  jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties'], ['Halloween', '/parties/halloween']]), itemList(`Halloween parties NYC ${year}`, list.map((p) => `/parties/${p.slug}`)), faqLd(faq)]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li><li aria-current="page">Halloween</li></ol></nav>
+  <h1>Halloween Parties in NYC {year}</h1>
+  <p class="lede">{list.length} Halloween parties at {new Set(list.map((p) => p.venue_id)).size} venues in {[...new Set(list.map((p) => p.borough).filter(Boolean))].join(', ')}. Filter by night, music and price.</p>
+  <Explorer kind="parties" preset={{ th: ['halloween'] }} genres={genres} heading="Halloween parties">
+    {list.slice(0, 24).map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}
+  </Explorer>
+  <section class="section faq"><h2>Halloween in NYC: questions</h2>{faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}</section>
+</Base>

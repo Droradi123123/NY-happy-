@@ -1,0 +1,43 @@
+---
+/**
+ * "Happy hour near X": subway stations (5+ bars within a 10-minute walk) and landmarks
+ * tourists search from (5+ bars within 800 m). Both live under /happy-hours/near/.
+ */
+import Base from '../../../layouts/Base.astro';
+import BarCard from '../../../components/BarCard.astro';
+import Line from '../../../components/Line.astro';
+import MiniMap from '../../../components/MiniMap.astro';
+import { stations, landmarks, type Bar } from '../../../lib/data';
+import { stats, plural } from '../../../lib/stats';
+import { crumbs, faqLd, itemList } from '../../../lib/seo';
+
+export async function getStaticPaths() {
+  const st = (await stations()).map((s) => ({ params: { place: s.slug }, props: { kind: 'station', name: s.name, lines: s.lines, items: s.bars.map((b) => ({ b, note: `${b.subway!.walk_min} min walk` })), center: null } }));
+  const lm = (await landmarks()).map((l) => ({ params: { place: l.slug }, props: { kind: 'landmark', name: l.name, lines: [], items: l.bars.map(({ b, m }) => ({ b, note: `${Math.max(1, Math.round(m / 80))} min walk` })), center: { lat: l.lat, lng: l.lng } } }));
+  const seen = new Set<string>();
+  return [...lm, ...st].filter((p) => (seen.has(p.params.place) ? false : (seen.add(p.params.place), true)));
+}
+const { kind, name, lines, items, center } = Astro.props as { kind: string; name: string; lines: string[]; items: { b: Bar; note: string }[]; center: { lat: number; lng: number } | null };
+const s = stats(items.map((i) => i.b));
+const Name = name.replace(/^the /, 'The ');
+const label = kind === 'station' ? `${name} (${lines.join(', ')})` : name;
+const faq = [
+  { q: `Where can I get a happy hour near ${name}?`, a: `${plural(s.n, 'bar')} within a short walk of ${name} run a happy hour. The closest is ${items[0].b.name} (${items[0].note}).` },
+  ...(s.cheapestLabel ? [{ q: `What is the cheapest happy hour near ${name}?`, a: `The cheapest drink we have on file nearby is ${s.cheapestLabel}. Prices are before tax and tip.` }] : []),
+  ...(kind === 'landmark' ? [{ q: 'Do I need ID for happy hour in NYC?', a: 'Yes. The drinking age is 21 and bars check ID. Visitors should bring a passport; a foreign driving licence is not always accepted.' }] : []),
+];
+const pts = items.filter((i) => i.b.onMap).slice(0, 30).map((i) => ({ lat: i.b.lat!, lng: i.b.lng!, name: i.b.name, url: `/bars/${i.b.slug}` }));
+---
+<Base title={`Happy Hour Near ${Name}: ${s.n} Bars, Deals and Times`}
+  description={`${s.n} happy hours within walking distance of ${label}, closest first, with the deal, times and minutes on foot.${s.cheapestLabel ? ` Cheapest: ${s.cheapestLabel}.` : ''}`}
+  jsonld={[crumbs([['YaY NYC', '/'], ['Happy hours', '/happy-hours'], [`Near ${Name}`, Astro.url.pathname]]), faqLd(faq), itemList(`Happy hours near ${name}`, items.map((i) => `/bars/${i.b.slug}`))]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/happy-hours">Happy hours</a></li><li><a href="/happy-hours/neighborhoods">Near</a></li><li aria-current="page">{Name}</li></ol></nav>
+  <h1>Happy Hour Near {Name}</h1>
+  <p class="lede">{kind === 'station' ? <>{lines.map((l) => <Line l={l} />)} </> : ''}{plural(s.n, 'happy hour')} within walking distance of {name}, closest first.{s.cheapestLabel && ` Cheapest drink on file: ${s.cheapestLabel}.`}</p>
+  {pts.length > 0 && <MiniMap lat={center?.lat ?? pts[0].lat} lng={center?.lng ?? pts[0].lng} label={`Happy hours near ${name}`} points={pts} />}
+  <div class="xgrid section">{items.map((i) => <BarCard bar={i.b} note={i.note} />)}</div>
+  <section class="section faq">
+    <h2>Questions</h2>
+    {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+  </section>
+</Base>

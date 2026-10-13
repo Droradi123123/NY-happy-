@@ -1,0 +1,120 @@
+---
+/**
+ * Every page: unique title + description, canonical, Open Graph, JSON-LD, the yellow
+ * header and the footer. Analytics load after the page (PUBLIC_GA_ID at build time;
+ * none set = no analytics at all).
+ */
+import Logo from '../components/Logo.astro';
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description: string;
+  jsonld?: object[];
+  noindex?: boolean;
+  ogImage?: string | null;
+  wide?: boolean;
+}
+const { title, description, jsonld = [], noindex = false, ogImage = null, wide = false } = Astro.props;
+const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/';
+const canonical = new URL(path, Astro.site).href;
+const fullTitle = title.length > 60 || / \| YaY NYC$/.test(title) || path === '/' ? title : `${title} | YaY NYC`;
+const GA = import.meta.env.PUBLIC_GA_ID as string | undefined;
+const nav = [
+  { href: '/happy-hours', label: 'Happy Hours' },
+  { href: '/parties', label: 'Parties' },
+  { href: '/map', label: 'Map' },
+  { href: '/happy-hours/neighborhoods', label: 'Neighborhoods' },
+];
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{fullTitle}</title>
+  <meta name="description" content={description} />
+  <link rel="canonical" href={canonical} />
+  {noindex && <meta name="robots" content="noindex, follow" />}
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <meta name="theme-color" content="#FFD400" />
+  <meta property="og:title" content={fullTitle} />
+  <meta property="og:description" content={description} />
+  <meta property="og:url" content={canonical} />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="YaY NYC" />
+  <meta property="og:locale" content="en_US" />
+  <meta property="og:image" content={new URL(ogImage ?? '/og-default.png', Astro.site).href} />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet" />
+  {jsonld.map((o) => <script type="application/ld+json" set:html={JSON.stringify(o)} />)}
+  {GA && (
+    <script is:inline define:vars={{ GA }}>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', GA, { content_group: location.pathname.split('/')[1] || 'home' });
+      addEventListener('load', function () { setTimeout(function () {
+        var s = document.createElement('script'); s.async = true; s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA; document.head.appendChild(s);
+      }, 0); });
+      // outbound clicks by kind: tickets, bookings, directions, calls
+      document.addEventListener('click', function (e) {
+        var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
+        var h = a.getAttribute('href') || '', u; try { u = new URL(h, location.href); } catch (_) { return; }
+        var kind = /^tel:/.test(h) ? 'call_click' : u.host === location.host ? null
+          : /dice\.fm|eventbrite|ra\.co|shotgun|joonbug|posh\.vip|fever/.test(u.host) ? 'ticket_click'
+          : /resy|opentable|sevenrooms|tock/.test(u.host) ? 'booking_click'
+          : /google\.[a-z.]+\/maps|maps\.apple|maps\.app\.goo\.gl/.test(u.href) ? 'directions_click' : 'outbound_click';
+        if (kind) gtag('event', kind, { link_domain: u.host, page: location.pathname });
+      }, true);
+    </script>
+  )}
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="site-header">
+    <div class="wrap header-row">
+      <a href="/" class="logo-link" aria-label="YaY NYC home"><Logo size={34} /></a>
+      <nav aria-label="Main">
+        <ul>
+          {nav.map((n) => <li><a href={n.href} aria-current={path.startsWith(n.href) ? 'page' : undefined}>{n.label}</a></li>)}
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <main id="main" class:list={[wide ? 'wide' : 'wrap']}>
+    <slot />
+  </main>
+  <footer class="site-footer">
+    <div class="wrap footer-grid">
+      <div>
+        <Logo size={28} light />
+        <p class="tagline">All the fun in one place!</p>
+        <p class="small">Every happy hour shows the date we last checked it and a link to where we read it. Deals change: confirm with the bar before you go. Drink responsibly; you must be 21 to drink in New York.</p>
+      </div>
+      <div>
+        <h2 class="foot-h">Find</h2>
+        <ul class="foot-list">
+          <li><a href="/happy-hours">NYC happy hours</a></li>
+          <li><a href="/happy-hours/now">Happy hour right now</a></li>
+          <li><a href="/parties">Parties in NYC</a></li>
+          <li><a href="/map">Map</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="foot-h">YaY NYC</h2>
+        <ul class="foot-list">
+          <li><a href="/about">About and how we check</a></li>
+          <li><a href="/contact">Report a change or add a place</a></li>
+          <li><a href="/image-credits">Image credits and takedown</a></li>
+          <li><a href="/privacy">Privacy</a></li>
+          <li><a href="/accessibility">Accessibility</a></li>
+        </ul>
+      </div>
+    </div>
+    <p class="wrap small copyright">© {new Date().getFullYear()} YaY NYC · Map data © <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,119 @@
+---
+import Base from '../../layouts/Base.astro';
+import BarCard from '../../components/BarCard.astro';
+import Line from '../../components/Line.astro';
+import MiniMap from '../../components/MiniMap.astro';
+import { allBars, DAYS, DAY_NAME, daysLabel, windowLabel, dealLabel, fmtDate, meters, type Bar } from '../../lib/data';
+import { barTitle, barDescription, barJsonLd, crumbs, faqLd, SITE } from '../../lib/seo';
+
+export async function getStaticPaths() {
+  const bars = await allBars();
+  const n = new Map<string, number>();
+  for (const b of bars) n.set(b.hoodSlug, (n.get(b.hoodSlug) ?? 0) + 1);
+  return bars.map((bar) => ({ params: { slug: bar.slug }, props: { bar, bars, hoodPage: (n.get(bar.hoodSlug) ?? 0) >= 5 } }));
+}
+const { bar: b, bars, hoodPage } = Astro.props as { bar: Bar; bars: Bar[]; hoodPage: boolean };
+// a neighborhood with fewer than 5 bars has no page of its own: link the filtered list instead
+const hoodUrl = hoodPage ? `/happy-hours/${b.hoodSlug}` : `/happy-hours?hood=${b.hoodSlug}`;
+const url = `${SITE}/bars/${b.slug}`;
+const deal = dealLabel(b);
+const drinks = b.offers.filter((o) => o.kind === 'drink');
+const food = b.offers.filter((o) => o.kind === 'food');
+const near = b.onMap
+  ? bars.filter((x) => x.slug !== b.slug && x.onMap).map((x) => ({ x, m: meters({ lat: b.lat!, lng: b.lng! }, { lat: x.lat!, lng: x.lng! }) })).filter((n) => n.m < 900).sort((p, q) => p.m - q.m).slice(0, 6)
+  : bars.filter((x) => x.slug !== b.slug && x.hoodSlug === b.hoodSlug).slice(0, 6).map((x) => ({ x, m: null }));
+const host = (u: string) => { try { return new URL(u).host.replace(/^www\./, ''); } catch { return u; } };
+const mapsUrl = b.onMap ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${b.name} ${b.address ?? ''}`)}` : null;
+const today = new Date().toLocaleDateString('en-US', { weekday: 'short', timeZone: 'America/New_York' }).toLowerCase().slice(0, 3);
+const faq = [
+  { q: `When is happy hour at ${b.name}?`, a: `${b.windows.map((w) => `${daysLabel(w.days)}, ${windowLabel(w)}`).join('; ')}. Checked against ${b.source ? host(b.source) : "the bar's own website"} on ${fmtDate(b.checked)}.` },
+  { q: `What is the happy hour deal at ${b.name}?`, a: deal ? `${deal}.${drinks.length + food.length > 2 ? ' The full list is on this page.' : ''}` : `${b.name} publishes its happy hour times but not what is discounted. Ask the bartender or check their site.` },
+  ...(b.subway ? [{ q: `What subway is closest to ${b.name}?`, a: `${b.subway.station} (${b.subway.lines.join(', ')}), about ${b.subway.walk_min} minutes on foot.` }] : []),
+  ...(b.booking ? [{ q: `Can I book a table at ${b.name}?`, a: `Yes, ${b.name} takes reservations online. Happy hour deals are often bar-only, so check when you book.` }] : []),
+];
+---
+<Base title={barTitle(b)} description={barDescription(b)} jsonld={[barJsonLd(b, url), crumbs([['YaY NYC', '/'], ['Happy hours', '/happy-hours'], [b.hood, hoodUrl], [b.name, `/bars/${b.slug}`]]), faqLd(faq)]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/happy-hours">Happy hours</a></li><li><a href={hoodUrl}>{b.hood}</a></li><li aria-current="page">{b.name}</li></ol></nav>
+  <div class="cols">
+    <div>
+      <h1>{b.name} Happy Hour</h1>
+      <p class="lede">{b.category === 'restaurant' ? 'Restaurant and bar' : b.category === 'pub' ? 'Pub' : 'Bar'} in {b.hood}{b.borough && b.borough !== b.hood ? `, ${b.borough}` : ''}{b.cuisine ? ` · ${b.cuisine}` : ''}</p>
+
+      <section class="dealcard" aria-label="Happy hour">
+        <p class="deal-big">{deal ?? 'Happy hour times are published; the deal is not listed'}</p>
+        <ul class="windows">
+          {b.windows.map((w) => <li><strong>{daysLabel(w.days)}</strong> {windowLabel(w)}{w.days.includes(today as any) && <span class="chip badge-live today">Today</span>}</li>)}
+        </ul>
+        <p class="checked-line">Checked {fmtDate(b.checked)} on {b.source ? <a href={b.source} rel="nofollow noopener" target="_blank">{host(b.source)}</a> : "the bar's own website"}. Deals change: confirm before you go.</p>
+      </section>
+
+      {(drinks.length > 0 || food.length > 0) && (
+        <section class="section">
+          <h2>What's on the happy hour menu</h2>
+          <div class="menu">
+            {drinks.length > 0 && <div><h3>Drinks</h3><ul class="menu-list">{drinks.map((o) => <li><span>{o.item}</span><span class="price">{o.price}</span></li>)}</ul></div>}
+            {food.length > 0 && <div><h3>Food</h3><ul class="menu-list">{food.map((o) => <li><span>{o.item}</span><span class="price">{o.price}</span></li>)}</ul></div>}
+          </div>
+          <p class="small">Prices as listed by the bar, before NYC sales tax (8.875%) and tip (18–20% is usual).</p>
+        </section>
+      )}
+
+      <section class="section">
+        <h2>Before you go</h2>
+        <dl class="facts">
+          {b.address && <><dt>Address</dt><dd>{b.address}{mapsUrl && <> · <a href={mapsUrl} rel="noopener" target="_blank">Directions</a></>}</dd></>}
+          {b.subway && <><dt>Subway</dt><dd>{b.subway.lines.map((l) => <Line l={l} />)} {b.subway.station}, {b.subway.walk_min} min walk{b.subway.accessible ? ' (accessible station)' : ''}</dd></>}
+          {b.hours && <><dt>Open</dt><dd><ul class="hours">{DAYS.filter((d) => b.hours![d]).map((d) => <li><span>{DAY_NAME[d]}</span> {b.hours![d]!.split('-').map((t) => t).join('–')}</li>)}</ul></dd></>}
+          {b.phone && <><dt>Phone</dt><dd><a href={`tel:${b.phone.replace(/[^\d+]/g, '')}`}>{b.phone}</a></dd></>}
+          {b.priceRange && <><dt>Price</dt><dd>{b.priceRange}</dd></>}
+          {b.licence && <><dt>Licence</dt><dd>{b.licence} (NY State Liquor Authority, active)</dd></>}
+        </dl>
+        <div class="actions">
+          {b.booking && <a class="btn" href={b.booking} rel="noopener" target="_blank">Book a table</a>}
+          {b.website && <a class="btn ghost" href={b.website} rel="noopener" target="_blank">Website</a>}
+          {b.instagram && <a class="btn ghost" href={b.instagram} rel="noopener" target="_blank">Instagram</a>}
+        </div>
+      </section>
+
+      <section class="section faq">
+        <h2>Questions</h2>
+        {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+      </section>
+    </div>
+
+    <aside>
+      {b.onMap && <MiniMap lat={b.lat!} lng={b.lng!} label={b.name} />}
+      <div class="card side-card">
+        <h2 class="h3">More in {b.hood}</h2>
+        <p><a href={hoodUrl}>All happy hours in {b.hood}</a></p>
+        {b.subway && <p><a href={`/happy-hours?line=${b.subway.lines[0]}`}>Happy hours on the {b.subway.lines[0]} train</a></p>}
+        <p><a href="/contact">Something wrong here? Tell us</a></p>
+      </div>
+    </aside>
+  </div>
+
+  {near.length > 0 && (
+    <section class="section">
+      <h2>Happy hours nearby</h2>
+      <div class="xgrid">{near.map(({ x, m }) => <BarCard bar={x} note={m !== null ? (m < 160 ? `${Math.round(m * 3.28 / 10) * 10} ft` : `${(m / 1609).toFixed(1)} mi`) : undefined} />)}</div>
+    </section>
+  )}
+</Base>
+
+<style>
+  .dealcard { background: var(--yellow); border-radius: 22px; padding: 24px; margin: 18px 0 8px; }
+  .deal-big { font-size: clamp(24px, 3.4vw, 34px); font-weight: 800; line-height: 1.12; margin: 0 0 12px; letter-spacing: -0.02em; }
+  .windows { list-style: none; padding: 0; margin: 0 0 12px; display: grid; gap: 6px; font-size: 19px; }
+  .today { margin-left: 8px; font-size: 13px; }
+  .checked-line { margin: 0; font-size: 15px; }
+  .menu { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .menu-list { list-style: none; padding: 0; margin: 0; }
+  .menu-list li { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px dashed var(--line); }
+  .price { font-weight: 800; white-space: nowrap; }
+  .hours { list-style: none; padding: 0; margin: 0; }
+  .hours span { display: inline-block; width: 100px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+  .side-card { margin-top: 18px; }
+  .h3 { font-size: 20px; }
+  aside { min-width: 0; }
+</style>

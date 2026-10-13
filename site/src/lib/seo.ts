@@ -1,0 +1,111 @@
+/**
+ * Titles, descriptions and JSON-LD. Lessons carried over from HappyTLV (Search Console):
+ * people search a bar by name, so the title starts with the name; the deal itself
+ * ("$6 drafts", "2-for-1") is what Google's own listing never shows, so it goes in the
+ * title when it is short; every description is built from the page's own facts.
+ */
+import { DAYS, DAY_NAME, ampm, daysLabel, dealLabel, windowLabel, type Bar, type Party, type Venue, cleanTitle, nightDate, nyTime, priceLabel } from './data';
+
+export const SITE = 'https://yaynyc.com';
+const fit = (parts: string[], max = 60) => { for (const p of parts) if (p.length <= max) return p; return parts[parts.length - 1]; };
+const cut = (s: string, n = 155) => { if (s.length <= n) return s; const c = s.slice(0, n - 1); return c.slice(0, c.lastIndexOf(' ')).replace(/[\s,.;:·-]+$/, '') + '…'; };
+
+export function barTitle(b: Bar): string {
+  const deal = dealLabel(b);
+  const short = deal && deal.length <= 22 ? deal : null;
+  const when = b.windows[0] ? `${daysLabel(b.windows[0].days)} ${windowLabel(b.windows[0])}` : '';
+  return fit([
+    short ? `${b.name} Happy Hour: ${short}, ${when}` : '',
+    short ? `${b.name} Happy Hour: ${short}` : '',
+    `${b.name} Happy Hour, ${b.hood}: ${when}`,
+    `${b.name} Happy Hour: Times and Deals`,
+    `${b.name} Happy Hour`,
+  ].filter(Boolean));
+}
+export function barDescription(b: Bar): string {
+  const deal = dealLabel(b);
+  const bits = [
+    `${b.name} in ${b.hood} has happy hour ${b.windows.map((w) => `${daysLabel(w.days)} ${windowLabel(w)}`).join(', ')}.`,
+    deal ? `The deal: ${deal}.` : 'Times are published; the deal is not listed.',
+    b.subway ? `${b.subway.walk_min} min from ${b.subway.station} (${b.subway.lines.join(', ')}).` : '',
+    b.checked ? `Checked ${new Date(b.checked).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}.` : '',
+  ];
+  return cut(bits.filter(Boolean).join(' '));
+}
+
+const SCHEMA_DAY: Record<string, string> = { mon: 'Monday', tue: 'Tuesday', wed: 'Wednesday', thu: 'Thursday', fri: 'Friday', sat: 'Saturday', sun: 'Sunday' };
+export function barJsonLd(b: Bar, url: string) {
+  const biz: Record<string, unknown> = {
+    '@context': 'https://schema.org', '@type': b.category === 'restaurant' ? 'Restaurant' : 'BarOrPub',
+    name: b.name, url,
+    ...(b.address ? { address: { '@type': 'PostalAddress', streetAddress: b.address, addressLocality: b.borough ?? 'New York', addressRegion: 'NY', addressCountry: 'US' } } : {}),
+    ...(b.onMap ? { geo: { '@type': 'GeoCoordinates', latitude: b.lat, longitude: b.lng } } : {}),
+    ...(b.phone ? { telephone: b.phone } : {}),
+    ...(b.priceRange && /^\$+$/.test(b.priceRange) ? { priceRange: b.priceRange } : {}),
+    ...(b.cuisine ? { servesCuisine: b.cuisine } : {}),
+    ...(b.booking ? { acceptsReservations: true } : {}),
+    sameAs: [b.website, b.instagram].filter(Boolean),
+  };
+  if (b.hours) {
+    biz.openingHoursSpecification = DAYS.filter((d) => b.hours![d]).map((d) => {
+      const [o, c] = b.hours![d]!.split('-');
+      return { '@type': 'OpeningHoursSpecification', dayOfWeek: `https://schema.org/${SCHEMA_DAY[d]}`, opens: o, closes: c === '24:00' ? '23:59' : c };
+    });
+  }
+  // the happy hour is an offer with its own hours, not the opening hours
+  biz.makesOffer = {
+    '@type': 'Offer', name: `Happy hour at ${b.name}`, ...(dealLabel(b) ? { description: dealLabel(b) } : {}),
+    itemOffered: {
+      '@type': 'Service', name: 'Happy hour',
+      hoursAvailable: b.windows.filter((w) => w.start || w.end).map((w) => ({
+        '@type': 'OpeningHoursSpecification', dayOfWeek: w.days.map((d) => `https://schema.org/${SCHEMA_DAY[d]}`),
+        ...(w.start ? { opens: w.start } : {}), ...(w.end ? { closes: w.end === '24:00' ? '23:59' : w.end } : {}),
+      })),
+    },
+  };
+  return biz;
+}
+
+export function crumbs(items: [string, string][]) {
+  return {
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+    itemListElement: items.map(([name, path], i) => ({ '@type': 'ListItem', position: i + 1, name, item: `${SITE}${path}` })),
+  };
+}
+export function faqLd(faq: { q: string; a: string }[]) {
+  return { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faq.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+}
+export function itemList(name: string, urls: string[]) {
+  return { '@context': 'https://schema.org', '@type': 'ItemList', name, numberOfItems: urls.length, itemListElement: urls.slice(0, 100).map((u, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE}${u}` })) };
+}
+
+// ---------- parties ----------
+
+export function partyTitle(p: Party, v: Venue | null): string {
+  const t = cleanTitle(p.title).replace(/\s*[|·]\s*.*$/, '');
+  const d = nightDate(p.night_date, { month: 'short', day: 'numeric' });
+  return fit([`${t} at ${v?.name ?? 'NYC'}, ${d}: Tickets, Time, Lineup`, `${t} at ${v?.name ?? 'NYC'}, ${d}`, `${t}, ${d}`, t]);
+}
+export function partyDescription(p: Party, v: Venue | null): string {
+  const lead = p.copy?.about?.split(/(?<=\.)\s/)[0];
+  return cut([
+    `${nightDate(p.night_date)}${nyTime(p.doors_at ?? p.starts_at) ? `, doors ${nyTime(p.doors_at ?? p.starts_at)}` : ''} at ${v?.name ?? 'a NYC venue'}${p.neighborhood ? `, ${p.neighborhood}` : ''}.`,
+    lead ?? '',
+    `${priceLabel(p)}${p.age_min ? `, ${p.age_min}+` : ''}.`,
+  ].filter(Boolean).join(' '));
+}
+export function partyJsonLd(p: Party, v: Venue | null, url: string) {
+  return {
+    '@context': 'https://schema.org', '@type': 'MusicEvent', name: cleanTitle(p.title), url,
+    startDate: p.starts_at, ...(p.ends_at ? { endDate: p.ends_at } : {}), ...(p.doors_at ? { doorTime: p.doors_at } : {}),
+    eventStatus: `https://schema.org/${{ scheduled: 'EventScheduled', postponed: 'EventPostponed', rescheduled: 'EventRescheduled', cancelled: 'EventCancelled', sold_out: 'EventScheduled' }[p.event_status] ?? 'EventScheduled'}`,
+    eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
+    ...(p.copy?.about ? { description: p.copy.about } : {}),
+    location: { '@type': 'Place', name: v?.name, ...(v?.address ? { address: v.address } : {}), ...(v?.lat ? { geo: { '@type': 'GeoCoordinates', latitude: v.lat, longitude: v.lng } } : {}) },
+    ...(p.performers.length ? { performer: p.performers.map((n) => ({ '@type': 'PerformingGroup', name: n })) } : {}),
+    ...(p.organizer ? { organizer: { '@type': 'Organization', name: p.organizer } } : {}),
+    offers: { '@type': 'Offer', url: p.ticket_url, ...(p.price_from !== null ? { price: p.price_from, priceCurrency: 'USD' } : {}), availability: `https://schema.org/${p.event_status === 'sold_out' ? 'SoldOut' : 'InStock'}` },
+    ...(p.age_min ? { typicalAgeRange: `${p.age_min}-` } : {}),
+  };
+}
+export { DAY_NAME, ampm };

@@ -1,0 +1,40 @@
+---
+import Base from '../../layouts/Base.astro';
+import Explorer from '../../components/Explorer.astro';
+import BarCard from '../../components/BarCard.astro';
+import { allBars, allHoods } from '../../lib/data';
+import { stats, plural } from '../../lib/stats';
+import { crumbs, faqLd, itemList } from '../../lib/seo';
+
+const bars = await allBars();
+const hoods = (await allHoods()).filter((h) => bars.some((b) => b.hoodSlug === h.slug)).sort((a, b) => a.name.localeCompare(b.name));
+const s = stats(bars);
+const counts = new Map<string, number>();
+for (const b of bars) counts.set(b.hoodSlug, (counts.get(b.hoodSlug) ?? 0) + 1);
+const big = hoods.filter((h) => (counts.get(h.slug) ?? 0) >= 5).sort((a, b) => counts.get(b.slug)! - counts.get(a.slug)!);
+const faq = [
+  { q: 'What time is happy hour in NYC?', a: `Most NYC happy hours run on weekdays from 4pm or 5pm to 7pm. Of the ${s.n} we list, ${s.late} also have a late-night happy hour and ${s.weekend} run on the weekend.` },
+  { q: 'Is happy hour legal in New York?', a: 'Yes. New York State allows drink specials and 2-for-1 deals, but not unlimited drinks for a fixed price.' },
+  { q: 'How much is a happy hour drink in NYC?', a: s.cheapestLabel ? `The cheapest drink price we have on file right now is ${s.cheapestLabel}. Add NYC sales tax (8.875%) and a tip (18–20% is usual).` : 'Prices vary by bar; add NYC sales tax (8.875%) and a tip (18–20% is usual).' },
+  { q: 'How do you check these happy hours?', a: 'Each one is read from the bar\'s own website or menu, and every page shows the date we last checked it and a link to the source.' },
+];
+---
+<Base title={`NYC Happy Hours: ${s.n} Bars, Deals and Times (${new Date().getFullYear()})`} description={`Every NYC happy hour we could verify: ${s.n} bars with the deal, the hours and the date we checked. Filter by neighborhood, subway line, price and what's on right now.`}
+  jsonld={[crumbs([['YaY NYC', '/'], ['Happy hours', '/happy-hours']]), faqLd(faq), itemList('NYC happy hours', bars.slice(0, 100).map((b) => `/bars/${b.slug}`))]}>
+  <h1>NYC Happy Hours</h1>
+  <p class="lede">{plural(s.n, 'happy hour')} across the five boroughs, each with the deal, the times and the date we checked it. {s.deals} list exactly what is discounted.</p>
+  <Explorer kind="bars" hoods={hoods} heading="Find a happy hour">
+    {bars.slice(0, 24).map((b) => <BarCard bar={b} />)}
+  </Explorer>
+
+  <section class="section">
+    <h2>Happy hours by neighborhood</h2>
+    <ul class="link-cloud">{big.map((h) => <li><a href={`/happy-hours/${h.slug}`}>{h.name}<span class="count">{counts.get(h.slug)}</span></a></li>)}</ul>
+    <p><a href="/happy-hours/neighborhoods">All neighborhoods, subway stops and landmarks</a></p>
+  </section>
+
+  <section class="section faq">
+    <h2>NYC happy hour questions</h2>
+    {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+  </section>
+</Base>

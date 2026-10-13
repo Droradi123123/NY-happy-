@@ -1,0 +1,28 @@
+---
+import Base from '../../layouts/Base.astro';
+import Line from '../../components/Line.astro';
+import { allBars, allHoods, stations, landmarks } from '../../lib/data';
+import { crumbs } from '../../lib/seo';
+
+const bars = await allBars();
+const counts = new Map<string, number>();
+for (const b of bars) counts.set(b.hoodSlug, (counts.get(b.hoodSlug) ?? 0) + 1);
+const hoods = (await allHoods()).filter((h) => (counts.get(h.slug) ?? 0) >= 5);
+const byBorough = ['Manhattan', 'Brooklyn', 'Queens', 'The Bronx', 'Staten Island'].map((bo) => ({ bo, hoods: hoods.filter((h) => h.borough === bo).sort((a, b) => a.name.localeCompare(b.name)) })).filter((x) => x.hoods.length);
+const st = await stations();
+const lm = await landmarks();
+---
+<Base title="NYC Happy Hours by Neighborhood, Subway Stop and Landmark" description="Find a happy hour by NYC neighborhood, by the subway stop you're at, or near Times Square, Grand Central, Penn Station and other landmarks."
+  jsonld={[crumbs([['YaY NYC', '/'], ['Happy hours', '/happy-hours'], ['Neighborhoods', '/happy-hours/neighborhoods']])]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/happy-hours">Happy hours</a></li><li aria-current="page">Neighborhoods</li></ol></nav>
+  <h1>Happy Hours by Neighborhood</h1>
+  {byBorough.map(({ bo, hoods }) => (
+    <section class="section"><h2>{bo}</h2>
+      <ul class="link-cloud">{hoods.map((h) => <li><a href={`/happy-hours/${h.slug}`}>{h.name}<span class="count">{counts.get(h.slug)}</span></a></li>)}</ul>
+    </section>
+  ))}
+  {lm.length > 0 && <section class="section"><h2>Near a landmark</h2>
+    <ul class="link-cloud">{lm.map((l) => <li><a href={`/happy-hours/near/${l.slug}`}>{l.name.replace(/^the /, 'The ')}<span class="count">{l.bars.length}</span></a></li>)}</ul></section>}
+  {st.length > 0 && <section class="section"><h2>Near a subway stop</h2>
+    <ul class="link-cloud">{st.map((s) => <li><a href={`/happy-hours/near/${s.slug}`}>{s.lines.map((l) => <Line l={l} />)} {s.name}<span class="count">{s.bars.length}</span></a></li>)}</ul></section>}
+</Base>

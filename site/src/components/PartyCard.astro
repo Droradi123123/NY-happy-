@@ -1,0 +1,15 @@
+---
+import { cleanTitle, nightDate, nyTime, priceLabel, GENRE_NAME, type Party, type Venue } from '../lib/data';
+interface Props { party: Party; venue: Venue | null }
+const { party: p, venue: v } = Astro.props;
+---
+<article class="xcard party">
+  <div class="xcard-top"><p class="when">{nightDate(p.night_date, { weekday: 'short', month: 'short', day: 'numeric' })}{nyTime(p.doors_at ?? p.starts_at) && ` · ${nyTime(p.doors_at ?? p.starts_at)}`}</p></div>
+  <h3><a href={`/parties/${p.slug}`}>{cleanTitle(p.title)}</a></h3>
+  <p class="where">{v?.name}{p.neighborhood && ` · ${p.neighborhood}`}</p>
+  <div class="xcard-foot">
+    {p.event_status === 'sold_out' ? <span class="chip dark">Sold out</span> : <span class="chip outline">{priceLabel(p)}</span>}
+    {p.age_min && <span class="chip outline">{p.age_min}+</span>}
+    {p.genres.slice(0, 3).map((g) => <span class="chip">{GENRE_NAME[g] ?? g}</span>)}
+  </div>
+</article>
