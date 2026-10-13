@@ -28,8 +28,8 @@ const faq = [
 ];
 const pts = items.filter((i) => i.b.onMap).slice(0, 30).map((i) => ({ lat: i.b.lat!, lng: i.b.lng!, name: i.b.name, url: `/bars/${i.b.slug}` }));
 ---
-<Base title={`Happy Hour Near ${Name}: ${s.n} Bars, Deals and Times`}
-  description={`${s.n} happy hours within walking distance of ${label}, closest first, with the deal, times and minutes on foot.${s.cheapestLabel ? ` Cheapest: ${s.cheapestLabel}.` : ''}`}
+<Base title={`Happy Hour Near ${Name}: ${s.n} Bars, Deals and Times`} keyword={`happy hour near ${Name}`}
+  description={`Happy hour near ${Name}: ${s.n} bars within walking distance of ${label}, closest first, with the deal, times and minutes on foot.${s.cheapestLabel ? ` Cheapest: ${s.cheapestLabel}.` : ''}`}
   jsonld={[crumbs([['YaY NYC', '/'], ['Happy hours', '/happy-hours'], [`Near ${Name}`, Astro.url.pathname]]), faqLd(faq), itemList(`Happy hours near ${name}`, items.map((i) => `/bars/${i.b.slug}`))]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/happy-hours">Happy hours</a></li><li><a href="/happy-hours/neighborhoods">Near</a></li><li aria-current="page">{Name}</li></ol></nav>
   <h1>Happy Hour Near {Name}</h1>

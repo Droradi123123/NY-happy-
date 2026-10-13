@@ -41,17 +41,21 @@ export interface PartyRow {
   la: number | null; lo: number | null; g: string[]; th: string[]; tg: string[]; p: number | null; pl: string; a: number | null; so: 0 | 1; rich: 0 | 1;
   im?: [string, string];
 }
-const TAGS: [string, RegExp][] = [
+export const PARTY_TAGS: [string, RegExp][] = [
   ['rooftop', /rooftop|\broof\b|skydeck/i], ['lgbtq', /queer|lgbt|\bgay\b|lesbian|\bdrag\b|pride|dyke/i], ['day', /day ?party|daytime|brunch|sunday funday/i],
   ['boat', /yacht|\bboat\b|cruise/i], ['openbar', /open bar/i], ['costume', /costume/i], ['drag', /\bdrag\b/i],
 ];
+/** rooftop, lgbtq, day, boat, openbar, costume, drag: read from the title, the copy and the venue name */
+export function partyTags(p: Party, v: Venue | null): string[] {
+  const text = `${p.title} ${p.copy?.about ?? ''} ${p.copy?.expect ?? ''} ${v?.name ?? ''}`;
+  return PARTY_TAGS.filter(([, re]) => re.test(text)).map(([k]) => k);
+}
 export function partyRow(p: Party, venues: Venue[]): PartyRow {
   const v = venueOf(p, venues);
-  const text = `${p.title} ${p.copy?.about ?? ''} ${p.copy?.expect ?? ''} ${v?.name ?? ''}`;
   return {
     s: p.slug, t: cleanTitle(p.title), nd: p.night_date, st: p.starts_at, en: p.ends_at, tm: nyTime(p.doors_at ?? p.starts_at),
     v: p.venue_id, vn: v?.name ?? '', h: p.neighborhood, bo: p.borough, la: v?.lat ?? null, lo: v?.lng ?? null,
-    g: p.genres, th: p.themes, tg: TAGS.filter(([, re]) => re.test(text)).map(([k]) => k),
+    g: p.genres, th: p.themes, tg: partyTags(p, v),
     p: p.price_status === 'free' ? 0 : p.price_from, pl: priceLabel(p), a: p.age_min, so: p.event_status === 'sold_out' ? 1 : 0,
     rich: p.copy?.about ? 1 : 0,
     ...photoRow('venue', p.venue_id),

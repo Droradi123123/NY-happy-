@@ -7,8 +7,8 @@ const hoods = (await allHoods()).filter((h) => bars.some((b) => b.hoodSlug === h
 const { parties } = await partyData();
 const genres = [...new Set(parties.flatMap((p) => p.genres))].sort();
 ---
-<Base title="NYC Happy Hour and Party Map" description="Every NYC happy hour and party on one map. Filter by what's on now, day, subway line, price and music; tap a pin for the deal or the ticket.">
-  <h1>The YaY NYC Map</h1>
+<Base title="NYC Happy Hour and Party Map" keyword="nyc happy hour map" description="Every NYC happy hour and party on one map. Filter by what's on now, day, subway line, price and music; tap a pin for the deal or the ticket.">
+  <h1>NYC Happy Hour and Party Map</h1>
   <div class="tabs" role="tablist" aria-label="What to show">
     <button role="tab" type="button" aria-selected="true" aria-controls="map-bars" id="tab-bars">Happy hours</button>
     <button role="tab" type="button" aria-selected="false" aria-controls="map-parties" id="tab-parties">Parties</button>

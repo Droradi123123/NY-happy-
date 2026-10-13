@@ -10,16 +10,20 @@ export const SITE = 'https://yaynyc.com';
 const fit = (parts: string[], max = 60) => { for (const p of parts) if (p.length <= max) return p; return parts[parts.length - 1]; };
 const cut = (s: string, n = 155) => { if (s.length <= n) return s; const c = s.slice(0, n - 1); return c.slice(0, c.lastIndexOf(' ')).replace(/[\s,.;:·-]+$/, '') + '…'; };
 
-export function barTitle(b: Bar): string {
+/** the search phrase a bar page targets; a chain's branches add their neighborhood */
+export const barKeyword = (b: Bar, branch = false) => `${b.name}${branch ? ` ${b.hood}` : ''} happy hour`;
+export function barTitle(b: Bar, branch = false): string {
   const deal = dealLabel(b);
   const short = deal && deal.length <= 22 ? deal : null;
   const when = b.windows[0] ? `${daysLabel(b.windows[0].days)} ${windowLabel(b.windows[0])}` : '';
+  const name = branch ? `${b.name} ${b.hood}` : b.name;
   return fit([
-    short ? `${b.name} Happy Hour: ${short}, ${when}` : '',
-    short ? `${b.name} Happy Hour: ${short}` : '',
-    `${b.name} Happy Hour, ${b.hood}: ${when}`,
-    `${b.name} Happy Hour: Times and Deals`,
-    `${b.name} Happy Hour`,
+    short ? `${name} Happy Hour: ${short}, ${when}` : '',
+    short ? `${name} Happy Hour: ${short}` : '',
+    branch ? '' : `${name} Happy Hour, ${b.hood}: ${when}`,
+    `${name} Happy Hour: ${when}`,
+    `${name} Happy Hour: Times and Deals`,
+    `${name} Happy Hour`,
   ].filter(Boolean));
 }
 export function barDescription(b: Bar): string {
@@ -81,15 +85,17 @@ export function itemList(name: string, urls: string[]) {
 
 // ---------- parties ----------
 
+/** the party's name as people search it: the title up to a colon or bar ("Boo Yourself") */
+export const partyName = (p: Party) => cleanTitle(p.title).replace(/\s*[|·]\s*.*$/, '').replace(/:\s.*$/, '').trim();
 export function partyTitle(p: Party, v: Venue | null): string {
   const t = cleanTitle(p.title).replace(/\s*[|·]\s*.*$/, '');
   const d = nightDate(p.night_date, { month: 'short', day: 'numeric' });
-  return fit([`${t} at ${v?.name ?? 'NYC'}, ${d}: Tickets, Time, Lineup`, `${t} at ${v?.name ?? 'NYC'}, ${d}`, `${t}, ${d}`, t]);
+  return fit([`${t} at ${v?.name ?? 'NYC'}, ${d}: Tickets, Time, Lineup`, `${t} at ${v?.name ?? 'NYC'}, ${d}`, `${t}, ${d}`]);
 }
 export function partyDescription(p: Party, v: Venue | null): string {
   const lead = p.copy?.about?.split(/(?<=\.)\s/)[0];
   return cut([
-    `${nightDate(p.night_date)}${nyTime(p.doors_at ?? p.starts_at) ? `, doors ${nyTime(p.doors_at ?? p.starts_at)}` : ''} at ${v?.name ?? 'a NYC venue'}${p.neighborhood ? `, ${p.neighborhood}` : ''}.`,
+    `${partyName(p)} at ${v?.name ?? 'a NYC venue'}${p.neighborhood ? `, ${p.neighborhood}` : ''}: ${nightDate(p.night_date, { weekday: 'long', month: 'short', day: 'numeric' })}${nyTime(p.doors_at ?? p.starts_at) ? `, doors ${nyTime(p.doors_at ?? p.starts_at)}` : ''}.`,
     lead ?? '',
     `${priceLabel(p)}${p.age_min ? `, ${p.age_min}+` : ''}.`,
   ].filter(Boolean).join(' '));

@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import Explorer from '../../components/Explorer.astro';
 import PartyCard from '../../components/PartyCard.astro';
 import { partyData, venueOf } from '../../lib/data';
+import { partyLists } from '../../lib/partyLists';
 import { crumbs, itemList, faqLd } from '../../lib/seo';
 
 const { parties, venues } = await partyData();
@@ -13,14 +14,27 @@ const faq = [
   { q: 'What age are NYC parties?', a: 'Most club nights are 21+. Use the "18+ welcome" filter for the ones that let 18 to 20 year-olds in. Bring a government-issued photo ID.' },
   { q: 'Are the prices final?', a: 'We show the lowest ticket price listed by the seller when we last checked, fees included where the seller shows them. Prices rise as tiers sell out.' },
 ];
+const plists = await partyLists();
+const halloween = parties.filter((p) => p.themes.includes('halloween')).length;
+const row = (l: { slug: string; short: string; parties: unknown[] }) => ({ href: `/parties/${l.slug}`, short: l.short, n: l.parties.length });
+const groups: [string, { href: string; short: string; n: number }[]][] = [
+  ['Parties by music', plists.filter((l) => l.kind === 'genre').map(row)],
+  ['Parties by night', plists.filter((l) => l.kind === 'day').map(row)],
+  ['Holidays and seasons', [...(halloween >= 2 ? [{ href: '/parties/halloween', short: 'Halloween', n: halloween }] : []), ...plists.filter((l) => l.kind === 'season').map(row)]],
+  ['Kind of party', plists.filter((l) => l.kind === 'tag').map(row)],
+];
 ---
-<Base title={`NYC Parties: ${parties.length} Club Nights, Raves and Events`} description="Parties in New York City this week: techno, house, Latin, hip-hop, Halloween and more, with doors time, age, price and tickets. Filter by date, music, borough and price."
+<Base title={`NYC Parties: ${parties.length} Club Nights, Raves and Events`} keyword="nyc parties" description="NYC parties this week: techno, house, Latin, hip-hop, Halloween and more, with doors time, age, price and tickets. Filter by date, music, borough and price."
   jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties']]), itemList('NYC parties', parties.map((p) => `/parties/${p.slug}`)), faqLd(faq)]}>
   <h1>Parties in NYC</h1>
   <p class="lede">Club nights, raves and parties across the five boroughs, with doors time, venue, age and price. Nights that are over leave the list on their own.</p>
   <Explorer kind="parties" genres={genres} hoods={hoods} heading="Find a party">
     {parties.slice(0, 24).map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}
   </Explorer>
-  <section class="section"><h2>By occasion</h2><ul class="link-cloud"><li><a href="/parties/halloween">Halloween parties</a></li></ul></section>
+  {groups.filter(([, g]) => g.length).map(([name, g]) => (
+    <section class="section"><h2>{name}</h2>
+      <ul class="link-cloud">{g.map((l) => <li><a href={l.href}>{l.short}<span class="count">{l.n}</span></a></li>)}</ul>
+    </section>
+  ))}
   <section class="section faq"><h2>Questions</h2>{faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}</section>
 </Base>

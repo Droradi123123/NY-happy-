@@ -1,0 +1,119 @@
+---
+/**
+ * Neighborhood, borough, deal-type and day pages (lib/lists.ts decides which exist).
+ * The opening lines and the answers are computed from the bars on the page, so no two
+ * pages read alike and every number on screen is the number in the data.
+ */
+import Base from '../../layouts/Base.astro';
+import Explorer from '../../components/Explorer.astro';
+import BarCard from '../../components/BarCard.astro';
+import Photo from '../../components/Photo.astro';
+import { allBars, allHoods, ampm, dealLabel, photoOf, DAY_NAME, type Bar, type Day } from '../../lib/data';
+import { listPages, type ListPage } from '../../lib/lists';
+import { stats, plural } from '../../lib/stats';
+import { crumbs, faqLd, itemList } from '../../lib/seo';
+
+export async function getStaticPaths() {
+  const pages = await listPages();
+  return pages.map((page) => ({ params: { slug: page.slug }, props: { page, pages } }));
+}
+const { page, pages } = Astro.props as { page: ListPage; pages: ListPage[] };
+const list = page.bars;
+const s = stats(list);
+const year = new Date().getFullYear();
+const ph = page.kind === 'hood' ? photoOf('hood', page.slug) : null;
+const day = page.kind === 'day' ? (page.preset.day as Day) : null;
+
+// when happy hour starts on this page's bars (on its day, for a day page)
+const starts = new Map<string, number>();
+for (const b of list) for (const w of b.windows) if (w.start && (!day || w.days.includes(day))) starts.set(w.start, (starts.get(w.start) ?? 0) + 1);
+const common = [...starts.entries()].sort((a, b) => b[1] - a[1])[0] ?? null;
+const earliest = list.flatMap((b) => b.windows.filter((w) => w.start && (!day || w.days.includes(day))).map((w) => ({ b, t: w.start! }))).sort((a, b) => a.t.localeCompare(b.t))[0] ?? null;
+const lines = new Map<string, number>();
+for (const b of list) for (const l of b.subway?.lines ?? []) lines.set(l, (lines.get(l) ?? 0) + 1);
+const topLines = [...lines.entries()].sort((a, b) => b[1] - a[1]).slice(0, 4).map(([l]) => l);
+const hoodCount = new Map<string, number>();
+for (const b of list) hoodCount.set(b.hood, (hoodCount.get(b.hood) ?? 0) + 1);
+const topHoods = [...hoodCount.entries()].sort((a, b) => b[1] - a[1]).slice(0, 4);
+const best = list.filter((b) => dealLabel(b)).slice(0, 3);
+const where = page.kind === 'hood' ? `${page.short}, ${page.borough}` : page.kind === 'borough' ? page.short.replace(/^The /, 'the ') : 'NYC';
+
+const lede = [
+  page.kind === 'tag' ? `${plural(s.n, 'bar')} on this list${s.deals ? `, ${s.deals} with the deal spelled out` : ''}.`
+    : `${plural(s.n, 'bar')} in ${where} run a happy hour${page.kind === 'day' ? ` on ${page.short}s` : ''}${s.deals ? `, ${s.deals} with the deal spelled out` : ''}.`,
+  s.cheapestLabel ? `The cheapest drink we have on file: ${s.cheapestLabel}.` : '',
+  common ? `Most start at ${ampm(common[0])}.` : '',
+  page.kind !== 'hood' && topHoods.length > 1 ? `Most are in ${topHoods.slice(0, 3).map(([h]) => h).join(', ')}.` : '',
+  page.kind === 'hood' && topLines.length ? `Most are near the ${topLines.join(', ')} trains.` : '',
+].filter(Boolean).join(' ');
+
+const base = page.label.replace(/ in NYC$/, '');
+const subject = page.kind === 'tag' ? base[0].toLowerCase() + base.slice(1) : base;
+const faq = [
+  { q: `Where are the best ${subject}${page.kind === 'tag' || page.kind === 'day' ? ' in NYC' : ''}?`, a: best.length ? `Three with the deal spelled out: ${best.map((b) => `${b.name} (${dealLabel(b)})`).join('; ')}. ${s.cheapestLabel ? `The cheapest drink on file is ${s.cheapestLabel}.` : ''}`.trim() : `We list ${plural(s.n, 'bar')}; open each one for the times and what is discounted.` },
+  ...(common ? [{ q: `What time do ${subject} start?`, a: `Most start at ${ampm(common[0])} (${common[1]} of ${s.n}).${earliest ? ` The earliest starts at ${ampm(earliest.t)} at ${earliest.b.name}.` : ''}` }] : []),
+  ...(page.kind === 'day' ? [{ q: `Is there happy hour on ${page.short} in NYC?`, a: `Yes. ${plural(s.n, 'bar')} we list run a happy hour on ${page.short}s${s.late ? `, and ${s.late} of them also have a late-night one` : ''}.` }] : []),
+  ...(page.kind === 'borough' && topHoods.length ? [{ q: `Which ${page.short.replace(/^The /, '')} neighborhoods have the most happy hours?`, a: topHoods.map(([h, n]) => `${h} (${n})`).join(', ') + '.' }] : []),
+  ...(page.kind !== 'tag' || page.slug !== 'late-night' ? [{ q: `Are there late-night ${subject}?`, a: s.late ? `Yes, ${plural(s.late, 'bar')} here run a happy hour after 9pm.` : `None of the ones we list here run after 9pm. See all late-night happy hours in NYC.` }] : []),
+  { q: 'What does a happy hour drink really cost in NYC?', a: 'Add NYC sales tax (8.875%) and a tip (18 to 20% is usual) to the menu price. A $6 beer comes to about $7.75.' },
+];
+
+const description = (() => {
+  const base = `${page.label}: ${plural(s.n, 'bar')} with the deal, times and date checked.`;
+  const more = [s.cheapestLabel ? `Cheapest drink: ${s.cheapestLabel}.` : '', 'Filter by day and subway line.'];
+  let d = base;
+  for (const m of more) if (m && (d + ' ' + m).length <= 158) d += ` ${m}`;
+  return d;
+})();
+const title = page.kind === 'hood' ? `Happy Hour in ${page.short}, NYC: ${s.n} Bars and Deals (${year})`
+  : page.kind === 'borough' ? `${page.short.replace(/^The /, '')} Happy Hours: ${s.n} Bars, Deals and Times (${year})`
+  : `${page.h1.replace(/:.*$/, '')}: ${s.n} Bars (${year})`;
+
+const groups: [string, ListPage[]][] = [
+  ['Boroughs', pages.filter((p) => p.kind === 'borough')],
+  ['By deal', pages.filter((p) => p.kind === 'tag')],
+  ['By day', pages.filter((p) => p.kind === 'day')],
+];
+const nearHoods = page.kind === 'hood' ? pages.filter((p) => p.kind === 'hood' && p.borough === page.borough && p.slug !== page.slug) : [];
+const crumb: [string, string][] = [['YaY NYC', '/'], ['Happy hours', '/happy-hours'], [page.short, `/happy-hours/${page.slug}`]];
+const hoods = (await allHoods()).filter((h) => list.some((b) => b.hoodSlug === h.slug));
+---
+<Base title={title} description={description} keyword={page.keyword}
+  jsonld={[crumbs(crumb), faqLd(faq), itemList(page.label, list.map((b) => `/bars/${b.slug}`))]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/happy-hours">Happy hours</a></li>{page.kind === 'hood' && page.borough && pages.some((p) => p.kind === 'borough' && p.borough === page.borough) && <li><a href={`/happy-hours/${pages.find((p) => p.kind === 'borough' && p.borough === page.borough)!.slug}`}>{page.borough}</a></li>}<li aria-current="page">{page.short}</li></ol></nav>
+  <h1>{page.h1}</h1>
+  <p class="lede">{lede}</p>
+  {ph && <div class="hood-hero"><Photo photo={ph} alt={`${page.short}, ${page.borough}${ph.title ? `: ${ph.title}` : ''}`} ratio="21 / 9" hero /></div>}
+  <Explorer kind="bars" preset={page.preset} hide={page.kind === 'hood' ? ['where'] : []} hoods={hoods} heading={page.label}>
+    {list.slice(0, 24).map((b) => <BarCard bar={b} />)}
+  </Explorer>
+  <section class="section">
+    <h2>All {subject}{page.kind === 'hood' || page.kind === 'borough' ? '' : ' in NYC'} ({s.n})</h2>
+    <ul class="all-list">{list.map((b) => <li><a href={`/bars/${b.slug}`}>{b.name}</a><span class="small"> · {page.kind === 'hood' ? '' : `${b.hood} · `}{dealLabel(b) ?? 'times only'}</span></li>)}</ul>
+  </section>
+  <section class="section faq">
+    <h2>Questions</h2>
+    {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+  </section>
+  {nearHoods.length > 0 && (
+    <section class="section">
+      <h2>More happy hours in {page.borough}</h2>
+      <ul class="link-cloud">{nearHoods.map((p) => <li><a href={`/happy-hours/${p.slug}`}>{p.short}<span class="count">{p.bars.length}</span></a></li>)}</ul>
+    </section>
+  )}
+  <section class="section">
+    <h2>More ways to find a happy hour</h2>
+    {groups.filter(([, g]) => g.length).map(([name, g]) => (
+      <>
+        <h3 class="h3">{name}</h3>
+        <ul class="link-cloud">{g.filter((p) => p.slug !== page.slug).map((p) => <li><a href={`/happy-hours/${p.slug}`}>{p.short}<span class="count">{p.bars.length}</span></a></li>)}</ul>
+      </>
+    ))}
+    <p><a href="/happy-hours/neighborhoods">All neighborhoods, subway stops and landmarks</a> · <a href="/happy-hours/now">Happy hour right now</a></p>
+  </section>
+</Base>
+<style>
+  .all-list { columns: 2 260px; padding-left: 18px; }
+  .all-list li { margin-bottom: 6px; break-inside: avoid; }
+  .h3 { margin-top: 18px; }
+</style>

@@ -6,6 +6,10 @@
  *  3. "undefined", "null" or "NaN" reaches visible text or a meta tag
  *  4. an internal link points at a page that was not built
  *  5. an image has no alt text
+ *  6. SEO: an indexable page has no target keyword, or its keyword is missing from the title,
+ *     the h1 or the meta description; two pages share a keyword, a title or a description
+ *     (they would compete for the same search); a description is shorter than 70 or
+ *     longer than 160 characters
  */
 import { readdirSync, readFileSync, statSync, existsSync } from 'node:fs';
 import { join, relative } from 'node:path';
@@ -40,9 +44,55 @@ for (const f of pages) {
   for (const [, href] of html.matchAll(/<a [^>]*href="(\/[^"]*)"/g)) if (!href.startsWith('/data/') && !built(href)) fail.push(`${rel}: broken link ${href}`);
   for (const [img] of html.matchAll(/<img\b[^>]*>/g)) if (!/\balt="/.test(img)) fail.push(`${rel}: image without alt`);
 }
+// ---------- SEO ----------
+const decode = (t) => t.replace(/&amp;/g, '&').replace(/&#39;|&#x27;|&apos;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)));
+const words = (t) => new Set(decode(t).toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/&/g, ' and ').replace(/['’]/g, '').split(/[^a-z0-9$]+/).filter(Boolean));
+const STOP = new Set(['in', 'at', 'the', 'a', 'an', 'of', 'and', 'for', 'on', 'to', 'by', 'with']);
+const has = (set, w) => set.has(w) || set.has(`${w}s`) || set.has(w.replace(/s$/, '')) || set.has(w.replace(/es$/, '')) || set.has(w.replace(/ies$/, 'y')) || set.has(w.replace(/y$/, 'ies'));
+const seen = { kw: new Map(), title: new Map(), desc: new Map() };
+const warn = [];
+for (const f of pages) {
+  const rel = relative(DIST, f);
+  const html = readFileSync(f, 'utf-8');
+  if (/<meta name="robots" content="noindex/.test(html)) continue;
+  const title = decode(html.match(/<title>([^<]*)<\/title>/)?.[1] ?? '');
+  const desc = decode(html.match(/<meta name="description" content="([^"]*)"/)?.[1] ?? '');
+  const h1 = decode((html.match(/<h1[^>]*>([\s\S]*?)<\/h1>/)?.[1] ?? '').replace(/<[^>]+>/g, ' '));
+  const kw = decode(html.match(/<html[^>]*data-kw="([^"]*)"/)?.[1] ?? '');
+  if (!kw) { fail.push(`${rel}: no target keyword`); continue; }
+  const need = [...words(kw)].filter((w) => !STOP.has(w));
+  for (const [where, text] of [['title', title], ['h1', h1], ['description', desc]]) {
+    const got = words(text);
+    const miss = need.filter((w) => !has(got, w));
+    if (miss.length) fail.push(`${rel}: keyword "${kw}" not in ${where} (missing: ${miss.join(', ')})`);
+  }
+  if (desc.length < 70 || desc.length > 160) fail.push(`${rel}: description is ${desc.length} characters (70-160)`);
+  if (title.length > 70) warn.push(`${rel}: title ${title.length} characters`);
+  for (const [k, v] of [['kw', kw.toLowerCase()], ['title', title], ['desc', desc]]) {
+    if (seen[k].has(v)) fail.push(`${rel}: same ${k === 'kw' ? 'keyword' : k === 'desc' ? 'description' : 'title'} as ${seen[k].get(v)}: "${v.slice(0, 70)}"`);
+    else seen[k].set(v, rel);
+  }
+}
+// sitemap <-> pages: no "Submitted URL not found / marked noindex", no indexable page left out
+const sm = existsSync(join(DIST, 'sitemap.xml')) ? readFileSync(join(DIST, 'sitemap.xml'), 'utf-8') : '';
+const inMap = new Set([...sm.matchAll(/<loc>https:\/\/yaynyc\.com([^<]*)<\/loc>/g)].map(([, u]) => u || '/'));
+if (!inMap.size) fail.push('sitemap.xml: missing or empty');
+for (const u of inMap) {
+  if (!built(u)) { fail.push(`sitemap.xml: ${u} is not a built page`); continue; }
+  const f = u === '/' ? join(DIST, 'index.html') : join(DIST, `${u.slice(1)}.html`);
+  if (existsSync(f) && /<meta name="robots" content="noindex/.test(readFileSync(f, 'utf-8'))) fail.push(`sitemap.xml: ${u} is noindex`);
+}
+for (const f of pages) {
+  const html = readFileSync(f, 'utf-8');
+  if (/<meta name="robots" content="noindex/.test(html)) continue;
+  const u = '/' + relative(DIST, f).replace(/\.html$/, '').replace(/^index$/, '');
+  if (!inMap.has(u)) fail.push(`sitemap.xml: indexable page ${u} is missing`);
+}
+if (warn.length) console.warn(`! ${warn.length} title(s) over 70 characters (Google cuts them; allowed for long names), e.g. ${warn[0]}`);
+
 const uniq = [...new Set(fail)];
 if (uniq.length) {
   console.error(`✗ verify-build: ${uniq.length} problem(s)\n` + uniq.slice(0, 60).map((x) => `  - ${x}`).join('\n'));
   process.exit(1);
 }
-console.log(`✓ verify-build: ${pages.length} pages, no isolation leaks, no broken internal links`);
+console.log(`✓ verify-build: ${pages.length} pages, ${inMap.size} in the sitemap, ${seen.kw.size} target keywords (one per page, each in title + h1 + description), no isolation leaks, no broken internal links`);

@@ -5,17 +5,21 @@
  * none set = no analytics at all).
  */
 import Logo from '../components/Logo.astro';
+import { GOOGLE_SITE_VERIFICATION, BING_SITE_VERIFICATION } from '../lib/site';
 import '../styles/global.css';
 
 interface Props {
   title: string;
   description: string;
+  /** the one search phrase this page is built to rank for; the build gate checks it is in
+   *  the title, the h1 and the description, and that no other page targets it */
+  keyword?: string;
   jsonld?: object[];
   noindex?: boolean;
   ogImage?: string | null;
   wide?: boolean;
 }
-const { title, description, jsonld = [], noindex = false, ogImage = null, wide = false } = Astro.props;
+const { title, description, keyword, jsonld = [], noindex = false, ogImage = null, wide = false } = Astro.props;
 const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/';
 const canonical = new URL(path, Astro.site).href;
 const fullTitle = title.length > 60 || / \| YaY NYC$/.test(title) || path === '/' ? title : `${title} | YaY NYC`;
@@ -28,13 +32,15 @@ const nav = [
 ];
 ---
 <!doctype html>
-<html lang="en">
+<html lang="en" data-kw={noindex ? undefined : keyword}>
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>{fullTitle}</title>
   <meta name="description" content={description} />
   <link rel="canonical" href={canonical} />
+  {path === '/' && GOOGLE_SITE_VERIFICATION && <meta name="google-site-verification" content={GOOGLE_SITE_VERIFICATION} />}
+  {path === '/' && BING_SITE_VERIFICATION && <meta name="msvalidate.01" content={BING_SITE_VERIFICATION} />}
   {noindex && <meta name="robots" content="noindex, follow" />}
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <meta name="theme-color" content="#FFD400" />

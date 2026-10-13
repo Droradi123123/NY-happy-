@@ -6,9 +6,9 @@ const bars = new Map(allB.map((b) => [b.slug, b]));
 const perHood = new Map<string, number>();
 for (const b of allB) perHood.set(b.hoodSlug, (perHood.get(b.hoodSlug) ?? 0) + 1);
 const hoods = new Map((await allHoods()).map((h) => [h.slug, h]));
-const { parties, venues } = await partyData();
+const { venues, venuePages } = await partyData();
 const vmap = new Map(venues.map((v) => [v.id, v]));
-const withNights = new Set(parties.map((p) => p.venue_id));
+const withNights = new Set(venuePages.map((v) => v.id));
 // only photos that appear on a built page (same rules as the pages themselves)
 const list = [...photos().values()].filter((p) =>
   p.kind === 'bar' ? bars.has(p.key) : p.kind === 'venue' ? withNights.has(p.key) : (perHood.get(p.key) ?? 0) >= 5);
@@ -18,8 +18,8 @@ const where = (kind: string, key: string): [string, string | null] => {
   const h = hoods.get(key); return [h?.name ?? key, h ? `/happy-hours/${key}` : null];
 };
 ---
-<Base title="Image Credits and Takedown" description="Every photo on YaY NYC, its author and license, and how to ask for one to be removed within 24 hours.">
-  <h1>Image credits and takedown</h1>
+<Base title="Image Credits and Takedown" keyword="yay nyc image credits" description="YaY NYC image credits: every photo on the site, its author and license, and how to ask for one to be removed within 24 hours.">
+  <h1>YaY NYC image credits and takedown</h1>
   <p class="lede">Every photo on YaY NYC is published by its author under a free license that allows this use: Creative Commons CC0, CC BY or CC BY-SA, or the public domain. We never take photos from bar, club or ticketing sites, Google or Instagram.</p>
   <p>Each photo comes from Wikimedia Commons and is shown with its author, license and a link to the original file. We serve a resized copy from our own site; nothing else is changed. Where there is no free photo, we show a map and the facts instead.</p>
   <p>If you are the author or the person in a photo and want it removed, <a href="/contact">tell us which page and which photo</a>. We take it down within 24 hours while we look into it.</p>

@@ -17,10 +17,10 @@ const picks = bars.filter((b) => b.dealKnown && b.cheapestDrink !== null).sort((
 const halloween = parties.filter((p) => p.themes.includes('halloween'));
 const lm = (await landmarks()).slice(0, 8);
 ---
-<Base title="YaY NYC: Happy Hours, Parties and What's On Tonight in New York" description={`All the fun in NYC in one place: ${s.n} verified happy hours with the deal and times, plus parties with doors, age and tickets. Filter by neighborhood, subway line and what's on right now.`}
+<Base title="YaY NYC: Happy Hours, Parties and What's On Tonight in New York" keyword="nyc happy hours and parties" description={`NYC happy hours and parties in one place: ${s.n} verified happy hours with the deal and times, plus parties with doors, age and tickets.`}
   jsonld={[{ '@context': 'https://schema.org', '@type': 'WebSite', name: 'YaY NYC', url: SITE, potentialAction: { '@type': 'SearchAction', target: `${SITE}/happy-hours?q={search_term_string}`, 'query-input': 'required name=search_term_string' } }]}>
   <section class="hero">
-    <h1>All the fun in NYC, in one place.</h1>
+    <h1><span class="kicker">NYC happy hours and parties</span> All the fun in one place!</h1>
     <p class="lede">{s.n} happy hours with the deal, the time and the date we last checked, plus the parties worth knowing about.</p>
     <form action="/happy-hours" method="get" class="hero-search" role="search">
       <label for="hq" class="sr">Search happy hours</label>
@@ -70,6 +70,7 @@ const lm = (await landmarks()).slice(0, 8);
 <style>
   .hero { padding: 24px 0 8px; }
   .hero h1 { max-width: 900px; }
+  .kicker { display: block; font-size: clamp(16px, 2vw, 20px); letter-spacing: 0.06em; text-transform: uppercase; color: var(--magenta); margin-bottom: 10px; }
   .hero-search { display: flex; gap: 10px; max-width: 720px; margin: 18px 0 22px; }
   .hero-search input { flex: 1; min-width: 0; height: 56px; border: 2px solid var(--ink); border-radius: 14px; padding: 0 18px; font: inherit; font-size: 18px; background: #fff; }
   .hero-search .btn { min-height: 56px; }

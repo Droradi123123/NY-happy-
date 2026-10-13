@@ -5,17 +5,17 @@ import Line from '../../components/Line.astro';
 import MiniMap from '../../components/MiniMap.astro';
 import Photo from '../../components/Photo.astro';
 import { allBars, photoOf, DAYS, DAY_NAME, daysLabel, windowLabel, dealLabel, fmtDate, meters, type Bar } from '../../lib/data';
-import { barTitle, barDescription, barJsonLd, crumbs, faqLd, SITE } from '../../lib/seo';
+import { hoodHref } from '../../lib/lists';
+import { barTitle, barKeyword, barDescription, barJsonLd, crumbs, faqLd, SITE } from '../../lib/seo';
 
 export async function getStaticPaths() {
   const bars = await allBars();
-  const n = new Map<string, number>();
-  for (const b of bars) n.set(b.hoodSlug, (n.get(b.hoodSlug) ?? 0) + 1);
-  return bars.map((bar) => ({ params: { slug: bar.slug }, props: { bar, bars, hoodPage: (n.get(bar.hoodSlug) ?? 0) >= 5 } }));
+  const names = new Map<string, number>();
+  for (const b of bars) names.set(b.name.toLowerCase(), (names.get(b.name.toLowerCase()) ?? 0) + 1);
+  // a chain's branches each target "<name> <neighborhood> happy hour"
+  return Promise.all(bars.map(async (bar) => ({ params: { slug: bar.slug }, props: { bar, bars, hoodUrl: await hoodHref(bar), branch: (names.get(bar.name.toLowerCase()) ?? 0) > 1 } })));
 }
-const { bar: b, bars, hoodPage } = Astro.props as { bar: Bar; bars: Bar[]; hoodPage: boolean };
-// a neighborhood with fewer than 5 bars has no page of its own: link the filtered list instead
-const hoodUrl = hoodPage ? `/happy-hours/${b.hoodSlug}` : `/happy-hours?hood=${b.hoodSlug}`;
+const { bar: b, bars, hoodUrl, branch } = Astro.props as { bar: Bar; bars: Bar[]; hoodUrl: string; branch: boolean };
 const url = `${SITE}/bars/${b.slug}`;
 const deal = dealLabel(b);
 const ph = photoOf('bar', b.slug);
@@ -34,11 +34,11 @@ const faq = [
   ...(b.booking ? [{ q: `Can I book a table at ${b.name}?`, a: `Yes, ${b.name} takes reservations online. Happy hour deals are often bar-only, so check when you book.` }] : []),
 ];
 ---
-<Base title={barTitle(b)} description={barDescription(b)} jsonld={[barJsonLd(b, url), crumbs([['YaY NYC', '/'], ['Happy hours', '/happy-hours'], [b.hood, hoodUrl], [b.name, `/bars/${b.slug}`]]), faqLd(faq)]}>
+<Base title={barTitle(b, branch)} description={barDescription(b)} keyword={barKeyword(b, branch)} jsonld={[barJsonLd(b, url), crumbs([['YaY NYC', '/'], ['Happy hours', '/happy-hours'], [b.hood, hoodUrl], [b.name, `/bars/${b.slug}`]]), faqLd(faq)]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/happy-hours">Happy hours</a></li><li><a href={hoodUrl}>{b.hood}</a></li><li aria-current="page">{b.name}</li></ol></nav>
   <div class="cols">
     <div>
-      <h1>{b.name} Happy Hour</h1>
+      <h1>{b.name}{branch && ` ${b.hood}`} Happy Hour</h1>
       <p class="lede">{b.category === 'restaurant' ? 'Restaurant and bar' : b.category === 'pub' ? 'Pub' : 'Bar'} in {b.hood}{b.borough && b.borough !== b.hood ? `, ${b.borough}` : ''}{b.cuisine ? ` · ${b.cuisine}` : ''}</p>
 
       <section class="dealcard" aria-label="Happy hour">

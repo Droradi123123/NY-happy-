@@ -15,7 +15,7 @@ const faq = [
   { q: 'When do Halloween parties sell out?', a: 'The biggest nights sell out weeks ahead. Sold-out parties are marked; use "Hide sold out" to see what you can still get into.' },
 ];
 ---
-<Base title={`Halloween Parties NYC ${year}: ${list.length} Parties With Tickets`} description={`Every Halloween ${year} party in NYC we track: ${list.length} nights across clubs, rooftops and boats, with doors, age, price and tickets. Filter by date, music and price.`}
+<Base noindex={list.length < 2} keyword="halloween parties nyc" title={`Halloween Parties NYC ${year}: ${list.length} Parties With Tickets`} description={`Every Halloween ${year} party in NYC we track: ${list.length} nights across clubs, rooftops and boats, with doors, age, price and tickets. Filter by date, music and price.`}
   jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties'], ['Halloween', '/parties/halloween']]), itemList(`Halloween parties NYC ${year}`, list.map((p) => `/parties/${p.slug}`)), faqLd(faq)]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li><li aria-current="page">Halloween</li></ol></nav>
   <h1>Halloween Parties in NYC {year}</h1>

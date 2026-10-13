@@ -1,23 +1,24 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Line from '../../components/Line.astro';
-import { allBars, allHoods, stations, landmarks } from '../../lib/data';
+import { stations, landmarks } from '../../lib/data';
+import { listPages } from '../../lib/lists';
 import { crumbs } from '../../lib/seo';
 
-const bars = await allBars();
-const counts = new Map<string, number>();
-for (const b of bars) counts.set(b.hoodSlug, (counts.get(b.hoodSlug) ?? 0) + 1);
-const hoods = (await allHoods()).filter((h) => (counts.get(h.slug) ?? 0) >= 5);
-const byBorough = ['Manhattan', 'Brooklyn', 'Queens', 'The Bronx', 'Staten Island'].map((bo) => ({ bo, hoods: hoods.filter((h) => h.borough === bo).sort((a, b) => a.name.localeCompare(b.name)) })).filter((x) => x.hoods.length);
+const lists = await listPages();
+const counts = new Map(lists.map((l) => [l.slug, l.bars.length]));
+const hoods = lists.filter((l) => l.kind === 'hood').map((l) => ({ slug: l.slug, name: l.short, borough: l.borough }));
+const boroughPage = (bo: string) => lists.find((l) => l.kind === 'borough' && l.borough === bo);
+const byBorough = ['Manhattan', 'Brooklyn', 'Queens', 'The Bronx', 'Staten Island'].map((bo) => ({ bo, page: boroughPage(bo), hoods: hoods.filter((h) => h.borough === bo).sort((a, b) => a.name.localeCompare(b.name)) })).filter((x) => x.hoods.length || x.page);
 const st = await stations();
 const lm = await landmarks();
 ---
-<Base title="NYC Happy Hours by Neighborhood, Subway Stop and Landmark" description="Find a happy hour by NYC neighborhood, by the subway stop you're at, or near Times Square, Grand Central, Penn Station and other landmarks."
+<Base title="NYC Happy Hours by Neighborhood, Subway Stop and Landmark" keyword="nyc happy hours by neighborhood" description="Find a happy hour by NYC neighborhood, by the subway stop you're at, or near Times Square, Grand Central, Penn Station and other landmarks."
   jsonld={[crumbs([['YaY NYC', '/'], ['Happy hours', '/happy-hours'], ['Neighborhoods', '/happy-hours/neighborhoods']])]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/happy-hours">Happy hours</a></li><li aria-current="page">Neighborhoods</li></ol></nav>
-  <h1>Happy Hours by Neighborhood</h1>
-  {byBorough.map(({ bo, hoods }) => (
-    <section class="section"><h2>{bo}</h2>
+  <h1>NYC Happy Hours by Neighborhood</h1>
+  {byBorough.map(({ bo, page, hoods }) => (
+    <section class="section"><h2>{page ? <a href={`/happy-hours/${page.slug}`}>{bo} happy hours</a> : bo}</h2>
       <ul class="link-cloud">{hoods.map((h) => <li><a href={`/happy-hours/${h.slug}`}>{h.name}<span class="count">{counts.get(h.slug)}</span></a></li>)}</ul>
     </section>
   ))}

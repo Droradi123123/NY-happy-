@@ -281,7 +281,7 @@ export interface Party {
 }
 export interface Venue { id: string; name: string; rooms: string[]; address: string | null; borough: string | null; neighborhood: string | null; lat: number | null; lng: number | null; kind: string | null; copy: Record<string, string>; extra?: Record<string, unknown> | null }
 
-let _parties: Promise<{ parties: Party[]; venues: Venue[] }> | null = null;
+let _parties: Promise<{ parties: Party[]; venues: Venue[]; venuePages: Venue[] }> | null = null;
 export function partyData() {
   _parties ??= (async () => {
     const { parties, venues } = FIXTURE
@@ -290,7 +290,11 @@ export function partyData() {
     // a night that is over is not built (the HappyTLV rule); the fixture keeps its nights for development
     const cutoff = FIXTURE ? 0 : Date.now() - 2 * 3600e3;
     const live = parties.filter((p) => new Date(p.ends_at ?? p.starts_at).getTime() > cutoff && p.event_status !== 'cancelled');
-    return { parties: live.sort((a, b) => a.starts_at.localeCompare(b.starts_at)), venues };
+    // a club keeps its page once it has had a published night, even between parties
+    // (HappyTLV: two clubs lost 294 impressions while their pages were 404 between nights)
+    const ever = new Set(parties.map((p) => p.venue_id));
+    const venuePages = venues.filter((v) => ever.has(v.id));
+    return { parties: live.sort((a, b) => a.starts_at.localeCompare(b.starts_at)), venues, venuePages };
   })();
   return _parties;
 }

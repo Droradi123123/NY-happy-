@@ -1,0 +1,65 @@
+---
+/** Music, day, season and kind-of-party pages (lib/partyLists.ts decides which exist). */
+import Base from '../../layouts/Base.astro';
+import PartyCard from '../../components/PartyCard.astro';
+import { partyData, venueOf, nightDate, nyTime, priceLabel, cleanTitle } from '../../lib/data';
+import { partyLists, dateRange, type PartyList } from '../../lib/partyLists';
+import { crumbs, faqLd, itemList } from '../../lib/seo';
+import { plural } from '../../lib/stats';
+
+export async function getStaticPaths() {
+  const lists = await partyLists();
+  return lists.map((list) => ({ params: { group: list.slug }, props: { list, lists } }));
+}
+const { list: L, lists } = Astro.props as { list: PartyList; lists: PartyList[] };
+const { venues, parties: all } = await partyData();
+const halloween = all.filter((p) => p.themes.includes('halloween')).length;
+const ps = L.parties;
+const venueNames = [...new Set(ps.map((p) => venueOf(p, venues)?.name).filter(Boolean))] as string[];
+const priced = ps.filter((p) => p.price_from !== null && p.price_status !== 'free').map((p) => p.price_from!) ;
+const free = ps.filter((p) => p.price_status === 'free').length;
+const soldOut = ps.filter((p) => p.event_status === 'sold_out').length;
+const allAges = ps.filter((p) => p.age_min !== null && p.age_min < 21).length;
+const lower = L.label.replace(/ in NYC$/, '');
+const subject = L.kind === 'day' || L.kind === 'season' ? lower : lower[0].toLowerCase() + lower.slice(1);
+
+const lede = [
+  `${plural(ps.length, 'upcoming night')} from ${dateRange(ps)}, at ${plural(venueNames.length, 'venue')}${venueNames.length ? ` including ${venueNames.slice(0, 3).join(', ')}` : ''}.`,
+  priced.length ? `Tickets from $${Math.round(Math.min(...priced))}${free ? `; ${free} free` : ''}.` : free ? `${free} free.` : '',
+  soldOut ? `${soldOut} already sold out.` : '',
+].filter(Boolean).join(' ');
+const description = (() => {
+  let d = `${L.label}: ${plural(ps.length, 'party', 'parties')} from ${dateRange(ps)} with doors time, age, price and tickets.`;
+  if (venueNames.length && d.length + venueNames[0].length + 20 < 158) d += ` At ${venueNames.slice(0, 2).join(', ')} and more.`;
+  return d.length > 160 ? d.slice(0, 157).replace(/\s\S*$/, '') + '…' : d;
+})();
+const faq = [
+  { q: `What are the next ${subject} in NYC?`, a: ps.slice(0, 3).map((p) => `${cleanTitle(p.title)} at ${venueOf(p, venues)?.name ?? 'a NYC venue'}, ${nightDate(p.night_date, { weekday: 'short', month: 'short', day: 'numeric' })}${nyTime(p.doors_at ?? p.starts_at) ? `, doors ${nyTime(p.doors_at ?? p.starts_at)}` : ''}`).join('; ') + '.' },
+  ...(priced.length ? [{ q: `How much are tickets for ${subject} in NYC?`, a: `From $${Math.round(Math.min(...priced))} to $${Math.round(Math.max(...priced))} for the cheapest ticket on each night${free ? `, and ${free} are free` : ''}. Prices are the lowest listed on the ticket site when we checked, with fees.` }] : []),
+  { q: `Are ${subject} in NYC 21+?`, a: allAges ? `Most are 21+, but ${plural(allAges, 'night')} let in younger guests; the age is on each party's page.` : 'Every night we list here is 21+, unless its page says otherwise. Bring a government photo ID; tourists should bring a passport.' },
+];
+const title = `${L.h1} ${new Date(ps[0].night_date).getFullYear()}: ${ps.length} Upcoming Nights`;
+const groups: [string, PartyList[]][] = [['Music', lists.filter((l) => l.kind === 'genre')], ['Nights', lists.filter((l) => l.kind === 'day')], ['Seasons', lists.filter((l) => l.kind === 'season')], ['Kind of party', lists.filter((l) => l.kind === 'tag')]];
+---
+<Base title={title} description={description} keyword={L.keyword}
+  jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [L.short, `/parties/${L.slug}`]]), itemList(L.label, ps.map((p) => `/parties/${p.slug}`)), faqLd(faq)]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li><li aria-current="page">{L.short}</li></ol></nav>
+  <h1>{L.h1}</h1>
+  <p class="lede">{lede}</p>
+  <div class="xgrid">{ps.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>
+  <section class="section faq">
+    <h2>Questions</h2>
+    {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+  </section>
+  <section class="section">
+    <h2>More NYC parties</h2>
+    {groups.filter(([, g]) => g.length).map(([name, g]) => (
+      <>
+        <h3 class="h3">{name}</h3>
+        <ul class="link-cloud">{g.filter((l) => l.slug !== L.slug).map((l) => <li><a href={`/parties/${l.slug}`}>{l.short}<span class="count">{l.parties.length}</span></a></li>)}</ul>
+      </>
+    ))}
+    <p><a href="/parties">All parties</a>{halloween >= 2 && <> · <a href="/parties/halloween">Halloween parties</a></>}</p>
+  </section>
+</Base>
+<style>.h3 { margin-top: 18px; }</style>
