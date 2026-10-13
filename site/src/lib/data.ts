@@ -223,18 +223,25 @@ export const slugify = (s: string) => s.normalize('NFKD').replace(/[̀-ͯ]/g, ''
 
 // ---------- places to group by: subway stations and landmarks ----------
 
-export interface Station { slug: string; name: string; lines: string[]; bars: Bar[] }
+/** `shared`: another station has the same name (28th Street on the 1 and on the 6), so the page names its lines */
+export interface Station { slug: string; name: string; lines: string[]; bars: Bar[]; shared: boolean }
 export async function stations(min = 5): Promise<Station[]> {
   const m = new Map<string, Station>();
   for (const b of await allBars()) {
     if (!b.subway || b.subway.walk_min > 10) continue;
     const lines = [...b.subway.lines].sort();
     const key = slugify(`${b.subway.station} ${lines.join(' ')}`);
-    const s = m.get(key) ?? { slug: key, name: b.subway.station, lines, bars: [] };
+    const s = m.get(key) ?? { slug: key, name: b.subway.station, lines, bars: [], shared: false };
     s.bars.push(b);
     m.set(key, s);
   }
-  return [...m.values()].filter((s) => s.bars.length >= min).sort((a, b) => b.bars.length - a.bars.length);
+  // a station named after a landmark ("Grand Central") would compete with the landmark's page
+  const marks = LANDMARKS.map((l) => slugify(l.name.replace(/^the /, '')));
+  const out = [...m.values()].filter((s) => s.bars.length >= min && !marks.some((k) => slugify(s.name).startsWith(k)));
+  const names = new Map<string, number>();
+  for (const s of out) names.set(s.name, (names.get(s.name) ?? 0) + 1);
+  for (const s of out) s.shared = (names.get(s.name) ?? 0) > 1;
+  return out.sort((a, b) => b.bars.length - a.bars.length);
 }
 
 /** places tourists search from ("happy hour near Times Square"); coordinates from OpenStreetMap */
