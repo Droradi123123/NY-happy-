@@ -1,6 +1,6 @@
 -- Photos we may use, and the pipeline that finds them.
 -- Applied to the NY happy project as three migrations (image_rights, image_paced_refresh,
--- image_search_v2); this file is their combined final state.
+-- image_search_v2, image_nyc_strict); this file is their combined final state.
 --
 -- Only freely licensed files from Wikimedia Commons: CC0, public domain, CC BY, CC BY-SA.
 -- Each row keeps author, license and source page, so every photo on the site carries a
@@ -64,9 +64,10 @@ create or replace function public.img_license_ok(l text) returns boolean languag
     and l ~* '^(CC0( 1\.0)?|Public domain|PD[- ].*|PD|CC BY(-SA)? [1-4]\.0( [a-z-]+)?|CC BY(-SA)?)$'
 $$;
 
--- the file must say it is in New York (title, description or categories)
+-- the file must say it is in New York City (title, description or categories);
+-- "New York" alone also means the state, so the city or one of its places is required
 create or replace function public.img_nyc(t text) returns boolean language sql immutable as $$
-  select coalesce(t, '') ~* '(new york|nyc|manhattan|brooklyn|queens|bronx|staten island|bushwick|williamsburg|greenpoint|ridgewood|maspeth|astoria|harlem|chelsea|soho|tribeca|east village|west village|lower east side|midtown|long island city)'
+  select coalesce(t, '') ~* '(new york city|\mnyc\M|manhattan|brooklyn|queens|\mbronx\M|staten island|bushwick|williamsburg|greenpoint|ridgewood|maspeth|astoria|harlem|chelsea, new york|soho|tribeca|east village|west village|greenwich village|lower east side|midtown|long island city|new york, ny|new york, new york)'
 $$;
 
 -- a person on stage or a portrait is not a picture of the place (and is someone's likeness)
@@ -115,7 +116,7 @@ begin
       u := 'https://en.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&redirects=1&prop=pageimages&piprop=name&pilicense=free&titles='
         || img_enc(split_part(r.name, '|', 1) || ', ' || replace(split_part(r.name, '|', 2), 'The Bronx', 'Bronx') || '|' || split_part(r.name, '|', 1));
     elsif step = 'wiki_search' then
-      u := 'https://en.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&generator=search&gsrlimit=3&prop=pageimages&piprop=name&pilicense=free&gsrsearch='
+      u := 'https://en.wikipedia.org/w/api.php?action=query&format=json&formatversion=2&generator=search&gsrlimit=3&prop=pageimages%7Cdescription&piprop=name&pilicense=free&gsrsearch='
         || img_enc(r.name || ' New York City');
     else
       u := 'https://commons.wikimedia.org/w/api.php?action=query&format=json&formatversion=2&generator=search&gsrnamespace=6&gsrlimit=15&gsrsearch='
@@ -155,11 +156,12 @@ begin
       union all select name from nyc_hoods where f.subject_kind = 'hood' and slug = f.subject_key) s limit 1;
 
     if f.step in ('wiki_lead', 'wiki_search') then
-      -- wiki_lead: prefer "Name, Borough". wiki_search: only an article named after the venue itself.
+      -- wiki_lead: prefer "Name, Borough". wiki_search: only an article named after the venue whose
+      -- short description puts it in NYC ("Nightclub in Brooklyn, New York").
       select x->>'pageimage' into lead from jsonb_array_elements(coalesce(body->'query'->'pages', '[]')) x
         where x ? 'pageimage'
-          and (f.step = 'wiki_lead' or img_norm(regexp_replace(x->>'title', '\s*\(.*\)$', '')) = nm
-               or img_norm(x->>'title') like nm || ' %')
+          and (f.step = 'wiki_lead' or ((img_norm(regexp_replace(x->>'title', '\s*\(.*\)$', '')) = nm
+               or img_norm(x->>'title') like nm || ' %') and img_nyc(x->>'description')))
         order by (x->>'title') like '%,%' desc, (x->>'index')::int nulls last limit 1;
       if lead is null then
         update img_fetches set done_at = now(), result = 'no lead image' where request_id = f.request_id;

@@ -43,6 +43,16 @@ try {
 const EXT = { 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' };
 const small = (u) => (/\/1280px-/.test(u) ? u.replace('/1280px-', '/500px-') : u);
 const safe = (s) => s.replace(/[^a-z0-9-]/gi, '-');
+/** Commons gives author links as "//commons...", "/wiki/User:X" or red edit links with &amp; */
+function authorLink(u) {
+  if (!u) return null;
+  let s = u.replace(/&amp;/g, '&');
+  if (s.startsWith('//')) s = `https:${s}`;
+  else if (s.startsWith('/')) s = `https://commons.wikimedia.org${s}`;
+  const user = s.match(/[?&]title=(User:[^&#]+)/);
+  if (user) s = `https://commons.wikimedia.org/wiki/${user[1]}`;
+  return /^https?:\/\//.test(s) ? s : null;
+}
 
 async function get(url, file) {
   if (existsSync(file)) return true; // Cloudflare build cache, or a second run
@@ -76,7 +86,7 @@ async function worker() {
       kind: row.subject_kind, key: row.subject_key,
       src: `/img/${row.subject_kind}/${base}.${ext}`, thumb: `/img/${row.subject_kind}/${base}${sm ? '-s' : ''}.${ext}`,
       w: Math.min(row.width ?? 1280, 1280), h: Math.round(Math.min(row.width ?? 1280, 1280) / ratio),
-      title: row.title, author: row.author, authorUrl: row.author_url,
+      title: row.title, author: row.author, authorUrl: authorLink(row.author_url),
       license: row.license, licenseUrl: row.license_url, page: row.source_page, file: row.file_title,
     });
   }
