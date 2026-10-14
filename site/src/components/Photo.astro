@@ -10,9 +10,15 @@ const { photo: p, alt, hero = false, ratio = '16 / 9' } = Astro.props;
 ---
 <figure class="photo" style={`--ratio:${ratio}`}>
   <img src={p.src} alt={alt} width={p.w} height={p.h} loading={hero ? 'eager' : 'lazy'} fetchpriority={hero ? 'high' : 'auto'} decoding="async" />
-  <figcaption>
-    Photo: {p.authorUrl ? <a href={p.authorUrl} rel="nofollow noopener" target="_blank">{p.author}</a> : (p.author ?? 'unknown author')},
-    {p.licenseUrl ? <a href={p.licenseUrl} rel="license nofollow noopener" target="_blank">{p.license}</a> : p.license},
-    via <a href={p.page} rel="nofollow noopener" target="_blank">Wikimedia Commons</a>
-  </figcaption>
+  {p.source === 'google_places' ? (
+    <figcaption>
+      Photo: {p.authorUrl ? <a href={p.authorUrl} rel="nofollow noopener" target="_blank">{p.author}</a> : (p.author ?? 'contributor')}, via <a href={p.page} rel="nofollow noopener" target="_blank">Google Maps</a>
+    </figcaption>
+  ) : (
+    <figcaption>
+      Photo: {p.authorUrl ? <a href={p.authorUrl} rel="nofollow noopener" target="_blank">{p.author}</a> : (p.author ?? 'unknown author')},
+      {p.licenseUrl ? <a href={p.licenseUrl} rel="license nofollow noopener" target="_blank">{p.license}</a> : p.license},
+      via <a href={p.page} rel="nofollow noopener" target="_blank">Wikimedia Commons</a>
+    </figcaption>
+  )}
 </figure>

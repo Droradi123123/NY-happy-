@@ -67,7 +67,7 @@ For each: same night + same venue + similar title (`similarity(title, ...)` from
 
 ### 4. Venues
 - New venue: `insert into party_venues (id, name, address, zip, borough, lat, lng, sources) values (...)` (slug id, five boroughs only), then `select party_venue_hoods();`.
-- Google Places: `select party_google_request(20);` then a few seconds later `select party_google_ingest();`. It returns -1 when the key is not in Vault: say so in the report once and move on. Google is for **verification** (still open? address, website, phone, hours). Never show Google ratings, reviews or photos.
+- Google Places runs on its own (pg_cron `yay-google-places`: `gp_ingest()` + `gp_request(10)` every minute, table `gp_places`), for venues and bars. It returns -1 when the key is not in Vault: say so in the report once and move on. It is for **verification** (still open? address, website, phone, hours) and for a **photo where Wikimedia Commons has none**: such a photo is shown only with its contributor's name and "Google Maps", and refreshed within 30 days (`site_images` drops it after 28). Never show Google ratings or reviews. A venue Google lists as `CLOSED_PERMANENTLY` goes to review, not straight to rejected.
 - Venue facts from the venue's own site (entrances, ID policy, re-entry, photo policy, accessibility, rooms, coat check): `party_venue_set(id, '{"facts":{...},"neighborhood":"..."}', '<source>', '<url>')`. A derived neighborhood that the venue's address contradicts is corrected the same way.
 
 ### 5. Enrich events (the core of the work)
@@ -101,7 +101,7 @@ Original English, a knowledgeable friend's voice: concrete, no hype, no em dashe
   "verification_note": "optional: what was checked against what, and what could not be"
 }
 ```
-Required: about, expect, music, before_you_go, faq (at least 3). The three events written by Dror on 13.10.2026 (`danny-tenaglia-presents-boo-yourself-2026-10-24`, `house-of-yes-x-i-feel-present-time-and-space-kino-todo-kalam-2026-10-17`, `halloween-weekender-apollonia-many-more-2026-10-30`) are the reference for tone and depth: read their `copy` before writing.
+Required: about, expect, music, before_you_go, faq (at least 3). `genres` are tagged by keyword rules (`party_rules`) and can be wrong: write only the music the description, the DICE tags or the lineup state. The three events written by Dror on 13.10.2026 (`danny-tenaglia-presents-boo-yourself-2026-10-24`, `house-of-yes-x-i-feel-present-time-and-space-kino-todo-kalam-2026-10-17`, `halloween-weekender-apollonia-many-more-2026-10-30`) are the reference for tone and depth: read their `copy` before writing.
 
 Never put the price in the copy: prices change (House of Yes went from $16.23 to $17.85 within a day). The site shows the live `price_from` with its check date.
 

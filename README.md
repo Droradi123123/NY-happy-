@@ -38,8 +38,11 @@ The first data came from `nyc-parties-oct-dec-2026-v2.xlsx` (`scripts/parties/xl
 
 ## Photos (legal by construction)
 
-Every photo on yaynyc.com is a freely licensed file from Wikimedia Commons: CC0, public
-domain, CC BY or CC BY-SA. Nothing is taken from bar, club or ticket sites, Google or Instagram.
+Three layers, in order: (1) a freely licensed file from Wikimedia Commons (CC0, public domain,
+CC BY or CC BY-SA), self-hosted; (2) where Commons has none, the place's photo from the Google
+Places API (New), shown with the contributor's name and "Google Maps" and refreshed within 30 days
+(`gp_places`, pg_cron `yay-google-places`, needs Vault secret `google_maps_api_key`); (3) a designed
+card. Nothing is taken from bar, club or ticket sites or Instagram.
 
 - `image_rights` holds every candidate with its author, license, source page and verdict.
   Rules (in `img_ingest()`): photo MIME, allowed license, no Commons restrictions template,

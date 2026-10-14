@@ -1,0 +1,24 @@
+---
+import Base from '../../layouts/Base.astro';
+import { GUIDES } from '../../lib/guides';
+import { crumbs, itemList } from '../../lib/seo';
+import { fmtDate } from '../../lib/data';
+const posts = GUIDES.filter((g) => g.status === 'published').sort((a, b) => b.updated.localeCompare(a.updated));
+---
+<Base title="The YaY NYC Blog: NYC Happy Hour and Party Guides" keyword="nyc happy hour and party guides"
+  description="NYC happy hour and party guides built from verified data: the cheapest drinks by neighborhood, dollar oysters, late-night deals and the parties worth knowing."
+  noindex={posts.length === 0}
+  jsonld={[crumbs([['YaY NYC', '/'], ['Blog', '/blog']]), itemList('YaY NYC guides', posts.map((p) => `/blog/${p.slug}`))]}>
+  <h1>NYC Happy Hour and Party Guides</h1>
+  <p class="lede">Guides built from the deals and parties we check: every price and date comes from the bar's or the promoter's own page, and every table updates with the site.</p>
+  <div class="xgrid section">
+    {posts.map((p) => (
+      <article class="xcard">
+        <p class="when">{fmtDate(p.updated)}</p>
+        <h2 class="h3"><a href={`/blog/${p.slug}`}>{p.h1}</a></h2>
+        <p class="where">{p.description}</p>
+      </article>
+    ))}
+  </div>
+</Base>
+<style>.h3 { font-size: 20px; margin: 0; }</style>

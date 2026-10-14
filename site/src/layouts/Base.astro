@@ -6,6 +6,7 @@
  */
 import Logo from '../components/Logo.astro';
 import { GOOGLE_SITE_VERIFICATION, BING_SITE_VERIFICATION } from '../lib/site';
+import { GUIDES } from '../lib/guides';
 import '../styles/global.css';
 
 interface Props {
@@ -29,7 +30,10 @@ const nav = [
   { href: '/parties', label: 'Parties' },
   { href: '/map', label: 'Map' },
   { href: '/happy-hours/neighborhoods', label: 'Neighborhoods' },
+  // the guides link appears once a guide is published
+  ...(GUIDES.some((g) => g.status === 'published') ? [{ href: '/blog', label: 'Guides' }] : []),
 ];
+const hasGuides = GUIDES.some((g) => g.status === 'published');
 ---
 <!doctype html>
 <html lang="en" data-kw={noindex ? undefined : keyword}>
@@ -107,6 +111,7 @@ const nav = [
           <li><a href="/happy-hours/now">Happy hour right now</a></li>
           <li><a href="/parties">Parties in NYC</a></li>
           <li><a href="/map">Map</a></li>
+          {hasGuides && <li><a href="/blog">Guides</a></li>}
         </ul>
       </div>
       <div>

@@ -88,6 +88,7 @@ async function worker() {
       w: Math.min(row.width ?? 1280, 1280), h: Math.round(Math.min(row.width ?? 1280, 1280) / ratio),
       title: row.title, author: row.author, authorUrl: authorLink(row.author_url),
       license: row.license, licenseUrl: row.license_url, page: row.source_page, file: row.file_title,
+      source: row.source ?? 'wikimedia_commons',
     });
   }
 }

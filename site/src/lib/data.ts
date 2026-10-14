@@ -217,7 +217,8 @@ export function dealLabel(b: Bar): string | null {
   if (b.foodDeal) return `${b.foodDeal} food`;
   return null;
 }
-export const fmtDate = (iso: string | null) => (iso ? new Date(iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'America/New_York' }) : null);
+/** a bare date ("2026-10-14") is a New York calendar day, not UTC midnight */
+export const fmtDate = (iso: string | null) => (iso ? new Date(/^\d{4}-\d{2}-\d{2}$/.test(iso) ? `${iso}T12:00:00-05:00` : iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'America/New_York' }) : null);
 
 export const slugify = (s: string) => s.normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 
@@ -326,6 +327,8 @@ export interface Photo {
   kind: 'bar' | 'venue' | 'hood'; key: string; src: string; thumb: string; w: number; h: number;
   title: string | null; author: string | null; authorUrl: string | null;
   license: string; licenseUrl: string | null; page: string; file: string;
+  /** wikimedia_commons (free license, self-hosted) or google_places (Places API, attribution required, refreshed within 30 days) */
+  source?: 'wikimedia_commons' | 'google_places';
 }
 let photoCache: Map<string, Photo> | null = null;
 export function photos(): Map<string, Photo> {
@@ -340,4 +343,17 @@ export const photoOf = (kind: Photo['kind'], key: string | null | undefined) => 
 /** "Jane Doe · CC BY-SA 4.0": what a thumbnail carries; the full credit is on the page and /image-credits */
 /** card header without a photo: borough color + place name (CSS class xart-{slug}) */
 export const boroughSlug = (b: string | null) => (b ? b.toLowerCase().replace(/^the /, '').replace(/\s+/g, '-') : 'nyc');
-export const creditShort = (p: Photo) => `${p.author ?? 'Wikimedia Commons'} · ${p.license}`;
+export const creditShort = (p: Photo) => (p.source === 'google_places' ? `${p.author ?? 'Photo'} · Google Maps` : `${p.author ?? 'Wikimedia Commons'} · ${p.license}`);
+
+// ---------- price re-checks ----------
+
+/** the latest re-check of a bar's own happy-hour page: did the prices we hold still appear there? */
+export interface Recheck { slug: string; verdict: 'confirmed' | 'not_found' | 'unreachable'; found: string[] | null; checked: string }
+let _rechecks: Promise<Map<string, Recheck>> | null = null;
+export function rechecks(): Promise<Map<string, Recheck>> {
+  _rechecks ??= (async () => {
+    if (FIXTURE) return new Map();
+    try { return new Map((await rest<Recheck>('site_bar_rechecks?select=*')).map((r) => [r.slug, r])); } catch { return new Map(); }
+  })();
+  return _rechecks;
+}

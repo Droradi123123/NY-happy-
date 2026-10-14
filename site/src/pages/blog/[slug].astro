@@ -1,0 +1,79 @@
+---
+/**
+ * A blog guide: a direct answer, written sections grounded in our own records, and a table
+ * computed from the live data at build. Drafts are not built (status !== 'published').
+ */
+import Base from '../../layouts/Base.astro';
+import { GUIDES, type Guide } from '../../lib/guides';
+import { guideTable } from '../../lib/guideTables';
+import { crumbs, SITE } from '../../lib/seo';
+import { fmtDate } from '../../lib/data';
+
+export async function getStaticPaths() {
+  const show = (g: Guide) => g.status === 'published' || process.env.YAY_DRAFTS === '1';
+  return GUIDES.filter(show).map((guide) => ({ params: { slug: guide.slug }, props: { guide } }));
+}
+const { guide: g } = Astro.props as { guide: Guide };
+const table = g.table ? await guideTable(g.table) : null;
+// a guide whose table came out empty (e.g. no published parties yet) is not worth indexing
+const thin = g.table !== undefined && (!table || table.rows.length < (g.minRows ?? 3));
+const url = `${SITE}/blog/${g.slug}`;
+const ld = {
+  '@context': 'https://schema.org', '@type': 'BlogPosting', headline: g.h1, description: g.description, url,
+  mainEntityOfPage: url, datePublished: g.published, dateModified: g.updated, inLanguage: 'en-US',
+  author: { '@type': 'Organization', name: 'YaY NYC', url: SITE }, publisher: { '@type': 'Organization', name: 'YaY NYC', url: SITE },
+  image: `${SITE}/og-default.png`,
+};
+---
+<Base title={g.title} description={g.description} keyword={g.keyword} noindex={g.status !== 'published' || thin}
+  jsonld={[ld, crumbs([['YaY NYC', '/'], ['Blog', '/blog'], [g.h1, `/blog/${g.slug}`]])]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/blog">Blog</a></li><li aria-current="page">{g.short}</li></ol></nav>
+  <article class="guide">
+    <h1>{g.h1}</h1>
+    <p class="byline">By YaY NYC · Updated <time datetime={g.updated}>{fmtDate(g.updated)}</time></p>
+    <div class="answer"><p>{g.answer}</p></div>
+    {g.sections.map((s) => (
+      <section class="section">
+        <h2>{s.h2}</h2>
+        {s.paras.map((p) => <p set:html={p} />)}
+      </section>
+    ))}
+    {table && table.rows.length > 0 && (
+      <section class="section">
+        <h2>{g.tableTitle ?? table.caption}</h2>
+        <div class="table-wrap" tabindex="0" role="region" aria-label={table.caption}>
+          <table>
+            <caption>{table.caption}</caption>
+            <thead><tr>{table.head.map((h) => <th scope="col">{h}</th>)}</tr></thead>
+            <tbody>{table.rows.map((r) => <tr>{r.map((c, i) => i === 0 ? <th scope="row">{c.href ? <a href={c.href}>{c.text}</a> : c.text}</th> : <td>{c.href ? <a href={c.href}>{c.text}</a> : c.text}{c.note && <span class="cell-note">{c.note}</span>}</td>)}</tr>)}</tbody>
+          </table>
+        </div>
+        <p class="small">{table.note}</p>
+      </section>
+    )}
+    <section class="section">
+      <h2>How we put this together</h2>
+      <p>{g.method}</p>
+      <p class="small">Something wrong or out of date? <a href="/contact">Tell us</a> and we will check it.</p>
+    </section>
+    {g.related.length > 0 && (
+      <section class="section">
+        <h2>Keep looking</h2>
+        <ul class="link-cloud">{g.related.map(([label, href]) => <li><a href={href}>{label}</a></li>)}</ul>
+      </section>
+    )}
+  </article>
+</Base>
+<style>
+  .guide { max-width: 860px; }
+  .byline { color: var(--muted); font-size: 15px; margin-top: -6px; }
+  .answer { background: var(--yellow); border-radius: var(--radius); padding: 18px 20px; font-size: 19px; font-weight: 600; }
+  .answer p { margin: 0; }
+  .table-wrap { overflow-x: auto; border: 1.5px solid var(--line); border-radius: var(--radius); background: #fff; }
+  table { border-collapse: collapse; width: 100%; font-size: 15px; min-width: 640px; }
+  caption { text-align: left; padding: 12px 14px 0; font-weight: 700; }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  thead th { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
+  tbody th { font-weight: 700; }
+  .cell-note { display: block; font-size: 12px; color: var(--muted); }
+</style>

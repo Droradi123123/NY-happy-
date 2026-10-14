@@ -20,8 +20,8 @@ const where = (kind: string, key: string): [string, string | null] => {
 ---
 <Base title="Image Credits and Takedown" keyword="yay nyc image credits" description="YaY NYC image credits: every photo on the site, its author and license, and how to ask for one to be removed within 24 hours.">
   <h1>YaY NYC image credits and takedown</h1>
-  <p class="lede">Every photo on YaY NYC is published by its author under a free license that allows this use: Creative Commons CC0, CC BY or CC BY-SA, or the public domain. We never take photos from bar, club or ticketing sites, Google or Instagram.</p>
-  <p>Each photo comes from Wikimedia Commons and is shown with its author, license and a link to the original file. We serve a resized copy from our own site; nothing else is changed. Where there is no free photo, we show a map and the facts instead.</p>
+  <p class="lede">Every photo on YaY NYC is either published by its author under a free license (Creative Commons CC0, CC BY or CC BY-SA, or the public domain) or shown through Google Maps under Google’s terms, with the photographer’s name. We never take photos from bar, club or ticketing sites or from Instagram.</p>
+  <p>Photos from Wikimedia Commons are shown with their author, license and a link to the original file; we serve a resized copy from our own site and change nothing else. Where Commons has no photo of a place, we show the place’s photo from Google Maps with the contributor’s name and a link to the place on Google Maps, and refresh it at least every 30 days as Google requires. Where neither exists, we show a designed card and the facts.</p>
   <p>If you are the author or the person in a photo and want it removed, <a href="/contact">tell us which page and which photo</a>. We take it down within 24 hours while we look into it.</p>
   {list.length > 0 && (
     <section class="section">
@@ -33,7 +33,7 @@ const where = (kind: string, key: string): [string, string | null] => {
             <img src={p.thumb} alt="" width="120" height="68" loading="lazy" />
             <div>
               <strong>{url ? <a href={url}>{name}</a> : name}</strong>
-              <span>{p.authorUrl ? <a href={p.authorUrl} rel="nofollow noopener" target="_blank">{p.author}</a> : (p.author ?? 'Unknown author')}, {p.licenseUrl ? <a href={p.licenseUrl} rel="license nofollow noopener" target="_blank">{p.license}</a> : p.license}, <a href={p.page} rel="nofollow noopener" target="_blank">{p.file.replace(/^File:/, '')}</a></span>
+              <span>{p.authorUrl ? <a href={p.authorUrl} rel="nofollow noopener" target="_blank">{p.author}</a> : (p.author ?? 'Unknown author')}, {p.source === 'google_places' ? <a href={p.page} rel="nofollow noopener" target="_blank">via Google Maps</a> : <>{p.licenseUrl ? <a href={p.licenseUrl} rel="license nofollow noopener" target="_blank">{p.license}</a> : p.license}, <a href={p.page} rel="nofollow noopener" target="_blank">{p.file.replace(/^File:/, '')}</a></>}</span>
             </div>
           </li>;
         })}
