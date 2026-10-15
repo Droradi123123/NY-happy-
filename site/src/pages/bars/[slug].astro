@@ -48,7 +48,9 @@ for (const f of copy?.faq ?? []) if (!faq.some((x) => x.q.toLowerCase() === f.q.
         <ul class="windows">
           {b.windows.map((w) => <li><strong>{daysLabel(w.days)}</strong> {windowLabel(w)}{w.days.includes(today as any) && <span class="chip badge-live today">Today</span>}</li>)}
         </ul>
-        <p class="checked-line">Checked {fmtDate(b.checked)} on {b.source ? <a href={b.source} rel="nofollow noopener" target="_blank">{host(b.source)}</a> : "the bar's own website"}. Deals change: confirm before you go.</p>
+        <p class="checked-line">Deal last confirmed {fmtDate(b.checked)} on {b.source ? <a href={b.source} rel="nofollow noopener" target="_blank">{host(b.source)}</a> : "the bar's own website"}. Deals change: confirm before you go.</p>
+        {b.doubt === 'changed' && <p class="doubt">On {fmtDate(b.recheck!.at)} the bar's page listed prices, but not these. The deal may have changed: check with the bar.</p>}
+        {b.doubt === 'partial' && <p class="doubt">On {fmtDate(b.recheck!.at)} the bar's page still showed {b.recheck!.found!.map((x) => `$${x}`).join(', ')} but not {b.recheck!.missing!.map((x) => `$${x}`).join(', ')}.</p>}
       </section>
 
       {copy && (
@@ -121,6 +123,7 @@ for (const f of copy?.faq ?? []) if (!faq.some((x) => x.q.toLowerCase() === f.q.
   .windows { list-style: none; padding: 0; margin: 0 0 12px; display: grid; gap: 6px; font-size: 19px; }
   .today { margin-left: 8px; font-size: 13px; }
   .checked-line { margin: 0; font-size: 15px; }
+  .doubt { margin: 6px 0 0; font-size: 15px; background: var(--coral-soft); border-left: 4px solid var(--coral-btn); padding: 8px 12px; border-radius: 8px; }
   .menu { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
   .menu-list { list-style: none; padding: 0; margin: 0; }
   .menu-list li { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px dashed var(--line); }

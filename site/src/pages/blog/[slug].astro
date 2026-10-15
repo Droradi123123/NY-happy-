@@ -8,7 +8,7 @@ import Photo from '../../components/Photo.astro';
 import { allGuides, guideBars, guideCover, type Guide } from '../../lib/guides';
 import { guideTable } from '../../lib/guideTables';
 import { crumbs, faqLd, SITE } from '../../lib/seo';
-import { allBars, fmtDate, dealLabel, scheduleLabel, placePhoto, photoNote, cardCredit, boroughSlug, meters, paragraphs, type Bar } from '../../lib/data';
+import { allBars, checkedRange, fmtDate, dealLabel, scheduleLabel, placePhoto, photoNote, cardCredit, boroughSlug, meters, paragraphs, type Bar } from '../../lib/data';
 
 export async function getStaticPaths() {
   const show = (g: Guide) => g.status === 'published' || process.env.YAY_DRAFTS === '1';
@@ -31,6 +31,7 @@ const strip = picks.length ? [] : (await guideBars(g)).map((s) => allB.find((b) 
 const coverName = picks[0]?.b.name ?? strip[0]?.b.name ?? g.short;
 const words = [g.answer, g.intro ?? '', ...g.sections.flatMap((s) => s.paras), ...picks.map((p) => p.why), ...(g.faq ?? []).map((f) => f.a)].join(' ').replace(/<[^>]+>/g, '').split(/\s+/).length;
 const readMin = Math.max(1, Math.round(words / 230));
+const dealsChecked = checkedRange([...picks.map((p) => p.b), ...strip.map((x) => x.b)]);
 const ld = {
   '@context': 'https://schema.org', '@type': 'BlogPosting', headline: g.h1, description: g.description, url,
   mainEntityOfPage: url, datePublished: g.published, dateModified: g.updated, inLanguage: 'en-US',
@@ -43,7 +44,7 @@ const ld = {
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/blog">Blog</a></li><li aria-current="page">{g.short}</li></ol></nav>
   <article class="guide">
     <h1>{g.h1}</h1>
-    <p class="byline">By the YaY NYC team · Updated <time datetime={g.updated}>{fmtDate(g.updated)}</time> · {readMin} min read</p>
+    <p class="byline">By the YaY NYC team · Text updated <time datetime={g.updated}>{fmtDate(g.updated)}</time>{dealsChecked && ` · Deals last checked on each bar's own site ${dealsChecked}`} · {readMin} min read</p>
     {cover && <Photo photo={cover.photo} note={photoNote(cover, coverName)} alt={`${cover.photo.title ?? coverName}`} ratio="21 / 9" hero />}
     <div class="answer"><p>{g.answer}</p></div>
     {g.intro && paragraphs(g.intro).map((p) => <p class="intro">{p}</p>)}

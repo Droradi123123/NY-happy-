@@ -40,10 +40,13 @@ const fixture = <T>(f: string): T => JSON.parse(readFileSync(join(process.cwd(),
 
 // ---------- happy hours ----------
 
+export interface Recheck { at: string; verdict: 'confirmed' | 'partial' | 'changed' | 'inconclusive' | 'unreachable'; found: string[] | null; missing: string[] | null; url: string }
 interface RawBar {
   slug: string; name: string; category: string | null; tags: string[]; hood: string; hood_slug: string; borough: string | null;
   address: string | null; lat: number | null; lng: number | null; last_verified: string | null;
   hh: RawHH | null; hh_source: string | null; hh_checked: string | null;
+  /** the latest re-read of the source page (db: bar_recheck_ingest): confirmed moves hh_checked */
+  hh_recheck?: Recheck | null;
   subway: { lines: string[]; meters: number; station: string; walk_min: number; accessible?: boolean } | null;
   hours: Partial<Record<Day, string>> | null; phone: string | null; booking: string | null; instagram: string | null;
   price_range: string | null; cuisine: string | null; licence: string | null; website: string | null;
@@ -51,7 +54,7 @@ interface RawBar {
 interface RawHH {
   days: Day[]; start: string | null; end: string | null; windows?: { days: Day[]; start: string | null; end: string | null }[];
   offers: { item: string; price: string; kind?: string }[]; has_food: boolean; two_for_one: boolean;
-  drinks_discount: string | null; food_discount: string | null;
+  drinks_discount: string | null; food_discount: string | null; deal_text?: string | null;
 }
 
 export interface Window { days: Day[]; start: string | null; end: string | null }
@@ -62,6 +65,8 @@ export interface Bar {
   lat: number | null; lng: number | null; onMap: boolean;
   windows: Window[]; days: Day[]; offers: Offer[];
   drinksDeal: string | null; foodDeal: string | null; twoForOne: boolean; hasFood: boolean;
+  /** the source page was re-read and showed other prices (changed) or not all of ours (partial) */
+  recheck: Recheck | null; doubt: 'changed' | 'partial' | null;
   cheapestDrink: number | null; oysters: boolean; late: boolean; allDay: boolean; weekend: boolean; early: boolean;
   subway: RawBar['subway']; hours: Partial<Record<Day, string>> | null;
   phone: string | null; booking: string | null; instagram: string | null; website: string | null;
@@ -111,11 +116,27 @@ function clean(b: RawBar): Bar | null {
     .map((w) => ({ days: DAYS.filter((d) => w.days.includes(d)), start: w.start === 'open' ? null : w.start, end: w.end }))
     .filter((w) => w.days.length);
   const days = DAYS.filter((d) => windows.some((w) => w.days.includes(d)));
+  // a discount is never a price: the extractor's own kind (amount_off, percent, free) and the bar's
+  // text ("$1 of all drinks", "$2 off drafts") both mark one; only plain prices rank as cheap drinks
+  const text = hh.deal_text ?? '';
+  const isDiscount = (o: { price: string; kind?: string }) => {
+    if (o.kind && o.kind !== 'fixed') return true;
+    const n = o.price.replace(/[^0-9.]/g, '');
+    return n !== '' && new RegExp(`\\$\\s*${n.replace('.', '\\.')}(?!\\d)\\s*(off|of all|of each|of every|discount)\\b`, 'i').test(text);
+  };
   const offers: Offer[] = (hh.offers ?? [])
     .filter((o) => o.item && o.price && plausible(o.price))
-    .map((o) => ({ item: o.item.trim(), price: o.price.trim(), kind: DRINK.test(o.item) ? 'drink' : 'food', dollars: dollars(o.price) }));
+    .map((o) => {
+      const off = isDiscount(o) && !/off|%|free/i.test(o.price);
+      const price = off ? (o.kind === 'free' ? 'free' : `${o.price.trim()} off`) : o.price.trim();
+      return { item: o.item.trim(), price, kind: DRINK.test(o.item) ? 'drink' as const : 'food' as const, dollars: off ? null : dollars(o.price) };
+    });
   const okDeal = (x: string | null) => (x && !/\$\s*\d{3,}/.test(x) ? x : null);
-  const drinkPrices = offers.filter((o) => o.kind === 'drink' && o.dollars !== null).map((o) => o.dollars!);
+  // a later re-read of the bar's page that did not find a price takes it out of "cheapest" rankings
+  const recheck = b.hh_recheck ?? null;
+  const doubt = recheck && (recheck.verdict === 'changed' || recheck.verdict === 'partial') ? recheck.verdict : null;
+  const unconfirmed = new Set((recheck?.missing ?? []).map(Number));
+  const drinkPrices = doubt === 'changed' ? [] : offers.filter((o) => o.kind === 'drink' && o.dollars !== null && !unconfirmed.has(o.dollars)).map((o) => o.dollars!);
   // rounded coordinates (two decimals or fewer) put the pin hundreds of meters off
   const precise = (n: number | null) => n !== null && (String(n).split('.')[1]?.length ?? 0) >= 4;
   const onMap = precise(b.lat) && precise(b.lng);
@@ -138,7 +159,7 @@ function clean(b: RawBar): Bar | null {
     subway: b.subway?.station ? b.subway : null, hours,
     phone, booking: b.booking && !/widgets\.resy\.com\/?$/.test(b.booking) ? b.booking : null,
     instagram: b.instagram, website: b.website, priceRange: b.price_range, cuisine: b.cuisine, licence: b.licence,
-    source: b.hh_source, checked: b.hh_checked ?? b.last_verified,
+    source: b.hh_source, checked: b.hh_checked ?? b.last_verified, recheck, doubt,
     dealKnown: offers.length > 0 || !!drinksDeal || !!foodDeal || !!hh.two_for_one,
   };
 }
@@ -219,6 +240,15 @@ export function dealLabel(b: Bar): string | null {
 }
 /** a bare date ("2026-10-14") is a New York calendar day, not UTC midnight */
 export const fmtDate = (iso: string | null) => (iso ? new Date(/^\d{4}-\d{2}-\d{2}$/.test(iso) ? `${iso}T12:00:00-05:00` : iso).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'America/New_York' }) : null);
+
+/** when these bars' deals were last read on their own sites: "Sep 2, 2026" or "Sep 1 to Sep 3, 2026".
+ *  Not the page's date: a rebuild or a new paragraph never makes a deal more recent. */
+export function checkedRange(bars: Bar[]): string | null {
+  const ds = bars.map((b) => b.checked?.slice(0, 10)).filter((d): d is string => !!d).sort();
+  if (!ds.length) return null;
+  const a = fmtDate(ds[0])!, z = fmtDate(ds[ds.length - 1])!;
+  return a === z ? a : `${a.replace(/, \d{4}$/, ds[0].slice(0, 4) === ds[ds.length - 1].slice(0, 4) ? '' : '$&')} to ${z}`;
+}
 
 export const slugify = (s: string) => s.normalize('NFKD').replace(/[̀-ͯ]/g, '').toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 

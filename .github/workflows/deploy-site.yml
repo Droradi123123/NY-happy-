@@ -38,7 +38,7 @@ jobs:
     steps:
       - name: Lighthouse on the live site (mobile)
         run: |
-          for u in / /happy-hours /parties/halloween /bars/the-stag-s-head /blog/east-village-bar-crawl; do
+          for u in / /parties /happy-hours/tuesday /parties/halloween /bars/the-stag-s-head; do
             npx -y lighthouse@12 "https://yaynyc.com$u" --quiet --form-factor=mobile --output=json --output-path=lh.json \
               --only-categories=performance,accessibility,best-practices,seo --chrome-flags="--headless=new --no-sandbox" || continue
             node -e '
@@ -49,6 +49,7 @@ jobs:
               const lcp = a["largest-contentful-paint-element"]?.details?.items?.[0]?.items?.[0]?.node?.snippet; if (lcp) console.log("LCP element:", lcp.slice(0, 160));
               for (const x of Object.values(a)) if (x.score !== null && x.score < 0.9 && x.scoreDisplayMode !== "informative" && x.scoreDisplayMode !== "notApplicable")
                 console.log(`- ${x.id}: ${x.title}${x.displayValue ? ` (${x.displayValue})` : ""}`);
+              for (const it of (a["layout-shifts"]?.details?.items ?? []).slice(0, 5)) console.log(`    shift ${(it.score ?? 0).toFixed(3)}: ${(it.node?.snippet ?? "").slice(0, 150)}`);
               for (const k of ["color-contrast", "heading-order", "button-name"]) for (const it of (a[k]?.details?.items ?? []).slice(0, 6))
                 console.log(`    ${k}: ${(it.node?.snippet ?? "").slice(0, 150)} ${(it.node?.explanation ?? "").split("\n").pop().slice(0, 120)}`);'
           done
