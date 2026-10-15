@@ -32,7 +32,8 @@ const onMap = bars.filter((b) => b.onMap).length;
 ---
 <Base title="YaY NYC: Happy Hours, Parties and What's On Tonight in New York" keyword="nyc happy hours and parties" description={`NYC happy hours and parties in one place: ${s.n} verified happy hours with the deal and times, plus parties with doors, age and tickets.`}
   ogImage={hwOn && hwPhoto ? hwPhoto.src : null}
-  jsonld={[{ '@context': 'https://schema.org', '@type': 'WebSite', name: 'YaY NYC', url: SITE, potentialAction: { '@type': 'SearchAction', target: `${SITE}/happy-hours?q={search_term_string}`, 'query-input': 'required name=search_term_string' } }]}>
+  jsonld={[{ '@context': 'https://schema.org', '@type': 'WebSite', name: 'YaY NYC', url: SITE, potentialAction: { '@type': 'SearchAction', target: `${SITE}/happy-hours?q={search_term_string}`, 'query-input': 'required name=search_term_string' } },
+    { '@context': 'https://schema.org', '@type': 'Organization', name: 'YaY NYC', url: SITE, logo: `${SITE}/icon-512.png`, slogan: 'All the fun in one place!' }]}>
   <section class="hero">
     <h1><span class="kicker">NYC happy hours and parties</span> All the fun in one place!</h1>
     <p class="lede">{s.n} happy hours with the deal, the time and the date we checked, plus {parties.length} parties with doors, age and tickets.</p>
