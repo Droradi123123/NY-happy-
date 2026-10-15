@@ -36,11 +36,11 @@ export const GUIDES: Guide[] = [
     sections: [
       { h2: 'Where a drink costs $3 or less', paras: [
         `${a('/bars/papacito-s-greenpoint', 'Papacito’s')} in Greenpoint lists a $2 frozen margarita, the lowest drink price we hold anywhere, and the same happy hour lists $1 tacos.`,
-        `In Manhattan the floor is $3. ${a('/bars/la-caverna-lower-east-side', 'La Caverna')} on the Lower East Side runs $3 margaritas, but only on Tuesdays from 5pm to 9pm. ${a('/bars/o-flanagan-s-upper-east-side', 'O’Flanagan’s')} on the Upper East Side lists $3 well drinks, ${a('/bars/gebhard-s-beer-culture-upper-west-side', 'Gebhard’s Beer Culture')} on the Upper West Side $3 happy-hour drafts, and ${a('/bars/flying-cock-murray-hill', 'Flying Cock')} in Murray Hill a $3 espresso martini.`,
+        `In Manhattan the floor is $3. ${a('/bars/la-caverna-lower-east-side', 'La Caverna')} on the Lower East Side runs $3 margaritas, but only on Tuesdays from 5pm to 9pm. ${a('/bars/o-flanagan-s-upper-east-side', 'O’Flanagan’s')} on the Upper East Side lists $3 well drinks, ${a('/bars/gebhard-s-beer-culture-upper-west-side', 'Gebhard’s Beer Culture')} on the Upper West Side $3 happy-hour drafts, and ${a('/bars/flying-cock-murray-hill', 'Flying Cock')} in Kips Bay a $3 espresso martini.`,
         `In Park Slope, ${a('/bars/200-fifth-park-slope', '200 Fifth')} lists $3 champagne: one of the few prices our October 14 re-check found again on the bar’s own page.`,
       ] },
       { h2: 'The $4 tier: beer and shots', paras: [
-        `Most neighborhoods bottom out at $4 or $5, almost always for a draft beer or a well drink. ${a('/bars/post-no-bills-williamsburg', 'Post No Bills')} in Williamsburg lists $4 drafts and ${a('/bars/desmond-s-tavern-koreatown', 'Desmond’s Tavern')} in Koreatown a $4 pint.`,
+        `Most neighborhoods bottom out at $4 or $5, almost always for a draft beer or a well drink. ${a('/bars/post-no-bills-williamsburg', 'Post No Bills')} in Williamsburg lists $4 drafts and ${a('/bars/desmond-s-tavern-koreatown', 'Desmond’s Tavern')} in Midtown a $4 pint.`,
       ] },
       { h2: 'What a cheap drink really costs', paras: [
         'Menu prices in New York do not include the 8.875% sales tax or the tip, so budget a few dollars more per drink than the number on the menu. Some prices apply only on certain days: check the day in the table.',
@@ -59,10 +59,10 @@ export const GUIDES: Guide[] = [
     sections: [
       { h2: 'The $1 oysters', paras: [
         `${a('/bars/brooklyn-crab-red-hook', 'Brooklyn Crab')} in Red Hook lists $1 oysters, but the page we read is its spring and summer menu, so confirm it is still running before you go in the cold months.`,
-        `${a('/bars/the-ten-bells-brooklyn-bushwick', 'The Ten Bells')} in Bushwick and ${a('/bars/valerie-midtown', 'Valerie')} in Midtown both list $1 oysters, as do ${a('/bars/john-doe-craft-bar-kitchen-flatiron', 'John Doe Craft Bar & Kitchen')} in Flatiron and ${a('/bars/bayridge-sushi-bay-ridge', 'Bayridge Sushi')} in Bay Ridge.`,
+        `${a('/bars/the-ten-bells-brooklyn-bushwick', 'The Ten Bells')} in Bushwick and ${a('/bars/valerie-midtown', 'Valerie')} in Midtown both list $1 oysters, as do ${a('/bars/john-doe-craft-bar-kitchen-flatiron', 'John Doe Craft Bar & Kitchen')} in Midtown and ${a('/bars/bayridge-sushi-bay-ridge', 'Bayridge Sushi')} in Bay Ridge.`,
       ] },
       { h2: '$1.50 to $2, and closer to the action', paras: [
-        `${a('/bars/ten-bells-lower-east-side', 'Ten Bells')} on the Lower East Side and ${a('/bars/amelia-s-koreatown', 'Amelia’s')} in Koreatown are at $1.50; ${a('/bars/mayfield-prospect-heights', 'Mayfield')} in Prospect Heights at $1.75. At $2 the list grows: ${a('/bars/blue-fin-times-square', 'Blue Fin')} by Times Square, ${a('/bars/bar-francis-prospect-heights', 'Bar Francis')}, ${a('/bars/layla-williamsburg', 'Layla')}, ${a('/bars/legasea-bar-grill-koreatown', 'Legasea')}, ${a('/bars/the-bar-room-midtown', 'The Bar Room')} and ${a('/bars/the-grid-nolita', 'The GRID')}.`,
+        `${a('/bars/ten-bells-lower-east-side', 'Ten Bells')} on the Lower East Side and ${a('/bars/amelia-s-koreatown', 'Amelia’s')} in Midtown are at $1.50; ${a('/bars/mayfield-prospect-heights', 'Mayfield')} in Crown Heights at $1.75. At $2 the list grows: ${a('/bars/blue-fin-times-square', 'Blue Fin')} by Times Square, ${a('/bars/bar-francis-prospect-heights', 'Bar Francis')}, ${a('/bars/layla-williamsburg', 'Layla')}, ${a('/bars/legasea-bar-grill-koreatown', 'Legasea')} and ${a('/bars/the-bar-room-midtown', 'The Bar Room')}.`,
       ] },
       { h2: 'Before you order', paras: [
         'An oyster deal can come with a minimum order or apply only at the bar, and some name the oyster ("market oyster", "East Coast"). Where a bar states a condition or a variety, it is on the bar’s page; where it does not, we do not guess, so ask when you order.',
@@ -80,7 +80,7 @@ export const GUIDES: Guide[] = [
     answer: 'The longest late happy hours on our list run until 4am: Barfly in Gramercy (10pm to 4am, Sunday to Thursday) and Blue Haven in Murray Hill (10pm to 4am, Sunday to Wednesday). Meller’s in the Upper East Side runs 11pm to 3am, and near Times Square Tanner Smith’s starts at 10pm every night.',
     sections: [
       { h2: 'Until 3am or 4am', paras: [
-        `${a('/bars/barfly-gramercy', 'Barfly')} in Gramercy repeats its happy hour from 10pm to 4am, Sunday through Thursday. ${a('/bars/blue-haven-murray-hill', 'Blue Haven')} in Murray Hill does the same from 10pm to 4am, Sunday to Wednesday, listed as $2 off. Uptown, ${a('/bars/meller-s-sports-hub-grill-upper-east-side', 'Meller’s Sports Hub & Grill')} runs 11pm to 3am, Sunday to Thursday.`,
+        `${a('/bars/barfly-gramercy', 'Barfly')} in Gramercy repeats its happy hour from 10pm to 4am, Sunday through Thursday. ${a('/bars/blue-haven-murray-hill', 'Blue Haven')} in Kips Bay does the same from 10pm to 4am, Sunday to Wednesday, listed as $2 off. Uptown, ${a('/bars/meller-s-sports-hub-grill-upper-east-side', 'Meller’s Sports Hub & Grill')} runs 11pm to 3am, Sunday to Thursday.`,
         `${a('/bars/lovers-of-today-east-village', 'Lovers of Today')} in the East Village is the latest of all: 2am to 4am, Sunday to Wednesday.`,
       ] },
       { h2: 'After a show near Times Square', paras: [
@@ -120,7 +120,7 @@ export const GUIDES: Guide[] = [
     answer: 'Tacos are the cheapest happy-hour food on our list: $1 at Papacito’s in Greenpoint, $1.99 at Los Mismos Amigos in Flushing, $2 at 1 Republik in the West Village and $3 at El Coco in Chelsea and El Lugar Cantina in Flatiron. For $3 you can also get sliders at Hair of the Dog on the Lower East Side or nachos at Little Havana in Greenwich Village.',
     sections: [
       { h2: 'Tacos, the $1 to $3 dinner', paras: [
-        `${a('/bars/papacito-s-greenpoint', 'Papacito’s')} in Greenpoint lists $1 tacos and $3 nachos at happy hour; ${a('/bars/los-mismos-amigos-flushing', 'Los Mismos Amigos')} in Flushing $1.99 tacos. In Manhattan, ${a('/bars/el-coco-chelsea', 'El Coco')} in Chelsea and ${a('/bars/el-lugar-cantina-flatiron', 'El Lugar Cantina')} in Flatiron both list $3 tacos.`,
+        `${a('/bars/papacito-s-greenpoint', 'Papacito’s')} in Greenpoint lists $1 tacos and $3 nachos at happy hour; ${a('/bars/los-mismos-amigos-flushing', 'Los Mismos Amigos')} in Corona $1.99 tacos. In Manhattan, ${a('/bars/el-coco-chelsea', 'El Coco')} in Chelsea and ${a('/bars/el-lugar-cantina-flatiron', 'El Lugar Cantina')} in Chelsea both list $3 tacos.`,
       ] },
       { h2: 'Bar food for $3 to $4', paras: [
         `${a('/bars/hair-of-the-dog-lower-east-side', 'Hair of the Dog')} on the Lower East Side lists $3 sliders and ${a('/bars/file-gumbo-bar-tribeca', 'Filé Gumbo Bar')} in Tribeca $3.50 beef sliders. ${a('/bars/little-havana-restaurant-greenwich-village', 'Little Havana')} in Greenwich Village has $3 nachos and ${a('/bars/oliver-s-astoria-astoria', 'Oliver’s')} in Astoria lists $3 appetizers.`,
@@ -164,7 +164,7 @@ export const GUIDES: Guide[] = [
         `${a('/bars/little-biggs-midtown', 'Little Biggs')} runs 4pm to 8pm on weekdays, the latest finish of the group. ${a('/bars/albert-s-bar-murray-hill', 'Albert’s Bar')} (3pm to 6pm), ${a('/bars/dos-caminos-murray-hill', 'Dos Caminos')} (3pm to 5pm) and ${a('/bars/mulligan-s-pub-murray-hill', 'Mulligan’s Pub')} (4pm to 7pm) are all within about four minutes. ${a('/bars/the-shakespeare-the-william-murray-hill', 'The Shakespeare')} starts earliest, at 11am, and ${a('/bars/hofbra-u-bierhaus-nyc-murray-hill', 'Hofbräu Bierhaus')} runs 4pm to 6:30pm, Monday to Thursday.`,
       ] },
       { h2: 'Penn Station and Madison Square Garden', paras: [
-        `${a('/bars/muses-35-bar-karaoke-koreatown', 'Muses 35')} and ${a('/bars/juniper-koreatown', 'Juniper')} both run 4pm to 7pm every day, ${a('/bars/alessa-cucina-bar-koreatown', 'Alessa Cucina & Bar')} 4pm to 8pm on weekdays and ${a('/bars/tara-mor-nyc-koreatown', 'Tara Mor')} 4pm to 6:30pm on weekdays.`,
+        `${a('/bars/muses-35-bar-karaoke-koreatown', 'Muses 35')} and ${a('/bars/juniper-koreatown', 'Juniper')} both run 4pm to 7pm every day, and ${a('/bars/tara-mor-nyc-koreatown', 'Tara Mor')} 4pm to 6:30pm on weekdays.`,
       ] },
     ],
     table: 'near:grand-central,penn-station-msg:17:30', tableTitle: 'Weekday happy hours near the two stations',
