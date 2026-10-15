@@ -9,6 +9,8 @@ import { GA_MEASUREMENT_ID, GOOGLE_SITE_VERIFICATION, BING_SITE_VERIFICATION } f
 import { allGuides } from '../lib/guides';
 import Newsletter from '../components/Newsletter.astro';
 import { listPages } from '../lib/lists';
+// the font is self-hosted (no render-blocking request to Google Fonts)
+import '@fontsource-variable/bricolage-grotesque/opsz.css';
 import '../styles/global.css';
 
 interface Props {
@@ -92,9 +94,6 @@ const tabs = [
   <meta property="og:locale" content="en_US" />
   <meta property="og:image" content={new URL(ogImage ?? '/og-default.png', Astro.site).href} />
   <meta name="twitter:card" content="summary_large_image" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,700;12..96,800&display=swap" rel="stylesheet" />
   {jsonld.map((o) => <script type="application/ld+json" set:html={JSON.stringify(o)} />)}
   {GA && (
     <script is:inline define:vars={{ GA }}>
@@ -122,7 +121,7 @@ const tabs = [
   <a class="skip" href="#main">Skip to content</a>
   <header class="site-header">
     <div class="wrap header-row">
-      <a href="/" class="logo-link" aria-label="YaY NYC home"><Logo size={34} /></a>
+      <a href="/" class="logo-link"><Logo size={34} /></a>
       <nav aria-label="Main">
         <ul>
           {nav.map((n) => <li><a href={n.href} aria-current={on(n.href) ? 'page' : undefined}>{n.label}</a></li>)}
@@ -131,7 +130,7 @@ const tabs = [
       </nav>
       <div class="header-end">
         <a class="header-cta" href={seasonal.href}>{seasonal.label}</a>
-        <button class="menu-btn" type="button" aria-haspopup="dialog" aria-controls="menu" data-menu-open>
+        <button class="menu-btn" type="button" aria-haspopup="dialog" aria-controls="menu" aria-label="Menu" data-menu-open>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
           <span>Menu</span>
         </button>
@@ -140,7 +139,7 @@ const tabs = [
   </header>
   <dialog id="menu" class="menu" aria-label="Menu">
     <div class="menu-head">
-      <a href="/" class="logo-link" aria-label="YaY NYC home"><Logo size={28} /></a>
+      <a href="/" class="logo-link"><Logo size={28} /></a>
       <button class="menu-x" type="button" data-menu-close aria-label="Close menu">✕</button>
     </div>
     <form action="/happy-hours" method="get" class="menu-search" role="search">

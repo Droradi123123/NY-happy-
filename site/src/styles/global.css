@@ -15,7 +15,7 @@
   --green: #0B7A4B;
   --radius: 18px;
   --shadow: 0 1px 2px rgba(22, 18, 43, 0.06), 0 8px 24px rgba(22, 18, 43, 0.07);
-  --font: 'Bricolage Grotesque', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font: 'Bricolage Grotesque Variable', 'Bricolage Grotesque', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
   --tabbar: 64px;
 }
 * { box-sizing: border-box; }
@@ -199,8 +199,8 @@ main.wide { padding-bottom: 0; }
 .chips-row::-webkit-scrollbar { display: none; }
 .chips-row a { flex: none; display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: #fff; font-weight: 700; font-size: 15px; text-decoration: none; color: var(--ink); white-space: nowrap; }
 .chips-row a .n { font-size: 12px; font-weight: 800; background: var(--brand-soft); color: var(--brand-dark); border-radius: 999px; padding: 1px 7px; }
-.chips-row a[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: #fff; }
-.chips-row a[aria-pressed="true"] .n { background: var(--coral); color: #fff; }
+.chips-row a[aria-current] { background: var(--ink); border-color: var(--ink); color: #fff; }
+.chips-row a[aria-current] .n { background: var(--coral); color: #fff; }
 .rail { position: relative; }
 .rail-track { display: grid; grid-auto-flow: column; grid-auto-columns: min(80%, 300px); gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; margin: 0 -16px; padding: 4px 16px 14px; scroll-padding-inline: 16px; align-items: stretch; }
 .rail-track::-webkit-scrollbar { display: none; }

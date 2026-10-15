@@ -12,7 +12,7 @@ const { lat, lng, label, points = [] } = Astro.props;
       io.unobserve(e.target);
       const el = e.target as HTMLElement;
       const maplibregl = (await import('maplibre-gl')).default;
-      await import('maplibre-gl/dist/maplibre-gl.css');
+      await (await import('../scripts/maplibre-css')).mapCss();
       const c: [number, number] = [Number(el.dataset.lng), Number(el.dataset.lat)];
       const pts = JSON.parse(el.dataset.points || '[]') as { lat: number; lng: number; name: string; url: string }[];
       const map = new maplibregl.Map({ container: el, style: 'https://tiles.openfreemap.org/styles/positron', center: c, zoom: 15.2, attributionControl: { compact: true }, cooperativeGestures: true });

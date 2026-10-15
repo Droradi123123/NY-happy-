@@ -5,11 +5,13 @@
  * something else: object-fit only frames it.
  */
 import type { Photo } from '../lib/data';
-interface Props { photo: Photo; alt: string; hero?: boolean; ratio?: string; note?: string | null }
-const { photo: p, alt, hero = false, ratio = '16 / 9', note = null } = Astro.props;
+interface Props { photo: Photo; alt: string; hero?: boolean; ratio?: string; note?: string | null; sizes?: string }
+const { photo: p, alt, hero = false, ratio = '16 / 9', note = null, sizes = '(min-width: 900px) 860px, 100vw' } = Astro.props;
+// WebP renditions at 500, 800 and 1280px: phones get the small one
+const srcset = [p.thumb !== p.src && `${p.thumb} 500w`, p.mid && `${p.mid} 800w`, `${p.src} 1280w`].filter(Boolean).join(', ');
 ---
 <figure class="photo" style={`--ratio:${ratio}`}>
-  <img src={p.src} alt={alt} width={p.w} height={p.h} loading={hero ? 'eager' : 'lazy'} fetchpriority={hero ? 'high' : 'auto'} decoding="async" />
+  <img src={p.src} srcset={srcset} sizes={sizes} alt={alt} width={p.w} height={p.h} loading={hero ? 'eager' : 'lazy'} fetchpriority={hero ? 'high' : 'auto'} decoding="async" />
   {p.source === 'google_places' ? (
     <figcaption>
       Photo: {p.authorUrl ? <a href={p.authorUrl} rel="nofollow noopener" target="_blank">{p.author}</a> : (p.author ?? 'contributor')}, via <a href={p.page} rel="nofollow noopener" target="_blank">Google Maps</a>

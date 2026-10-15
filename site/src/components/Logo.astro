@@ -7,7 +7,7 @@ const mark = markSvg({ id: light ? 'lm-l' : 'lm', stem: light ? '#FFFFFF' : '#16
 ---
 <span class="logo" style={`font-size:${size}px`} data-light={light ? '' : undefined}>
   <span class="logo-mark" set:html={mark} />
-  <span class="logo-yay">Y<span class="logo-a">a</span>Y</span><span class="logo-nyc">NYC</span>
+  <span class="logo-yay">Y<span class="logo-a">a</span>Y</span> <span class="logo-nyc">NYC</span>
 </span>
 <style>
   .logo { display: inline-flex; align-items: center; gap: 0.22em; font-weight: 800; line-height: 1; color: var(--ink); white-space: nowrap; }

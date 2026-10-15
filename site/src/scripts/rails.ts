@@ -71,7 +71,7 @@ async function initRail(root: HTMLElement) {
 
   const show = (c: Chip) => {
     const list = results.get(c.id)!;
-    chipsEl.querySelectorAll('a').forEach((a) => a.setAttribute('aria-pressed', String(a.dataset.chip === c.id)));
+    chipsEl.querySelectorAll('a').forEach((a) => a.dataset.chip === c.id ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current'));
     const cards = list.slice(0, MAX).map((r) => {
       let html = kind === 'bars' ? barCard(r, c.st ?? {}) : partyCard(r);
       if (c.id === 'later') html = html.replace('<div class="xcard-foot">', `<div class="xcard-foot"><span class="chip badge-soon">Starts ${startLabel(r._start)}</span>`);
@@ -83,7 +83,7 @@ async function initRail(root: HTMLElement) {
     if (all) { all.href = c.href; all.textContent = `See all ${list.length} →`; }
     if (note) note.textContent = c.id === 'now' ? `${list.length} happy hours on right now, New York time.` : '';
   };
-  chipsEl.innerHTML = shown.map((c) => `<a href="${c.href}" data-chip="${c.id}" aria-pressed="false">${c.label}<span class="n">${results.get(c.id)!.length}</span></a>`).join('');
+  chipsEl.innerHTML = shown.map((c) => `<a href="${c.href}" data-chip="${c.id}">${c.label}<span class="n">${results.get(c.id)!.length}</span></a>`).join('');
   chipsEl.addEventListener('click', (e) => {
     const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[data-chip]');
     if (!a) return;

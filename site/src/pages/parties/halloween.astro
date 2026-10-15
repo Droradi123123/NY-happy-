@@ -55,7 +55,7 @@ const faq = [
 const latest = list.reduce((m, p) => (p.last_checked && p.last_checked > m ? p.last_checked : m), '');
 ---
 <Base noindex={list.length < 2} keyword="halloween parties nyc" title={`Halloween Parties NYC ${year}: ${list.length} Parties, Night by Night`} description={`Every Halloween ${year} party in NYC we track: ${list.length} nights across ${boroughs.length} boroughs, night by night, with doors, age, price and tickets.`}
-  ogImage={hero?.src ?? null}
+  ogImage={hero?.og ?? null}
   jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties'], ['Halloween', '/parties/halloween']]), itemList(`Halloween parties NYC ${year}`, list.map((p) => `/parties/${p.slug}`)), faqLd(faq)]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li><li aria-current="page">Halloween</li></ol></nav>
   <h1>Halloween Parties in NYC {year}</h1>

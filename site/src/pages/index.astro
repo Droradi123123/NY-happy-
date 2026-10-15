@@ -52,11 +52,11 @@ const barChips = [
 ];
 ---
 <Base title="YaY NYC: Happy Hours, Parties and What's On Tonight in New York" keyword="nyc happy hours and parties" description={`NYC happy hours and parties in one place: ${s.n} verified happy hours with the deal and times, plus parties with doors, age and tickets.`}
-  ogImage={hwOn && hwPhoto ? hwPhoto.src : null}
+  ogImage={hwOn && hwPhoto ? hwPhoto.og ?? null : null}
   jsonld={[{ '@context': 'https://schema.org', '@type': 'WebSite', name: 'YaY NYC', url: SITE, potentialAction: { '@type': 'SearchAction', target: `${SITE}/happy-hours?q={search_term_string}`, 'query-input': 'required name=search_term_string' } },
     { '@context': 'https://schema.org', '@type': 'Organization', name: 'YaY NYC', url: SITE, logo: `${SITE}/icon-512.png`, slogan: 'All the fun in one place!' }]}>
   <section class="hero-x">
-    {heroPhoto && <img class="hero-bg" src={heroPhoto.src} alt="" width={heroPhoto.w} height={heroPhoto.h} fetchpriority="high" decoding="async" />}
+    {heroPhoto && <img class="hero-bg" src={heroPhoto.src} srcset={[heroPhoto.mid && `${heroPhoto.mid} 800w`, `${heroPhoto.src} 1280w`].filter(Boolean).join(', ')} sizes="100vw" alt="" width={heroPhoto.w} height={heroPhoto.h} fetchpriority="high" decoding="async" />}
     <div class="hero-in">
       <h1><span class="kicker">NYC happy hours and parties</span> All the fun in one place!</h1>
       <p class="lede">The deal, the hours and the date we checked for {s.n} happy hours, plus {parties.length} parties with doors, age and tickets.</p>
@@ -86,7 +86,7 @@ const barChips = [
       <div class="rail-arrows"><button type="button" data-dir="-1" aria-label="Scroll back">←</button><button type="button" data-dir="1" aria-label="Scroll forward">→</button></div>
     </div>
     <div class="chips-row" data-chips>
-      {barChips.map((c, i) => <a href={c.href} aria-pressed={i === 0 ? 'true' : 'false'}>{c.label}</a>)}
+      {barChips.map((c, i) => <a href={c.href} aria-current={i === 0 ? 'true' : undefined}>{c.label}</a>)}
     </div>
     <p class="rail-note" data-note aria-live="polite"></p>
     <div class="rail-track" data-track>
@@ -98,7 +98,7 @@ const barChips = [
 
   {hwOn && (
     <a class="hw-banner" href="/parties/halloween">
-      {hwPhoto && <img src={hwPhoto.src} alt="" width={hwPhoto.w} height={hwPhoto.h} loading="lazy" />}
+      {hwPhoto && <img src={hwPhoto.mid ?? hwPhoto.src} alt="" width={hwPhoto.w} height={hwPhoto.h} loading="lazy" decoding="async" />}
       <span class="hw-text">
         <span class="k">Halloween 2026</span>
         <span class="t">{halloween.length} Halloween parties in NYC, night by night</span>
@@ -115,8 +115,8 @@ const barChips = [
         <div class="rail-arrows"><button type="button" data-dir="-1" aria-label="Scroll back">←</button><button type="button" data-dir="1" aria-label="Scroll forward">→</button></div>
       </div>
       <div class="chips-row" data-chips>
-        <a href="/parties?when=tonight" aria-pressed="false">Tonight</a><a href="/parties?when=weekend" aria-pressed="false">This weekend</a>
-        {hwOn && <a href="/parties/halloween" aria-pressed="false">Halloween</a>}<a href="/parties" aria-pressed="true">All parties</a>
+        <a href="/parties?when=tonight">Tonight</a><a href="/parties?when=weekend">This weekend</a>
+        {hwOn && <a href="/parties/halloween">Halloween</a>}<a href="/parties" aria-current="true">All parties</a>
       </div>
       <p class="rail-note" data-note aria-live="polite"></p>
       <div class="rail-track" data-track>

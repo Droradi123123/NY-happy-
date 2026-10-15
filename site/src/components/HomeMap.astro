@@ -22,7 +22,7 @@ const { bars, parties } = Astro.props;
       io.disconnect();
       const [{ default: maplibregl }, bars, parties] = await Promise.all([
         import('maplibre-gl'), fetch('/data/bars.json').then((r) => r.json()), fetch('/data/parties.json').then((r) => r.json()),
-        import('maplibre-gl/dist/maplibre-gl.css'),
+        import('../scripts/maplibre-css').then((m) => m.mapCss()),
       ]);
       el.innerHTML = '';
       const fc = (rows: any[], url: string) => ({ type: 'FeatureCollection', features: rows.filter((r) => r.la !== null && r.lo !== null).map((r) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [r.lo, r.la] }, properties: { name: r.n ?? r.t, url: `${url}/${r.s}` } })) });

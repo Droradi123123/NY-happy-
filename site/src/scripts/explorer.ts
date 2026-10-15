@@ -172,7 +172,7 @@ export function partyCard(r: Row) {
 
 async function makeMap(el: HTMLElement, kind: Kind) {
   const maplibregl = (await import('maplibre-gl')).default;
-  await import('maplibre-gl/dist/maplibre-gl.css');
+  await (await import('./maplibre-css')).mapCss();
   const map = new maplibregl.Map({
     container: el, style: 'https://tiles.openfreemap.org/styles/positron', center: [-73.97, 40.73], zoom: 11.2,
     attributionControl: { compact: true }, cooperativeGestures: matchMedia('(pointer: coarse)').matches,
