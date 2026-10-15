@@ -7,7 +7,7 @@ interface Props { source: string; compact?: boolean; heading?: string; text?: st
 const { source, compact = false, heading = 'The best of NYC, every Thursday', text = 'The week’s best happy hours, new deals and the parties worth buying tickets for. One email a week, no spam, unsubscribe anytime.' } = Astro.props;
 const id = `nl-${source.replace(/[^a-z0-9]+/gi, '-')}`;
 ---
-<section class:list={['newsletter', { compact }]} aria-labelledby={`${id}-h`}>
+<section id="newsletter" class:list={['newsletter', { compact }]} aria-labelledby={`${id}-h`}>
   <h2 id={`${id}-h`}>{heading}</h2>
   <p>{text}</p>
   <form class="nl-form" data-nl data-source={source} novalidate>

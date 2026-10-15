@@ -14,7 +14,7 @@ const PAGE = 24;
 const esc = (s: unknown) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
 
 /** New York weekday (0 = Monday) and minutes since midnight */
-function nyNow(d = new Date()): { day: number; min: number; date: string } {
+export function nyNow(d = new Date()): { day: number; min: number; date: string } {
   const p = Object.fromEntries(new Intl.DateTimeFormat('en-US', { timeZone: NY, weekday: 'short', hour: 'numeric', minute: 'numeric', hourCycle: 'h23', year: 'numeric', month: '2-digit', day: '2-digit' })
     .formatToParts(d).map((x) => [x.type, x.value]));
   const day = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].indexOf(p.weekday);
@@ -23,7 +23,7 @@ function nyNow(d = new Date()): { day: number; min: number; date: string } {
 const ampm = (m: number) => { const h = Math.floor(m / 60) % 24, mm = m % 60; return `${h % 12 || 12}${mm ? `:${String(mm).padStart(2, '0')}` : ''}${h < 12 ? 'am' : 'pm'}`; };
 
 /** is a bar's happy hour on at (day, minute)? returns the end minute, or null */
-function hhAt(r: Row, day: number, m: number): number | null {
+export function hhAt(r: Row, day: number, m: number): number | null {
   for (const [days, s0, e0] of r.w as [number[], number | null, number | null][]) {
     const s = s0 ?? 11 * 60, e = e0 ?? 24 * 60;
     if (e > s) { if (days.includes(day) && m >= s && m < e) return e; }
@@ -72,7 +72,7 @@ function writeState(st: State, preset: State) {
 
 // ---------- filtering ----------
 
-function filterBars(rows: Row[], st: State, here: [number, number] | null) {
+export function filterBars(rows: Row[], st: State, here: [number, number] | null) {
   const now = nyNow();
   const q = String(st.q ?? '').trim().toLowerCase();
   const day = st.day === 'today' || st.day === 'now' ? now.day : st.day ? ['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'].indexOf(String(st.day)) : -1;
@@ -118,7 +118,7 @@ function inWindow(r: Row, when: string) {
   if (/^\d{4}-\d{2}-\d{2}$/.test(when)) return r.nd === when;
   return true;
 }
-function filterParties(rows: Row[], st: State, here: [number, number] | null) {
+export function filterParties(rows: Row[], st: State, here: [number, number] | null) {
   const q = String(st.q ?? '').trim().toLowerCase();
   const genres = st.genre as string[] ?? [], tags = st.tag as string[] ?? [], boroughs = st.bo as string[] ?? [], themes = st.th as string[] ?? [];
   const max = st.max ? Number(st.max) : null;
@@ -149,7 +149,7 @@ const boro = (b: string | null) => (b ? b.toLowerCase().replace(/^the /, '').rep
 const thumb = (r: Row) => (r.im
   ? `<figure class="xcard-img"><img src="${esc(r.im[0])}" alt="" width="500" height="281" loading="lazy" decoding="async"><figcaption>${esc(r.im[1])}</figcaption></figure>`
   : `<div class="xcard-art xart-${boro(r.bo)}" aria-hidden="true"><span>${esc(r.vn || r.hn || 'NYC')}</span></div>`);
-function barCard(r: Row, st: State) {
+export function barCard(r: Row, st: State) {
   const now = st.day === 'now';
   const live = now && r._until !== null ? `<span class="chip badge-live">Happy hour now · until ${ampm(r._until % 1440)}</span>` : '';
   const sub = r.st ? `<span class="sub">${r.ln.map(bullet).join('')} ${esc(r.st)}${r.wm ? ` · ${r.wm} min walk` : ''}</span>` : '';
@@ -159,7 +159,7 @@ function barCard(r: Row, st: State) {
   <p class="where">${esc(r.hn)}${r.bo && r.bo !== r.hn ? `, ${esc(r.bo)}` : ''}</p>${deal}<p class="sch">${esc(r.sch)}</p>
   <div class="xcard-foot">${live}${sub}</div>${r.ck ? `<p class="checked">Checked ${new Date(r.ck + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p>` : ''}<p class="xcard-cta" aria-hidden="true">See the deal <span>→</span></p></article>`;
 }
-function partyCard(r: Row) {
+export function partyCard(r: Row) {
   const date = new Date(`${r.nd}T12:00:00`).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
   const genres = r.g.slice(0, 3).map((g: string) => `<span class="chip">${esc(g.replace(/-/g, ' '))}</span>`).join('');
   const dist = r._dist !== null && r._dist !== undefined ? `<span class="dist">${miles(r._dist)}</span>` : '';

@@ -8,6 +8,7 @@ import Logo from '../components/Logo.astro';
 import { GA_MEASUREMENT_ID, GOOGLE_SITE_VERIFICATION, BING_SITE_VERIFICATION } from '../lib/site';
 import { allGuides } from '../lib/guides';
 import Newsletter from '../components/Newsletter.astro';
+import { listPages } from '../lib/lists';
 import '../styles/global.css';
 
 interface Props {
@@ -45,6 +46,20 @@ const ICON: Record<string, string> = {
   book: '<path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2V5zm0 16a2 2 0 0 1 2-2h12v2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>',
   pin: '<path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.5" fill="currentColor"/>',
 };
+// the full menu (a drawer, every screen size): only links to pages this build has
+const lists = new Set((await listPages()).map((l) => l.slug));
+const hh = (slug: string, label: string) => (lists.has(slug) ? [{ href: `/happy-hours/${slug}`, label }] : []);
+const guidesMenu = (await allGuides()).filter((g) => g.status === 'published').sort((a, b) => b.updated.localeCompare(a.updated)).slice(0, 4);
+const menu = [
+  { h: 'Happy hours', links: [{ href: '/happy-hours/now', label: 'On right now' }, { href: '/happy-hours', label: 'All happy hours' },
+    ...hh('cheap-drinks', 'Drinks $6 and under'), ...hh('rooftop', 'Rooftops'), ...hh('food', 'Food deals'), ...hh('oysters', 'Oysters'),
+    ...hh('late-night', 'Late night'), { href: '/happy-hours/neighborhoods', label: 'By neighborhood' }] },
+  { h: 'Parties', links: [{ href: '/parties?when=tonight', label: 'Tonight' }, { href: '/parties?when=weekend', label: 'This weekend' },
+    ...(seasonal.href === '/parties/halloween' ? [{ href: '/parties/halloween', label: 'Halloween' }] : []), { href: '/parties', label: 'All parties' }] },
+  { h: 'Maps', links: [{ href: '/map/happy-hours', label: 'Happy hour map' }, { href: '/map/parties', label: 'Party map' }] },
+  ...(guidesMenu.length ? [{ h: 'Guides', links: [...guidesMenu.map((g) => ({ href: `/blog/${g.slug}`, label: g.short })), { href: '/blog', label: 'All guides' }] }] : []),
+  { h: 'YaY NYC', links: [{ href: '/about', label: 'How we check' }, { href: '/contact', label: 'Contact' }] },
+];
 const tabs = [
   { href: '/happy-hours', label: 'Happy hours', icon: 'glass' },
   { href: '/parties', label: 'Parties', icon: 'party' },
@@ -114,9 +129,40 @@ const tabs = [
           <li><a class="nav-cta" href={seasonal.href}>{seasonal.label}</a></li>
         </ul>
       </nav>
-      <a class="header-cta" href={seasonal.href}>{seasonal.label}</a>
+      <div class="header-end">
+        <a class="header-cta" href={seasonal.href}>{seasonal.label}</a>
+        <button class="menu-btn" type="button" aria-haspopup="dialog" aria-controls="menu" data-menu-open>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+          <span>Menu</span>
+        </button>
+      </div>
     </div>
   </header>
+  <dialog id="menu" class="menu" aria-label="Menu">
+    <div class="menu-head">
+      <a href="/" class="logo-link" aria-label="YaY NYC home"><Logo size={28} /></a>
+      <button class="menu-x" type="button" data-menu-close aria-label="Close menu">✕</button>
+    </div>
+    <form action="/happy-hours" method="get" class="menu-search" role="search">
+      <label for="mq" class="sr">Search happy hours</label>
+      <input id="mq" name="q" type="search" placeholder="Bar, neighborhood or subway stop" />
+    </form>
+    <div class="menu-grid">
+      {menu.map((g) => (
+        <section>
+          <h2>{g.h}</h2>
+          <ul>{g.links.map((l) => <li><a href={l.href} aria-current={l.href === path ? 'page' : undefined}>{l.label}</a></li>)}</ul>
+        </section>
+      ))}
+    </div>
+    <a class="btn coral menu-nl" href="#newsletter">Get the Thursday email</a>
+  </dialog>
+  <script>
+    const m = document.getElementById('menu') as HTMLDialogElement;
+    document.querySelector('[data-menu-open]')?.addEventListener('click', () => { m.showModal(); (window as any).gtag?.('event', 'menu_open'); });
+    m.querySelector('[data-menu-close]')?.addEventListener('click', () => m.close());
+    m.addEventListener('click', (e) => { if (e.target === m || (e.target as HTMLElement).closest('a')) m.close(); });
+  </script>
   <nav class="tabbar" aria-label="Sections">
     {tabs.map((t) => <a href={t.href} aria-current={on(t.href) ? 'page' : undefined}><svg viewBox="0 0 24 24" aria-hidden="true" set:html={ICON[t.icon]} />{t.label}</a>)}
   </nav>
