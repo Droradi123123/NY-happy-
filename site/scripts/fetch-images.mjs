@@ -62,6 +62,20 @@ const CACHE = join(root, 'node_modules', '.astro', 'yay-img');
 const pub = (f) => join(root, 'public', 'img', f);
 const cached = (f) => join(CACHE, f);
 const copy = (from, to) => { mkdirSync(dirname(to), { recursive: true }); copyFileSync(from, to); };
+async function download(url, file) {
+  for (let i = 0; i < 3; i++) {
+    try {
+      const r = await fetch(url, { headers: { 'User-Agent': UA }, signal: AbortSignal.timeout(30000) });
+      if (r.status === 429) { await new Promise((ok) => setTimeout(ok, 2000 * (i + 1))); continue; }
+      if (!r.ok) return false;
+      const type = (r.headers.get('content-type') ?? '').split(';')[0];
+      if (!EXT[type]) return false;
+      writeFileSync(file, Buffer.from(await r.arrayBuffer()));
+      return true;
+    } catch { /* retry */ }
+  }
+  return false;
+}
 /** the original, downloaded once into the cache (never served) */
 async function original(url, rel) {
   const f = cached(`orig/${rel}`);
