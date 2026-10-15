@@ -34,8 +34,7 @@ const onMap = bars.filter((b) => b.onMap).length;
   ogImage={hwOn && hwPhoto ? hwPhoto.src : null}
   jsonld={[{ '@context': 'https://schema.org', '@type': 'WebSite', name: 'YaY NYC', url: SITE, potentialAction: { '@type': 'SearchAction', target: `${SITE}/happy-hours?q={search_term_string}`, 'query-input': 'required name=search_term_string' } }]}>
   <section class="hero">
-    <span class="kicker">NYC happy hours and parties</span>
-    <h1>All the fun in one place!</h1>
+    <h1><span class="kicker">NYC happy hours and parties</span> All the fun in one place!</h1>
     <p class="lede">{s.n} happy hours with the deal, the time and the date we checked, plus {parties.length} parties with doors, age and tickets.</p>
     <form action="/happy-hours" method="get" class="hero-search" role="search">
       <label for="hq" class="sr">Search happy hours</label>
@@ -129,7 +128,7 @@ const onMap = bars.filter((b) => b.onMap).length;
 </Base>
 <style>
   .hero { padding: 18px 0 4px; }
-  .kicker { display: inline-block; font-size: 13px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brand); background: var(--brand-soft); padding: 5px 12px; border-radius: 999px; margin-bottom: 12px; }
+  .kicker { display: table; font-size: 13px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brand); background: var(--brand-soft); padding: 5px 12px; border-radius: 999px; margin-bottom: 12px; }
   .hero h1 { max-width: 900px; }
   .hero-search { display: flex; gap: 8px; max-width: 720px; margin: 16px 0 18px; }
   .hero-search input { flex: 1; min-width: 0; height: 54px; border: 1.5px solid var(--line); border-radius: 14px; padding: 0 16px; font: inherit; font-size: 17px; background: #fff; box-shadow: var(--shadow); }
