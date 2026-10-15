@@ -21,7 +21,7 @@ const a = (href: string, text: string) => `<a href="${href}">${text}</a>`;
 
 export const GUIDES: Guide[] = [
   {
-    slug: 'cheapest-happy-hours-nyc', status: 'draft', published: '2026-10-14', updated: '2026-10-14',
+    slug: 'cheapest-happy-hours-nyc', status: 'published', published: '2026-10-14', updated: '2026-10-14',
     title: 'The Cheapest Happy Hours in NYC, by Neighborhood (2026)', short: 'Cheapest happy hours',
     h1: 'The Cheapest Happy Hours in NYC, Neighborhood by Neighborhood', keyword: 'cheapest happy hours nyc',
     description: 'The cheapest happy hours in NYC by neighborhood: the lowest drink price we hold in each area, the bar, the hours and the date it was checked.',
@@ -44,7 +44,7 @@ export const GUIDES: Guide[] = [
     related: [['Drinks $6 and under', '/happy-hours/cheap-drinks'], ['Cheap beer', '/happy-hours/cheap-beer'], ['Happy hour right now', '/happy-hours/now'], ['All neighborhoods', '/happy-hours/neighborhoods']],
   },
   {
-    slug: 'dollar-oysters-nyc', status: 'draft', published: '2026-10-14', updated: '2026-10-14',
+    slug: 'dollar-oysters-nyc', status: 'published', published: '2026-10-14', updated: '2026-10-14',
     title: 'Dollar Oysters in NYC: Every Oyster Happy Hour We Track', short: 'Dollar oysters',
     h1: 'Dollar Oysters in NYC: Where the Oyster Happy Hours Are', keyword: 'dollar oysters nyc',
     description: 'Dollar oysters in NYC: the oyster happy hours we track, from $1 a piece in Red Hook, Bushwick and Midtown to $2 near Times Square, with times and dates.',
@@ -66,7 +66,7 @@ export const GUIDES: Guide[] = [
     related: [['Oyster happy hours list', '/happy-hours/oysters'], ['Happy hour food deals', '/happy-hours/food'], ['Happy hour right now', '/happy-hours/now']],
   },
   {
-    slug: 'reverse-happy-hour-nyc', status: 'draft', published: '2026-10-14', updated: '2026-10-14',
+    slug: 'reverse-happy-hour-nyc', status: 'published', published: '2026-10-14', updated: '2026-10-14',
     title: 'Reverse Happy Hour NYC: Late-Night Deals After 10pm', short: 'Reverse happy hour',
     h1: 'Reverse Happy Hour in NYC: The Late-Night Deals Worth Staying Out For', keyword: 'reverse happy hour nyc',
     description: 'Reverse happy hour in NYC: the bars on our list with a second, late-night happy hour, from 10pm to 4am in Gramercy and Murray Hill to after 11pm near Times Square.',
@@ -88,7 +88,7 @@ export const GUIDES: Guide[] = [
     related: [['Late night happy hours list', '/happy-hours/late-night'], ['Happy hour right now', '/happy-hours/now'], ['Parties tonight', '/parties']],
   },
   {
-    slug: 'best-weekend-happy-hours-nyc', status: 'draft', published: '2026-10-14', updated: '2026-10-14',
+    slug: 'best-weekend-happy-hours-nyc', status: 'published', published: '2026-10-14', updated: '2026-10-14',
     title: 'The Best Weekend Happy Hours in NYC: Saturday and Sunday Deals', short: 'Weekend happy hours',
     h1: 'The Best Weekend Happy Hours in NYC, Saturday and Sunday', keyword: 'best weekend happy hours nyc',
     description: 'The best weekend happy hours in NYC: bars that run a deal on Saturday or Sunday, with the hours for each day and the price, cheapest first.',
@@ -106,7 +106,7 @@ export const GUIDES: Guide[] = [
     related: [['Saturday happy hours', '/happy-hours/saturday'], ['Sunday happy hours', '/happy-hours/sunday'], ['Weekend list', '/happy-hours/weekend']],
   },
   {
-    slug: 'cheap-happy-hour-food-nyc', status: 'draft', published: '2026-10-14', updated: '2026-10-14',
+    slug: 'cheap-happy-hour-food-nyc', status: 'published', published: '2026-10-14', updated: '2026-10-14',
     title: 'Cheap Happy Hour Food in NYC: Tacos, Sliders and Snacks with a Price', short: 'Cheap happy hour food',
     h1: 'Cheap Happy Hour Food in NYC: Tacos, Sliders and Snacks', keyword: 'cheap happy hour food nyc',
     description: 'Cheap happy hour food in NYC: dishes with a published happy-hour price, from $1 tacos in Greenpoint to $3 sliders on the Lower East Side, with hours and dates.',
@@ -127,7 +127,7 @@ export const GUIDES: Guide[] = [
     related: [['Happy hour food deals list', '/happy-hours/food'], ['Dollar oysters', '/blog/dollar-oysters-nyc'], ['Cheapest happy hours', '/blog/cheapest-happy-hours-nyc']],
   },
   {
-    slug: 'pre-theater-drinks-times-square', status: 'draft', published: '2026-10-14', updated: '2026-10-14',
+    slug: 'pre-theater-drinks-times-square', status: 'published', published: '2026-10-14', updated: '2026-10-14',
     title: 'Pre-Theater Drinks Near Times Square: Happy Hours Before a Show', short: 'Pre-theater drinks',
     h1: 'Pre-Theater Drinks Near Times Square: Happy Hours Before a Broadway Show', keyword: 'pre theater drinks times square',
     description: 'Pre-theater drinks near Times Square: happy hours within a few minutes’ walk of the Broadway theaters that end before an evening curtain, with walking times.',
@@ -147,7 +147,7 @@ export const GUIDES: Guide[] = [
     related: [['Happy hour near the Broadway theaters', '/happy-hours/near/broadway-theater-district'], ['Happy hour near Times Square', '/happy-hours/near/times-square'], ['Reverse happy hour, after the show', '/blog/reverse-happy-hour-nyc']],
   },
   {
-    slug: 'after-work-drinks-grand-central-penn-station', status: 'draft', published: '2026-10-14', updated: '2026-10-14',
+    slug: 'after-work-drinks-grand-central-penn-station', status: 'published', published: '2026-10-14', updated: '2026-10-14',
     title: 'After-Work Drinks Near Grand Central and Penn Station', short: 'After-work drinks',
     h1: 'After-Work Drinks Near Grand Central and Penn Station', keyword: 'after work drinks near grand central',
     description: 'After-work drinks near Grand Central and Penn Station: weekday happy hours a few minutes from the trains, with the hours, the deal and the walking time.',
