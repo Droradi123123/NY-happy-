@@ -38,11 +38,12 @@ The first data came from `nyc-parties-oct-dec-2026-v2.xlsx` (`scripts/parties/xl
 
 ## Photos (legal by construction)
 
-Three layers, in order: (1) a freely licensed file from Wikimedia Commons (CC0, public domain,
-CC BY or CC BY-SA), self-hosted; (2) where Commons has none, the place's photo from the Google
-Places API (New), shown with the contributor's name and "Google Maps" and refreshed within 30 days
-(`gp_places`, pg_cron `yay-google-places`, needs Vault secret `google_maps_api_key`); (3) a designed
-card. Nothing is taken from bar, club or ticket sites or Instagram.
+Two layers: (1) a freely licensed file from Wikimedia Commons (CC0, public domain, CC BY or
+CC BY-SA), self-hosted; (2) a designed card. Nothing is taken from bar, club or ticket sites or
+Instagram. Google Places photos are **not** used: Google's terms forbid caching photos, photo
+names or other Places content (Maps Platform ToS 3.2.3(b)). The Places job (`gp_places`, pg_cron
+`yay-google-places`, Vault secret `google_maps_api_key`) stores only the Place ID, which the terms
+allow, so pages can link to the exact place on Google Maps.
 
 - `image_rights` holds every candidate with its author, license, source page and verdict.
   Rules (in `img_ingest()`): photo MIME, allowed license, no Commons restrictions template,

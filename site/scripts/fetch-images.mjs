@@ -11,7 +11,7 @@
  * A photo that fails to download is left out; the page falls back to its designed card.
  * YAY_FIXTURE=1 uses fixtures/images.json and the files already in public/img (none needed).
  */
-import { mkdirSync, writeFileSync, readFileSync, existsSync } from 'node:fs';
+import { mkdirSync, writeFileSync, readFileSync, existsSync, readdirSync, rmSync } from 'node:fs';
 import { join } from 'node:path';
 
 const SUPABASE_URL = 'https://zqfscuwkxcoktpjhaebv.supabase.co';
@@ -95,5 +95,15 @@ async function worker() {
 }
 await Promise.all([worker(), worker(), worker()]);
 done.sort((a, b) => (a.kind + a.key).localeCompare(b.kind + b.key));
+// a photo that left the list (license withdrawn, takedown, source we no longer use) must not stay
+// on the site through a cached public/img: delete every file the list does not reference
+const keep = new Set(done.flatMap((p) => [p.src, p.thumb]));
+let removed = 0;
+for (const kind of ['bar', 'venue', 'hood']) {
+  const dir = join(root, 'public', 'img', kind);
+  if (!existsSync(dir)) continue;
+  for (const f of readdirSync(dir)) if (!keep.has(`/img/${kind}/${f}`)) { rmSync(join(dir, f)); removed++; }
+}
+if (removed) console.log(`images: removed ${removed} files no longer listed`);
 writeFileSync(outJson, JSON.stringify(done));
 console.log(`images: ${done.length}/${rows.length} photos ready`);

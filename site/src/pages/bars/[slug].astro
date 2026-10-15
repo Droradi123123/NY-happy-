@@ -4,7 +4,7 @@ import BarCard from '../../components/BarCard.astro';
 import Line from '../../components/Line.astro';
 import MiniMap from '../../components/MiniMap.astro';
 import Photo from '../../components/Photo.astro';
-import { allBars, googleInfo, splitHours, photoOf, DAYS, DAY_NAME, daysLabel, windowLabel, dealLabel, fmtDate, meters, type Bar, type GoogleInfo } from '../../lib/data';
+import { allBars, googleInfo, placeUrl, photoOf, DAYS, DAY_NAME, daysLabel, windowLabel, dealLabel, fmtDate, meters, type Bar, type GoogleInfo } from '../../lib/data';
 import { hoodHref } from '../../lib/lists';
 import { barTitle, barKeyword, barDescription, barJsonLd, crumbs, faqLd, SITE } from '../../lib/seo';
 
@@ -26,12 +26,7 @@ const near = b.onMap
   ? bars.filter((x) => x.slug !== b.slug && x.onMap).map((x) => ({ x, m: meters({ lat: b.lat!, lng: b.lng! }, { lat: x.lat!, lng: x.lng! }) })).filter((n) => n.m < 900).sort((p, q) => p.m - q.m).slice(0, 6)
   : bars.filter((x) => x.slug !== b.slug && x.hoodSlug === b.hoodSlug).slice(0, 6).map((x) => ({ x, m: null }));
 const host = (u: string) => { try { return new URL(u).host.replace(/^www\./, ''); } catch { return u; } };
-const mapsUrl = g?.maps_uri ?? (b.onMap ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${b.name} ${b.address ?? ''}`)}` : null);
-// Google Maps fills what the bar's own data leaves out, always labeled as such
-const gHours = !b.hours && g?.weekday_hours?.length ? g.weekday_hours.map(splitHours) : null;
-const phone = b.phone ?? g?.phone ?? null;
-const website = b.website ?? g?.website ?? null;
-const closed = g?.business_status === 'CLOSED_PERMANENTLY' ? 'permanently closed' : g?.business_status === 'CLOSED_TEMPORARILY' ? 'temporarily closed' : null;
+const mapsUrl = g ? placeUrl(b.name, g.place_id) : b.onMap ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${b.name} ${b.address ?? ''}`)}` : null;
 const today = new Date().toLocaleDateString('en-US', { weekday: 'short', timeZone: 'America/New_York' }).toLowerCase().slice(0, 3);
 const faq = [
   { q: `When is happy hour at ${b.name}?`, a: `${b.windows.map((w) => `${daysLabel(w.days)}, ${windowLabel(w)}`).join('; ')}. Checked against ${b.source ? host(b.source) : "the bar's own website"} on ${fmtDate(b.checked)}.` },
@@ -46,8 +41,6 @@ const faq = [
     <div>
       <h1>{b.name}{branch && ` ${b.hood}`} Happy Hour</h1>
       <p class="lede">{b.category === 'restaurant' ? 'Restaurant and bar' : b.category === 'pub' ? 'Pub' : 'Bar'} in {b.hood}{b.borough && b.borough !== b.hood ? `, ${b.borough}` : ''}{b.cuisine ? ` · ${b.cuisine}` : ''}</p>
-
-      {closed && <p class="closed-note" role="note">Google Maps lists {b.name} as {closed} (checked {fmtDate(g!.checked)}). The happy hour below may not be running: check with the bar before you go.</p>}
 
       <section class="dealcard" aria-label="Happy hour">
         <p class="deal-big">{deal ?? 'Happy hour times are published; the deal is not listed'}</p>
@@ -76,15 +69,14 @@ const faq = [
           {b.address && <><dt>Address</dt><dd>{b.address}{mapsUrl && <> · <a href={mapsUrl} rel="noopener" target="_blank">Directions</a></>}</dd></>}
           {b.subway && <><dt>Subway</dt><dd>{b.subway.lines.map((l) => <Line l={l} />)} {b.subway.station}, {b.subway.walk_min} min walk{b.subway.accessible ? ' (accessible station)' : ''}</dd></>}
           {b.hours && <><dt>Open</dt><dd><ul class="hours">{DAYS.filter((d) => b.hours![d]).map((d) => <li><span>{DAY_NAME[d]}</span> {b.hours![d]!.split('-').map((t) => t).join('–')}</li>)}</ul></dd></>}
-          {gHours && <><dt>Open</dt><dd><ul class="hours">{gHours.map(([d, t]) => <li><span>{d}</span> {t}</li>)}</ul><span class="small">Opening hours via Google Maps, checked {fmtDate(g!.checked)}</span></dd></>}
-          {phone && <><dt>Phone</dt><dd><a href={`tel:${phone.replace(/[^\d+]/g, '')}`}>{phone}</a></dd></>}
+          {b.phone && <><dt>Phone</dt><dd><a href={`tel:${b.phone.replace(/[^\d+]/g, '')}`}>{b.phone}</a></dd></>}
           {b.priceRange && <><dt>Price</dt><dd>{b.priceRange}</dd></>}
           {b.licence && <><dt>Licence</dt><dd>{b.licence} (NY State Liquor Authority, active)</dd></>}
         </dl>
         <div class="actions">
           {b.booking && <a class="btn" href={b.booking} rel="noopener" target="_blank">Book a table</a>}
-          {website && <a class="btn ghost" href={website} rel="noopener" target="_blank">Website</a>}
-          {g?.maps_uri && <a class="btn ghost" href={g.maps_uri} rel="noopener" target="_blank">Google Maps</a>}
+          {b.website && <a class="btn ghost" href={b.website} rel="noopener" target="_blank">Website</a>}
+          {g && <a class="btn ghost" href={placeUrl(b.name, g.place_id)} rel="noopener" target="_blank">Google Maps</a>}
           {b.instagram && <a class="btn ghost" href={b.instagram} rel="noopener" target="_blank">Instagram</a>}
         </div>
       </section>
@@ -128,7 +120,6 @@ const faq = [
   .hours span { display: inline-block; width: 100px; }
   .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
   .side-card { margin-top: 18px; }
-  .closed-note { background: #ffe1dc; border-radius: 14px; padding: 12px 16px; margin: 14px 0 0; font-weight: 600; }
   .h3 { font-size: 20px; }
   aside { min-width: 0; }
 </style>

@@ -345,24 +345,20 @@ export const photoOf = (kind: Photo['kind'], key: string | null | undefined) => 
 export const boroughSlug = (b: string | null) => (b ? b.toLowerCase().replace(/^the /, '').replace(/\s+/g, '-') : 'nyc');
 export const creditShort = (p: Photo) => (p.source === 'google_places' ? `${p.author ?? 'Photo'} · Google Maps` : `${p.author ?? 'Wikimedia Commons'} · ${p.license}`);
 
-// ---------- Google Places facts ----------
+// ---------- Google Places IDs ----------
 
-/** what Google Maps lists for a bar or venue (hours, phone, site, open/closed), shown with "via Google Maps" and its date */
-export interface GoogleInfo {
-  subject_kind: 'bar' | 'venue'; subject_key: string; place_id: string | null; maps_uri: string | null;
-  phone: string | null; website: string | null; weekday_hours: string[] | null;
-  business_status: 'OPERATIONAL' | 'CLOSED_TEMPORARILY' | 'CLOSED_PERMANENTLY' | null; checked: string;
-}
+/** the Google Maps Place ID matched to a bar or venue. Google's terms allow storing Place IDs (not hours, photos or other content) */
+export interface GoogleInfo { subject_kind: 'bar' | 'venue'; subject_key: string; place_id: string }
 let _google: Promise<Map<string, GoogleInfo>> | null = null;
 export function googleInfo(): Promise<Map<string, GoogleInfo>> {
   _google ??= (async () => {
     if (FIXTURE) return new Map();
-    try { return new Map((await rest<GoogleInfo>('site_google?select=*')).map((g) => [`${g.subject_kind}:${g.subject_key}`, g])); } catch { return new Map(); }
+    try { return new Map((await rest<GoogleInfo>('site_google?select=subject_kind,subject_key,place_id')).map((g) => [`${g.subject_kind}:${g.subject_key}`, g])); } catch { return new Map(); }
   })();
   return _google;
 }
-/** "Monday: 4:00 PM – 2:00 AM" -> ["Monday", "4:00 PM – 2:00 AM"] */
-export const splitHours = (line: string) => { const i = line.indexOf(': '); return i > 0 ? [line.slice(0, i), line.slice(i + 2).replace(/\u202f|\u2009/g, ' ')] : [line, '']; };
+/** a Google Maps link that opens the exact place (Maps URLs, no key needed) */
+export const placeUrl = (name: string, placeId: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name)}&query_place_id=${encodeURIComponent(placeId)}`;
 
 // ---------- price re-checks ----------
 
