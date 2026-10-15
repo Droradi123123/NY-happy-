@@ -1,6 +1,8 @@
 # Builds yaynyc.com from Supabase and deploys it to Cloudflare Workers (static assets).
-# Runs on every push to main, every morning (ended parties drop off, new data and
-# photos go live), and on demand from the Actions tab.
+# Runs twice a day (ended parties drop off, new data and photos go live) and on demand
+# from the Actions tab. Without a Cloudflare token here, the scheduled run checks the
+# build on live data and, if it passes, pushes a one-line stamp (site/.rebuild): the
+# push is what makes Cloudflare Workers Builds rebuild and deploy the site.
 #
 # Needs, in GitHub > Settings > Secrets and variables > Actions:
 #   secret   CLOUDFLARE_API_TOKEN   (template "Edit Cloudflare Workers")
@@ -14,11 +16,15 @@ on:
     paths: ['site/**', '.github/workflows/deploy-site.yml']
   schedule:
     - cron: '17 9 * * *' # 5:17am in New York (4:17am in winter)
+    - cron: '17 21 * * *' # 5:17pm in New York
   workflow_dispatch:
 
 concurrency:
   group: deploy-site
   cancel-in-progress: false
+
+permissions:
+  contents: write
 
 jobs:
   deploy:
@@ -50,3 +56,13 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+      - name: Ask Cloudflare to rebuild
+        if: ${{ github.event_name == 'schedule' && vars.CLOUDFLARE_ACCOUNT_ID == '' }}
+        working-directory: .
+        run: |
+          date -u +%Y-%m-%dT%H:%MZ > site/.rebuild
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/.rebuild
+          git commit -m "Scheduled rebuild: fresh parties, prices and photos"
+          git push origin HEAD:${{ github.ref_name }}
