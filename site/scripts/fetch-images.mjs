@@ -79,7 +79,8 @@ async function worker() {
     mkdirSync(dir, { recursive: true });
     const base = safe(row.subject_key);
     const big = await get(row.thumb_url, join(dir, `${base}.${ext}`));
-    const sm = big && (await get(small(row.thumb_url), join(dir, `${base}-s.${ext}`)));
+    // only Commons serves a smaller rendition; a Google photo is used at one size
+    const sm = big && small(row.thumb_url) !== row.thumb_url && (await get(small(row.thumb_url), join(dir, `${base}-s.${ext}`)));
     if (!big) continue;
     const ratio = row.width && row.height ? row.width / row.height : 4 / 3;
     done.push({

@@ -3,18 +3,22 @@ import Base from '../../../layouts/Base.astro';
 import PartyCard from '../../../components/PartyCard.astro';
 import MiniMap from '../../../components/MiniMap.astro';
 import Photo from '../../../components/Photo.astro';
-import { partyData, photoOf, venueOf, GENRE_NAME, type Party, type Venue } from '../../../lib/data';
+import { partyData, googleInfo, splitHours, fmtDate, photoOf, venueOf, GENRE_NAME, type Party, type Venue, type GoogleInfo } from '../../../lib/data';
 import { crumbs, itemList, SITE } from '../../../lib/seo';
 import { dateRange } from '../../../lib/partyLists';
 
 /** every club that has had a published night keeps its page, with or without parties right now */
 export async function getStaticPaths() {
   const { parties, venues, venuePages } = await partyData();
-  return venuePages.map((venue) => ({ params: { id: venue.id }, props: { venue, nights: parties.filter((p) => p.venue_id === venue.id), parties, venues } }));
+  const google = await googleInfo();
+  return venuePages.map((venue) => ({ params: { id: venue.id }, props: { venue, nights: parties.filter((p) => p.venue_id === venue.id), parties, venues, g: google.get(`venue:${venue.id}`) ?? null } }));
 }
-const { venue: v, nights, parties, venues } = Astro.props as { venue: Venue; nights: Party[]; parties: Party[]; venues: Venue[] };
+const { venue: v, nights, parties, venues, g } = Astro.props as { venue: Venue; nights: Party[]; parties: Party[]; venues: Venue[]; g: GoogleInfo | null };
+const gHours = g?.weekday_hours?.length ? g.weekday_hours.map(splitHours) : null;
+const closed = g?.business_status === 'CLOSED_PERMANENTLY' ? 'permanently closed' : g?.business_status === 'CLOSED_TEMPORARILY' ? 'temporarily closed' : null;
 const where = v.neighborhood ?? v.borough ?? 'NYC';
 const x = (v.extra ?? {}) as Record<string, any>;
+const website: string | null = x.website ?? g?.website ?? null;
 const genres = [...new Set(nights.flatMap((p) => p.genres))].slice(0, 5).map((g) => GENRE_NAME[g] ?? g);
 const elsewhere = parties.filter((p) => p.venue_id !== v.id && (p.borough === v.borough || !v.borough)).slice(0, 6);
 const description = nights.length
@@ -23,7 +27,7 @@ const description = nights.length
 const placeLd = {
   '@context': 'https://schema.org', '@type': v.kind === 'club' || v.kind === 'nightclub' ? 'NightClub' : 'Place', name: v.name, url: `${SITE}/parties/venue/${v.id}`,
   ...(v.address ? { address: v.address } : {}), ...(v.lat ? { geo: { '@type': 'GeoCoordinates', latitude: v.lat, longitude: v.lng } } : {}),
-  ...(x.website ? { sameAs: [x.website] } : {}),
+  ...(website ? { sameAs: [website] } : {}), ...(g?.phone ? { telephone: g.phone } : {}),
 };
 ---
 <Base title={`${v.name} NYC: Upcoming Parties and Tickets`} keyword={`${v.name} parties`} description={description}
@@ -33,7 +37,22 @@ const placeLd = {
   <p class="lede">{v.address?.replace(/, United States$|, USA$/, '')}{v.rooms.length > 0 && ` · Rooms: ${v.rooms.join(', ')}`}</p>
   {photoOf('venue', v.id) && <Photo photo={photoOf('venue', v.id)!} alt={`${v.name}, ${where}`} hero />}
   {v.lat && <MiniMap lat={v.lat} lng={v.lng!} label={v.name} />}
+  {closed && <p class="closed-note" role="note">Google Maps lists {v.name} as {closed} (checked {fmtDate(g!.checked)}).</p>}
   {v.copy?.about && <section class="section"><h2>About {v.name}</h2><p>{v.copy.about}</p></section>}
+  {(gHours || g?.phone || website || g?.maps_uri) && (
+    <section class="section">
+      <h2>Before you go</h2>
+      <dl class="facts">
+        {v.address && <><dt>Address</dt><dd>{v.address.replace(/, United States$|, USA$/, '')}</dd></>}
+        {gHours && <><dt>Opening hours</dt><dd><ul class="hours">{gHours.map(([d, t]) => <li><span>{d}</span> {t}</li>)}</ul><span class="small">Regular hours via Google Maps, checked {fmtDate(g!.checked)}. Party nights keep their own door times, listed on each night.</span></dd></>}
+        {g?.phone && <><dt>Phone</dt><dd><a href={`tel:${g.phone.replace(/[^\d+]/g, '')}`}>{g.phone}</a></dd></>}
+      </dl>
+      <div class="actions">
+        {website && <a class="btn ghost" href={website} rel="noopener" target="_blank">Website</a>}
+        {g?.maps_uri && <a class="btn ghost" href={g.maps_uri} rel="noopener" target="_blank">Google Maps</a>}
+      </div>
+    </section>
+  )}
   {nights.length > 0 ? (
     <>
       <h2 class="section">Upcoming at {v.name}</h2>
@@ -52,3 +71,10 @@ const placeLd = {
     </section>
   )}
 </Base>
+
+<style>
+  .closed-note { background: #ffe1dc; border-radius: 14px; padding: 12px 16px; margin: 14px 0 0; font-weight: 600; }
+  .hours { list-style: none; padding: 0; margin: 0; }
+  .hours span { display: inline-block; width: 100px; }
+  .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+</style>
