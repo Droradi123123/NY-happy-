@@ -69,7 +69,7 @@ export const GUIDES: Guide[] = [
     slug: 'reverse-happy-hour-nyc', status: 'published', published: '2026-10-14', updated: '2026-10-14',
     title: 'Reverse Happy Hour NYC: Late-Night Deals After 10pm', short: 'Reverse happy hour',
     h1: 'Reverse Happy Hour in NYC: The Late-Night Deals Worth Staying Out For', keyword: 'reverse happy hour nyc',
-    description: 'Reverse happy hour in NYC: the bars on our list with a second, late-night happy hour, from 10pm to 4am in Gramercy and Murray Hill to after 11pm near Times Square.',
+    description: 'Reverse happy hour in NYC: bars with a second, late-night happy hour, from 10pm to 4am in Gramercy and Murray Hill to after 11pm near Times Square.',
     answer: 'The longest late happy hours on our list run until 4am: Barfly in Gramercy (10pm to 4am, Sunday to Thursday) and Blue Haven in Murray Hill (10pm to 4am, Sunday to Wednesday). Meller’s in the Upper East Side runs 11pm to 3am, and near Times Square Tanner Smith’s starts at 10pm every night.',
     sections: [
       { h2: 'Until 3am or 4am', paras: [
