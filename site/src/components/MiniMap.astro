@@ -24,6 +24,7 @@ const { lat, lng, label, points = [] } = Astro.props;
       }
       const pin = document.createElement('div');
       pin.className = 'mm-pin';
+      pin.setAttribute('role', 'img'); // MapLibre gives markers an aria-label, which needs a role
       new maplibregl.Marker({ element: pin, anchor: 'bottom' }).setLngLat(c).addTo(map);
       if (pts.length) {
         const lo = [...pts.map((p) => p.lng), c[0]], la = [...pts.map((p) => p.lat), c[1]];
