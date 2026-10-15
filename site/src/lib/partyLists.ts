@@ -33,7 +33,8 @@ export function partyLists(): Promise<PartyList[]> {
     const out: PartyList[] = [];
     const add = (l: Omit<PartyList, 'parties'>, list: Party[], min: number) => { if (list.length >= min) out.push({ ...l, parties: list }); };
     for (const [g, name] of Object.entries(GENRE_NAME)) {
-      const [H, kw] = GENRE_KW[g] ?? [name, name.toLowerCase()];
+      // headings in title case ("Afro House", "Drum & Bass"); the keyword stays lower case
+      const [H, kw] = GENRE_KW[g] ?? [name.replace(/\b[a-z]/g, (c) => c.toUpperCase()), name.toLowerCase()];
       add({ slug: g, kind: 'genre', h1: `${H} Parties in NYC`, label: sentence(`${H} Parties in NYC`), keyword: `${kw} parties nyc`, short: name }, parties.filter((p) => p.genres.includes(g)), 2);
     }
     for (const [i, day] of WEEKDAY.entries()) {
