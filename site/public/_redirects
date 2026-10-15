@@ -1,0 +1,7 @@
+# Neighborhood pages that dropped under 5 bars after the Oct 15 2026 address check
+# (NYC Planning GeoSearch): sent to the closest page that still lists their bars.
+# Remove a line if that neighborhood gets back to 5 bars, or the redirect hides its page.
+/happy-hours/prospect-heights /happy-hours/crown-heights 301
+/happy-hours/gowanus /happy-hours/park-slope 301
+/happy-hours/jackson-heights /happy-hours/queens 301
+/happy-hours/forest-hills /happy-hours/queens 301
