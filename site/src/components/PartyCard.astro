@@ -1,11 +1,11 @@
 ---
 import { cleanTitle, nightDate, nyTime, priceLabel, GENRE_NAME, placePhoto, cardCredit, boroughSlug, type Party, type Venue } from '../lib/data';
-interface Props { party: Party; venue: Venue | null }
-const { party: p, venue: v } = Astro.props;
+interface Props { party: Party; venue: Venue | null; eager?: boolean }
+const { party: p, venue: v, eager = false } = Astro.props;
 const pp = placePhoto('venue', p.venue_id, v?.neighborhood ?? p.neighborhood, null, false);
 ---
 <article class="xcard party">
-  {pp && <figure class="xcard-img"><img src={pp.photo.thumb} alt="" width="500" height="281" loading="lazy" decoding="async" /><figcaption>{cardCredit(pp)}</figcaption></figure>}
+  {pp && <figure class="xcard-img"><img src={pp.photo.thumb} alt="" width="500" height="281" loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} decoding="async" /><figcaption>{cardCredit(pp)}</figcaption></figure>}
   {!pp && <div class={`xcard-art xart-${boroughSlug(p.borough)}`} aria-hidden="true"><span>{v?.name ?? p.neighborhood ?? 'NYC'}</span></div>}
   <div class="xcard-top"><p class="when">{nightDate(p.night_date, { weekday: 'short', month: 'short', day: 'numeric' })}{nyTime(p.doors_at ?? p.starts_at) && ` · ${nyTime(p.doors_at ?? p.starts_at)}`}</p></div>
   <h3><a href={`/parties/${p.slug}`}>{cleanTitle(p.title)}</a></h3>

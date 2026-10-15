@@ -3,7 +3,7 @@ import Base from '../../layouts/Base.astro';
 import Explorer from '../../components/Explorer.astro';
 import BarCard from '../../components/BarCard.astro';
 import { allBars, allHoods } from '../../lib/data';
-import { listPages } from '../../lib/lists';
+import { rank, listPages } from '../../lib/lists';
 import { stats, plural } from '../../lib/stats';
 import { crumbs, faqLd, itemList } from '../../lib/seo';
 
@@ -27,7 +27,7 @@ const faq = [
   <h1>NYC Happy Hours</h1>
   <p class="lede">{plural(s.n, 'happy hour')} across the five boroughs, each with the deal, the times and the date we checked it. {s.deals} list exactly what is discounted.</p>
   <Explorer kind="bars" hoods={hoods} heading="Find a happy hour">
-    {bars.slice(0, 24).map((b) => <BarCard bar={b} />)}
+    {[...bars].sort(rank).slice(0, 24).map((b, i) => <BarCard bar={b} eager={i < 2} />)}
   </Explorer>
 
   <section class="section">

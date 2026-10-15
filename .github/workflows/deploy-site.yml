@@ -48,7 +48,9 @@ jobs:
               console.log(["first-contentful-paint","largest-contentful-paint","total-blocking-time","cumulative-layout-shift","speed-index"].map((k) => `${k}: ${a[k].displayValue}`).join(" | "));
               const lcp = a["largest-contentful-paint-element"]?.details?.items?.[0]?.items?.[0]?.node?.snippet; if (lcp) console.log("LCP element:", lcp.slice(0, 160));
               for (const x of Object.values(a)) if (x.score !== null && x.score < 0.9 && x.scoreDisplayMode !== "informative" && x.scoreDisplayMode !== "notApplicable")
-                console.log(`- ${x.id}: ${x.title}${x.displayValue ? ` (${x.displayValue})` : ""}`);'
+                console.log(`- ${x.id}: ${x.title}${x.displayValue ? ` (${x.displayValue})` : ""}`);
+              for (const k of ["color-contrast", "heading-order", "button-name"]) for (const it of (a[k]?.details?.items ?? []).slice(0, 6))
+                console.log(`    ${k}: ${(it.node?.snippet ?? "").slice(0, 150)} ${(it.node?.explanation ?? "").split("\n").pop().slice(0, 120)}`);'
           done
 
   deploy:

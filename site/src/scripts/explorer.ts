@@ -102,7 +102,8 @@ export function filterBars(rows: Row[], st: State, here: [number, number] | null
     sort === 'near' ? (a._dist ?? 1e9) - (b._dist ?? 1e9)
     : sort === 'cheap' ? (a.c ?? 99) - (b.c ?? 99)
     : sort === 'ending' ? (a._until ?? 9e9) - (b._until ?? 9e9)
-    : (b.f.includes('deal') ? 1 : 0) - (a.f.includes('deal') ? 1 : 0) || (b.ck ?? '').localeCompare(a.ck ?? '') || a.n.localeCompare(b.n));
+    // the server's order (lib/lists.ts rank): deal listed, cheapest drink, most recently checked, name
+    : (b.f.includes('deal') ? 1 : 0) - (a.f.includes('deal') ? 1 : 0) || (a.c ?? 99) - (b.c ?? 99) || (b.ck ?? '').localeCompare(a.ck ?? '') || a.n.localeCompare(b.n));
   return out;
 }
 
@@ -250,6 +251,7 @@ export async function initExplorer(root: HTMLElement) {
     const lo = pts.map((r) => r.lo), la = pts.map((r) => r.la);
     map.fitBounds([[Math.min(...lo), Math.min(...la)], [Math.max(...lo), Math.max(...la)]], { padding: 48, maxZoom: 15, duration: 400 });
   }
+  let firstRender = true;
   function render(resetPage = true) {
     if (resetPage) shown = PAGE;
     last = kind === 'bars' ? filterBars(rows, st, here) : filterParties(rows, st, here);
@@ -259,7 +261,13 @@ export async function initExplorer(root: HTMLElement) {
     const active = Object.entries(st).filter(([k, v]) => k !== 'sort' && JSON.stringify(v) !== JSON.stringify(preset[k]) && (Array.isArray(v) ? v.length > 0 : v !== '' && v !== undefined)).reduce((n, [, v]) => n + (Array.isArray(v) ? v.length : 1), 0);
     const badge = root.querySelector<HTMLElement>('[data-active]');
     if (badge) { badge.hidden = active === 0; badge.textContent = String(active); }
-    list.innerHTML = last.length
+    // first paint: when the server-rendered cards are exactly what the filters give, they stay
+    // (their photos are the page's largest paint; replacing them would fetch it all again)
+    const want = last.slice(0, shown).map((r) => `/${kind === 'bars' ? 'bars' : 'parties'}/${r.s}`);
+    const have = [...list.querySelectorAll<HTMLAnchorElement>('.xcard h3 a')].map((a) => a.getAttribute('href'));
+    const keepServer = firstRender && have.length > 0 && have.length === want.length && have.every((h, i) => h === want[i]);
+    firstRender = false;
+    if (!keepServer) list.innerHTML = last.length
       ? last.slice(0, shown).map((r) => (kind === 'bars' ? barCard(r, st) : partyCard(r))).join('')
       : `<p class="empty">Nothing matches all of these filters. <button type="button" class="linkbtn" data-reset>Clear filters</button></p>`;
     more.hidden = last.length <= shown;

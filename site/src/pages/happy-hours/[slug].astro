@@ -117,7 +117,7 @@ const hoods = (await allHoods()).filter((h) => list.some((b) => b.hoodSlug === h
   )}
   {copy?.sections.map((s) => <section class="section"><h2>{s.h}</h2>{paragraphs(s.body).map((p) => <p>{p}</p>)}</section>)}
   <Explorer kind="bars" preset={page.preset} hide={page.kind === 'hood' ? ['where'] : []} hoods={hoods} heading={page.label}>
-    {list.slice(0, 24).map((b) => <BarCard bar={b} />)}
+    {list.slice(0, 24).map((b, i) => <BarCard bar={b} eager={i < 2} />)}
   </Explorer>
   <section class="section">
     <h2>All {subject}{page.kind === 'hood' || page.kind === 'borough' ? '' : ' in NYC'} ({s.n})</h2>

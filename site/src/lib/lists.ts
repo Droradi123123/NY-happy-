@@ -42,7 +42,8 @@ const DAY_SLUG: Record<Day, string> = { mon: 'monday', tue: 'tuesday', wed: 'wed
 export const daySlug = (d: Day) => DAY_SLUG[d];
 
 /** best first: the deal spelled out, then the cheapest drink, then the most recently checked */
-const rank = (a: Bar, b: Bar) => Number(b.dealKnown) - Number(a.dealKnown) || (a.cheapestDrink ?? 99) - (b.cheapestDrink ?? 99) || (b.checked ?? '').localeCompare(a.checked ?? '') || a.name.localeCompare(b.name);
+// the same order as the explorer's default sort (scripts/explorer.ts), so its first paint keeps these cards
+export const rank = (a: Bar, b: Bar) => Number(b.dealKnown) - Number(a.dealKnown) || (a.cheapestDrink ?? 99) - (b.cheapestDrink ?? 99) || (b.checked?.slice(0, 10) ?? '').localeCompare(a.checked?.slice(0, 10) ?? '') || a.name.localeCompare(b.name);
 
 let cache: Promise<ListPage[]> | null = null;
 export function listPages(): Promise<ListPage[]> {

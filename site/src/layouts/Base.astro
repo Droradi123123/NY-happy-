@@ -80,6 +80,7 @@ const tabs = [
   {path === '/' && GOOGLE_SITE_VERIFICATION && <meta name="google-site-verification" content={GOOGLE_SITE_VERIFICATION} />}
   {path === '/' && BING_SITE_VERIFICATION && <meta name="msvalidate.01" content={BING_SITE_VERIFICATION} />}
   {noindex && <meta name="robots" content="noindex, follow" />}
+  <slot name="head" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48" />
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />

@@ -99,4 +99,6 @@ async function initRail(root: HTMLElement) {
 }
 
 const start = () => document.querySelectorAll<HTMLElement>('[data-rail]').forEach((el) => initRail(el));
-if ('requestIdleCallback' in window) (window as any).requestIdleCallback(start, { timeout: 1500 }); else setTimeout(start, 300);
+// after the page has loaded, so the JSON never competes with the hero photo for bandwidth
+const go = () => ('requestIdleCallback' in window ? (window as any).requestIdleCallback(start, { timeout: 2500 }) : setTimeout(start, 300));
+if (document.readyState === 'complete') go(); else addEventListener('load', go, { once: true });

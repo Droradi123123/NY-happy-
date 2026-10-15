@@ -55,6 +55,7 @@ const barChips = [
   ogImage={hwOn && hwPhoto ? hwPhoto.og ?? null : null}
   jsonld={[{ '@context': 'https://schema.org', '@type': 'WebSite', name: 'YaY NYC', url: SITE, potentialAction: { '@type': 'SearchAction', target: `${SITE}/happy-hours?q={search_term_string}`, 'query-input': 'required name=search_term_string' } },
     { '@context': 'https://schema.org', '@type': 'Organization', name: 'YaY NYC', url: SITE, logo: `${SITE}/icon-512.png`, slogan: 'All the fun in one place!' }]}>
+  {heroPhoto && <link slot="head" rel="preload" as="image" href={heroPhoto.src} imagesrcset={[heroPhoto.mid && `${heroPhoto.mid} 800w`, `${heroPhoto.src} 1280w`].filter(Boolean).join(', ')} imagesizes="100vw" fetchpriority="high" />}
   <section class="hero-x">
     {heroPhoto && <img class="hero-bg" src={heroPhoto.src} srcset={[heroPhoto.mid && `${heroPhoto.mid} 800w`, `${heroPhoto.src} 1280w`].filter(Boolean).join(', ')} sizes="100vw" alt="" width={heroPhoto.w} height={heroPhoto.h} fetchpriority="high" decoding="async" />}
     <div class="hero-in">
