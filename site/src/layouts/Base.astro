@@ -5,7 +5,7 @@
  * none set = no analytics at all).
  */
 import Logo from '../components/Logo.astro';
-import { GOOGLE_SITE_VERIFICATION, BING_SITE_VERIFICATION } from '../lib/site';
+import { GA_MEASUREMENT_ID, GOOGLE_SITE_VERIFICATION, BING_SITE_VERIFICATION } from '../lib/site';
 import { GUIDES } from '../lib/guides';
 import '../styles/global.css';
 
@@ -24,7 +24,7 @@ const { title, description, keyword, jsonld = [], noindex = false, ogImage = nul
 const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/';
 const canonical = new URL(path, Astro.site).href;
 const fullTitle = title.length > 60 || / \| YaY NYC$/.test(title) || path === '/' ? title : `${title} | YaY NYC`;
-const GA = import.meta.env.PUBLIC_GA_ID as string | undefined;
+const GA = (import.meta.env.PUBLIC_GA_ID as string | undefined) || GA_MEASUREMENT_ID;
 const nav = [
   { href: '/happy-hours', label: 'Happy Hours' },
   { href: '/parties', label: 'Parties' },
@@ -76,7 +76,7 @@ const hasGuides = GUIDES.some((g) => g.status === 'published');
         var kind = /^tel:/.test(h) ? 'call_click' : u.host === location.host ? null
           : /dice\.fm|eventbrite|ra\.co|shotgun|joonbug|posh\.vip|fever/.test(u.host) ? 'ticket_click'
           : /resy|opentable|sevenrooms|tock/.test(u.host) ? 'booking_click'
-          : /google\.[a-z.]+\/maps|maps\.apple|maps\.app\.goo\.gl/.test(u.href) ? 'directions_click' : 'outbound_click';
+          : /google\.[a-z.]+\/maps|maps\.google\.|maps\.apple|maps\.app\.goo\.gl/.test(u.href) ? 'directions_click' : 'outbound_click';
         if (kind) gtag('event', kind, { link_domain: u.host, page: location.pathname });
       }, true);
     </script>
