@@ -31,3 +31,38 @@ Reported by the copy agents; not yet fixed. Fix through the party_*/bar_* functi
 - Held in review on purpose: Boo! at the Zoo (Oberon, night_date likely wrong), LES Killshot crawl (venue Sour Mouse not a participant), Superior Ingredients Lukas & Frank (room), AFROBEATS HAPPY HOUR (date conflict), Nebula Yacht Party (venue is the after-party club), Times Square passes (no venue / age), All Access Williamsburg NYE (multi-venue pass)
 - Venue neighborhoods to correct: public-records -> Gowanus; brooklyn-storehouse -> Brooklyn Navy Yard; marquee-skydeck-at-edge-hudson-yards -> Hudson Yards; white-horse-tavern -> West Village; somewhere-nowhere-nyc -> Chelsea; darling-rooftop -> Central Park South; common-ground-bar -> Meatpacking District; c-mon-everybody -> Clinton Hill (border); bogart-house -> East Williamsburg
 - margaritaville-landshark zip 10019 should be 10018
+
+## Address check (NYC Planning GeoSearch), Oct 15 afternoon
+
+Done: 112 bars moved to the right neighborhood, 6 coordinates moved, 78 more bars given a
+neighborhood that was missing from `nyc_hoods` (Kips Bay, Clinton Hill, Battery Park City,
+Morningside Heights, NoHo, Elmhurst, Flatbush and others, 36 added). Hamilton Heights stays
+under Harlem. Every change is in `geo_fix_log`; the lookups are in `geo_check`.
+Prospect Heights, Gowanus, Jackson Heights and Forest Hills fell under 5 bars and redirect
+(site/public/_redirects). 12 New Jersey bars, Edgewater Waterfront and a duplicate Bartley's
+were taken off the site (status rejected, with a reason).
+
+Still open:
+- Subway to recompute: bar-goto (lists Bergen St, Brooklyn), the-ox-tavern, little-biggs,
+  mollusca, ofcorsica, ngon-vietnamese, milk-and-roses (Vernon Blvd, Queens), cafe-luce,
+  sen-nyc (C/E for a Fifth Ave address), ben-jack-s and sol-mexican (1 train for Fifth Ave).
+- Deal text copied from another location: blue-ribbon-sushi-bar (22 Vanderbilt), bondi-sushi
+  (Ft. Lauderdale), novecento (Delray), boqueria-spanish-tapas (Dupont Circle, DC),
+  market-bar (1206 Nostrand Ave), rangoon (Chelsea menu on a Crown Heights bar),
+  stella-artois-flatiron, isla-co (LES text).
+- Expired or not a happy hour: chelsea-ristorante-italiano (summer prix fixe to Sep 7),
+  lure-fishbar and the-little-owl (breakfast), west-bank-cafe (dinner menu),
+  the-happiest-hour (Sydney text), forno-doro (casino spam).
+- Days stored differ from the bar's own text: jalopy-tavern, evalyn-s-tap-house, sen-nyc,
+  at-the-office-bar, pongal, seven-sins, massawa, the-heights-bar-grill, boqueria,
+  white-oak-tavern (no Thursday), ashford-simpson-s-sugar-bar (reversed), otb, bob-s-your-uncle,
+  mayahuel-astoria, alfie-s, sesamo, greenwich-treehouse, cafe-luna, dive-bar-bk.
+- Shared addresses (duplicate or wrong): lolita/valerie (45 W 45th), the-ainsworth/garage-sale
+  (122 W 26th), el-lugar-cantina/the-wilson (132 W 27th), keybar/soup-queen (143 Troutman),
+  bkb-brooklyn-brasserie/mama-fox (327 Stuyvesant), walters/karasu (166 DeKalb, may be right).
+- Booking links to the wrong place: generic widgets.resy.com (emmy-squared, bua, layla,
+  kent-ale-house), amelie (SF), l-antica-pizzeria (LA), spicy-moon (Bowery), the-malt-house,
+  azul-on-the-rooftop (Felix Roasting Co).
+- 61 bars have no address; 4 have no coordinates.
+- Parties: teksupport-circoloco Oct 31 "SOLD OUT" in title but scheduled; three identical
+  Liberty Belle cruises on Oct 31; Baccarat Hotel tagged Times Square; MOGUAI "Hallowen".
