@@ -103,6 +103,46 @@ export async function guideTable(id: string): Promise<GuideTable | null> {
     return { caption: `Weekday happy hours within a 10-minute walk`, head: ['Bar', 'Walk', 'Happy hour', 'Deal', 'Checked'], rows: rows.slice(0, 40).map((x) => x.r), note: 'Walking time is estimated from straight-line distance (about 80 m a minute). Up to 40 bars, closest first.' };
   }
 
+  if (id.startsWith('line:')) {
+    // line:<route>: every bar whose nearest station serves the route, west to east (the L and the 7 run that way)
+    const route = id.slice(5);
+    const list = bars.filter((b) => b.subway?.lines.includes(route) && b.lng !== null).sort((a, b) => a.lng! - b.lng!);
+    const rows: Cell[][] = [];
+    for (const b of list) rows.push([{ text: b.subway!.station }, barCell(b), await hoodCell(b), { text: when(b.windows) }, { text: dealLabel(b) ?? 'times only' }, await checkedCell(b)]);
+    return { caption: `Happy hours by the ${route} train`, head: ['Station', 'Bar', 'Neighborhood', 'Happy hour', 'Deal', 'Checked'], rows, note: `Bars whose nearest subway station is served by the ${route}, listed west to east. Walking times to the station are on each bar's page.` };
+  }
+
+  if (id === 'early') {
+    // weekday windows that start by 3pm
+    const rows: { s: number; r: Cell[] }[] = [];
+    for (const b of bars) {
+      const early = b.windows.filter((w) => w.days.some((d) => DAYS.indexOf(d) < 5) && (min(w.start) ?? 24 * 60) <= 15 * 60);
+      if (!early.length) continue;
+      rows.push({ s: Math.min(...early.map((w) => min(w.start)!)), r: [barCell(b), await hoodCell(b), { text: when(early) }, { text: dealLabel(b) ?? 'times only' }, await checkedCell(b)] });
+    }
+    rows.sort((a, b) => a.s - b.s || a.r[0].text.localeCompare(b.r[0].text));
+    return { caption: 'Weekday happy hours that start by 3pm', head: ['Bar', 'Neighborhood', 'Early window', 'Deal', 'Checked'], rows: rows.map((x) => x.r), note: 'Earliest start first. All-day happy hours count when they start by 3pm.' };
+  }
+
+  if (id === 'bookable') {
+    const rows: Cell[][] = [];
+    for (const b of bars.filter((b) => b.booking && b.dealKnown)) rows.push([barCell(b), await hoodCell(b), { text: when(b.windows) }, { text: dealLabel(b) ?? '' }, { text: 'Book', href: b.booking! }]);
+    rows.sort((a, b) => a[1].text.localeCompare(b[1].text) || a[0].text.localeCompare(b[0].text));
+    return { caption: 'Happy hours at places that take reservations', head: ['Bar', 'Neighborhood', 'Happy hour', 'Deal', 'Reserve'], rows, note: 'Many restaurants serve the happy hour at the bar only, even when you book a table: ask when you reserve.' };
+  }
+
+  if (id.startsWith('point:')) {
+    // point:<lat>,<lng>,<radius m>
+    const [lat, lng, r] = id.slice(6).split(',').map(Number);
+    const rows: { m: number; r: Cell[] }[] = [];
+    for (const b of bars.filter((b) => b.onMap)) {
+      const m = meters({ lat, lng }, { lat: b.lat!, lng: b.lng! });
+      if (m <= r) rows.push({ m, r: [barCell(b), { text: `${Math.max(1, Math.round(m / 80))} min` }, { text: when(b.windows) }, { text: dealLabel(b) ?? 'times only' }, await checkedCell(b)] });
+    }
+    rows.sort((a, b) => a.m - b.m);
+    return { caption: 'Happy hours within walking distance', head: ['Bar', 'Walk', 'Happy hour', 'Deal', 'Checked'], rows: rows.slice(0, 40).map((x) => x.r), note: 'Walking time estimated from straight-line distance (about 80 m a minute). Up to 40 bars, closest first.' };
+  }
+
   if (id.startsWith('parties:')) {
     // parties:<theme>[:<borough>]
     const [, theme, borough] = id.split(':');
