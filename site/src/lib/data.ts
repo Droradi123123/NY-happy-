@@ -381,6 +381,28 @@ export function googleInfo(): Promise<Map<string, GoogleInfo>> {
 /** a Google Maps link that opens the exact place (Maps URLs, no key needed) */
 export const placeUrl = (name: string, placeId: string) => `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(name)}&query_place_id=${encodeURIComponent(placeId)}`;
 
+// ---------- editorial copy ----------
+
+/** original copy for a page (prose only: prices and times are rendered from live data next to it) */
+export interface PageCopy {
+  kind: 'hood' | 'borough' | 'tag' | 'day' | 'bar' | 'venue' | 'near'; key: string; intro: string;
+  picks: { slug: string; why: string }[]; sections: { h: string; body: string }[]; faq: { q: string; a: string }[]; written: string;
+}
+let _copy: Promise<Map<string, PageCopy>> | null = null;
+export function pageCopies(): Promise<Map<string, PageCopy>> {
+  _copy ??= (async () => {
+    let rows: PageCopy[] = [];
+    if (FIXTURE) { try { rows = fixture<PageCopy[]>('page_copy.json'); } catch { rows = []; } }
+    else { try { rows = await rest<PageCopy>('site_page_copy?select=*'); } catch { rows = []; } }
+    return new Map(rows.map((c) => [`${c.kind}:${c.key}`, c]));
+  })();
+  return _copy;
+}
+export const copyOf = async (kind: PageCopy['kind'], key: string) => (await pageCopies()).get(`${kind}:${key}`) ?? null;
+export const paragraphs = (t: string) => t.split(/\n\s*\n/).map((p) => p.trim()).filter(Boolean);
+/** about 230 words a minute */
+export const readMinutes = (c: PageCopy) => Math.max(1, Math.round([c.intro, ...c.picks.map((p) => p.why), ...c.sections.map((s) => s.body), ...c.faq.map((f) => f.a)].join(' ').split(/\s+/).length / 230));
+
 // ---------- price re-checks ----------
 
 /** the latest re-check of a bar's own happy-hour page: did the prices we hold still appear there? */

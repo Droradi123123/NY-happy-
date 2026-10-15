@@ -1,0 +1,43 @@
+[
+ {
+  "kind": "hood",
+  "key": "williamsburg",
+  "intro": "Fixture intro for happy hour in Williamsburg. It exists so the build can render the editorial block in tests.\n\nSecond paragraph of the fixture intro, long enough to look like the real thing on the page and in the checks.",
+  "picks": [
+   {
+    "slug": "ainslie-williamsburg",
+    "why": "A fixture write-up used only in tests: it names what the bar is, what its happy hour covers and when it fits, so the page template can be checked end to end."
+   },
+   {
+    "slug": "bar-baserri-williamsburg",
+    "why": "A fixture write-up used only in tests: it names what the bar is, what its happy hour covers and when it fits, so the page template can be checked end to end."
+   },
+   {
+    "slug": "bar-milagro-williamsburg",
+    "why": "A fixture write-up used only in tests: it names what the bar is, what its happy hour covers and when it fits, so the page template can be checked end to end."
+   }
+  ],
+  "sections": [
+   {
+    "h": "Getting there",
+    "body": "Fixture section body."
+   }
+  ],
+  "faq": [
+   {
+    "q": "Fixture question about Williamsburg?",
+    "a": "Fixture answer."
+   }
+  ],
+  "written": "2026-10-15"
+ },
+ {
+  "kind": "bar",
+  "key": "ainslie-williamsburg",
+  "intro": "Fixture about paragraph for a bar page, used only in tests to check the About section renders.",
+  "picks": [],
+  "sections": [],
+  "faq": [],
+  "written": "2026-10-15"
+ }
+]

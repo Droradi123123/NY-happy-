@@ -8,16 +8,16 @@ import Base from '../../layouts/Base.astro';
 import Explorer from '../../components/Explorer.astro';
 import BarCard from '../../components/BarCard.astro';
 import Photo from '../../components/Photo.astro';
-import { allBars, allHoods, ampm, dealLabel, photoOf, DAY_NAME, type Bar, type Day } from '../../lib/data';
+import { allBars, allHoods, ampm, dealLabel, scheduleLabel, fmtDate, photoOf, placePhoto, photoNote, boroughSlug, copyOf, paragraphs, readMinutes, DAY_NAME, type Bar, type Day, type PageCopy } from '../../lib/data';
 import { listPages, type ListPage } from '../../lib/lists';
 import { stats, plural } from '../../lib/stats';
 import { crumbs, faqLd, itemList } from '../../lib/seo';
 
 export async function getStaticPaths() {
   const pages = await listPages();
-  return pages.map((page) => ({ params: { slug: page.slug }, props: { page, pages } }));
+  return Promise.all(pages.map(async (page) => ({ params: { slug: page.slug }, props: { page, pages, copy: await copyOf(page.kind, page.slug) } })));
 }
-const { page, pages } = Astro.props as { page: ListPage; pages: ListPage[] };
+const { page, pages, copy } = Astro.props as { page: ListPage; pages: ListPage[]; copy: PageCopy | null };
 const list = page.bars;
 const s = stats(list);
 const year = new Date().getFullYear();
@@ -54,9 +54,12 @@ const faq = [
   ...(common ? [{ q: `What time do ${subject} start?`, a: `Most start at ${ampm(common[0])} (${common[1]} of ${s.n}).${earliest ? ` The earliest starts at ${ampm(earliest.t)} at ${earliest.b.name}.` : ''}` }] : []),
   ...(page.kind === 'day' ? [{ q: `Is there happy hour on ${page.short} in NYC?`, a: `Yes. ${plural(s.n, 'bar')} we list run a happy hour on ${page.short}s${s.late ? `, and ${s.late} of them also have a late-night one` : ''}.` }] : []),
   ...(page.kind === 'borough' && topHoods.length ? [{ q: `Which ${page.short.replace(/^The /, '')} neighborhoods have the most happy hours?`, a: topHoods.map(([h, n]) => `${h} (${n})`).join(', ') + '.' }] : []),
-  ...(page.kind !== 'tag' || page.slug !== 'late-night' ? [{ q: `Are there late-night ${subject}?`, a: s.late ? `Yes, ${plural(s.late, 'bar')} here run a happy hour after 9pm.` : `None of the ones we list here run after 9pm. See all late-night happy hours in NYC.` }] : []),
+  ...(page.kind !== 'tag' || page.slug !== 'late-night' ? [{ q: `Are there late-night ${subject}?`, a: s.late ? `Yes, ${plural(s.late, 'bar')} here ${s.late === 1 ? 'runs' : 'run'} a happy hour after 9pm.` : `None of the ones we list here run after 9pm. See all late-night happy hours in NYC.` }] : []),
   { q: 'What does a happy hour drink really cost in NYC?', a: 'Add NYC sales tax (8.875%) and a tip (18 to 20% is usual) to the menu price. A $6 beer comes to about $7.75.' },
 ];
+// editorial picks: the prose is the writer's, the deal and hours next to it come from live data
+const picks = (copy?.picks ?? []).map((p) => ({ b: list.find((x) => x.slug === p.slug), why: p.why })).filter((p): p is { b: Bar; why: string } => !!p.b);
+const allFaq = [...(copy?.faq ?? []), ...faq.filter((f) => !(copy?.faq ?? []).some((c) => c.q.toLowerCase() === f.q.toLowerCase()))];
 
 const description = (() => {
   const base = `${page.label}: ${plural(s.n, 'bar')} with the deal, times and date checked.`;
@@ -79,11 +82,40 @@ const crumb: [string, string][] = [['YaY NYC', '/'], ['Happy hours', '/happy-hou
 const hoods = (await allHoods()).filter((h) => list.some((b) => b.hoodSlug === h.slug));
 ---
 <Base title={title} description={description} keyword={page.keyword}
-  jsonld={[crumbs(crumb), faqLd(faq), itemList(page.label, list.map((b) => `/bars/${b.slug}`))]}>
+  jsonld={[crumbs(crumb), faqLd(allFaq), itemList(page.label, list.map((b) => `/bars/${b.slug}`))]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/happy-hours">Happy hours</a></li>{page.kind === 'hood' && page.borough && pages.some((p) => p.kind === 'borough' && p.borough === page.borough) && <li><a href={`/happy-hours/${pages.find((p) => p.kind === 'borough' && p.borough === page.borough)!.slug}`}>{page.borough}</a></li>}<li aria-current="page">{page.short}</li></ol></nav>
   <h1>{page.h1}</h1>
   <p class="lede">{lede}</p>
   {ph && <div class="hood-hero"><Photo photo={ph} alt={`${page.short}, ${page.borough}${ph.title ? `: ${ph.title}` : ''}`} ratio="21 / 9" hero /></div>}
+  {copy && (
+    <section class="guide-intro">
+      <p class="byline">By the YaY NYC team · Updated {fmtDate(copy.written)} · {readMinutes(copy)} min read</p>
+      {paragraphs(copy.intro).map((p) => <p>{p}</p>)}
+    </section>
+  )}
+  {picks.length > 0 && (
+    <section class="section">
+      <h2>{page.kind === 'hood' ? `Our picks for happy hour in ${page.short}` : `Our picks: ${subject}`}</h2>
+      <ol class="picks">
+        {picks.map(({ b, why }, i) => {
+          const pp = placePhoto('bar', b.slug, b.hood, b.hoodSlug, false);
+          return (
+            <li class="pick">
+              {pp ? <Photo photo={pp.photo} note={photoNote(pp, b.name)} alt={pp.rel === 'own' ? `${b.name}, ${b.hood}` : `The street outside ${b.name} in ${b.hood}`} ratio="16 / 9" />
+                : <div class={`xcard-art pick-art xart-${boroughSlug(b.borough)}`} aria-hidden="true"><span>{b.name}</span></div>}
+              <div class="pick-body">
+                <h3><span class="pick-n">{i + 1}.</span> <a href={`/bars/${b.slug}`}>{b.name}</a></h3>
+                <p class="pick-facts"><strong>{dealLabel(b) ?? 'Times published, deal not listed'}</strong><br />{scheduleLabel(b)}{b.address ? ` · ${b.address}` : ''}</p>
+                <p>{why}</p>
+                <p class="small">Deal checked {fmtDate(b.checked)} on the bar's own site.</p>
+              </div>
+            </li>
+          );
+        })}
+      </ol>
+    </section>
+  )}
+  {copy?.sections.map((s) => <section class="section"><h2>{s.h}</h2>{paragraphs(s.body).map((p) => <p>{p}</p>)}</section>)}
   <Explorer kind="bars" preset={page.preset} hide={page.kind === 'hood' ? ['where'] : []} hoods={hoods} heading={page.label}>
     {list.slice(0, 24).map((b) => <BarCard bar={b} />)}
   </Explorer>
@@ -93,7 +125,7 @@ const hoods = (await allHoods()).filter((h) => list.some((b) => b.hoodSlug === h
   </section>
   <section class="section faq">
     <h2>Questions</h2>
-    {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+    {allFaq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
   </section>
   {nearHoods.length > 0 && (
     <section class="section">
@@ -116,4 +148,15 @@ const hoods = (await allHoods()).filter((h) => list.some((b) => b.hoodSlug === h
   .all-list { columns: 2 260px; padding-left: 18px; }
   .all-list li { margin-bottom: 6px; break-inside: avoid; }
   .h3 { margin-top: 18px; }
+  .guide-intro { max-width: 70ch; margin: 18px 0 8px; }
+  .guide-intro p { font-size: 18px; line-height: 1.6; }
+  .byline { font-size: 14px !important; color: var(--muted, #555); margin-bottom: 4px; }
+  .picks { list-style: none; padding: 0; margin: 0; display: grid; gap: 28px; }
+  .pick { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 22px; align-items: start; }
+  .pick :global(.photo) { margin: 0; }
+  .pick-art { margin: 0; border-radius: var(--radius); aspect-ratio: 16 / 9; }
+  .pick h3 { margin: 0 0 6px; font-size: 22px; }
+  .pick-n { color: var(--muted, #555); }
+  .pick-facts { margin: 0 0 8px; }
+  @media (max-width: 720px) { .pick { grid-template-columns: 1fr; gap: 10px; } }
 </style>

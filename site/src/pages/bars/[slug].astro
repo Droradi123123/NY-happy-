@@ -4,7 +4,7 @@ import BarCard from '../../components/BarCard.astro';
 import Line from '../../components/Line.astro';
 import MiniMap from '../../components/MiniMap.astro';
 import Photo from '../../components/Photo.astro';
-import { allBars, googleInfo, placeUrl, placePhoto, photoNote, DAYS, DAY_NAME, daysLabel, windowLabel, dealLabel, fmtDate, meters, type Bar, type GoogleInfo } from '../../lib/data';
+import { allBars, googleInfo, placeUrl, placePhoto, photoNote, copyOf, paragraphs, type PageCopy, DAYS, DAY_NAME, daysLabel, windowLabel, dealLabel, fmtDate, meters, type Bar, type GoogleInfo } from '../../lib/data';
 import { hoodHref } from '../../lib/lists';
 import { barTitle, barKeyword, barDescription, barJsonLd, crumbs, faqLd, SITE } from '../../lib/seo';
 
@@ -14,9 +14,9 @@ export async function getStaticPaths() {
   for (const b of bars) names.set(b.name.toLowerCase(), (names.get(b.name.toLowerCase()) ?? 0) + 1);
   // a chain's branches each target "<name> <neighborhood> happy hour"
   const google = await googleInfo();
-  return Promise.all(bars.map(async (bar) => ({ params: { slug: bar.slug }, props: { bar, bars, hoodUrl: await hoodHref(bar), branch: (names.get(bar.name.toLowerCase()) ?? 0) > 1, g: google.get(`bar:${bar.slug}`) ?? null } })));
+  return Promise.all(bars.map(async (bar) => ({ params: { slug: bar.slug }, props: { bar, bars, hoodUrl: await hoodHref(bar), branch: (names.get(bar.name.toLowerCase()) ?? 0) > 1, g: google.get(`bar:${bar.slug}`) ?? null, copy: await copyOf('bar', bar.slug) } })));
 }
-const { bar: b, bars, hoodUrl, branch, g } = Astro.props as { bar: Bar; bars: Bar[]; hoodUrl: string; branch: boolean; g: GoogleInfo | null };
+const { bar: b, bars, hoodUrl, branch, g, copy } = Astro.props as { bar: Bar; bars: Bar[]; hoodUrl: string; branch: boolean; g: GoogleInfo | null; copy: PageCopy | null };
 const url = `${SITE}/bars/${b.slug}`;
 const deal = dealLabel(b);
 const pp = placePhoto('bar', b.slug, b.hood, b.hoodSlug);
@@ -34,6 +34,7 @@ const faq = [
   ...(b.subway ? [{ q: `What subway is closest to ${b.name}?`, a: `${b.subway.station} (${b.subway.lines.join(', ')}), about ${b.subway.walk_min} minutes on foot.` }] : []),
   ...(b.booking ? [{ q: `Can I book a table at ${b.name}?`, a: `Yes, ${b.name} takes reservations online. Happy hour deals are often bar-only, so check when you book.` }] : []),
 ];
+for (const f of copy?.faq ?? []) if (!faq.some((x) => x.q.toLowerCase() === f.q.toLowerCase())) faq.push(f);
 ---
 <Base title={barTitle(b, branch)} description={barDescription(b)} keyword={barKeyword(b, branch)} jsonld={[barJsonLd(b, url), crumbs([['YaY NYC', '/'], ['Happy hours', '/happy-hours'], [b.hood, hoodUrl], [b.name, `/bars/${b.slug}`]]), faqLd(faq)]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/happy-hours">Happy hours</a></li><li><a href={hoodUrl}>{b.hood}</a></li><li aria-current="page">{b.name}</li></ol></nav>
@@ -49,6 +50,14 @@ const faq = [
         </ul>
         <p class="checked-line">Checked {fmtDate(b.checked)} on {b.source ? <a href={b.source} rel="nofollow noopener" target="_blank">{host(b.source)}</a> : "the bar's own website"}. Deals change: confirm before you go.</p>
       </section>
+
+      {copy && (
+        <section class="section about">
+          <h2>About {b.name}</h2>
+          {paragraphs(copy.intro).map((p) => <p>{p}</p>)}
+          {copy.sections.map((s) => <><h3>{s.h}</h3>{paragraphs(s.body).map((p) => <p>{p}</p>)}</>)}
+        </section>
+      )}
 
       {pp && <Photo photo={pp.photo} note={photoNote(pp, b.name)} alt={pp.rel === 'own' ? `${b.name}, ${b.hood}${pp.photo.title && pp.photo.title !== b.name ? `: ${pp.photo.title}` : ''}` : pp.rel === 'nearby' ? `The street outside ${b.name} in ${b.hood}` : `${b.hood}, the neighborhood around ${b.name}`} />}
 
