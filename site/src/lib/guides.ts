@@ -120,7 +120,7 @@ export const GUIDES: Guide[] = [
     answer: 'Tacos are the cheapest happy-hour food on our list: $1 at Papacito’s in Greenpoint, $1.99 at Los Mismos Amigos in Flushing, $2 at 1 Republik in the West Village and $3 at El Coco in Chelsea and El Lugar Cantina in Flatiron. For $3 you can also get sliders at Hair of the Dog on the Lower East Side or nachos at Little Havana in Greenwich Village.',
     sections: [
       { h2: 'Tacos, the $1 to $3 dinner', paras: [
-        `${a('/bars/papacito-s-greenpoint', 'Papacito’s')} in Greenpoint lists $1 tacos and $3 nachos at happy hour; ${a('/bars/los-mismos-amigos-flushing', 'Los Mismos Amigos')} in Flushing $1.99 tacos and ${a('/bars/1-republik-west-village', '1 Republik')} in the West Village $2 tacos. In Manhattan, ${a('/bars/el-coco-chelsea', 'El Coco')} in Chelsea and ${a('/bars/el-lugar-cantina-flatiron', 'El Lugar Cantina')} in Flatiron both list $3 tacos.`,
+        `${a('/bars/papacito-s-greenpoint', 'Papacito’s')} in Greenpoint lists $1 tacos and $3 nachos at happy hour; ${a('/bars/los-mismos-amigos-flushing', 'Los Mismos Amigos')} in Flushing $1.99 tacos. In Manhattan, ${a('/bars/el-coco-chelsea', 'El Coco')} in Chelsea and ${a('/bars/el-lugar-cantina-flatiron', 'El Lugar Cantina')} in Flatiron both list $3 tacos.`,
       ] },
       { h2: 'Bar food for $3 to $4', paras: [
         `${a('/bars/hair-of-the-dog-lower-east-side', 'Hair of the Dog')} on the Lower East Side lists $3 sliders and ${a('/bars/file-gumbo-bar-tribeca', 'Filé Gumbo Bar')} in Tribeca $3.50 beef sliders. ${a('/bars/little-havana-restaurant-greenwich-village', 'Little Havana')} in Greenwich Village has $3 nachos and ${a('/bars/oliver-s-astoria-astoria', 'Oliver’s')} in Astoria lists $3 appetizers.`,
