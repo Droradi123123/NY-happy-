@@ -18,6 +18,11 @@ on:
     - cron: '17 9 * * *' # 5:17am in New York (4:17am in winter)
     - cron: '17 21 * * *' # 5:17pm in New York
   workflow_dispatch:
+    inputs:
+      audit:
+        description: 'Only run Lighthouse (mobile) on the live site and print the scores'
+        type: boolean
+        default: false
 
 concurrency:
   group: deploy-site
@@ -27,7 +32,27 @@ permissions:
   contents: write
 
 jobs:
+  audit:
+    if: github.event_name == 'workflow_dispatch' && inputs.audit
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lighthouse on the live site (mobile)
+        run: |
+          for u in / /happy-hours /parties/halloween /bars/the-stag-s-head /blog/east-village-bar-crawl; do
+            npx -y lighthouse@12 "https://yaynyc.com$u" --quiet --form-factor=mobile --output=json --output-path=lh.json \
+              --only-categories=performance,accessibility,best-practices,seo --chrome-flags="--headless=new --no-sandbox" || continue
+            node -e '
+              const r = require("./lh.json"), a = r.audits;
+              const s = Object.values(r.categories).map((c) => `${c.id} ${Math.round(c.score * 100)}`).join(" | ");
+              console.log(`\n## ${r.finalDisplayedUrl}\n${s}`);
+              console.log(["first-contentful-paint","largest-contentful-paint","total-blocking-time","cumulative-layout-shift","speed-index"].map((k) => `${k}: ${a[k].displayValue}`).join(" | "));
+              const lcp = a["largest-contentful-paint-element"]?.details?.items?.[0]?.items?.[0]?.node?.snippet; if (lcp) console.log("LCP element:", lcp.slice(0, 160));
+              for (const x of Object.values(a)) if (x.score !== null && x.score < 0.9 && x.scoreDisplayMode !== "informative" && x.scoreDisplayMode !== "notApplicable")
+                console.log(`- ${x.id}: ${x.title}${x.displayValue ? ` (${x.displayValue})` : ""}`);'
+          done
+
   deploy:
+    if: github.event_name != 'workflow_dispatch' || !inputs.audit
     runs-on: ubuntu-latest
     timeout-minutes: 30
     defaults:
