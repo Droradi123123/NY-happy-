@@ -105,6 +105,10 @@ Required: about, expect, music, before_you_go, faq (at least 3). `genres` are ta
 
 Never put the price in the copy: prices change (House of Yes went from $16.23 to $17.85 within a day). The site shows the live `price_from` with its check date.
 
+## What is not a party (decided 15.10.2026, keep consistent)
+Reject with the reason: karaoke nights; roller-skate sessions (Xanadu's skate nights, day discos, all-ages skates), even with a DJ; dance lessons and classes (line dancing such as BABY BUCK / BUCKAROO, swing such as Cahoots), even with social dancing after; TV or film viewing parties and screenings (Traitors, Rocky Horror shadow casts); live-band concerts and showcases without DJs; record fairs and markets; bar drag shows billed as a show only; beer-garden VIP areas. Keep: DJ nights, raves, club nights, day parties, boat parties, drag nights with DJs and dancing, Salsa & Skate style nights that end in a DJ dance party.
+Hold in review yourself when: the description and DICE disagree on the day or date (e.g. Afrobeats Happy Hour: Wednesday on DICE, Friday in the text); a multi-venue pass has no single venue; the listing is a TBA placeholder; the venue row is not where the event happens (a yacht party filed under the after-party club).
+
 ## Known traps
 
 - DICE structured data can list 1 performer while the description names 20: never build a lineup from one field.
