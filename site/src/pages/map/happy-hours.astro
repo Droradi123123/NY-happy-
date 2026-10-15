@@ -1,0 +1,52 @@
+---
+/** The happy hour map: full-screen map with filters, plus the text search engines and visitors need. */
+import Base from '../../layouts/Base.astro';
+import Explorer from '../../components/Explorer.astro';
+import BarCard from '../../components/BarCard.astro';
+import { allBars, allHoods } from '../../lib/data';
+import { listPages } from '../../lib/lists';
+import { stats } from '../../lib/stats';
+import { crumbs, faqLd } from '../../lib/seo';
+
+const bars = await allBars();
+const s = stats(bars);
+const onMap = bars.filter((b) => b.onMap);
+const hoods = (await allHoods()).filter((h) => bars.some((b) => b.hoodSlug === h.slug)).sort((a, b) => a.name.localeCompare(b.name));
+const pages = await listPages();
+const hoodPages = pages.filter((p) => p.kind === 'hood').sort((a, b) => b.bars.length - a.bars.length);
+const boroughs = pages.filter((p) => p.kind === 'borough');
+const late = bars.filter((b) => b.late).length, weekend = bars.filter((b) => b.weekend).length;
+const faq = [
+  { q: 'How do I find a happy hour near me in NYC?', a: `Open the map and tap "Near me": it sorts the ${onMap.length} happy hours on the map by distance from you. Add "Happening now" to see only the ones running at this moment.` },
+  { q: 'Can I see happy hours by subway line?', a: 'Yes. Pick one or more lines in the filters and the map keeps the bars whose nearest station is served by them, with the walking time on each card.' },
+  { q: 'Are there happy hours on weekends and late at night?', a: `${weekend} of the bars we list run a happy hour on Saturday or Sunday and ${late} run one after 9pm. Both are filters on the map.` },
+  { q: 'How current is the map?', a: 'Every pin comes from the bar’s own website or menu, and each bar’s page shows the date we last checked it. The site rebuilds every day.' },
+];
+---
+<Base title={`NYC Happy Hour Map: ${s.n} Bars With Deals and Times`} keyword="nyc happy hour map" description={`The NYC happy hour map: ${onMap.length} bars with the deal, the hours and the nearest subway. Filter by happening now, day, subway line and price.`}
+  jsonld={[crumbs([['YaY NYC', '/'], ['Map', '/map'], ['Happy hour map', '/map/happy-hours']]), faqLd(faq)]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/map">Map</a></li><li aria-current="page">Happy hours</li></ol></nav>
+  <h1>NYC Happy Hour Map</h1>
+  <p class="lede">{onMap.length} happy hours across the five boroughs, each pin with the deal, the hours and the nearest subway. Tap "Near me" or "Happening now" to start.</p>
+  <Explorer kind="bars" hoods={hoods} mode="map" heading="Happy hour map">
+    {bars.filter((b) => b.dealKnown).slice(0, 12).map((b) => <BarCard bar={b} />)}
+  </Explorer>
+  <p class="switch"><a href="/map/parties">Switch to the party map →</a></p>
+  <section class="section">
+    <h2>Happy hours on the map by neighborhood</h2>
+    <ul class="link-cloud">{hoodPages.slice(0, 40).map((p) => <li><a href={`/happy-hours/${p.slug}`}>{p.short}<span class="count">{p.bars.length}</span></a></li>)}</ul>
+  </section>
+  {boroughs.length > 0 && (
+    <section class="section">
+      <h2>By borough</h2>
+      <ul class="link-cloud">{boroughs.map((p) => <li><a href={`/happy-hours/${p.slug}`}>{p.short}<span class="count">{p.bars.length}</span></a></li>)}</ul>
+    </section>
+  )}
+  <section class="section">
+    <h2>How to use the happy hour map</h2>
+    <p>Every dot is a bar or restaurant with a published happy hour. Numbers are clusters: tap one to zoom in. Tap a single dot for the deal and a link to the bar's page, where you will find the full menu prices, the hours for each day, the nearest station and the date we last checked. Green dots are running a happy hour right now.</p>
+    <p>Use the filters to narrow it down: happening now or a specific day and time, borough and neighborhood, subway line, the kind of deal (drinks, food, oysters, 2-for-1), and the cheapest drink price.</p>
+  </section>
+  <section class="section faq"><h2>Questions</h2>{faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}</section>
+</Base>
+<style>.switch { font-weight: 800; margin-top: 12px; } .switch a { color: var(--coral-ink); text-decoration: none; }</style>

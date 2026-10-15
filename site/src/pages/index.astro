@@ -1,9 +1,15 @@
 ---
+/**
+ * Home: what is on (now, tonight, the season's big night), the map, the cheapest drinks and the next
+ * parties, neighborhoods with photos, guides, the newsletter. Mobile first: one column, big tap targets.
+ */
 import Base from '../layouts/Base.astro';
 import BarCard from '../components/BarCard.astro';
 import PartyCard from '../components/PartyCard.astro';
-import Logo from '../components/Logo.astro';
-import { allBars, allHoods, partyData, venueOf, landmarks } from '../lib/data';
+import HomeMap from '../components/HomeMap.astro';
+import Newsletter from '../components/Newsletter.astro';
+import { allBars, allHoods, partyData, venueOf, landmarks, photoOf, creditShort } from '../lib/data';
+import { allGuides, guideCover } from '../lib/guides';
 import { stats } from '../lib/stats';
 import { SITE } from '../lib/seo';
 
@@ -12,49 +18,103 @@ const s = stats(bars);
 const { parties, venues } = await partyData();
 const counts = new Map<string, number>();
 for (const b of bars) counts.set(b.hoodSlug, (counts.get(b.hoodSlug) ?? 0) + 1);
-const hoods = (await allHoods()).filter((h) => (counts.get(h.slug) ?? 0) >= 5).sort((a, b) => counts.get(b.slug)! - counts.get(a.slug)!).slice(0, 16);
+const hoods = (await allHoods()).filter((h) => (counts.get(h.slug) ?? 0) >= 5).sort((a, b) => counts.get(b.slug)! - counts.get(a.slug)!);
+const hoodTiles = hoods.filter((h) => photoOf('hood', h.slug)).slice(0, 12);
 const picks = bars.filter((b) => b.dealKnown && b.cheapestDrink !== null).sort((a, b) => a.cheapestDrink! - b.cheapestDrink!).slice(0, 6);
 const halloween = parties.filter((p) => p.themes.includes('halloween'));
+const hwOn = halloween.length > 0 && new Date().toISOString().slice(0, 10) <= '2026-11-01';
+const hwPhoto = photoOf('page', 'halloween');
+const upcoming = parties.filter((p) => !p.themes.includes('halloween') || !hwOn).slice(0, 6);
 const lm = (await landmarks()).slice(0, 8);
+const guides = (await allGuides()).filter((g) => g.status === 'published').sort((a, b) => b.updated.localeCompare(a.updated)).slice(0, 6);
+const covers = await Promise.all(guides.map((g) => guideCover(g)));
+const onMap = bars.filter((b) => b.onMap).length;
 ---
 <Base title="YaY NYC: Happy Hours, Parties and What's On Tonight in New York" keyword="nyc happy hours and parties" description={`NYC happy hours and parties in one place: ${s.n} verified happy hours with the deal and times, plus parties with doors, age and tickets.`}
+  ogImage={hwOn && hwPhoto ? hwPhoto.src : null}
   jsonld={[{ '@context': 'https://schema.org', '@type': 'WebSite', name: 'YaY NYC', url: SITE, potentialAction: { '@type': 'SearchAction', target: `${SITE}/happy-hours?q={search_term_string}`, 'query-input': 'required name=search_term_string' } }]}>
   <section class="hero">
-    <h1><span class="kicker">NYC happy hours and parties</span> All the fun in one place!</h1>
-    <p class="lede">{s.n} happy hours with the deal, the time and the date we last checked, plus the parties worth knowing about.</p>
+    <span class="kicker">NYC happy hours and parties</span>
+    <h1>All the fun in one place!</h1>
+    <p class="lede">{s.n} happy hours with the deal, the time and the date we checked, plus {parties.length} parties with doors, age and tickets.</p>
     <form action="/happy-hours" method="get" class="hero-search" role="search">
       <label for="hq" class="sr">Search happy hours</label>
-      <input id="hq" name="q" type="search" placeholder="A bar, neighborhood or subway stop" />
-      <button class="btn" type="submit">Find</button>
+      <input id="hq" name="q" type="search" placeholder="Bar, neighborhood or subway stop" />
+      <button class="btn" type="submit">Search</button>
     </form>
     <div class="quick">
-      <a class="qcard now" href="/happy-hours/now"><span class="k">Right now</span><span class="t">Happy hour on near you</span></a>
-      <a class="qcard dark" href="/parties?when=weekend"><span class="k">This weekend</span><span class="t">Parties with tickets</span></a>
-      {halloween.length > 0 && <a class="qcard" href="/parties/halloween"><span class="k">Halloween 2026</span><span class="t">{halloween.length} Halloween parties</span></a>}
-      <a class="qcard" href="/map"><span class="k">Map</span><span class="t">Everything on one map</span></a>
+      <a class="qcard now" href="/happy-hours/now"><span class="k">Right now</span><span class="t">Happy hours on now</span><span class="go" aria-hidden="true">→</span></a>
+      <a class="qcard" href="/parties?when=tonight"><span class="k">Tonight</span><span class="t">Parties tonight</span><span class="go" aria-hidden="true">→</span></a>
+      <a class="qcard" href="/map"><span class="k">The map</span><span class="t">Everything near you</span><span class="go" aria-hidden="true">→</span></a>
+      <a class="qcard" href="/happy-hours/cheap-drinks"><span class="k">Budget</span><span class="t">Drinks $6 and under</span><span class="go" aria-hidden="true">→</span></a>
     </div>
+  </section>
+
+  {hwOn && (
+    <a class="hw-banner" href="/parties/halloween">
+      {hwPhoto && <img src={hwPhoto.src} alt="" width={hwPhoto.w} height={hwPhoto.h} loading="eager" />}
+      <span class="hw-text">
+        <span class="k">Halloween 2026</span>
+        <span class="t">{halloween.length} Halloween parties in NYC, night by night</span>
+        <span class="btn coral">See all Halloween parties →</span>
+      </span>
+      {hwPhoto && <span class="hw-credit">{creditShort(hwPhoto)}</span>}
+    </a>
+  )}
+
+  <section class="section">
+    <h2>The map: every happy hour and party in NYC</h2>
+    <p class="sub-lede">{onMap} bars and {parties.length} parties on one map. Tap a dot for the deal or the tickets, or open a full map with filters for day, subway line and price.</p>
+    <HomeMap bars={onMap} parties={parties.length} />
   </section>
 
   {picks.length > 0 && (
     <section class="section">
-      <h2>Cheapest drinks right now</h2>
+      <div class="sec-head"><h2>Cheapest drinks right now</h2><a href="/happy-hours?sort=cheap">See all {s.n}</a></div>
       <div class="xgrid">{picks.map((b) => <BarCard bar={b} />)}</div>
-      <p class="see-all"><a href="/happy-hours?sort=cheap">See all {s.n} happy hours</a></p>
     </section>
   )}
 
-  {parties.length > 0 && (
+  {upcoming.length > 0 && (
     <section class="section">
-      <h2>Coming up</h2>
-      <div class="xgrid">{parties.slice(0, 6).map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>
-      <p class="see-all"><a href="/parties">All parties</a></p>
+      <div class="sec-head"><h2>Parties coming up</h2><a href="/parties">All parties</a></div>
+      <div class="xgrid">{upcoming.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>
     </section>
   )}
 
   <section class="section">
-    <h2>Happy hours by neighborhood</h2>
-    <ul class="link-cloud">{hoods.map((h) => <li><a href={`/happy-hours/${h.slug}`}>{h.name}<span class="count">{counts.get(h.slug)}</span></a></li>)}</ul>
+    <div class="sec-head"><h2>Happy hours by neighborhood</h2><a href="/happy-hours/neighborhoods">All neighborhoods</a></div>
+    <ul class="tiles">
+      {hoodTiles.map((h) => { const ph = photoOf('hood', h.slug)!; return (
+        <li><a class="tile" href={`/happy-hours/${h.slug}`}>
+          <img src={ph.thumb} alt="" width="500" height="281" loading="lazy" decoding="async" />
+          <span class="tile-t">{h.name}<span class="tile-n">{counts.get(h.slug)} happy hours</span></span>
+          <span class="tile-c">{creditShort(ph)}</span>
+        </a></li>
+      ); })}
+    </ul>
+    <ul class="link-cloud more-hoods">{hoods.filter((h) => !hoodTiles.includes(h)).slice(0, 16).map((h) => <li><a href={`/happy-hours/${h.slug}`}>{h.name}<span class="count">{counts.get(h.slug)}</span></a></li>)}</ul>
   </section>
+
+  {guides.length > 0 && (
+    <section class="section">
+      <div class="sec-head"><h2>Guides</h2><a href="/blog">All guides</a></div>
+      <div class="xgrid">
+        {guides.map((g, i) => (
+          <article class="xcard guide-card">
+            {covers[i] ? <figure class="xcard-img"><img src={covers[i]!.photo.thumb} alt="" width="500" height="281" loading="lazy" decoding="async" /><figcaption>{creditShort(covers[i]!.photo)}</figcaption></figure>
+              : <div class="xcard-art" aria-hidden="true"><span>{g.short}</span></div>}
+            <h3><a href={`/blog/${g.slug}`}>{g.h1}</a></h3>
+            <p class="where">{g.description}</p>
+            <p class="xcard-cta" aria-hidden="true">Read the guide <span>→</span></p>
+          </article>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <div class="section"><Newsletter source="home" /></div>
+
   {lm.length > 0 && (
     <section class="section">
       <h2>Visiting? Happy hours near</h2>
@@ -68,20 +128,48 @@ const lm = (await landmarks()).slice(0, 8);
   </section>
 </Base>
 <style>
-  .hero { padding: 24px 0 8px; }
+  .hero { padding: 18px 0 4px; }
+  .kicker { display: inline-block; font-size: 13px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brand); background: var(--brand-soft); padding: 5px 12px; border-radius: 999px; margin-bottom: 12px; }
   .hero h1 { max-width: 900px; }
-  .kicker { display: block; font-size: clamp(16px, 2vw, 20px); letter-spacing: 0.06em; text-transform: uppercase; color: var(--magenta); margin-bottom: 10px; }
-  .hero-search { display: flex; gap: 10px; max-width: 720px; margin: 18px 0 22px; }
-  .hero-search input { flex: 1; min-width: 0; height: 56px; border: 2px solid var(--ink); border-radius: 14px; padding: 0 18px; font: inherit; font-size: 18px; background: #fff; }
-  .hero-search .btn { min-height: 56px; }
-  .quick { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
-  .qcard { display: flex; flex-direction: column; gap: 6px; padding: 20px; border-radius: 18px; background: #fff; border: 2px solid var(--ink); text-decoration: none; }
-  .qcard .k { font-size: 13px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--magenta); }
-  .qcard .t { font-size: 22px; font-weight: 800; line-height: 1.15; }
-  .qcard.now { background: var(--yellow); border-color: var(--yellow); }
-  .qcard.now .k { color: var(--ink); }
-  .qcard.dark { background: var(--ink); color: var(--paper); border-color: var(--ink); }
-  .qcard.dark .k { color: var(--yellow); }
-  .qcard:hover { transform: translateY(-2px); }
+  .hero-search { display: flex; gap: 8px; max-width: 720px; margin: 16px 0 18px; }
+  .hero-search input { flex: 1; min-width: 0; height: 54px; border: 1.5px solid var(--line); border-radius: 14px; padding: 0 16px; font: inherit; font-size: 17px; background: #fff; box-shadow: var(--shadow); }
+  .hero-search input:focus { outline: none; border-color: var(--brand); box-shadow: 0 0 0 4px var(--brand-soft); }
+  .hero-search .btn { min-height: 54px; }
+  .quick { display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
+  @media (min-width: 900px) { .quick { grid-template-columns: repeat(4, 1fr); gap: 14px; } }
+  .qcard { position: relative; display: flex; flex-direction: column; gap: 4px; padding: 16px; border-radius: 18px; background: #fff; border: 1px solid var(--line); text-decoration: none; box-shadow: var(--shadow); min-height: 104px; }
+  .qcard .k { font-size: 12px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.08em; color: var(--brand); }
+  .qcard .t { font-size: 18px; font-weight: 800; line-height: 1.15; }
+  .qcard .go { position: absolute; right: 14px; bottom: 10px; font-size: 20px; font-weight: 800; color: var(--brand); }
+  .qcard.now { background: linear-gradient(135deg, var(--brand) 0%, #8A5CFF 100%); border-color: transparent; color: #fff; }
+  .qcard.now .k, .qcard.now .go { color: #fff; }
+  .qcard:hover { transform: translateY(-2px); border-color: var(--brand); color: inherit; }
+  .qcard.now:hover { color: #fff; }
+
+  .hw-banner { position: relative; display: block; margin-top: 28px; border-radius: 24px; overflow: hidden; min-height: 260px; text-decoration: none; color: #fff; background: var(--ink); }
+  .hw-banner img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .hw-banner::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(22,18,43,.92) 0%, rgba(22,18,43,.35) 60%, rgba(22,18,43,.1) 100%); }
+  .hw-text { position: relative; z-index: 1; display: flex; flex-direction: column; gap: 10px; padding: 120px 20px 22px; max-width: 640px; }
+  .hw-text .k { font-size: 13px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #FF9AA7; }
+  .hw-text .t { font-size: clamp(26px, 4vw, 40px); font-weight: 800; line-height: 1.05; letter-spacing: -0.02em; }
+  .hw-text .btn { align-self: flex-start; }
+  .hw-credit { position: absolute; right: 10px; top: 10px; z-index: 1; font-size: 11px; background: rgba(22,18,43,.7); padding: 2px 6px; border-radius: 6px; }
+  .hw-banner:hover { color: #fff; }
+
+  .sub-lede { color: var(--ink-2); max-width: 760px; }
+  .sec-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+  .sec-head a { font-weight: 800; white-space: nowrap; text-decoration: none; color: var(--brand); }
+  .tiles { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
+  @media (min-width: 900px) { .tiles { grid-template-columns: repeat(4, 1fr); gap: 14px; } }
+  .tile { position: relative; display: block; border-radius: 16px; overflow: hidden; aspect-ratio: 4 / 3; color: #fff; text-decoration: none; background: var(--ink); }
+  .tile img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform 0.3s ease; }
+  .tile::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(22,18,43,.85) 0%, rgba(22,18,43,0) 60%); }
+  .tile:hover img { transform: scale(1.04); }
+  .tile-t { position: absolute; left: 12px; right: 12px; bottom: 10px; z-index: 1; font-weight: 800; font-size: 18px; line-height: 1.1; }
+  .tile-n { display: block; font-size: 13px; font-weight: 600; opacity: 0.9; margin-top: 2px; }
+  .tile-c { position: absolute; top: 6px; right: 6px; z-index: 1; font-size: 10px; background: rgba(22,18,43,.6); padding: 1px 5px; border-radius: 5px; max-width: calc(100% - 12px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .tile:hover { color: #fff; }
+  .more-hoods { margin-top: 14px; }
   .how { background: #fff; }
+  .guide-card .where { font-size: 15px; }
 </style>

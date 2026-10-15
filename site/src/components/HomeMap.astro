@@ -1,0 +1,56 @@
+---
+/**
+ * The home page map: every happy hour (violet) and party (coral) as clustered dots, loaded when it
+ * scrolls into view, with the two full maps one tap away.
+ */
+interface Props { bars: number; parties: number }
+const { bars, parties } = Astro.props;
+---
+<div class="homemap">
+  <div class="hm-canvas" data-homemap role="region" aria-label="Map of NYC happy hours and parties"><p class="hm-hint">Loading the map…</p></div>
+  <div class="hm-legend" aria-hidden="true"><span><i class="dot b"></i>Happy hours</span><span><i class="dot p"></i>Parties</span></div>
+  <div class="hm-ctas">
+    <a class="btn" href="/map/happy-hours">Happy hour map <span aria-hidden="true">({bars})</span></a>
+    <a class="btn coral" href="/map/parties">Party map <span aria-hidden="true">({parties})</span></a>
+  </div>
+</div>
+<script>
+  const el = document.querySelector<HTMLElement>('[data-homemap]');
+  if (el) {
+    const io = new IntersectionObserver(async (entries) => {
+      if (!entries.some((e) => e.isIntersecting)) return;
+      io.disconnect();
+      const [{ default: maplibregl }, bars, parties] = await Promise.all([
+        import('maplibre-gl'), fetch('/data/bars.json').then((r) => r.json()), fetch('/data/parties.json').then((r) => r.json()),
+        import('maplibre-gl/dist/maplibre-gl.css'),
+      ]);
+      el.innerHTML = '';
+      const fc = (rows: any[], url: string) => ({ type: 'FeatureCollection', features: rows.filter((r) => r.la !== null && r.lo !== null).map((r) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [r.lo, r.la] }, properties: { name: r.n ?? r.t, url: `${url}/${r.s}` } })) });
+      const map = new maplibregl.Map({ container: el, style: 'https://tiles.openfreemap.org/styles/positron', center: [-73.965, 40.73], zoom: 11.2, attributionControl: { compact: true }, cooperativeGestures: true });
+      map.on('load', () => {
+        for (const [id, data, color] of [['b', fc(bars, '/bars'), '#5B2EE8'], ['p', fc(parties, '/parties'), '#FF4F64']] as const) {
+          map.addSource(id, { type: 'geojson', data: data as any, cluster: true, clusterRadius: 38 });
+          map.addLayer({ id: `${id}-c`, type: 'circle', source: id, filter: ['has', 'point_count'], paint: { 'circle-color': color, 'circle-opacity': 0.88, 'circle-radius': ['step', ['get', 'point_count'], 13, 20, 18, 80, 24], 'circle-stroke-color': '#fff', 'circle-stroke-width': 2 } });
+          map.addLayer({ id: `${id}-n`, type: 'symbol', source: id, filter: ['has', 'point_count'], layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 12, 'text-font': ['Noto Sans Bold'] }, paint: { 'text-color': '#fff' } });
+          map.addLayer({ id: `${id}-u`, type: 'circle', source: id, filter: ['!', ['has', 'point_count']], paint: { 'circle-color': color, 'circle-radius': 6, 'circle-stroke-color': '#fff', 'circle-stroke-width': 2 } });
+          map.on('click', `${id}-u`, (e: any) => { const f = e.features[0]; new maplibregl.Popup({ offset: 10 }).setLngLat(f.geometry.coordinates).setHTML(`<a class="pop-title" href="${f.properties.url}">${String(f.properties.name).replace(/[<>&"]/g, '')}</a>`).addTo(map); });
+          map.on('click', `${id}-c`, (e: any) => map.easeTo({ center: e.lngLat, zoom: map.getZoom() + 2 }));
+          for (const l of [`${id}-u`, `${id}-c`]) { map.on('mouseenter', l, () => (map.getCanvas().style.cursor = 'pointer')); map.on('mouseleave', l, () => (map.getCanvas().style.cursor = '')); }
+        }
+      });
+    }, { rootMargin: '400px' });
+    io.observe(el);
+  }
+</script>
+<style>
+  .homemap { position: relative; }
+  .hm-canvas { height: 420px; border-radius: 22px; overflow: hidden; border: 1px solid var(--line); background: #ECE8F6; display: grid; place-items: center; }
+  @media (min-width: 900px) { .hm-canvas { height: 520px; } }
+  .hm-hint { color: var(--muted); }
+  .hm-legend { position: absolute; top: 12px; left: 12px; display: flex; gap: 12px; background: rgba(255,255,255,.94); border-radius: 999px; padding: 6px 12px; font-size: 13px; font-weight: 700; box-shadow: var(--shadow); }
+  .hm-legend span { display: inline-flex; align-items: center; gap: 6px; }
+  .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
+  .dot.b { background: #5B2EE8; } .dot.p { background: #FF4F64; }
+  .hm-ctas { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
+  @media (max-width: 420px) { .hm-ctas { grid-template-columns: 1fr; } }
+</style>

@@ -16,4 +16,5 @@ const pp = placePhoto('bar', b.slug, b.hood, b.hoodSlug, false);
   <p class="sch">{scheduleLabel(b)}</p>
   {b.subway && <div class="xcard-foot"><span class="sub">{b.subway.lines.map((l) => <Line l={l} />)} {b.subway.station} · {b.subway.walk_min} min walk</span></div>}
   {b.checked && <p class="checked">Checked {fmtDate(b.checked)?.replace(/, \d{4}$/, '')}</p>}
+  <p class="xcard-cta" aria-hidden="true">See the deal <span>→</span></p>
 </article>

@@ -35,7 +35,7 @@ const { lat, lng, label, points = [] } = Astro.props;
   els.forEach((el) => io.observe(el));
 </script>
 <style is:global>
-  .minimap { height: 300px; border-radius: var(--radius); overflow: hidden; border: 1.5px solid var(--line); background: #EDE8DA; }
-  .mm-pin { width: 26px; height: 26px; background: var(--yellow); border: 3px solid var(--ink); border-radius: 50% 50% 50% 0; transform: rotate(-45deg); }
-  .mm-dot { display: block; width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 2.5px solid var(--ink); }
+  .minimap { height: 300px; border-radius: var(--radius); overflow: hidden; border: 1.5px solid var(--line); background: #ECE8F6; }
+  .mm-pin { width: 26px; height: 26px; background: var(--coral); border: 3px solid #fff; box-shadow: 0 2px 8px rgba(22,18,43,.35); border-radius: 50% 50% 50% 0; transform: rotate(-45deg); }
+  .mm-dot { display: block; width: 14px; height: 14px; border-radius: 50%; background: #fff; border: 2.5px solid var(--brand); }
 </style>

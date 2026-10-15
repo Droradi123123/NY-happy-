@@ -15,4 +15,5 @@ const pp = placePhoto('venue', p.venue_id, v?.neighborhood ?? p.neighborhood, nu
     {p.age_min && <span class="chip outline">{p.age_min}+</span>}
     {p.genres.slice(0, 3).map((g) => <span class="chip">{GENRE_NAME[g] ?? g}</span>)}
   </div>
+  <p class="xcard-cta" aria-hidden="true">{p.event_status === 'sold_out' ? 'Details' : 'Tickets and details'} <span>→</span></p>
 </article>

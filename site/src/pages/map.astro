@@ -7,8 +7,9 @@ const hoods = (await allHoods()).filter((h) => bars.some((b) => b.hoodSlug === h
 const { parties } = await partyData();
 const genres = [...new Set(parties.flatMap((p) => p.genres))].sort();
 ---
-<Base title="NYC Happy Hour and Party Map" keyword="nyc happy hour map" description="Every NYC happy hour and party on one map. Filter by what's on now, day, subway line, price and music; tap a pin for the deal or the ticket.">
-  <h1>NYC Happy Hour and Party Map</h1>
+<Base title="NYC Nightlife Map: Happy Hours and Parties Near You" keyword="nyc nightlife map" description="The NYC nightlife map: every happy hour and party we track on one map. Filter by what's on now, day, subway line, price and music; tap a pin for details.">
+  <h1>NYC Nightlife Map</h1>
+  <p class="lede">Happy hours and parties on one map. Or open a dedicated map: <a href="/map/happy-hours">the happy hour map</a> or <a href="/map/parties">the party map</a>.</p>
   <div class="tabs" role="tablist" aria-label="What to show">
     <button role="tab" type="button" aria-selected="true" aria-controls="map-bars" id="tab-bars">Happy hours</button>
     <button role="tab" type="button" aria-selected="false" aria-controls="map-parties" id="tab-parties">Parties</button>
@@ -25,7 +26,7 @@ const genres = [...new Set(parties.flatMap((p) => p.genres))].sort();
   }));
 </script>
 <style>
-  .tabs { display: inline-flex; border: 2px solid var(--ink); border-radius: 14px; overflow: hidden; }
+  .tabs { display: inline-flex; border: 1.5px solid var(--line); border-radius: 14px; overflow: hidden; }
   .tabs button { border: 0; background: #fff; font: inherit; font-weight: 800; padding: 0 18px; min-height: 48px; cursor: pointer; }
-  .tabs button[aria-selected='true'] { background: var(--yellow); }
+  .tabs button[aria-selected='true'] { background: var(--brand); color: #fff; }
 </style>

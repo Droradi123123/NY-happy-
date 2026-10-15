@@ -1,9 +1,10 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { allGuides } from '../../lib/guides';
+import { allGuides, guideCover } from '../../lib/guides';
 import { crumbs, itemList } from '../../lib/seo';
-import { fmtDate } from '../../lib/data';
+import { fmtDate, creditShort } from '../../lib/data';
 const posts = (await allGuides()).filter((g) => g.status === 'published').sort((a, b) => b.updated.localeCompare(a.updated));
+const covers = await Promise.all(posts.map((p) => guideCover(p)));
 ---
 <Base title="The YaY NYC Blog: NYC Happy Hour and Party Guides" keyword="nyc happy hour and party guides"
   description="NYC happy hour and party guides built from verified data: the cheapest drinks by neighborhood, dollar oysters, late-night deals and the parties worth knowing."
@@ -12,11 +13,14 @@ const posts = (await allGuides()).filter((g) => g.status === 'published').sort((
   <h1>NYC Happy Hour and Party Guides</h1>
   <p class="lede">Guides built from the deals and parties we check: every price and date comes from the bar's or the promoter's own page, and every table updates with the site.</p>
   <div class="xgrid section">
-    {posts.map((p) => (
+    {posts.map((p, i) => (
       <article class="xcard">
+        {covers[i] ? <figure class="xcard-img"><img src={covers[i]!.photo.thumb} alt="" width="500" height="281" loading="lazy" decoding="async" /><figcaption>{creditShort(covers[i]!.photo)}</figcaption></figure>
+          : <div class="xcard-art" aria-hidden="true"><span>{p.short}</span></div>}
         <p class="when">{fmtDate(p.updated)}</p>
         <h2 class="h3"><a href={`/blog/${p.slug}`}>{p.h1}</a></h2>
         <p class="where">{p.description}</p>
+        <p class="xcard-cta" aria-hidden="true">Read the guide <span>→</span></p>
       </article>
     ))}
   </div>

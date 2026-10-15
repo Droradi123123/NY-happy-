@@ -157,7 +157,7 @@ function barCard(r: Row, st: State) {
   const dist = r._dist !== null && r._dist !== undefined ? `<span class="dist">${miles(r._dist)}</span>` : '';
   return `<article class="xcard">${thumb(r)}<div class="xcard-top"><h3><a href="/bars/${esc(r.s)}">${esc(r.n)}</a></h3>${dist}</div>
   <p class="where">${esc(r.hn)}${r.bo && r.bo !== r.hn ? `, ${esc(r.bo)}` : ''}</p>${deal}<p class="sch">${esc(r.sch)}</p>
-  <div class="xcard-foot">${live}${sub}</div>${r.ck ? `<p class="checked">Checked ${new Date(r.ck + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p>` : ''}</article>`;
+  <div class="xcard-foot">${live}${sub}</div>${r.ck ? `<p class="checked">Checked ${new Date(r.ck + 'T12:00:00').toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}</p>` : ''}<p class="xcard-cta" aria-hidden="true">See the deal <span>→</span></p></article>`;
 }
 function partyCard(r: Row) {
   const date = new Date(`${r.nd}T12:00:00`).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
@@ -165,7 +165,7 @@ function partyCard(r: Row) {
   const dist = r._dist !== null && r._dist !== undefined ? `<span class="dist">${miles(r._dist)}</span>` : '';
   return `<article class="xcard party">${thumb(r)}<div class="xcard-top"><p class="when">${esc(date)}${r.tm ? ` · ${esc(r.tm)}` : ''}</p>${dist}</div>
   <h3><a href="/parties/${esc(r.s)}">${esc(r.t)}</a></h3><p class="where">${esc(r.vn)}${r.h ? ` · ${esc(r.h)}` : ''}</p>
-  <div class="xcard-foot">${r.so ? '<span class="chip dark">Sold out</span>' : `<span class="chip outline">${esc(r.pl)}</span>`}${r.a ? `<span class="chip outline">${r.a}+</span>` : ''}${genres}</div></article>`;
+  <div class="xcard-foot">${r.so ? '<span class="chip dark">Sold out</span>' : `<span class="chip outline">${esc(r.pl)}</span>`}${r.a ? `<span class="chip outline">${r.a}+</span>` : ''}${genres}</div><p class="xcard-cta" aria-hidden="true">${r.so ? 'Details' : 'Tickets and details'} <span>→</span></p></article>`;
 }
 
 // ---------- map ----------
@@ -182,11 +182,11 @@ async function makeMap(el: HTMLElement, kind: Kind) {
   await new Promise((r) => map.on('load', r));
   map.addSource('pts', { type: 'geojson', data: { type: 'FeatureCollection', features: [] }, cluster: true, clusterRadius: 44, clusterMaxZoom: 14 });
   map.addLayer({ id: 'clusters', type: 'circle', source: 'pts', filter: ['has', 'point_count'],
-    paint: { 'circle-color': '#141414', 'circle-radius': ['step', ['get', 'point_count'], 16, 20, 21, 80, 27], 'circle-stroke-color': '#FFD400', 'circle-stroke-width': 3 } });
+    paint: { 'circle-color': '#16122B', 'circle-radius': ['step', ['get', 'point_count'], 16, 20, 21, 80, 27], 'circle-stroke-color': '#FFFFFF', 'circle-stroke-width': 3 } });
   map.addLayer({ id: 'cluster-count', type: 'symbol', source: 'pts', filter: ['has', 'point_count'],
-    layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 13, 'text-font': ['Noto Sans Bold'] }, paint: { 'text-color': '#FFD400' } });
+    layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 13, 'text-font': ['Noto Sans Bold'] }, paint: { 'text-color': '#FFFFFF' } });
   map.addLayer({ id: 'pt', type: 'circle', source: 'pts', filter: ['!', ['has', 'point_count']],
-    paint: { 'circle-color': ['case', ['get', 'live'], '#0B7A4B', kind === 'parties' ? '#C8006A' : '#FFD400'], 'circle-radius': 8, 'circle-stroke-color': '#141414', 'circle-stroke-width': 2 } });
+    paint: { 'circle-color': ['case', ['get', 'live'], '#0B7A4B', kind === 'parties' ? '#FF4F64' : '#5B2EE8'], 'circle-radius': 8, 'circle-stroke-color': '#FFFFFF', 'circle-stroke-width': 2 } });
   map.on('click', 'clusters', async (e) => {
     const f = map.queryRenderedFeatures(e.point, { layers: ['clusters'] })[0];
     const z = await (map.getSource('pts') as any).getClusterExpansionZoom(f.properties!.cluster_id);
@@ -255,6 +255,10 @@ export async function initExplorer(root: HTMLElement) {
     last = kind === 'bars' ? filterBars(rows, st, here) : filterParties(rows, st, here);
     const noun = kind === 'bars' ? (last.length === 1 ? 'happy hour' : 'happy hours') : last.length === 1 ? 'party' : 'parties';
     count.textContent = `${last.length.toLocaleString('en-US')} ${noun}`;
+    // how many filters the visitor set (page presets and sort do not count), shown on the folded header
+    const active = Object.entries(st).filter(([k, v]) => k !== 'sort' && JSON.stringify(v) !== JSON.stringify(preset[k]) && (Array.isArray(v) ? v.length > 0 : v !== '' && v !== undefined)).reduce((n, [, v]) => n + (Array.isArray(v) ? v.length : 1), 0);
+    const badge = root.querySelector<HTMLElement>('[data-active]');
+    if (badge) { badge.hidden = active === 0; badge.textContent = String(active); }
     list.innerHTML = last.length
       ? last.slice(0, shown).map((r) => (kind === 'bars' ? barCard(r, st) : partyCard(r))).join('')
       : `<p class="empty">Nothing matches all of these filters. <button type="button" class="linkbtn" data-reset>Clear filters</button></p>`;

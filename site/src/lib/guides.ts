@@ -191,3 +191,24 @@ export function allGuides(): Promise<Guide[]> {
   })();
   return _all;
 }
+
+/** the bars a guide is about, in order: its picks, else the bars in its table */
+export async function guideBars(g: Guide): Promise<string[]> {
+  if (g.picks?.length) return g.picks.map((p) => p.slug);
+  if (!g.table) return [];
+  const { guideTable } = await import('./guideTables');
+  const t = await guideTable(g.table);
+  return [...new Set((t?.rows ?? []).flatMap((r) => r.map((c) => c.href?.match(/^\/bars\/([^/]+)$/)?.[1]).filter((x): x is string => !!x)))];
+}
+/** a guide's cover: the first of its bars with a photo of the place itself, else a street photo */
+export async function guideCover(g: Guide) {
+  const { placePhoto } = await import('./data');
+  const slugs = await guideBars(g);
+  let fallback = null;
+  for (const s of slugs) {
+    const pp = placePhoto('bar', s, null, null, false);
+    if (pp?.rel === 'own') return pp;
+    fallback ??= pp;
+  }
+  return fallback;
+}

@@ -87,10 +87,10 @@ const lastSeen = p.sources?.find((s) => s.name === 'DICE')?.checked_at ?? p.last
   {sameNight.length > 0 && <section class="section"><h2>Also on {nightDate(p.night_date, { weekday: 'long' })}</h2><div class="xgrid">{sameNight.map((o) => <PartyCard party={o} venue={venueOf(o, venues)} />)}</div></section>}
 </Base>
 <style>
-  .when-big { display: block; font-size: 20px; font-weight: 800; color: var(--magenta); margin: 0 0 6px; letter-spacing: 0; }
+  .when-big { display: block; font-size: 20px; font-weight: 800; color: var(--coral-ink); margin: 0 0 6px; letter-spacing: 0; }
   .tagrow { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
   .tagrow a.chip { text-decoration: none; }
-  .ticket { background: var(--yellow); border: 0; }
+  .ticket { background: var(--coral); color: #fff; border: 0; }
   .ticket .btn { margin-top: 16px; }
   .xgrid.one { grid-template-columns: 1fr; }
   .h3 { font-size: 20px; }

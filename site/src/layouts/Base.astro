@@ -1,12 +1,13 @@
 ---
 /**
- * Every page: unique title + description, canonical, Open Graph, JSON-LD, the yellow
+ * Every page: unique title + description, canonical, Open Graph, JSON-LD, the
  * header and the footer. Analytics load after the page (PUBLIC_GA_ID at build time;
  * none set = no analytics at all).
  */
 import Logo from '../components/Logo.astro';
 import { GA_MEASUREMENT_ID, GOOGLE_SITE_VERIFICATION, BING_SITE_VERIFICATION } from '../lib/site';
 import { allGuides } from '../lib/guides';
+import Newsletter from '../components/Newsletter.astro';
 import '../styles/global.css';
 
 interface Props {
@@ -34,6 +35,22 @@ const nav = [
   // the guides link appears once a guide is published
   ...(hasGuides ? [{ href: '/blog', label: 'Guides' }] : []),
 ];
+// the one call to action in the header: the season's big night, otherwise what is on right now
+const seasonal = new Date().toISOString().slice(0, 10) <= '2026-11-01' ? { href: '/parties/halloween', label: 'Halloween' } : { href: '/happy-hours/now', label: 'On now' };
+const on = (href: string) => (href === '/' ? path === '/' : path === href || path.startsWith(`${href}/`));
+const ICON: Record<string, string> = {
+  glass: '<path d="M6 3h12l-1.5 8a4.5 4.5 0 0 1-9 0L6 3zm6 13v5m-4 0h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+  party: '<path d="M4 20l5-14 9 9-14 5zM14 4l1 2m4 3l2-1m-6-5l-1 3m5 6l3 1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
+  map: '<path d="M9 4L3 6v14l6-2 6 2 6-2V4l-6 2-6-2zm0 0v14m6-12v14" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>',
+  book: '<path d="M4 5a2 2 0 0 1 2-2h12v16H6a2 2 0 0 0-2 2V5zm0 16a2 2 0 0 1 2-2h12v2" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/>',
+  pin: '<path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="10" r="2.5" fill="currentColor"/>',
+};
+const tabs = [
+  { href: '/happy-hours', label: 'Happy hours', icon: 'glass' },
+  { href: '/parties', label: 'Parties', icon: 'party' },
+  { href: '/map', label: 'Map', icon: 'map' },
+  hasGuides ? { href: '/blog', label: 'Guides', icon: 'book' } : { href: '/happy-hours/neighborhoods', label: 'Areas', icon: 'pin' },
+];
 ---
 <!doctype html>
 <html lang="en" data-kw={noindex ? undefined : keyword}>
@@ -47,7 +64,7 @@ const nav = [
   {path === '/' && BING_SITE_VERIFICATION && <meta name="msvalidate.01" content={BING_SITE_VERIFICATION} />}
   {noindex && <meta name="robots" content="noindex, follow" />}
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
-  <meta name="theme-color" content="#FFD400" />
+  <meta name="theme-color" content="#16122B" />
   <meta property="og:title" content={fullTitle} />
   <meta property="og:description" content={description} />
   <meta property="og:url" content={canonical} />
@@ -89,14 +106,20 @@ const nav = [
       <a href="/" class="logo-link" aria-label="YaY NYC home"><Logo size={34} /></a>
       <nav aria-label="Main">
         <ul>
-          {nav.map((n) => <li><a href={n.href} aria-current={path.startsWith(n.href) ? 'page' : undefined}>{n.label}</a></li>)}
+          {nav.map((n) => <li><a href={n.href} aria-current={on(n.href) ? 'page' : undefined}>{n.label}</a></li>)}
+          <li><a class="nav-cta" href={seasonal.href}>{seasonal.label}</a></li>
         </ul>
       </nav>
+      <a class="header-cta" href={seasonal.href}>{seasonal.label}</a>
     </div>
   </header>
+  <nav class="tabbar" aria-label="Sections">
+    {tabs.map((t) => <a href={t.href} aria-current={on(t.href) ? 'page' : undefined}><svg viewBox="0 0 24 24" aria-hidden="true" set:html={ICON[t.icon]} />{t.label}</a>)}
+  </nav>
   <main id="main" class:list={[wide ? 'wide' : 'wrap']}>
     <slot />
   </main>
+  {path !== '/' && <div class="wrap foot-nl"><Newsletter source="footer" compact /></div>}
   <footer class="site-footer">
     <div class="wrap footer-grid">
       <div>
@@ -129,3 +152,8 @@ const nav = [
   </footer>
 </body>
 </html>
+<style is:global>
+  .nav-cta { background: var(--coral); color: #fff !important; }
+  .nav-cta:hover { background: var(--coral-ink) !important; }
+  .foot-nl { margin-top: 48px; }
+</style>

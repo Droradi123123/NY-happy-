@@ -1,0 +1,54 @@
+---
+/** The party map: every upcoming published party on a map with filters, plus text for search and visitors. */
+import Base from '../../layouts/Base.astro';
+import Explorer from '../../components/Explorer.astro';
+import PartyCard from '../../components/PartyCard.astro';
+import { partyData, venueOf, nightDate, GENRE_NAME } from '../../lib/data';
+import { partyLists } from '../../lib/partyLists';
+import { crumbs, faqLd, itemList } from '../../lib/seo';
+
+const { parties, venues } = await partyData();
+const genres = [...new Set(parties.flatMap((p) => p.genres))].sort();
+const lists = await partyLists();
+const genrePages = lists.filter((l) => l.kind === 'genre').sort((a, b) => b.parties.length - a.parties.length);
+const otherPages = lists.filter((l) => l.kind !== 'genre');
+const boroughs = [...new Set(parties.map((p) => p.borough).filter(Boolean))] as string[];
+const venueCount = new Set(parties.map((p) => p.venue_id)).size;
+const free = parties.filter((p) => p.price_status === 'free').length;
+const next = parties[0];
+const faq = [
+  { q: 'Where are the parties in NYC tonight?', a: `Open the map and pick "Tonight": it shows every party we list for tonight with doors, age and the lowest ticket. We list ${parties.length} upcoming parties at ${venueCount} venues.` },
+  { q: 'Which NYC neighborhoods have the most parties?', a: `On our list most parties are in ${boroughs.slice(0, 3).join(', ')}. Brooklyn's warehouse and club scene and Manhattan's clubs and rooftops show up as the biggest clusters on the map.` },
+  { q: 'Are there free parties in NYC?', a: free ? `${free} of the parties we list are free to enter. Use the price filter on the map to show only free ones.` : 'None of the parties we list right now are free; filter by price to find the cheapest.' },
+  { q: 'How do I know a party is still on?', a: 'We refresh every party from its ticket page every day. Cancelled or rescheduled nights are marked, sold-out nights say so, and nights that are over leave the map.' },
+];
+---
+<Base noindex={parties.length < 2} title={`NYC Party Map: ${parties.length} Parties, Clubs and Raves`} keyword="nyc party map" description={`The NYC party map: ${parties.length} upcoming parties at ${venueCount} venues with doors, age and tickets. Filter by night, music, price and borough.`}
+  jsonld={[crumbs([['YaY NYC', '/'], ['Map', '/map'], ['Party map', '/map/parties']]), itemList('Parties on the NYC party map', parties.slice(0, 50).map((p) => `/parties/${p.slug}`)), faqLd(faq)]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/map">Map</a></li><li aria-current="page">Parties</li></ol></nav>
+  <h1>NYC Party Map</h1>
+  <p class="lede">{parties.length} upcoming parties at {venueCount} venues{next && `, starting ${nightDate(next.night_date, { weekday: 'long', month: 'short', day: 'numeric' })}`}. Tap a pin for the night, the doors and the tickets.</p>
+  <Explorer kind="parties" genres={genres} mode="map" heading="Party map">
+    {parties.slice(0, 12).map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}
+  </Explorer>
+  <p class="switch"><a href="/map/happy-hours">Switch to the happy hour map →</a></p>
+  {genrePages.length > 0 && (
+    <section class="section">
+      <h2>Parties by music</h2>
+      <ul class="link-cloud">{genrePages.map((l) => <li><a href={`/parties/${l.slug}`}>{GENRE_NAME[l.slug] ?? l.short}<span class="count">{l.parties.length}</span></a></li>)}</ul>
+    </section>
+  )}
+  {otherPages.length > 0 && (
+    <section class="section">
+      <h2>By night and theme</h2>
+      <ul class="link-cloud">{otherPages.map((l) => <li><a href={`/parties/${l.slug}`}>{l.short}<span class="count">{l.parties.length}</span></a></li>)}<li><a href="/parties/halloween">Halloween</a></li></ul>
+    </section>
+  )}
+  <section class="section">
+    <h2>How to use the party map</h2>
+    <p>Every dot is a venue with at least one upcoming party we have checked against its ticket page. Numbers are clusters: tap to zoom. Tap a single dot for the party and a link to its page, with the doors time, the age rule, the lowest ticket price and the refund terms by seller.</p>
+    <p>Filter by night (tonight, tomorrow, this weekend, a date), by music, by vibe (rooftop, LGBTQ+, day parties, boats, costumes) and by price, or tap "Near me" to see what is closest.</p>
+  </section>
+  <section class="section faq"><h2>Questions</h2>{faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}</section>
+</Base>
+<style>.switch { font-weight: 800; margin-top: 12px; } .switch a { color: var(--brand); text-decoration: none; }</style>
