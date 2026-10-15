@@ -49,8 +49,8 @@ for (const f of copy?.faq ?? []) if (!faq.some((x) => x.q.toLowerCase() === f.q.
           {b.windows.map((w) => <li><strong>{daysLabel(w.days)}</strong> {windowLabel(w)}{w.days.includes(today as any) && <span class="chip badge-live today">Today</span>}</li>)}
         </ul>
         <p class="checked-line">Deal last confirmed {fmtDate(b.checked)} on {b.source ? <a href={b.source} rel="nofollow noopener" target="_blank">{host(b.source)}</a> : "the bar's own website"}. Deals change: confirm before you go.</p>
-        {b.doubt === 'changed' && <p class="doubt">On {fmtDate(b.recheck!.at)} the bar's page listed prices, but not these. The deal may have changed: check with the bar.</p>}
-        {b.doubt === 'partial' && <p class="doubt">On {fmtDate(b.recheck!.at)} the bar's page still showed {b.recheck!.found!.map((x) => `$${x}`).join(', ')} but not {b.recheck!.missing!.map((x) => `$${x}`).join(', ')}.</p>}
+        {b.doubt === 'changed' && <p class="doubt">When we re-read the bar's page on {fmtDate(b.recheck!.at)}, we could not find these prices there. They may have changed: check with the bar before you go.</p>}
+        {b.doubt === 'partial' && <p class="doubt">When we re-read the bar's page on {fmtDate(b.recheck!.at)}, it still showed {b.recheck!.found!.map((x) => `$${x}`).join(', ')}, but we could not find {b.recheck!.missing!.map((x) => `$${x}`).join(', ')}.</p>}
       </section>
 
       {copy && (
