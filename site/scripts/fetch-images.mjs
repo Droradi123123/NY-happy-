@@ -11,8 +11,9 @@
  * A photo that fails to download is left out; the page falls back to its designed card.
  * YAY_FIXTURE=1 uses fixtures/images.json and the files already in public/img (none needed).
  */
-import { mkdirSync, writeFileSync, readFileSync, existsSync, readdirSync, rmSync } from 'node:fs';
-import { join } from 'node:path';
+import { mkdirSync, writeFileSync, readFileSync, existsSync, readdirSync, rmSync, copyFileSync } from 'node:fs';
+import { join, dirname } from 'node:path';
+import { createHash } from 'node:crypto';
 
 const SUPABASE_URL = 'https://zqfscuwkxcoktpjhaebv.supabase.co';
 const PUBLIC_KEY = 'sb_publishable_JxdYGXYsOzPNAC9avS8wfA_SExSJIHc';
@@ -54,8 +55,19 @@ function authorLink(u) {
   return /^https?:\/\//.test(s) ? s : null;
 }
 
+// Cloudflare Workers Builds keeps node_modules/.astro between builds (build cache): photos are
+// downloaded once into it and copied into public/img on every build
+const CACHE = join(root, 'node_modules', '.astro', 'yay-img');
 async function get(url, file) {
-  if (existsSync(file)) return true; // Cloudflare build cache, or a second run
+  // file names carry a hash of the source URL, so a changed photo never reuses an old file
+  if (existsSync(file)) return true; // a second run
+  const cached = join(CACHE, file.slice(join(root, 'public', 'img').length + 1));
+  if (existsSync(cached)) { mkdirSync(dirname(cached), { recursive: true }); copyFileSync(cached, file); return true; }
+  const ok = await download(url, file);
+  if (ok) { mkdirSync(dirname(cached), { recursive: true }); copyFileSync(file, cached); }
+  return ok;
+}
+async function download(url, file) {
   for (let i = 0; i < 3; i++) {
     try {
       const r = await fetch(url, { headers: { 'User-Agent': UA }, signal: AbortSignal.timeout(30000) });
@@ -77,7 +89,7 @@ async function worker() {
     const ext = /\.png$/i.test(row.file_title) ? 'png' : /\.webp$/i.test(row.file_title) ? 'webp' : 'jpg';
     const dir = join(root, 'public', 'img', row.subject_kind);
     mkdirSync(dir, { recursive: true });
-    const base = safe(row.subject_key);
+    const base = `${safe(row.subject_key)}-${createHash('sha1').update(row.thumb_url).digest('hex').slice(0, 8)}`;
     const big = await get(row.thumb_url, join(dir, `${base}.${ext}`));
     // only Commons serves a smaller rendition; a Google photo is used at one size
     const sm = big && small(row.thumb_url) !== row.thumb_url && (await get(small(row.thumb_url), join(dir, `${base}-s.${ext}`)));
@@ -89,7 +101,7 @@ async function worker() {
       w: Math.min(row.width ?? 1280, 1280), h: Math.round(Math.min(row.width ?? 1280, 1280) / ratio),
       title: row.title, author: row.author, authorUrl: authorLink(row.author_url),
       license: row.license, licenseUrl: row.license_url, page: row.source_page, file: row.file_title,
-      source: row.source ?? 'wikimedia_commons',
+      source: row.source ?? 'wikimedia_commons', match: row.match ?? undefined,
     });
   }
 }

@@ -3,7 +3,7 @@ import Base from '../../layouts/Base.astro';
 import PartyCard from '../../components/PartyCard.astro';
 import MiniMap from '../../components/MiniMap.astro';
 import Photo from '../../components/Photo.astro';
-import { partyData, photoOf, venueOf, cleanTitle, nightDate, nyTime, nyDate, priceLabel, fmtDate, GENRE_NAME, type Party, type Venue } from '../../lib/data';
+import { partyData, placePhoto, photoNote, venueOf, cleanTitle, nightDate, nyTime, nyDate, priceLabel, fmtDate, GENRE_NAME, type Party, type Venue } from '../../lib/data';
 import { partyTitle, partyName, partyDescription, partyJsonLd, crumbs, faqLd, SITE } from '../../lib/seo';
 
 export async function getStaticPaths() {
@@ -13,6 +13,7 @@ export async function getStaticPaths() {
   return parties.map((party) => ({ params: { slug: party.slug }, props: { party, venue: venueOf(party, venues), parties, venues, recurring: (names.get(partyName(party).toLowerCase()) ?? 0) > 1 } }));
 }
 const { party: p, venue: v, parties, venues, recurring } = Astro.props as { party: Party; venue: Venue | null; parties: Party[]; venues: Venue[]; recurring: boolean };
+const vp = v ? placePhoto('venue', v.id, v.neighborhood ?? p.neighborhood) : null;
 // a party that repeats (same name, several nights) targets "<name> <Oct 24>" on each night's page
 const kw = `${partyName(p)}${recurring ? ` ${nightDate(p.night_date, { month: 'short', day: 'numeric' })}` : ''}`;
 const url = `${SITE}/parties/${p.slug}`;
@@ -78,7 +79,7 @@ const lastSeen = p.sources?.find((s) => s.name === 'DICE')?.checked_at ?? p.last
       <p class="small">Sources: {(p.sources ?? []).filter((s) => s.name !== 'found via').map((s, i) => <>{i > 0 && ', '}<a href={s.url} rel="nofollow noopener" target="_blank">{host(s.url)}</a> ({fmtDate(s.checked_at)})</>)}. Details change: the ticket page has the final word.</p>
     </div>
     <aside>
-      {v && photoOf('venue', v.id) && <Photo photo={photoOf('venue', v.id)!} alt={`${v.name}, ${v.neighborhood ?? v.borough ?? 'New York'}`} ratio="4 / 3" />}
+      {v && vp && <Photo photo={vp.photo} note={photoNote(vp, v.name)} alt={vp.rel === 'own' ? `${v.name}, ${v.neighborhood ?? v.borough ?? 'New York'}` : vp.rel === 'nearby' ? `The street outside ${v.name}` : `${v.neighborhood ?? 'The neighborhood'} around ${v.name}`} ratio="4 / 3" />}
       {v?.lat && <MiniMap lat={v.lat} lng={v.lng!} label={v.name} />}
       {atVenue.length > 0 && <div class="section"><h2 class="h3">More at {v?.name}</h2><div class="xgrid one">{atVenue.map((o) => <PartyCard party={o} venue={v} />)}</div></div>}
     </aside>

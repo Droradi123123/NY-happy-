@@ -38,8 +38,11 @@ The first data came from `nyc-parties-oct-dec-2026-v2.xlsx` (`scripts/parties/xl
 
 ## Photos (legal by construction)
 
-Two layers: (1) a freely licensed file from Wikimedia Commons (CC0, public domain, CC BY or
-CC BY-SA), self-hosted; (2) a designed card. Nothing is taken from bar, club or ticket sites or
+Freely licensed files from Wikimedia Commons only (CC0, public domain, CC BY or CC BY-SA),
+self-hosted, in this order: (1) a photo of the place itself; (2) a street photo taken within ~70 m
+(Commons geosearch, step `commons_geo`, `match = 'nearby'`: street or building titles only, taken
+2005 or later, landscape, no people), captioned "The street outside <name>"; (3) on a bar page,
+its neighborhood's photo, captioned as such; in card grids, a designed card. Nothing is taken from bar, club or ticket sites or
 Instagram. Google Places photos are **not** used: Google's terms forbid caching photos, photo
 names or other Places content (Maps Platform ToS 3.2.3(b)). The Places job (`gp_places`, pg_cron
 `yay-google-places`, Vault secret `google_maps_api_key`) stores only the Place ID, which the terms

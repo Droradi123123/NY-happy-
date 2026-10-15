@@ -4,7 +4,7 @@ import BarCard from '../../components/BarCard.astro';
 import Line from '../../components/Line.astro';
 import MiniMap from '../../components/MiniMap.astro';
 import Photo from '../../components/Photo.astro';
-import { allBars, googleInfo, placeUrl, photoOf, DAYS, DAY_NAME, daysLabel, windowLabel, dealLabel, fmtDate, meters, type Bar, type GoogleInfo } from '../../lib/data';
+import { allBars, googleInfo, placeUrl, placePhoto, photoNote, DAYS, DAY_NAME, daysLabel, windowLabel, dealLabel, fmtDate, meters, type Bar, type GoogleInfo } from '../../lib/data';
 import { hoodHref } from '../../lib/lists';
 import { barTitle, barKeyword, barDescription, barJsonLd, crumbs, faqLd, SITE } from '../../lib/seo';
 
@@ -19,7 +19,7 @@ export async function getStaticPaths() {
 const { bar: b, bars, hoodUrl, branch, g } = Astro.props as { bar: Bar; bars: Bar[]; hoodUrl: string; branch: boolean; g: GoogleInfo | null };
 const url = `${SITE}/bars/${b.slug}`;
 const deal = dealLabel(b);
-const ph = photoOf('bar', b.slug);
+const pp = placePhoto('bar', b.slug, b.hood, b.hoodSlug);
 const drinks = b.offers.filter((o) => o.kind === 'drink');
 const food = b.offers.filter((o) => o.kind === 'food');
 const near = b.onMap
@@ -50,7 +50,7 @@ const faq = [
         <p class="checked-line">Checked {fmtDate(b.checked)} on {b.source ? <a href={b.source} rel="nofollow noopener" target="_blank">{host(b.source)}</a> : "the bar's own website"}. Deals change: confirm before you go.</p>
       </section>
 
-      {ph && <Photo photo={ph} alt={`${b.name}, ${b.hood}${ph.title && ph.title !== b.name ? `: ${ph.title}` : ''}`} />}
+      {pp && <Photo photo={pp.photo} note={photoNote(pp, b.name)} alt={pp.rel === 'own' ? `${b.name}, ${b.hood}${pp.photo.title && pp.photo.title !== b.name ? `: ${pp.photo.title}` : ''}` : pp.rel === 'nearby' ? `The street outside ${b.name} in ${b.hood}` : `${b.hood}, the neighborhood around ${b.name}`} />}
 
       {(drinks.length > 0 || food.length > 0) && (
         <section class="section">

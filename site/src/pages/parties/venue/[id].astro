@@ -3,7 +3,7 @@ import Base from '../../../layouts/Base.astro';
 import PartyCard from '../../../components/PartyCard.astro';
 import MiniMap from '../../../components/MiniMap.astro';
 import Photo from '../../../components/Photo.astro';
-import { partyData, googleInfo, placeUrl, photoOf, venueOf, GENRE_NAME, type Party, type Venue, type GoogleInfo } from '../../../lib/data';
+import { partyData, googleInfo, placeUrl, placePhoto, photoNote, venueOf, GENRE_NAME, type Party, type Venue, type GoogleInfo } from '../../../lib/data';
 import { crumbs, itemList, SITE } from '../../../lib/seo';
 import { dateRange } from '../../../lib/partyLists';
 
@@ -17,6 +17,7 @@ const { venue: v, nights, parties, venues, g } = Astro.props as { venue: Venue; 
 
 const where = v.neighborhood ?? v.borough ?? 'NYC';
 const x = (v.extra ?? {}) as Record<string, any>;
+const vp = placePhoto('venue', v.id, v.neighborhood);
 const website: string | null = x.website ?? null;
 const genres = [...new Set(nights.flatMap((p) => p.genres))].slice(0, 5).map((g) => GENRE_NAME[g] ?? g);
 const elsewhere = parties.filter((p) => p.venue_id !== v.id && (p.borough === v.borough || !v.borough)).slice(0, 6);
@@ -34,7 +35,7 @@ const placeLd = {
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li><li aria-current="page">{v.name}</li></ol></nav>
   <h1>Parties at {v.name}</h1>
   <p class="lede">{v.address?.replace(/, United States$|, USA$/, '')}{v.rooms.length > 0 && ` · Rooms: ${v.rooms.join(', ')}`}</p>
-  {photoOf('venue', v.id) && <Photo photo={photoOf('venue', v.id)!} alt={`${v.name}, ${where}`} hero />}
+  {vp && <Photo photo={vp.photo} note={photoNote(vp, v.name)} alt={vp.rel === 'own' ? `${v.name}, ${where}` : vp.rel === 'nearby' ? `The street outside ${v.name}, ${where}` : `${where}, the neighborhood around ${v.name}`} hero />}
   {v.lat && <MiniMap lat={v.lat} lng={v.lng!} label={v.name} />}
   {v.copy?.about && <section class="section"><h2>About {v.name}</h2><p>{v.copy.about}</p></section>}
   {(website || g) && (

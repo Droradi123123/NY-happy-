@@ -329,6 +329,8 @@ export interface Photo {
   license: string; licenseUrl: string | null; page: string; file: string;
   /** wikimedia_commons (free license, self-hosted) or google_places (Places API, attribution required, refreshed within 30 days) */
   source?: 'wikimedia_commons' | 'google_places';
+  /** name / wikipedia_lead: the place itself; nearby: a street photo taken a few dozen meters away */
+  match?: 'name' | 'wikipedia_lead' | 'nearby';
 }
 let photoCache: Map<string, Photo> | null = null;
 export function photos(): Map<string, Photo> {
@@ -344,6 +346,25 @@ export const photoOf = (kind: Photo['kind'], key: string | null | undefined) => 
 /** card header without a photo: borough color + place name (CSS class xart-{slug}) */
 export const boroughSlug = (b: string | null) => (b ? b.toLowerCase().replace(/^the /, '').replace(/\s+/g, '-') : 'nyc');
 export const creditShort = (p: Photo) => (p.source === 'google_places' ? `${p.author ?? 'Photo'} · Google Maps` : `${p.author ?? 'Wikimedia Commons'} · ${p.license}`);
+
+/**
+ * The picture for a bar or venue, and what it shows: the place itself, the street outside it
+ * (a free photo taken within ~70 m), or, failing both, its neighborhood. Never presented as more than it is.
+ */
+export type PhotoRel = 'own' | 'nearby' | 'hood';
+export interface PlacePhoto { photo: Photo; rel: PhotoRel; hood: string | null }
+export function placePhoto(kind: 'bar' | 'venue', key: string | null | undefined, hood: string | null, hoodSlug?: string | null, withHood = true): PlacePhoto | null {
+  const own = photoOf(kind, key);
+  if (own) return { photo: own, rel: own.match === 'nearby' ? 'nearby' : 'own', hood };
+  // in a grid of cards the same neighborhood photo would repeat on every card: a designed card is better there
+  if (!withHood) return null;
+  const h = photoOf('hood', hoodSlug ?? (hood ? slugify(hood) : null));
+  return h ? { photo: h, rel: 'hood', hood } : null;
+}
+/** the line that says what the picture shows, e.g. "The street outside Rangoon" */
+export const photoNote = (pp: PlacePhoto, name: string) => (pp.rel === 'nearby' ? `The street outside ${name}` : pp.rel === 'hood' ? `${pp.hood ?? 'The neighborhood'}, around ${name}` : null);
+/** card caption: what it shows + the credit */
+export const cardCredit = (pp: PlacePhoto) => (pp.rel === 'nearby' ? `Street outside · ${creditShort(pp.photo)}` : pp.rel === 'hood' ? `${pp.hood ?? 'Neighborhood'} · ${creditShort(pp.photo)}` : creditShort(pp.photo));
 
 // ---------- Google Places IDs ----------
 
