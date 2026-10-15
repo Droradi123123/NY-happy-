@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Supabase__execute_sql",
+      "mcp__Supabase__apply_migration",
+      "mcp__Supabase__list_tables",
+      "mcp__Supabase__list_migrations",
+      "mcp__github__*",
+      "mcp__claude-code-remote__send_later",
+      "Bash",
+      "Edit",
+      "Write",
+      "Read",
+      "Agent",
+      "WebSearch",
+      "WebFetch"
+    ]
+  }
+}
