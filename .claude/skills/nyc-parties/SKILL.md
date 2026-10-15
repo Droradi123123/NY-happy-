@@ -77,7 +77,7 @@ Order: nights in the next 14 days first, then seasonal (Halloween, NYE), then by
 3. Write the page copy (template below) and save it: `party_event_copy(id, '<json>')`. The function refuses copy without all sections, with fewer than 3 FAQ, or with an em dash.
 
 ### 6. Publish
-`select party_publish_blockers(id)` must be empty, then `select party_event_status(id, 'ready')`. Only Dror (or a later site build step he approves) moves `ready` to `published`. Reject what is not a party, outside the five boroughs, or a duplicate: `party_event_status(id, 'rejected', '<why>')`.
+`select party_publish_blockers(id)` must be empty, then `select party_event_status(id, 'ready'), party_event_status(id, 'published')`. Dror authorized publishing directly on 15.10.2026 when the blockers are empty and the copy follows this skill. Hold an event in review yourself (with the reason) when something the blockers cannot see is off: a date or night that disagrees between sources, a venue that does not match the listing, an address you cannot place. Reject what is not a party, outside the five boroughs, or a duplicate: `party_event_status(id, 'rejected', '<why>')`.
 
 ### 7. Close the run and report
 ```sql
