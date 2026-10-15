@@ -6,7 +6,7 @@
  */
 import Logo from '../components/Logo.astro';
 import { GA_MEASUREMENT_ID, GOOGLE_SITE_VERIFICATION, BING_SITE_VERIFICATION } from '../lib/site';
-import { GUIDES } from '../lib/guides';
+import { allGuides } from '../lib/guides';
 import '../styles/global.css';
 
 interface Props {
@@ -25,15 +25,15 @@ const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/
 const canonical = new URL(path, Astro.site).href;
 const fullTitle = title.length > 60 || / \| YaY NYC$/.test(title) || path === '/' ? title : `${title} | YaY NYC`;
 const GA = (import.meta.env.PUBLIC_GA_ID as string | undefined) || GA_MEASUREMENT_ID;
+const hasGuides = (await allGuides()).some((g) => g.status === 'published');
 const nav = [
   { href: '/happy-hours', label: 'Happy Hours' },
   { href: '/parties', label: 'Parties' },
   { href: '/map', label: 'Map' },
   { href: '/happy-hours/neighborhoods', label: 'Neighborhoods' },
   // the guides link appears once a guide is published
-  ...(GUIDES.some((g) => g.status === 'published') ? [{ href: '/blog', label: 'Guides' }] : []),
+  ...(hasGuides ? [{ href: '/blog', label: 'Guides' }] : []),
 ];
-const hasGuides = GUIDES.some((g) => g.status === 'published');
 ---
 <!doctype html>
 <html lang="en" data-kw={noindex ? undefined : keyword}>

@@ -3,7 +3,7 @@ import type { APIRoute } from 'astro';
 import { allBars, partyData, stations, landmarks } from '../lib/data';
 import { listPages } from '../lib/lists';
 import { partyLists } from '../lib/partyLists';
-import { GUIDES } from '../lib/guides';
+import { allGuides } from '../lib/guides';
 import { guideTable } from '../lib/guideTables';
 import { SITE } from '../lib/seo';
 
@@ -14,7 +14,7 @@ export const GET: APIRoute = async () => {
   const plists = await partyLists();
   // a published guide is listed only when its table has enough rows to be worth indexing (same rule as the page)
   const guides = [];
-  for (const g of GUIDES.filter((g) => g.status === 'published')) {
+  for (const g of (await allGuides()).filter((g) => g.status === 'published')) {
     const t = g.table ? await guideTable(g.table) : null;
     if (!g.table || (t && t.rows.length >= (g.minRows ?? 3))) guides.push(g);
   }

@@ -14,7 +14,14 @@ export interface Guide {
   table?: string; tableTitle?: string; minRows?: number;
   method: string;
   related: [string, string][];
+  /** posts written into the database: plain-text intro, ordered bar picks (optionally a walking route) and FAQ */
+  intro?: string;
+  picks?: { slug: string; why: string }[];
+  route?: boolean;
+  faq?: { q: string; a: string }[];
 }
+
+import { blogPosts, paragraphs } from './data';
 
 const SEPT = 'Each bar’s happy hour was read from its own website or menu on September 1 to 3, 2026. On October 14 we fetched every page again: where the same prices still appear in the page text, the table says so; most menus are images, PDFs or load with JavaScript, so they could not be re-confirmed automatically and keep their September date. Prices are menu prices before NYC sales tax (8.875%) and tip.';
 const a = (href: string, text: string) => `<a href="${href}">${text}</a>`;
@@ -165,3 +172,22 @@ export const GUIDES: Guide[] = [
     related: [['Happy hour near Grand Central', '/happy-hours/near/grand-central'], ['Happy hour near Penn Station', '/happy-hours/near/penn-station-msg'], ['Midtown happy hours', '/happy-hours/midtown']],
   },
 ];
+
+const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+let _all: Promise<Guide[]> | null = null;
+/** the guides in this file plus the posts written into the database (a slug defined here wins) */
+export function allGuides(): Promise<Guide[]> {
+  _all ??= (async () => {
+    const own = new Set(GUIDES.map((g) => g.slug));
+    const db: Guide[] = (await blogPosts()).filter((p) => !own.has(p.slug)).map((p) => ({
+      slug: p.slug, status: 'published', published: p.published, updated: p.updated,
+      title: p.title, h1: p.h1, short: p.short, keyword: p.keyword, description: p.description, answer: p.answer,
+      // database prose is plain text: escaped here because sections render as HTML
+      sections: p.sections.map((x) => ({ h2: x.h, paras: paragraphs(x.body).map(esc) })),
+      ...(p.table_id ? { table: p.table_id } : {}), ...(p.table_title ? { tableTitle: p.table_title } : {}), ...(p.min_rows ? { minRows: p.min_rows } : {}),
+      method: p.method, related: p.related, intro: p.intro, picks: p.picks, route: p.route, faq: p.faq,
+    }));
+    return [...GUIDES, ...db];
+  })();
+  return _all;
+}

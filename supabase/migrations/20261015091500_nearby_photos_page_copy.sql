@@ -30,3 +30,9 @@ create table if not exists public.page_copy (
   written_at timestamptz not null default now(),
   primary key (kind, key)
 );
+
+-- Also applied 2026-10-15: mta_stations (official MTA stops, data.ny.gov 39hk-dx4f) and bars_subway_lines_from_mta
+-- (each bar's lines = daytime routes of its matched station complex, replacing OSM lines that included
+-- trains passing without stopping); bar_set_location() (security definer) fixed six bars that carried a
+-- placeholder point; blog_posts + blog_post_save() + site_blog_posts (posts written into the database,
+-- prose only, keyword/title/description checks, no prices in prose).

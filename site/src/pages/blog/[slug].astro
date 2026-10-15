@@ -4,34 +4,70 @@
  * computed from the live data at build. Drafts are not built (status !== 'published').
  */
 import Base from '../../layouts/Base.astro';
-import { GUIDES, type Guide } from '../../lib/guides';
+import Photo from '../../components/Photo.astro';
+import { allGuides, type Guide } from '../../lib/guides';
 import { guideTable } from '../../lib/guideTables';
-import { crumbs, SITE } from '../../lib/seo';
-import { fmtDate } from '../../lib/data';
+import { crumbs, faqLd, SITE } from '../../lib/seo';
+import { allBars, fmtDate, dealLabel, scheduleLabel, placePhoto, photoNote, boroughSlug, meters, paragraphs, type Bar } from '../../lib/data';
 
 export async function getStaticPaths() {
   const show = (g: Guide) => g.status === 'published' || process.env.YAY_DRAFTS === '1';
-  return GUIDES.filter(show).map((guide) => ({ params: { slug: guide.slug }, props: { guide } }));
+  return (await allGuides()).filter(show).map((guide) => ({ params: { slug: guide.slug }, props: { guide } }));
 }
 const { guide: g } = Astro.props as { guide: Guide };
 const table = g.table ? await guideTable(g.table) : null;
 // a guide whose table came out empty (e.g. no published parties yet) is not worth indexing
 const thin = g.table !== undefined && (!table || table.rows.length < (g.minRows ?? 3));
 const url = `${SITE}/blog/${g.slug}`;
+// picks: the writer's words; the deal, hours and photo next to them come from live data
+const bars = g.picks?.length ? await allBars() : [];
+const picks = (g.picks ?? []).map((p) => ({ b: bars.find((x) => x.slug === p.slug), why: p.why })).filter((p): p is { b: Bar; why: string } => !!p.b);
+const walk = (a: Bar, b: Bar) => (a.lat && a.lng && b.lat && b.lng ? Math.max(1, Math.round(meters({ lat: a.lat, lng: a.lng }, { lat: b.lat, lng: b.lng }) / 80)) : null);
+const cover = picks.map((p) => placePhoto('bar', p.b.slug, p.b.hood, p.b.hoodSlug, false)).find((pp) => pp && pp.rel === 'own') ?? null;
+const words = [g.answer, g.intro ?? '', ...g.sections.flatMap((s) => s.paras), ...picks.map((p) => p.why), ...(g.faq ?? []).map((f) => f.a)].join(' ').replace(/<[^>]+>/g, '').split(/\s+/).length;
+const readMin = Math.max(1, Math.round(words / 230));
 const ld = {
   '@context': 'https://schema.org', '@type': 'BlogPosting', headline: g.h1, description: g.description, url,
   mainEntityOfPage: url, datePublished: g.published, dateModified: g.updated, inLanguage: 'en-US',
   author: { '@type': 'Organization', name: 'YaY NYC', url: SITE }, publisher: { '@type': 'Organization', name: 'YaY NYC', url: SITE },
-  image: `${SITE}/og-default.png`,
+  image: cover ? `${SITE}${cover.photo.src}` : `${SITE}/og-default.png`, wordCount: words,
 };
 ---
 <Base title={g.title} description={g.description} keyword={g.keyword} noindex={g.status !== 'published' || thin}
-  jsonld={[ld, crumbs([['YaY NYC', '/'], ['Blog', '/blog'], [g.h1, `/blog/${g.slug}`]])]}>
+  jsonld={[ld, crumbs([['YaY NYC', '/'], ['Blog', '/blog'], [g.h1, `/blog/${g.slug}`]]), ...(g.faq?.length ? [faqLd(g.faq)] : [])]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/blog">Blog</a></li><li aria-current="page">{g.short}</li></ol></nav>
   <article class="guide">
     <h1>{g.h1}</h1>
-    <p class="byline">By YaY NYC · Updated <time datetime={g.updated}>{fmtDate(g.updated)}</time></p>
+    <p class="byline">By the YaY NYC team · Updated <time datetime={g.updated}>{fmtDate(g.updated)}</time> · {readMin} min read</p>
+    {cover && <Photo photo={cover.photo} note={photoNote(cover, picks[0].b.name)} alt={`${cover.photo.title ?? picks[0].b.name}`} ratio="21 / 9" hero />}
     <div class="answer"><p>{g.answer}</p></div>
+    {g.intro && paragraphs(g.intro).map((p) => <p class="intro">{p}</p>)}
+    {picks.length > 0 && (
+      <section class="section">
+        <h2>{g.route ? 'The route, stop by stop' : 'Our picks'}</h2>
+        <ol class="picks">
+          {picks.map(({ b, why }, i) => {
+            const pp = placePhoto('bar', b.slug, b.hood, b.hoodSlug, false);
+            const next = g.route && i > 0 ? walk(picks[i - 1].b, b) : null;
+            return (
+              <li class="pick">
+                {next && <p class="leg">{next} min walk from {picks[i - 1].b.name}</p>}
+                <div class="pick-grid">
+                  {pp ? <Photo photo={pp.photo} note={photoNote(pp, b.name)} alt={pp.rel === 'own' ? `${b.name}, ${b.hood}` : `The street outside ${b.name} in ${b.hood}`} ratio="16 / 9" />
+                    : <div class={`xcard-art pick-art xart-${boroughSlug(b.borough)}`} aria-hidden="true"><span>{b.name}</span></div>}
+                  <div>
+                    <h3><span class="pick-n">{i + 1}.</span> <a href={`/bars/${b.slug}`}>{b.name}</a> <span class="pick-hood">{b.hood}</span></h3>
+                    <p class="pick-facts"><strong>{dealLabel(b) ?? 'Times published, deal not listed'}</strong><br />{scheduleLabel(b)}{b.address ? ` · ${b.address}` : ''}{b.subway ? ` · ${b.subway.station} (${b.subway.lines.join(', ')})` : ''}</p>
+                    <p>{why}</p>
+                    <p class="small">Deal checked {fmtDate(b.checked)} on the bar's own site.</p>
+                  </div>
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+      </section>
+    )}
     {g.sections.map((s) => (
       <section class="section">
         <h2>{s.h2}</h2>
@@ -49,6 +85,12 @@ const ld = {
           </table>
         </div>
         <p class="small">{table.note}</p>
+      </section>
+    )}
+    {g.faq && g.faq.length > 0 && (
+      <section class="section faq">
+        <h2>Questions</h2>
+        {g.faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
       </section>
     )}
     <section class="section">
@@ -76,4 +118,15 @@ const ld = {
   thead th { font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); }
   tbody th { font-weight: 700; }
   .cell-note { display: block; font-size: 12px; color: var(--muted); }
+  .intro { font-size: 18px; line-height: 1.6; }
+  .picks { list-style: none; padding: 0; margin: 0; display: grid; gap: 30px; }
+  .pick-grid { display: grid; grid-template-columns: minmax(0, 2fr) minmax(0, 3fr); gap: 22px; align-items: start; }
+  .pick-grid :global(.photo) { margin: 0; }
+  .pick-art { margin: 0; border-radius: var(--radius); aspect-ratio: 16 / 9; }
+  .pick h3 { margin: 0 0 6px; font-size: 22px; }
+  .pick-n { color: var(--muted); }
+  .pick-hood { font-size: 14px; font-weight: 600; color: var(--muted); }
+  .pick-facts { margin: 0 0 8px; }
+  .leg { font-weight: 700; margin: 0 0 10px; padding-left: 12px; border-left: 4px dotted var(--ink); }
+  @media (max-width: 720px) { .pick-grid { grid-template-columns: 1fr; gap: 10px; } }
 </style>

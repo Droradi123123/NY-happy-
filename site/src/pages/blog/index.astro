@@ -1,9 +1,9 @@
 ---
 import Base from '../../layouts/Base.astro';
-import { GUIDES } from '../../lib/guides';
+import { allGuides } from '../../lib/guides';
 import { crumbs, itemList } from '../../lib/seo';
 import { fmtDate } from '../../lib/data';
-const posts = GUIDES.filter((g) => g.status === 'published').sort((a, b) => b.updated.localeCompare(a.updated));
+const posts = (await allGuides()).filter((g) => g.status === 'published').sort((a, b) => b.updated.localeCompare(a.updated));
 ---
 <Base title="The YaY NYC Blog: NYC Happy Hour and Party Guides" keyword="nyc happy hour and party guides"
   description="NYC happy hour and party guides built from verified data: the cheapest drinks by neighborhood, dollar oysters, late-night deals and the parties worth knowing."

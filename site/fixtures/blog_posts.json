@@ -1,0 +1,52 @@
+[
+ {
+  "slug": "fixture-williamsburg-crawl",
+  "status": "published",
+  "published": "2026-10-15",
+  "updated": "2026-10-15",
+  "title": "A Williamsburg Happy Hour Crawl: Fixture Route (2026)",
+  "h1": "A Williamsburg Happy Hour Crawl, Stop by Stop",
+  "short": "Williamsburg crawl",
+  "keyword": "williamsburg happy hour crawl",
+  "description": "A williamsburg happy hour crawl used only in tests: three stops, the walk between them and the deal at each, from live data.",
+  "answer": "This fixture post exists to test the template: a short route through three bars, with the walking time between stops and the live deal at each stop rendered from data.",
+  "intro": "Fixture intro paragraph one.\n\nFixture intro paragraph two.",
+  "picks": [
+   {
+    "slug": "ainslie-williamsburg",
+    "why": "A fixture write-up used only in tests: it names what the bar is, what its happy hour covers and when it fits, so the post template can be checked end to end."
+   },
+   {
+    "slug": "bar-baserri-williamsburg",
+    "why": "A fixture write-up used only in tests: it names what the bar is, what its happy hour covers and when it fits, so the post template can be checked end to end."
+   },
+   {
+    "slug": "bar-milagro-williamsburg",
+    "why": "A fixture write-up used only in tests: it names what the bar is, what its happy hour covers and when it fits, so the post template can be checked end to end."
+   }
+  ],
+  "route": true,
+  "sections": [
+   {
+    "h": "Fixture section",
+    "body": "Fixture body."
+   }
+  ],
+  "faq": [
+   {
+    "q": "Fixture question?",
+    "a": "Fixture answer."
+   }
+  ],
+  "table_id": null,
+  "table_title": null,
+  "min_rows": null,
+  "method": "Fixture method.",
+  "related": [
+   [
+    "Williamsburg",
+    "/happy-hours/williamsburg"
+   ]
+  ]
+ }
+]

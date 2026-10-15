@@ -403,6 +403,23 @@ export const paragraphs = (t: string) => t.split(/\n\s*\n/).map((p) => p.trim())
 /** about 230 words a minute */
 export const readMinutes = (c: PageCopy) => Math.max(1, Math.round([c.intro, ...c.picks.map((p) => p.why), ...c.sections.map((s) => s.body), ...c.faq.map((f) => f.a)].join(' ').split(/\s+/).length / 230));
 
+// ---------- blog posts written into the database ----------
+
+export interface BlogPostRow {
+  slug: string; status: 'published'; published: string; updated: string; title: string; h1: string; short: string; keyword: string;
+  description: string; answer: string; intro: string; picks: { slug: string; why: string }[]; route: boolean;
+  sections: { h: string; body: string }[]; faq: { q: string; a: string }[]; table_id: string | null; table_title: string | null;
+  min_rows: number | null; method: string; related: [string, string][];
+}
+let _posts: Promise<BlogPostRow[]> | null = null;
+export function blogPosts(): Promise<BlogPostRow[]> {
+  _posts ??= (async () => {
+    if (FIXTURE) { try { return fixture<BlogPostRow[]>('blog_posts.json'); } catch { return []; } }
+    try { return await rest<BlogPostRow>('site_blog_posts?select=*'); } catch { return []; }
+  })();
+  return _posts;
+}
+
 // ---------- price re-checks ----------
 
 /** the latest re-check of a bar's own happy-hour page: did the prices we hold still appear there? */
