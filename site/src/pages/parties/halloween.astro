@@ -1,27 +1,107 @@
 ---
+/**
+ * The Halloween hub: every published Halloween night, grouped by night, borough and music,
+ * with an editorial intro and picks (page_copy kind 'parties', key 'halloween') when written.
+ * Counts, dates and prices are computed from the live data at build.
+ */
 import Base from '../../layouts/Base.astro';
 import Explorer from '../../components/Explorer.astro';
 import PartyCard from '../../components/PartyCard.astro';
-import { partyData, venueOf } from '../../lib/data';
+import Photo from '../../components/Photo.astro';
+import { partyData, venueOf, photoOf, copyOf, paragraphs, nightDate, cleanTitle, fmtDate, GENRE_NAME, type Party } from '../../lib/data';
+import { partyLists } from '../../lib/partyLists';
+import { allGuides } from '../../lib/guides';
 import { crumbs, itemList, faqLd } from '../../lib/seo';
 
 const { parties, venues } = await partyData();
+const year = 2026;
 const list = parties.filter((p) => p.themes.includes('halloween'));
 const genres = [...new Set(list.flatMap((p) => p.genres))].sort();
-const year = 2026;
+const hero = photoOf('page', 'halloween');
+const copy = await copyOf('parties', 'halloween');
+const groups = await partyLists();
+const genrePage = (g: string) => groups.find((l) => l.kind === 'genre' && l.slug === g) ?? null;
+const post = (await allGuides()).find((g) => g.slug === 'halloween-weekend-nyc-2026' && g.status === 'published') ?? null;
+
+// sold-out nights last; nights with a full write-up first
+const rank = (a: Party, b: Party) => Number(a.event_status === 'sold_out') - Number(b.event_status === 'sold_out') || Number(!!b.copy?.about) - Number(!!a.copy?.about) || (a.starts_at ?? '').localeCompare(b.starts_at ?? '');
+const byNight = new Map<string, Party[]>();
+for (const p of list) byNight.set(p.night_date, [...(byNight.get(p.night_date) ?? []), p]);
+const nights = [...byNight.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([d, ps]) => ({ d, ps: ps.sort(rank) }));
+const heading = (d: string, n: number) => `${nightDate(d, { weekday: 'long', month: 'long', day: 'numeric' })}: ${n} Halloween ${n === 1 ? 'party' : 'parties'}`;
+
+const count = (f: (p: Party) => boolean) => list.filter(f).length;
+const boroughs = [...new Set(list.map((p) => p.borough).filter(Boolean))] as string[];
+const byBorough = boroughs.map((b) => ({ b, n: count((p) => p.borough === b) })).sort((x, y) => y.n - x.n);
+const byGenre = genres.map((g) => ({ g, n: count((p) => p.genres.includes(g)) })).filter((x) => x.n >= 2).sort((x, y) => y.n - x.n).slice(0, 10);
+const free = list.filter((p) => p.price_status === 'free');
+const age21 = count((p) => p.age_min === 21), age18 = count((p) => p.age_min === 18);
+const boats = list.filter((p) => /boat|yacht|cruise/i.test(`${p.title} ${venueOf(p, venues)?.name ?? ''}`));
+const priced = list.filter((p) => p.price_from !== null && p.event_status !== 'sold_out').sort((a, b) => a.price_from! - b.price_from!);
+const soldOut = count((p) => p.event_status === 'sold_out');
+const sat = byNight.get(`${year}-10-31`)?.length ?? 0, fri = byNight.get(`${year}-10-30`)?.length ?? 0;
+
+const picks = (copy?.picks ?? []).map((x) => ({ p: list.find((p) => p.slug === x.slug), why: x.why })).filter((x): x is { p: Party; why: string } => !!x.p);
 const faq = [
-  { q: `When is Halloween ${year} in NYC?`, a: `Halloween ${year} is on Saturday, October 31, so the big party weekend is Friday October 30 to Sunday November 1. Many venues also run parties the weekend before.` },
-  { q: 'Do I need a costume?', a: 'Each party page says whether costumes are encouraged or required. Where it is not stated, we say so rather than guess.' },
-  { q: 'When do Halloween parties sell out?', a: 'The biggest nights sell out weeks ahead. Sold-out parties are marked; use "Hide sold out" to see what you can still get into.' },
+  ...(copy?.faq ?? []),
+  { q: `When is Halloween ${year} in NYC?`, a: `Halloween ${year} is on Saturday, October 31, so the main party weekend is Friday October 30 to Sunday November 1. We list ${sat} parties on Saturday and ${fri} on Friday; others run the weekend before.` },
+  { q: 'Are there free Halloween parties in NYC?', a: free.length ? `${free.length} of the Halloween parties we list are free to enter: ${free.slice(0, 4).map((p) => cleanTitle(p.title)).join('; ')}${free.length > 4 ? ' and more' : ''}. Free events can still require an RSVP or fill up.` : 'None of the Halloween parties we list right now are free; prices start from the lowest ticket on each page.' },
+  { q: 'Are there 18+ Halloween parties in NYC?', a: `${age18} of the parties we list are 18+ and ${age21} are 21+, as stated on their ticket pages. Each party page shows the age rule, or says it is not stated. Bring a government photo ID either way.` },
+  ...(boats.length ? [{ q: 'Are there Halloween boat parties in NYC?', a: `Yes, we list ${boats.length}: ${boats.slice(0, 3).map((p) => cleanTitle(p.title)).join('; ')}. Boarding times are strict on boats, so check the doors time on each page.` }] : []),
+  ...(priced.length ? [{ q: 'How much are Halloween party tickets in NYC?', a: `The lowest ticket we found was $${Math.round(priced[0].price_from!)} for ${cleanTitle(priced[0].title)}, when we last checked. Prices rise as tiers sell out; each page shows the current lowest price with its check date.` }] : []),
+  { q: 'Do I need a costume?', a: 'Each party page says whether costumes are encouraged or required, from the promoter’s own description. Where it is not stated, we say so rather than guess.' },
+  { q: 'Do Halloween parties sell out?', a: `${soldOut} of the ${list.length} parties we list are already sold out. Big Saturday nights go first; sold-out nights stay on the page, marked, in case tickets come back.` },
 ];
+const latest = list.reduce((m, p) => (p.last_checked && p.last_checked > m ? p.last_checked : m), '');
 ---
-<Base noindex={list.length < 2} keyword="halloween parties nyc" title={`Halloween Parties NYC ${year}: ${list.length} Parties With Tickets`} description={`Every Halloween ${year} party in NYC we track: ${list.length} nights across clubs, rooftops and boats, with doors, age, price and tickets. Filter by date, music and price.`}
+<Base noindex={list.length < 2} keyword="halloween parties nyc" title={`Halloween Parties NYC ${year}: ${list.length} Parties, Night by Night`} description={`Every Halloween ${year} party in NYC we track: ${list.length} nights across ${boroughs.length} boroughs, night by night, with doors, age, price and tickets.`}
+  ogImage={hero?.src ?? null}
   jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties'], ['Halloween', '/parties/halloween']]), itemList(`Halloween parties NYC ${year}`, list.map((p) => `/parties/${p.slug}`)), faqLd(faq)]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li><li aria-current="page">Halloween</li></ol></nav>
   <h1>Halloween Parties in NYC {year}</h1>
-  <p class="lede">{list.length} Halloween parties at {new Set(list.map((p) => p.venue_id)).size} venues in {[...new Set(list.map((p) => p.borough).filter(Boolean))].join(', ')}. Filter by night, music and price.</p>
-  <Explorer kind="parties" preset={{ th: ['halloween'] }} genres={genres} heading="Halloween parties">
+  <p class="lede">{list.length} Halloween parties at {new Set(list.map((p) => p.venue_id)).size} venues in {boroughs.join(', ')}: {sat} on Saturday, October 31 and {fri} on Friday the 30th.{latest && ` Tickets and prices checked ${fmtDate(latest)}.`}</p>
+  {hero && <div class="hw-hero"><Photo photo={hero} alt="Costumed crowd at New York's Village Halloween Parade, 2025" ratio="21 / 9" hero /></div>}
+  {copy && (
+    <section class="guide-intro">
+      <p class="byline">By the YaY NYC team · Updated {fmtDate(copy.written)}</p>
+      {paragraphs(copy.intro).map((p) => <p>{p}</p>)}
+    </section>
+  )}
+  <nav class="jump" aria-label="Jump to a night"><ul class="link-cloud">{nights.map(({ d, ps }) => <li><a href={`#n-${d}`}>{nightDate(d, { weekday: 'short', month: 'short', day: 'numeric' })}<span class="count">{ps.length}</span></a></li>)}</ul></nav>
+  {picks.length > 0 && (
+    <section class="section">
+      <h2>Our Halloween picks</h2>
+      <ol class="hw-picks">{picks.map(({ p, why }) => <li><PartyCard party={p} venue={venueOf(p, venues)} /><p>{why}</p></li>)}</ol>
+    </section>
+  )}
+  {nights.map(({ d, ps }) => (
+    <section class="section" id={`n-${d}`}>
+      <h2>{heading(d, ps.length)}</h2>
+      <div class="xgrid">{ps.slice(0, 6).map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>
+      {ps.length > 6 && <ul class="more-list">{ps.slice(6).map((p) => <li><a href={`/parties/${p.slug}`}>{cleanTitle(p.title)}</a><span class="small"> · {venueOf(p, venues)?.name ?? 'TBA'}{p.event_status === 'sold_out' ? ' · sold out' : ''}</span></li>)}</ul>}
+    </section>
+  ))}
+  {copy?.sections.map((s) => <section class="section"><h2>{s.h}</h2>{paragraphs(s.body).map((p) => <p>{p}</p>)}</section>)}
+  <section class="section">
+    <h2>Halloween parties by borough and music</h2>
+    <ul class="link-cloud">{byBorough.map(({ b, n }) => <li><span>{b}<span class="count">{n}</span></span></li>)}</ul>
+    <ul class="link-cloud">{byGenre.map(({ g, n }) => <li>{genrePage(g) ? <a href={`/parties/${g}`}>{GENRE_NAME[g] ?? g}<span class="count">{n}</span></a> : <span>{GENRE_NAME[g] ?? g}<span class="count">{n}</span></span>}</li>)}</ul>
+  </section>
+  <Explorer kind="parties" preset={{ th: ['halloween'] }} genres={genres} heading="Filter all Halloween parties">
     {list.slice(0, 24).map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}
   </Explorer>
+  {post && <section class="section"><h2>Plan the weekend</h2><p><a href={`/blog/${post.slug}`}>{post.h1}</a>: the parade, pre-party happy hours and getting around, night by night.</p></section>}
   <section class="section faq"><h2>Halloween in NYC: questions</h2>{faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}</section>
 </Base>
+<style>
+  .hw-hero { margin: 16px 0 6px; }
+  .guide-intro { max-width: 70ch; }
+  .guide-intro p { font-size: 18px; line-height: 1.6; }
+  .byline { font-size: 14px !important; color: var(--muted); }
+  .jump { margin: 14px 0; }
+  .hw-picks { list-style: none; padding: 0; display: grid; gap: 22px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+  .hw-picks p { margin: 8px 2px 0; }
+  .more-list { columns: 2 280px; padding-left: 18px; margin-top: 14px; }
+  .more-list li { margin-bottom: 6px; break-inside: avoid; }
+  .link-cloud span .count, .link-cloud a .count { margin-left: 6px; }
+</style>

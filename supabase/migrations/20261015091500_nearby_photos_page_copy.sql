@@ -36,3 +36,7 @@ create table if not exists public.page_copy (
 -- trains passing without stopping); bar_set_location() (security definer) fixed six bars that carried a
 -- placeholder point; blog_posts + blog_post_save() + site_blog_posts (posts written into the database,
 -- prose only, keyword/title/description checks, no prices in prose).
+
+-- Also applied 2026-10-15: image_rights subject_kind 'page' (photos for whole pages; the Halloween hub
+-- uses "New York's Village 2025 Halloween Parade.jpg", CC BY 4.0, Tzim78) and page_copy kind 'parties'
+-- (party hub copy; picks may be published party slugs).

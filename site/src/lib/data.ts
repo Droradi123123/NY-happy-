@@ -324,7 +324,7 @@ export const GENRE_NAME: Record<string, string> = {
 
 /** A freely licensed photo, self-hosted by scripts/fetch-images.mjs, with what its credit line needs. */
 export interface Photo {
-  kind: 'bar' | 'venue' | 'hood'; key: string; src: string; thumb: string; w: number; h: number;
+  kind: 'bar' | 'venue' | 'hood' | 'page'; key: string; src: string; thumb: string; w: number; h: number;
   title: string | null; author: string | null; authorUrl: string | null;
   license: string; licenseUrl: string | null; page: string; file: string;
   /** wikimedia_commons (free license, self-hosted) or google_places (Places API, attribution required, refreshed within 30 days) */
