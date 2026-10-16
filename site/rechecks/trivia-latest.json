@@ -1,0 +1,44 @@
+{
+ "date": "2026-10-16",
+ "read": {
+  "NYC Trivia League": 176,
+  "TriviaNYC": 8,
+  "Uptown Pub Quiz": 1,
+  "NYC Trivia List": 318,
+  "Brooklyn Trivia Finder": 128
+ },
+ "removed": [],
+ "time_changed": [],
+ "still_listed": 281,
+ "new_at_operators": [
+  {
+   "name": "Cahoots NYC",
+   "day": "wed",
+   "start": "15:00",
+   "kind": "trivia",
+   "source": "NYC Trivia League"
+  },
+  {
+   "name": "Other Half Brewing Co. — Domino Park",
+   "day": "wed",
+   "start": "19:00",
+   "kind": "trivia",
+   "source": "NYC Trivia League"
+  },
+  {
+   "name": "Sadie’s Ward",
+   "day": "thu",
+   "start": "19:00",
+   "kind": "trivia",
+   "source": "NYC Trivia League"
+  },
+  {
+   "name": "SingleCut Queens",
+   "day": "thu",
+   "start": "19:30",
+   "kind": "music_bingo",
+   "source": "NYC Trivia League"
+  }
+ ],
+ "aborted": null
+}
