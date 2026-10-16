@@ -1,0 +1,8 @@
+-- Daily Search Console + GA4 numbers (applied to zqfscuwkxcoktpjhaebv as traffic_data + traffic_pull_token).
+-- The traffic-pull edge function (supabase/functions/traffic-pull) reads Google with a read-only service
+-- account (edge secrets GOOGLE_SA_JSON, GA4_PROPERTY_ID) and upserts here. pg_cron calls it at 11:25 UTC
+-- through traffic_pull(days), which sends the Vault token traffic_pull_token; the function checks it with
+-- traffic_pull_token_ok(). All tables are RLS-on with no policies: private.
+--   gsc_queries (day, query, page)   gsc_pages (day, page)   ga_pages (day, page, channel)
+--   ga_events (day, event, page)     traffic_pulls (run log) seo_actions (what the daily SEO run changed)
+-- Backfill: select traffic_pull(90);
