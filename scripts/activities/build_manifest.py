@@ -67,6 +67,16 @@ def ampm(t: str | None) -> str | None:
     return f"{h % 12 or 12}{':%02d' % m if m else ''}{'am' if h < 12 else 'pm'}"
 
 
+ORD = r"(?:\d(?:st|nd|rd|th)|first|second|third|fourth|last)"
+
+
+def cadence_phrase(note: str) -> str:
+    """the cadence words only: MONTHLY!** Call venue... -> Monthly; 3rd Tuesday of every month: Themed... -> 3rd Tuesday of every month"""
+    m = re.search(rf"(?i)({ORD}(?:\s*(?:and|&)\s*{ORD})?\s+\w+days?(?:\s+of\s+(?:the\s+|each\s+|every\s+)?month)?|every other \w+|semi-?monthly|bi-?weekly|monthly)", note or "")
+    t = (m.group(1) if m else "Not weekly").strip()
+    return t[0].upper() + t[1:].lower() if t.isupper() or t.islower() else t[0].upper() + t[1:]
+
+
 def same_place(a: str | None, b: str | None) -> bool:
     """same house number (Queens hyphen ignored) and first street word: 37-19 Broadway at 38th St = 37-19 Broadway"""
     pa, pb = split_address(a), split_address(b)
@@ -216,6 +226,9 @@ def main(work: str) -> None:
         v["hood"] = HOOD_ALIAS.get(nb, nb) if g["status"] == "verified" else None
         v["borough"] = g.get("borough") if g["status"] == "verified" else None
 
+    # reviewed decisions (scripts/activities/decisions.json): each with its reason, evidence and date
+    dpath = os.path.join(os.path.dirname(__file__), "decisions.json")
+    decisions = {d["venue"]: d for d in (json.load(open(dpath)) if os.path.exists(dpath) else [])}
     held_pairs = defaultdict(list)
     for a in cand["ambiguities"]:
         if a["type"] == "same address, different names":
@@ -258,14 +271,20 @@ def main(work: str) -> None:
             status = fresh_status[0] if fresh_status else ("paused" if wb_status == {"paused"} else "upcoming" if wb_status == {"upcoming"} else "listed")
             if status != "listed":
                 why_not.append(f"T3 {status} per {'the operator' if fresh_status else 'the workbook'}")
-            if held_pairs.get(v["key"]) and not any(o["source"] in OPERATORS for o in l["fresh"]):
+            dec = decisions.get(v["key"]) or {}
+            if dec.get("action") == "exclude":
+                why_not.append(f"D excluded {dec['decided']}: {dec['reason']}")
+            if held_pairs.get(v["key"]) and not any(o["source"] in OPERATORS for o in l["fresh"]) and dec.get("action") != "waive_T2":
                 why_not.append(f"T2 another business is listed at the same address ({', '.join(held_pairs[v['key']])})")
             # who says which time
             says = defaultdict(set)
             # an operator named in the workbook counts only if our own read of that operator's page found this
             # venue on this day (the workbook credited NYC Trivia League to the wrong Captain's)
+            # and any source we re-read ourselves speaks for itself: its fresh line replaces what the workbook says it said
+            # (the workbook credited Brooklyn Trivia Finder with 9pm at Post No Bills; the page says 8:30pm)
             fresh_ops = {o["source"] for o in l["fresh"] if o["source"] in OPERATORS}
-            keep = lambda names: {n for n in names if n not in OPERATORS or n in fresh_ops}
+            fresh_src = {o["source"] for o in l["fresh"]}
+            keep = lambda names: {n for n in names if (n not in OPERATORS or n in fresh_ops) and n not in fresh_src}
             for o in l["observations"]:
                 if o.get("time_disagreement"):
                     for t, names in times_from_disagreement(o["time_disagreement"]).items():
@@ -298,10 +317,13 @@ def main(work: str) -> None:
             ops_fresh = [o for o in l["fresh"] if o["source"] == "NYC Trivia League" and o["start"] == start]
             nonweekly = [o["recurrence"] for o in l["observations"] if o["recurrence"]["kind"] == "non_weekly"]
             bi = [o for o in l["fresh"] if re.search(r"bi-?weekly|every other", fold(o.get("note")))]
+            monthly = [o for o in l["fresh"] if re.search(r"(^|\b)(1st|2nd|3rd|4th|first|second|third|last)\b|of (the |each |every )?month|monthly", fold(o.get("note")))]
             if bi:
                 rec = {"kind": "non_weekly", "label": f"Every other week, per {bi[0]['source']}. Confirm with the venue."}
+            elif monthly:
+                rec = {"kind": "non_weekly", "label": f"{cadence_phrase(monthly[0]['note'])}, per {monthly[0]['source']}. Confirm the date with the venue."}
             elif nonweekly:
-                rec = {"kind": "non_weekly", "label": f"{nonweekly[0]['text'][0].upper()}{nonweekly[0]['text'][1:]}, per the listing. Confirm with the venue."}
+                rec = {"kind": "non_weekly", "label": f"{cadence_phrase(nonweekly[0]['text'])}, per the listing. Confirm with the venue."}
             elif ops_fresh and re.match(r"(?i)monthly", (v.get("registry") or {}).get("line") or ""):
                 rec = {"kind": "non_weekly", "label": "Monthly, per NYC Trivia League. Confirm the date with the venue."}
             elif ops_fresh:
@@ -313,18 +335,20 @@ def main(work: str) -> None:
             host = next((o["host"] for o in l["fresh"] if o.get("host") and o["source"] in OPERATORS), None) or \
                    next((o["host"] for o in l["observations"] if o.get("host") and "per directory" not in o["host"]), None)
             cost = next((o["cost"] for o in l["observations"] if o.get("cost")), None)
-            seen = sorted({(o["source"], o["url"], o.get("source_updated_at")) for o in l["fresh"] if o["start"] == start}, key=str)
+            seen = sorted({(o["source"], o["url"], o.get("source_updated_at"), o["name"]) for o in l["fresh"] if o["start"] == start}, key=str)
             wb_sources = sorted({(s["name"], s["url"]) for o in l["observations"] for s in o["sources"] if s["name"] in backers}, key=str)
             d.update({"status": status, "start": start, "start_label": ampm(start), "recurrence": rec, "host": host,
                       "cost_note": re.sub(r"^Per (\w+) note:\s*", r"", cost) if cost else None,
                       "cost_source": (re.match(r"^Per (\w+)", cost).group(1) if cost and re.match(r"^Per (\w+)", cost) else None),
                       "operator_listed": bool(set(backers) & OPERATORS), "backers": backers,
-                      "sources": [{"name": n, "url": u, "observed_at": observed_at, "source_updated_at": su} for n, u, su in seen] +
-                                 [{"name": n, "url": u, "observed_at": "2026-10-16", "source_updated_at": None, "via": "research workbook"}
+                      "sources": [{"name": n, "url": u, "observed_at": observed_at, "source_updated_at": su, "listed_as": nm} for n, u, su, nm in seen] +
+                                 [{"name": n, "url": u, "observed_at": "2026-10-16", "source_updated_at": None, "via": "research workbook", "listed_as": v["name"]}
                                   for n, u in wb_sources if n not in {s[0] for s in seen}],
                       "notes": [o["note"] for o in l["fresh"] if o.get("note")],
                       "conflicts": l["conflicts"], "wb_evidence": sorted({o["wb_evidence"] for o in l["observations"]}),
                       "wb_rows": [o["src_ref"]["wb_id"] for o in l["observations"]]})
+        if (decisions.get(v["key"]) or {}).get("action") in ("note", "waive_T2", "exclude"):
+            d["decision"] = decisions[v["key"]]
         d["publish"] = not why_not
         d["held_because"] = why_not
         d["venue"] = {"name": v["name"], "aliases": v["aliases"], "address": v["geo"].get("label") or v["address"], "address_as_found": v["address"],

@@ -1,0 +1,36 @@
+# Weekly re-read of the published trivia and music bingo nights (scripts/activities/weekly_refresh.py):
+# the trivia companies' schedules and the two hand-kept directories. A night on hold or no longer listed
+# comes off the site; a new start time from the company replaces the old one; nothing is ever added.
+# The commit triggers the Cloudflare rebuild. No secrets: it reads public pages and writes two files.
+name: Trivia weekly re-read
+
+on:
+  schedule:
+    - cron: '23 14 * * 1' # Mondays 10:23am New York (9:23 in winter), after NYC Trivia League posts the week
+  workflow_dispatch:
+
+concurrency:
+  group: trivia-weekly
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Re-read sources
+        run: python3 scripts/activities/weekly_refresh.py site/src/data/activities.json site/rechecks/trivia-latest.json
+      - name: Commit the results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/src/data/activities.json site/rechecks/trivia-latest.json
+          git commit -m "Trivia weekly re-read: $(date -u +%F)" || exit 0
+          for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done

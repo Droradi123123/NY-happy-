@@ -104,7 +104,7 @@ def brooklyn_trivia(text: str) -> list[dict]:
     for b in blocks:
         lines = [l.strip() for l in b.split("\n") if l.strip()]
         for j, l in enumerate(lines):
-            cad = re.match(r"^((?:every other |1st |2nd |3rd |4th |last |first |second |third )?(?:and \w+ )?(Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)days?)\s*@\s*([0-9:]+\s*[ap]\.?m)\b(.*)$", l, re.I)
+            cad = re.match(r"^((?:every other |1st |2nd |3rd |4th |last |first |second |third )?(?:and \w+ )?(Mon|Tues|Wednes|Thurs|Fri|Satur|Sun)days?(?: of (?:the |each |every )?month)?)\s*@\s*([0-9:]+)\s*([ap]\.?m)?\b(.*)$", l, re.I)
             if not cad:
                 continue
             # the "Name – Neighborhood" line, not the "@ 8 pm – Every other week" line under it
@@ -114,13 +114,24 @@ def brooklyn_trivia(text: str) -> list[dict]:
             name, hood = [s.strip() for s in re.split(r"\s[–-]\s", head, maxsplit=1)]
             hood = re.sub(r"\s*@.*$", "", hood)
             addr = next((x for x in lines[j + 1:j + 3] if re.match(r"^\d+[\w-]*\s+\w", x)), None)
-            extra = cad.group(4)
+            extra = cad.group(5)
+            # "Mondays @ 8:30" has no am/pm: take it from the header ("Post No Bills – East Williamsburg @ 8:30pm")
+            # or the line under it ("@ 7 pm"), only when the number is the same; otherwise the time stays unknown
+            hm = cad.group(3)
+            ap = cad.group(4)
+            if not ap:
+                near = " ".join(lines[max(0, j - 3):j])
+                m2 = re.search(rf"@\s*{re.escape(hm)}\s*([ap])\.?m", near, re.I)
+                ap = (m2.group(1) + "m") if m2 else None
+            start = parse_time(f"{hm}{ap}") if ap else None
             # "Every other week," / "Semi-monthly" sits on the line above the weekday
             prev = lines[j - 1] if j else ""
             cadence_note = prev.strip(" ,") if re.match(r"(?i)^(every other|bi-?weekly|semi-?monthly|monthly|1st|2nd|3rd|4th|first|second|third|last)", prev) else None
+            if not cadence_note and re.match(r"(?i)^(every other|1st|2nd|3rd|4th|first|second|third|last)\b|.* of (the |each |every )?month", cad.group(1)):
+                cadence_note = cad.group(1)
             host = re.search(r"(?:Company|Host):\s*([^)]+)\)", extra) or re.search(r"\(([^)]+)\)", extra)
             out.append({"source": "Brooklyn Trivia Finder", "type": "directory", "url": "https://brooklyntrivia.org", "name": name, "hood": hood,
-                        "day": day_of(cad.group(2)), "start": parse_time(cad.group(3)), "kind": "trivia", "address": addr,
+                        "day": day_of(cad.group(2)), "start": start, "kind": "trivia", "address": addr,
                         "cadence_text": cad.group(1), "host": host.group(1).strip() if host else None, "note": cadence_note, "status": None})
             break
     return out

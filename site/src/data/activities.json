@@ -2818,17 +2818,6 @@
    "partyVenue": null,
    "website": null
   },
-  "sycamore-flower-shop--1118-cortelyou-rd": {
-   "name": "Sycamore Bar + Flower Shop",
-   "address": "1118 Cortelyou Road, Brooklyn, NY 11218",
-   "borough": "Brooklyn",
-   "hood": "Flatbush",
-   "lat": 40.639741,
-   "lng": -73.967208,
-   "bar": "sycamore-park-slope",
-   "partyVenue": null,
-   "website": null
-  },
   "syndicated--40-bogart-st": {
    "name": "Syndicated",
    "address": "40 Bogart Street, Brooklyn, NY 11206",
@@ -3202,13 +3191,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Grey Dog"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Grey Dog"
     }
    ]
   },
@@ -3231,7 +3222,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Keg & Lantern Brewing"
     }
    ]
   },
@@ -3254,7 +3246,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Pig Beach Queens"
     }
    ]
   },
@@ -3277,13 +3270,15 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Marian’s Brooklyn"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Marian's Brooklyn"
     }
    ]
   },
@@ -3306,31 +3301,36 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "(Manhattan) Blondie’s Sports"
     },
     {
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Blondie’s Sports"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Blondie’s Sports"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Blondie’s Sports"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Blondie’s Sports"
     }
    ]
   },
@@ -3353,31 +3353,36 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Sanger Hall"
     },
     {
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Sanger Hall"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Sanger Hall"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Sanger Hall"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Sanger Hall"
     }
    ]
   },
@@ -3400,31 +3405,36 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "SingleCut Beersmiths"
     },
     {
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "SingleCut Beersmiths"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "SingleCut Beersmiths"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "SingleCut Beersmiths"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "SingleCut Beersmiths"
     }
    ]
   },
@@ -3447,19 +3457,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Sixpoint Brewery at Brookfield Place"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Sixpoint Brewery at Brookfield Place"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Sixpoint Brewery at Brookfield Place"
     }
    ]
   },
@@ -3482,13 +3495,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Talea Beer Co. — Bryant Park"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Talea Beer Co. — Bryant Park"
     }
    ]
   },
@@ -3511,25 +3526,29 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Draught 55"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Draught 55"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Draught 55"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Draught 55"
     }
    ]
   },
@@ -3552,13 +3571,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Torch & Crown Brewing Co."
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Torch & Crown Brewing Co."
     }
    ]
   },
@@ -3581,7 +3602,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Bareburger"
     }
    ]
   },
@@ -3604,25 +3626,29 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Bierhaus NYC"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Bierhaus NYC"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Bierhaus NYC"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Bierhaus NYC"
     }
    ]
   },
@@ -3645,7 +3671,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Bleecker Street Bar"
     }
    ]
   },
@@ -3668,13 +3695,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Bob's Your Uncle"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Bob's Your Uncle"
     }
    ]
   },
@@ -3697,25 +3726,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Brazen Head"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Brazen Head"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Brazen Head"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Brazen Head"
     }
    ]
   },
@@ -3738,25 +3771,29 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Bubby’s"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Bubby's"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Bubby’s"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Bubby’s"
     }
    ]
   },
@@ -3779,13 +3816,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The District"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The District"
     }
    ]
   },
@@ -3808,7 +3847,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Ditty"
     }
    ]
   },
@@ -3831,25 +3871,29 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Due West"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Due West"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Due West"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Due West"
     }
    ]
   },
@@ -3872,13 +3916,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Dutch Fred’s"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Dutch Fred’s"
     }
    ]
   },
@@ -3901,19 +3947,22 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Gebhard's Beer Culture"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Gebhard's Beer Culture"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Gebhard's Beer Culture"
     }
    ]
   },
@@ -3936,19 +3985,22 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Juke Bar"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Juke Bar"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Juke Bar"
     }
    ]
   },
@@ -3971,19 +4023,22 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "King’s County Brewers Collective (KCBC)"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "KCBC"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "King’s County Brewers Collective (KCBC)"
     }
    ]
   },
@@ -4006,19 +4061,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Mad Dog & Beans Midtown"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Mad Dog & Beans Midtown"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Mad Dog & Beans Midtown"
     }
    ]
   },
@@ -4041,7 +4099,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Montague Diner"
     }
    ]
   },
@@ -4064,19 +4123,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Motel No Tell"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Motel No Tell"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Motel No Tell"
     }
    ]
   },
@@ -4099,19 +4161,22 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Sutton Bar Room"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Sutton Bar Room"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Sutton Bar Room"
     }
    ]
   },
@@ -4134,19 +4199,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Talea Beer Co. — West Village"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Talea Beer Co. — West Village"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Talea Beer Co. — West Village"
     }
    ]
   },
@@ -4169,19 +4237,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Valhalla Bar"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Valhalla Bar"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Valhalla Bar"
     }
    ]
   },
@@ -4204,25 +4275,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Black Horse Pub"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Black Horse Pub"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Black Horse Pub"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Black Horse Pub"
     }
    ]
   },
@@ -4245,7 +4320,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Conor’s Goat"
     }
    ]
   },
@@ -4268,19 +4344,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Gowanus Gardens"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Gowanus Gardens"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Gowanus Gardens"
     }
    ]
   },
@@ -4303,13 +4382,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The McCarren"
     },
     {
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The McCarren"
     }
    ]
   },
@@ -4332,25 +4413,29 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Winslow"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Winslow"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Winslow"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Winslow"
     }
    ]
   },
@@ -4373,25 +4458,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Abilene"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Abilene"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Abilene"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Abilene"
     }
    ]
   },
@@ -4414,25 +4503,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Alligator Lounge"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Alligator Lounge"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Alligator Lounge"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Alligator Lounge"
     }
    ]
   },
@@ -4455,25 +4548,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Barlow"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Barlow"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Barlow"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Barlow"
     }
    ]
   },
@@ -4496,25 +4593,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Brooklyn Public House"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Brooklyn Public House"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Brooklyn Public House"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Brooklyn Public House"
     }
    ]
   },
@@ -4537,19 +4638,22 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Chilo’s Bed Stuy"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Chilo’s Bed Stuy"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Chilo’s Bed Stuy"
     }
    ]
   },
@@ -4572,19 +4676,22 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Dylan Murphy's"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Dylan Murphy's"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Dylan Murphy's"
     }
    ]
   },
@@ -4607,13 +4714,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Fred's"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Fred's"
     }
    ]
   },
@@ -4636,25 +4745,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Fulton Ale House"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Fulton Ale House"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Fulton Ale House"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Fulton Ale House"
     }
    ]
   },
@@ -4677,19 +4790,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The High Note"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The High Note"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The High Note"
     }
    ]
   },
@@ -4712,19 +4828,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Maiden Lane"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Maiden Lane"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Maiden Lane"
     }
    ]
   },
@@ -4747,13 +4866,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Mayfly"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Mayfly"
     }
    ]
   },
@@ -4776,19 +4897,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Oliver’s"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Oliver’s"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Oliver’s"
     }
    ]
   },
@@ -4811,19 +4935,22 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Rose’s R & R Bar"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Rose’s R&R Bar"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Rose’s R&R Bar"
     }
    ]
   },
@@ -4846,13 +4973,15 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Sea Witch Tavern"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Sea Witch Tavern"
     }
    ]
   },
@@ -4875,7 +5004,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Vale Public House"
     }
    ]
   },
@@ -4895,16 +5025,18 @@
    "operator": false,
    "sources": [
     {
-     "name": "NYC Trivia List",
-     "url": "https://www.nyctrivialist.com",
-     "observed_at": "2026-10-16",
-     "source_updated_at": null
-    },
-    {
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "House of Wax @ Alamo Drafthouse"
+    },
+    {
+     "name": "NYC Trivia List",
+     "url": "https://www.nyctrivialist.com",
+     "observed_at": "2026-10-16",
+     "source_updated_at": null,
+     "listed_as": "House of Wax @Alamo Drafthouse Brooklyn"
     }
    ]
   },
@@ -4927,13 +5059,15 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Rosie Pizza Bar"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Rosie Pizza Bar"
     }
    ]
   },
@@ -4956,25 +5090,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "(Manhattan) “One Star” Bar"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "\"one star\" bar"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "One Star Bar"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "One Star Bar"
     }
    ]
   },
@@ -4997,13 +5135,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Alvin Public House"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Alvin Public House"
     }
    ]
   },
@@ -5026,13 +5166,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Mosaic"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Mosaic"
     }
    ]
   },
@@ -5055,7 +5197,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Vacations Bar"
     }
    ]
   },
@@ -5078,13 +5221,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Bar Dalia"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Bar Dalia"
     }
    ]
   },
@@ -5107,25 +5252,29 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Hamilton"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Hamilton"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Hamilton"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Hamilton"
     }
    ]
   },
@@ -5148,25 +5297,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Black Forest (Fulton Street)"
     },
     {
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Black Forest — Fulton Street"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Black Forest — Fulton Street"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Black Forest — Fulton Street"
     }
    ]
   },
@@ -5189,19 +5342,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Black Forest — Smith Street"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Black Forest — Smith Street"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Black Forest — Smith Street"
     }
    ]
   },
@@ -5224,25 +5380,29 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Faces & Names"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Faces & Names"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Faces & Names"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Faces & Names"
     }
    ]
   },
@@ -5265,19 +5425,22 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Hinterlands"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Hinterlands Bar"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Hinterlands"
     }
    ]
   },
@@ -5300,13 +5463,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Little Rebel"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Little Rebel"
     }
    ]
   },
@@ -5329,7 +5494,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Pubkey NYC"
     }
    ]
   },
@@ -5352,13 +5518,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Scrappleland"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Scrappleland"
     }
    ]
   },
@@ -5381,19 +5549,22 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Skylark"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Skylark"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Skylark"
     }
    ]
   },
@@ -5416,25 +5587,29 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Bird In Hand"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Bird in Hand"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Bird In Hand"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Bird In Hand"
     }
    ]
   },
@@ -5457,7 +5632,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Factory 380"
     }
    ]
   },
@@ -5469,7 +5645,7 @@
    "day": "thu",
    "start": "17:00",
    "startLabel": "5pm",
-   "rec": "3rd Thursday, per the listing. Confirm with the venue.",
+   "rec": "1st and 3rd Thursdays, per NYC Trivia List. Confirm the date with the venue.",
    "recKind": "non_weekly",
    "host": null,
    "prize": null,
@@ -5480,13 +5656,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Flying Guillotine"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Flying Guillotine"
     }
    ]
   },
@@ -5509,25 +5687,29 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "American Whiskey"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "American Whiskey"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "American Whiskey"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "American Whiskey"
     }
    ]
   },
@@ -5550,19 +5732,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Bier & Cheese Collective"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Bier & Cheese Collective"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Bier & Cheese Collective"
     }
    ]
   },
@@ -5585,7 +5770,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Clinton Hall 51st St"
     }
    ]
   },
@@ -5608,19 +5794,22 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Crossbar NYC"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Crossbar NYC"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Crossbar NYC"
     }
    ]
   },
@@ -5643,19 +5832,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Ella’s Cafe"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Ella’s Cafe"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Ella’s Cafe"
     }
    ]
   },
@@ -5678,13 +5870,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Emmy Squared Pizza — Midtown West"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Emmy Squared Pizza"
     }
    ]
   },
@@ -5707,31 +5901,36 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Farm.one"
     },
     {
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Farm.One"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Farm.One"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Farm.One"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Farm.One"
     }
    ]
   },
@@ -5754,13 +5953,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Finback Brewery — Brooklyn"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Finback Brewery — Brooklyn"
     }
    ]
   },
@@ -5783,25 +5984,29 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Lily’s"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Lily’s"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Lily’s"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Lily’s"
     }
    ]
   },
@@ -5824,13 +6029,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "O’Briens"
     },
     {
      "name": "TriviaNYC",
      "url": "https://trivianyc.net",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "O’Briens Bar & Grill"
     }
    ]
   },
@@ -5853,31 +6060,36 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Other Half Brewing Company"
     },
     {
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Other Half Brewing Co. — Gowanus"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Other Half Brewing Co. — Gowanus"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Other Half Brewing Co. — Gowanus"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Other Half Brewing Co. — Gowanus"
     }
    ]
   },
@@ -5900,13 +6112,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Overlook"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Overlook"
     }
    ]
   },
@@ -5929,19 +6143,22 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Paddy’s of Park Slope"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Paddy’s of Park Slope"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Paddy’s of Park Slope"
     }
    ]
   },
@@ -5964,13 +6181,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Rose’s R&R Bar"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Rose’s R&R Bar"
     }
    ]
   },
@@ -5993,13 +6212,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Round Table Brewery"
     },
     {
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Round Table Brewery"
     }
    ]
   },
@@ -6022,7 +6243,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Scrappleland"
     }
    ]
   },
@@ -6045,19 +6267,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Skillman"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Skillman"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Skillman"
     }
    ]
   },
@@ -6080,31 +6305,36 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Beer Garage"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Beer Garage"
     },
     {
      "name": "TriviaNYC",
      "url": "https://trivianyc.net",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Beer Garage"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Beer Garage"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Beer Garage"
     }
    ]
   },
@@ -6127,19 +6357,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Broadway Tavern"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Broadway Tavern"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Broadway Tavern"
     }
    ]
   },
@@ -6162,19 +6395,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Five Lamps NYC"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Five Lamps NYC"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Five Lamps NYC"
     }
    ]
   },
@@ -6197,19 +6433,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Tortoise & Hare"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Tortoise & Hare"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Tortoise & Hare"
     }
    ]
   },
@@ -6232,25 +6471,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "99Rogers"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "99Rogers"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "99Rogers"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "99Rogers"
     }
    ]
   },
@@ -6273,25 +6516,29 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Hairy Lemon"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Hairy Lemon"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Hairy Lemon"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Hairy Lemon"
     }
    ]
   },
@@ -6314,25 +6561,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Halyards"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Halyards"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Halyards"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Halyards"
     }
    ]
   },
@@ -6355,13 +6606,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Huntress LIC"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Huntress LIC"
     }
    ]
   },
@@ -6373,7 +6626,7 @@
    "day": "thu",
    "start": "20:00",
    "startLabel": "8pm",
-   "rec": "MONTHLY, per the listing. Confirm with the venue.",
+   "rec": "Monthly, per NYC Trivia League. Confirm the date with the venue.",
    "recKind": "non_weekly",
    "host": "NYC Trivia League",
    "prize": null,
@@ -6384,7 +6637,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Judy & Punch"
     }
    ]
   },
@@ -6407,13 +6661,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Murphy’s Law"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Murphy’s Law"
     }
    ]
   },
@@ -6436,7 +6692,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Oliver’s"
     }
    ]
   },
@@ -6459,13 +6716,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Phoenix Bar NYC"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Phoenix Bar NYC"
     }
    ]
   },
@@ -6488,19 +6747,22 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Putnam’s Pub & Cooker"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Putnam’s Pub & Cooker"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Putnam’s Pub & Cooker"
     }
    ]
   },
@@ -6523,19 +6785,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Rockaway Brewing Co."
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Rockaway Brewing Co."
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Rockaway Brewing Co."
     }
    ]
   },
@@ -6558,25 +6823,29 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Rossi’s Lounge"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Rossi’s Lounge"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Rossi’s Lounge"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Rossi’s Lounge"
     }
    ]
   },
@@ -6599,25 +6868,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Sandy Jack’s"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Sandy Jack’s"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Sandy Jack’s"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Sandy Jack’s"
     }
    ]
   },
@@ -6640,13 +6913,15 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Secret Pour"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Secret Pour"
     }
    ]
   },
@@ -6669,19 +6944,22 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Seneca"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Seneca"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Seneca"
     }
    ]
   },
@@ -6704,7 +6982,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Stretch Pizza — Domino Park"
     }
    ]
   },
@@ -6727,7 +7006,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Gaf Astoria"
     }
    ]
   },
@@ -6739,7 +7019,7 @@
    "day": "thu",
    "start": "20:30",
    "startLabel": "8:30pm",
-   "rec": "Every other Thursday, per the listing. Confirm with the venue.",
+   "rec": "Every other week, per Brooklyn Trivia Finder. Confirm with the venue.",
    "recKind": "non_weekly",
    "host": "Movie Trivia",
    "prize": null,
@@ -6750,19 +7030,22 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Syndicated"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Syndicated"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Syndicated"
     }
    ]
   },
@@ -6785,13 +7068,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Canuck"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Canuck"
     }
    ]
   },
@@ -6814,19 +7099,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Reilly’s Plates & Pours"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Reilly’s Plates & Pours"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Reilly’s Plates & Pours"
     }
    ]
   },
@@ -6849,25 +7137,29 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Ace Bar"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Ace Bar"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Ace Bar"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Ace Bar"
     }
    ]
   },
@@ -6890,13 +7182,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Alphabet City Beer Co"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Alphabet City Beer Co"
     }
    ]
   },
@@ -6919,19 +7213,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "BarDough NYC"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "BarDough NYC"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "BarDough NYC"
     }
    ]
   },
@@ -6954,13 +7251,15 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Birdie’s Sporting Club"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Birdie’s Sporting Club"
     }
    ]
   },
@@ -6983,13 +7282,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Blue Haven - South"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Blue Haven - South"
     }
    ]
   },
@@ -7012,7 +7313,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Clinton Hall — 36th Street"
     }
    ]
   },
@@ -7035,19 +7337,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Clinton Hall 51st St"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Clinton Hall 51st St"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Clinton Hall 51st St"
     }
    ]
   },
@@ -7070,19 +7375,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Clinton Hall FiDi"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Clinton Hall FiDi"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Clinton Hall FiDi"
     }
    ]
   },
@@ -7105,13 +7413,15 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Clonard"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Clonard"
     }
    ]
   },
@@ -7134,25 +7444,29 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Cooper’s Craft & Cocktails 2nd Avenue"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Cooper’s Craft & Cocktails 2nd Avenue"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Cooper’s Craft & Cocktails 2nd Avenue"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Cooper’s Craft & Cocktails 2nd Avenue"
     }
    ]
   },
@@ -7175,7 +7489,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Corner Bistro East"
     }
    ]
   },
@@ -7198,13 +7513,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "DK PubLIC"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "DK PubLIC"
     }
    ]
   },
@@ -7227,7 +7544,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Emmy Squared Pizza — East Village"
     }
    ]
   },
@@ -7250,7 +7568,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Emmy Squared Pizza — Park Slope"
     }
    ]
   },
@@ -7273,19 +7592,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "E’s Bar"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "e’s BAR"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "E’s Bar"
     }
    ]
   },
@@ -7308,13 +7630,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Fifth Hammer Brewing"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Fifth Hammer Brewing"
     }
    ]
   },
@@ -7337,13 +7661,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Gadfly Bar"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Gadfly Bar"
     }
    ]
   },
@@ -7366,13 +7692,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "HasenStüble"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "HasenStüble"
     }
    ]
   },
@@ -7395,7 +7723,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Hei Tiki & Sushi Bar"
     }
    ]
   },
@@ -7418,7 +7747,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Houston Hall"
     }
    ]
   },
@@ -7441,13 +7771,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Keg & Lantern Brewing"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Keg & Lantern Brewing"
     }
    ]
   },
@@ -7470,31 +7802,36 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Keg & Lantern Greenpoint"
     },
     {
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Keg & Lantern Brewing"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Keg & Lantern Brewing Greenpoint"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Keg & Lantern Brewing"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Keg & Lantern Brewing"
     }
    ]
   },
@@ -7517,13 +7854,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Keg & Lantern Brewing"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Keg & Lantern Southside"
     }
    ]
   },
@@ -7546,7 +7885,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Lily’s"
     }
    ]
   },
@@ -7569,19 +7909,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Mad Dog & Beans"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Mad Dog & Beans"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Mad Dog & Beans"
     }
    ]
   },
@@ -7604,19 +7947,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Mess Hall"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Mess Hall"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Mess Hall"
     }
    ]
   },
@@ -7639,19 +7985,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Milk & Hops"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Milk & Hops"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Milk & Hops"
     }
    ]
   },
@@ -7674,13 +8023,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Old Mates Pub"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Old Mates Pub"
     }
    ]
   },
@@ -7703,19 +8054,22 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Pubkey NYC"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Pubkey NYC"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Pubkey NYC"
     }
    ]
   },
@@ -7738,19 +8092,22 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Rabbit Hole Astoria"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Rabbit Hole Astoria"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Rabbit Hole Astoria"
     }
    ]
   },
@@ -7773,7 +8130,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Rocco’s Sports & Rec"
     }
    ]
   },
@@ -7796,7 +8154,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Sadie’s NYC"
     }
    ]
   },
@@ -7819,13 +8178,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Sweet Avenue"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Sweet Avenue"
     }
    ]
   },
@@ -7848,31 +8209,29 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Talea Beer Co. — Williamsburg"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Talea Beer Co. — Williamsburg"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
-    },
-    {
-     "name": "Brooklyn Trivia Finder",
-     "url": "https://brooklyntrivia.org",
-     "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Talea Beer Co. — Williamsburg"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Talea Beer Co. — Williamsburg"
     }
    ]
   },
@@ -7895,7 +8254,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Time Out Market — Union Square"
     }
    ]
   },
@@ -7918,19 +8278,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Triona’s On Third"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Triona’s On Third"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Triona’s On Third"
     }
    ]
   },
@@ -7950,28 +8313,32 @@
    "operator": true,
    "sources": [
     {
+     "name": "Brooklyn Trivia Finder",
+     "url": "https://brooklyntrivia.org",
+     "observed_at": "2026-10-16",
+     "source_updated_at": null,
+     "listed_as": "Vineapple Cafe"
+    },
+    {
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Vineapple Cafe"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Vineapple Cafe"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
-    },
-    {
-     "name": "Brooklyn Trivia Finder",
-     "url": "https://brooklyntrivia.org",
-     "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Vineapple Cafe"
     }
    ]
   },
@@ -7994,19 +8361,22 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Young Ethel’s"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Young Ethel’s"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Young Ethel’s"
     }
    ]
   },
@@ -8029,7 +8399,8 @@
      "name": "TriviaNYC",
      "url": "https://trivianyc.net",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Beer Garage"
     }
    ]
   },
@@ -8052,13 +8423,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Black Forest — Fulton Street"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Black Forest — Fulton Street"
     }
    ]
   },
@@ -8081,13 +8454,15 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Black Forest (Smith Street)"
     },
     {
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Black Forest — Smith Street"
     }
    ]
   },
@@ -8110,31 +8485,36 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Brewer’s Row"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Brewer’s Row"
     },
     {
      "name": "TriviaNYC",
      "url": "https://trivianyc.net",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Brewer’s Row"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Brewer’s Row"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Brewer’s Row"
     }
    ]
   },
@@ -8157,25 +8537,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Captain Dan’s Good Time Tavern"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Captain Dan's Good Time Tavern"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Captain Dan’s Good Time Tavern"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Captain Dan’s Good Time Tavern"
     }
    ]
   },
@@ -8198,25 +8582,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Crown Inn"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Crown Inn"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Crown Inn"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Crown Inn"
     }
    ]
   },
@@ -8239,13 +8627,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Dakota Bar"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Dakota Bar"
     }
    ]
   },
@@ -8268,19 +8658,22 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Danger Danger"
     },
     {
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Danger Danger"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Danger Danger"
     }
    ]
   },
@@ -8303,7 +8696,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Downtown Social"
     }
    ]
   },
@@ -8326,19 +8720,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Factory 380"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Factory 380"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Factory 380"
     }
    ]
   },
@@ -8361,7 +8758,8 @@
      "name": "TriviaNYC",
      "url": "https://trivianyc.net",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Forever Brewing"
     }
    ]
   },
@@ -8384,19 +8782,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Gramercy Ale House"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Gramercy Ale House"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Gramercy Ale House"
     }
    ]
   },
@@ -8419,7 +8820,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Hair of the Dog"
     }
    ]
   },
@@ -8442,7 +8844,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Horn’s Hook Tavern"
     }
    ]
   },
@@ -8465,19 +8868,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Hunterian"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Hunterian"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Hunterian"
     }
    ]
   },
@@ -8500,25 +8906,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Le Pistol"
     },
     {
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Le Pistol Bar & Cafe"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Le Pistol Bar & Cafe"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Le Pistol Bar & Cafe"
     }
    ]
   },
@@ -8541,25 +8951,29 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Lydia’s"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Lydia’s"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Lydia’s"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Lydia’s"
     }
    ]
   },
@@ -8571,7 +8985,7 @@
    "day": "tue",
    "start": "19:30",
    "startLabel": "7:30pm",
-   "rec": "Monthly, per NYC Trivia League. Confirm the date with the venue.",
+   "rec": "3rd Tuesday of every month, per NYC Trivia League. Confirm the date with the venue.",
    "recKind": "non_weekly",
    "host": "NYC Trivia League",
    "prize": null,
@@ -8582,7 +8996,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Mom’s Midtown"
     }
    ]
   },
@@ -8605,7 +9020,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "–Northern Bell"
     }
    ]
   },
@@ -8628,19 +9044,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Office Public House"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Office Public House"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Office Public House"
     }
    ]
   },
@@ -8663,19 +9082,22 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Tavern On Reade"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Tavern On Reade"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Tavern On Reade"
     }
    ]
   },
@@ -8698,13 +9120,15 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Parklife"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Parklife"
     }
    ]
   },
@@ -8727,19 +9151,29 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Radegast Hall & Biergarten"
+    },
+    {
+     "name": "NYC Trivia List",
+     "url": "https://www.nyctrivialist.com",
+     "observed_at": "2026-10-16",
+     "source_updated_at": null,
+     "listed_as": "Radegast Hall"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Radegast Hall & Biergarten"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Radegast Hall & Biergarten"
     }
    ]
   },
@@ -8759,28 +9193,32 @@
    "operator": false,
    "sources": [
     {
+     "name": "Brooklyn Trivia Finder",
+     "url": "https://brooklyntrivia.org",
+     "observed_at": "2026-10-16",
+     "source_updated_at": null,
+     "listed_as": "Reclamation Bar"
+    },
+    {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Reclamation Bar"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
-    },
-    {
-     "name": "Brooklyn Trivia Finder",
-     "url": "https://brooklyntrivia.org",
-     "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Reclamation Bar"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Reclamation Bar"
     }
    ]
   },
@@ -8803,13 +9241,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Ryan Maguire’s"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Ryan Maguire’s"
     }
    ]
   },
@@ -8832,13 +9272,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Stout NYC"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Stout NYC"
     }
    ]
   },
@@ -8861,25 +9303,29 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Wilka’s Sports Bar"
     },
     {
      "name": "TriviaNYC",
      "url": "https://trivianyc.net",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Wilka’s Sports Bar"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Wilka’s Sports Bar"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Wilka’s Sports Bar"
     }
    ]
   },
@@ -8902,13 +9348,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Barrow Street Alehouse"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Barrow Street Alehouse"
     }
    ]
   },
@@ -8931,25 +9379,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Black Rabbit"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Black Rabbit"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Black Rabbit"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Black Rabbit"
     }
    ]
   },
@@ -8972,13 +9424,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Blinky’s"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Blinky’s"
     }
    ]
   },
@@ -9001,25 +9455,29 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Bonnie"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Bonnie"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Bonnie"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Bonnie"
     }
    ]
   },
@@ -9042,25 +9500,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Bonus Room"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Bonus Room"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Bonus Room"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Bonus Room"
     }
    ]
   },
@@ -9083,13 +9545,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Caledonia East"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Caledonia Bar"
     }
    ]
   },
@@ -9101,7 +9565,7 @@
    "day": "tue",
    "start": "20:00",
    "startLabel": "8pm",
-   "rec": "Semimonthly, per the listing. Confirm with the venue.",
+   "rec": "Semimonthly, per NYC Trivia List. Confirm the date with the venue.",
    "recKind": "non_weekly",
    "host": "Semi-monthly",
    "prize": null,
@@ -9112,19 +9576,22 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Commonwealth"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Commonwealth"
     },
     {
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Commonwealth"
     }
    ]
   },
@@ -9147,19 +9614,22 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Father Knows Best"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Father Knows Best"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Father Knows Best"
     }
    ]
   },
@@ -9182,19 +9652,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Fulton Hall"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Fulton Hall"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Fulton Hall"
     }
    ]
   },
@@ -9217,13 +9690,15 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Good Judy BK"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Good Judy"
     }
    ]
   },
@@ -9246,19 +9721,22 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Holler"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Holler"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Holler"
     }
    ]
   },
@@ -9281,25 +9759,29 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Lexington Publick"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Lexington Publick"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Lexington Publick"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Lexington Publick"
     }
    ]
   },
@@ -9322,19 +9804,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Long Hall"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Long Hall"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Long Hall"
     }
    ]
   },
@@ -9357,19 +9842,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Mama’s Bar"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Mama’s Bar"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Mama’s Bar"
     }
    ]
   },
@@ -9392,25 +9880,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Minibar"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Minibar"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Minibar"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Minibar"
     }
    ]
   },
@@ -9433,13 +9925,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Nowadays"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Nowadays"
     }
    ]
   },
@@ -9462,13 +9956,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Oh Craft! Beer"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Oh Craft! Beer"
     }
    ]
   },
@@ -9491,25 +9987,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Park Slope Ale House"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Park Slope Ale House"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Park Slope Ale House"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Park Slope Ale House"
     }
    ]
   },
@@ -9532,19 +10032,22 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Raven Pub NYC"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Raven Pub NYC"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Raven Pub NYC"
     }
    ]
   },
@@ -9567,19 +10070,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Saluggi’s East"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Saluggi’s East"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Saluggi’s East"
     }
    ]
   },
@@ -9602,25 +10108,29 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Triona’s Sullivan Street"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Triona’s Sullivan Street"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Triona’s Sullivan Street"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Triona’s Sullivan Street"
     }
    ]
   },
@@ -9643,19 +10153,22 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Tubby Hook Tavern"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Tubby Hook Tavern"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Tubby Hook Tavern"
     }
    ]
   },
@@ -9678,7 +10191,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Uptown Garrison"
     }
    ]
   },
@@ -9701,19 +10215,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Waylon"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Waylon"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Waylon"
     }
    ]
   },
@@ -9736,42 +10253,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Wolfhound"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
-    }
-   ]
-  },
-  {
-   "key": "sycamore-flower-shop--1118-cortelyou-rd:trivia:tue",
-   "v": "sycamore-flower-shop--1118-cortelyou-rd",
-   "kind": "trivia",
-   "musicTrivia": false,
-   "day": "tue",
-   "start": "20:30",
-   "startLabel": "8:30pm",
-   "rec": "4th Tuesday of month, per the listing. Confirm with the venue.",
-   "recKind": "non_weekly",
-   "host": null,
-   "prize": null,
-   "prizeSource": null,
-   "operator": false,
-   "sources": [
-    {
-     "name": "NYC Trivia List",
-     "url": "https://www.nyctrivialist.com",
-     "observed_at": "2026-10-16",
-     "source_updated_at": null
-    },
-    {
-     "name": "Brooklyn Trivia Finder",
-     "url": "https://brooklyntrivia.org",
-     "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Wolfhound"
     }
    ]
   },
@@ -9794,25 +10284,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Charleston"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Charleston"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Charleston"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Charleston"
     }
    ]
   },
@@ -9835,19 +10329,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Clinton Hall Bronx"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Clinton Hall Bronx"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Clinton Hall Bronx"
     }
    ]
   },
@@ -9870,19 +10367,22 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Covenhoven"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Covenhoven"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Covenhoven"
     }
    ]
   },
@@ -9905,13 +10405,15 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Fine Time Bar"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Fine Time Bar"
     }
    ]
   },
@@ -9934,13 +10436,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Alke Restaurant & Coffee Bar"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Alke Restaurant & Coffee Bar"
     }
    ]
   },
@@ -9963,7 +10467,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Bella Union"
     }
    ]
   },
@@ -9983,22 +10488,25 @@
    "operator": false,
    "sources": [
     {
-     "name": "BadSlava",
-     "url": "https://badslava.com/new-york-trivia-nights.php",
-     "observed_at": "2026-10-16",
-     "source_updated_at": null
-    },
-    {
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Bilt Bar"
+    },
+    {
+     "name": "BadSlava",
+     "url": "https://badslava.com/new-york-trivia-nights.php",
+     "observed_at": "2026-10-16",
+     "source_updated_at": null,
+     "listed_as": "The Bilt Bar"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Bilt Bar"
     }
    ]
   },
@@ -10018,28 +10526,32 @@
    "operator": true,
    "sources": [
     {
+     "name": "Brooklyn Trivia Finder",
+     "url": "https://brooklyntrivia.org",
+     "observed_at": "2026-10-16",
+     "source_updated_at": null,
+     "listed_as": "The Brew Inn"
+    },
+    {
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Brew Inn"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Brew Inn"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
-    },
-    {
-     "name": "Brooklyn Trivia Finder",
-     "url": "https://brooklyntrivia.org",
-     "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Brew Inn"
     }
    ]
   },
@@ -10062,19 +10574,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Clinton Hall — 36th Street"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Clinton Hall - 36th Street"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Clinton Hall — 36th Street"
     }
    ]
   },
@@ -10097,7 +10612,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Clinton Hall FiDi"
     }
    ]
   },
@@ -10120,7 +10636,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Cooper’s Craft & Cocktails 2nd Avenue"
     }
    ]
   },
@@ -10143,19 +10660,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Cousin Larry’s"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Cousin Larry’s"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Cousin Larry’s"
     }
    ]
   },
@@ -10178,19 +10698,22 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Deep End"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Deep End"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Deep End"
     }
    ]
   },
@@ -10213,7 +10736,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Ding-a-ling"
     }
    ]
   },
@@ -10236,13 +10760,15 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "DSK-Brooklyn"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "DSK Brooklyn"
     }
    ]
   },
@@ -10265,13 +10791,15 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Emblem Sports Bar"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Emblem Sports Bar"
     }
    ]
   },
@@ -10294,7 +10822,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Emmy Squared Pizza"
     }
    ]
   },
@@ -10317,7 +10846,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Finback Brewery LIC"
     }
    ]
   },
@@ -10340,13 +10870,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Goldie’s Tavern"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Goldie’s Tavern"
     }
    ]
   },
@@ -10369,25 +10901,29 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Jake’s Dilemma"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Jake’s Dilemma"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Jake’s Dilemma"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Jake’s Dilemma"
     }
    ]
   },
@@ -10410,13 +10946,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Josie Woods Pub"
     },
     {
      "name": "TriviaNYC",
      "url": "https://trivianyc.net",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Josie Woods Pub"
     }
    ]
   },
@@ -10439,19 +10977,22 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Keg & Lantern Brewing Co."
     },
     {
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Keg & Lantern Brewing"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Keg & Lantern Red Hook"
     }
    ]
   },
@@ -10474,13 +11015,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Mom’s Astoria"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Mom's Kitchen & Bar"
     }
    ]
   },
@@ -10503,13 +11046,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Murphy’s Irish Pub NYC"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Murphy’s Irish Pub NYC"
     }
    ]
   },
@@ -10532,25 +11077,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Nook Cafe"
     },
     {
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Nook"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Nook"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Nook"
     }
    ]
   },
@@ -10573,13 +11122,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Perfect Pint — East"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Perfect Pint — East"
     }
    ]
   },
@@ -10602,7 +11153,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Rockaway Brewing Co."
     }
    ]
   },
@@ -10625,19 +11177,29 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Sláinte Bar and Lounge"
+    },
+    {
+     "name": "NYC Trivia List",
+     "url": "https://www.nyctrivialist.com",
+     "observed_at": "2026-10-16",
+     "source_updated_at": null,
+     "listed_as": "Sláinte"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Sláinte Bar and Lounge"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Sláinte Bar and Lounge"
     }
    ]
   },
@@ -10660,7 +11222,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Small Change"
     }
    ]
   },
@@ -10683,13 +11246,15 @@
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Strong Rope Brewery"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Strong Rope Brewery"
     }
    ]
   },
@@ -10712,31 +11277,36 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "TALEA Beer Co."
     },
     {
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Talea Beer Co. — Cobble Hill"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Talea Beer Co."
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Talea Beer Co. — Cobble Hill"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Talea Beer Co. — Cobble Hill"
     }
    ]
   },
@@ -10759,25 +11329,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Wheelhouse"
     },
     {
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Wheelhouse"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Wheelhouse"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Wheelhouse"
     }
    ]
   },
@@ -10789,30 +11363,33 @@
    "day": "wed",
    "start": "19:00",
    "startLabel": "7pm",
-   "rec": "Listed on Wednesdays. Confirm with the venue.",
-   "recKind": "not_established",
+   "rec": "First Wednesday of every month, per Brooklyn Trivia Finder. Confirm the date with the venue.",
+   "recKind": "non_weekly",
    "host": "First Wednesday of Month",
    "prize": null,
    "prizeSource": null,
    "operator": false,
    "sources": [
     {
+     "name": "Brooklyn Trivia Finder",
+     "url": "https://brooklyntrivia.org",
+     "observed_at": "2026-10-16",
+     "source_updated_at": null,
+     "listed_as": "Wild East Brewing Company"
+    },
+    {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Wild East Brewing Company"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
-    },
-    {
-     "name": "Brooklyn Trivia Finder",
-     "url": "https://brooklyntrivia.org",
-     "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Wild East Brewing Company"
     }
    ]
   },
@@ -10835,19 +11412,22 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Wogies"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Wogies"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Wogies"
     }
    ]
   },
@@ -10870,7 +11450,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Chano’s Cantina"
     }
    ]
   },
@@ -10893,13 +11474,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Clara’s Gramercy"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Clara’s Gramercy"
     }
    ]
   },
@@ -10922,13 +11505,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Commissioner"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Commissioner"
     }
    ]
   },
@@ -10951,13 +11536,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Downtown Social"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Downtown Social"
     }
    ]
   },
@@ -10980,13 +11567,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Doyle's Corner"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Doyle's Corner"
     }
    ]
   },
@@ -11009,31 +11598,36 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "FancyFree"
     },
     {
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "FancyFree"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "FancyFree"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "FancyFree"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "FancyFree"
     }
    ]
   },
@@ -11056,13 +11650,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Focal Point Beer Co."
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Focal Point Beer Co."
     }
    ]
   },
@@ -11085,7 +11681,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Gramercy Ale House"
     }
    ]
   },
@@ -11108,13 +11705,15 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Greenwood Park"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Greenwood Park"
     }
    ]
   },
@@ -11137,19 +11736,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Lion’s Head Tavern"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Lion’s Head Tavern"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Lion’s Head Tavern"
     }
    ]
   },
@@ -11172,13 +11774,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Northern Bell"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Northern Bell"
     }
    ]
   },
@@ -11201,25 +11805,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Pete’s Candy Store"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Pete’s Candy Store"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Pete’s Candy Store"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Pete’s Candy Store"
     }
    ]
   },
@@ -11242,19 +11850,22 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Solid State"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Solid State"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Solid State"
     }
    ]
   },
@@ -11277,19 +11888,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Third Avenue Ale House"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Third Avenue Ale House"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Third Avenue Ale House"
     }
    ]
   },
@@ -11312,13 +11926,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Westbury"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Westbury"
     }
    ]
   },
@@ -11341,13 +11957,15 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Anything"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Anything Bar"
     }
    ]
   },
@@ -11359,7 +11977,7 @@
    "day": "wed",
    "start": "20:00",
    "startLabel": "8pm",
-   "rec": "4th Wednesday of month, per the listing. Confirm with the venue.",
+   "rec": "2nd and 4th Wednesday of month, per Brooklyn Trivia Finder. Confirm the date with the venue.",
    "recKind": "non_weekly",
    "host": "Good Question Trivia",
    "prize": null,
@@ -11367,28 +11985,32 @@
    "operator": false,
    "sources": [
     {
+     "name": "Brooklyn Trivia Finder",
+     "url": "https://brooklyntrivia.org",
+     "observed_at": "2026-10-16",
+     "source_updated_at": null,
+     "listed_as": "Banter Bar"
+    },
+    {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Banter Bar"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
-    },
-    {
-     "name": "Brooklyn Trivia Finder",
-     "url": "https://brooklyntrivia.org",
-     "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Banter Bar"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Banter Bar"
     }
    ]
   },
@@ -11411,13 +12033,15 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Baroness"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Baroness"
     }
    ]
   },
@@ -11440,19 +12064,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Block Hill Station"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Block Hill Station"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Block Hill Station"
     }
    ]
   },
@@ -11475,13 +12102,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Captain’s Bar & Grille"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Captain’s Cafe Bar and Grill"
     }
    ]
   },
@@ -11504,25 +12133,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Doublé"
     },
     {
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Double"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Doublé"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Double"
     }
    ]
   },
@@ -11545,25 +12178,29 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Drop Off Service"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Drop Off Service"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Drop Off Service"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Drop Off Service"
     }
    ]
   },
@@ -11586,19 +12223,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Eastpoint Bar"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Eastpoint Bar"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Eastpoint Bar"
     }
    ]
   },
@@ -11621,25 +12261,29 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Ernie O’Malleys"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Ernie O’Malleys"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Ernie O’Malleys"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Ernie O’Malleys"
     }
    ]
   },
@@ -11662,25 +12306,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Franklin Park"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Franklin Park"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Franklin Park"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Franklin Park"
     }
    ]
   },
@@ -11703,19 +12351,22 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Heart of Gold"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Heart of Gold"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Heart of Gold"
     }
    ]
   },
@@ -11738,19 +12389,22 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Inwood Local"
     },
     {
      "name": "Uptown Pub Quiz",
      "url": "https://www.pubquiz.nyc/",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Inwood Local"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Inwood Local"
     }
    ]
   },
@@ -11773,19 +12427,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Judy Z’s Sports Tavern & Kitchen"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Judy Z’s Sports Tavern & Kitchen"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Judy Z’s Sports Tavern & Kitchen"
     }
    ]
   },
@@ -11808,19 +12465,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Laurels Cafe & Bar"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Laurels"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Laurels Cafe & Bar"
     }
    ]
   },
@@ -11843,13 +12503,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Lavender Lake"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Lavender Lake"
     }
    ]
   },
@@ -11872,13 +12534,15 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Lock Yard"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Lock Yard"
     }
    ]
   },
@@ -11890,7 +12554,7 @@
    "day": "wed",
    "start": "20:00",
    "startLabel": "8pm",
-   "rec": "Last Wednesday of Month, per the listing. Confirm with the venue.",
+   "rec": "Last Wednesday of Month, per Brooklyn Trivia Finder. Confirm the date with the venue.",
    "recKind": "non_weekly",
    "host": "Brooklyn Horror Society",
    "prize": null,
@@ -11898,22 +12562,25 @@
    "operator": false,
    "sources": [
     {
-     "name": "BadSlava",
-     "url": "https://badslava.com/new-york-trivia-nights.php",
-     "observed_at": "2026-10-16",
-     "source_updated_at": null
-    },
-    {
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Lucky 13 Saloon"
+    },
+    {
+     "name": "BadSlava",
+     "url": "https://badslava.com/new-york-trivia-nights.php",
+     "observed_at": "2026-10-16",
+     "source_updated_at": null,
+     "listed_as": "Lucky"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Lucky"
     }
    ]
   },
@@ -11936,19 +12603,22 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Mad Donkey Beer Bar & Grill"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Mad Donkey Beer Bar & Grill"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Mad Donkey Beer Bar & Grill"
     }
    ]
   },
@@ -11971,13 +12641,15 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Mekelburg’s"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Mekelburg’s"
     }
    ]
   },
@@ -12000,25 +12672,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Minnie’s Bar"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Minnie’s Bar"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Minnie’s Bar"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Minnie’s Bar"
     }
    ]
   },
@@ -12041,19 +12717,22 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Moot Bar"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Moot Bar"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Moot Bar"
     }
    ]
   },
@@ -12076,19 +12755,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Phil Hughes Bar"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Phil Hughes Bar"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Phil Hughes Bar"
     }
    ]
   },
@@ -12111,25 +12793,29 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Quarter Club"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Quarter Club"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Quarter Club"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Quarter Club"
     }
    ]
   },
@@ -12152,19 +12838,22 @@
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Rullo’s"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Rullo’s"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Rullo’s"
     }
    ]
   },
@@ -12187,19 +12876,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Sunswick 35/35"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Sunswick 35/35"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Sunswick 35/35"
     }
    ]
   },
@@ -12222,19 +12914,22 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Uncle Barry’s"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Uncle Barry’s"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Uncle Barry’s"
     }
    ]
   },
@@ -12257,25 +12952,29 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Vale Public House"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Vale Public House"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Vale Public House"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Vale Public House"
     }
    ]
   },
@@ -12298,13 +12997,15 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Washington Commons"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Washington Commons"
     }
    ]
   },
@@ -12327,7 +13028,8 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Clinton Hall Bronx"
     }
    ]
   },
@@ -12350,19 +13052,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "The Gaf East"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Gaf East"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Gaf East"
     }
    ]
   },
@@ -12385,19 +13090,22 @@
      "name": "Brooklyn Trivia Finder",
      "url": "https://brooklyntrivia.org",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Pine Box Rock Shop"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Pine Box Rock Shop"
     },
     {
      "name": "TriviaNearMe",
      "url": "https://trivianearme.net/new-york",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Pine Box Rock Shop"
     }
    ]
   },
@@ -12420,19 +13128,22 @@
      "name": "NYC Trivia League",
      "url": "https://nyctrivialeague.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": "2026-10-12/2026-10-18"
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Sundays Well"
     },
     {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Sundays Well"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Sundays Well"
     }
    ]
   },
@@ -12452,22 +13163,25 @@
    "operator": false,
    "sources": [
     {
+     "name": "Brooklyn Trivia Finder",
+     "url": "https://brooklyntrivia.org",
+     "observed_at": "2026-10-16",
+     "source_updated_at": null,
+     "listed_as": "Bad Old Days"
+    },
+    {
      "name": "NYC Trivia List",
      "url": "https://www.nyctrivialist.com",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "The Bad Old Days"
     },
     {
      "name": "BadSlava",
      "url": "https://badslava.com/new-york-trivia-nights.php",
      "observed_at": "2026-10-16",
-     "source_updated_at": null
-    },
-    {
-     "name": "Brooklyn Trivia Finder",
-     "url": "https://brooklyntrivia.org",
-     "observed_at": "2026-10-16",
-     "source_updated_at": null
+     "source_updated_at": null,
+     "listed_as": "Bad Old Days"
     }
    ]
   }

@@ -14,7 +14,7 @@ import json
 import re
 import sys
 
-KEEP_SOURCE = ("name", "url", "observed_at", "source_updated_at")
+KEEP_SOURCE = ("name", "url", "observed_at", "source_updated_at", "listed_as")
 
 
 def street_case(label: str) -> str:
