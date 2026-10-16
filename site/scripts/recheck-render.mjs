@@ -100,9 +100,13 @@ async function readPdf(url) {
 
 const out = [];
 const queue = [...todo];
-await Promise.all(Array.from({ length: 6 }, async () => {
-  for (let b; (b = queue.shift()); ) {
-    const { ok, text } = await readPage(b.hh_source);
+// a hard limit per page (some sites never settle) and a budget for the run: it stops starting new
+// pages after BUDGET minutes and saves what it has, so a slow night never loses the whole run
+const BUDGET = Number(process.env.RECHECK_BUDGET_MIN ?? 22) * 60e3, t0 = Date.now();
+const within = (p, ms) => Promise.race([p, new Promise((ok) => setTimeout(() => ok({ ok: false, text: '' }), ms))]);
+await Promise.all(Array.from({ length: 8 }, async () => {
+  for (let b; Date.now() - t0 < BUDGET && (b = queue.shift()); ) {
+    const { ok, text } = await within(readPage(b.hh_source), 45000);
     out.push({ slug: b.slug, url: b.hh_source, at: new Date().toISOString(), method: 'rendered', ...verdictOf(b.needles, text, ok, b.hh) });
   }
 }));
@@ -111,4 +115,5 @@ await browser.close();
 mkdirSync('rechecks', { recursive: true });
 writeFileSync('rechecks/latest.json', JSON.stringify(out));
 const n = (v) => out.filter((o) => o.verdict === v).length;
+console.log(`recheck: ${out.length} read, ${queue.length} left for the next run`);
 console.log(`recheck: confirmed ${n('confirmed')}, partial ${n('partial')}, changed ${n('changed')}, inconclusive ${n('inconclusive')}, unreachable ${n('unreachable')}`);
