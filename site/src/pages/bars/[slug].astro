@@ -50,6 +50,7 @@ for (const f of copy?.faq ?? []) if (!faq.some((x) => x.q.toLowerCase() === f.q.
         </ul>
         <p class="checked-line">Deal last confirmed {fmtDate(b.checked)} on {b.source ? <a href={b.source} rel="nofollow noopener" target="_blank">{host(b.source)}</a> : "the bar's own website"}. Deals change: confirm before you go.</p>
         {b.doubt === 'changed' && <p class="doubt">When we re-read the bar's page on {fmtDate(b.recheck!.at)}, we could not find these prices there. They may have changed: check with the bar before you go.</p>}
+        {b.recheck && b.checked && b.recheck.at.slice(0, 10) > b.checked.slice(0, 10) && (b.recheck.verdict === 'inconclusive' || b.recheck.verdict === 'unreachable') && <p class="checked-line">We tried to re-read it on {fmtDate(b.recheck.at)}, but {b.recheck.verdict === 'unreachable' ? 'the page did not load' : 'the prices there are not in plain text (often a picture of the menu)'}, so the date above is still the last time we saw this deal.</p>}
         {b.doubt === 'partial' && <p class="doubt">When we re-read the bar's page on {fmtDate(b.recheck!.at)}, it still showed {b.recheck!.found!.map((x) => `$${x}`).join(', ')}, but we could not find {b.recheck!.missing!.map((x) => `$${x}`).join(', ')}.</p>}
       </section>
 
