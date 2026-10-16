@@ -25,9 +25,21 @@ const needlesOf = (hh) => [...new Set((hh?.offers ?? [])
   .filter((o) => (o.kind ?? 'fixed') === 'fixed' && /^\$\s*\d+(\.\d{1,2})?$/.test(o.price ?? ''))
   .map((o) => String(Number(o.price.replace(/[^0-9.]/g, '')))))];
 const age = (d) => (d ? (Date.now() - Date.parse(d)) / 864e5 : 999);
+// deals without a plain price ("50% off", "2-for-1", times only) are checked by what the page must
+// still say: the words "happy hour", the window ("4-7pm", "4pm to 7pm", "16:00-19:00") and the discount
+const h12 = (t) => { const [h, m] = t.split(':').map(Number); return { h: h % 12 || 12, m, h24: h }; };
+function windowRe(w) {
+  if (!w?.start || !w?.end || w.start === 'open') return null;
+  const a = h12(w.start), b = h12(w.end);
+  const part = (x) => `(?:${x.h}(?:[:.]${String(x.m).padStart(2, '0')})?|${String(x.h24).padStart(2, '0')}[:.]${String(x.m).padStart(2, '0')})`;
+  return new RegExp(`\\b${part(a)}\\s*(?:[ap]\\.?m\\.?)?\\s*(?:-|–|—|to|until|till)\\s*${part(b)}(?![0-9])`, 'i');
+}
+const discountsOf = (hh) => (hh?.offers ?? []).flatMap((o) => (/(\d+)\s*%/.test(o.price ?? '') ? [`${o.price.match(/(\d+)\s*%/)[1]}%`] : []))
+  .concat(hh?.two_for_one ? ['2-for-1'] : []);
 // the bars the plain fetch could not settle first, then the oldest checks
+const windowsOf = (hh) => (hh?.windows?.length ? hh.windows : [{ start: hh?.start, end: hh?.end }]);
 const todo = rows
-  .filter((r) => r.hh_source && needlesOf(r.hh).length)
+  .filter((r) => r.hh_source && (needlesOf(r.hh).length || windowsOf(r.hh).some(windowRe)))
   .map((r) => ({ ...r, needles: needlesOf(r.hh), prio: ['inconclusive', 'unreachable', 'changed', 'partial'].includes(r.hh_recheck?.verdict) ? 0 : age(r.hh_checked) > 7 ? 1 : 2 }))
   .filter((r) => r.prio < 2)
   .sort((a, b) => a.prio - b.prio || age(b.hh_checked) - age(a.hh_checked))
@@ -35,8 +47,17 @@ const todo = rows
 console.log(`recheck: ${todo.length} of ${rows.length} bars`);
 
 const pricesIn = (t) => [...t.matchAll(/\$\s?(\d+(?:\.\d{1,2})?)/g)].map((m) => Number(m[1]));
-function verdictOf(needles, text, reachable) {
+function verdictOf(needles, text, reachable, hh) {
   if (!reachable) return { verdict: 'unreachable', found: [], missing: needles, page_prices: 0 };
+  if (!needles.length) {
+    // no plain price: confirmed only when the page still names the happy hour, its window and its discount
+    const hasHH = /happy\s*hour|aperitivo|apéritif|aperitif/i.test(text);
+    const win = windowsOf(hh).map(windowRe).filter(Boolean);
+    const winOk = win.length > 0 && win.some((re) => re.test(text));
+    const disc = discountsOf(hh);
+    const discOk = disc.every((d) => (d === '2-for-1' ? /2\s*(?:-|for|x)\s*1|two\s*for\s*one|buy one,? get one|bogo/i.test(text) : text.includes(d)));
+    return { verdict: hasHH && winOk && discOk ? 'confirmed' : 'inconclusive', found: hasHH && winOk ? ['window'].concat(discOk ? disc : []) : [], missing: [], page_prices: pricesIn(text).length };
+  }
   const have = new Set(pricesIn(text));
   const found = needles.filter((n) => have.has(Number(n))), missing = needles.filter((n) => !have.has(Number(n)));
   const verdict = !missing.length ? 'confirmed' : found.length ? 'partial' : have.size >= 3 ? 'changed' : 'inconclusive';
@@ -82,7 +103,7 @@ const queue = [...todo];
 await Promise.all(Array.from({ length: 6 }, async () => {
   for (let b; (b = queue.shift()); ) {
     const { ok, text } = await readPage(b.hh_source);
-    out.push({ slug: b.slug, url: b.hh_source, at: new Date().toISOString(), method: 'rendered', ...verdictOf(b.needles, text, ok) });
+    out.push({ slug: b.slug, url: b.hh_source, at: new Date().toISOString(), method: 'rendered', ...verdictOf(b.needles, text, ok, b.hh) });
   }
 }));
 await browser.close();
