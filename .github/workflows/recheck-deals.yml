@@ -1,0 +1,49 @@
+# Rendered deal re-check: opens each bar's source page in a real browser (JS menus, iframes, PDFs),
+# looks for the prices we publish and commits site/rechecks/latest.json. The database pulls that file
+# (bar_recheck_pull, every 3 hours) and applies it: only a confirmed re-read moves a deal's date.
+# No secrets: the job reads public data and the database reads a public file.
+name: Re-check deals (rendered)
+
+on:
+  schedule:
+    - cron: '43 8 * * *' # 4:43am New York (3:43 in winter)
+  workflow_dispatch:
+    inputs:
+      max:
+        description: 'How many bars to check (oldest and unsettled first)'
+        default: '400'
+
+concurrency:
+  group: recheck-deals
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  recheck:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Tools
+        run: |
+          sudo apt-get install -y -q poppler-utils >/dev/null
+          npm install --no-save --no-audit --no-fund playwright-core@1.56.1
+      - name: Re-check
+        env:
+          RECHECK_MAX: ${{ inputs.max || '400' }}
+        run: node scripts/recheck-render.mjs
+      - name: Commit the results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add rechecks/latest.json
+          git commit -m "Deal re-check (rendered): $(date -u +%F)" || exit 0
+          for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done

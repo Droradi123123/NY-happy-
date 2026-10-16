@@ -1,0 +1,93 @@
+/**
+ * Rendered deal re-check (GitHub Actions, daily). The database re-reads each bar's source page with a
+ * plain HTTP fetch; pages that build their menu in JavaScript, sit in an iframe or a PDF come back
+ * "inconclusive" there. This opens them in a real browser (and PDFs with pdftotext), reads the text,
+ * and looks for the plain prices we publish, as numbers.
+ *
+ * Writes site/rechecks/latest.json: [{ slug, url, at, verdict, found, missing, page_prices, method }].
+ * The database pulls that file (bar_recheck_pull / bar_recheck_import) and applies the same rules as
+ * its own re-check: only "confirmed" moves a deal's date. Nothing here can write to the database.
+ *
+ * Verdicts: confirmed (every price found), partial, changed (prices on the page, none of ours),
+ * inconclusive (no prices in the text: image menus), unreachable.
+ */
+import { mkdirSync, writeFileSync } from 'node:fs';
+import { execFileSync } from 'node:child_process';
+import { chromium } from 'playwright-core';
+
+const SUPABASE_URL = 'https://zqfscuwkxcoktpjhaebv.supabase.co';
+const PUBLIC_KEY = 'sb_publishable_JxdYGXYsOzPNAC9avS8wfA_SExSJIHc';
+const MAX = Number(process.env.RECHECK_MAX ?? 400);
+const UA = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36 YaYNYC-check/1.0 (+https://yaynyc.com/about)';
+
+const rows = await (await fetch(`${SUPABASE_URL}/rest/v1/site_bars?select=slug,hh,hh_source,hh_checked,hh_recheck`, { headers: { apikey: PUBLIC_KEY } })).json();
+const needlesOf = (hh) => [...new Set((hh?.offers ?? [])
+  .filter((o) => (o.kind ?? 'fixed') === 'fixed' && /^\$\s*\d+(\.\d{1,2})?$/.test(o.price ?? ''))
+  .map((o) => String(Number(o.price.replace(/[^0-9.]/g, '')))))];
+const age = (d) => (d ? (Date.now() - Date.parse(d)) / 864e5 : 999);
+// the bars the plain fetch could not settle first, then the oldest checks
+const todo = rows
+  .filter((r) => r.hh_source && needlesOf(r.hh).length)
+  .map((r) => ({ ...r, needles: needlesOf(r.hh), prio: ['inconclusive', 'unreachable', 'changed', 'partial'].includes(r.hh_recheck?.verdict) ? 0 : age(r.hh_checked) > 7 ? 1 : 2 }))
+  .filter((r) => r.prio < 2)
+  .sort((a, b) => a.prio - b.prio || age(b.hh_checked) - age(a.hh_checked))
+  .slice(0, MAX);
+console.log(`recheck: ${todo.length} of ${rows.length} bars`);
+
+const pricesIn = (t) => [...t.matchAll(/\$\s?(\d+(?:\.\d{1,2})?)/g)].map((m) => Number(m[1]));
+function verdictOf(needles, text, reachable) {
+  if (!reachable) return { verdict: 'unreachable', found: [], missing: needles, page_prices: 0 };
+  const have = new Set(pricesIn(text));
+  const found = needles.filter((n) => have.has(Number(n))), missing = needles.filter((n) => !have.has(Number(n)));
+  const verdict = !missing.length ? 'confirmed' : found.length ? 'partial' : have.size >= 3 ? 'changed' : 'inconclusive';
+  return { verdict, found, missing, page_prices: have.size };
+}
+
+const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome', args: ['--no-sandbox'] });
+const ctx = await browser.newContext({ userAgent: UA, viewport: { width: 1280, height: 2000 }, locale: 'en-US' });
+await ctx.route('**/*', (r) => (['image', 'media', 'font'].includes(r.request().resourceType()) ? r.abort() : r.continue()));
+
+async function readPage(url) {
+  // PDFs (many menus): download and read with pdftotext
+  if (/\.pdf(\?|$)/i.test(url)) return readPdf(url);
+  const page = await ctx.newPage();
+  try {
+    const res = await page.goto(url, { waitUntil: 'domcontentloaded', timeout: 30000 });
+    if (!res || res.status() >= 400) return { ok: false, text: '' };
+    if ((res.headers()['content-type'] ?? '').includes('pdf')) return readPdf(url);
+    await page.waitForLoadState('networkidle', { timeout: 8000 }).catch(() => {});
+    let text = await page.evaluate(() => document.body?.innerText ?? '');
+    for (const f of page.frames().slice(1)) text += '\n' + (await f.evaluate(() => document.body?.innerText ?? '').catch(() => ''));
+    // a menu linked as a PDF from this page counts as the page's own text
+    if (pricesIn(text).length < 3) {
+      const pdfs = await page.$$eval('a[href$=".pdf" i], a[href*=".pdf?" i]', (as) => as.map((a) => a.href).slice(0, 3));
+      for (const p of pdfs) text += '\n' + (await readPdf(p)).text;
+    }
+    return { ok: true, text };
+  } catch { return { ok: false, text: '' }; }
+  finally { await page.close(); }
+}
+async function readPdf(url) {
+  try {
+    const r = await fetch(url, { headers: { 'User-Agent': UA }, signal: AbortSignal.timeout(30000) });
+    if (!r.ok) return { ok: false, text: '' };
+    const f = `/tmp/m-${Math.random().toString(36).slice(2)}.pdf`;
+    writeFileSync(f, Buffer.from(await r.arrayBuffer()));
+    return { ok: true, text: execFileSync('pdftotext', ['-layout', f, '-'], { encoding: 'utf-8', timeout: 20000 }) };
+  } catch { return { ok: false, text: '' }; }
+}
+
+const out = [];
+const queue = [...todo];
+await Promise.all(Array.from({ length: 6 }, async () => {
+  for (let b; (b = queue.shift()); ) {
+    const { ok, text } = await readPage(b.hh_source);
+    out.push({ slug: b.slug, url: b.hh_source, at: new Date().toISOString(), method: 'rendered', ...verdictOf(b.needles, text, ok) });
+  }
+}));
+await browser.close();
+
+mkdirSync('rechecks', { recursive: true });
+writeFileSync('rechecks/latest.json', JSON.stringify(out));
+const n = (v) => out.filter((o) => o.verdict === v).length;
+console.log(`recheck: confirmed ${n('confirmed')}, partial ${n('partial')}, changed ${n('changed')}, inconclusive ${n('inconclusive')}, unreachable ${n('unreachable')}`);

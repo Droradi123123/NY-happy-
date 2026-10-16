@@ -15,8 +15,9 @@ on:
     branches: [main]
     paths: ['site/**', '.github/workflows/deploy-site.yml']
   schedule:
-    - cron: '17 9 * * *' # 5:17am in New York (4:17am in winter)
-    - cron: '17 21 * * *' # 5:17pm in New York
+    # every 4 hours: ended parties drop off and re-checked deals show their new dates
+    # (GitHub may start a scheduled run late; party cards also hide themselves in the browser)
+    - cron: '17 */4 * * *'
   workflow_dispatch:
     inputs:
       audit:
