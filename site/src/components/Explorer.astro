@@ -1,4 +1,5 @@
 ---
+import MapPoster from './MapPoster.astro';
 /**
  * Filters + list + map. The first cards are rendered here (they work without
  * JavaScript and are what search engines read); scripts/explorer.ts takes over in the
@@ -128,7 +129,7 @@ const WHEN = [['tonight', 'Tonight'], ['tomorrow', 'Tomorrow'], ['weekend', 'Thi
       <div class="xgrid" data-list><slot /></div>
       <button type="button" class="btn ghost more" data-more hidden>Show more</button>
     </div>
-    <div class="ex-map" data-map role="region" aria-label="Map"></div>
+    <div class="ex-map" data-map role="region" aria-label="Map"><MapPoster show={kind === 'bars' ? 'bars' : 'parties'} /></div>
   </div>
 </section>
 
@@ -179,7 +180,7 @@ const WHEN = [['tonight', 'Tonight'], ['tomorrow', 'Tomorrow'], ['weekend', 'Thi
   .ex-actions { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
   .linkbtn { background: none; border: 0; padding: 0; font: inherit; font-weight: 700; text-decoration: underline; text-decoration-color: var(--brand); text-underline-offset: 3px; cursor: pointer; min-height: 40px; }
   .ex-body { display: grid; gap: 18px; margin-top: 18px; }
-  .ex-map { min-height: 420px; border-radius: var(--radius); overflow: hidden; border: 1.5px solid var(--line); background: #ECE8F6; }
+  .ex-map { position: relative; min-height: 420px; border-radius: var(--radius); overflow: hidden; border: 1.5px solid var(--line); background: #ECE8F6; }
   .explorer[data-mode='list'] .ex-map { display: none; }
   .explorer[data-mode='map'] .ex-list { display: none; }
   .explorer[data-mode='map'] .ex-map { min-height: 72vh; }

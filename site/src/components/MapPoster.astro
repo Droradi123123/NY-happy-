@@ -1,0 +1,35 @@
+---
+/**
+ * A static picture of the map, drawn at build time from the same points: it shows at once, it is what a
+ * screenshot or a slow phone sees before MapLibre arrives, and it stays if the tile server fails.
+ * The live map draws over it; the poster is aria-hidden (the region label lives on the map).
+ */
+import { allBars, partyData } from '../lib/data';
+
+interface Props { show?: 'bars' | 'parties' | 'both' }
+const { show = 'both' } = Astro.props;
+
+// NYC's five boroughs, with longitude squeezed by cos(40.7°) so the city keeps its shape
+const W = 1000, LAT0 = 40.92, LAT1 = 40.54, LNG0 = -74.08, LNG1 = -73.74;
+const K = Math.cos((40.73 * Math.PI) / 180);
+const H = Math.round(W * (LAT0 - LAT1) / ((LNG1 - LNG0) * K));
+const xy = (lat: number, lng: number) => [((lng - LNG0) / (LNG1 - LNG0)) * W, ((LAT0 - lat) / (LAT0 - LAT1)) * H];
+const inside = (lat: number | null, lng: number | null) => lat !== null && lng !== null && lat < LAT0 && lat > LAT1 && lng > LNG0 && lng < LNG1;
+
+const bars = show === 'parties' ? [] : (await allBars()).filter((b) => b.onMap && inside(b.lat, b.lng)).map((b) => xy(b.lat!, b.lng!));
+const { parties, venues } = await partyData();
+const vpos = new Map(venues.filter((v) => inside(v.lat, v.lng)).map((v) => [v.id, xy(v.lat!, v.lng!)]));
+const party = show === 'bars' ? [] : [...new Set(parties.map((p) => p.venue_id))].map((id) => vpos.get(id)).filter((p): p is number[] => !!p);
+const labels: [string, number, number][] = [['Manhattan', 40.785, -73.968], ['Brooklyn', 40.65, -73.95], ['Queens', 40.728, -73.82], ['The Bronx', 40.845, -73.875], ['Staten Island', 40.585, -74.06]];
+---
+<svg class="map-poster" viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="xMidYMid slice" aria-hidden="true" focusable="false">
+  <rect width={W} height={H} fill="#EEEAF7" />
+  {labels.map(([t, la, lo]) => { const [x, y] = xy(la, lo); return <text x={x} y={y} text-anchor="middle" class="mp-label">{t}</text>; })}
+  <g fill="#5B2EE8" fill-opacity="0.55">{bars.map(([x, y]) => <circle cx={x.toFixed(1)} cy={y.toFixed(1)} r="4" />)}</g>
+  <g fill="#FF4F64" stroke="#fff" stroke-width="1.5">{party.map(([x, y]) => <circle cx={x.toFixed(1)} cy={y.toFixed(1)} r="6" />)}</g>
+</svg>
+<style>
+  .map-poster { position: absolute; inset: 0; width: 100%; height: 100%; display: block; transition: opacity 0.4s ease; }
+  .mp-label { font: 800 26px var(--font); fill: #16122B; fill-opacity: 0.28; letter-spacing: 0.04em; text-transform: uppercase; }
+  :global(.map-live) .map-poster { opacity: 0; pointer-events: none; }
+</style>

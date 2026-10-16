@@ -158,6 +158,17 @@ const tabs = [
     <a class="btn coral menu-nl" href="#newsletter">Get the Thursday email</a>
   </dialog>
   <script>
+    // static pages, live time: a party whose night is over is hidden from lists, and
+    // [data-show-after] notes (for example "this party has ended") appear once their time has passed
+    const hideEnded = () => {
+      const now = Date.now();
+      document.querySelectorAll<HTMLElement>('.xcard[data-end]').forEach((el) => { if (Date.parse(el.dataset.end!) < now) el.hidden = true; });
+      document.querySelectorAll<HTMLElement>('[data-show-after]').forEach((el) => { if (Date.parse(el.dataset.showAfter!) < now) el.hidden = false; });
+    };
+    hideEnded();
+    new MutationObserver(hideEnded).observe(document.body, { childList: true, subtree: true });
+  </script>
+  <script>
     const m = document.getElementById('menu') as HTMLDialogElement;
     document.querySelector('[data-menu-open]')?.addEventListener('click', () => { m.showModal(); (window as any).gtag?.('event', 'menu_open'); });
     m.querySelector('[data-menu-close]')?.addEventListener('click', () => m.close());

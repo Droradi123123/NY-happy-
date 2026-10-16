@@ -39,6 +39,7 @@ main.wide { padding-bottom: 0; }
 .lede { font-size: clamp(18px, 2.2vw, 21px); color: var(--ink-2); max-width: 760px; }
 .skip { position: absolute; left: -999px; top: 8px; background: var(--ink); color: #fff; padding: 10px 16px; border-radius: 8px; z-index: 100; }
 .skip:focus { left: 8px; }
+[hidden] { display: none !important; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 /* header: logo + desktop nav; on phones the main sections live in the bottom tab bar */

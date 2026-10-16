@@ -20,6 +20,7 @@ const url = `${SITE}/parties/${p.slug}`;
 const c = p.copy ?? {};
 const x = (p.extra ?? {}) as Record<string, any>;
 const doors = nyTime(p.doors_at ?? p.starts_at), ends = nyTime(p.ends_at);
+const endsAt = p.ends_at ?? new Date(new Date(p.starts_at).getTime() + 6 * 3600e3).toISOString();
 const endsNextDay = p.ends_at && nyDate(p.ends_at, { month: 'short', day: 'numeric' }) !== nyDate(p.starts_at, { month: 'short', day: 'numeric' });
 const host = (u: string) => { try { return new URL(u).host.replace(/^www\./, ''); } catch { return u; } };
 const sameNight = parties.filter((o) => o.slug !== p.slug && o.night_date === p.night_date).slice(0, 6);
@@ -36,6 +37,7 @@ const lastSeen = p.sources?.find((s) => s.name === 'DICE')?.checked_at ?? p.last
   <div class="cols">
     <div>
       <h1><span class="when-big">{nightDate(p.night_date, { weekday: 'long', month: 'short', day: 'numeric' })}{x.multi_day ? ' (multi-day)' : ''}</span> {cleanTitle(p.title)}</h1>
+      <p class="ended-note" hidden data-show-after={endsAt}>This night is over. <a href="/parties">See the next parties in NYC</a>{atVenue.length > 0 && <> or <a href="#at-venue">what is next at this venue</a></>}.</p>
       <div class="tagrow">
         {p.event_status === 'sold_out' && <span class="chip dark">Sold out</span>}
         {p.event_status === 'rescheduled' && <span class="chip dark">Rescheduled: check the date</span>}
@@ -81,7 +83,7 @@ const lastSeen = p.sources?.find((s) => s.name === 'DICE')?.checked_at ?? p.last
     <aside>
       {v && vp && <Photo photo={vp.photo} note={photoNote(vp, v.name)} alt={vp.rel === 'own' ? `${v.name}, ${v.neighborhood ?? v.borough ?? 'New York'}` : vp.rel === 'nearby' ? `The street outside ${v.name}` : `${v.neighborhood ?? 'The neighborhood'} around ${v.name}`} ratio="4 / 3" />}
       {v?.lat && <MiniMap lat={v.lat} lng={v.lng!} label={v.name} />}
-      {atVenue.length > 0 && <div class="section"><h2 class="h3">More at {v?.name}</h2><div class="xgrid one">{atVenue.map((o) => <PartyCard party={o} venue={v} />)}</div></div>}
+      {atVenue.length > 0 && <div class="section" id="at-venue"><h2 class="h3">More at {v?.name}</h2><div class="xgrid one">{atVenue.map((o) => <PartyCard party={o} venue={v} />)}</div></div>}
     </aside>
   </div>
   {sameNight.length > 0 && <section class="section"><h2>Also on {nightDate(p.night_date, { weekday: 'long' })}</h2><div class="xgrid">{sameNight.map((o) => <PartyCard party={o} venue={venueOf(o, venues)} />)}</div></section>}
@@ -94,4 +96,5 @@ const lastSeen = p.sources?.find((s) => s.name === 'DICE')?.checked_at ?? p.last
   .ticket .btn { margin-top: 16px; }
   .xgrid.one { grid-template-columns: 1fr; }
   .h3 { font-size: 20px; }
+  .ended-note { background: var(--coral-soft); border-left: 4px solid var(--coral-btn); padding: 10px 14px; border-radius: 10px; font-weight: 700; }
 </style>

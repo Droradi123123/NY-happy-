@@ -124,7 +124,10 @@ export function filterParties(rows: Row[], st: State, here: [number, number] | n
   const genres = st.genre as string[] ?? [], tags = st.tag as string[] ?? [], boroughs = st.bo as string[] ?? [], themes = st.th as string[] ?? [];
   const max = st.max ? Number(st.max) : null;
   const out: Row[] = [];
+  const nowMs = Date.now();
   for (const r of rows) {
+    // a night that is over leaves every list at once, without waiting for the next rebuild
+    if ((r.en ? Date.parse(r.en) : Date.parse(r.st) + 6 * 3600e3) < nowMs) continue;
     if (q && !`${r.t} ${r.vn} ${r.h ?? ''}`.toLowerCase().includes(q)) continue;
     if (!inWindow(r, String(st.when ?? ''))) continue;
     if (st.venue && r.v !== st.venue) continue;
@@ -164,7 +167,8 @@ export function partyCard(r: Row) {
   const date = new Date(`${r.nd}T12:00:00`).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
   const genres = r.g.slice(0, 3).map((g: string) => `<span class="chip">${esc(g.replace(/-/g, ' '))}</span>`).join('');
   const dist = r._dist !== null && r._dist !== undefined ? `<span class="dist">${miles(r._dist)}</span>` : '';
-  return `<article class="xcard party">${thumb(r)}<div class="xcard-top"><p class="when">${esc(date)}${r.tm ? ` · ${esc(r.tm)}` : ''}</p>${dist}</div>
+  const end = r.en ?? new Date(Date.parse(r.st) + 6 * 3600e3).toISOString();
+  return `<article class="xcard party" data-end="${esc(end)}">${thumb(r)}<div class="xcard-top"><p class="when">${esc(date)}${r.tm ? ` · ${esc(r.tm)}` : ''}</p>${dist}</div>
   <h3><a href="/parties/${esc(r.s)}">${esc(r.t)}</a></h3><p class="where">${esc(r.vn)}${r.h ? ` · ${esc(r.h)}` : ''}</p>
   <div class="xcard-foot">${r.so ? '<span class="chip dark">Sold out</span>' : `<span class="chip outline">${esc(r.pl)}</span>`}${r.a ? `<span class="chip outline">${r.a}+</span>` : ''}${genres}</div><p class="xcard-cta" aria-hidden="true">${r.so ? 'Details' : 'Tickets and details'} <span>→</span></p></article>`;
 }
@@ -181,6 +185,7 @@ async function makeMap(el: HTMLElement, kind: Kind) {
   map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
   map.addControl(new maplibregl.GeolocateControl({ positionOptions: { enableHighAccuracy: true }, trackUserLocation: false }), 'top-right');
   await new Promise((r) => map.on('load', r));
+  el.classList.add('map-live');
   map.addSource('pts', { type: 'geojson', data: { type: 'FeatureCollection', features: [] }, cluster: true, clusterRadius: 44, clusterMaxZoom: 14 });
   map.addLayer({ id: 'clusters', type: 'circle', source: 'pts', filter: ['has', 'point_count'],
     paint: { 'circle-color': '#16122B', 'circle-radius': ['step', ['get', 'point_count'], 16, 20, 21, 80, 27], 'circle-stroke-color': '#FFFFFF', 'circle-stroke-width': 3 } });

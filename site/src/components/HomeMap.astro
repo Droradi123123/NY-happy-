@@ -3,11 +3,12 @@
  * The home page map: every happy hour (violet) and party (coral) as clustered dots, loaded when it
  * scrolls into view, with the two full maps one tap away.
  */
+import MapPoster from './MapPoster.astro';
 interface Props { bars: number; parties: number }
 const { bars, parties } = Astro.props;
 ---
 <div class="homemap">
-  <div class="hm-canvas" data-homemap role="region" aria-label="Map of NYC happy hours and parties"><p class="hm-hint">Loading the map…</p></div>
+  <div class="hm-canvas" data-homemap role="region" aria-label="Map of NYC happy hours and parties"><MapPoster show="both" /></div>
   <div class="hm-legend" aria-hidden="true"><span><i class="dot b"></i>Happy hours</span><span><i class="dot p"></i>Parties</span></div>
   <div class="hm-ctas">
     <a class="btn" href="/map/happy-hours">Happy hour map <span aria-hidden="true">({bars})</span></a>
@@ -24,10 +25,10 @@ const { bars, parties } = Astro.props;
         import('maplibre-gl'), fetch('/data/bars.json').then((r) => r.json()), fetch('/data/parties.json').then((r) => r.json()),
         import('../scripts/maplibre-css').then((m) => m.mapCss()),
       ]);
-      el.innerHTML = '';
       const fc = (rows: any[], url: string) => ({ type: 'FeatureCollection', features: rows.filter((r) => r.la !== null && r.lo !== null).map((r) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [r.lo, r.la] }, properties: { name: r.n ?? r.t, url: `${url}/${r.s}` } })) });
       const map = new maplibregl.Map({ container: el, style: 'https://tiles.openfreemap.org/styles/positron', center: [-73.965, 40.73], zoom: 11.2, attributionControl: { compact: true }, cooperativeGestures: true });
       map.on('load', () => {
+        el.classList.add('map-live');
         for (const [id, data, color] of [['b', fc(bars, '/bars'), '#5B2EE8'], ['p', fc(parties, '/parties'), '#FF4F64']] as const) {
           map.addSource(id, { type: 'geojson', data: data as any, cluster: true, clusterRadius: 38 });
           map.addLayer({ id: `${id}-c`, type: 'circle', source: id, filter: ['has', 'point_count'], paint: { 'circle-color': color, 'circle-opacity': 0.88, 'circle-radius': ['step', ['get', 'point_count'], 13, 20, 18, 80, 24], 'circle-stroke-color': '#fff', 'circle-stroke-width': 2 } });
@@ -44,9 +45,8 @@ const { bars, parties } = Astro.props;
 </script>
 <style>
   .homemap { position: relative; }
-  .hm-canvas { height: 420px; border-radius: 22px; overflow: hidden; border: 1px solid var(--line); background: #ECE8F6; display: grid; place-items: center; }
+  .hm-canvas { position: relative; height: 420px; border-radius: 22px; overflow: hidden; border: 1px solid var(--line); background: #ECE8F6; }
   @media (min-width: 900px) { .hm-canvas { height: 520px; } }
-  .hm-hint { color: var(--muted); }
   .hm-legend { position: absolute; top: 12px; left: 12px; display: flex; gap: 12px; background: rgba(255,255,255,.94); border-radius: 999px; padding: 6px 12px; font-size: 13px; font-weight: 700; box-shadow: var(--shadow); }
   .hm-legend span { display: inline-flex; align-items: center; gap: 6px; }
   .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
