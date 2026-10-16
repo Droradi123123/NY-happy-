@@ -34,21 +34,16 @@ const heroPhoto = photoOf('page', 'home');
 const lists = new Map((await listPages()).map((l) => [l.slug, l.bars.length]));
 // what are you in the mood for: one tap to each big intent (only pages this build has)
 const tag = (slug: string, e: string, t: string) => (lists.has(slug) ? [{ href: `/happy-hours/${slug}`, e, t, n: lists.get(slug), cls: '' }] : []);
+// four big doors, no more: what is on now, tonight's parties, the season's night (or cheap drinks), the map
 const moods = [
-  { href: '/happy-hours/now', e: '⏰', t: 'On right now', n: undefined, cls: 'hot' },
-  { href: '/parties?when=tonight', e: '🪩', t: 'Parties tonight', n: undefined, cls: '' },
-  ...(hwOn ? [{ href: '/parties/halloween', e: '🎃', t: 'Halloween', n: halloween.length, cls: 'hw' }] : []),
-  ...tag('cheap-drinks', '💸', 'Cheap drinks'),
-  ...tag('rooftop', '🌇', 'Rooftops'),
-  ...tag('oysters', '🦪', 'Oysters'),
-  ...tag('food', '🍔', 'Food deals'),
-  { href: '/map', e: '🗺️', t: 'The map', n: undefined, cls: '' },
-  { href: '/happy-hours/neighborhoods', e: '📍', t: 'Neighborhoods', n: hoods.length, cls: '' },
-  ...(guides.length ? [{ href: '/blog', e: '📖', t: 'Guides', n: undefined, cls: '' }] : []),
+  { href: '/happy-hours/now', e: '⏰', t: 'Happy hour now', cls: 'hot' },
+  { href: '/parties?when=tonight', e: '🪩', t: 'Parties tonight', cls: '' },
+  hwOn ? { href: '/parties/halloween', e: '🎃', t: 'Halloween', cls: 'hw' } : { href: '/happy-hours/cheap-drinks', e: '💸', t: 'Cheap drinks', cls: '' },
+  { href: '/map', e: '🗺️', t: 'The map', cls: '' },
 ];
 const barChips = [
   { href: '/happy-hours?sort=cheap', label: 'Cheapest' }, { href: '/happy-hours/now', label: 'On now' },
-  ...[['rooftop', 'Rooftops'], ['food', 'Food deals'], ['brooklyn', 'Brooklyn']].filter(([sl]) => lists.has(sl)).map(([sl, label]) => ({ href: `/happy-hours/${sl}`, label })),
+  ...(lists.has('rooftop') ? [{ href: '/happy-hours/rooftop', label: 'Rooftops' }] : []),
 ];
 ---
 <Base title="YaY NYC: Happy Hours, Parties and What's On Tonight in New York" keyword="nyc happy hours and parties" description={`NYC happy hours and parties in one place: ${s.n} verified happy hours with the deal and times, plus parties with doors, age and tickets.`}
@@ -66,19 +61,13 @@ const barChips = [
         <input id="hq" name="q" type="search" placeholder="Bar, area or subway stop" />
         <button class="btn coral" type="submit">Search</button>
       </form>
-      <ul class="hero-stats">
-        <li><b>{s.n}</b> happy hours</li>
-        <li><b>{parties.length}</b> parties</li>
-        <li><b>{hoods.length}</b> neighborhoods</li>
-        <li><b>5</b> boroughs</li>
-      </ul>
     </div>
     {heroPhoto && <a class="hero-credit" href={heroPhoto.page} rel="nofollow noopener">{creditShort(heroPhoto)}</a>}
   </section>
 
   <nav class="moods" aria-labelledby="moods-h">
     <h2 id="moods-h" class="sr">What are you in the mood for?</h2>
-    {moods.map((m) => <a class:list={['mood', m.cls]} href={m.href}><span class="e" aria-hidden="true">{m.e}</span><span class="t">{m.t}</span>{m.n !== undefined && <span class="n">{m.n}</span>}</a>)}
+    {moods.map((m) => <a class:list={['mood', m.cls]} href={m.href}><span class="e" aria-hidden="true">{m.e}</span><span class="t">{m.t}</span></a>)}
   </nav>
 
   <section class="section rail" data-rail="bars" data-lists={[...lists.keys()].join(",")} aria-labelledby="rb-h">
@@ -145,7 +134,6 @@ const barChips = [
         </a></li>
       ); })}
     </ul>
-    <ul class="link-cloud more-hoods">{hoods.filter((h) => !hoodTiles.includes(h)).slice(0, 16).map((h) => <li><a href={`/happy-hours/${h.slug}`}>{h.name}<span class="count">{counts.get(h.slug)}</span></a></li>)}</ul>
   </section>
 
   {guides.length > 0 && (
@@ -170,7 +158,7 @@ const barChips = [
   {lm.length > 0 && (
     <section class="section">
       <h2>Visiting? Happy hours near</h2>
-      <ul class="link-cloud">{lm.map((l) => <li><a href={`/happy-hours/near/${l.slug}`}>{l.name.replace(/^the /, 'The ')}</a></li>)}</ul>
+      <p class="near-line">{lm.map((l, i) => <>{i > 0 && <span aria-hidden="true"> · </span>}<a href={`/happy-hours/near/${l.slug}`}>{l.name.replace(/^the /, 'The ')}</a></>)}</p>
     </section>
   )}
   <section class="section how card">
@@ -194,27 +182,22 @@ const barChips = [
   .hero-search input { flex: 1; min-width: 0; height: 56px; border: 0; border-radius: 16px; padding: 0 16px; font: inherit; font-size: 17px; background: #fff; color: var(--ink); box-shadow: 0 10px 30px rgba(0,0,0,.25); }
   .hero-search input:focus { outline: 3px solid var(--coral); outline-offset: 2px; }
   .hero-search .btn { min-height: 56px; }
-  .hero-stats { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
-  .hero-stats li { background: rgba(255,255,255,.14); border: 1px solid rgba(255,255,255,.22); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); padding: 6px 12px; border-radius: 999px; font-size: 15px; }
-  .hero-stats b { font-weight: 800; }
   .hero-credit { position: absolute; right: 8px; top: 8px; z-index: 1; font-size: 11px; color: #fff; background: rgba(22,18,43,.6); padding: 2px 6px; border-radius: 6px; text-decoration: none; max-width: 70%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .hero-credit:hover { color: #fff; text-decoration: underline; }
 
-  /* mood tiles: one row that scrolls on phones, a grid on desktop */
-  .moods { display: grid; grid-auto-flow: column; grid-auto-columns: 112px; gap: 10px; overflow-x: auto; scrollbar-width: none; margin: -26px -16px 0; padding: 0 16px 6px; position: relative; z-index: 2; scroll-snap-type: x proximity; scroll-padding-inline: 16px; }
-  .moods::-webkit-scrollbar { display: none; }
-  @media (min-width: 720px) { .moods { margin: -34px -32px 0; padding: 0 32px 6px; } }
-  @media (min-width: 1100px) { .moods { grid-auto-flow: row; grid-template-columns: repeat(auto-fill, minmax(104px, 1fr)); overflow: visible; } }
-  .mood { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: 104px; padding: 12px 8px; border-radius: 18px; background: #fff; border: 1px solid var(--line); box-shadow: 0 8px 24px rgba(22,18,43,.10); text-decoration: none; text-align: center; scroll-snap-align: start; transition: transform .15s ease; }
-  .mood .e { font-size: 30px; line-height: 1; }
-  .mood .t { font-size: 14px; font-weight: 800; line-height: 1.15; color: var(--ink); }
-  .mood .n { position: absolute; top: 6px; right: 8px; font-size: 11px; font-weight: 800; color: var(--brand-dark); background: var(--brand-soft); border-radius: 999px; padding: 0 6px; }
-  .mood:hover { transform: translateY(-3px); border-color: var(--brand); }
-  .mood.hot { background: linear-gradient(135deg, var(--brand) 0%, #8A5CFF 100%); border-color: transparent; }
+  /* four doors under the hero: 2 x 2 on phones, one row on desktop */
+  .moods { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: -28px; position: relative; z-index: 2; }
+  @media (min-width: 720px) { .moods { grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: -36px; } }
+  .mood { display: flex; align-items: center; gap: 10px; min-height: 64px; padding: 12px 14px; border-radius: 16px; background: #fff; border: 1px solid var(--line); box-shadow: 0 8px 24px rgba(22,18,43,.10); text-decoration: none; transition: transform .15s ease; }
+  .mood .e { font-size: 24px; line-height: 1; }
+  .mood .t { font-size: 16px; font-weight: 800; line-height: 1.15; color: var(--ink); }
+  .mood:hover { transform: translateY(-2px); border-color: var(--brand); }
+  .mood.hot { background: var(--brand); border-color: transparent; }
   .mood.hot .t { color: #fff; }
   .mood.hw { background: var(--ink); border-color: transparent; }
   .mood.hw .t { color: #fff; }
-  .mood.hw .n { background: var(--coral-btn); color: #fff; }
+  .near-line { line-height: 1.9; }
+  .near-line a { font-weight: 700; }
   .rail-foot { margin: 0; }
   .rail-foot a { font-weight: 800; text-decoration: none; color: var(--brand); }
 
@@ -241,7 +224,6 @@ const barChips = [
   .tile-n { display: block; font-size: 13px; font-weight: 600; opacity: 0.9; margin-top: 2px; }
   .tile-c { position: absolute; top: 6px; right: 6px; z-index: 1; font-size: 10px; background: rgba(22,18,43,.6); padding: 1px 5px; border-radius: 5px; max-width: calc(100% - 12px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
   .tile:hover { color: #fff; }
-  .more-hoods { margin-top: 14px; }
   .how { background: #fff; }
   .guide-card .where { font-size: 15px; }
 </style>

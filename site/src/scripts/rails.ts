@@ -22,30 +22,21 @@ function later(rows: Row[]) {
 }
 const startLabel = (m: number) => { const h = Math.floor(m / 60), mm = m % 60; return `${h % 12 || 12}${mm ? `:${String(mm).padStart(2, '0')}` : ''}${h < 12 ? 'am' : 'pm'}`; };
 
+// few chips, all clear: what is on, what is next, the cheapest, the views
 function barChips(): Chip[] {
   return [
     { id: 'now', label: 'On now', href: '/happy-hours/now', st: { day: 'now' } },
     { id: 'later', label: 'Later today', href: '/happy-hours?day=today', run: later },
-    { id: 'cheap', label: 'Drinks $6 and under', href: '/happy-hours/cheap-drinks', st: { max: '6', sort: 'cheap' } },
+    { id: 'cheap', label: 'Cheapest', href: '/happy-hours/cheap-drinks', st: { max: '6', sort: 'cheap' } },
     { id: 'rooftop', label: 'Rooftops', href: '/happy-hours/rooftop', st: { tag: ['rooftop'] } },
-    { id: 'food', label: 'Food deals', href: '/happy-hours/food', st: { tag: ['food'] } },
-    { id: 'oysters', label: 'Oysters', href: '/happy-hours/oysters', st: { tag: ['oysters'] } },
-    { id: 'late', label: 'Late night', href: '/happy-hours/late-night', st: { tag: ['late'] } },
-    { id: 'brooklyn', label: 'Brooklyn', href: '/happy-hours/brooklyn', st: { bo: ['Brooklyn'] } },
-    { id: 'queens', label: 'Queens', href: '/happy-hours/queens', st: { bo: ['Queens'] } },
   ];
 }
-function partyChips(rows: Row[]): Chip[] {
-  const genres = new Map<string, number>();
-  for (const r of rows) for (const g of r.g as string[]) genres.set(g, (genres.get(g) ?? 0) + 1);
-  const top = [...genres].sort((a, b) => b[1] - a[1]).slice(0, 4).map(([g]) => g);
+function partyChips(): Chip[] {
   return [
     { id: 'tonight', label: 'Tonight', href: '/parties?when=tonight', st: { when: 'tonight' } },
     { id: 'weekend', label: 'This weekend', href: '/parties?when=weekend', st: { when: 'weekend' } },
     { id: 'halloween', label: 'Halloween', href: '/parties/halloween', st: { th: ['halloween'] } },
     { id: 'free', label: 'Free', href: '/parties?max=0', st: { max: '0' } },
-    { id: 'lgbtq', label: 'LGBTQ+', href: '/parties?tag=lgbtq', st: { tag: ['lgbtq'] } },
-    ...top.map((g) => ({ id: `g-${g}`, label: g.replace(/-/g, ' ').replace(/^./, (c) => c.toUpperCase()), href: `/parties?genre=${g}`, st: { genre: [g] } })),
   ];
 }
 
@@ -63,7 +54,7 @@ async function initRail(root: HTMLElement) {
   try { rows = await (await fetch(`/data/${kind}.json`)).json(); } catch { return; }
   // a chip whose list page this build does not have is left out
   const lists = new Set((root.dataset.lists ?? '').split(','));
-  const chips = (kind === 'bars' ? barChips() : partyChips(rows))
+  const chips = (kind === 'bars' ? barChips() : partyChips())
     .filter((c) => !/^\/happy-hours\/[a-z0-9-]+$/.test(c.href) || c.href === '/happy-hours/now' || lists.has(c.href.split('/')[2]));
   const run = (c: Chip) => (c.run ? c.run(rows) : kind === 'bars' ? filterBars(rows, c.st!, null) : filterParties(rows, c.st!, null));
   // results are computed on demand and cached: the first view needs two or three chips, the
@@ -93,7 +84,7 @@ async function initRail(root: HTMLElement) {
   const first = (kind === 'bars' ? pick('now', 4) ?? pick('later', 4) ?? pick('cheap', 3) : pick('tonight', 3) ?? pick('weekend', 3) ?? pick('halloween', 3)) ?? chips.find(enough);
   if (!first) return;
   // chips appear at once (counts known so far); the rest of the counts arrive in idle slots
-  chipsEl.innerHTML = chips.map((c) => `<a href="${c.href}" data-chip="${c.id}"${results.has(c.id) && !enough(c) ? ' hidden' : ''}>${c.label}<span class="n">${results.has(c.id) ? res(c).length : ''}</span></a>`).join('');
+  chipsEl.innerHTML = chips.map((c) => `<a href="${c.href}" data-chip="${c.id}"${results.has(c.id) && !enough(c) ? ' hidden' : ''}>${c.label}</a>`).join('');
   show(first);
   chipsEl.addEventListener('click', (e) => {
     const a = (e.target as HTMLElement).closest<HTMLAnchorElement>('a[data-chip]');
@@ -107,7 +98,7 @@ async function initRail(root: HTMLElement) {
     const c = pending.shift();
     if (!c) return;
     const a = chipsEl.querySelector<HTMLAnchorElement>(`a[data-chip="${c.id}"]`);
-    if (a) { a.hidden = !enough(c); a.querySelector('.n')!.textContent = String(res(c).length); }
+    if (a) a.hidden = !enough(c);
     idle(next);
   };
   idle(next);
