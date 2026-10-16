@@ -157,7 +157,8 @@ function clean(b: RawBar): Bar | null {
     weekend: days.includes('sat') || days.includes('sun'),
     early: starts.some((s) => s < 16 * 60),
     subway: b.subway?.station ? b.subway : null, hours,
-    phone, booking: b.booking && !/widgets\.resy\.com\/?$/.test(b.booking) ? b.booking : null,
+    phone, // a widget or client link with no venue in it opens nothing useful
+    booking: b.booking && !/widgets\.resy\.com\/?$|opentable\.com\/restref\/client\/?$/.test(b.booking) ? b.booking : null,
     instagram: b.instagram, website: b.website, priceRange: b.price_range, cuisine: b.cuisine, licence: b.licence,
     source: b.hh_source, checked: b.hh_checked ?? b.last_verified, recheck, doubt,
     dealKnown: offers.length > 0 || !!drinksDeal || !!foodDeal || !!hh.two_for_one,
