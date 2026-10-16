@@ -6,6 +6,8 @@ import Photo from '../../../components/Photo.astro';
 import { partyData, googleInfo, placeUrl, placePhoto, photoNote, venueOf, GENRE_NAME, type Party, type Venue, type GoogleInfo } from '../../../lib/data';
 import { crumbs, itemList, SITE } from '../../../lib/seo';
 import { dateRange } from '../../../lib/partyLists';
+import { venues as actVenues, trivia as actTrivia, bingo as actBingo, games as actGames, sourceLabel, GAME_NAME } from '../../../lib/activities';
+import { DAY_NAME, DAYS } from '../../../lib/data';
 
 /** every club that has had a published night keeps its page, with or without parties right now */
 export async function getStaticPaths() {
@@ -16,6 +18,10 @@ export async function getStaticPaths() {
 const { venue: v, nights, parties, venues, g } = Astro.props as { venue: Venue; nights: Party[]; parties: Party[]; venues: Venue[]; g: GoogleInfo | null };
 
 const where = v.neighborhood ?? v.borough ?? 'NYC';
+// trivia and games published for this venue (only reviewed public records)
+const actKeys = new Set(Object.entries(actVenues).filter(([, a]) => a.partyVenue === v.id).map(([k]) => k));
+const actNights = [...actTrivia, ...actBingo].filter((t) => actKeys.has(t.v)).sort((p, q) => DAYS.indexOf(p.day) - DAYS.indexOf(q.day));
+const actGamesHere = actGames.filter((a) => actKeys.has(a.v));
 const x = (v.extra ?? {}) as Record<string, any>;
 const vp = placePhoto('venue', v.id, v.neighborhood);
 const website: string | null = x.website ?? null;
@@ -51,6 +57,16 @@ const placeLd = {
       </div>
     </section>
   )}
+  {(actNights.length > 0 || actGamesHere.length > 0) && (
+    <section class="section" id="trivia-games">
+      <h2>{actNights.length ? 'Trivia' : 'Games'}{actNights.length && actGamesHere.length ? ' and games' : ''} at {v.name}</h2>
+      <ul class="acts">
+        {actNights.map((t) => <li><strong>{t.kind === 'music_bingo' ? 'Music bingo' : 'Trivia'}: {DAY_NAME[t.day]}s{t.startLabel ? `, ${t.startLabel}` : ''}</strong><span class="small"> · {t.rec}</span><p class="small act-src">Listed by {t.sources.map((x, i) => <>{i > 0 && ', '}{x.url ? <a href={x.url} rel="nofollow noopener" target="_blank">{sourceLabel(x)}</a> : sourceLabel(x)}</>)}</p></li>)}
+        {actGamesHere.length > 0 && <li><strong>Games: {actGamesHere.map((a) => GAME_NAME[a.cat] ?? a.game).join(', ')}</strong><p class="small act-src">Per {[...new Map(actGamesHere.flatMap((a) => a.sources).filter((x) => x.url).map((x) => [x.url, x])).values()].map((x, i) => <>{i > 0 && ', '}<a href={x.url!} rel="nofollow noopener" target="_blank">{x.name}</a></>)}. Check with the venue before you go.</p></li>}
+      </ul>
+      <p class="small"><a href="/trivia">All NYC trivia nights</a> · <a href="/bars-with-games">Bars with games</a></p>
+    </section>
+  )}
   {nights.length > 0 ? (
     <>
       <h2 class="section">Upcoming at {v.name}</h2>
@@ -72,4 +88,8 @@ const placeLd = {
 
 <style>
   .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
+  .acts { padding-left: 18px; }
+  .acts li { margin: 6px 0; }
+  .act-src { margin: 2px 0 0; color: var(--muted); overflow-wrap: anywhere; }
+  .act-src a { color: inherit; }
 </style>

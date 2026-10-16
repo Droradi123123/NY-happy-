@@ -6,7 +6,10 @@
  *  3. "undefined", "null" or "NaN" reaches visible text or a meta tag
  *  4. an internal link points at a page that was not built
  *  5. an image has no alt text
- *  6. SEO: an indexable page has no target keyword, or its keyword is missing from the title,
+ *  6. trivia / games: src/data/activities.json holds anything but reviewed public rows (a held field, an
+ *     address-less venue, an unsourced night, "weekly" without a source saying so, a pinball-map-only lead),
+ *     or internal markers (quarantine, noaddr, held_because, pinball-map leads) reach the built site
+ *  7. SEO: an indexable page has no target keyword, or its keyword is missing from the title,
  *     the h1 or the meta description; two pages share a keyword, a title or a description
  *     (they would compete for the same search); a description is shorter than 70 or
  *     longer than 160 characters
@@ -44,6 +47,34 @@ for (const f of pages) {
   for (const [, href] of html.matchAll(/<a [^>]*href="(\/[^"]*)"/g)) if (!href.startsWith('/data/') && !built(href)) fail.push(`${rel}: broken link ${href}`);
   for (const [img] of html.matchAll(/<img\b[^>]*>/g)) if (!/\balt="/.test(img)) fail.push(`${rel}: image without alt`);
 }
+// ---------- trivia, music bingo, games: only reviewed public records ----------
+{
+  const actFile = new URL('../src/data/activities.json', import.meta.url).pathname;
+  if (existsSync(actFile)) {
+    const raw = readFileSync(actFile, 'utf-8');
+    const act = JSON.parse(raw);
+    for (const bad of ['held_because', 'wb_evidence', 'quarantine', 'pinball_only', '"publish": false']) if (raw.includes(bad)) fail.push(`activities.json: contains "${bad}" (internal data)`);
+    for (const [k, v] of Object.entries(act.venues)) {
+      if (k.endsWith('--noaddr') || !v.address || !v.borough) fail.push(`activities.json: venue ${k} has no verified address`);
+      if (!['Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island'].includes(v.borough)) fail.push(`activities.json: venue ${k} is outside the five boroughs (${v.borough})`);
+    }
+    for (const t of act.trivia) {
+      if (!act.venues[t.v]) fail.push(`activities.json: ${t.key} has no venue`);
+      if (!t.sources?.length) fail.push(`activities.json: ${t.key} has no source`);
+      if (/weekly|every week/i.test(t.rec) && t.recKind !== 'weekly_stated' && !/every other week/i.test(t.rec)) fail.push(`activities.json: ${t.key} says "${t.rec}" without a source stating it`);
+      if (t.prize && !t.prizeSource) fail.push(`activities.json: ${t.key} prize without a source`);
+    }
+    for (const g of act.games) {
+      if (!g.sources?.some((x) => x.type !== 'crowdsourced')) fail.push(`activities.json: game ${g.key} rests on a crowdsourced map only`);
+      if ((g.hours || g.cost) && !g.sources.some((x) => x.type === 'official')) fail.push(`activities.json: game ${g.key} shows hours or prices without an official source`);
+    }
+  }
+  for (const f of files.filter((f) => /\.(html|json|xml|txt)$/.test(f))) {
+    const t = readFileSync(f, 'utf-8');
+    for (const bad of ['--noaddr', 'held_because', 'pinballnyc.com', 'Pinball NYC locator', 'quarantine']) if (t.includes(bad)) fail.push(`${relative(DIST, f)}: contains "${bad}" (internal trivia/games data)`);
+  }
+}
+
 // ---------- SEO ----------
 const decode = (t) => t.replace(/&amp;/g, '&').replace(/&#39;|&#x27;|&apos;/g, "'").replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)));
 const words = (t) => new Set(decode(t).toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/&/g, ' and ').replace(/['’]/g, '').split(/[^a-z0-9$]+/).filter(Boolean));

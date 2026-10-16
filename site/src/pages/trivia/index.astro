@@ -1,0 +1,146 @@
+---
+/**
+ * /trivia: every published trivia night, by day, borough and start time. The numbers on the page are
+ * counted from the same records the lists show (music bingo is counted apart, on /music-bingo).
+ */
+import Base from '../../layouts/Base.astro';
+import TriviaRows from '../../components/TriviaRows.astro';
+import { trivia, bingo, venueOf, uniqueVenues, byTime, hhOverlap, DAY_PAGES, BOROUGH_PAGES, daySlugOf, OBSERVED, games, type Trivia } from '../../lib/activities';
+import { allBars, DAYS, DAY_NAME, fmtDate } from '../../lib/data';
+import { crumbs, faqLd, SITE } from '../../lib/seo';
+import { plural } from '../../lib/stats';
+
+const bars = new Map((await allBars()).map((b) => [b.slug, b]));
+const n = trivia.length, nv = uniqueVenues(trivia);
+const byDay = DAYS.map((d) => ({ d, list: trivia.filter((t) => t.day === d).sort(byTime) }));
+const ranked = [...byDay].sort((a, b) => b.list.length - a.list.length);
+const boroughs = ['Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island'].map((bo) => ({ bo, list: trivia.filter((t) => venueOf(t.v).borough === bo).sort(byTime) }));
+const small = boroughs.filter((b) => !BOROUGH_PAGES.some(([, name]) => name === b.bo) && b.list.length);
+const noPage = byDay.filter((x) => x.list.length && !DAY_PAGES.includes(x.d));
+const overlap = trivia.map((t) => ({ t, ov: hhOverlap(bars.get(venueOf(t.v).bar ?? ''), t) })).filter((x) => x.ov);
+const byDayTime = (a: { t: Trivia }, b: { t: Trivia }) => DAYS.indexOf(a.t.day) - DAYS.indexOf(b.t.day) || byTime(a.t, b.t);
+const during = overlap.filter((x) => x.ov!.kind === 'during').sort(byDayTime);
+const before = overlap.filter((x) => x.ov!.kind === 'before').sort(byDayTime);
+const league = trivia.filter((t) => t.sources.some((s) => s.name === 'NYC Trivia League')).length;
+const starts = trivia.filter((t) => t.start).map((t) => t.start!);
+const common = [...starts.reduce((m, s) => m.set(s, (m.get(s) ?? 0) + 1), new Map<string, number>())].sort((a, b) => b[1] - a[1])[0];
+const early = starts.filter((s) => s < '19:00').length;
+const label = (t: string) => { const [h, m] = t.split(':').map(Number); return `${h % 12 || 12}${m ? `:${String(m).padStart(2, '0')}` : ''}${h < 12 ? 'am' : 'pm'}`; };
+const free = trivia.filter((t) => t.prize && /free/i.test(t.prize)).length;
+const weekly = trivia.filter((t) => t.recKind === 'weekly_stated').length;
+
+const faq = [
+  { q: 'What night has the most bar trivia in NYC?', a: `${DAY_NAME[ranked[0].d]}: ${plural(ranked[0].list.length, 'trivia night')} listed, then ${DAY_NAME[ranked[1].d]} with ${ranked[1].list.length} and ${DAY_NAME[ranked[2].d]} with ${ranked[2].list.length}. Weekends are quiet: ${byDay[4].list.length} on Friday, ${byDay[5].list.length} on Saturday and ${byDay[6].list.length} on Sunday.` },
+  { q: 'What time does trivia start?', a: `${label(common[0])} is the most common start (${common[1]} of ${starts.length} nights). ${early} start before 7pm, which leaves time for a happy hour first.` },
+  { q: 'Is pub trivia free to play in NYC?', a: `Most listings do not say. ${free ? `${plural(free, 'night')} ${free === 1 ? 'is' : 'are'} described as free to play by the directory that lists ${free === 1 ? 'it' : 'them'}; ` : ''}prizes, when stated, are usually a bar tab or gift card. We only show a cost or a prize when a source states it, so ask the host if it matters.` },
+  { q: 'Is it every week?', a: `Only when a source says so: ${plural(weekly, 'night')} ${weekly === 1 ? 'is' : 'are'} listed as weekly (most by NYC Trivia League, which lists its games as weekly). The rest read "Listed on Tuesdays" because a directory puts them under a weekday without a cadence, and some run monthly or every other week. Check with the venue before you go.` },
+  { q: 'How do you check these listings?', a: `A night is shown only when the trivia company itself lists it, or two different sources agree on the day and the start time, and the address matches a New York City address record. Paused nights, one-source listings and places we could not place stay off the page. ${league} nights come from NYC Trivia League's own weekly schedule.` },
+];
+const title = `NYC Trivia Nights: ${nv} Bars by Day, Time and Neighborhood (${new Date().getFullYear()})`;
+const description = `Trivia nights in NYC: ${n} games at ${nv} bars by day, start time and neighborhood, each with the source that lists it and the date we read it.`;
+const ld = { '@context': 'https://schema.org', '@type': 'ItemList', name: 'Trivia nights in NYC by day', itemListElement: DAY_PAGES.map((d, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE}/trivia/${daySlugOf(d)}`, name: `${DAY_NAME[d]} trivia in NYC` })) };
+---
+<Base title={title} description={description} keyword="trivia nights nyc" jsonld={[crumbs([['YaY NYC', '/'], ['Trivia nights', '/trivia']]), ld, faqLd(faq)]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">YaY NYC</a></li><li aria-current="page">Trivia nights</li></ol></nav>
+  <h1>Trivia Nights in NYC</h1>
+  <p class="lede">{plural(n, 'trivia night')} at {plural(nv, 'bar')} across the five boroughs, by day, start time and neighborhood. Every night shows who lists it and the date we read it. Schedules change: check with the venue before you go.</p>
+
+  <section class="tonight card" id="tonight">
+    <h2 class="h3">Tonight<span data-tonight-day></span></h2>
+    <p><a data-tonight-link href="#days"><span data-tonight-n>Pick a night below</span></a></p>
+  </section>
+
+  <section class="section">
+    <h2 id="days">Trivia by day</h2>
+    <ul class="days">
+      {byDay.filter((x) => x.list.length).map(({ d, list }) => (
+        <li data-day={d}>
+          {DAY_PAGES.includes(d) ? <a href={`/trivia/${daySlugOf(d)}`}><strong>{DAY_NAME[d]}</strong></a> : <a href={`#${daySlugOf(d)}`}><strong>{DAY_NAME[d]}</strong></a>}
+          <span>{plural(list.length, 'night')}</span>
+          <span class="small">first at {label(list.find((t) => t.start)!.start!)}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  {during.length > 0 && (
+    <section class="section">
+      <h2>Trivia with a happy hour</h2>
+      <p>At these bars the happy hour on the bar's own menu is still running when the game starts. The deal is on each bar's page; ask whether it applies at the trivia tables.</p>
+      <ul class="hhlist">{during.map(({ t, ov }) => <li><a href={`/bars/${venueOf(t.v).bar}`}>{venueOf(t.v).name}</a> <span class="small">· {DAY_NAME[t.day]} {t.startLabel} · {venueOf(t.v).hood} · {ov!.label.replace(' runs into the game', '')}</span></li>)}</ul>
+      {before.length > 0 && (
+        <>
+          <h3 class="h3">Happy hour first, then trivia</h3>
+          <p>The happy hour ends within two hours before the game: come early for the deal.</p>
+          <ul class="hhlist">{before.map(({ t, ov }) => <li><a href={`/bars/${venueOf(t.v).bar}`}>{venueOf(t.v).name}</a> <span class="small">· {DAY_NAME[t.day]} {t.startLabel} · {venueOf(t.v).hood} · {ov!.label.replace(' ends before the game', '')}</span></li>)}</ul>
+        </>
+      )}
+      <p class="small">Full listings with sources are on each day's page.</p>
+    </section>
+  )}
+
+  <section class="section">
+    <h2>Trivia by borough</h2>
+    <ul class="link-cloud">
+      {BOROUGH_PAGES.map(([slug, name]) => <li><a href={`/trivia/${slug}`}>{name}<span class="count">{boroughs.find((b) => b.bo === name)!.list.length}</span></a></li>)}
+    </ul>
+    {small.map(({ bo, list }) => (
+      <>
+        <h3 class="h3">{bo === 'Bronx' ? 'The Bronx' : bo}</h3>
+        <TriviaRows rows={list} bars={bars} showDay />
+      </>
+    ))}
+  </section>
+
+  {noPage.map(({ d, list }) => (
+    <section class="section" id={daySlugOf(d)}>
+      <h2>{DAY_NAME[d]} trivia</h2>
+      <TriviaRows rows={list} bars={bars} />
+    </section>
+  ))}
+
+  <section class="section" id="how">
+    <h2>How these listings work</h2>
+    <p>We read the trivia companies' own schedules (NYC Trivia League, TriviaNYC, Uptown Pub Quiz) and the trivia directories (NYC Trivia List, Brooklyn Trivia Finder, TriviaNearMe, BadSlava) on {fmtDate(OBSERVED)}. A night is listed here when the company running it lists it, or when two sources, at least one of them a hand-kept directory, agree on the day and the start time. Every address was matched to New York City's own address records, so a bar outside the five boroughs cannot slip in.</p>
+    <p>"Weekly" appears only when a source says weekly. Otherwise the listing reads "Listed on Tuesdays", because a directory filing a bar under a weekday does not tell us it happens every week. Nights a company has put on hold are left out until they come back.</p>
+  </section>
+
+  <section class="section faq">
+    <h2>Questions</h2>
+    {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+  </section>
+
+  <section class="section">
+    <h2>More nights out</h2>
+    <ul class="link-cloud">
+      <li><a href="/music-bingo">Music bingo<span class="count">{bingo.length}</span></a></li>
+      <li><a href="/bars-with-games">Bars with games<span class="count">{uniqueVenues(games)}</span></a></li>
+      <li><a href="/happy-hours">Happy hours</a></li>
+      <li><a href="/parties">Parties</a></li>
+    </ul>
+  </section>
+</Base>
+<script>
+  // the day is New York's, computed in the browser, so a cached page never says "tonight" about yesterday
+  const day = new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', weekday: 'long' }).format(new Date());
+  const li = document.querySelector<HTMLElement>(`.days li[data-day="${day.slice(0, 3).toLowerCase()}"]`);
+  const box = document.getElementById('tonight');
+  if (li && box) {
+    const a = li.querySelector('a')!;
+    box.querySelector('[data-tonight-day]')!.textContent = ` is ${day}`;
+    const link = box.querySelector<HTMLAnchorElement>('[data-tonight-link]')!;
+    link.href = a.getAttribute('href')!;
+    box.querySelector('[data-tonight-n]')!.textContent = `${li.querySelector('span')!.textContent} listed for ${day}s →`;
+    li.classList.add('is-today');
+  }
+</script>
+<style>
+  .days { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 10px; }
+  .days li { display: flex; flex-direction: column; gap: 2px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+  .days li.is-today { border-color: var(--brand); box-shadow: 0 0 0 2px var(--brand-soft); }
+  .tonight { margin: 16px 0; padding: 14px 16px; }
+  .hhlist { padding-left: 18px; columns: 2 320px; column-gap: 28px; }
+  .hhlist li { margin: 0 0 8px; break-inside: avoid; }
+  .tonight h2 { margin: 0 0 4px; }
+  .tonight p { margin: 0; }
+</style>

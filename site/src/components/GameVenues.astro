@@ -1,0 +1,52 @@
+---
+/**
+ * Bars with games as cards: one card per venue with every game the sources name, the alcohol line as the
+ * sources state it, and hours or prices only when the venue's own site gives them ("per its website").
+ */
+import { venueOf, GAME_NAME, GAME_ORDER, type Game } from '../lib/activities';
+import { partyData, type Bar } from '../lib/data';
+
+interface Props { list: Game[]; bars: Map<string, Bar>; headingLevel?: 'h2' | 'h3' }
+const { list, bars, headingLevel = 'h3' } = Astro.props;
+const byVenue = [...list.reduce((m, g) => m.set(g.v, [...(m.get(g.v) ?? []), g]), new Map<string, Game[]>())]
+  .map(([v, gs]) => ({ v, gs: gs.sort((a, b) => GAME_ORDER.indexOf(a.cat) - GAME_ORDER.indexOf(b.cat)) }))
+  .sort((a, b) => venueOf(a.v).name.localeCompare(venueOf(b.v).name));
+const H = headingLevel;
+// a club has a page only after a published night (lib/data partyData)
+const clubPages = new Set((await partyData()).venuePages.map((x) => x.id));
+const ALC = { yes: 'Bar with drinks', beer_wine: 'Beer and wine only, per its website', not_confirmed: 'Café: alcohol not confirmed' };
+---
+<ul class="gcards">
+  {byVenue.map(({ v, gs }) => {
+    const ven = venueOf(v);
+    const bar = ven.bar ? bars.get(ven.bar) : undefined;
+    const href = bar ? `/bars/${bar.slug}` : ven.partyVenue && clubPages.has(ven.partyVenue) ? `/parties/venue/${ven.partyVenue}` : null;
+    const g0 = gs[0];
+    const src = [...new Map(gs.flatMap((g) => g.sources).filter((s) => s.url).map((s) => [s.url, s])).values()];
+    return (
+      <li class="gcard card" data-cats={gs.map((g) => g.cat).join(' ')}>
+        <H class="g-name">{href ? <a href={href}>{ven.name}</a> : ven.name}</H>
+        <p class="g-where">{ven.hood && <>{ven.hood}, {ven.borough} · </>}{ven.address}</p>
+        <ul class="g-tags">{gs.map((g) => <li class="chip">{GAME_NAME[g.cat] ?? g.game}</li>)}</ul>
+        {g0.games && <p class="g-games">{g0.label}: {g0.games}</p>}
+        <p class="g-alc small">{ALC[g0.alcohol]}</p>
+        {g0.hours && <p class="small">Hours, per its website: {g0.hours}</p>}
+        {g0.cost && <p class="small">Prices, per its website: {g0.cost}</p>}
+        <p class="g-src small">Sources: {src.map((s, i) => <>{i > 0 && ', '}<a href={s.url!} rel="nofollow noopener" target="_blank">{s.name}</a></>)}. Check with the venue before you go.</p>
+      </li>
+    );
+  })}
+</ul>
+<style>
+  .gcards { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px; }
+  .gcard { padding: 14px 16px; }
+  .gcard[hidden] { display: none; }
+  .g-name { margin: 0; font-size: 19px; overflow-wrap: anywhere; }
+  .g-where { margin: 4px 0 0; color: var(--muted); font-size: 15px; overflow-wrap: anywhere; }
+  .g-tags { list-style: none; padding: 0; margin: 8px 0 0; display: flex; flex-wrap: wrap; gap: 6px; }
+  .g-tags .chip { font-size: 13px; }
+  .g-games { margin: 8px 0 0; font-size: 15px; }
+  .g-alc { margin: 6px 0 0; }
+  .g-src { margin: 8px 0 0; color: var(--muted); overflow-wrap: anywhere; }
+  .g-src a { color: inherit; }
+</style>

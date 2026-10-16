@@ -7,6 +7,7 @@ import Photo from '../../components/Photo.astro';
 import { allBars, googleInfo, placeUrl, placePhoto, photoNote, copyOf, paragraphs, type PageCopy, DAYS, DAY_NAME, daysLabel, windowLabel, dealLabel, fmtDate, meters, type Bar, type GoogleInfo } from '../../lib/data';
 import { hoodHref } from '../../lib/lists';
 import { barTitle, barKeyword, barDescription, barJsonLd, crumbs, faqLd, SITE } from '../../lib/seo';
+import { venues as actVenues, trivia as actTrivia, bingo as actBingo, games as actGames, sourceLabel, hhOverlap, GAME_NAME } from '../../lib/activities';
 
 export async function getStaticPaths() {
   const bars = await allBars();
@@ -27,9 +28,14 @@ const near = b.onMap
   : bars.filter((x) => x.slug !== b.slug && x.hoodSlug === b.hoodSlug).slice(0, 6).map((x) => ({ x, m: null }));
 const host = (u: string) => { try { return new URL(u).host.replace(/^www\./, ''); } catch { return u; } };
 const mapsUrl = g ? placeUrl(b.name, g.place_id) : b.onMap ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${b.name} ${b.address ?? ''}`)}` : null;
-const today = new Date().toLocaleDateString('en-US', { weekday: 'short', timeZone: 'America/New_York' }).toLowerCase().slice(0, 3);
+// trivia, music bingo and games published for this bar (lib/activities: only reviewed public records)
+const actKeys = new Set(Object.entries(actVenues).filter(([, v]) => v.bar === b.slug).map(([k]) => k));
+const nights = [...actTrivia, ...actBingo].filter((t) => actKeys.has(t.v)).sort((x, y) => DAYS.indexOf(x.day) - DAYS.indexOf(y.day));
+const barGames = actGames.filter((x) => actKeys.has(x.v));
+// "confirmed" only when a re-read of the source matched the deal on that date; otherwise it is the date we read it
+const confirmed = !!(b.recheck && b.recheck.verdict === 'confirmed' && b.checked && b.recheck.at.slice(0, 10) === b.checked.slice(0, 10));
 const faq = [
-  { q: `When is happy hour at ${b.name}?`, a: `${b.windows.map((w) => `${daysLabel(w.days)}, ${windowLabel(w)}`).join('; ')}. Checked against ${b.source ? host(b.source) : "the bar's own website"} on ${fmtDate(b.checked)}.` },
+  { q: `When is happy hour at ${b.name}?`, a: `${b.windows.map((w) => `${daysLabel(w.days)}, ${windowLabel(w)}`).join('; ')}. ${confirmed ? 'Confirmed on' : 'As published on'} ${b.source ? host(b.source) : "the bar's own website"}, read ${fmtDate(b.checked)}.` },
   { q: `What is the happy hour deal at ${b.name}?`, a: deal ? `${deal}.${drinks.length + food.length > 2 ? ' The full list is on this page.' : ''}` : `${b.name} publishes its happy hour times but not what is discounted. Ask the bartender or check their site.` },
   ...(b.subway ? [{ q: `What subway is closest to ${b.name}?`, a: `${b.subway.station} (${b.subway.lines.join(', ')}), about ${b.subway.walk_min} minutes on foot.` }] : []),
   ...(b.booking ? [{ q: `Can I book a table at ${b.name}?`, a: `Yes, ${b.name} takes reservations online. Happy hour deals are often bar-only, so check when you book.` }] : []),
@@ -46,9 +52,9 @@ for (const f of copy?.faq ?? []) if (!faq.some((x) => x.q.toLowerCase() === f.q.
       <section class="dealcard" aria-label="Happy hour">
         <p class="deal-big">{deal ?? 'Happy hour times are published; the deal is not listed'}</p>
         <ul class="windows">
-          {b.windows.map((w) => <li><strong>{daysLabel(w.days)}</strong> {windowLabel(w)}{w.days.includes(today as any) && <span class="chip badge-live today">Today</span>}</li>)}
+          {b.windows.map((w) => <li><strong>{daysLabel(w.days)}</strong> {windowLabel(w)}<span class="chip badge-live today" data-today={w.days.join(' ')} hidden>Today</span></li>)}
         </ul>
-        <p class="checked-line">Deal last confirmed {fmtDate(b.checked)} on {b.source ? <a href={b.source} rel="nofollow noopener" target="_blank">{host(b.source)}</a> : "the bar's own website"}. Deals change: confirm before you go.</p>
+        <p class="checked-line">{confirmed ? <>Deal last confirmed {fmtDate(b.checked)} on </> : <>Deal as published on </>}{b.source ? <a href={b.source} rel="nofollow noopener" target="_blank">{host(b.source)}</a> : "the bar's own website"}{confirmed ? '' : <>, read {fmtDate(b.checked)}</>}. Deals change: confirm before you go.</p>
         {b.doubt === 'changed' && <p class="doubt">When we re-read the bar's page on {fmtDate(b.recheck!.at)}, we could not find these prices there. They may have changed: check with the bar before you go.</p>}
         {b.recheck && b.checked && b.recheck.at.slice(0, 10) > b.checked.slice(0, 10) && (b.recheck.verdict === 'inconclusive' || b.recheck.verdict === 'unreachable') && <p class="checked-line">We tried to re-read it on {fmtDate(b.recheck.at)}, but {b.recheck.verdict === 'unreachable' ? 'the page did not load' : 'the prices there are not in plain text (often a picture of the menu)'}, so the date above is still the last time we saw this deal.</p>}
         {b.doubt === 'partial' && <p class="doubt">When we re-read the bar's page on {fmtDate(b.recheck!.at)}, it still showed {b.recheck!.found!.map((x) => `$${x}`).join(', ')}, but we could not find {b.recheck!.missing!.map((x) => `$${x}`).join(', ')}.</p>}
@@ -72,6 +78,27 @@ for (const f of copy?.faq ?? []) if (!faq.some((x) => x.q.toLowerCase() === f.q.
             {food.length > 0 && <div><h3>Food</h3><ul class="menu-list">{food.map((o) => <li><span>{o.item}</span><span class="price">{o.price}</span></li>)}</ul></div>}
           </div>
           <p class="small">Prices as listed by the bar, before NYC sales tax (8.875%) and tip (18–20% is usual).</p>
+        </section>
+      )}
+
+      {(nights.length > 0 || barGames.length > 0) && (
+        <section class="section" id="trivia-games">
+          <h2>{nights.some((t) => t.kind === 'trivia') ? 'Trivia' : nights.length ? 'Music bingo' : 'Games'}{nights.length && barGames.length ? ' and games' : ''} at {b.name}</h2>
+          <ul class="acts">
+            {nights.map((t) => {
+              const ov = hhOverlap(b, t);
+              return (
+                <li>
+                  <strong>{t.kind === 'music_bingo' ? 'Music bingo' : t.musicTrivia ? 'Music trivia' : 'Trivia'}: {DAY_NAME[t.day]}s{t.startLabel ? `, ${t.startLabel}` : ''}</strong>
+                  <span class="small"> · {t.rec}{t.host ? ` · Host: ${t.host}` : ''}</span>
+                  {ov && <p class={`act-hh ${ov.kind}`}>{ov.label}</p>}
+                  <p class="small act-src">Listed by {t.sources.map((x, i) => <>{i > 0 && ', '}{x.url ? <a href={x.url} rel="nofollow noopener" target="_blank">{sourceLabel(x)}</a> : sourceLabel(x)}</>)}</p>
+                </li>
+              );
+            })}
+            {barGames.length > 0 && <li><strong>Games: {barGames.map((x) => GAME_NAME[x.cat] ?? x.game).join(', ')}</strong><p class="small act-src">Per {[...new Map(barGames.flatMap((x) => x.sources).filter((x) => x.url).map((x) => [x.url, x])).values()].map((x, i) => <>{i > 0 && ', '}<a href={x.url!} rel="nofollow noopener" target="_blank">{x.name}</a></>)}</p></li>}
+          </ul>
+          <p class="small">Schedules change: check with {b.name} before you go. <a href="/trivia">All NYC trivia nights</a>{barGames.length > 0 && <> · <a href="/bars-with-games">Bars with games</a></>}</p>
         </section>
       )}
 
@@ -117,12 +144,24 @@ for (const f of copy?.faq ?? []) if (!faq.some((x) => x.q.toLowerCase() === f.q.
     </section>
   )}
 </Base>
+<script>
+  // "Today" is New York's weekday in the browser, not the day the page was built
+  const d = new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', weekday: 'short' }).format(new Date()).toLowerCase().slice(0, 3);
+  document.querySelectorAll<HTMLElement>('[data-today]').forEach((el) => { if (el.dataset.today!.split(' ').includes(d)) el.hidden = false; });
+</script>
 
 <style>
   .dealcard { background: linear-gradient(135deg, var(--brand-soft) 0%, #FFF 100%); border: 1px solid var(--line); border-radius: 22px; padding: 24px; margin: 18px 0 8px; }
   .deal-big { font-size: clamp(24px, 3.4vw, 34px); font-weight: 800; line-height: 1.12; margin: 0 0 12px; letter-spacing: -0.02em; }
   .windows { list-style: none; padding: 0; margin: 0 0 12px; display: grid; gap: 6px; font-size: 19px; }
   .today { margin-left: 8px; font-size: 13px; }
+  .today[hidden] { display: none; }
+  .acts { padding-left: 18px; }
+  .acts li { margin: 6px 0; }
+  .act-hh { margin: 2px 0 0; font-weight: 600; font-size: 15px; }
+  .act-hh.during { color: var(--green); }
+  .act-src { margin: 2px 0 0; color: var(--muted); overflow-wrap: anywhere; }
+  .act-src a { color: inherit; }
   .checked-line { margin: 0; font-size: 15px; }
   .doubt { margin: 6px 0 0; font-size: 15px; background: var(--coral-soft); border-left: 4px solid var(--coral-btn); padding: 8px 12px; border-radius: 8px; }
   .menu { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }

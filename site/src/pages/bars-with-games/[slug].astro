@@ -1,0 +1,37 @@
+---
+/** /bars-with-games/arcade-bars and /pinball-bars: the two games with enough venues for a page of their own. */
+import Base from '../../layouts/Base.astro';
+import GameVenues from '../../components/GameVenues.astro';
+import { games, uniqueVenues, venueOf, GAME_PAGES, GAME_NAME } from '../../lib/activities';
+import { allBars } from '../../lib/data';
+import { crumbs, faqLd } from '../../lib/seo';
+import { plural } from '../../lib/stats';
+
+export function getStaticPaths() {
+  return GAME_PAGES.map((p) => ({ params: { slug: p.slug }, props: { page: p } }));
+}
+const { page } = Astro.props as { page: (typeof GAME_PAGES)[number] };
+const bars = new Map((await allBars()).map((b) => [b.slug, b]));
+const list = games.filter((g) => g.cat === page.cat);
+const nv = uniqueVenues(list);
+const boroughs = [...new Set(list.map((g) => venueOf(g.v).borough))];
+const also = [...new Set(games.filter((g) => list.some((x) => x.v === g.v) && g.cat !== page.cat).map((g) => GAME_NAME[g.cat].toLowerCase()))];
+const word = page.short.toLowerCase();
+const faq = [
+  { q: `How many ${word} are there in NYC?`, a: `${plural(nv, 'venue')} on this page, in ${boroughs.join(', ')}. Each is listed by its own website or by two editorial guides.` },
+  ...(also.length ? [{ q: 'What else can I play there?', a: `Some of these also have ${also.join(', ')}; each card lists every game its sources name.` }] : []),
+  { q: 'What does it cost?', a: 'We print a price only when the venue’s own site states it. Most arcade and pinball bars charge per game; check before you go.' },
+];
+---
+<Base title={`${page.h1}: ${nv} Places to Play (${new Date().getFullYear()})`} description={`${page.h1.replace(' in NYC', '')} in NYC: ${plural(nv, 'venue')} in ${boroughs.join(', ')}, with the games each one has and links to the sources.`}
+  keyword={page.keyword} jsonld={[crumbs([['YaY NYC', '/'], ['Bars with games', '/bars-with-games'], [page.short, `/bars-with-games/${page.slug}`]]), faqLd(faq)]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/bars-with-games">Bars with games</a></li><li aria-current="page">{page.short}</li></ol></nav>
+  <h1>{page.h1}</h1>
+  <p class="lede">{plural(nv, 'place')} with {GAME_NAME[page.cat].toLowerCase()} and a bar, in {boroughs.join(', ')}. Hours and prices appear only where the venue's own site states them; check before you go.</p>
+  <GameVenues list={list} bars={bars} headingLevel="h2" />
+  <section class="section faq">
+    <h2>Questions</h2>
+    {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+  </section>
+  <p><a href="/bars-with-games">All bars with games</a> · {GAME_PAGES.filter((p) => p.slug !== page.slug).map((p) => <a href={`/bars-with-games/${p.slug}`}>{p.short}</a>)} · <a href="/trivia">Trivia nights</a></p>
+</Base>

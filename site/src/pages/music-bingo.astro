@@ -1,0 +1,38 @@
+---
+/** /music-bingo: music bingo nights, kept apart from trivia (they never count in trivia totals). */
+import Base from '../layouts/Base.astro';
+import TriviaRows from '../components/TriviaRows.astro';
+import { bingo, trivia, venueOf, uniqueVenues, byTime } from '../lib/activities';
+import { allBars, DAYS, DAY_NAME } from '../lib/data';
+import { crumbs, faqLd } from '../lib/seo';
+import { plural } from '../lib/stats';
+
+const bars = new Map((await allBars()).map((b) => [b.slug, b]));
+const n = bingo.length, nv = uniqueVenues(bingo);
+const groups = DAYS.map((d) => ({ d, rows: bingo.filter((t) => t.day === d).sort(byTime) })).filter((g) => g.rows.length);
+const boroughs = [...new Set(bingo.map((t) => venueOf(t.v).borough))].filter(Boolean);
+const league = bingo.filter((t) => t.sources.some((s) => s.name === 'NYC Trivia League')).length;
+const nonWeekly = bingo.filter((t) => t.recKind === 'non_weekly').length;
+const faq = [
+  { q: 'What is music bingo?', a: 'A bingo card of song titles instead of numbers: the host plays clips and you mark the songs you recognize. It is a separate game from trivia, so these nights are not counted on our trivia pages.' },
+  { q: 'Where is music bingo in NYC?', a: `${plural(n, 'night')} at ${plural(nv, 'bar')} in ${boroughs.join(', ')}. ${league} of them come from NYC Trivia League's own weekly schedule, where the game is called Mixtape Bingo.` },
+  { q: 'Is it every week?', a: `Not always: ${plural(nonWeekly, 'night')} ${nonWeekly === 1 ? 'is' : 'are'} listed as monthly or every other week. Each listing says what its source says. Check with the venue before you go.` },
+];
+---
+<Base title={`Music Bingo in NYC: ${nv} Bars by Day and Time (${new Date().getFullYear()})`} description={`Music bingo in NYC: ${plural(n, 'night')} at ${plural(nv, 'bar')} by day and start time, with the host, the cadence the source states and when we read it.`}
+  keyword="music bingo nyc" jsonld={[crumbs([['YaY NYC', '/'], ['Trivia nights', '/trivia'], ['Music bingo', '/music-bingo']]), faqLd(faq)]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/trivia">Trivia nights</a></li><li aria-current="page">Music bingo</li></ol></nav>
+  <h1>Music Bingo in NYC</h1>
+  <p class="lede">{plural(n, 'music bingo night')} at {plural(nv, 'bar')}, by day and start time. Music bingo is its own game, so it is listed here and not in the {trivia.length} trivia nights. Schedules change: check with the venue before you go.</p>
+  {groups.map((g) => (
+    <section class="section" id={DAY_NAME[g.d].toLowerCase()}>
+      <h2>{DAY_NAME[g.d]} ({g.rows.length})</h2>
+      <TriviaRows rows={g.rows} bars={bars} />
+    </section>
+  ))}
+  <section class="section faq">
+    <h2>Questions</h2>
+    {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+  </section>
+  <p><a href="/trivia">Trivia nights in NYC</a> · <a href="/bars-with-games">Bars with games</a> · <a href="/happy-hours">Happy hours</a></p>
+</Base>

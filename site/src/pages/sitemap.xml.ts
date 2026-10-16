@@ -6,6 +6,7 @@ import { partyLists } from '../lib/partyLists';
 import { allGuides } from '../lib/guides';
 import { guideTable } from '../lib/guideTables';
 import { SITE } from '../lib/seo';
+import { DAY_PAGES, BOROUGH_PAGES, GAME_PAGES, daySlugOf, OBSERVED, bingo, games } from '../lib/activities';
 
 export const GET: APIRoute = async () => {
   const bars = await allBars();
@@ -30,6 +31,11 @@ export const GET: APIRoute = async () => {
     ...(guides.length ? [['/blog', guides.map((g) => g.updated).sort().pop()!] as [string, string]] : []),
     ...guides.map((g) => [`/blog/${g.slug}`, g.updated] as [string, string]),
     ...venuePages.map((v) => [`/parties/venue/${v.id}`, null] as [string, null]),
+    // trivia, music bingo and games: lastmod is the date the listings were read
+    ['/trivia', OBSERVED], ...DAY_PAGES.map((d) => [`/trivia/${daySlugOf(d)}`, OBSERVED] as [string, string]),
+    ...BOROUGH_PAGES.map(([slug]) => [`/trivia/${slug}`, OBSERVED] as [string, string]),
+    ...(bingo.length ? [['/music-bingo', OBSERVED] as [string, string]] : []),
+    ...(games.length ? [['/bars-with-games', OBSERVED] as [string, string], ...GAME_PAGES.map((g) => [`/bars-with-games/${g.slug}`, OBSERVED] as [string, string])] : []),
   ];
   const body = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${rows
     .map(([u, m]) => `<url><loc>${SITE}${u}</loc>${m ? `<lastmod>${m}</lastmod>` : ''}</url>`).join('\n')}\n</urlset>`;

@@ -1,0 +1,99 @@
+---
+/**
+ * /trivia/<day> and /trivia/<borough>: the days with five nights or more (Saturday's single listing stays
+ * on /trivia) and the three boroughs with a real list (the Bronx and Staten Island are sections of /trivia).
+ */
+import Base from '../../layouts/Base.astro';
+import TriviaRows from '../../components/TriviaRows.astro';
+import { trivia, venueOf, uniqueVenues, byTime, hhOverlap, DAY_PAGES, BOROUGH_PAGES, daySlugOf, hoodAnchor, type Trivia } from '../../lib/activities';
+import { allBars, DAYS, DAY_NAME, type Day } from '../../lib/data';
+import { crumbs, faqLd } from '../../lib/seo';
+import { plural } from '../../lib/stats';
+
+export function getStaticPaths() {
+  return [
+    ...DAY_PAGES.map((d) => ({ params: { slug: daySlugOf(d) }, props: { kind: 'day' as const, day: d, borough: null } })),
+    ...BOROUGH_PAGES.map(([slug, name]) => ({ params: { slug }, props: { kind: 'borough' as const, day: null, borough: name } })),
+  ];
+}
+const { kind, day, borough } = Astro.props as { kind: 'day' | 'borough'; day: Day | null; borough: string | null };
+const bars = new Map((await allBars()).map((b) => [b.slug, b]));
+const list = trivia.filter((t) => (kind === 'day' ? t.day === day : venueOf(t.v).borough === borough)).sort(byTime);
+const n = list.length, nv = uniqueVenues(list);
+const year = new Date().getFullYear();
+const label = (t: string) => { const [h, m] = t.split(':').map(Number); return `${h % 12 || 12}${m ? `:${String(m).padStart(2, '0')}` : ''}${h < 12 ? 'am' : 'pm'}`; };
+const hoods = [...list.reduce((m, t) => m.set(venueOf(t.v).hood ?? 'Other', (m.get(venueOf(t.v).hood ?? 'Other') ?? 0) + 1), new Map<string, number>())].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+const first = list.find((t) => t.start)?.start;
+const late = list.filter((t) => t.start && t.start >= '20:00').length;
+const withHH = list.filter((t) => hhOverlap(bars.get(venueOf(t.v).bar ?? ''), t)).length;
+const weekly = list.filter((t) => t.recKind === 'weekly_stated').length;
+
+let h1: string, keyword: string, title: string, description: string, lede: string, crumb: string;
+const groups: { id: string; h: string; rows: Trivia[] }[] = [];
+const faq: { q: string; a: string }[] = [];
+if (kind === 'day') {
+  const D = DAY_NAME[day!];
+  h1 = `${D} Trivia in NYC`; keyword = `${D.toLowerCase()} trivia nyc`; crumb = D;
+  title = `${D} Trivia in NYC: ${nv} Bars With a Trivia Night (${year})`;
+  description = `${D} trivia in NYC: ${plural(n, 'game')} at ${plural(nv, 'bar')}, from ${label(first!)}, by borough and neighborhood, with the host and who lists each night.`;
+  lede = `${plural(n, 'trivia night')} listed for ${D}s, the first at ${label(first!)}${late ? ` and ${late} at 8pm or later` : ''}. ${weekly} ${weekly === 1 ? 'is' : 'are'} listed as weekly; the others are filed under ${D} by the sources, so confirm with the venue.`;
+  for (const bo of ['Manhattan', 'Brooklyn', 'Queens', 'Bronx', 'Staten Island']) {
+    const rows = list.filter((t) => venueOf(t.v).borough === bo);
+    if (rows.length) groups.push({ id: hoodAnchor(bo), h: `${bo === 'Bronx' ? 'The Bronx' : bo} (${rows.length})`, rows });
+  }
+  const top = hoods.slice(0, 3).map(([h, c]) => `${h} (${c})`).join(', ');
+  faq.push({ q: `Where is trivia on ${D} night in NYC?`, a: `${groups.map((g) => g.h).join(', ')}. The busiest neighborhoods: ${top}.` });
+  faq.push({ q: `What time does ${D} trivia start?`, a: `The earliest game starts at ${label(first!)}; ${late} of the ${n} start at 8pm or later. Times are the ones the sources list.` });
+  if (withHH) faq.push({ q: `Can I get a happy hour with ${D} trivia?`, a: `At ${plural(withHH, 'bar')} on this list the bar's own happy hour runs into the game or ends shortly before it; those nights show it in green or under the listing.` });
+} else {
+  const B = borough!;
+  h1 = `Trivia Nights in ${B}`; keyword = `${B.toLowerCase()} trivia nights`; crumb = B;
+  title = `${B} Trivia Nights: ${nv} Bars by Day and Neighborhood (${year})`;
+  description = `Trivia nights in ${B}: ${plural(n, 'game')} at ${plural(nv, 'bar')}, by day, start time and neighborhood, each with its source and the date we read it.`;
+  const busiest = DAYS.map((d) => [d, list.filter((t) => t.day === d).length] as const).sort((a, b) => b[1] - a[1])[0];
+  lede = `${plural(n, 'trivia night')} at ${plural(nv, 'bar')} in ${B}. ${DAY_NAME[busiest[0]]} is the busiest night with ${busiest[1]}. The most games are in ${hoods.slice(0, 3).map(([h]) => h).join(', ')}.`;
+  for (const d of DAYS) {
+    const rows = list.filter((t) => t.day === d);
+    if (rows.length) groups.push({ id: daySlugOf(d), h: `${DAY_NAME[d]} (${rows.length})`, rows });
+  }
+  faq.push({ q: `Which night has the most trivia in ${B}?`, a: `${DAY_NAME[busiest[0]]}, with ${busiest[1]} games. ${groups.map((g) => g.h).join(', ')}.` });
+  faq.push({ q: `Which ${B} neighborhoods have the most trivia?`, a: hoods.slice(0, 6).map(([h, c]) => `${h} (${c})`).join(', ') + '.' });
+  if (withHH) faq.push({ q: `Is there trivia with a happy hour in ${B}?`, a: `Yes: at ${plural(withHH, 'bar')} the bar's own happy hour overlaps or ends shortly before the game. Each one is marked under its listing.` });
+}
+faq.push({ q: 'Is it every week?', a: '"Weekly" is shown only when a source says so. "Listed on ..." means a directory files the bar under that weekday without saying how often; some games are monthly or every other week. Check with the venue before you go.' });
+---
+<Base title={title} description={description} keyword={keyword} jsonld={[crumbs([['YaY NYC', '/'], ['Trivia nights', '/trivia'], [crumb, Astro.url.pathname.replace(/\.html$/, '')]]), faqLd(faq)]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/trivia">Trivia nights</a></li><li aria-current="page">{crumb}</li></ol></nav>
+  <h1>{h1}</h1>
+  <p class="lede">{lede}</p>
+  <p class="small">Every night below shows who lists it and the date we read it. <a href="/trivia#how">How we check</a>.</p>
+
+  <nav class="jump" aria-label="Jump to">
+    <ul class="chips-row">{groups.map((g) => <li><a class="chip" href={`#${g.id}`}>{g.h}</a></li>)}</ul>
+  </nav>
+
+  {groups.map((g) => (
+    <section class="section" id={g.id}>
+      <h2>{g.h}</h2>
+      <TriviaRows rows={g.rows} bars={bars} showHood />
+    </section>
+  ))}
+
+  <section class="section faq">
+    <h2>Questions</h2>
+    {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+  </section>
+
+  <section class="section">
+    <h2>More trivia</h2>
+    <h3 class="h3">By day</h3>
+    <ul class="link-cloud">{DAY_PAGES.filter((d) => d !== day).map((d) => <li><a href={`/trivia/${daySlugOf(d)}`}>{DAY_NAME[d]}<span class="count">{trivia.filter((t) => t.day === d).length}</span></a></li>)}</ul>
+    <h3 class="h3">By borough</h3>
+    <ul class="link-cloud">{BOROUGH_PAGES.filter(([, b]) => b !== borough).map(([slug, b]) => <li><a href={`/trivia/${slug}`}>{b}<span class="count">{trivia.filter((t) => venueOf(t.v).borough === b).length}</span></a></li>)}</ul>
+    <p><a href="/trivia">All NYC trivia nights</a> · <a href="/music-bingo">Music bingo</a> · <a href="/bars-with-games">Bars with games</a></p>
+  </section>
+</Base>
+<style>
+  .jump { margin: 12px 0 4px; }
+  .jump .chips-row { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+</style>

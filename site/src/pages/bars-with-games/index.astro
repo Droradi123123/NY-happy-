@@ -1,0 +1,50 @@
+---
+/** /bars-with-games: venues where you can play, grouped by game. Arcade and pinball have their own pages. */
+import Base from '../../layouts/Base.astro';
+import GameVenues from '../../components/GameVenues.astro';
+import { games, trivia, uniqueVenues, venueOf, GAME_ORDER, GAME_NAME, GAME_PAGES } from '../../lib/activities';
+import { allBars } from '../../lib/data';
+import { crumbs, faqLd } from '../../lib/seo';
+import { plural } from '../../lib/stats';
+
+const bars = new Map((await allBars()).map((b) => [b.slug, b]));
+const nv = uniqueVenues(games);
+const cats = GAME_ORDER.map((c) => ({ c, list: games.filter((g) => g.cat === c) })).filter((x) => x.list.length);
+const boro = [...games.reduce((m, g) => m.set(venueOf(g.v).borough, new Set([...(m.get(venueOf(g.v).borough) ?? []), g.v])), new Map<string | null, Set<string>>())].map(([b, s]) => `${b} (${s.size})`);
+const priced = new Set(games.filter((g) => g.cost).map((g) => g.v)).size;
+const cafe = new Set(games.filter((g) => g.alcohol !== 'yes').map((g) => g.v)).size;
+const faq = [
+  { q: 'Where can I play games at a bar in NYC?', a: `${plural(nv, 'venue')} on this page: ${cats.map((x) => `${GAME_NAME[x.c].toLowerCase()} (${uniqueVenues(x.list)})`).join(', ')}. By borough: ${boro.join(', ')}.` },
+  { q: 'Are the games free?', a: `It depends on the place and we only print a price the venue's own site shows: ${priced} of the ${nv} venues do. Arcade bars usually charge per game and bowling or table games by the lane or the hour; check before you go.` },
+  { q: 'Do all of these serve alcohol?', a: cafe ? `Most are bars. ${plural(cafe, 'venue')} ${cafe === 1 ? 'is' : 'are'} marked otherwise: beer and wine only, or a café where we could not confirm alcohol.` : 'Every venue here is listed as a bar with drinks.' },
+  { q: 'How did you pick these?', a: 'Each venue is listed by its own website or by two editorial guides, and its address matches a New York City address record. Places only listed on a crowdsourced pinball map, or that a source says closed or not yet open, are left out.' },
+];
+---
+<Base title={`Bars With Games in NYC: ${nv} Arcade, Pinball, Bowling and More (${new Date().getFullYear()})`} description={`Bars with games in NYC: ${plural(nv, 'venue')} for arcade games, pinball, bowling, shuffleboard, mini golf, pool, darts and board games, with sources.`}
+  keyword="bars with games nyc" jsonld={[crumbs([['YaY NYC', '/'], ['Bars with games', '/bars-with-games']]), faqLd(faq)]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">YaY NYC</a></li><li aria-current="page">Bars with games</li></ol></nav>
+  <h1>Bars With Games in NYC</h1>
+  <p class="lede">{plural(nv, 'place')} to play while you drink, by game: {cats.map((x) => GAME_NAME[x.c].toLowerCase()).join(', ')}. Hours and prices appear only where the venue's own site states them.</p>
+  <nav class="jump" aria-label="Games">
+    <ul class="chips-row">{cats.map((x) => <li><a class="chip" href={GAME_PAGES.find((p) => p.cat === x.c) ? `/bars-with-games/${GAME_PAGES.find((p) => p.cat === x.c)!.slug}` : `#${x.c.replace(/_/g, '-')}`}>{GAME_NAME[x.c]} <span class="count">{uniqueVenues(x.list)}</span></a></li>)}</ul>
+  </nav>
+  {cats.map((x) => {
+    const page = GAME_PAGES.find((p) => p.cat === x.c);
+    return (
+      <section class="section" id={x.c.replace(/_/g, '-')}>
+        <h2>{GAME_NAME[x.c]}</h2>
+        {page && <p><a href={`/bars-with-games/${page.slug}`}>All {page.short.toLowerCase()} in NYC</a></p>}
+        <GameVenues list={x.list} bars={bars} />
+      </section>
+    );
+  })}
+  <section class="section faq">
+    <h2>Questions</h2>
+    {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+  </section>
+  <p><a href="/trivia">Trivia nights</a> ({trivia.length}) · <a href="/music-bingo">Music bingo</a> · <a href="/happy-hours">Happy hours</a></p>
+</Base>
+<style>
+  .jump { margin: 12px 0 4px; }
+  .jump .chips-row { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+</style>

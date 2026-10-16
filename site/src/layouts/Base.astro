@@ -58,6 +58,7 @@ const menu = [
     ...hh('late-night', 'Late night'), { href: '/happy-hours/neighborhoods', label: 'By neighborhood' }] },
   { h: 'Parties', links: [{ href: '/parties?when=tonight', label: 'Tonight' }, { href: '/parties?when=weekend', label: 'This weekend' },
     ...(seasonal.href === '/parties/halloween' ? [{ href: '/parties/halloween', label: 'Halloween' }] : []), { href: '/parties', label: 'All parties' }] },
+  { h: 'Trivia and games', links: [{ href: '/trivia', label: 'Trivia nights' }, { href: '/music-bingo', label: 'Music bingo' }, { href: '/bars-with-games', label: 'Bars with games' }] },
   { h: 'Maps', links: [{ href: '/map/happy-hours', label: 'Happy hour map' }, { href: '/map/parties', label: 'Party map' }] },
   ...(guidesMenu.length ? [{ h: 'Guides', links: [...guidesMenu.map((g) => ({ href: `/blog/${g.slug}`, label: g.short })), { href: '/blog', label: 'All guides' }] }] : []),
   { h: 'YaY NYC', links: [{ href: '/about', label: 'How we check' }, { href: '/contact', label: 'Contact' }] },
@@ -194,6 +195,8 @@ const tabs = [
           <li><a href="/happy-hours">NYC happy hours</a></li>
           <li><a href="/happy-hours/now">Happy hour right now</a></li>
           <li><a href="/parties">Parties in NYC</a></li>
+          <li><a href="/trivia">Trivia nights</a></li>
+          <li><a href="/bars-with-games">Bars with games</a></li>
           <li><a href="/map">Map</a></li>
           {hasGuides && <li><a href="/blog">Guides</a></li>}
         </ul>

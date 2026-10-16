@@ -1,0 +1,9 @@
+-- Trivia and games candidates (applied to zqfscuwkxcoktpjhaebv as activity_candidates + activity_geo functions).
+-- Private: RLS on, no policies, nothing granted to anon; no site_* view reads these. The public records the site
+-- shows live in site/src/data/activities.json (scripts/activities/export_site.py), written from the reviewed manifest.
+--   activity_venues     key = slug(name)--address key; workbook IDs kept in src_refs only
+--   activity_listings   key = venue:kind:day (or venue:game:category); observations, conflicts, decision
+--   activity_exclusions outside NYC / one-off / closed, kept so a later import cannot bring them back
+--   activity_imports    import runs
+--   activity_geo        NYC Planning GeoSearch requests and raw answers (decided by scripts/activities/geo.py)
+-- activity_geo_request(batch) sends GeoSearch requests through pg_net; activity_geo_ingest() stores the answers.

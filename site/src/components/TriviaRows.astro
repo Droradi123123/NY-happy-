@@ -1,0 +1,49 @@
+---
+/**
+ * Trivia / music bingo nights as a list: time, venue (linked to its bar page when we have one), where,
+ * what the sources say about cadence, who hosts, and who lists it with the date we read it.
+ * A happy hour shows next to a night only when the bar's own published window overlaps (lib/activities).
+ */
+import { venueOf, sourceLabel, hhOverlap, type Trivia } from '../lib/activities';
+import { DAY_NAME, partyData, type Bar } from '../lib/data';
+
+interface Props { rows: Trivia[]; bars: Map<string, Bar>; showDay?: boolean; showHood?: boolean }
+const { rows, bars, showDay = false, showHood = true } = Astro.props;
+// a club has a page only after a published night (lib/data partyData)
+const clubPages = new Set((await partyData()).venuePages.map((x) => x.id));
+---
+<ul class="trows">
+  {rows.map((t) => {
+    const v = venueOf(t.v);
+    const bar = v.bar ? bars.get(v.bar) : undefined;
+    const ov = hhOverlap(bar, t);
+    const href = bar ? `/bars/${bar.slug}` : v.partyVenue && clubPages.has(v.partyVenue) ? `/parties/venue/${v.partyVenue}` : null;
+    return (
+      <li class="trow" data-borough={v.borough ?? ''} data-day={t.day}>
+        <div class="t-when"><strong>{t.startLabel ?? 'Time not listed'}</strong>{showDay && <span class="small">{DAY_NAME[t.day]}</span>}</div>
+        <div class="t-main">
+          <h3 class="t-name">{href ? <a href={href}>{v.name}</a> : v.name}{t.musicTrivia && <span class="chip t-chip">Music trivia</span>}</h3>
+          <p class="t-where">{showHood && v.hood && <>{v.hood}, {v.borough} · </>}{v.address}</p>
+          <p class="t-facts">{t.rec}{t.host && <> · Host: {t.host}</>}{t.prize && <> · {t.prize} (per {t.prizeSource})</>}</p>
+          {ov && <p class={`t-hh ${ov.kind}`}><a href={`/bars/${bar!.slug}`}>{ov.label}</a></p>}
+          <p class="t-src small">Listed by {t.sources.map((s, i) => <>{i > 0 && ', '}{s.url ? <a href={s.url} rel="nofollow noopener" target="_blank">{sourceLabel(s)}</a> : sourceLabel(s)}</>)}</p>
+        </div>
+      </li>
+    );
+  })}
+</ul>
+<style>
+  .trows { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .trow { display: grid; grid-template-columns: 78px 1fr; gap: 12px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 12px 14px; }
+  .trow[hidden] { display: none; }
+  .t-when { display: flex; flex-direction: column; gap: 2px; font-size: 17px; }
+  .t-name { margin: 0; font-size: 18px; line-height: 1.25; overflow-wrap: anywhere; }
+  .t-chip { margin-left: 8px; font-size: 12px; vertical-align: middle; }
+  .t-where, .t-facts { margin: 4px 0 0; font-size: 15px; overflow-wrap: anywhere; }
+  .t-where { color: var(--muted); }
+  .t-hh { margin: 6px 0 0; font-size: 15px; font-weight: 600; }
+  .t-hh.during a { color: var(--green); }
+  .t-src { margin: 6px 0 0; color: var(--muted); overflow-wrap: anywhere; }
+  .t-src a { color: inherit; }
+  @media (max-width: 420px) { .trow { grid-template-columns: 1fr; gap: 4px; } .t-when { flex-direction: row; gap: 8px; align-items: baseline; } }
+</style>
