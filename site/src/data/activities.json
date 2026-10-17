@@ -2213,6 +2213,17 @@
    "partyVenue": null,
    "website": null
   },
+  "other-half-brewing-domino-park--195-river-st": {
+   "name": "Other Half Brewing Domino Park",
+   "address": "34 River Street, Brooklyn, NY 11249",
+   "borough": "Brooklyn",
+   "hood": "Williamsburg",
+   "lat": null,
+   "lng": null,
+   "bar": null,
+   "partyVenue": null,
+   "website": "https://otherhalfbrewing.com/location/domino-park/"
+  },
   "other-half-brewing-gowanus--195-centre-st": {
    "name": "Other Half Brewing Co. — Gowanus",
    "address": "195 Centre Street, Brooklyn, NY 11231",
@@ -2533,6 +2544,17 @@
    "website": "http://ryanmaguiresalehouse.com"
   },
   "sadies--121-essex-st": {
+   "name": "Sadie’s NYC",
+   "address": "19 Fulton Street, New York, NY 10038",
+   "borough": "Manhattan",
+   "hood": "Financial District",
+   "lat": 40.706998,
+   "lng": -74.003504,
+   "bar": "sadie-s-financial-district",
+   "partyVenue": null,
+   "website": "https://www.sadies.nyc/"
+  },
+  "sadies-ward--121-essex-st": {
    "name": "Sadie’s Ward",
    "address": "121 Essex Street, New York, NY 10002",
    "borough": "Manhattan",
@@ -6225,6 +6247,37 @@
    ]
   },
   {
+   "key": "sadies-ward--121-essex-st:trivia:thu",
+   "v": "sadies-ward--121-essex-st",
+   "kind": "trivia",
+   "musicTrivia": false,
+   "day": "thu",
+   "start": "19:00",
+   "startLabel": "7pm",
+   "rec": "Weekly, per NYC Trivia League",
+   "recKind": "weekly_stated",
+   "host": "NYC Trivia League",
+   "prize": null,
+   "prizeSource": null,
+   "operator": true,
+   "sources": [
+    {
+     "name": "NYC Trivia League",
+     "url": "https://nyctrivialeague.com",
+     "observed_at": "2026-10-16",
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Sadie’s Ward"
+    },
+    {
+     "name": "NYC Trivia List",
+     "url": "https://www.nyctrivialist.com",
+     "observed_at": "2026-10-16",
+     "source_updated_at": null,
+     "listed_as": "Sadie’s Ward"
+    }
+   ]
+  },
+  {
    "key": "scrappleland--1150-manhattan-ave:music_bingo:thu",
    "v": "scrappleland--1150-manhattan-ave",
    "kind": "music_bingo",
@@ -6411,6 +6464,30 @@
      "observed_at": "2026-10-16",
      "source_updated_at": null,
      "listed_as": "The Five Lamps NYC"
+    }
+   ]
+  },
+  {
+   "key": "singlecut-beersmiths--19-33-37-st:music_bingo:thu",
+   "v": "singlecut-beersmiths--19-33-37-st",
+   "kind": "music_bingo",
+   "musicTrivia": false,
+   "day": "thu",
+   "start": "19:30",
+   "startLabel": "7:30pm",
+   "rec": "Weekly, per NYC Trivia League",
+   "recKind": "weekly_stated",
+   "host": "NYC Trivia League",
+   "prize": null,
+   "prizeSource": null,
+   "operator": true,
+   "sources": [
+    {
+     "name": "NYC Trivia League",
+     "url": "https://nyctrivialeague.com",
+     "observed_at": "2026-10-16",
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "SingleCut Queens"
     }
    ]
   },
@@ -8998,6 +9075,13 @@
      "observed_at": "2026-10-16",
      "source_updated_at": "2026-10-12/2026-10-18",
      "listed_as": "Mom’s Midtown"
+    },
+    {
+     "name": "NYC Trivia List",
+     "url": "https://www.nyctrivialist.com",
+     "observed_at": "2026-10-16",
+     "source_updated_at": null,
+     "listed_as": "Mom’s Midtown"
     }
    ]
   },
@@ -11100,6 +11184,51 @@
      "observed_at": "2026-10-16",
      "source_updated_at": null,
      "listed_as": "Nook"
+    }
+   ]
+  },
+  {
+   "key": "other-half-brewing-domino-park--195-river-st:trivia:wed",
+   "v": "other-half-brewing-domino-park--195-river-st",
+   "kind": "trivia",
+   "musicTrivia": false,
+   "day": "wed",
+   "start": "19:00",
+   "startLabel": "7pm",
+   "rec": "Weekly, per NYC Trivia League",
+   "recKind": "weekly_stated",
+   "host": "NYC Trivia League",
+   "prize": null,
+   "prizeSource": null,
+   "operator": true,
+   "sources": [
+    {
+     "name": "NYC Trivia League",
+     "url": "https://nyctrivialeague.com",
+     "observed_at": "2026-10-16",
+     "source_updated_at": "2026-10-12/2026-10-18",
+     "listed_as": "Other Half Brewing Co. — Domino Park"
+    },
+    {
+     "name": "NYC Trivia List",
+     "url": "https://www.nyctrivialist.com",
+     "observed_at": "2026-10-16",
+     "source_updated_at": null,
+     "listed_as": "Other Half Domino Park"
+    },
+    {
+     "name": "BadSlava",
+     "url": "https://badslava.com/new-york-trivia-nights.php",
+     "observed_at": "2026-10-16",
+     "source_updated_at": null,
+     "listed_as": "Other Half Brewing Co. — Domino Park"
+    },
+    {
+     "name": "TriviaNearMe",
+     "url": "https://trivianearme.net/new-york",
+     "observed_at": "2026-10-16",
+     "source_updated_at": null,
+     "listed_as": "Other Half Brewing Co. — Domino Park"
     }
    ]
   },

@@ -25,7 +25,8 @@ def status_from_note(note: str) -> str | None:
     n = fold(note)
     if re.search(r"hiatus|on hold|paused|break until|back (in|on) [a-z]+ \d{4}|back [a-z]+ \d{4}", n):
         return "paused"
-    if re.search(r"starts|coming soon|beginning|debuts", n):
+    # "coming Wednesday, October 28th, 2026!" is a first night not yet played
+    if re.search(r"starts|coming soon|beginning|debuts|\bcoming (on |in )?(mon|tue|wed|thu|fri|sat|sun|jan|feb|mar|apr|may|jun|jul|aug|sep|oct|nov|dec|next)", n):
         return "upcoming"
     if re.search(r"no trivia", n):
         return "skips_a_date"

@@ -109,6 +109,9 @@ def main(work: str) -> None:
         if o["source"] != "NYC Trivia League" or o.get("address"):
             continue
         rs = [r for r in registry if name_sim(core(r["title"]), core(o["name"])) >= 0.75 and address_key(r["loc"])]
+        # "Sadie's NYC" is contained in "Sadie's Ward": a record with exactly the listed name wins
+        exact = [r for r in rs if name_key(r["title"]) in (name_key(o["name"]), name_key(core(o["name"])))]
+        rs = exact if len(exact) == 1 else rs
         if len(rs) > 1 and o.get("hood"):
             rs = [r for r in rs if fold(o["hood"]) in fold(r["title"] + " " + r["tag"])] or rs
         if len(rs) == 1:
@@ -144,6 +147,29 @@ def main(work: str) -> None:
         else:
             unmatched.append(o)
 
+    # reviewed decisions (scripts/activities/decisions.json): each with its reason, evidence and date
+    dpath = os.path.join(os.path.dirname(__file__), "decisions.json")
+    decisions = {d["venue"]: d for d in (json.load(open(dpath)) if os.path.exists(dpath) else [])}
+    # "same_as": two names for one venue ("Mixtape Bingo! — SingleCut Queens" is SingleCut Beersmiths per the league's own record)
+    for d in decisions.values():
+        if d["action"] != "same_as" or d["venue"] not in venues or d["into"] not in venues:
+            continue
+        v, u = venues.pop(d["venue"]), venues[d["into"]]
+        merges_applied.append({"from": d["venue"], "into": d["into"], "basis": f"decision {d['decided']}: {d['reason']}"})
+        for a in [v["name"]] + v["aliases"]:
+            if a != u["name"] and a not in u["aliases"]:
+                u["aliases"].append(a)
+        u["src_refs"] += v["src_refs"]
+        for L in [L for L in list(listings.values()) if L["venue_key"] == d["venue"]]:
+            del listings[L["key"]]
+            nk = listing_key(u["key"], L["kind"], L["day"] if L["kind"] != "game" else L["category"])
+            if nk in listings:
+                for f in ("observations", "fresh", "conflicts"):
+                    listings[nk][f] += L[f]
+            else:
+                L["key"], L["venue_key"] = nk, u["key"]
+                listings[nk] = L
+
     # ---------- NYC Trivia League's own venue records: address and website, by name ----------
     # (the weekly page says who plays when; these records say where. They are not used for the schedule:
     # some were last edited in 2022. A "Monthly ..." line does override the weekly wording.)
@@ -151,8 +177,14 @@ def main(work: str) -> None:
     reg_used, reg_conflicts, rekey = set(), [], []
     for v in venues.values():
         names = [v["name"]] + v["aliases"]
-        cands = [r for r in registry if address_key(r["loc"]) and v["address_key"] and address_key(r["loc"]).replace("-", "") == v["address_key"].replace("-", "")
-                 and max(name_sim(core(r["title"]), n) for n in names) >= 0.5]
+        # a league record with exactly this venue's name comes first: the workbook put "Sadie's NYC" (19 Fulton St)
+        # at Sadie's Ward's address (121 Essex St), and an address match would have given it the wrong record
+        exact = [r for r in registry if address_key(r["loc"]) and any(name_key(r["title"]) == name_key(n) for n in names)]
+        if len(exact) == 1:
+            cands = exact
+        else:
+            cands = [r for r in registry if address_key(r["loc"]) and v["address_key"] and address_key(r["loc"]).replace("-", "") == v["address_key"].replace("-", "")
+                     and max(name_sim(core(r["title"]), n) for n in names) >= 0.5]
         if not cands and v["key"] in league_venues:
             cands = [r for r in registry if max(name_sim(core(r["title"]), core(n)) for n in names) >= 0.75 or max(name_sim(r["title"], n) for n in names) >= 0.9]
             if len(cands) > 1:
@@ -217,6 +249,13 @@ def main(work: str) -> None:
         if v.get("geo_key"):
             claims = None  # the league's own street address, checked against the City record without a directory's borough label
         v["geo"] = decide(v["address"], v["zip"], geo.get(v.get("geo_key") or v["key"]), claims) if v["address"] else {"status": "no_address", "reason": "no street address in any source"}
+        dec = decisions.get(v["key"]) or {}
+        if dec.get("action") == "geo_waive" and v["geo"]["status"] != "verified":
+            # the venue's own site and the operator agree on an address the City search lacks: no map point is invented
+            zp = (re.search(r"\b(1[01]\d{3})\b", dec["address"]) or [None, None])[1]
+            v.update({"address": dec["address"], "address_key": address_key(dec["address"]), "zip": zp})
+            v["geo"] = {"status": "verified", "basis": f"decision {dec['decided']}", "label": dec.get("label") or dec["address"], "postalcode": zp,
+                        "borough": dec["borough"], "neighbourhood": dec["hood"], "lat": None, "lng": None, "bbl": None}
         bars = [b for b in db_by_addr.get(v["address_key"], []) if max(name_sim(n, b["name"]) for n in [v["name"]] + v["aliases"]) >= 0.5]
         v["bar_slug"] = bars[0]["slug"] if len(bars) == 1 else None
         pv = [p for p in party if address_key(p["address"]) == v["address_key"] and name_sim(p["name"], v["name"]) >= 0.5]
@@ -226,9 +265,6 @@ def main(work: str) -> None:
         v["hood"] = HOOD_ALIAS.get(nb, nb) if g["status"] == "verified" else None
         v["borough"] = g.get("borough") if g["status"] == "verified" else None
 
-    # reviewed decisions (scripts/activities/decisions.json): each with its reason, evidence and date
-    dpath = os.path.join(os.path.dirname(__file__), "decisions.json")
-    decisions = {d["venue"]: d for d in (json.load(open(dpath)) if os.path.exists(dpath) else [])}
     held_pairs = defaultdict(list)
     for a in cand["ambiguities"]:
         if a["type"] == "same address, different names":
@@ -347,7 +383,7 @@ def main(work: str) -> None:
                       "notes": [o["note"] for o in l["fresh"] if o.get("note")],
                       "conflicts": l["conflicts"], "wb_evidence": sorted({o["wb_evidence"] for o in l["observations"]}),
                       "wb_rows": [o["src_ref"]["wb_id"] for o in l["observations"]]})
-        if (decisions.get(v["key"]) or {}).get("action") in ("note", "waive_T2", "exclude"):
+        if (decisions.get(v["key"]) or {}).get("action") in ("note", "waive_T2", "exclude", "geo_waive", "same_as"):
             d["decision"] = decisions[v["key"]]
         d["publish"] = not why_not
         d["held_because"] = why_not

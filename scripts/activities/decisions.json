@@ -1,32 +1,135 @@
 [
- {"venue": "post-no-bills--253-bushwick-ave", "action": "waive_T2", "decided": "2026-10-16",
+ {
+  "venue": "post-no-bills--253-bushwick-ave",
+  "action": "waive_T2",
+  "decided": "2026-10-16",
   "reason": "Post No Bills' own site (postnobillsbk.com) gives 253 Bushwick Ave, and our bar record was confirmed there on Oct 15, 2026. The other name at this address (Pink Metal) is not confirmed.",
-  "evidence": ["http://www.postnobillsbk.com/"]},
- {"venue": "pink-metal--253-bushwick-ave", "action": "exclude", "decided": "2026-10-16",
+  "evidence": [
+   "http://www.postnobillsbk.com/"
+  ]
+ },
+ {
+  "venue": "pink-metal--253-bushwick-ave",
+  "action": "exclude",
+  "decided": "2026-10-16",
   "reason": "253 Bushwick Ave is Post No Bills per its own site; Pink Metal is not confirmed at this address.",
-  "evidence": ["http://www.postnobillsbk.com/"]},
- {"venue": "strong-rope-brewery--574-president-st", "action": "exclude", "decided": "2026-10-16",
+  "evidence": [
+   "http://www.postnobillsbk.com/"
+  ]
+ },
+ {
+  "venue": "strong-rope-brewery--574-president-st",
+  "action": "exclude",
+  "decided": "2026-10-16",
   "reason": "Strong Rope's own site lists only its Red Hook taproom; TriviaNYC lists Forever Brewing at 574 President St.",
-  "evidence": ["https://www.strongropebrewery.com/", "https://trivianyc.net"]},
- {"venue": "endless-life-brewing--52-34-st", "action": "waive_T2", "decided": "2026-10-16",
+  "evidence": [
+   "https://www.strongropebrewery.com/",
+   "https://trivianyc.net"
+  ]
+ },
+ {
+  "venue": "endless-life-brewing--52-34-st",
+  "action": "waive_T2",
+  "decided": "2026-10-16",
   "reason": "Endless Life's and Gun Hill's own sites both give 52 34th St: two businesses in one building.",
-  "evidence": ["https://www.endlesslifebrewing.com/", "https://www.gunhillbrewing.com/"]},
- {"venue": "gun-hill-publick--52-34-st", "action": "waive_T2", "decided": "2026-10-16",
+  "evidence": [
+   "https://www.endlesslifebrewing.com/",
+   "https://www.gunhillbrewing.com/"
+  ]
+ },
+ {
+  "venue": "gun-hill-publick--52-34-st",
+  "action": "waive_T2",
+  "decided": "2026-10-16",
   "reason": "Endless Life's and Gun Hill's own sites both give 52 34th St: two businesses in one building.",
-  "evidence": ["https://www.endlesslifebrewing.com/", "https://www.gunhillbrewing.com/"]},
- {"venue": "iris--60-henry-st", "action": "exclude", "decided": "2026-10-16",
+  "evidence": [
+   "https://www.endlesslifebrewing.com/",
+   "https://www.gunhillbrewing.com/"
+  ]
+ },
+ {
+  "venue": "iris--60-henry-st",
+  "action": "exclude",
+  "decided": "2026-10-16",
   "reason": "60 Henry St is The Binc, confirmed on its own site on Oct 16, 2026; Iris Cafe is not at this address.",
-  "evidence": ["https://www.thebinc.com/"]},
- {"venue": "farewell--143-troutman-st", "action": "note", "decided": "2026-10-16",
+  "evidence": [
+   "https://www.thebinc.com/"
+  ]
+ },
+ {
+  "venue": "farewell--143-troutman-st",
+  "action": "note",
+  "decided": "2026-10-16",
   "reason": "Keybar's own site gives 143 Troutman St; a Farewell Bar trivia night there rests on one directory. Held; our Keybar page stays.",
-  "evidence": ["https://www.keybar.com/"]},
- {"venue": "due-west--67-7-ave-s", "action": "note", "decided": "2026-10-16",
+  "evidence": [
+   "https://www.keybar.com/"
+  ]
+ },
+ {
+  "venue": "due-west--67-7-ave-s",
+  "action": "note",
+  "decided": "2026-10-16",
   "reason": "Address: NYC Trivia League's record and our own bar record (from duewestnyc.com) both give 189 W 10th St; the workbook's 67 7th Ave S is wrong.",
-  "evidence": ["https://nyctrivialeague.com/listings/due-west/", "https://www.duewestnyc.com/menus/"]},
- {"venue": "high-note--240-e-35-st", "action": "note", "decided": "2026-10-16",
+  "evidence": [
+   "https://nyctrivialeague.com/listings/due-west/",
+   "https://www.duewestnyc.com/menus/"
+  ]
+ },
+ {
+  "venue": "high-note--240-e-35-st",
+  "action": "note",
+  "decided": "2026-10-16",
   "reason": "Address: NYC Trivia League's record and our own bar record (thehighnoteny.com) both give 119 E 15th St; the workbook's 240 E 35th St is wrong.",
-  "evidence": ["https://nyctrivialeague.com/listings/the-high-note/", "http://www.thehighnoteny.com/"]},
- {"venue": "hamilton--260-w-73-st", "action": "note", "decided": "2026-10-16",
+  "evidence": [
+   "https://nyctrivialeague.com/listings/the-high-note/",
+   "http://www.thehighnoteny.com/"
+  ]
+ },
+ {
+  "venue": "hamilton--260-w-73-st",
+  "action": "note",
+  "decided": "2026-10-16",
   "reason": "Address: The Hamilton's own site and NYC Trivia League's record give 998 Amsterdam Ave; the workbook's 260 W 73rd St is wrong.",
-  "evidence": ["http://thehamiltonuws.com", "https://nyctrivialeague.com/listings/the-hamilton/"]}
+  "evidence": [
+   "http://thehamiltonuws.com",
+   "https://nyctrivialeague.com/listings/the-hamilton/"
+  ]
+ },
+ {
+  "venue": "singlecut-queens--queens--noaddr",
+  "action": "same_as",
+  "into": "singlecut-beersmiths--19-33-37-st",
+  "decided": "2026-10-17",
+  "reason": "NYC Trivia League's weekly page lists \"Mixtape Bingo! — SingleCut Queens, Astoria, 7:30pm\" on Thursdays; the league's own SingleCut Beersmiths record (19-33 37th St, Astoria) says \"Mixtape Bingo Thursdays, 7:30pm start + Trivia Fridays, 8pm start\": one venue, two names.",
+  "evidence": [
+   "https://nyctrivialeague.com",
+   "https://nyctrivialeague.com/listings/singlecut-beersmiths/"
+  ]
+ },
+ {
+  "venue": "other-half-brewing-domino-park--195-river-st",
+  "action": "geo_waive",
+  "decided": "2026-10-17",
+  "address": "34 River St, Brooklyn, NY 11249",
+  "borough": "Brooklyn",
+  "hood": "Williamsburg",
+  "reason": "Other Half's own Domino Park page and NYC Trivia League's record both give 34 River St, Brooklyn, NY 11249 (the workbook's 195 River St is wrong), and Other Half's own site lists a trivia night on Oct 21, 2026. The City address search has River Street in Williamsburg (4, 16, 96, 119, 121) but not number 34, a new waterfront building, so the exact-match rule is waived; no map point is shown because none was confirmed.",
+  "evidence": [
+   "https://otherhalfbrewing.com/location/domino-park/",
+   "https://nyctrivialeague.com/listings/other-half-brewing-domino-park/"
+  ],
+  "label": "34 RIVER STREET, Brooklyn, NY, USA"
+ },
+ {
+  "venue": "sadies--121-essex-st",
+  "action": "note",
+  "decided": "2026-10-17",
+  "reason": "The workbook put Sadie's NYC at 121 Essex St, which is Sadie's Ward (its own site). Sadie's NYC is at 19 Fulton St per its own site and NYC Trivia League's record; its Tuesday 7pm night stays, at 19 Fulton St. Sadie's Ward's own night is Thursday 7pm (NYC Trivia League, NYC Trivia List).",
+  "evidence": [
+   "https://www.sadies.nyc/",
+   "https://www.sadiesward.com/",
+   "https://nyctrivialeague.com/listings/sadies-nyc/",
+   "https://nyctrivialeague.com/listings/sadies-ward/"
+  ]
+ }
 ]

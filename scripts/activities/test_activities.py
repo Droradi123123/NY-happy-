@@ -48,6 +48,7 @@ class Normalize(unittest.TestCase):
         self.assertEqual(parse_time("12:00pm"), "12:00")
         self.assertIsNone(parse_time("7 or 8pm, first Tuesday"[:1]))
         self.assertIsNone(parse_time("TBA"))
+        self.assertIsNone(parse_time("6:3pm"))  # a typo on the page is unknown, not 3pm
         self.assertEqual(day_of("Wednesday"), "wed")
         self.assertEqual(kind_of("Music bingo"), "music_bingo")
         self.assertEqual(kind_of("Music trivia"), "music_trivia")
@@ -61,6 +62,9 @@ class Normalize(unittest.TestCase):
         self.assertEqual(status_of("Paused (hiatus / on hold per source)"), "paused")
         self.assertEqual(status_of("Not started yet (source says coming)"), "upcoming")
         self.assertEqual(status_of("Listed (no pause noted)"), "listed")
+        from parse_sources import status_from_note
+        self.assertEqual(status_from_note("coming Wednesday, October 28th, 2026!"), "upcoming")
+        self.assertEqual(status_from_note("Coming back in November 2026"), "paused")
 
     def test_freshness_never_turns_a_fetch_into_a_stated_date(self):
         f = freshness_parts('NYC Trivia League: Page header "This Week in Trivia" Oct 12-18, 2026; fetched Oct 16, 2026 ; NYC Trivia List: No update date shown; fetched Oct 16, 2026')

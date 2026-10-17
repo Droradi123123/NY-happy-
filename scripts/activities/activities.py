@@ -119,7 +119,8 @@ def borough_of(s: str | None) -> str | None:
 
 def parse_time(t: str | None) -> str | None:
     """'7:30pm' -> '19:30'; '8pm start' -> '20:00'; anything else -> None (unknown stays unknown)"""
-    m = re.search(r"\b(\d{1,2})(?::(\d{2}))?\s*([ap])\.?m\b", fold(t))
+    # "6:3pm" (a typo on the page) is unknown, not 3pm
+    m = re.search(r"(?<![\d:])(\d{1,2})(?::(\d{2}))?\s*([ap])\.?m\b", fold(t))
     if not m:
         return None
     h, mi, ap = int(m.group(1)), int(m.group(2) or 0), m.group(3)
