@@ -174,6 +174,8 @@ export const GUIDES: Guide[] = [
 ];
 
 const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+/** escaped prose, with only plain internal links (<a href="/path">text</a>) turned back into links */
+export const prose = (t: string) => esc(t).replace(/&lt;a href="(\/[a-z0-9\-/]*)"&gt;((?:(?!&lt;|&gt;).)+?)&lt;\/a&gt;/gi, '<a href="$1">$2</a>');
 let _all: Promise<Guide[]> | null = null;
 /** the guides in this file plus the posts written into the database (a slug defined here wins) */
 export function allGuides(): Promise<Guide[]> {
@@ -182,8 +184,8 @@ export function allGuides(): Promise<Guide[]> {
     const db: Guide[] = (await blogPosts()).filter((p) => !own.has(p.slug)).map((p) => ({
       slug: p.slug, status: 'published', published: p.published, updated: p.updated,
       title: p.title, h1: p.h1, short: p.short, keyword: p.keyword, description: p.description, answer: p.answer,
-      // database prose is plain text: escaped here because sections render as HTML
-      sections: p.sections.map((x) => ({ h2: x.h, paras: paragraphs(x.body).map(esc) })),
+      // database prose is plain text, escaped here because sections render as HTML; internal links are kept
+      sections: p.sections.map((x) => ({ h2: x.h, paras: paragraphs(x.body).map(prose) })),
       ...(p.table_id ? { table: p.table_id } : {}), ...(p.table_title ? { tableTitle: p.table_title } : {}), ...(p.min_rows ? { minRows: p.min_rows } : {}),
       method: p.method, related: p.related, intro: p.intro, picks: p.picks, route: p.route, faq: p.faq,
     }));

@@ -5,7 +5,7 @@
  */
 import Base from '../../layouts/Base.astro';
 import Photo from '../../components/Photo.astro';
-import { allGuides, guideBars, guideCover, type Guide } from '../../lib/guides';
+import { allGuides, guideBars, guideCover, prose, type Guide } from '../../lib/guides';
 import { guideTable } from '../../lib/guideTables';
 import { crumbs, faqLd, SITE } from '../../lib/seo';
 import { allBars, checkedRange, fmtDate, dealLabel, scheduleLabel, placePhoto, photoNote, cardCredit, boroughSlug, meters, paragraphs, type Bar } from '../../lib/data';
@@ -47,7 +47,7 @@ const ld = {
     <p class="byline">By the YaY NYC team · Text updated <time datetime={g.updated}>{fmtDate(g.updated)}</time>{dealsChecked && ` · Deals last checked on each bar's own site ${dealsChecked}`} · {readMin} min read</p>
     {cover && <Photo photo={cover.photo} note={photoNote(cover, coverName)} alt={`${cover.photo.title ?? coverName}`} ratio="21 / 9" hero />}
     <div class="answer"><p>{g.answer}</p></div>
-    {g.intro && paragraphs(g.intro).map((p) => <p class="intro">{p}</p>)}
+    {g.intro && paragraphs(g.intro).map((p) => <p class="intro" set:html={prose(p)} />)}
     {picks.length > 0 && (
       <section class="section">
         <h2>{g.route ? 'The route, stop by stop' : 'Our picks'}</h2>
