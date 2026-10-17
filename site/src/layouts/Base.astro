@@ -61,7 +61,7 @@ const menu = [
   { h: 'Trivia and games', links: [{ href: '/trivia', label: 'Trivia nights' }, { href: '/music-bingo', label: 'Music bingo' }, { href: '/bars-with-games', label: 'Bars with games' }] },
   { h: 'Maps', links: [{ href: '/map/happy-hours', label: 'Happy hour map' }, { href: '/map/parties', label: 'Party map' }] },
   ...(guidesMenu.length ? [{ h: 'Guides', links: [...guidesMenu.map((g) => ({ href: `/blog/${g.slug}`, label: g.short })), { href: '/blog', label: 'All guides' }] }] : []),
-  { h: 'YaY NYC', links: [{ href: '/about', label: 'How we check' }, { href: '/contact', label: 'Contact' }] },
+  { h: 'YaY NYC', links: [{ href: '/about', label: 'How we check' }, { href: '/contact', label: 'Share a tip' }] },
 ];
 const tabs = [
   { href: '/happy-hours', label: 'Happy hours', icon: 'glass' },
@@ -187,7 +187,7 @@ const tabs = [
       <div>
         <Logo size={28} light />
         <p class="tagline">All the fun in one place!</p>
-        <p class="small">Every happy hour shows the date we last checked it and a link to where we read it. Deals change: confirm with the bar before you go. Drink responsibly; you must be 21 to drink in New York.</p>
+        <p class="small">A free community guide: no one can pay to be listed or ranked. Every happy hour shows the date we last checked it and a link to where we read it. Deals change: confirm with the bar before you go. Drink responsibly; you must be 21 to drink in New York.</p>
       </div>
       <div>
         <h2 class="foot-h">Find</h2>
@@ -205,7 +205,7 @@ const tabs = [
         <h2 class="foot-h">YaY NYC</h2>
         <ul class="foot-list">
           <li><a href="/about">About and how we check</a></li>
-          <li><a href="/contact">Report a change or add a place</a></li>
+          <li><a href="/contact">Share a tip or fix a listing</a></li>
           <li><a href="/image-credits">Image credits and takedown</a></li>
           <li><a href="/privacy">Privacy</a></li>
           <li><a href="/accessibility">Accessibility</a></li>

@@ -55,7 +55,7 @@ const lastSeen = p.sources?.find((s) => s.name === 'DICE')?.checked_at ?? p.last
           <dt>Price</dt><dd>{priceLabel(p)}{p.price_from ? ` (lowest ${p.ticket_vendor} ticket incl. fees, seen ${fmtDate(lastSeen)})` : ''}</dd>
           {p.organizer && <><dt>Presented by</dt><dd>{p.organizer}</dd></>}
         </dl>
-        {p.event_status !== 'sold_out' && <a class="btn" href={p.ticket_url} rel="sponsored noopener" target="_blank">Tickets on {p.ticket_vendor}</a>}
+        {p.event_status !== 'sold_out' && <a class="btn" href={p.ticket_url} rel="nofollow noopener" target="_blank">Tickets on {p.ticket_vendor}</a>}
         {p.event_status === 'sold_out' && <a class="btn ghost" href={p.ticket_url} rel="noopener" target="_blank">Check for resale or waiting list</a>}
       </section>
 
