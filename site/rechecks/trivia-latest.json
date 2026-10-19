@@ -1,43 +1,33 @@
 {
- "date": "2026-10-16",
+ "date": "2026-10-19",
  "read": {
   "NYC Trivia League": 176,
-  "TriviaNYC": 8,
+  "TriviaNYC": 7,
   "Uptown Pub Quiz": 1,
   "NYC Trivia List": 318,
   "Brooklyn Trivia Finder": 128
  },
- "removed": [],
+ "removed": [
+  {
+   "night": "Beer Garage (tue)",
+   "key": "beer-garage--118-christopher-st:trivia:tue",
+   "why": "no longer listed by TriviaNYC"
+  },
+  {
+   "night": "Jake’s Dilemma (wed)",
+   "key": "jakes-dilemma--430-amsterdam-ave:trivia:wed",
+   "why": "no longer listed by NYC Trivia League"
+  }
+ ],
  "time_changed": [],
- "still_listed": 281,
+ "still_listed": 282,
  "new_at_operators": [
   {
-   "name": "Cahoots NYC",
-   "day": "wed",
-   "start": "15:00",
-   "kind": "trivia",
-   "source": "NYC Trivia League"
-  },
-  {
-   "name": "Other Half Brewing Co. — Domino Park",
-   "day": "wed",
-   "start": "19:00",
-   "kind": "trivia",
-   "source": "NYC Trivia League"
-  },
-  {
-   "name": "Sadie’s Ward",
-   "day": "thu",
-   "start": "19:00",
-   "kind": "trivia",
-   "source": "NYC Trivia League"
-  },
-  {
-   "name": "SingleCut Queens",
-   "day": "thu",
+   "name": "CURRENTLY ON HOLD",
+   "day": "tue",
    "start": "19:30",
-   "kind": "music_bingo",
-   "source": "NYC Trivia League"
+   "kind": "trivia",
+   "source": "TriviaNYC"
   }
  ],
  "aborted": null
