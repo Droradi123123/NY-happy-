@@ -200,7 +200,9 @@ export function allGuides(): Promise<Guide[]> {
       ...(p.table_id ? { table: p.table_id } : {}), ...(p.table_title ? { tableTitle: p.table_title } : {}), ...(p.min_rows ? { minRows: p.min_rows } : {}),
       method: p.method, related: p.related, intro: p.intro, picks: p.picks, route: p.route, faq: p.faq,
     }));
-    return [...GUIDES, ...db];
+    const taken = new Set([...own, ...db.map((g) => g.slug)]);
+    const { autoGuides } = await import('./autoGuides');
+    return [...GUIDES, ...db, ...(await autoGuides()).filter((g) => !taken.has(g.slug))];
   })();
   return _all;
 }
