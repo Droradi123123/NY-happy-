@@ -1,0 +1,85 @@
+---
+/**
+ * /parties/halloween/<slug>: one night, borough or kind of Halloween party (lib/halloween.ts).
+ * Every number on the page is counted from the parties it lists; under 3 upcoming parties the
+ * page is noindexed and points to the hub.
+ */
+import Base from '../../../layouts/Base.astro';
+import PartyCard from '../../../components/PartyCard.astro';
+import { venueOf, cleanTitle, nightDate, fmtDate, GENRE_NAME, type Party } from '../../../lib/data';
+import { halloweenPages, HW_YEAR, type HwBuilt } from '../../../lib/halloween';
+import { crumbs, itemList, faqLd } from '../../../lib/seo';
+import { plural } from '../../../lib/stats';
+
+export async function getStaticPaths() {
+  const { built } = await halloweenPages();
+  return built.map((b) => ({ params: { slug: b.page.slug }, props: { slug: b.page.slug } }));
+}
+const { slug } = Astro.props as { slug: string };
+const { all, venues, built } = await halloweenPages();
+const me = built.find((b) => b.page.slug === slug)! as HwBuilt;
+const { page, parties: list, indexable } = me;
+const n = list.length;
+
+const rank = (a: Party, b: Party) => Number(a.event_status === 'sold_out') - Number(b.event_status === 'sold_out') || Number(!!b.copy?.about) - Number(!!a.copy?.about) || (a.starts_at ?? '').localeCompare(b.starts_at ?? '');
+const byNight = new Map<string, Party[]>();
+for (const p of list) byNight.set(p.night_date, [...(byNight.get(p.night_date) ?? []), p]);
+const nights = [...byNight.entries()].sort(([a], [b]) => a.localeCompare(b)).map(([d, ps]) => ({ d, ps: ps.sort(rank) }));
+const oneNight = nights.length === 1;
+
+const venueIds = new Set(list.map((p) => p.venue_id));
+const tally = (xs: (string | null)[]) => [...xs.filter((x): x is string => !!x).reduce((m, x) => m.set(x, (m.get(x) ?? 0) + 1), new Map<string, number>())].sort((a, b) => b[1] - a[1]);
+const hoods = tally(list.map((p) => p.neighborhood)).slice(0, 4);
+const genres = tally(list.flatMap((p) => p.genres)).slice(0, 4);
+const open = list.filter((p) => p.event_status !== 'sold_out');
+const soldOut = n - open.length;
+const priced = open.filter((p) => p.price_status !== 'free' && p.price_from).sort((a, b) => a.price_from! - b.price_from!);
+const free = list.filter((p) => p.price_status === 'free');
+const age21 = list.filter((p) => p.age_min === 21).length, age18 = list.filter((p) => p.age_min === 18).length;
+const latest = list.reduce((m, p) => (p.last_checked && p.last_checked > m ? p.last_checked : m), '');
+const nightName = (d: string) => nightDate(d, { weekday: 'long', month: 'long', day: 'numeric' });
+const list3 = (xs: string[]) => (xs.length < 3 ? xs.join(' and ') : `${xs.slice(0, -1).join(', ')} and ${xs[xs.length - 1]}`);
+
+const summary = [
+  `${plural(n, 'party', 'parties')} at ${plural(venueIds.size, 'venue')}${oneNight ? ` on ${nightName(nights[0].d)}` : `, on ${plural(nights.length, 'night')} from ${nightDate(nights[0]?.d ?? `${HW_YEAR}-10-31`, { month: 'long', day: 'numeric' })} to ${nightDate(nights[nights.length - 1]?.d ?? `${HW_YEAR}-10-31`, { month: 'long', day: 'numeric' })}`}.`,
+  hoods.length > 1 ? `The busiest neighborhoods: ${list3(hoods.map(([h, k]) => `${h} (${k})`))}.` : hoods.length ? `${hoods[0][1] === n ? 'All are' : `${hoods[0][1]} are`} in ${hoods[0][0]}.` : '',
+  genres.length ? `Most-listed music: ${list3(genres.map(([g, k]) => `${GENRE_NAME[g] ?? g} (${k})`))}.` : '',
+  priced.length ? `Tickets start at $${Math.round(priced[0].price_from!)} (${cleanTitle(priced[0].title)}) when we last checked${soldOut ? `, and ${soldOut} ${soldOut === 1 ? 'is' : 'are'} already sold out` : ''}.` : soldOut ? `${soldOut} ${soldOut === 1 ? 'is' : 'are'} already sold out.` : '',
+].filter(Boolean).join(' ');
+
+const faq = [
+  { q: `How many parties are on this list for Halloween ${HW_YEAR}?`, a: `We list ${plural(n, 'party', 'parties')} right now${oneNight ? '' : `: ${nights.map(({ d, ps }) => `${ps.length} on ${nightDate(d, { weekday: 'long', month: 'short', day: 'numeric' })}`).join(', ')}`}. The list updates as promoters add nights.` },
+  ...(priced.length ? [{ q: 'What is the cheapest ticket?', a: `${cleanTitle(priced[0].title)} at ${venueOf(priced[0], venues)?.name ?? 'its venue'}, from $${Math.round(priced[0].price_from!)} when we last checked${priced[1] ? `, then ${cleanTitle(priced[1].title)} from $${Math.round(priced[1].price_from!)}` : ''}. Prices rise as ticket tiers sell out.` }] : []),
+  ...(free.length ? [{ q: 'Are any of them free?', a: `${plural(free.length, 'party', 'parties')} ${free.length === 1 ? 'is' : 'are'} free to enter: ${free.slice(0, 3).map((p) => cleanTitle(p.title)).join('; ')}. Free nights can require an RSVP.` }] : []),
+  { q: 'What is the age limit?', a: `${age21} of these parties are 21+ and ${age18} are 18+, as stated on their ticket pages${n - age21 - age18 > 0 ? `; ${n - age21 - age18} do not state an age` : ''}. Bring a government photo ID.` },
+  { q: 'Will they sell out?', a: soldOut ? `${soldOut} of the ${n} are already sold out. Sold-out nights stay listed, marked, in case tickets come back.` : `None of these is sold out yet, as of our last check${latest ? ` on ${fmtDate(latest)}` : ''}.` },
+];
+const siblings = built.filter((b) => b.indexable && b.page.slug !== slug);
+---
+<Base noindex={!indexable} keyword={page.keyword} title={page.title(n)} description={page.description(n)}
+  jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties'], ['Halloween', '/parties/halloween'], [page.short, `/parties/halloween/${slug}`]]), itemList(page.h1, list.map((p) => `/parties/${p.slug}`)), faqLd(faq)]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li><li><a href="/parties/halloween">Halloween</a></li><li aria-current="page">{page.short}</li></ol></nav>
+  <h1>{page.h1}</h1>
+  {indexable ? (
+    <p class="lede">{page.lead} {summary}{latest && ` Doors, prices and ticket status checked ${fmtDate(latest)}.`}</p>
+  ) : (
+    <p class="lede">{n ? `Only ${plural(n, 'party', 'parties')} listed right now.` : 'No upcoming parties in this group right now.'} See every night on <a href="/parties/halloween">Halloween parties in NYC</a>, or <a href="/parties">all upcoming parties</a>.</p>
+  )}
+  {!oneNight && nights.length > 1 && <nav class="jump" aria-label="Jump to a night"><ul class="link-cloud">{nights.map(({ d, ps }) => <li><a href={`#n-${d}`}>{nightDate(d, { weekday: 'short', month: 'short', day: 'numeric' })}<span class="count">{ps.length}</span></a></li>)}</ul></nav>}
+  {nights.map(({ d, ps }) => (
+    <section class="section" id={`n-${d}`}>
+      <h2>{nightName(d)}{oneNight ? '' : `: ${plural(ps.length, 'party', 'parties')}`}</h2>
+      <div class="xgrid">{ps.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>
+    </section>
+  ))}
+  <section class="section">
+    <h2>More Halloween in NYC</h2>
+    <p><a href="/parties/halloween">All {all.length} Halloween parties in NYC, night by night</a>.</p>
+    <ul class="link-cloud">{siblings.map((b) => <li><a href={`/parties/halloween/${b.page.slug}`}>{b.page.short}<span class="count">{b.parties.length}</span></a></li>)}</ul>
+  </section>
+  <section class="section faq"><h2>Questions</h2>{faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}</section>
+</Base>
+<style>
+  .jump { margin: 14px 0; }
+  .link-cloud a .count { margin-left: 6px; }
+</style>

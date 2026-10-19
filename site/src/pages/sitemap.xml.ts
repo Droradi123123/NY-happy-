@@ -3,6 +3,7 @@ import type { APIRoute } from 'astro';
 import { allBars, partyData, stations, landmarks } from '../lib/data';
 import { listPages } from '../lib/lists';
 import { partyLists } from '../lib/partyLists';
+import { halloweenPages } from '../lib/halloween';
 import { allGuides } from '../lib/guides';
 import { guideTable } from '../lib/guideTables';
 import { SITE } from '../lib/seo';
@@ -23,6 +24,7 @@ export const GET: APIRoute = async () => {
   const rows: [string, string | null][] = [
     ['/', null], ['/happy-hours', null], ['/happy-hours/now', null], ['/happy-hours/neighborhoods', null], ['/parties', null], ['/map', null], ['/map/happy-hours', null], ['/map/parties', null], ['/about', null], ['/contact', null], ['/image-credits', null], ['/privacy', null], ['/accessibility', null],
     ...(parties.some((p) => p.themes.includes('halloween')) ? [['/parties/halloween', null] as [string, null]] : []),
+    ...(await halloweenPages()).built.filter((b) => b.indexable).map((b) => [`/parties/halloween/${b.page.slug}`, null] as [string, null]),
     ...lists.map((l) => [`/happy-hours/${l.slug}`, null] as [string, null]),
     ...[...near].map((s) => [`/happy-hours/near/${s}`, null] as [string, null]),
     ...bars.map((b) => [`/bars/${b.slug}`, b.checked?.slice(0, 10) ?? null] as [string, string | null]),

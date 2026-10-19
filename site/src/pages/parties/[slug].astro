@@ -5,6 +5,7 @@ import MiniMap from '../../components/MiniMap.astro';
 import Photo from '../../components/Photo.astro';
 import { partyData, placePhoto, photoNote, venueOf, cleanTitle, nightDate, nyTime, nyDate, priceLabel, fmtDate, GENRE_NAME, type Party, type Venue } from '../../lib/data';
 import { partyTitle, partyName, partyDescription, partyJsonLd, crumbs, faqLd, SITE } from '../../lib/seo';
+import { halloweenPages } from '../../lib/halloween';
 
 export async function getStaticPaths() {
   const { parties, venues } = await partyData();
@@ -30,6 +31,8 @@ const faq = c.faq?.length ? c.faq : [
   { q: 'What is the age limit?', a: p.age_min ? `${p.age_min}+. Bring a government-issued photo ID.` : 'Not listed: check with the venue.' },
   { q: 'Can I get a refund?', a: p.refund_terms ?? 'Not listed: check the terms on the ticket page.' },
 ];
+// a Halloween night links to the Halloween hub and to every indexed sub-page it appears on
+const hw = p.themes.includes('halloween') ? (await halloweenPages()).built.filter((b) => b.indexable && b.parties.some((o) => o.slug === p.slug)) : [];
 const lastSeen = p.sources?.find((s) => s.name === 'DICE')?.checked_at ?? p.last_checked;
 ---
 <Base title={partyTitle(p, v)} description={partyDescription(p, v)} keyword={kw} jsonld={[partyJsonLd(p, v, url), crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [cleanTitle(p.title), `/parties/${p.slug}`]]), faqLd(faq)]}>
@@ -86,6 +89,12 @@ const lastSeen = p.sources?.find((s) => s.name === 'DICE')?.checked_at ?? p.last
       {atVenue.length > 0 && <div class="section" id="at-venue"><h2 class="h3">More at {v?.name}</h2><div class="xgrid one">{atVenue.map((o) => <PartyCard party={o} venue={v} />)}</div></div>}
     </aside>
   </div>
+  {p.themes.includes('halloween') && (
+    <nav class="section" aria-label="More Halloween parties">
+      <h2 class="h3">More Halloween parties in NYC</h2>
+      <ul class="link-cloud"><li><a href="/parties/halloween">All Halloween parties</a></li>{hw.map((b) => <li><a href={`/parties/halloween/${b.page.slug}`}>{b.page.h1.replace(/,? \d{4}(?=:|$)/, '')}</a></li>)}</ul>
+    </nav>
+  )}
   {sameNight.length > 0 && <section class="section"><h2>Also on {nightDate(p.night_date, { weekday: 'long' })}</h2><div class="xgrid">{sameNight.map((o) => <PartyCard party={o} venue={venueOf(o, venues)} />)}</div></section>}
 </Base>
 <style>
