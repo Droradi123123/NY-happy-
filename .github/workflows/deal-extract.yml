@@ -34,7 +34,7 @@ jobs:
         run: |
           sudo apt-get update -q >/dev/null
           sudo apt-get install -y -q poppler-utils tesseract-ocr tesseract-ocr-eng >/dev/null
-          npm install --no-save --no-audit --no-fund playwright-core@1.56.1
+          npm install --no-save --no-audit --no-fund playwright-core@1.56.1 sharp@0.34.5
       - name: Parser tests
         run: node --test scripts/deal-parse.test.mjs
       - name: Extract

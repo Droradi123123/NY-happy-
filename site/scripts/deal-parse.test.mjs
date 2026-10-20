@@ -52,3 +52,8 @@ test('kind', () => {
   assert.equal(kindOf('Buffalo Wings'), 'food');
   assert.equal(kindOf('Chef special'), 'unknown');
 });
+
+test('"$2 off any beer" is a discount on beer', () => {
+  assert.deepEqual(offersIn('HAPPY HOUR (2pm-7pm)\n$2 off any liquor drink\n$1 off any beer').offers.map((o) => `${o.item}=${o.price}/${o.kind}`),
+    ['liquor drink=$2 off/drink', 'beer=$1 off/drink']);
+});

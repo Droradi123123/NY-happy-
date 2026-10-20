@@ -62,7 +62,14 @@ export function offersIn(block) {
     const ps = [...seg.matchAll(PRICE_G)];
     if (!ps.length) continue;
     if (ps.length > 1) { loose.push(...ps.map((p) => `$${p[1]}`)); continue; }
-    const p = ps[0], before = tidy(seg.slice(0, p.index)), after = tidy(seg.slice(p.index + p[0].length).replace(/^\s*(?:ea\.?|each|\/\s*each|pp)\b/i, ''));
+    const p = ps[0];
+    // "$2 off any beer": a discount, not a price
+    const off = /^\s*off\b/i.exec(seg.slice(p.index + p[0].length));
+    if (off) {
+      const item = tidy(seg.slice(p.index + p[0].length + off[0].length).replace(/^\s*(?:any|all|every)\b/i, ''));
+      if (/[a-z]{3}/i.test(item)) { offers.push({ item, price: `$${Number(p[1])} off`, kind: kindOf(item), line: seg.slice(0, 160) }); continue; }
+    }
+    const before = tidy(seg.slice(0, p.index)), after = tidy(seg.slice(p.index + p[0].length).replace(/^\s*(?:ea\.?|each|\/\s*each|pp)\b/i, ''));
     // "Draft Beer $6" (item first) or "$6 Draft Beer" (price first); the side with drink or food words wins
     const pick = [before, after].filter((s) => /[a-z]{3}/i.test(s) && s.length <= 70)
       .sort((a, b) => Number(kindOf(b) !== 'unknown') - Number(kindOf(a) !== 'unknown') || a.length - b.length)[0];

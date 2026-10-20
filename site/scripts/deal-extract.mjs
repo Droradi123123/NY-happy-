@@ -12,6 +12,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync, rmSync } from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { chromium } from 'playwright-core';
+import sharp from 'sharp';
 import { readDeal } from './deal-parse.mjs';
 
 const SUPABASE_URL = 'https://zqfscuwkxcoktpjhaebv.supabase.co';
@@ -41,7 +42,7 @@ let n = 0;
 const tmp = (ext) => `${TMP}/f${n++}.${ext}`;
 
 function ocr(file) {
-  try { return run('tesseract', [file, '-', '-l', 'eng', '--psm', '4'], 90000); } catch { return ''; }
+  try { return run('tesseract', [file, '-', '-l', 'eng', '--psm', '4'], 90000); } catch (e) { console.log(`ocr failed: ${String(e?.message ?? e).slice(0, 120)}`); return ''; }
 }
 async function fetchTo(url, ext) {
   const r = await fetch(url, { headers: { 'User-Agent': UA }, signal: AbortSignal.timeout(30000) });
@@ -67,12 +68,19 @@ async function readPdf(url) {
     return text;
   } catch { return ''; }
 }
+// menu images come as webp, avif or jpeg from CDNs that check the referrer: fetch them through the
+// browser context, then sharp turns them into a large grayscale PNG, which is what tesseract reads best
 async function readImage(url) {
   try {
-    const ext = (url.match(/\.(png|jpe?g|webp|gif)(?:\?|$)/i)?.[1] ?? 'jpg').toLowerCase();
-    const f = await fetchTo(url, ext === 'jpeg' ? 'jpg' : ext);
-    return f ? ocr(f) : '';
-  } catch { return ''; }
+    const r = await ctx.request.get(url, { timeout: 30000 });
+    if (!r.ok()) return { text: '', err: `http ${r.status()}` };
+    const buf = await r.body();
+    if (buf.length < 5000) return { text: '', err: 'too small' };
+    const f = tmp('png');
+    await sharp(buf, { animated: false }).resize({ width: 2200 }).grayscale().normalize().png().toFile(f);
+    const text = ocr(f);
+    return text.trim() ? { text } : { text: '', err: 'no text' };
+  } catch (e) { return { text: '', err: String(e?.message ?? e).slice(0, 80) }; }
 }
 
 const MENU_WORD = /happy|\bhh\b|special|drink|cocktail|bar[-_ ]?menu|beverage|wine|beer|aperitivo|menu/i;
@@ -108,7 +116,7 @@ async function readSource(url) {
     // menu images: the ones named or captioned like a menu; on a menu page, the largest ones
     const menuPage = MENU_WORD.test(new URL(url).pathname);
     const imgs = [...new Map(found.imgs.map((i) => [i.src, i])).values()].filter((i) => i.hint || menuPage).sort((a, b) => Number(b.hint) - Number(a.hint) || b.area - a.area).slice(0, 4);
-    for (const i of imgs) texts.push({ from: 'image', url: i.src, text: await readImage(i.src) });
+    for (const i of imgs) texts.push({ from: 'image', url: i.src, ...(await readImage(i.src)) });
     const host = new URL(url).hostname.replace(/^www\./, '');
     const links = [...new Set(found.links.filter((l) => !/\.pdf(\?|$)/i.test(l.href) && new URL(l.href).hostname.replace(/^www\./, '') === host && l.href.split('#')[0] !== url.split('#')[0])
       .sort((a, b) => Number(/happy/i.test(`${b.text} ${b.href}`)) - Number(/happy/i.test(`${a.text} ${a.href}`))).map((l) => l.href.split('#')[0]))].slice(0, 3);
@@ -135,7 +143,7 @@ async function extract(bar) {
   return {
     slug: bar.slug, name: bar.name, hood: bar.hood, source: bar.hh_source, at: new Date().toISOString(),
     status: !first.ok && !hits.length ? 'unreachable' : best ? (best.deal.offers.length ? 'offers' : 'passage') : 'no_passage',
-    read: reads.map((r) => ({ from: r.from, url: r.url, chars: r.text.length })),
+    read: reads.map((r) => ({ from: r.from, url: r.url, chars: r.text.length, ...(r.err ? { err: r.err } : {}) })),
     stored: { start: bar.hh?.start ?? null, end: bar.hh?.end ?? null, days: bar.hh?.days ?? null },
     best: best ? { from: best.from, url: best.url, ...best.deal } : null,
     also: hits.slice(1, 3).map((h) => ({ from: h.from, url: h.url, block: h.deal.block.slice(0, 500), offers: h.deal.offers })),
