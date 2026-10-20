@@ -1341,7 +1341,7 @@
   "hood": "Upper West Side",
   "source": "https://www.assetrestaurant.com/",
   "slug": "asset-upper-west-side",
-  "at": "2026-10-20T13:03:03.585Z",
+  "at": "2026-10-20T14:00:33.161Z",
   "status": "offers",
   "read": [
    {
@@ -1448,7 +1448,7 @@
   "hood": "Upper East Side",
   "source": "https://www.augustny.com/menu.htm",
   "slug": "august-upper-east-side",
-  "at": "2026-10-20T13:03:48.849Z",
+  "at": "2026-10-20T14:01:26.564Z",
   "status": "passage",
   "read": [
    {
@@ -1549,7 +1549,7 @@
     "from": "image",
     "url": "https://www.augustny.com/images/August-NYC-Food-11_25f6uhzfoir88z0fd2yb3o.jpg",
     "chars": 0,
-    "err": "no text"
+    "err": "apiRequestContext.get: read ECONNRESET\nCall log:\n  - → GET https://www.augustny."
    },
    {
     "from": "image",
@@ -1611,7 +1611,7 @@
   "hood": "Astoria",
   "source": "https://aygueynyc.com/",
   "slug": "ay-guey-nyc-astoria",
-  "at": "2026-10-20T13:02:41.258Z",
+  "at": "2026-10-20T14:00:19.715Z",
   "status": "unreachable",
   "read": [],
   "stored": {
@@ -1633,7 +1633,7 @@
   "hood": "Astoria",
   "source": "https://www.badhabitsastoria.com/",
   "slug": "bad-habits-astoria-astoria",
-  "at": "2026-10-20T13:03:16.466Z",
+  "at": "2026-10-20T14:00:59.002Z",
   "status": "offers",
   "read": [
    {
@@ -1727,7 +1727,7 @@
   "hood": "Tribeca",
   "source": "https://www.bar135.com/menu",
   "slug": "bar-135-tribeca",
-  "at": "2026-10-20T13:02:55.255Z",
+  "at": "2026-10-20T14:00:29.943Z",
   "status": "offers",
   "read": [
    {
@@ -1810,7 +1810,7 @@
   "hood": "Morningside Heights",
   "source": "https://bar314nyc.com/food-menu",
   "slug": "bar-314-harlem",
-  "at": "2026-10-20T13:02:45.332Z",
+  "at": "2026-10-20T14:00:22.340Z",
   "status": "offers",
   "read": [
    {
@@ -1878,7 +1878,7 @@
   "hood": "Upper East Side",
   "source": "https://andiamonyc.com/",
   "slug": "bar-andiamo-upper-east-side",
-  "at": "2026-10-20T13:03:05.717Z",
+  "at": "2026-10-20T14:00:31.946Z",
   "status": "passage",
   "read": [
    {
@@ -1967,7 +1967,7 @@
   "hood": "Chelsea",
   "source": "https://www.ollyollymarket.com/avant-apres",
   "slug": "bar-avant-apres-bar-chelsea",
-  "at": "2026-10-20T13:03:06.172Z",
+  "at": "2026-10-20T14:00:25.940Z",
   "status": "passage",
   "read": [
    {
@@ -2030,7 +2030,7 @@
   "hood": "Lower East Side",
   "source": "https://www.barbellynyc.com/menus",
   "slug": "bar-belly-lower-east-side",
-  "at": "2026-10-20T13:03:09.074Z",
+  "at": "2026-10-20T14:00:29.274Z",
   "status": "no_passage",
   "read": [
    {
@@ -2066,7 +2066,7 @@
   "hood": "Bay Ridge",
   "source": "https://www.barchuzo.com/happyhour",
   "slug": "bar-chuzo-bay-ridge",
-  "at": "2026-10-20T13:03:11.568Z",
+  "at": "2026-10-20T14:00:31.967Z",
   "status": "offers",
   "read": [
    {
@@ -2127,7 +2127,7 @@
   "hood": "Ridgewood",
   "source": "https://www.barfreda.com/",
   "slug": "bar-freda-ridgewood",
-  "at": "2026-10-20T13:03:39.469Z",
+  "at": "2026-10-20T14:00:56.107Z",
   "status": "passage",
   "read": [
    {
@@ -2197,7 +2197,7 @@
   "hood": "Bed-Stuy",
   "source": "https://www.barlunatico.com/menus",
   "slug": "bar-lunatico-bed-stuy",
-  "at": "2026-10-20T13:03:18.605Z",
+  "at": "2026-10-20T14:00:35.668Z",
   "status": "passage",
   "read": [
    {
@@ -2270,7 +2270,7 @@
   "hood": "Midtown",
   "source": "https://www.barmexicananyc.com/",
   "slug": "bar-mexicana-midtown",
-  "at": "2026-10-20T13:03:37.317Z",
+  "at": "2026-10-20T14:00:54.969Z",
   "status": "passage",
   "read": [
    {
@@ -2281,7 +2281,7 @@
    {
     "from": "page",
     "url": "https://www.barmexicananyc.com/menus/",
-    "chars": 4334
+    "chars": 4335
    },
    {
     "from": "pdf",
@@ -2341,7 +2341,7 @@
   "hood": "Williamsburg",
   "source": "https://barmilagro.com/",
   "slug": "bar-milagro-williamsburg",
-  "at": "2026-10-20T13:03:33.689Z",
+  "at": "2026-10-20T14:00:46.589Z",
   "status": "passage",
   "read": [
    {
@@ -2409,18 +2409,18 @@
   "hood": "East Village",
   "source": "https://www.barsnacknyc.com",
   "slug": "bar-snack-east-village",
-  "at": "2026-10-20T13:03:39.730Z",
+  "at": "2026-10-20T14:00:51.851Z",
   "status": "passage",
   "read": [
    {
     "from": "page",
     "url": "https://www.barsnacknyc.com",
-    "chars": 1478
+    "chars": 1428
    },
    {
     "from": "page",
     "url": "https://www.barsnacknyc.com/",
-    "chars": 1477
+    "chars": 1427
    }
   ],
   "stored": {
@@ -2470,13 +2470,13 @@
   "hood": "Gramercy",
   "source": "https://www.barbounia.com/menus/",
   "slug": "barbounia-gramercy",
-  "at": "2026-10-20T13:03:42.646Z",
+  "at": "2026-10-20T14:00:51.822Z",
   "status": "offers",
   "read": [
    {
     "from": "page",
     "url": "https://www.barbounia.com/menus/",
-    "chars": 2868
+    "chars": 3041
    }
   ],
   "stored": {
@@ -2522,7 +2522,7 @@
   "hood": "Lower East Side",
   "source": "https://www.barriochinony.com/",
   "slug": "barrio-chino-lower-east-side",
-  "at": "2026-10-20T13:03:49.671Z",
+  "at": "2026-10-20T14:01:04.591Z",
   "status": "passage",
   "read": [
    {
@@ -2594,7 +2594,7 @@
   "hood": "Jackson Heights",
   "source": "https://barzola1987.com/",
   "slug": "barzola-jackson-heights",
-  "at": "2026-10-20T13:03:51.776Z",
+  "at": "2026-10-20T14:01:10.538Z",
   "status": "passage",
   "read": [
    {
@@ -2605,7 +2605,7 @@
    {
     "from": "page",
     "url": "https://barzola1987.com/menu/",
-    "chars": 4053
+    "chars": 3007
    },
    {
     "from": "image",
@@ -2659,7 +2659,7 @@
   "hood": "Williamsburg",
   "source": "https://www.beeskneesbk.com/menus",
   "slug": "bee-s-knees-cocktail-bar-williamsburg",
-  "at": "2026-10-20T13:03:46.882Z",
+  "at": "2026-10-20T14:01:00.076Z",
   "status": "offers",
   "read": [
    {
@@ -2711,7 +2711,7 @@
   "hood": "Upper West Side",
   "source": "https://www.bellalunanyc.com/",
   "slug": "bella-luna-restaurant-upper-west-side",
-  "at": "2026-10-20T13:03:47.171Z",
+  "at": "2026-10-20T14:00:59.619Z",
   "status": "offers",
   "read": [
    {
@@ -2767,7 +2767,7 @@
   "hood": "Times Square",
   "source": "https://www.benihana.com/locations/ny-west-ny/",
   "slug": "benihana-new-york-west-times-square",
-  "at": "2026-10-20T13:03:58.737Z",
+  "at": "2026-10-20T14:01:06.890Z",
   "status": "offers",
   "read": [
    {
@@ -2842,24 +2842,18 @@
   "hood": "East Village",
   "source": "https://bin141.com/",
   "slug": "bin-141-east-village",
-  "at": "2026-10-20T13:04:35.090Z",
+  "at": "2026-10-20T14:01:57.800Z",
   "status": "passage",
   "read": [
    {
     "from": "page",
     "url": "https://bin141.com/",
-    "chars": 1842
-   },
-   {
-    "from": "image",
-    "url": "https://bin141.com/wp-content/uploads/2019/10/BIN-141-nyc-restaurant-east-village-drinks-beers-full-bar.jpg",
-    "chars": 0,
-    "err": "no text"
+    "chars": 1841
    },
    {
     "from": "page",
     "url": "https://bin141.com/menu/",
-    "chars": 1721
+    "chars": 3973
    },
    {
     "from": "page",
@@ -2927,7 +2921,7 @@
   "hood": "Williamsburg",
   "source": "https://birdsofafeatherny.com/menu",
   "slug": "birds-of-a-feather-williamsburg",
-  "at": "2026-10-20T13:03:52.843Z",
+  "at": "2026-10-20T14:01:03.217Z",
   "status": "passage",
   "read": [
    {
@@ -2976,7 +2970,7 @@
   "hood": "Bed-Stuy",
   "source": "https://www.bkbnyc.com/",
   "slug": "bkb-brooklyn-brasserie-bed-stuy",
-  "at": "2026-10-20T13:04:11.454Z",
+  "at": "2026-10-20T14:01:20.689Z",
   "status": "passage",
   "read": [
    {
@@ -3079,7 +3073,7 @@
   "hood": "Midtown",
   "source": "https://www.blackbarnrestaurant.com/",
   "slug": "blackbarn-restaurant-flatiron",
-  "at": "2026-10-20T13:04:31.785Z",
+  "at": "2026-10-20T14:01:36.162Z",
   "status": "passage",
   "read": [
    {
@@ -3186,7 +3180,7 @@
   "hood": "Laurelton",
   "source": "https://www.bluseafoodrestaurant.com/happyhour",
   "slug": "blu-seafood-restaurant-bar",
-  "at": "2026-10-20T13:04:03.201Z",
+  "at": "2026-10-20T14:01:08.144Z",
   "status": "offers",
   "read": [
    {
@@ -3385,7 +3379,7 @@
   "hood": "Harlem",
   "source": "https://boulevardbistrony.com/new-york-harlem-blvd-bistro-food-menu",
   "slug": "blvd-bistro-harlem",
-  "at": "2026-10-20T13:04:15.690Z",
+  "at": "2026-10-20T14:01:19.906Z",
   "status": "passage",
   "read": [
    {
@@ -3459,7 +3453,7 @@
   "hood": "Corona",
   "source": "https://www.bocachicarestaurant.com/",
   "slug": "boca-chica-jackson-heights",
-  "at": "2026-10-20T13:04:33.043Z",
+  "at": "2026-10-20T14:01:29.520Z",
   "status": "offers",
   "read": [
    {
@@ -3573,7 +3567,7 @@
   "hood": "Lower East Side",
   "source": "https://www.bonnievee.com/happy-hour",
   "slug": "bonnie-vee-nolita",
-  "at": "2026-10-20T13:04:17.920Z",
+  "at": "2026-10-20T14:01:12.240Z",
   "status": "passage",
   "read": [
    {
@@ -3620,7 +3614,7 @@
   "hood": "SoHo",
   "source": "https://boqueriarestaurant.com/location/nyc/soho/",
   "slug": "boqueria-soho-soho",
-  "at": "2026-10-20T13:04:37.845Z",
+  "at": "2026-10-20T14:01:34.620Z",
   "status": "passage",
   "read": [
    {
@@ -3629,15 +3623,15 @@
     "chars": 8471
    },
    {
-    "from": "page",
-    "url": "https://boqueriarestaurant.com/",
-    "chars": 7525
-   },
-   {
     "from": "image",
     "url": "https://boqueriarestaurant.com/wp-content/uploads/2021/08/4-events.jpg",
     "chars": 0,
     "err": "no text"
+   },
+   {
+    "from": "page",
+    "url": "https://boqueriarestaurant.com/",
+    "chars": 7525
    }
   ],
   "stored": {
