@@ -13,6 +13,7 @@
  */
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
+import dealReviews from '../data/deal-reviews.json';
 
 const SUPABASE_URL = 'https://zqfscuwkxcoktpjhaebv.supabase.co';
 const PUBLIC_KEY = 'sb_publishable_JxdYGXYsOzPNAC9avS8wfA_SExSJIHc'; // read-only, RLS-limited
@@ -179,11 +180,33 @@ function dedupe(bars: Bar[]): Bar[] {
 }
 const host = (u: string) => { try { return new URL(u).host.replace(/^www\./, ''); } catch { return u; } };
 
+/**
+ * Deals read from a bar's own menu (page, PDF or menu image) by scripts/deal-extract.mjs and checked
+ * item by item against the quoted passage (data/deal-reviews.json). One applies only while the
+ * database row still has no offers: once the deal is written there, the database wins.
+ */
+interface DealReview {
+  slug: string; offers: { item: string; price: string }[]; windows?: Window[];
+  source: string; read_at: string; quote: string;
+}
+function withReview(b: RawBar, r: DealReview | undefined): RawBar {
+  if (!r || !b.hh || (b.hh.offers ?? []).length) return b;
+  const windows = r.windows?.length ? r.windows : undefined;
+  return {
+    ...b, hh_source: r.source, hh_checked: r.read_at,
+    // an earlier re-read of the old source page says nothing about the menu read here
+    hh_recheck: b.hh_recheck && b.hh_recheck.at > r.read_at ? b.hh_recheck : null,
+    hh: { ...b.hh, offers: r.offers.map((o) => ({ ...o, kind: 'fixed' })), deal_text: r.quote,
+      ...(windows ? { windows, days: DAYS.filter((d) => windows.some((w) => w.days.includes(d))), start: windows[0].start, end: windows[0].end } : {}) },
+  };
+}
+
 let _bars: Promise<Bar[]> | null = null;
 export function allBars(): Promise<Bar[]> {
   _bars ??= (async () => {
     const raw = FIXTURE ? fixture<RawBar[]>('bars.json') : await rest<RawBar>('site_bars?select=*&order=slug');
-    return dedupe(raw.map(clean).filter((b): b is Bar => b !== null));
+    const reviews = new Map((dealReviews as DealReview[]).map((r) => [r.slug, r]));
+    return dedupe(raw.map((b) => clean(withReview(b, reviews.get(b.slug)))).filter((b): b is Bar => b !== null));
   })();
   return _bars;
 }

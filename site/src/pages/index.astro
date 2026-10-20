@@ -8,6 +8,7 @@ import BarCard from '../components/BarCard.astro';
 import PartyCard from '../components/PartyCard.astro';
 import HomeMap from '../components/HomeMap.astro';
 import Newsletter from '../components/Newsletter.astro';
+import QuickPick from '../components/QuickPick.astro';
 import { allBars, allHoods, partyData, venueOf, landmarks, photoOf, creditShort } from '../lib/data';
 import { allGuides, guideCover } from '../lib/guides';
 import { stats } from '../lib/stats';
@@ -74,6 +75,8 @@ const barChips = [
     <h2 id="moods-h" class="sr">What are you in the mood for?</h2>
     {moods.map((m) => <a class:list={['mood', m.cls]} href={m.href}><span class="e" aria-hidden="true">{m.e}</span><span class="t">{m.t}</span></a>)}
   </nav>
+
+  <QuickPick />
 
   <section class="section rail" data-rail="bars" data-lists={[...lists.keys()].join(",")} aria-labelledby="rb-h">
     <div class="rail-head">

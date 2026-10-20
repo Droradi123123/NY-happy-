@@ -1,0 +1,77 @@
+---
+/**
+ * Three taps to a few good happy hours: when (now or a time today), where (a neighborhood or near
+ * me) and budget. scripts/quickpick.ts filters /data/bars.json with the explorer's own rules and
+ * shows the top 3, deals read in the last 30 days first; when nothing matches it says which choice
+ * it loosened. Without JavaScript the form submits to the full list with the same filters.
+ */
+import { allBars, allHoods } from '../lib/data';
+
+const bars = await allBars();
+const counts = new Map<string, number>();
+for (const b of bars) counts.set(b.hoodSlug, (counts.get(b.hoodSlug) ?? 0) + 1);
+const BORO = ['Manhattan', 'Brooklyn', 'Queens', 'The Bronx', 'Staten Island'];
+const hoods = (await allHoods()).filter((h) => (counts.get(h.slug) ?? 0) >= 3);
+const groups = BORO.map((bo) => ({ bo, hoods: hoods.filter((h) => h.borough === bo).sort((a, b) => a.name.localeCompare(b.name)) })).filter((g) => g.hoods.length);
+const TIMES = [['now', 'Now'], ['1020', '5pm'], ['1080', '6pm'], ['1140', '7pm'], ['1260', '9pm']];
+const BUDGET = [['', 'Any price'], ['10', 'Drinks $10 or less'], ['7', '$7 or less']];
+---
+<section class="qp card" aria-labelledby="qp-h" data-qp>
+  <h2 id="qp-h">Find a happy hour in three taps</h2>
+  <form action="/happy-hours" method="get" class="qp-form">
+    <input type="hidden" name="day" value="today" />
+    <fieldset><legend>When, today</legend>
+      <div class="qp-chips">{TIMES.map(([v, l], i) => <label class="qp-chip"><input type="radio" name="time" value={v} checked={i === 0} /><span>{l}</span></label>)}</div>
+    </fieldset>
+    <fieldset><legend>Where</legend>
+      <div class="qp-where">
+        <label class="sr" for="qp-hood">Neighborhood</label>
+        <select id="qp-hood" name="hood">
+          <option value="">Anywhere in NYC</option>
+          {groups.map((g) => <optgroup label={g.bo}>{g.hoods.map((h) => <option value={h.slug} data-bo={h.borough}>{h.name}</option>)}</optgroup>)}
+        </select>
+        <button type="button" class="qp-near" data-qp-near hidden>Near me</button>
+      </div>
+    </fieldset>
+    <fieldset><legend>Budget</legend>
+      <div class="qp-chips">{BUDGET.map(([v, l], i) => <label class="qp-chip"><input type="radio" name="max" value={v} checked={i === 0} /><span>{l}</span></label>)}</div>
+    </fieldset>
+    <noscript><button class="btn" type="submit">Show happy hours</button></noscript>
+  </form>
+  <div class="qp-out" data-qp-out aria-live="polite"></div>
+</section>
+<script>import '../scripts/quickpick';</script>
+<style>
+  .qp { margin: 18px 0 8px; padding: 18px; }
+  .qp h2 { margin: 0 0 12px; font-size: 22px; }
+  .qp-form { display: grid; gap: 12px; }
+  @media (min-width: 900px) { .qp-form { grid-template-columns: 1.3fr 1fr 1fr; align-items: start; } }
+  .qp fieldset { border: 0; padding: 0; margin: 0; min-width: 0; }
+  .qp legend { font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 6px; padding: 0; }
+  .qp-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .qp-chip input { position: absolute; opacity: 0; pointer-events: none; }
+  .qp-chip span { display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border: 1.5px solid var(--line); border-radius: 999px; background: #fff; font-weight: 700; font-size: 15px; cursor: pointer; }
+  .qp-chip input:checked + span { background: var(--brand); border-color: var(--brand); color: #fff; }
+  .qp-chip input:focus-visible + span { outline: 3px solid var(--brand); outline-offset: 2px; }
+  .qp-chip[hidden] { display: none; }
+  .qp-where { display: flex; gap: 8px; flex-wrap: wrap; }
+  .qp-where select { flex: 1 1 200px; min-height: 42px; border: 1.5px solid var(--line); border-radius: 10px; padding: 0 10px; font: inherit; background: #fff; }
+  .qp-near { min-height: 42px; border: 1.5px solid var(--line); border-radius: 10px; background: #fff; font: inherit; font-weight: 700; padding: 0 12px; cursor: pointer; }
+  .qp-near[aria-pressed='true'] { background: var(--brand); color: #fff; border-color: var(--brand); }
+  .qp-out { margin-top: 14px; min-height: 250px; }
+  .qp-out:empty { display: none; }
+</style>
+<style is:global>
+  .qp-note { margin: 0 0 8px; font-size: 15px; color: var(--muted, #555); }
+  .qp-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+  @media (min-width: 900px) { .qp-list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .qp-row a { display: block; height: 100%; border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 12px; text-decoration: none; color: inherit; background: #fff; }
+  .qp-row a:hover { border-color: var(--brand); }
+  .qp-row b { display: block; font-size: 17px; }
+  .qp-row .qp-hood { font-size: 14px; color: var(--muted, #555); }
+  .qp-row .qp-deal { display: block; margin-top: 4px; font-weight: 700; }
+  .qp-row .qp-deal.none { font-weight: 400; color: var(--muted, #555); }
+  .qp-row .qp-meta { display: block; margin-top: 4px; font-size: 14px; }
+  .qp-row .qp-on { color: var(--green, #0B7A4B); font-weight: 700; }
+  .qp-all { display: inline-block; margin-top: 10px; font-weight: 800; }
+</style>
