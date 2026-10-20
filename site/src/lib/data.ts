@@ -469,3 +469,22 @@ export function rechecks(): Promise<Map<string, Recheck>> {
   })();
   return _rechecks;
 }
+
+/**
+ * A bar's page copy was written before the Oct 15, 2026 address check moved some bars to the
+ * neighborhood the City's record gives (Hartley's: "Prospect Heights" in the copy, Clinton Hill in
+ * the record). Until the copy is rewritten, a sentence that places the bar "in <old neighborhood>"
+ * reads the record's neighborhood instead. Only applies when the copy never names the right one.
+ */
+export function alignHood(text: string, b: { hood: string }, hoodNames: string[]): string {
+  if (!text || !b.hood || text.includes(b.hood)) return text;
+  let out = text;
+  for (const h of hoodNames) {
+    if (h === b.hood || h.length < 5 || b.hood.includes(h) || h.includes(b.hood)) continue;
+    const re = new RegExp(`\\b(in|of|on the edge of)( the)? ${h.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}\\b`, 'g');
+    out = out.replace(re, (_m, prep: string) => `${prep} ${['Lower East Side', 'Upper East Side', 'Upper West Side', 'East Village', 'West Village', 'Financial District'].includes(b.hood) ? 'the ' : ''}${b.hood}`);
+  }
+  return out;
+}
+/** does the copy place the bar in a neighborhood other than its record's (for the quality report) */
+export const hoodMismatch = (text: string, b: { hood: string }, hoodNames: string[]) => alignHood(text, b, hoodNames) !== text;

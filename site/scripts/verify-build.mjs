@@ -126,4 +126,9 @@ if (uniq.length) {
   console.error(`✗ verify-build: ${uniq.length} problem(s)\n` + uniq.slice(0, 60).map((x) => `  - ${x}`).join('\n'));
   process.exit(1);
 }
+// data quality, from /data/quality.json (built from the live records): printed on every build
+try {
+  const q = JSON.parse(readFileSync(join(DIST, 'data', 'quality.json'), 'utf-8'));
+  console.log(`  data quality: ${q.useful.pct}% of ${q.bars} bars have a deal read in the last ${q.fresh_days} days · no deal ${q.no_deal.pct}% · read over ${q.fresh_days} days ago ${q.stale.pct}% · both ${q.no_deal_and_stale.pct}% · copy names another neighborhood ${q.copy_names_other_hood.count}`);
+} catch { /* fixture builds may not have it */ }
 console.log(`✓ verify-build: ${pages.length} pages, ${inMap.size} in the sitemap, ${seen.kw.size} target keywords (one per page, each in title + h1 + description), no isolation leaks, no broken internal links`);

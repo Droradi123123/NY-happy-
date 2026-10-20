@@ -43,7 +43,12 @@ export const daySlug = (d: Day) => DAY_SLUG[d];
 
 /** best first: the deal spelled out, then the cheapest drink, then the most recently checked */
 // the same order as the explorer's default sort (scripts/explorer.ts), so its first paint keeps these cards
-export const rank = (a: Bar, b: Bar) => Number(b.dealKnown) - Number(a.dealKnown) || (a.cheapestDrink ?? 99) - (b.cheapestDrink ?? 99) || (b.checked?.slice(0, 10) ?? '').localeCompare(a.checked?.slice(0, 10) ?? '') || a.name.localeCompare(b.name);
+// most useful first: a published deal read on the bar's own site in the last 30 days, then a deal read
+// earlier, then times only (fresh before stale); then cheapest drink, most recently checked, name
+export const FRESH_DAYS = 30;
+const freshSince = () => new Date(Date.now() - FRESH_DAYS * 86400e3).toISOString().slice(0, 10);
+export const tier = (b: Bar, since = freshSince()) => (b.dealKnown ? 0 : 2) + ((b.checked?.slice(0, 10) ?? '') >= since ? 0 : 1);
+export const rank = (a: Bar, b: Bar) => tier(a) - tier(b) || (a.cheapestDrink ?? 99) - (b.cheapestDrink ?? 99) || (b.checked?.slice(0, 10) ?? '').localeCompare(a.checked?.slice(0, 10) ?? '') || a.name.localeCompare(b.name);
 
 let cache: Promise<ListPage[]> | null = null;
 export function listPages(): Promise<ListPage[]> {

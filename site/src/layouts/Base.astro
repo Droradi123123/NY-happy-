@@ -110,11 +110,12 @@ const tabs = [
       document.addEventListener('click', function (e) {
         var a = e.target.closest && e.target.closest('a[href]'); if (!a) return;
         var h = a.getAttribute('href') || '', u; try { u = new URL(h, location.href); } catch (_) { return; }
-        var kind = /^tel:/.test(h) ? 'call_click' : u.host === location.host ? null
+        var role = a.getAttribute('data-ev');
+        var kind = /^tel:/.test(h) ? 'call_click' : u.host === location.host ? (role ? 'internal_click' : null)
           : /dice\.fm|eventbrite|ra\.co|shotgun|joonbug|posh\.vip|fever/.test(u.host) ? 'ticket_click'
           : /resy|opentable|sevenrooms|tock/.test(u.host) ? 'booking_click'
           : /google\.[a-z.]+\/maps|maps\.google\.|maps\.apple|maps\.app\.goo\.gl/.test(u.href) ? 'directions_click' : 'outbound_click';
-        if (kind) gtag('event', kind, { link_domain: u.host, page: location.pathname });
+        if (kind) gtag('event', kind, { link_domain: u.host, page: location.pathname, link_role: role || undefined, page_type: location.pathname.split('/')[1] || 'home' });
       }, true);
     </script>
   )}

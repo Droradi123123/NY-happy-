@@ -4,7 +4,7 @@ import BarCard from '../../components/BarCard.astro';
 import Line from '../../components/Line.astro';
 import MiniMap from '../../components/MiniMap.astro';
 import Photo from '../../components/Photo.astro';
-import { allBars, googleInfo, placeUrl, placePhoto, photoNote, copyOf, paragraphs, type PageCopy, DAYS, DAY_NAME, daysLabel, windowLabel, dealLabel, fmtDate, meters, type Bar, type GoogleInfo } from '../../lib/data';
+import { allBars, googleInfo, placeUrl, placePhoto, photoNote, copyOf, paragraphs, alignHood, type PageCopy, DAYS, DAY_NAME, daysLabel, windowLabel, dealLabel, fmtDate, meters, type Bar, type GoogleInfo } from '../../lib/data';
 import { hoodHref } from '../../lib/lists';
 import { barTitle, barKeyword, barDescription, barJsonLd, crumbs, faqLd, SITE } from '../../lib/seo';
 import { venues as actVenues, trivia as actTrivia, bingo as actBingo, games as actGames, sourceLabel, hhOverlap, GAME_NAME } from '../../lib/activities';
@@ -17,7 +17,11 @@ export async function getStaticPaths() {
   const google = await googleInfo();
   return Promise.all(bars.map(async (bar) => ({ params: { slug: bar.slug }, props: { bar, bars, hoodUrl: await hoodHref(bar), branch: (names.get(bar.name.toLowerCase()) ?? 0) > 1, g: google.get(`bar:${bar.slug}`) ?? null, copy: await copyOf('bar', bar.slug) } })));
 }
-const { bar: b, bars, hoodUrl, branch, g, copy } = Astro.props as { bar: Bar; bars: Bar[]; hoodUrl: string; branch: boolean; g: GoogleInfo | null; copy: PageCopy | null };
+const { bar: b, bars, hoodUrl, branch, g, copy: rawCopy } = Astro.props as { bar: Bar; bars: Bar[]; hoodUrl: string; branch: boolean; g: GoogleInfo | null; copy: PageCopy | null };
+// copy written before the address check can name the bar's old neighborhood: read the record's instead
+const hoodNames = [...new Set(bars.map((x) => x.hood).filter(Boolean))];
+const fixHood = (t: string) => alignHood(t, b, hoodNames);
+const copy = rawCopy ? { ...rawCopy, intro: fixHood(rawCopy.intro), sections: rawCopy.sections.map((x) => ({ ...x, body: fixHood(x.body) })), faq: (rawCopy.faq ?? []).map((f) => ({ q: f.q, a: fixHood(f.a) })) } : null;
 const url = `${SITE}/bars/${b.slug}`;
 const deal = dealLabel(b);
 const pp = placePhoto('bar', b.slug, b.hood, b.hoodSlug);
@@ -26,6 +30,12 @@ const food = b.offers.filter((o) => o.kind === 'food');
 const near = b.onMap
   ? bars.filter((x) => x.slug !== b.slug && x.onMap).map((x) => ({ x, m: meters({ lat: b.lat!, lng: b.lng! }, { lat: x.lat!, lng: x.lng! }) })).filter((n) => n.m < 900).sort((p, q) => p.m - q.m).slice(0, 6)
   : bars.filter((x) => x.slug !== b.slug && x.hoodSlug === b.hoodSlug).slice(0, 6).map((x) => ({ x, m: null }));
+// no published deal: the three closest bars that publish one on a day this bar has happy hour
+const shared = (x: Bar) => x.days.some((d) => b.days.includes(d));
+const withDeal = !b.dealKnown && b.onMap
+  ? bars.filter((x) => x.slug !== b.slug && x.onMap && x.dealKnown && !x.doubt && shared(x)).map((x) => ({ x, m: meters({ lat: b.lat!, lng: b.lng! }, { lat: x.lat!, lng: x.lng! }) })).filter((n) => n.m < 1000).sort((p, q) => p.m - q.m).slice(0, 3)
+  : [];
+const stale = !!b.checked && Date.now() - new Date(b.checked).getTime() > 30 * 86400e3;
 const host = (u: string) => { try { return new URL(u).host.replace(/^www\./, ''); } catch { return u; } };
 const mapsUrl = g ? placeUrl(b.name, g.place_id) : b.onMap ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${b.name} ${b.address ?? ''}`)}` : null;
 // trivia, music bingo and games published for this bar (lib/activities: only reviewed public records)
@@ -51,10 +61,18 @@ for (const f of copy?.faq ?? []) if (!faq.some((x) => x.q.toLowerCase() === f.q.
 
       <section class="dealcard" aria-label="Happy hour">
         <p class="deal-big">{deal ?? 'Happy hour times are published; the deal is not listed'}</p>
+        {!deal && (b.source || b.website) && <p><a class="btn" href={b.source ?? b.website!} rel="nofollow noopener" target="_blank" data-ev="menu">See what's on the happy hour at {host(b.source ?? b.website!)} →</a></p>}
         <ul class="windows">
           {b.windows.map((w) => <li><strong>{daysLabel(w.days)}</strong> {windowLabel(w)}<span class="chip badge-live today" data-today={w.days.join(' ')} hidden>Today</span></li>)}
         </ul>
-        <p class="checked-line">{confirmed ? <>Deal last confirmed {fmtDate(b.checked)} on </> : <>Deal as published on </>}{b.source ? <a href={b.source} rel="nofollow noopener" target="_blank">{host(b.source)}</a> : "the bar's own website"}{confirmed ? '' : <>, read {fmtDate(b.checked)}</>}. Deals change: confirm before you go.</p>
+        <p class="checked-line">{confirmed ? <>Deal last confirmed {fmtDate(b.checked)} on </> : <>Deal as published on </>}{b.source ? <a href={b.source} rel="nofollow noopener" target="_blank" data-ev="source">{host(b.source)}</a> : "the bar's own website"}{confirmed ? '' : <>, read {fmtDate(b.checked)}</>}. Deals change: confirm before you go.</p>
+        {stale && <p class="doubt">We last read this happy hour on {fmtDate(b.checked)}, more than 30 days ago. It is due for a re-check: confirm with the bar before you go.</p>}
+        {withDeal.length > 0 && (
+          <div class="alt-deals">
+            <p class="alt-h">Nearby, with the deal published:</p>
+            <ul>{withDeal.map(({ x, m }) => <li><a href={`/bars/${x.slug}`} data-ev="alt_deal">{x.name}</a> <span class="small">· {dealLabel(x)} · {x.windows.map((w) => `${daysLabel(w.days)} ${windowLabel(w)}`).join(', ')} · {m < 160 ? `${Math.round(m * 3.28 / 10) * 10} ft` : `${(m / 1609).toFixed(1)} mi`}</span></li>)}</ul>
+          </div>
+        )}
         {b.doubt === 'changed' && <p class="doubt">When we re-read the bar's page on {fmtDate(b.recheck!.at)}, we could not find these prices there. They may have changed: check with the bar before you go.</p>}
         {b.recheck && b.checked && b.recheck.at.slice(0, 10) > b.checked.slice(0, 10) && (b.recheck.verdict === 'inconclusive' || b.recheck.verdict === 'unreachable') && <p class="checked-line">We tried to re-read it on {fmtDate(b.recheck.at)}, but {b.recheck.verdict === 'unreachable' ? 'the page did not load' : 'the prices there are not in plain text (often a picture of the menu)'}, so the date above is still the last time we saw this deal.</p>}
         {b.doubt === 'partial' && <p class="doubt">When we re-read the bar's page on {fmtDate(b.recheck!.at)}, it still showed {b.recheck!.found!.map((x) => `$${x}`).join(', ')}, but we could not find {b.recheck!.missing!.map((x) => `$${x}`).join(', ')}.</p>}
@@ -105,18 +123,18 @@ for (const f of copy?.faq ?? []) if (!faq.some((x) => x.q.toLowerCase() === f.q.
       <section class="section">
         <h2>Before you go</h2>
         <dl class="facts">
-          {b.address && <><dt>Address</dt><dd>{b.address}{mapsUrl && <> · <a href={mapsUrl} rel="noopener" target="_blank">Directions</a></>}</dd></>}
+          {b.address && <><dt>Address</dt><dd>{b.address}{mapsUrl && <> · <a href={mapsUrl} rel="noopener" target="_blank" data-ev="directions">Directions</a></>}</dd></>}
           {b.subway && <><dt>Subway</dt><dd>{b.subway.lines.map((l) => <Line l={l} />)} {b.subway.station}, {b.subway.walk_min} min walk{b.subway.accessible ? ' (accessible station)' : ''}</dd></>}
           {b.hours && <><dt>Open</dt><dd><ul class="hours">{DAYS.filter((d) => b.hours![d]).map((d) => <li><span>{DAY_NAME[d]}</span> {b.hours![d]!.split('-').map((t) => t).join('–')}</li>)}</ul></dd></>}
-          {b.phone && <><dt>Phone</dt><dd><a href={`tel:${b.phone.replace(/[^\d+]/g, '')}`}>{b.phone}</a></dd></>}
+          {b.phone && <><dt>Phone</dt><dd><a href={`tel:${b.phone.replace(/[^\d+]/g, '')}`} data-ev="phone">{b.phone}</a></dd></>}
           {b.priceRange && <><dt>Price</dt><dd>{b.priceRange}</dd></>}
           {b.licence && <><dt>Licence</dt><dd>{b.licence} (NY State Liquor Authority, active)</dd></>}
         </dl>
         <div class="actions">
-          {b.booking && <a class="btn" href={b.booking} rel="noopener" target="_blank">Book a table</a>}
-          {b.website && <a class="btn ghost" href={b.website} rel="noopener" target="_blank">Website</a>}
+          {b.booking && <a class="btn" href={b.booking} rel="noopener" target="_blank" data-ev="booking">Book a table</a>}
+          {b.website && <a class="btn ghost" href={b.website} rel="noopener" target="_blank" data-ev="website">Website</a>}
           {g && <a class="btn ghost" href={placeUrl(b.name, g.place_id)} rel="noopener" target="_blank">Google Maps</a>}
-          {b.instagram && <a class="btn ghost" href={b.instagram} rel="noopener" target="_blank">Instagram</a>}
+          {b.instagram && <a class="btn ghost" href={b.instagram} rel="noopener" target="_blank" data-ev="instagram">Instagram</a>}
         </div>
       </section>
 
@@ -152,6 +170,10 @@ for (const f of copy?.faq ?? []) if (!faq.some((x) => x.q.toLowerCase() === f.q.
 
 <style>
   .dealcard { background: linear-gradient(135deg, var(--brand-soft) 0%, #FFF 100%); border: 1px solid var(--line); border-radius: 22px; padding: 24px; margin: 18px 0 8px; }
+  .alt-deals { margin: 12px 0 4px; padding: 12px 14px; background: #fff; border: 1px solid var(--line); border-radius: 14px; }
+  .alt-deals .alt-h { font-weight: 700; margin: 0 0 6px; }
+  .alt-deals ul { margin: 0; padding-left: 18px; }
+  .alt-deals li { margin: 0 0 4px; }
   .deal-big { font-size: clamp(24px, 3.4vw, 34px); font-weight: 800; line-height: 1.12; margin: 0 0 12px; letter-spacing: -0.02em; }
   .windows { list-style: none; padding: 0; margin: 0 0 12px; display: grid; gap: 6px; font-size: 19px; }
   .today { margin-left: 8px; font-size: 13px; }

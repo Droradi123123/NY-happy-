@@ -102,10 +102,14 @@ export function filterBars(rows: Row[], st: State, here: [number, number] | null
     sort === 'near' ? (a._dist ?? 1e9) - (b._dist ?? 1e9)
     : sort === 'cheap' ? (a.c ?? 99) - (b.c ?? 99)
     : sort === 'ending' ? (a._until ?? 9e9) - (b._until ?? 9e9)
-    // the server's order (lib/lists.ts rank): deal listed, cheapest drink, most recently checked, name
-    : (b.f.includes('deal') ? 1 : 0) - (a.f.includes('deal') ? 1 : 0) || (a.c ?? 99) - (b.c ?? 99) || (b.ck ?? '').localeCompare(a.ck ?? '') || a.n.localeCompare(b.n));
+    // the server's order (lib/lists.ts rank): deal listed and read in the last 30 days first, then
+    // cheapest drink, most recently checked, name
+    : tier(a) - tier(b) || (a.c ?? 99) - (b.c ?? 99) || (b.ck ?? '').localeCompare(a.ck ?? '') || a.n.localeCompare(b.n));
   return out;
 }
+
+const freshSince = new Date(Date.now() - 30 * 86400e3).toISOString().slice(0, 10);
+const tier = (r: Row) => (r.f.includes('deal') ? 0 : 2) + ((r.ck ?? '') >= freshSince ? 0 : 1);
 
 function inWindow(r: Row, when: string) {
   const now = nyNow();
@@ -291,6 +295,8 @@ export async function initExplorer(root: HTMLElement) {
       else st[k] = st[k] === v ? '' : v;
       if (k === 'day' && st.day !== 'now' && st.time === undefined) st.time = '';
       render();
+      // which filters people use, and whether they leave them with something to choose from
+      (window as any).gtag?.('event', 'filter_use', { list: kind, filter: k, value: v, results: last.length, page: location.pathname });
       return;
     }
     if (t.closest('[data-reset]')) { st = { ...preset }; here = null; render(); return; }
