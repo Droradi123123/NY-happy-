@@ -1,0 +1,50 @@
+# Deal extraction for bars listed without a deal: re-reads each bar's own page, its PDF menus and its
+# menu images (OCR), and commits site/rechecks/deal-candidates.json with the happy-hour passage quoted
+# and suggested item/price pairs. Run by hand; nothing is published from it until each candidate is
+# reviewed against its quote. No secrets: it reads public data only.
+name: Extract deals (menus, PDFs, images)
+
+on:
+  workflow_dispatch:
+    inputs:
+      max:
+        description: 'How many bars to read (never-read and oldest first)'
+        default: '400'
+
+concurrency:
+  group: deal-extract
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  extract:
+    runs-on: ubuntu-latest
+    timeout-minutes: 55
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Tools
+        run: |
+          sudo apt-get update -q >/dev/null
+          sudo apt-get install -y -q poppler-utils tesseract-ocr tesseract-ocr-eng >/dev/null
+          npm install --no-save --no-audit --no-fund playwright-core@1.56.1
+      - name: Parser tests
+        run: node --test scripts/deal-parse.test.mjs
+      - name: Extract
+        env:
+          EXTRACT_MAX: ${{ inputs.max || '400' }}
+        run: node scripts/deal-extract.mjs
+      - name: Commit the results
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add rechecks/deal-candidates.json
+          git commit -m "Deal extraction candidates: $(date -u +%F)" || exit 0
+          for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done
