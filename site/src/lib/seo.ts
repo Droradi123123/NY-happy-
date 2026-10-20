@@ -12,14 +12,26 @@ const cut = (s: string, n = 155) => { if (s.length <= n) return s; const c = s.s
 
 /** the search phrase a bar page targets; a chain's branches add their neighborhood */
 export const barKeyword = (b: Bar, branch = false) => `${b.name}${branch ? ` ${b.hood}` : ''} happy hour`;
-export function barTitle(b: Bar, branch = false): string {
+/** "4pm–7pm" -> "4–7pm" when both ends share am/pm (titles have about 60 characters) */
+const compactWindow = (w: Bar['windows'][number]) => windowLabel(w).replace(/^(\d{1,2}(?::\d{2})?)(am|pm)–(\d{1,2}(?::\d{2})?)\2$/, '$1–$3$2');
+const whenLabel = (b: Bar) => (b.windows[0] ? `${daysLabel(b.windows[0].days)} ${compactWindow(b.windows[0])}` : '');
+/** the deal in a few words for a title: the bar's own short deal, else its cheapest drink */
+const shortDeal = (b: Bar) => {
   const deal = dealLabel(b);
-  const short = deal && deal.length <= 22 ? deal : null;
-  const when = b.windows[0] ? `${daysLabel(b.windows[0].days)} ${windowLabel(b.windows[0])}` : '';
+  if (deal && deal.length <= 22) return deal;
+  return b.cheapestDrink !== null ? `drinks from $${b.cheapestDrink % 1 ? b.cheapestDrink.toFixed(2) : b.cheapestDrink}` : null;
+};
+// people search "<bar> menu" as often as "<bar> happy hour": "Happy Hour Menu" only when the page lists the items
+const hasMenu = (b: Bar) => b.offers.length >= 2;
+export function barTitle(b: Bar, branch = false): string {
+  const short = shortDeal(b);
+  const when = whenLabel(b);
   const name = branch ? `${b.name} ${b.hood}` : b.name;
+  const hh = hasMenu(b) ? 'Happy Hour Menu' : 'Happy Hour';
   return fit([
+    short ? `${name} ${hh}: ${short}, ${when}` : '',
     short ? `${name} Happy Hour: ${short}, ${when}` : '',
-    short ? `${name} Happy Hour: ${short}` : '',
+    short ? `${name} ${hh}: ${short}` : '',
     branch ? '' : `${name} Happy Hour, ${b.hood}: ${when}`,
     `${name} Happy Hour: ${when}`,
     `${name} Happy Hour: Times and Deals`,
@@ -28,12 +40,15 @@ export function barTitle(b: Bar, branch = false): string {
 }
 export function barDescription(b: Bar): string {
   const deal = dealLabel(b);
-  const bits = [
-    `${b.name} in ${b.hood} has happy hour ${b.windows.map((w) => `${daysLabel(w.days)} ${windowLabel(w)}`).join(', ')}.`,
-    deal ? `The deal: ${deal}.` : 'Times are published; the deal is not listed.',
+  const sched = b.windows.map((w) => `${daysLabel(w.days)} ${compactWindow(w)}`).join(', ');
+  const menu = b.offers.slice(0, 3).map((o) => `${o.item} ${o.price}`).join(', ');
+  const bits = hasMenu(b)
+    ? [`Happy hour menu at ${b.name}, ${b.hood}: ${menu}${b.offers.length > 3 ? ' and more' : ''}.`, `${sched}.`]
+    : [`${b.name} in ${b.hood} has happy hour ${sched}.`, deal ? `The deal: ${deal}.` : 'Times are published; the deal is not listed.'];
+  bits.push(
     b.subway ? `${b.subway.walk_min} min from ${b.subway.station} (${b.subway.lines.join(', ')}).` : '',
     b.checked ? `Checked ${new Date(b.checked).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}.` : '',
-  ];
+  );
   return cut(bits.filter(Boolean).join(' '));
 }
 

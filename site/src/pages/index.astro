@@ -13,6 +13,9 @@ import { allGuides, guideCover } from '../lib/guides';
 import { stats } from '../lib/stats';
 import { SITE } from '../lib/seo';
 import { listPages } from '../lib/lists';
+import { halloweenPages } from '../lib/halloween';
+import { trivia, DAY_PAGES, daySlugOf } from '../lib/activities';
+import { DAY_NAME } from '../lib/data';
 
 const bars = await allBars();
 const s = stats(bars);
@@ -25,6 +28,8 @@ const picks = bars.filter((b) => b.dealKnown && b.cheapestDrink !== null).sort((
 const halloween = parties.filter((p) => p.themes.includes('halloween'));
 const hwOn = halloween.length > 0 && new Date().toISOString().slice(0, 10) <= '2026-11-01';
 const hwPhoto = photoOf('page', 'halloween');
+const hwSubs = hwOn ? (await halloweenPages()).built.filter((b) => b.indexable) : [];
+const crawls = (await allGuides()).filter((g) => g.status === 'published' && g.slug.endsWith('-bar-crawl')).sort((a, b) => a.short.localeCompare(b.short));
 const upcoming = parties.slice(0, 10);
 const lm = (await landmarks()).slice(0, 8);
 const guides = (await allGuides()).filter((g) => g.status === 'published').sort((a, b) => b.updated.localeCompare(a.updated)).slice(0, 6);
@@ -97,6 +102,11 @@ const barChips = [
       {hwPhoto && <span class="hw-credit">{creditShort(hwPhoto)}</span>}
     </a>
   )}
+  {hwSubs.length > 0 && (
+    <nav class="section hw-subs" aria-label="Halloween parties by night, borough and kind">
+      <ul class="link-cloud">{hwSubs.map((b) => <li><a href={`/parties/halloween/${b.page.slug}`}>{b.page.short === 'Sat Oct 31' || b.page.short === 'Fri Oct 30' ? `Halloween ${b.page.short}` : `${b.page.short} Halloween`}</a></li>)}</ul>
+    </nav>
+  )}
 
   {upcoming.length > 0 && (
     <section class="section rail" data-rail="parties" aria-labelledby="rp-h">
@@ -150,6 +160,16 @@ const barChips = [
           </article>
         ))}
       </div>
+    </section>
+  )}
+
+  {(crawls.length > 0 || trivia.length > 0) && (
+    <section class="section">
+      <h2>Bar crawls and trivia nights</h2>
+      {crawls.length > 0 && <p class="small">Happy-hour bar crawls, each a short walk between bars whose deals overlap:</p>}
+      <ul class="link-cloud">{crawls.map((g) => <li><a href={`/blog/${g.slug}`}>{g.short.replace(/ bar crawl$/, '')}</a></li>)}</ul>
+      {trivia.length > 0 && <p class="small">{trivia.length} trivia nights at NYC bars, by night: <a href="/trivia">all trivia nights</a>.</p>}
+      <ul class="link-cloud">{DAY_PAGES.map((d) => <li><a href={`/trivia/${daySlugOf(d)}`}>{DAY_NAME[d]} trivia</a></li>)}</ul>
     </section>
   )}
 

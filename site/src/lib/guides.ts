@@ -200,6 +200,12 @@ export function allGuides(): Promise<Guide[]> {
       ...(p.table_id ? { table: p.table_id } : {}), ...(p.table_title ? { tableTitle: p.table_title } : {}), ...(p.min_rows ? { minRows: p.min_rows } : {}),
       method: p.method, related: p.related, intro: p.intro, picks: p.picks, route: p.route, faq: p.faq,
     }));
+    // Search Console (Oct 14-19, 2026): searchers want the answer itself, so it goes in the title.
+    // Kept here until the database is reachable again; then move it into the post and delete this.
+    const TITLE_FIX: Record<string, { title: string }> = {
+      'what-time-do-bars-close-in-nyc': { title: 'What Time Do Bars Close in NYC? 4 a.m. Last Call, Explained' },
+    };
+    for (const g of db) if (TITLE_FIX[g.slug] && /4 a\.m\./.test(g.description)) g.title = TITLE_FIX[g.slug].title;
     const taken = new Set([...own, ...db.map((g) => g.slug)]);
     const { autoGuides } = await import('./autoGuides');
     return [...GUIDES, ...db, ...(await autoGuides()).filter((g) => !taken.has(g.slug))];

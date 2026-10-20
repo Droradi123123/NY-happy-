@@ -8,7 +8,7 @@ import Base from '../../layouts/Base.astro';
 import Explorer from '../../components/Explorer.astro';
 import BarCard from '../../components/BarCard.astro';
 import Photo from '../../components/Photo.astro';
-import { checkedRange, allBars, allHoods, ampm, dealLabel, scheduleLabel, fmtDate, photoOf, placePhoto, photoNote, boroughSlug, copyOf, paragraphs, readMinutes, DAY_NAME, type Bar, type Day, type PageCopy } from '../../lib/data';
+import { checkedRange, allBars, allHoods, ampm, dealLabel, scheduleLabel, fmtDate, photoOf, placePhoto, photoNote, boroughSlug, copyOf, paragraphs, readMinutes, DAY_NAME, windowLabel, type Bar, type Day, type PageCopy } from '../../lib/data';
 import { listPages, type ListPage } from '../../lib/lists';
 import { stats, plural } from '../../lib/stats';
 import { crumbs, faqLd, itemList } from '../../lib/seo';
@@ -50,6 +50,11 @@ const lede = [
   page.kind === 'hood' && topLines.length ? `Most are near the ${topLines.join(', ')} trains.` : '',
 ].filter(Boolean).join(' ');
 
+// "sunday happy hour williamsburg": on a neighborhood page, the bars with a Saturday or Sunday happy hour
+const weekend = page.kind === 'hood' ? (['sat', 'sun'] as Day[]).map((d) => ({
+  d, bars: list.map((b) => ({ b, ws: b.windows.filter((w) => w.days.includes(d)) })).filter((x) => x.ws.length > 0),
+})) : [];
+const slot = (x: { b: Bar; ws: Bar['windows'] }) => `${x.b.name} (${x.ws.map(windowLabel).join(', ')})`;
 const base = page.label.replace(/ in NYC$/, '');
 const subject = page.kind === 'tag' ? base[0].toLowerCase() + base.slice(1) : base;
 const faq = [
@@ -58,6 +63,7 @@ const faq = [
   ...(page.kind === 'day' ? [{ q: `Is there happy hour on ${page.short} in NYC?`, a: `Yes. ${plural(s.n, 'bar')} we list run a happy hour on ${page.short}s${s.late ? `, and ${s.late} of them also have a late-night one` : ''}.` }] : []),
   ...(page.kind === 'borough' && topHoods.length ? [{ q: `Which ${page.short.replace(/^The /, '')} neighborhoods have the most happy hours?`, a: topHoods.map(([h, n]) => `${h} (${n})`).join(', ') + '.' }] : []),
   ...(page.kind !== 'tag' || page.slug !== 'late-night' ? [{ q: `Are there late-night ${subject}?`, a: s.late ? `Yes, ${plural(s.late, 'bar')} here ${s.late === 1 ? 'runs' : 'run'} a happy hour after 9pm.` : `None of the ones we list here run after 9pm. See all late-night happy hours in NYC.` }] : []),
+  ...weekend.map(({ d, bars }) => ({ q: `Is there a ${DAY_NAME[d]} happy hour in ${page.short}?`, a: bars.length ? `Yes: ${plural(bars.length, 'bar')} here ${bars.length === 1 ? 'runs' : 'run'} a happy hour on ${DAY_NAME[d]}s, including ${bars.slice(0, 3).map(slot).join('; ')}.` : `None of the bars we list in ${page.short} run a happy hour on ${DAY_NAME[d]}s.` })),
   { q: 'What does a happy hour drink really cost in NYC?', a: 'Add NYC sales tax (8.875%) and a tip (18 to 20% is usual) to the menu price. A $6 beer comes to about $7.75.' },
 ];
 // editorial picks: the prose is the writer's, the deal and hours next to it come from live data
@@ -122,6 +128,17 @@ const hoods = (await allHoods()).filter((h) => list.some((b) => b.hoodSlug === h
   <Explorer kind="bars" preset={page.preset} hide={page.kind === 'hood' ? ['where'] : []} hoods={hoods} heading={page.label}>
     {list.slice(0, 24).map((b, i) => <BarCard bar={b} eager={i < 2} />)}
   </Explorer>
+  {weekend.some((x) => x.bars.length > 0) && (
+    <section class="section" id="weekend">
+      <h2>Weekend happy hours in {page.short}</h2>
+      {weekend.filter((x) => x.bars.length > 0).map(({ d, bars }) => (
+        <>
+          <h3 class="h3">{DAY_NAME[d]} happy hours in {page.short} ({bars.length})</h3>
+          <ul class="all-list">{bars.map((x) => <li><a href={`/bars/${x.b.slug}`}>{x.b.name}</a><span class="small"> · {x.ws.map(windowLabel).join(', ')}{dealLabel(x.b) ? ` · ${dealLabel(x.b)}` : ''}</span></li>)}</ul>
+        </>
+      ))}
+    </section>
+  )}
   <section class="section">
     <h2>All {subject}{page.kind === 'hood' || page.kind === 'borough' ? '' : ' in NYC'} ({s.n})</h2>
     {!foldList ? (

@@ -131,7 +131,8 @@ function clean(b: RawBar): Bar | null {
       const price = off ? (o.kind === 'free' ? 'free' : `${o.price.trim()} off`) : o.price.trim();
       return { item: o.item.trim(), price, kind: DRINK.test(o.item) ? 'drink' as const : 'food' as const, dollars: off ? null : dollars(o.price) };
     });
-  const okDeal = (x: string | null) => (x && !/\$\s*\d{3,}/.test(x) ? x : null);
+  // a deal label is shown only when it says something ("$2 off", "half price"), never "yes" or "free item"
+  const okDeal = (x: string | null) => (x && !/\$\s*\d{3,}/.test(x) && /\d|half|2-for-1|two for one|bogo/i.test(x) ? x : null);
   // a later re-read of the bar's page that did not find a price takes it out of "cheapest" rankings
   const recheck = b.hh_recheck ?? null;
   const doubt = recheck && (recheck.verdict === 'changed' || recheck.verdict === 'partial') ? recheck.verdict : null;
@@ -280,7 +281,8 @@ export async function stations(min = 5): Promise<Station[]> {
 export const LANDMARKS = [
   { slug: 'times-square', name: 'Times Square', lat: 40.758, lng: -73.9855 },
   { slug: 'grand-central', name: 'Grand Central', lat: 40.7527, lng: -73.9772 },
-  { slug: 'penn-station-msg', name: 'Penn Station and Madison Square Garden', lat: 40.7506, lng: -73.9935 },
+  // short: how people search it ("happy hour near msg"), for titles that must fit in about 60 characters
+  { slug: 'penn-station-msg', name: 'Penn Station and Madison Square Garden', short: 'Penn Station & MSG', lat: 40.7506, lng: -73.9935 },
   { slug: 'empire-state-building', name: 'the Empire State Building', lat: 40.7484, lng: -73.9857 },
   { slug: 'rockefeller-center', name: 'Rockefeller Center', lat: 40.7587, lng: -73.9787 },
   { slug: 'broadway-theater-district', name: 'the Broadway theaters', lat: 40.7590, lng: -73.9870 },
