@@ -1,0 +1,1334 @@
+[
+ {
+  "name": "11 Tigers",
+  "hood": "East Village",
+  "source": "https://www.11tigersnyc.com/",
+  "slug": "11-tigers-east-village",
+  "at": "2026-10-20T12:56:49.027Z",
+  "status": "passage",
+  "read": [
+   {
+    "from": "page",
+    "url": "https://www.11tigersnyc.com/",
+    "chars": 3982
+   },
+   {
+    "from": "page",
+    "url": "https://www.11tigersnyc.com/menus",
+    "chars": 642
+   },
+   {
+    "from": "image",
+    "url": "https://images.squarespace-cdn.com/content/v1/6566054f98ef06102e95d90f/f2de3e97-52ca-49a7-b231-4ef81c5545d5/11Tigers_Tigers-Killer_drink_cocktails.png?format=1500w",
+    "chars": 0
+   },
+   {
+    "from": "image",
+    "url": "https://images.squarespace-cdn.com/content/v1/6566054f98ef06102e95d90f/994128b6-753a-4924-b73d-b1622104f726/IMG_9917+%281%29.jpg?format=1500w",
+    "chars": 0
+   },
+   {
+    "from": "image",
+    "url": "https://images.squarespace-cdn.com/content/v1/6566054f98ef06102e95d90f/344e00e6-8128-4bda-9462-578d2b365618/IMG_9817.JPG?format=1500w",
+    "chars": 0
+   },
+   {
+    "from": "image",
+    "url": "https://images.squarespace-cdn.com/content/v1/6566054f98ef06102e95d90f/0437daf9-d20f-4a76-952f-d8c1fa9d6484/IMG_9825.JPG?format=1500w",
+    "chars": 0
+   }
+  ],
+  "stored": {
+   "start": "17:00",
+   "end": "19:00",
+   "days": [
+    "mon",
+    "tue",
+    "wed",
+    "thu",
+    "fri",
+    "sat",
+    "sun"
+   ]
+  },
+  "best": {
+   "from": "page",
+   "url": "https://www.11tigersnyc.com/",
+   "block": "Happy Hour 5 PM - 7PM\n\nFriday:\n5 PM - 2 AM\nHappy Hour 5 PM - 7 PM\n\nSaturday:\n4 PM - 2 AM\nHappy Hour 4 PM - 7 PM\n\nSunday:\n4 PM - 12 AM\nHappy Hour 4 PM - 7 PM\n\nEXPLORE\n\nPress\n\nCatering\n\nContact\n\nCONNECT WITH US\n\nLET’S GET IN TOUCH\n\nDrop your email address to receive news and updates. No spam (scout’s honor)\n\n SIGN UP\nprotected by reCAPTCHA",
+   "offers": [],
+   "loose": [],
+   "window": {
+    "start": "17:00",
+    "end": "19:00",
+    "quote": "5 PM - 7PM"
+   },
+   "days": [
+    "fri",
+    "sat",
+    "sun"
+   ],
+   "discount_pct": null,
+   "two_for_one": false,
+   "other_blocks": []
+  },
+  "also": []
+ },
+ {
+  "name": "12th Street Ale House",
+  "hood": "East Village",
+  "source": "http://centralparkdeliva.com/12thstreetalehouse/",
+  "slug": "12th-street-ale-house-east-village",
+  "at": "2026-10-20T12:56:30.917Z",
+  "status": "passage",
+  "read": [
+   {
+    "from": "page",
+    "url": "http://centralparkdeliva.com/12thstreetalehouse/",
+    "chars": 2624
+   }
+  ],
+  "stored": {
+   "start": null,
+   "end": "20:00",
+   "days": [
+    "mon",
+    "tue",
+    "wed",
+    "thu",
+    "fri",
+    "sat",
+    "sun"
+   ]
+  },
+  "best": {
+   "from": "page",
+   "url": "http://centralparkdeliva.com/12thstreetalehouse/",
+   "block": "al stop before or after a movie across the street or a dinner in the area, with an array of beers on tap and unbeatable happy hour specials. Even on weekends, the happy hour extends its generous embrace, a rare and highly appreciated feature in the neighborhood.\nMonday – Saturday\n5:00 pm – 4:00 am\nSunday (during football season)\n1:00 pm – 4:00 am\n\n\n\n/** Anti-fraud and anti-abuse applications only. See google.com/recaptcha */ try{var clients={'sodar':'https://pagead2.googlesyndication.com/pagead/sodar?','sodar_atqg':'https://ep1.adtrafficquality.google/pagead/sodar?'};window.addEventListener(\"message\",function(a){try{if(a.source===window.parent){var b=JSON.parse(a.data);var c=clients[b['id']];if(c){var d=document.createElement('img');d.src=c+b['params']+'&rc='+(localStorage.getItem(\"rc::a\")?sessionStorage.getItem(\"rc::b\"):\"\");window.document.body.appendChild(d);sessionStorage.setItem(\"rc:",
+   "offers": [],
+   "loose": [],
+   "window": {
+    "start": "17:00",
+    "end": "04:00",
+    "quote": "5:00 pm – 4:00 am"
+   },
+   "days": [
+    "mon",
+    "tue",
+    "wed",
+    "thu",
+    "fri",
+    "sat"
+   ],
+   "discount_pct": null,
+   "two_for_one": false,
+   "other_blocks": []
+  },
+  "also": []
+ },
+ {
+  "name": "169 Bar",
+  "hood": "Lower East Side",
+  "source": "https://169barnyc.com/",
+  "slug": "169-bar-lower-east-side",
+  "at": "2026-10-20T12:56:33.142Z",
+  "status": "offers",
+  "read": [
+   {
+    "from": "page",
+    "url": "https://169barnyc.com/",
+    "chars": 775
+   },
+   {
+    "from": "image",
+    "url": "https://169barnyc.com/uploads/images/a_169_Bar_pictures_edit_1.jpg",
+    "chars": 0
+   },
+   {
+    "from": "image",
+    "url": "https://169barnyc.com/uploads/images/169edit0462.jpg",
+    "chars": 0
+   },
+   {
+    "from": "page",
+    "url": "https://169barnyc.com/menu",
+    "chars": 2842
+   }
+  ],
+  "stored": {
+   "start": "14:00",
+   "end": "19:00",
+   "days": [
+    "sat",
+    "sun"
+   ]
+  },
+  "best": {
+   "from": "page",
+   "url": "https://169barnyc.com/menu",
+   "block": "HAPPY HOUR (2pm-7pm)\n$2 off any liquor drink (except well shots)\n$1 off any beer\nBEER SHOT COMBO ($2 well shot with any beer)\n\n \n\n \n169 COCKTAILS -\nPICKLE MARTINI (Crop Cucumber Vodka) $13\nBLOODY GARGOYLE (Absinthe, Lemon and Red Wine Float) $13\nHELLBOY MARGARITA (Blanco Tequila, Bourbon, Lime, Orange, Grapefruit) $15\nCAMBODIAN MOJITO (Banana Rum, Coconut Rum, Black Rum, Melon Liqueur, Pineapple Juice, Mint) $15\nHURRICANE (Bayou Rum, Dark Rum, Passionfruit, Lime, Grenadine) $13\nCC’s BOURBON MINT LEMONADE (Bourbon, Lemon Juice, Mint, Simple, Soda) $13\nFAMOUS 169 BLOODY MARY (ALB Vodka, Tomato + Clamato, Horseradish, Worcestershire, Tabasco, Lemon, Lime, Pickle Juice) $15\nMARGARITA (Blanco Tequila, lime, Triple Sec, Simple) $13\nOLD FASHIONED (Bourbon, Sugar, Bitters, Orange Peel) $13\n169 GIN FIZZ MIMOSA (Tanqueray, Prosecco, Lemon Juice, Simple) $13\nGRAND 75 (Grand Marnier, Prosecco, Lemon",
+   "offers": [
+    {
+     "item": "off any liquor drink (except well shots)",
+     "price": "$2",
+     "kind": "drink",
+     "line": "$2 off any liquor drink (except well shots)"
+    },
+    {
+     "item": "off any beer",
+     "price": "$1",
+     "kind": "drink",
+     "line": "$1 off any beer"
+    },
+    {
+     "item": "BEER SHOT COMBO (",
+     "price": "$2",
+     "kind": "drink",
+     "line": "BEER SHOT COMBO ($2 well shot with any beer)"
+    },
+    {
+     "item": "PICKLE MARTINI (Crop Cucumber Vodka)",
+     "price": "$13",
+     "kind": "drink",
+     "line": "PICKLE MARTINI (Crop Cucumber Vodka) $13"
+    },
+    {
+     "item": "BLOODY GARGOYLE (Absinthe, Lemon and Red Wine Float)",
+     "price": "$13",
+     "kind": "drink",
+     "line": "BLOODY GARGOYLE (Absinthe, Lemon and Red Wine Float) $13"
+    },
+    {
+     "item": "HELLBOY MARGARITA (Blanco Tequila, Bourbon, Lime, Orange, Grapefruit)",
+     "price": "$15",
+     "kind": "drink",
+     "line": "HELLBOY MARGARITA (Blanco Tequila, Bourbon, Lime, Orange, Grapefruit) $15"
+    },
+    {
+     "item": "HURRICANE (Bayou Rum, Dark Rum, Passionfruit, Lime, Grenadine)",
+     "price": "$13",
+     "kind": "drink",
+     "line": "HURRICANE (Bayou Rum, Dark Rum, Passionfruit, Lime, Grenadine) $13"
+    },
+    {
+     "item": "CC’s BOURBON MINT LEMONADE (Bourbon, Lemon Juice, Mint, Simple, Soda)",
+     "price": "$13",
+     "kind": "drink",
+     "line": "CC’s BOURBON MINT LEMONADE (Bourbon, Lemon Juice, Mint, Simple, Soda) $13"
+    },
+    {
+     "item": "MARGARITA (Blanco Tequila, lime, Triple Sec, Simple)",
+     "price": "$13",
+     "kind": "drink",
+     "line": "MARGARITA (Blanco Tequila, lime, Triple Sec, Simple) $13"
+    },
+    {
+     "item": "OLD FASHIONED (Bourbon, Sugar, Bitters, Orange Peel)",
+     "price": "$13",
+     "kind": "drink",
+     "line": "OLD FASHIONED (Bourbon, Sugar, Bitters, Orange Peel) $13"
+    },
+    {
+     "item": "169 GIN FIZZ MIMOSA (Tanqueray, Prosecco, Lemon Juice, Simple)",
+     "price": "$13",
+     "kind": "drink",
+     "line": "169 GIN FIZZ MIMOSA (Tanqueray, Prosecco, Lemon Juice, Simple) $13"
+    }
+   ],
+   "loose": [
+    "$15"
+   ],
+   "window": {
+    "start": "14:00",
+    "end": "19:00",
+    "quote": "2pm-7pm"
+   },
+   "days": null,
+   "discount_pct": null,
+   "two_for_one": false,
+   "other_blocks": []
+  },
+  "also": [
+   {
+    "from": "page",
+    "url": "https://169barnyc.com/",
+    "block": "HAPPY HOUR from open to 7pm EVERYDAY\n\n \n\nWELCOME TO THE HISTORIC\n\n100+ YEAR OLD, FUNKY &\n\nINFAMOUS...\n\n \n\n \n\nOPEN SINCE 1916, FORMERLY KNOWN\n\nAS THE \"BLOODY BUCKET\",\n\nONE OF THE LAST ORIGINAL BARS,\n\nIN ONE OF THE LAST ORIGINAL HOODS\n\nIN MANHATTAN! NOW W OUTDOOR SEATING!!\n\n \n\n \n\n \n\nOPEN EVERY DAY 2PM-4AM\n\n \n\nHAPPY HOUR 2pm to 7pm\n\n \n\nWEEKEND'S\n\n \n\nDJ CHUCKY LOVE\n\n \n\nSOUL*FUNK * JAZZ* DISCO\n\n \n\n \n\n \n\nLEOPARD PRINT BILLIARD TABLE.\n\n \n\n169 was bought in 2006 by Charles Hanson, originally from New Or",
+    "offers": []
+   }
+  ]
+ },
+ {
+  "name": "333 Lounge",
+  "hood": "Prospect Heights",
+  "source": "https://www.333lounge.com/food-drink",
+  "slug": "333-lounge-prospect-heights",
+  "at": "2026-10-20T12:56:34.715Z",
+  "status": "offers",
+  "read": [
+   {
+    "from": "page",
+    "url": "https://www.333lounge.com/food-drink",
+    "chars": 935
+   },
+   {
+    "from": "image",
+    "url": "https://images.squarespace-cdn.com/content/v1/5dea53557e0b3f04bb894144/f00f398c-8e1c-4dad-a075-031930309db2/Drink+Menu.png?format=1500w",
+    "chars": 1183
+   },
+   {
+    "from": "image",
+    "url": "https://images.squarespace-cdn.com/content/v1/5dea53557e0b3f04bb894144/83dc9b46-1ee4-477d-9ea8-b6ef472447d7/Menu+Main.png?format=1000w",
+    "chars": 2025
+   },
+   {
+    "from": "image",
+    "url": "https://images.squarespace-cdn.com/content/v1/5dea53557e0b3f04bb894144/1641251174985-3L1LRJTBOLQ2HWQQ164E/Screen+Shot+2022-01-03+at+5.40.51+PM.png?format=1000w",
+    "chars": 0
+   }
+  ],
+  "stored": {
+   "start": "17:00",
+   "end": "20:00",
+   "days": [
+    "tue",
+    "wed",
+    "thu",
+    "fri",
+    "sat"
+   ]
+  },
+  "best": {
+   "from": "page",
+   "url": "https://www.333lounge.com/food-drink",
+   "block": "HAPPY HOUR\n\nHAPPY HOUR SPECIALS\n\nTuesday- Friday 5pm-8pm & Saturday 4pm-6pm\n\n333 Lounge Schedule:\n\nMonday-5PM-12AM\n Tuesday-5PM-12AM\n Wednesday-5PM-12AM\n Thursday-5PM-12AM\n Friday-5PM-2AM\n Saturday-4PM-2AM\n Sunday-1PM-11PM\n\n333 FLATBUSH AVE, BROOKLYN, NY 11217, USA\n \nJoin Our Vibes List\n\nReceive special \"list only\" discounts, invitations, and updates. \"Good Vibes, Good People\"\n\nBecome a Member\nWe respect your privacy.\n\nGet $20\n\nToward your next $60+ visit.\n\nLimited time only!\n\nusing the\nrewards app",
+   "offers": [
+    {
+     "item": "Get",
+     "price": "$20",
+     "kind": "unknown",
+     "line": "Get $20"
+    },
+    {
+     "item": "+ visit",
+     "price": "$60",
+     "kind": "unknown",
+     "line": "Toward your next $60+ visit"
+    }
+   ],
+   "loose": [],
+   "window": {
+    "start": "17:00",
+    "end": "20:00",
+    "quote": "5pm-8pm"
+   },
+   "days": [
+    "tue",
+    "wed",
+    "thu",
+    "fri"
+   ],
+   "discount_pct": null,
+   "two_for_one": false,
+   "other_blocks": []
+  },
+  "also": [
+   {
+    "from": "image",
+    "url": "https://images.squarespace-cdn.com/content/v1/5dea53557e0b3f04bb894144/f00f398c-8e1c-4dad-a075-031930309db2/Drink+Menu.png?format=1500w",
+    "block": "HAPPY HOURS\n\nBajan Basil Fizz 7\n\nCucumber, Lemon, Basil-Lime, Soda Water\n5PM-8PM",
+    "offers": []
+   },
+   {
+    "from": "image",
+    "url": "https://images.squarespace-cdn.com/content/v1/5dea53557e0b3f04bb894144/83dc9b46-1ee4-477d-9ea8-b6ef472447d7/Menu+Main.png?format=1000w",
+    "block": "HAPPY HOURS KITCHEN oa soma\n\nHOURS an “M-1AM\n\nSUNDA 1PM-11PM\n\nBOOK YOUR NEXT EVENT OR CATERING WITH US\n\nrootsandroutesnyc@gmail.com\n\nSPM-8PM",
+    "offers": []
+   }
+  ]
+ },
+ {
+  "name": "390 Social",
+  "hood": "Park Slope",
+  "source": "https://www.390social.com/",
+  "slug": "390-social-park-slope",
+  "at": "2026-10-20T12:56:49.657Z",
+  "status": "passage",
+  "read": [
+   {
+    "from": "page",
+    "url": "https://www.390social.com/",
+    "chars": 520
+   },
+   {
+    "from": "page",
+    "url": "https://www.390social.com/menu-1-2-1",
+    "chars": 2447
+   },
+   {
+    "from": "image",
+    "url": "https://images.squarespace-cdn.com/content/v1/609d9c88d9efed01ab0e79a9/e31befb8-31f6-4934-8d40-7d93c9c87e7e/girlhappyhour.JPG?format=1500w",
+    "chars": 20
+   },
+   {
+    "from": "image",
+    "url": "https://images.squarespace-cdn.com/content/v1/609d9c88d9efed01ab0e79a9/f3d0f19c-a8fd-482a-a132-774be4be773e/390-Social-Green-Print-File.png?format=1500w",
+    "chars": 18
+   },
+   {
+    "from": "image",
+    "url": "https://images.squarespace-cdn.com/content/v1/609d9c88d9efed01ab0e79a9/dab35070-8582-4c15-881c-8d7dff514e34/hans-isaacson-iEKg9h5_hd4-unsplash.jpg?format=1500w",
+    "chars": 0
+   },
+   {
+    "from": "page",
+    "url": "https://www.390social.com/menu-1",
+    "chars": 4673
+   },
+   {
+    "from": "image",
+    "url": "https://images.squarespace-cdn.com/content/v1/609d9c88d9efed01ab0e79a9/bfe0c722-2f85-42ce-a57c-399cc4485d21/Soursop.jpg?format=1500w",
+    "chars": 0
+   },
+   {
+    "from": "image",
+    "url": "https://images.squarespace-cdn.com/content/v1/609d9c88d9efed01ab0e79a9/f3d0f19c-a8fd-482a-a132-774be4be773e/390-Social-Green-Print-File.png?format=1500w",
+    "chars": 18
+   },
+   {
+    "from": "image",
+    "url": "https://images.squarespace-cdn.com/content/v1/609d9c88d9efed01ab0e79a9/1777673956110-3J8H82E60L4U5MOH8ENL/unsplash-image-cUGa_uRs9AE.jpg?format=1500w",
+    "chars": 0
+   },
+   {
+    "from": "page",
+    "url": "https://www.390social.com/menu-1-2",
+    "chars": 4190
+   },
+   {
+    "from": "image",
+    "url": "https://images.squarespace-cdn.com/content/v1/609d9c88d9efed01ab0e79a9/f3d0f19c-a8fd-482a-a132-774be4be773e/390-Social-Green-Print-File.png?format=1500w",
+    "chars": 18
+   },
+   {
+    "from": "image",
+    "url": "https://images.squarespace-cdn.com/content/v1/609d9c88d9efed01ab0e79a9/dab35070-8582-4c15-881c-8d7dff514e34/hans-isaacson-iEKg9h5_hd4-unsplash.jpg?format=1500w",
+    "chars": 0
+   },
+   {
+    "from": "image",
+    "url": "https://images.squarespace-cdn.com/content/v1/609d9c88d9efed01ab0e79a9/e7e4d2a5-9548-46bf-97d1-6dfbcf137650/IMG_0820_jpg.JPG?format=1500w",
+    "chars": 0
+   }
+  ],
+  "stored": {
+   "start": "17:00",
+   "end": "19:00",
+   "days": [
+    "tue",
+    "wed",
+    "thu"
+   ]
+  },
+  "best": {
+   "from": "page",
+   "url": "https://www.390social.com/",
+   "block": "Happy Hour :\nSunday & Friday 4pm-7pm \nTuesday-Thursday 5pm-7pm",
+   "offers": [],
+   "loose": [],
+   "window": {
+    "start": "16:00",
+    "end": "19:00",
+    "quote": "4pm-7pm"
+   },
+   "days": [
+    "tue",
+    "wed",
+    "thu"
+   ],
+   "discount_pct": null,
+   "two_for_one": false,
+   "other_blocks": []
+  },
+  "also": [
+   {
+    "from": "page",
+    "url": "https://www.390social.com/menu-1",
+    "block": "Happy Hour :\nSunday & Friday 4pm-7pm \nTuesday-Thursday 5pm-7pm",
+    "offers": []
+   },
+   {
+    "from": "page",
+    "url": "https://www.390social.com/menu-1-2",
+    "block": "Happy Hour :\nSunday & Friday 4pm-7pm \nTuesday-Thursday 5pm-7pm",
+    "offers": []
+   }
+  ]
+ },
+ {
+  "name": "8th Street Winecellar",
+  "hood": "Greenwich Village",
+  "source": "http://www.8thstwinecellar.com/",
+  "slug": "8th-street-winecellar-greenwich-village",
+  "at": "2026-10-20T12:56:36.807Z",
+  "status": "offers",
+  "read": [
+   {
+    "from": "page",
+    "url": "http://www.8thstwinecellar.com/",
+    "chars": 693
+   }
+  ],
+  "stored": {
+   "start": null,
+   "end": "20:00",
+   "days": [
+    "mon",
+    "tue",
+    "wed",
+    "thu",
+    "fri",
+    "sat",
+    "sun"
+   ]
+  },
+  "best": {
+   "from": "page",
+   "url": "http://www.8thstwinecellar.com/",
+   "block": "Happy Hour 'til 8pm daily!\n***select bottles for $32, select glasses $11***\n\nAW SHUCKS!\nOYSTER HAPPY HOUR\n$2ea\n4-8pm Monday-Thursday\n\n(212) 260-9463\n\nVisit our cozy sister wine bar in the East Village!",
+   "offers": [
+    {
+     "item": "select bottles",
+     "price": "$32",
+     "kind": "drink",
+     "line": "select bottles for $32"
+    },
+    {
+     "item": "select glasses",
+     "price": "$11",
+     "kind": "drink",
+     "line": "select glasses $11"
+    }
+   ],
+   "loose": [
+    "$2"
+   ],
+   "window": {
+    "start": "16:00",
+    "end": "20:00",
+    "quote": "4-8pm"
+   },
+   "days": [
+    "mon",
+    "tue",
+    "wed",
+    "thu",
+    "fri",
+    "sat",
+    "sun"
+   ],
+   "discount_pct": null,
+   "two_for_one": false,
+   "other_blocks": []
+  },
+  "also": []
+ },
+ {
+  "name": "A to Z Rooftop on Fifth",
+  "hood": "Midtown",
+  "source": "https://atozrooftoponthefifth.com/",
+  "slug": "a-to-z-rooftop-on-fifth-murray-hill",
+  "at": "2026-10-20T12:56:39.067Z",
+  "status": "passage",
+  "read": [
+   {
+    "from": "page",
+    "url": "https://atozrooftoponthefifth.com/",
+    "chars": 2092
+   }
+  ],
+  "stored": {
+   "start": "16:30",
+   "end": "18:30",
+   "days": [
+    "mon",
+    "tue",
+    "wed",
+    "thu",
+    "fri"
+   ]
+  },
+  "best": {
+   "from": "page",
+   "url": "https://atozrooftoponthefifth.com/",
+   "block": "midtown's golden happy hour\nJoin us Monday through Friday from 4:30 PM to 6:30 PM for Midtown's Golden Happy Hour. Sip on expertly crafted cocktails, wine, and beer while watching the sunset reflect off the Empire State Building—one of the most iconic happy hour experiences in NYC.",
+   "offers": [],
+   "loose": [],
+   "window": {
+    "start": "16:30",
+    "end": "18:30",
+    "quote": "4:30 PM to 6:30 PM"
+   },
+   "days": [
+    "mon",
+    "tue",
+    "wed",
+    "thu",
+    "fri"
+   ],
+   "discount_pct": null,
+   "two_for_one": false,
+   "other_blocks": []
+  },
+  "also": []
+ },
+ {
+  "name": "A10 Kitchen",
+  "hood": "East Village",
+  "source": "https://a10kitchen.com/",
+  "slug": "a10-kitchen-east-village",
+  "at": "2026-10-20T12:56:48.528Z",
+  "status": "passage",
+  "read": [
+   {
+    "from": "page",
+    "url": "https://a10kitchen.com/",
+    "chars": 6141
+   },
+   {
+    "from": "image",
+    "url": "https://static.spotapps.co/web/placeholder.png",
+    "chars": 0
+   },
+   {
+    "from": "page",
+    "url": "https://a10kitchen.com/new-york-east-village-a10-kitchen-happy-hours-specials",
+    "chars": 176
+   },
+   {
+    "from": "page",
+    "url": "https://a10kitchen.com/-food-menu?source=pop_up&spot_id=101313&destination=food_menu&promotion=custom_promotion",
+    "chars": 1581
+   }
+  ],
+  "stored": {
+   "start": "16:00",
+   "end": "19:00",
+   "days": [
+    "mon",
+    "tue",
+    "wed",
+    "thu"
+   ]
+  },
+  "best": {
+   "from": "page",
+   "url": "https://a10kitchen.com/",
+   "block": "Happy Hours:\nMonday - Thursday: 4 PM - 7PM\nFriday: 4 PM-7PM\nSaturday: 3PM - 7 PM\nSunday: 3PM - 7 PM\nFind Us On...\nTwitter page\nFacebook page\nInstagram page\nContact Us\n\n(917)-678-2245\n\na10thkitchen@gmail.com\n\nPowered by: \n\nWebsite design, Social Media marketing and Email marketing provided by SpotHopper.\n\nWe strive to make our website accessible to everybody. Learn More.",
+   "offers": [],
+   "loose": [],
+   "window": {
+    "start": "16:00",
+    "end": "19:00",
+    "quote": "4 PM - 7PM"
+   },
+   "days": [
+    "mon",
+    "tue",
+    "wed",
+    "thu"
+   ],
+   "discount_pct": null,
+   "two_for_one": false,
+   "other_blocks": []
+  },
+  "also": [
+   {
+    "from": "page",
+    "url": "https://a10kitchen.com/-food-menu?source=pop_up&spot_id=101313&destination=food_menu&promotion=custom_promotion",
+    "block": "A10 HAPPY HOUR\nSPORTS SPECIAL\n\nKindly inform your server of any allergies or dietary restrictions.\n\nBurgers\n\nAll served with hand-cut fries\n\nThe Godfather\n$22.00\nDry-aged smashed patty, sharp cheddar, caramelized onion\nSome like it HOT\n$19.00\nSpicy fried chicken, pickles, honey sriracha mayo\nThe Real Deal\n$19.00\nBeef patty with mint chutney, raita, grilled tomato\nMumbai Meri Jaan - Indian street food (V)\n$17.00\nSpiced potato patty on buttery bun, mint & tamarind chutney.\nBombay Sandwich - Indian",
+    "offers": [
+     {
+      "item": "Add-on Chicken (grilled or fried)",
+      "price": "$7",
+      "kind": "unknown",
+      "line": "Add-on Chicken (grilled or fried) - $7"
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "name": "Addictive Wine and Tapas",
+  "hood": "East Elmhurst",
+  "source": "https://addictivewinebar.com/happy-hour-2/",
+  "slug": "addictive-wine-and-tapas-jackson-heights",
+  "at": "2026-10-20T12:56:37.787Z",
+  "status": "unreachable",
+  "read": [],
+  "stored": {
+   "start": "16:00",
+   "end": "18:00",
+   "days": [
+    "mon",
+    "tue",
+    "wed",
+    "thu",
+    "fri",
+    "sat",
+    "sun"
+   ]
+  },
+  "best": null,
+  "also": []
+ },
+ {
+  "name": "Ainslie",
+  "hood": "Williamsburg",
+  "source": "https://ainsliebk.com/",
+  "slug": "ainslie-williamsburg",
+  "at": "2026-10-20T12:56:38.189Z",
+  "status": "unreachable",
+  "read": [],
+  "stored": {
+   "start": "17:00",
+   "end": "19:00",
+   "days": [
+    "mon",
+    "tue",
+    "wed",
+    "thu"
+   ]
+  },
+  "best": null,
+  "also": []
+ },
+ {
+  "name": "Albert’s Bar",
+  "hood": "Murray Hill",
+  "source": "https://www.albertsbar.com/location/alberts-bar/",
+  "slug": "albert-s-bar-murray-hill",
+  "at": "2026-10-20T12:56:52.348Z",
+  "status": "passage",
+  "read": [
+   {
+    "from": "page",
+    "url": "https://www.albertsbar.com/location/alberts-bar/",
+    "chars": 971
+   },
+   {
+    "from": "page",
+    "url": "https://www.albertsbar.com/menus/",
+    "chars": 2397
+   },
+   {
+    "from": "pdf",
+    "url": "https://media-cdn.getbento.com/accounts/9659243c38e21487b7be160f836650a3/media/QobjOsVySx63R9Fssn56_Alberts-DinnerMenu10526FINAL.pdf",
+    "chars": 4382
+   },
+   {
+    "from": "pdf",
+    "url": "https://media-cdn.getbento.com/accounts/9659243c38e21487b7be160f836650a3/media/116CrNJOSkCfLrumyN8O_Alberts-LunchMenuOCTLUNCHFinalPV.pdf",
+    "chars": 5138
+   },
+   {
+    "from": "pdf",
+    "url": "https://media-cdn.getbento.com/accounts/9659243c38e21487b7be160f836650a3/media/aCGHKuDGSm6KUehsl2XQ_Alberts-RoundedBarMenuBACKoctoberPVFinal.pdf",
+    "chars": 6616
+   },
+   {
+    "from": "image",
+    "url": "https://images.getbento.com/accounts/9659243c38e21487b7be160f836650a3/media/images/63378AdobeStock_268997330.jpeg?w=1800&fit=crop&auto=compress,format&cs=origin&crop=focalpoint&fp-x=0.5&fp-y=0.5",
+    "chars": 0
+   },
+   {
+    "from": "image",
+    "url": "https://images.getbento.com/accounts/9659243c38e21487b7be160f836650a3/media/images/10169Alberts-SeeYouAt.png?w=1200&fit=crop&auto=compress,format&cs=origin&crop=focalpoint&fp-x=0.5&fp-y=0.5|resize(786)",
+    "chars": 0
+   }
+  ],
+  "stored": {
+   "start": "15:00",
+   "end": "18:00",
+   "days": [
+    "mon",
+    "tue",
+    "wed",
+    "thu",
+    "fri"
+   ]
+  },
+  "best": {
+   "from": "pdf",
+   "url": "https://media-cdn.getbento.com/accounts/9659243c38e21487b7be160f836650a3/media/aCGHKuDGSm6KUehsl2XQ_Alberts-RoundedBarMenuBACKoctoberPVFinal.pdf",
+   "block": "Italian Aperitif, Zero Proof Prosecco, Citrus .... 13\n TEA-L-C\n Earl Grey Vodka, Aperitif, Lavender, Honey, THE NECTAR\n Lemon .................................................................................................................................. 18 Seedlip Garden 108, Lemon, Honey ....................... 13\n Don’t Chai About it\n Spiced & Vanilla Rums, Chai, Aquafaba, Cinnamon 18 Happy Hour ‘Albert’s Martinis’ $15\n 3-6pm Monday-Friday\n EVERYTHING NICE\n Reposado Tequila, Mezcal, Ginger, Amaretto,\n Lemon, PSL Honey ................................................................................................... 18",
+   "offers": [],
+   "loose": [
+    "$15"
+   ],
+   "window": {
+    "start": "15:00",
+    "end": "18:00",
+    "quote": "3-6pm"
+   },
+   "days": [
+    "mon",
+    "tue",
+    "wed",
+    "thu",
+    "fri"
+   ],
+   "discount_pct": null,
+   "two_for_one": false,
+   "other_blocks": []
+  },
+  "also": []
+ },
+ {
+  "name": "Amelie Wine Bar",
+  "hood": "Greenwich Village",
+  "source": "https://www.ameliewinebar.com/wv/menus",
+  "slug": "amelie-wine-bar-greenwich-village",
+  "at": "2026-10-20T12:57:06.724Z",
+  "status": "passage",
+  "read": [
+   {
+    "from": "page",
+    "url": "https://www.ameliewinebar.com/wv/menus",
+    "chars": 1953
+   },
+   {
+    "from": "image",
+    "url": "https://www.ameliewinebar.com/_next/image?url=%2Fimages%2Fwv%2Fwv-shoot-sidewalk-toast.webp&w=1920&q=75&dpl=dpl_6rj9XDuRsws3D7RiTwNxg2hoL4qo",
+    "chars": 0
+   },
+   {
+    "from": "image",
+    "url": "https://www.ameliewinebar.com/_next/image?url=%2Fimages%2Fwv%2Fwv-shoot-plateau-wide.webp&w=1920&q=75&dpl=dpl_6rj9XDuRsws3D7RiTwNxg2hoL4qo",
+    "chars": 0
+   },
+   {
+    "from": "page",
+    "url": "https://www.ameliewinebar.com/wv/menus/happy-hour",
+    "chars": 2865
+   },
+   {
+    "from": "image",
+    "url": "https://www.ameliewinebar.com/_next/image?url=%2Fimages%2Fwv%2Fwv-shoot-sidewalk-toast.webp&w=1920&q=75&dpl=dpl_6rj9XDuRsws3D7RiTwNxg2hoL4qo",
+    "chars": 0
+   },
+   {
+    "from": "image",
+    "url": "https://www.ameliewinebar.com/_next/image?url=%2Fimages%2Fwv%2Fwv-shoot-plateau.webp&w=1920&q=75&dpl=dpl_6rj9XDuRsws3D7RiTwNxg2hoL4qo",
+    "chars": 0
+   },
+   {
+    "from": "page",
+    "url": "https://www.ameliewinebar.com/",
+    "chars": 3289
+   },
+   {
+    "from": "page",
+    "url": "https://www.ameliewinebar.com/wv/about",
+    "chars": 4575
+   },
+   {
+    "from": "image",
+    "url": "https://www.ameliewinebar.com/_next/image?url=%2Fimages%2Fwv%2Fwv-shoot-storefront-mono.webp&w=1920&q=75&dpl=dpl_6rj9XDuRsws3D7RiTwNxg2hoL4qo",
+    "chars": 0
+   }
+  ],
+  "stored": {
+   "start": "16:00",
+   "end": "18:00",
+   "days": [
+    "mon",
+    "tue",
+    "wed",
+    "thu",
+    "fri",
+    "sat",
+    "sun"
+   ]
+  },
+  "best": {
+   "from": "page",
+   "url": "https://www.ameliewinebar.com/wv/menus",
+   "block": "Happy Hour\nMon – Sun 4pm – 6pm\nHOME\nABOUT US\nMENU\nCONTACT\nTHE TEAM",
+   "offers": [],
+   "loose": [],
+   "window": {
+    "start": "16:00",
+    "end": "18:00",
+    "quote": "4pm – 6pm"
+   },
+   "days": [
+    "mon",
+    "tue",
+    "wed",
+    "thu",
+    "fri",
+    "sat",
+    "sun"
+   ],
+   "discount_pct": null,
+   "two_for_one": false,
+   "other_blocks": []
+  },
+  "also": [
+   {
+    "from": "page",
+    "url": "https://www.ameliewinebar.com/wv/about",
+    "block": "Happy Hour\nMon – Sun 4pm – 6pm\nFood 4pm – 6pm. Wine flights $14 before 6pm, $19 after.\nIN THEIR WORDS\nWhat guests say about West Village\n\nPublished on Google. Quoted as written.\n\n★★★★★\n\nThe service was incredibly friendly and attentive from start to finish, which made the whole evening even more enjoyable. The atmosphere is wonderful whether you choose to sit inside or outside. The happy hour deals were amazing and offered great value! Everything about the experience felt relaxed and welcoming. ",
+    "offers": []
+   },
+   {
+    "from": "page",
+    "url": "https://www.ameliewinebar.com/wv/menus/happy-hour",
+    "block": "HAPPY HOUR COCKTAILS\nDRINKS\nHAPPY HOUR FLIGHTS\nFOOD\nPETITS PLATS\nEARLY BIRD SPECIAL\n6\nALL SECTIONS\nHAPPY HOUR COCKTAILS\n\n$10 — UNTIL 6:00PM\n\nLYCHEE MARTINI\nRUSSIAN HILL\nTOM COLLINS\nOLD FASHIONED\nDRINKS\n\nUNTIL 6:00PM\n\nBEERS\n$7\nWINE OF THE DAY\n$10\n\nWhite · Orange · Rosé · Red · Sparkling — Ask your server for today's selections\n\nHAPPY HOUR FLIGHTS\n\n$14 — CHOOSE ONE OF THE STAFF PICKS, OR MAKE YOUR OWN (CHOOSE 3 DIFFERENT WINES FROM ANY OF OUR WINES BY THE GLASS) ($19 PAST 6PM)\n\nMATTHIEU (ORANGE)\n\n",
+    "offers": []
+   }
+  ]
+ },
+ {
+  "name": "American Brass",
+  "hood": "Long Island City",
+  "source": "https://www.americanbrasslic.com/menus/",
+  "slug": "american-brass-long-island-city",
+  "at": "2026-10-20T12:57:03.997Z",
+  "status": "passage",
+  "read": [
+   {
+    "from": "page",
+    "url": "https://www.americanbrasslic.com/menus/",
+    "chars": 3223
+   },
+   {
+    "from": "image",
+    "url": "https://images.getbento.com/accounts/3e3c9a975ad1b4ca467f67bf4419516e/media/images/93795Burger__Beer.JPG?w=5400&fit=crop&auto=compress,format&cs=origin&crop=focalpoint&fp-x=0.5&fp-y=0.5",
+    "chars": 0
+   },
+   {
+    "from": "image",
+    "url": "https://images.getbento.com/accounts/3e3c9a975ad1b4ca467f67bf4419516e/media/images/66656AMERICANBRASS_MAY22_0176.jpg?w=5400&fit=crop&auto=compress,format&cs=origin&crop=focalpoint&fp-x=0.5&fp-y=0.5",
+    "chars": 0
+   },
+   {
+    "from": "image",
+    "url": "https://images.getbento.com/accounts/3e3c9a975ad1b4ca467f67bf4419516e/media/images/75533DSC03687.jpg?w=5400&fit=crop&auto=compress,format&cs=origin&crop=focalpoint&fp-x=0.5&fp-y=0.5",
+    "chars": 0
+   },
+   {
+    "from": "image",
+    "url": "https://images.getbento.com/accounts/3e3c9a975ad1b4ca467f67bf4419516e/media/images/41806Our_Drinks.jpg?w=5400&fit=crop&auto=compress,format&cs=origin&crop=focalpoint&fp-x=0.5&fp-y=0.5",
+    "chars": 0
+   }
+  ],
+  "stored": {
+   "start": "17:00",
+   "end": "20:45",
+   "days": [
+    "mon",
+    "tue",
+    "wed",
+    "thu"
+   ]
+  },
+  "best": {
+   "from": "page",
+   "url": "https://www.americanbrasslic.com/menus/",
+   "block": "DINNER BRUNCH DESSERT KID'S MENU COCKTAILS & WINE HAPPY HOUR\n\n Monday through Thursday 5:00pm - 8:45pm\n\n Friday and Saturday 5:00pm - 9:45pm\n\nSunday 4:00pm - 8:45pm\n\n Join us at the bar for our Happy Hour menu weekdays all night, open to close\n\nSTARTERS\n\nSOURDOUGH FOCACCIA\n\n$\n10\n\nwhipped ricotta, rosemary salt\n\nCRISPY CALAMARI\n\n$\n19\n\npasilla chile remoulade, grilled lime\n\nGRILLED SPANISH OCTOPUS\n\n$\n24\n\neggplant, fingerlings, nardello peppers, \"al pastor\" spice\n\nBEEF MEATBALLS\n\n$\n18\n\ntomato-vodka sauce, parmesan, ricotta\n\nCRISPY RICE TUNA ROLL\n\n$\n22\n\ncrispy, chewy sushi rice rolls, spicy tuna tartare, avocado\n\nFRIED BRUSSELS SPROUTS\n\n$\n18\n\nbacon, sourdough breadcrumbs, balsamic glaze\n\nLITTLE GEM CAESAR\n\n$\n18\n\ntahini, sesame bread crumbs, parmigiano-reggiano, make it a chicken Caesar +10\n\nCHILLED\n\nGANTRY\n\n$\n39\n\n6 oysters, 6 shrimp cocktail\n\nCHRYSLER\n\n$\n73\n\n12 oysters, 6 shrimp cocktail, tu",
+   "offers": [],
+   "loose": [],
+   "window": {
+    "start": "17:00",
+    "end": "20:45",
+    "quote": "5:00pm - 8:45pm"
+   },
+   "days": [
+    "mon",
+    "tue",
+    "wed",
+    "thu"
+   ],
+   "discount_pct": null,
+   "two_for_one": false,
+   "other_blocks": []
+  },
+  "also": []
+ },
+ {
+  "name": "Amity Hall",
+  "hood": "Greenwich Village",
+  "source": "https://downtown.amityhallnyc.com/",
+  "slug": "amity-hall-greenwich-village",
+  "at": "2026-10-20T12:56:57.027Z",
+  "status": "no_passage",
+  "read": [
+   {
+    "from": "page",
+    "url": "https://downtown.amityhallnyc.com/",
+    "chars": 1064
+   },
+   {
+    "from": "image",
+    "url": "https://images.getbento.com/accounts/b58ffc88d2b7acbc42e6468482199948/media/images/10484AH_White.png",
+    "chars": 109
+   }
+  ],
+  "stored": {
+   "start": "12:00",
+   "end": "19:00",
+   "days": [
+    "mon",
+    "tue",
+    "wed",
+    "thu",
+    "fri"
+   ]
+  },
+  "best": null,
+  "also": []
+ },
+ {
+  "name": "APERITIVO by CARTA",
+  "hood": "Greenwich Village",
+  "source": "https://aperitivobycarta.com/",
+  "slug": "aperitivo-by-carta-greenwich-village",
+  "at": "2026-10-20T12:56:53.631Z",
+  "status": "offers",
+  "read": [
+   {
+    "from": "page",
+    "url": "https://aperitivobycarta.com/",
+    "chars": 1793
+   },
+   {
+    "from": "image",
+    "url": "https://aperitivobycarta.com/wp-content/uploads/2022/04/APERITIVO-nighttime-storefront-with-guests.webp",
+    "chars": 0
+   }
+  ],
+  "stored": {
+   "start": "16:00",
+   "end": "18:00",
+   "days": [
+    "mon",
+    "tue",
+    "wed",
+    "thu",
+    "fri"
+   ]
+  },
+  "best": {
+   "from": "page",
+   "url": "https://aperitivobycarta.com/",
+   "block": "Private events at APERITIVO.\n\nBirthdays, company gatherings, launches, and celebrations in the West Village.\n\nPlan an Event\n\nOctober at APERITIVO\n\nHappening This Month\n\nOCTOBER 12–17\n\nOktoberfest at APERITIVO\n\nA week of German beers and Bavarian bites, available all service long.\n\n$7 beers · $8 pretzel · $11 bratwurst · $14 schnitzel bites\n\nBook a Table\n\nOCTOBER 22–24\n\nA Weekend of Gildas\n\nSettle into Golden Hour the Spanish way, right here in the West Village.\n\nA complimentary Gilda with every drink, plus a complimentary spread with every bottle.\n\nBook a Table\n\nMONDAY, OCTOBER 26 · 8 PM\n\nMovie Monday: Practical Magic\n\nA cozy fall screening with a little Halloween magic.\n\n$25 includes a glass of wine and popcorn.\n\nTickets via Resy\n@aperitivobycarta\nFollow on Instagram\nWe’re bringing a little taste of Oktoberfest to Ap\nLooking for a midday pick me up or a change of sce\nOur Hiramasa Cevich",
+   "offers": [
+    {
+     "item": "beers",
+     "price": "$7",
+     "kind": "drink",
+     "line": "$7 beers"
+    },
+    {
+     "item": "pretzel",
+     "price": "$8",
+     "kind": "food",
+     "line": "$8 pretzel"
+    },
+    {
+     "item": "bratwurst",
+     "price": "$11",
+     "kind": "unknown",
+     "line": "$11 bratwurst"
+    },
+    {
+     "item": "schnitzel bites",
+     "price": "$14",
+     "kind": "food",
+     "line": "$14 schnitzel bites"
+    },
+    {
+     "item": "includes a glass of wine and popcorn",
+     "price": "$25",
+     "kind": "drink",
+     "line": "$25 includes a glass of wine and popcorn"
+    }
+   ],
+   "loose": [],
+   "window": null,
+   "days": [
+    "mon"
+   ],
+   "discount_pct": null,
+   "two_for_one": false,
+   "other_blocks": [
+    "Catch the US Open at Aperitivo by Carta! We’re\nLights, camera, aperitivo! Consider this your in\nCharred, crispy, bright & worthy of an extra long\nMeet an Aligoté that makes a very strong case for\nAPERITIVO by CARTA\n\n101 West 10th Street, New York\n\n929-248-6685\n\nGolden Hour\n\nWeekdays, 4 to 6 PM\n\nVisit\n\nMenus"
+   ]
+  },
+  "also": []
+ },
+ {
+  "name": "Arte Cafe",
+  "hood": "Upper West Side",
+  "source": "https://www.artecafenyc.com/menus/",
+  "slug": "arte-cafe-upper-west-side",
+  "at": "2026-10-20T12:56:55.405Z",
+  "status": "no_passage",
+  "read": [
+   {
+    "from": "page",
+    "url": "https://www.artecafenyc.com/menus/",
+    "chars": 4246
+   }
+  ],
+  "stored": {
+   "start": "16:00",
+   "end": "19:00",
+   "days": [
+    "mon",
+    "tue",
+    "wed",
+    "thu",
+    "fri",
+    "sat",
+    "sun"
+   ]
+  },
+  "best": null,
+  "also": []
+ },
+ {
+  "name": "Artesano",
+  "hood": "Tribeca",
+  "source": "https://artesanorestaurant.com/food-menu",
+  "slug": "artesano-tribeca",
+  "at": "2026-10-20T12:56:59.143Z",
+  "status": "offers",
+  "read": [
+   {
+    "from": "page",
+    "url": "https://artesanorestaurant.com/food-menu",
+    "chars": 2608
+   },
+   {
+    "from": "image",
+    "url": "https://static.spotapps.co/web/placeholder.png",
+    "chars": 0
+   }
+  ],
+  "stored": {
+   "start": "12:00",
+   "end": "16:00",
+   "days": [
+    "mon",
+    "tue",
+    "wed",
+    "thu",
+    "fri"
+   ]
+  },
+  "best": {
+   "from": "page",
+   "url": "https://artesanorestaurant.com/food-menu",
+   "block": "HAPPY HOUR MENU\nTHE TRIBECA 3 - COURSE PRIX FIXE LUNCH\n\n*Consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase your risk of foodborne illness\n\nSTARTERS\nBottomless Drinks (90 mins)\n$49.00\n\nMimosa | Sangria • Add Pisco Punch +$6.00\n\nArtesano Ceviche\n$30.00\n\nCatch of the day, octopus, fried calamari, rocoto tiger’s milk, chulpi, choclo, sweet potato.\n\nLeche De Tigre\n$26.00\n\nClassic tiger’s milk, choclo, chulpi, chifles, yuyo, shrimp, chalaca.\n\nShrimp Anticucheros\n$24.00\n\nGrilled shrimp, anticuchera sauce, fresh grilled pineapple, tamarind sauce.\n\nCausa De Pulpo\n$25.00\n\nKalamata olive dressing, causa, anticuchera gel, cherry tomatoes, chalaquita, potato crisp.\n\nVegan Ceviche\n$20.00\n\nMaitake, heart of palm, leche de tigre, avocado, rocoto gel, chupli, corn, raspberry caviar.\n\nJalea Limeña\n$30.00\n\nFish, shrimp, calamari, octopus, yuca, acevichado sauce, sarza cr",
+   "offers": [
+    {
+     "item": "Add Pisco Punch +",
+     "price": "$6",
+     "kind": "unknown",
+     "line": "Add Pisco Punch +$6.00"
+    }
+   ],
+   "loose": [
+    "$49.00",
+    "$30.00",
+    "$26.00",
+    "$24.00",
+    "$25.00",
+    "$20.00"
+   ],
+   "window": null,
+   "days": null,
+   "discount_pct": null,
+   "two_for_one": false,
+   "other_blocks": []
+  },
+  "also": []
+ },
+ {
+  "name": "Arvine",
+  "hood": "Greenwich Village",
+  "source": "https://www.arvine.com/menu/",
+  "slug": "arvine-greenwich-village",
+  "at": "2026-10-20T12:57:04.320Z",
+  "status": "passage",
+  "read": [
+   {
+    "from": "page",
+    "url": "https://www.arvine.com/menu/",
+    "chars": 2298
+   },
+   {
+    "from": "pdf",
+    "url": "https://media-cdn.getbento.com/accounts/3a36a4a3df04cf16b52bf2d587e6eb34/media/ih3y2cjReSHEJ2HDslsA_Wine_List_August_8.pdf",
+    "chars": 12161
+   },
+   {
+    "from": "image",
+    "url": "https://images.getbento.com/accounts/3a36a4a3df04cf16b52bf2d587e6eb34/media/images/72073ARVINE_WORDMARK_PMS9043_60__NEUTRALBEIGE.png",
+    "chars": 0
+   }
+  ],
+  "stored": {
+   "start": "16:30",
+   "end": "18:30",
+   "days": [
+    "mon",
+    "tue",
+    "wed",
+    "thu",
+    "fri"
+   ]
+  },
+  "best": {
+   "from": "page",
+   "url": "https://www.arvine.com/menu/",
+   "block": "Join us for Happy Hour at the bar ~\nMonday through Friday from 4:30 pm to 6:30 pm\n\nDINNER BRUNCH HAPPY HOUR DESSERT DRINKS WINE LIST\nCOLD\n\nHALF DOZEN OYSTERS\n\ncitrus mignonette, house hot sauce\n\n$\n26\n\nCITRUS CURED BLACK BASS\n\najo blanco, grapes\n\n$\n29\n\nGRASS-FED BISON TARTARE\n\ncalabrian chile “gochujang”, house country bread\n\n$\n29\n\nHIPPIE CAESAR SALAD\n\ntoasted seeds, parmesan, avocado\n\n$\n21\n\nPICKLED FENNEL & MINT SALAD\n\napplewood smoked bacon, toasted almonds\n\n$\n23\n\nSUMMER TOMATO & PEACH SALAD\n\nopal basil, goat cheese\n\n$\n24\n\nPROSCIUTTO & MELON\n\nbay leaf sea salt and olive oil\n\n$\n26\n\nSMOKED FISH DIP\n\npickled tomatillo, pita chips\n\n$\n24\n\nHOUSE SEMOLINA BREAD\n\nwhipped ricotta, honey, brown butter\n\n$\n22\n\nCHICKEN LIVER PARFAIT\n\nwhite peach gelee, toasted bread\n\n$\n26\n\nHOT\n\nTEMPURA FRIED SQUASH BLOSSOMS\n\nherbed mascarpone, lemon\n\n$\n21\n\nSTUFFED TOMATO\n\nromano beans, farro ragout, whip parmesan\n\n$",
+   "offers": [],
+   "loose": [],
+   "window": {
+    "start": "16:30",
+    "end": "18:30",
+    "quote": "4:30 pm to 6:30 pm"
+   },
+   "days": [
+    "mon",
+    "tue",
+    "wed",
+    "thu",
+    "fri"
+   ],
+   "discount_pct": null,
+   "two_for_one": false,
+   "other_blocks": []
+  },
+  "also": []
+ },
+ {
+  "name": "Ashford & Simpson's Sugar Bar",
+  "hood": "Upper West Side",
+  "source": "https://www.sugarbarnyc.com/menus/",
+  "slug": "ashford-simpson-s-sugar-bar-upper-west-side",
+  "at": "2026-10-20T12:57:07.335Z",
+  "status": "no_passage",
+  "read": [
+   {
+    "from": "page",
+    "url": "https://www.sugarbarnyc.com/menus/",
+    "chars": 1653
+   },
+   {
+    "from": "page",
+    "url": "https://www.sugarbarnyc.com/menus",
+    "chars": 1654
+   }
+  ],
+  "stored": {
+   "start": "15:00",
+   "end": "19:00",
+   "days": [
+    "tue",
+    "wed",
+    "thu",
+    "fri",
+    "sat"
+   ]
+  },
+  "best": null,
+  "also": []
+ },
+ {
+  "name": "Asia Roma",
+  "hood": "Chinatown",
+  "source": "https://www.asiaroma.com/happy-hour/",
+  "slug": "asia-roma-chinatown",
+  "at": "2026-10-20T12:57:07.031Z",
+  "status": "offers",
+  "read": [
+   {
+    "from": "page",
+    "url": "https://www.asiaroma.com/happy-hour/",
+    "chars": 3865
+   },
+   {
+    "from": "page",
+    "url": "https://www.asiaroma.com/daily-specials/",
+    "chars": 537
+   }
+  ],
+  "stored": {
+   "start": "15:00",
+   "end": "19:00",
+   "days": [
+    "mon",
+    "tue",
+    "wed",
+    "thu",
+    "fri",
+    "sat",
+    "sun"
+   ]
+  },
+  "best": {
+   "from": "page",
+   "url": "https://www.asiaroma.com/daily-specials/",
+   "block": "HAPPY HOUR\nDAILY SPECIALS\nMENU\nPARTY & KARAOKEE\nPARTY MENU\nMONDAY\nBeer Bucket Night\n\n$25 Domestic | $30 Import – (IPA & Craft) | 6 per bucket\n\nTUESDAY\nDrink Specials\n\nHappy hour drinks all night\n\nWEDNESDAY\nAppetizer Special\n\nHappy hour appetizers all night\n\nTHURSDAY\nPasta Night\n\n$15% of all pasta\n\nFRIDAY\nSteak Night\n\nNY Shell Steak with mushroom sauce and mash potatoes\n\n \n\n40 Mulberry Street,\nNew York, NY 10013\n\n(212) 385 -1133\nasiaroma@asiaroma.com\n\nMon – Fri: 12pm – 12am\nSat: 4pm – 12am | Sun: closed\n\n2023 – Asia Roma",
+   "offers": [
+    {
+     "item": "Domestic",
+     "price": "$25",
+     "kind": "unknown",
+     "line": "$25 Domestic"
+    },
+    {
+     "item": "Import – (IPA & Craft)",
+     "price": "$30",
+     "kind": "drink",
+     "line": "$30 Import – (IPA & Craft)"
+    },
+    {
+     "item": "% of all pasta",
+     "price": "$15",
+     "kind": "unknown",
+     "line": "$15% of all pasta"
+    }
+   ],
+   "loose": [],
+   "window": {
+    "start": "12:00",
+    "end": "00:00",
+    "quote": "12pm – 12am"
+   },
+   "days": [
+    "mon",
+    "tue",
+    "wed",
+    "thu",
+    "fri",
+    "sat",
+    "sun"
+   ],
+   "discount_pct": null,
+   "two_for_one": false,
+   "other_blocks": []
+  },
+  "also": [
+   {
+    "from": "page",
+    "url": "https://www.asiaroma.com/happy-hour/",
+    "block": "HAPPY HOUR\nDAILY SPECIALS\nMENU\nPARTY & KARAOKEE\nPARTY MENU\nOur Menu\nHAPPY HOUR\n\nEveryday 3 PM - 7 PM\n\nAppetizers\n\n(minimum 2 piece each, 6 per plate)\n\n$1.50\n\nPer Piece\n\nPORK & SHRIMP DUMPLINGS \nVEGATABLE SPRING ROLL \n\nGARLIC BREAD \n\nCRISPY CHICKEN FINGERS \n\nCHICKEN SATAY \n\nBEEF SATAY \n\n$2\n\nPer Piece\n\nCLAM CASINO \nRAW CLAMS ON 1/2 SHELL \n\nBLUE POINT OYSTERS \n\nFRIED CHICKEN WING \n\nGRILLED SHRIMP ON SKEWER \n\nROAST PORK WRAP \n\nRaw Clams and Oysters 6 piece minimum\n\nnot available for take out or pack",
+    "offers": []
+   }
+  ]
+ }
+]
