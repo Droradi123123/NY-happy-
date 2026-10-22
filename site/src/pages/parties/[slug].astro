@@ -3,7 +3,8 @@ import Base from '../../layouts/Base.astro';
 import PartyCard from '../../components/PartyCard.astro';
 import MiniMap from '../../components/MiniMap.astro';
 import Photo from '../../components/Photo.astro';
-import { partyData, placePhoto, photoNote, venueOf, cleanTitle, nightDate, nyTime, nyDate, priceLabel, fmtDate, GENRE_NAME, type Party, type Venue } from '../../lib/data';
+import { partyData, placePhoto, photoNote, venueOf, cleanTitle, nightDate, nyTime, nyDate, priceLabel, fmtDate, GENRE_NAME, allBars, meters, dealLabel, windowLabel, DAYS, type Party, type Venue } from '../../lib/data';
+import { tier } from '../../lib/lists';
 import { partyTitle, partyName, partyDescription, partyJsonLd, crumbs, faqLd, SITE } from '../../lib/seo';
 import { halloweenPages } from '../../lib/halloween';
 
@@ -34,6 +35,18 @@ const faq = c.faq?.length ? c.faq : [
 // a Halloween night links to the Halloween hub and to every indexed sub-page it appears on
 const hw = p.themes.includes('halloween') ? (await halloweenPages()).built.filter((b) => b.indexable && b.parties.some((o) => o.slug === p.slug)) : [];
 const lastSeen = p.sources?.find((s) => s.name === 'DICE')?.checked_at ?? p.last_checked;
+// before the party: happy hours near the venue that run that night and start before doors, deal read
+// recently first, then the closest (walking at about 80 m a minute)
+const nyMin = (iso: string) => { const t = Object.fromEntries(new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' }).formatToParts(new Date(iso)).map((x) => [x.type, x.value])); return Number(t.hour) * 60 + Number(t.minute); };
+const hm = (t: string | null) => (t ? Number(t.slice(0, 2)) * 60 + Number(t.slice(3, 5)) : null);
+const nightDay = DAYS[(new Date(`${p.night_date}T12:00:00Z`).getUTCDay() + 6) % 7];
+const doorsMin = p.doors_at ?? p.starts_at ? nyMin((p.doors_at ?? p.starts_at)!) : null;
+const pregame = v?.lat && v.lng && (doorsMin === null || doorsMin >= 17 * 60)
+  ? (await allBars()).filter((b) => b.onMap && b.dealKnown && !b.doubt)
+      .map((b) => ({ b, m: meters({ lat: v.lat!, lng: v.lng! }, { lat: b.lat!, lng: b.lng! }), w: b.windows.find((w) => w.days.includes(nightDay) && (w.start === null || doorsMin === null || hm(w.start)! < doorsMin) && (w.end === null || hm(w.end)! >= 16 * 60)) }))
+      .filter((x) => x.w && x.m <= 900)
+      .sort((a, c) => tier(a.b) - tier(c.b) || a.m - c.m).slice(0, 3)
+  : [];
 ---
 <Base title={partyTitle(p, v)} description={partyDescription(p, v)} keyword={kw} jsonld={[partyJsonLd(p, v, url), crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [cleanTitle(p.title), `/parties/${p.slug}`]]), faqLd(faq)]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li>{v && <li><a href={`/parties/venue/${v.id}`}>{v.name}</a></li>}<li aria-current="page">{nightDate(p.night_date, { month: 'short', day: 'numeric' })}</li></ol></nav>
@@ -80,6 +93,13 @@ const lastSeen = p.sources?.find((s) => s.name === 'DICE')?.checked_at ?? p.last
           {c.refunds_by_seller ? Object.entries(c.refunds_by_seller).map(([k, val]) => <><dt>Refunds ({k})</dt><dd>{val}</dd></>) : p.refund_terms && <><dt>Refunds</dt><dd>{p.refund_terms}</dd></>}
         </dl>
       </section>
+      {pregame.length > 0 && (
+        <section class="section pregame">
+          <h2>Before the party: happy hours nearby</h2>
+          <p class="small">Happy hours within a short walk of {v!.name} that run on {nightDate(p.night_date, { weekday: 'long' })} before doors, with the deal as published.</p>
+          <ul>{pregame.map(({ b, m, w }) => <li><a href={`/bars/${b.slug}`} data-ev="pregame"><strong>{b.name}</strong></a> · {Math.max(1, Math.round(m / 80))} min walk<br /><span>{dealLabel(b)}</span> · <span class="muted">{windowLabel(w!)}</span></li>)}</ul>
+        </section>
+      )}
       <section class="section faq"><h2>Questions</h2>{faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}</section>
       <p class="small">Sources: {(p.sources ?? []).filter((s) => s.name !== 'found via').map((s, i) => <>{i > 0 && ', '}<a href={s.url} rel="nofollow noopener" target="_blank">{host(s.url)}</a> ({fmtDate(s.checked_at)})</>)}. Details change: the ticket page has the final word.</p>
     </div>
@@ -105,5 +125,7 @@ const lastSeen = p.sources?.find((s) => s.name === 'DICE')?.checked_at ?? p.last
   .ticket .btn { margin-top: 16px; }
   .xgrid.one { grid-template-columns: 1fr; }
   .h3 { font-size: 20px; }
+  .pregame ul { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 10px; }
+  .pregame li { border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 12px; background: #fff; }
   .ended-note { background: var(--coral-soft); border-left: 4px solid var(--coral-btn); padding: 10px 14px; border-radius: 10px; font-weight: 700; }
 </style>
