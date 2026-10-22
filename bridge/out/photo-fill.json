@@ -1,6 +1,6 @@
 {
- "ran": "2026-10-22T18:10:48.666Z",
- "dry": true,
+ "ran": "2026-10-22T18:24:50.580Z",
+ "dry": false,
  "without": 339,
  "chosen": [
   {
@@ -69,9 +69,9 @@
   {
    "kind": "bar",
    "key": "390-social-park-slope",
-   "file": "File:Amer Legion Post -1833 at 389 5 Av Bk jeh.jpg",
-   "m": 18,
-   "license": "CC0"
+   "file": "File:Old-stone-house-brooklyn.JPG",
+   "m": 245,
+   "license": "CC BY-SA 3.0"
   },
   {
    "kind": "bar",
@@ -650,9 +650,9 @@
   {
    "kind": "bar",
    "key": "crystal-lake-brooklyn-williamsburg",
-   "file": "File:Mary school Leonard Ten Eyck 1985 jeh.jpg",
-   "m": 146,
-   "license": "CC BY-SA 3.0"
+   "file": "File:Metropolitan Tobacco Graham Av Pows St jeh.jpg",
+   "m": 231,
+   "license": "CC0"
   },
   {
    "kind": "bar",
@@ -846,9 +846,9 @@
   {
    "kind": "bar",
    "key": "lofi-park-slope",
-   "file": "File:Old-stone-house-brooklyn.JPG",
-   "m": 137,
-   "license": "CC BY-SA 3.0"
+   "file": "File:Old Stone House J16 jeh.JPG",
+   "m": 153,
+   "license": "Public domain"
   },
   {
    "kind": "bar",
@@ -2140,7 +2140,29 @@
   }
  ],
  "insert": {
-  "ok": 0,
+  "ok": 219,
   "failed": 0
- }
+ },
+ "coverage": {
+  "bars": "599/685",
+  "venues": "104/139",
+  "hoods": 71,
+  "by_match": {
+   "bar:nearby": 381,
+   "bar:name": 52,
+   "bar:area": 191,
+   "hood:wikipedia_lead": 71,
+   "page:name": 2,
+   "venue:name": 10,
+   "venue:nearby": 59,
+   "venue:area": 27,
+   "venue:wikipedia_lead": 8
+  }
+ },
+ "hoods_missing": [
+  "great-kills",
+  "lower-east-side",
+  "hells-kitchen",
+  "battery-park-city"
+ ]
 }
