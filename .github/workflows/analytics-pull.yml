@@ -1,0 +1,45 @@
+# Pulls Search Console, GA4, PageSpeed/CrUX and Bing Webmaster data for yaynyc.com and commits it
+# ENCRYPTED (analytics/report.enc): AES-256 with a random key, the key sealed to analytics/reader.pub.
+# The repository is public, so the data is never written in the clear and the log shows only which
+# sources answered. Run by hand.
+name: Analytics pull (encrypted)
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: analytics-pull
+  cancel-in-progress: false
+
+jobs:
+  pull:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Pull
+        env:
+          GOOGLE_SA_JSON: ${{ secrets.GOOGLE_SA_JSON }}
+          GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          BING_API_KEY: ${{ secrets.BING_API_KEY }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: node site/scripts/analytics-pull.mjs
+      - name: Encrypt and commit
+        run: |
+          openssl rand -out k.bin 32
+          gzip -9 -c report.json > report.json.gz
+          openssl enc -aes-256-cbc -pbkdf2 -salt -in report.json.gz -out analytics/report.enc -pass file:k.bin
+          openssl pkeyutl -encrypt -pubin -inkey analytics/reader.pub -pkeyopt rsa_padding_mode:oaep -in k.bin -out analytics/report.key
+          shred -u k.bin report.json report.json.gz
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add analytics/report.enc analytics/report.key
+          git commit -m "Analytics pull (encrypted): $(date -u +%F)" || exit 0
+          for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done
