@@ -389,8 +389,9 @@ export interface Photo {
   license: string; licenseUrl: string | null; page: string; file: string;
   /** wikimedia_commons (free license, self-hosted) or google_places (Places API, attribution required, refreshed within 30 days) */
   source?: 'wikimedia_commons' | 'google_places';
-  /** name / wikipedia_lead: the place itself; nearby: a street photo taken a few dozen meters away */
-  match?: 'name' | 'wikipedia_lead' | 'nearby';
+  /** name / wikipedia_lead: the place itself; nearby: a street photo taken a few dozen meters away;
+   *  area: a street photo from the neighborhood around it (within ~600 m, scripts/photo-fill.mjs) */
+  match?: 'name' | 'wikipedia_lead' | 'nearby' | 'area';
 }
 let photoCache: Map<string, Photo> | null = null;
 export function photos(): Map<string, Photo> {
@@ -409,22 +410,24 @@ export const creditShort = (p: Photo) => (p.source === 'google_places' ? `${p.au
 
 /**
  * The picture for a bar or venue, and what it shows: the place itself, the street outside it
- * (a free photo taken within ~70 m), or, failing both, its neighborhood. Never presented as more than it is.
+ * (a free photo taken within ~70 m), its surrounding blocks (within ~600 m), or, failing all three,
+ * its neighborhood. Every place has one; none is presented as more than it is.
  */
-export type PhotoRel = 'own' | 'nearby' | 'hood';
+export type PhotoRel = 'own' | 'nearby' | 'area' | 'hood';
 export interface PlacePhoto { photo: Photo; rel: PhotoRel; hood: string | null }
-export function placePhoto(kind: 'bar' | 'venue', key: string | null | undefined, hood: string | null, hoodSlug?: string | null, withHood = true): PlacePhoto | null {
+export function placePhoto(kind: 'bar' | 'venue', key: string | null | undefined, hood: string | null, hoodSlug?: string | null, _withHood = true): PlacePhoto | null {
   const own = photoOf(kind, key);
-  if (own) return { photo: own, rel: own.match === 'nearby' ? 'nearby' : 'own', hood };
-  // in a grid of cards the same neighborhood photo would repeat on every card: a designed card is better there
-  if (!withHood) return null;
+  if (own) return { photo: own, rel: own.match === 'nearby' ? 'nearby' : own.match === 'area' ? 'area' : 'own', hood };
   const h = photoOf('hood', hoodSlug ?? (hood ? slugify(hood) : null));
   return h ? { photo: h, rel: 'hood', hood } : null;
 }
 /** the line that says what the picture shows, e.g. "The street outside Rangoon" */
-export const photoNote = (pp: PlacePhoto, name: string) => (pp.rel === 'nearby' ? `The street outside ${name}` : pp.rel === 'hood' ? `${pp.hood ?? 'The neighborhood'}, around ${name}` : null);
+export const photoNote = (pp: PlacePhoto, name: string) => (pp.rel === 'nearby' ? `The street outside ${name}`
+  : pp.rel === 'area' ? `${pp.hood ? `${pp.hood}, a` : 'A'} few blocks from ${name}`
+  : pp.rel === 'hood' ? `${pp.hood ?? 'The neighborhood'}, around ${name}` : null);
 /** card caption: what it shows + the credit */
-export const cardCredit = (pp: PlacePhoto) => (pp.rel === 'nearby' ? `Street outside · ${creditShort(pp.photo)}` : pp.rel === 'hood' ? `${pp.hood ?? 'Neighborhood'} · ${creditShort(pp.photo)}` : creditShort(pp.photo));
+export const cardCredit = (pp: PlacePhoto) => (pp.rel === 'nearby' ? `Street outside · ${creditShort(pp.photo)}`
+  : pp.rel === 'area' || pp.rel === 'hood' ? `${pp.hood ?? 'Neighborhood'} · ${creditShort(pp.photo)}` : creditShort(pp.photo));
 
 // ---------- Google Places IDs ----------
 

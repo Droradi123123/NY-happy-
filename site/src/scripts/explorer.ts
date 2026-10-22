@@ -242,7 +242,7 @@ export async function initExplorer(root: HTMLElement) {
       const k = el.dataset.f!, v = el.dataset.v ?? '';
       const cur = st[k];
       if (el instanceof HTMLSelectElement || el instanceof HTMLInputElement) { if (el.type !== 'checkbox') el.value = String(cur ?? ''); else el.checked = cur === '1'; return; }
-      const on = Array.isArray(cur) ? cur.includes(v) : String(cur ?? '') === v && v !== '';
+      const on = Array.isArray(cur) ? cur.includes(v) : String(cur ?? '') === v && (v !== '' || k === 'sort');
       el.setAttribute('aria-pressed', String(on));
     });
   }
@@ -266,10 +266,21 @@ export async function initExplorer(root: HTMLElement) {
     last = kind === 'bars' ? filterBars(rows, st, here) : filterParties(rows, st, here);
     const noun = kind === 'bars' ? (last.length === 1 ? 'happy hour' : 'happy hours') : last.length === 1 ? 'party' : 'parties';
     count.textContent = `${last.length.toLocaleString('en-US')} ${noun}`;
-    // how many filters the visitor set (page presets and sort do not count), shown on the folded header
-    const active = Object.entries(st).filter(([k, v]) => k !== 'sort' && JSON.stringify(v) !== JSON.stringify(preset[k]) && (Array.isArray(v) ? v.length > 0 : v !== '' && v !== undefined)).reduce((n, [, v]) => n + (Array.isArray(v) ? v.length : 1), 0);
-    const badge = root.querySelector<HTMLElement>('[data-active]');
-    if (badge) { badge.hidden = active === 0; badge.textContent = String(active); }
+    // each pill shows how many of its filters the visitor set (page presets do not count); sort shows its choice
+    const set = (k: string) => { const v = st[k]; return JSON.stringify(v) === JSON.stringify(preset[k]) ? 0 : Array.isArray(v) ? v.length : v ? 1 : 0; };
+    let active = 0;
+    root.querySelectorAll<HTMLElement>('.xpill[data-keys]').forEach((p) => {
+      const keys = p.dataset.keys!.split(',');
+      const n = keys.reduce((s, k) => s + set(k), 0);
+      const pc = p.querySelector<HTMLElement>('.pc')!;
+      if (keys[0] === 'sort') {
+        const label = n ? root.querySelector<HTMLElement>(`[data-f="sort"][data-v="${CSS.escape(String(st.sort))}"]`)?.textContent : '';
+        pc.hidden = !label; pc.textContent = label ?? ''; pc.classList.toggle('word', !!label);
+      } else { active += n; pc.hidden = n === 0; pc.textContent = String(n); }
+      p.classList.toggle('on', n > 0);
+    });
+    const clear = root.querySelector<HTMLElement>('.xclear');
+    if (clear) clear.hidden = active === 0 && !here;
     // first paint: when the server-rendered cards are exactly what the filters give, they stay
     // (their photos are the page's largest paint; replacing them would fetch it all again)
     const want = last.slice(0, shown).map((r) => `/${kind === 'bars' ? 'bars' : 'parties'}/${r.s}`);
@@ -286,26 +297,71 @@ export async function initExplorer(root: HTMLElement) {
     writeState(st, preset);
   }
 
+  // filter panels: one open at a time, under its pill (a bottom sheet on phones)
+  let scrim: HTMLElement | null = null;
+  function closePop() {
+    root.querySelectorAll<HTMLElement>('.pop:not([hidden])').forEach((p) => (p.hidden = true));
+    root.querySelectorAll('.xpill[aria-expanded="true"]').forEach((p) => p.setAttribute('aria-expanded', 'false'));
+    scrim?.remove(); scrim = null;
+  }
+  function openPop(pill: HTMLElement) {
+    const panel = root.querySelector<HTMLElement>(`.pop[data-panel="${pill.dataset.pop}"]`);
+    if (!panel) return;
+    closePop();
+    panel.hidden = false;
+    pill.setAttribute('aria-expanded', 'true');
+    const wrap = panel.parentElement!.getBoundingClientRect(), r = pill.getBoundingClientRect();
+    panel.style.left = `${Math.max(0, Math.min(r.left - wrap.left, wrap.width - panel.offsetWidth))}px`;
+    if (matchMedia('(max-width: 719px)').matches) {
+      scrim = document.createElement('div');
+      scrim.className = 'ex-scrim';
+      scrim.addEventListener('click', closePop);
+      panel.before(scrim);
+    }
+    panel.querySelector<HTMLElement>('button, select, input')?.focus({ preventScroll: true });
+  }
+  document.addEventListener('click', (e) => {
+    if (!root.querySelector('.pop:not([hidden])')) return;
+    const t = e.target as HTMLElement;
+    if (!t.isConnected || t.closest('.pop, .xpill')) return;
+    closePop();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key !== 'Escape' || !root.querySelector('.pop:not([hidden])')) return;
+    const pill = root.querySelector<HTMLElement>('.xpill[aria-expanded="true"]');
+    closePop(); pill?.focus();
+  });
+
   root.addEventListener('click', (e) => {
     const t = e.target as HTMLElement;
+    const pill = t.closest<HTMLElement>('.xpill[data-pop]');
+    if (pill) { pill.getAttribute('aria-expanded') === 'true' ? closePop() : openPop(pill); return; }
+    if (t.closest('[data-done]')) { closePop(); return; }
+    const clr = t.closest<HTMLElement>('[data-clear]');
+    if (clr) { for (const k of clr.dataset.clear!.split(',')) st[k] = preset[k] ?? (MULTI.has(k) ? [] : ''); render(); return; }
     const btn = t.closest<HTMLElement>('button[data-f]');
     if (btn) {
       const k = btn.dataset.f!, v = btn.dataset.v ?? '';
       if (MULTI.has(k)) { const cur = new Set((st[k] as string[]) ?? []); cur.has(v) ? cur.delete(v) : cur.add(v); st[k] = [...cur]; }
       else st[k] = st[k] === v ? '' : v;
       if (k === 'day' && st.day !== 'now' && st.time === undefined) st.time = '';
+      if (k === 'sort') { st.sort = v; closePop(); }
       render();
       // which filters people use, and whether they leave them with something to choose from
       (window as any).gtag?.('event', 'filter_use', { list: kind, filter: k, value: v, results: last.length, page: location.pathname });
       return;
     }
-    if (t.closest('[data-reset]')) { st = { ...preset }; here = null; render(); return; }
+    if (t.closest('[data-reset]')) {
+      st = { ...preset }; here = null; closePop();
+      const near = root.querySelector<HTMLElement>('[data-near]'); if (near) { near.textContent = 'Near me'; near.classList.remove('on'); }
+      render(); return;
+    }
     if (t.closest('[data-more]')) { shown += PAGE; render(false); return; }
     if (t.closest('[data-near]')) {
       const b = t.closest<HTMLButtonElement>('[data-near]')!;
       b.textContent = 'Finding you…';
       navigator.geolocation.getCurrentPosition(
-        (p) => { here = [p.coords.latitude, p.coords.longitude]; st.sort = 'near'; b.textContent = 'Near me ✓'; render(); },
+        (p) => { here = [p.coords.latitude, p.coords.longitude]; st.sort = 'near'; b.textContent = 'Near me ✓'; b.classList.add('on'); render(); },
         () => { b.textContent = 'Location blocked'; },
         { enableHighAccuracy: true, timeout: 10000 });
       return;

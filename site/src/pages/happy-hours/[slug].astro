@@ -110,7 +110,7 @@ const hoods = (await allHoods()).filter((h) => list.some((b) => b.hoodSlug === h
           const pp = placePhoto('bar', b.slug, b.hood, b.hoodSlug, false);
           return (
             <li class="pick">
-              {pp ? <Photo photo={pp.photo} note={photoNote(pp, b.name)} alt={pp.rel === 'own' ? `${b.name}, ${b.hood}` : `The street outside ${b.name} in ${b.hood}`} ratio="16 / 9" />
+              {pp ? <Photo photo={pp.photo} note={photoNote(pp, b.name)} alt={pp.rel === 'own' ? `${b.name}, ${b.hood}` : photoNote(pp, b.name)!} ratio="16 / 9" />
                 : <div class={`xcard-art pick-art xart-${boroughSlug(b.borough)}`} aria-hidden="true"><span>{b.name}</span></div>}
               <div class="pick-body">
                 <h3><span class="pick-n">{i + 1}.</span> <a href={`/bars/${b.slug}`}>{b.name}</a></h3>

@@ -199,7 +199,8 @@ main.wide { padding-bottom: 0; }
 .rail-head a { font-weight: 800; white-space: nowrap; text-decoration: none; color: var(--brand); }
 .chips-row { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin: 4px -16px 14px; padding: 2px 16px; }
 .chips-row::-webkit-scrollbar { display: none; }
-.chips-row a { flex: none; display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border-radius: 999px; border: 1.5px solid var(--line); background: #fff; font-weight: 700; font-size: 15px; text-decoration: none; color: var(--ink); white-space: nowrap; }
+.chips-row a { flex: none; display: inline-flex; align-items: center; gap: 6px; min-height: 38px; padding: 0 14px; border-radius: 999px; border: 1px solid var(--line); background: #fff; font-weight: 700; font-size: 14px; text-decoration: none; color: var(--ink-2); white-space: nowrap; transition: border-color .15s, color .15s; }
+.chips-row a:hover { border-color: var(--ink); color: var(--ink); }
 .chips-row a .n { font-size: 12px; font-weight: 800; background: var(--brand-soft); color: var(--brand-dark); border-radius: 999px; padding: 1px 7px; }
 .chips-row a[aria-current] { background: var(--ink); border-color: var(--ink); color: #fff; }
 .chips-row a[aria-current] .n { background: var(--coral-btn); color: #fff; }

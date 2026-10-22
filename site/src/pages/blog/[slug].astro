@@ -60,7 +60,7 @@ const live = await livePartySlugs();
               <li class="pick">
                 {next && <p class="leg">{next} min walk from {picks[i - 1].b.name}</p>}
                 <div class="pick-grid">
-                  {pp ? <Photo photo={pp.photo} note={photoNote(pp, b.name)} alt={pp.rel === 'own' ? `${b.name}, ${b.hood}` : `The street outside ${b.name} in ${b.hood}`} ratio="16 / 9" />
+                  {pp ? <Photo photo={pp.photo} note={photoNote(pp, b.name)} alt={pp.rel === 'own' ? `${b.name}, ${b.hood}` : photoNote(pp, b.name)!} ratio="16 / 9" />
                     : <div class={`xcard-art pick-art xart-${boroughSlug(b.borough)}`} aria-hidden="true"><span>{b.name}</span></div>}
                   <div>
                     <h3><span class="pick-n">{i + 1}.</span> <a href={`/bars/${b.slug}`}>{b.name}</a> <span class="pick-hood">{b.hood}</span></h3>
