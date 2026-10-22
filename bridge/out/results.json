@@ -1,49 +1,1799 @@
 [
  {
   "step": "#1",
-  "rpc": "party_publish_blockers",
-  "args": {
-   "p_id": "dice:wwnrex-groundcontrol-presents-thanksgiving-with-kofla-cristian-arango-26th-nov-superior-ingredients-main-room-new-york-tickets"
-  },
-  "ok": true,
-  "status": 200,
-  "body": []
- },
- {
-  "step": "#2",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "dice:wwnrex-groundcontrol-presents-thanksgiving-with-kofla-cristian-arango-26th-nov-superior-ingredients-main-room-new-york-tickets",
-   "p_status": "ready"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "ready"
- },
- {
-  "step": "#3",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "dice:wwnrex-groundcontrol-presents-thanksgiving-with-kofla-cristian-arango-26th-nov-superior-ingredients-main-room-new-york-tickets",
-   "p_status": "published"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "published"
- },
- {
-  "step": "#4",
   "insert": "party_runs",
   "status": 201,
   "body": [
    {
-    "id": 4,
-    "started_at": "2026-10-22T17:22:35.819282+00:00",
+    "id": 5,
+    "started_at": "2026-10-22T17:48:48.714844+00:00",
     "finished_at": null,
-    "kind": "skill-summary",
+    "kind": "skill",
     "stats": null,
-    "notes": "bridge run 2026-10-22: DICE refresh of 499 upcoming (107 ended); added Groundcontrol Thanksgiving (published), Cipriani and Stone Street NYE (2025, ended); 230 Fifth Thanksgiving Eve lead"
+    "notes": "bridge: add new DICE parties from workbook nyc-new-parties-2026-10-22.xlsx (136 rows)"
    }
   ]
+ },
+ {
+  "step": "#2",
+  "venue": "altheas-hideaway",
+  "status": 201,
+  "row": {
+   "id": "altheas-hideaway",
+   "name": "Althea's Hideaway NYC",
+   "address": "603 WEST 44 STREET",
+   "zip": "10036",
+   "borough": "Manhattan",
+   "lat": 40.762369,
+   "lng": -73.997612,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/6ad50aec5194aa0001c248c9",
+     "checked_at": "2026-10-22T17:48:50.760Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "603 WEST 44 STREET, New York, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "altheas-hideaway",
+    "name": "Althea's Hideaway NYC",
+    "aliases": [],
+    "rooms": [],
+    "address": "603 WEST 44 STREET",
+    "zip": "10036",
+    "borough": "Manhattan",
+    "neighborhood": null,
+    "lat": 40.762369,
+    "lng": -73.997612,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/6ad50aec5194aa0001c248c9",
+      "name": "DICE",
+      "checked_at": "2026-10-22T17:48:50.760Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "603 WEST 44 STREET, New York, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-22T17:48:50.864883+00:00",
+    "updated_at": "2026-10-22T17:48:50.864883+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#3",
+  "venue": "jupiter-disco",
+  "status": 201,
+  "row": {
+   "id": "jupiter-disco",
+   "name": "Jupiter Disco",
+   "address": "1237 FLUSHING AVENUE",
+   "zip": "11237",
+   "borough": "Brooklyn",
+   "lat": 40.708234,
+   "lng": -73.923588,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/6ad689c9ceb44f0001ce07ea",
+     "checked_at": "2026-10-22T17:48:52.445Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "1237 FLUSHING AVENUE, Brooklyn, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "jupiter-disco",
+    "name": "Jupiter Disco",
+    "aliases": [],
+    "rooms": [],
+    "address": "1237 FLUSHING AVENUE",
+    "zip": "11237",
+    "borough": "Brooklyn",
+    "neighborhood": null,
+    "lat": 40.708234,
+    "lng": -73.923588,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/6ad689c9ceb44f0001ce07ea",
+      "name": "DICE",
+      "checked_at": "2026-10-22T17:48:52.445Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "1237 FLUSHING AVENUE, Brooklyn, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-22T17:48:52.514466+00:00",
+    "updated_at": "2026-10-22T17:48:52.514466+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#4",
+  "venue": "the-crown-rooftop",
+  "status": 201,
+  "row": {
+   "id": "the-crown-rooftop",
+   "name": "The Crown (Rooftop)",
+   "address": "50 BOWERY",
+   "zip": "10013",
+   "borough": "Manhattan",
+   "lat": 40.715969,
+   "lng": -73.996746,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/6ada3157f7142400013325ab",
+     "checked_at": "2026-10-22T17:48:53.425Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "50 BOWERY, New York, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "the-crown-rooftop",
+    "name": "The Crown (Rooftop)",
+    "aliases": [],
+    "rooms": [],
+    "address": "50 BOWERY",
+    "zip": "10013",
+    "borough": "Manhattan",
+    "neighborhood": null,
+    "lat": 40.715969,
+    "lng": -73.996746,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/6ada3157f7142400013325ab",
+      "name": "DICE",
+      "checked_at": "2026-10-22T17:48:53.425Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "50 BOWERY, New York, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-22T17:48:53.613565+00:00",
+    "updated_at": "2026-10-22T17:48:53.613565+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#5",
+  "venue": "open-air-club-sixty-les",
+  "status": 201,
+  "row": {
+   "id": "open-air-club-sixty-les",
+   "name": "Open Air Club",
+   "address": "190 ALLEN STREET",
+   "zip": "10002",
+   "borough": "Manhattan",
+   "lat": 40.722095,
+   "lng": -73.988502,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/6ad6b025006b2b0001ebe388",
+     "checked_at": "2026-10-22T17:48:54.494Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "190 ALLEN STREET, New York, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "open-air-club-sixty-les",
+    "name": "Open Air Club",
+    "aliases": [],
+    "rooms": [],
+    "address": "190 ALLEN STREET",
+    "zip": "10002",
+    "borough": "Manhattan",
+    "neighborhood": null,
+    "lat": 40.722095,
+    "lng": -73.988502,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/6ad6b025006b2b0001ebe388",
+      "name": "DICE",
+      "checked_at": "2026-10-22T17:48:54.494Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "190 ALLEN STREET, New York, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-22T17:48:54.544505+00:00",
+    "updated_at": "2026-10-22T17:48:54.544505+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#6",
+  "venue": "the-newsroom-lic",
+  "status": 201,
+  "row": {
+   "id": "the-newsroom-lic",
+   "name": "Newsroom Speakeasy",
+   "address": "11-01 43 AVENUE",
+   "zip": "11101",
+   "borough": "Queens",
+   "lat": 40.752015,
+   "lng": -73.947494,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/6ad80f98e905c700018e5ba7",
+     "checked_at": "2026-10-22T17:48:55.431Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "11-01 43 AVENUE, Long Island City, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "the-newsroom-lic",
+    "name": "Newsroom Speakeasy",
+    "aliases": [],
+    "rooms": [],
+    "address": "11-01 43 AVENUE",
+    "zip": "11101",
+    "borough": "Queens",
+    "neighborhood": null,
+    "lat": 40.752015,
+    "lng": -73.947494,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/6ad80f98e905c700018e5ba7",
+      "name": "DICE",
+      "checked_at": "2026-10-22T17:48:55.431Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "11-01 43 AVENUE, Long Island City, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-22T17:48:55.695897+00:00",
+    "updated_at": "2026-10-22T17:48:55.695897+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#7",
+  "venue": "outer-heaven",
+  "status": 201,
+  "row": {
+   "id": "outer-heaven",
+   "name": "Outer Heaven",
+   "address": "191 CHRYSTIE STREET",
+   "zip": "10002",
+   "borough": "Manhattan",
+   "lat": 40.722006,
+   "lng": -73.992275,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/6ad7a1dd876a06000101d755",
+     "checked_at": "2026-10-22T17:48:56.732Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "191 CHRYSTIE STREET, New York, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "outer-heaven",
+    "name": "Outer Heaven",
+    "aliases": [],
+    "rooms": [],
+    "address": "191 CHRYSTIE STREET",
+    "zip": "10002",
+    "borough": "Manhattan",
+    "neighborhood": null,
+    "lat": 40.722006,
+    "lng": -73.992275,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/6ad7a1dd876a06000101d755",
+      "name": "DICE",
+      "checked_at": "2026-10-22T17:48:56.732Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "191 CHRYSTIE STREET, New York, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-22T17:48:56.802001+00:00",
+    "updated_at": "2026-10-22T17:48:56.802001+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#8",
+  "venue": "firehouse-engine-company-31",
+  "status": 201,
+  "row": {
+   "id": "firehouse-engine-company-31",
+   "name": "Firehouse Engine Company 31",
+   "address": "87 LAFAYETTE STREET",
+   "zip": "10013",
+   "borough": "Manhattan",
+   "lat": 40.717306,
+   "lng": -74.001161,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/6ad60ab61d865800016f7f1a",
+     "checked_at": "2026-10-22T17:48:57.861Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "87 LAFAYETTE STREET, New York, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "firehouse-engine-company-31",
+    "name": "Firehouse Engine Company 31",
+    "aliases": [],
+    "rooms": [],
+    "address": "87 LAFAYETTE STREET",
+    "zip": "10013",
+    "borough": "Manhattan",
+    "neighborhood": null,
+    "lat": 40.717306,
+    "lng": -74.001161,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/6ad60ab61d865800016f7f1a",
+      "name": "DICE",
+      "checked_at": "2026-10-22T17:48:57.861Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "87 LAFAYETTE STREET, New York, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-22T17:48:57.918333+00:00",
+    "updated_at": "2026-10-22T17:48:57.918333+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#9",
+  "venue": "rebel-nyc",
+  "status": 201,
+  "row": {
+   "id": "rebel-nyc",
+   "name": "Rebel",
+   "address": "29 CLINTON STREET",
+   "zip": "10002",
+   "borough": "Manhattan",
+   "lat": 40.72043,
+   "lng": -73.984526,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/6ad149bd9fcdc30001ca80d5",
+     "checked_at": "2026-10-22T17:48:59.344Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "29 CLINTON STREET, New York, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "rebel-nyc",
+    "name": "Rebel",
+    "aliases": [],
+    "rooms": [],
+    "address": "29 CLINTON STREET",
+    "zip": "10002",
+    "borough": "Manhattan",
+    "neighborhood": null,
+    "lat": 40.72043,
+    "lng": -73.984526,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/6ad149bd9fcdc30001ca80d5",
+      "name": "DICE",
+      "checked_at": "2026-10-22T17:48:59.344Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "29 CLINTON STREET, New York, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-22T17:48:59.402484+00:00",
+    "updated_at": "2026-10-22T17:48:59.402484+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#10",
+  "venue": "harmony-yacht-skyport-marina",
+  "status": 201,
+  "row": {
+   "id": "harmony-yacht-skyport-marina",
+   "name": "Harmony Yacht - Skyport Marina",
+   "address": "2430 FDR DRIVE",
+   "zip": "10010",
+   "borough": "Manhattan",
+   "lat": 40.735293,
+   "lng": -73.973876,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/6ad7c8d68baba000017382c2",
+     "checked_at": "2026-10-22T17:49:00.526Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "2430 FDR DRIVE, New York, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "harmony-yacht-skyport-marina",
+    "name": "Harmony Yacht - Skyport Marina",
+    "aliases": [],
+    "rooms": [],
+    "address": "2430 FDR DRIVE",
+    "zip": "10010",
+    "borough": "Manhattan",
+    "neighborhood": null,
+    "lat": 40.735293,
+    "lng": -73.973876,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/6ad7c8d68baba000017382c2",
+      "name": "DICE",
+      "checked_at": "2026-10-22T17:49:00.526Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "2430 FDR DRIVE, New York, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-22T17:49:00.579665+00:00",
+    "updated_at": "2026-10-22T17:49:00.579665+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#11",
+  "venue": "polygon-brooklyn",
+  "status": 201,
+  "row": {
+   "id": "polygon-brooklyn",
+   "name": "Polygon",
+   "address": "299 VANDERVOORT AVENUE",
+   "zip": "11211",
+   "borough": "Brooklyn",
+   "lat": 40.715472,
+   "lng": -73.934334,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/6ad0f0594bb02b0001c8c4d5",
+     "checked_at": "2026-10-22T17:49:01.500Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "299 VANDERVOORT AVENUE, Brooklyn, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "polygon-brooklyn",
+    "name": "Polygon",
+    "aliases": [],
+    "rooms": [],
+    "address": "299 VANDERVOORT AVENUE",
+    "zip": "11211",
+    "borough": "Brooklyn",
+    "neighborhood": null,
+    "lat": 40.715472,
+    "lng": -73.934334,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/6ad0f0594bb02b0001c8c4d5",
+      "name": "DICE",
+      "checked_at": "2026-10-22T17:49:01.500Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "299 VANDERVOORT AVENUE, Brooklyn, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-22T17:49:01.586046+00:00",
+    "updated_at": "2026-10-22T17:49:01.586046+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#12",
+  "venue": "the-highlight-room",
+  "status": 201,
+  "row": {
+   "id": "the-highlight-room",
+   "name": "The Highlight Room",
+   "address": "145 BOWERY",
+   "zip": "10002",
+   "borough": "Manhattan",
+   "lat": 40.71909,
+   "lng": -73.99414,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/6ad1490f06206d0001e76e2c",
+     "checked_at": "2026-10-22T17:49:02.493Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "145 BOWERY, New York, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "the-highlight-room",
+    "name": "The Highlight Room",
+    "aliases": [],
+    "rooms": [],
+    "address": "145 BOWERY",
+    "zip": "10002",
+    "borough": "Manhattan",
+    "neighborhood": null,
+    "lat": 40.71909,
+    "lng": -73.99414,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/6ad1490f06206d0001e76e2c",
+      "name": "DICE",
+      "checked_at": "2026-10-22T17:49:02.493Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "145 BOWERY, New York, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-22T17:49:02.554797+00:00",
+    "updated_at": "2026-10-22T17:49:02.554797+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#13",
+  "venue": "52-walker-street",
+  "status": 201,
+  "row": {
+   "id": "52-walker-street",
+   "name": "52 Walker Street, New York City",
+   "address": "52 WALKER STREET",
+   "zip": "10013",
+   "borough": "Manhattan",
+   "lat": 40.719194,
+   "lng": -74.003236,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/6ad65c42d7bd9b0001300378",
+     "checked_at": "2026-10-22T17:49:03.618Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "52 WALKER STREET, New York, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "52-walker-street",
+    "name": "52 Walker Street, New York City",
+    "aliases": [],
+    "rooms": [],
+    "address": "52 WALKER STREET",
+    "zip": "10013",
+    "borough": "Manhattan",
+    "neighborhood": null,
+    "lat": 40.719194,
+    "lng": -74.003236,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/6ad65c42d7bd9b0001300378",
+      "name": "DICE",
+      "checked_at": "2026-10-22T17:49:03.618Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "52 WALKER STREET, New York, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-22T17:49:03.861486+00:00",
+    "updated_at": "2026-10-22T17:49:03.861486+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#14",
+  "venue": "boho-oasis",
+  "status": 201,
+  "row": {
+   "id": "boho-oasis",
+   "name": "Boho Oasis",
+   "address": "264 CANAL STREET",
+   "zip": "10013",
+   "borough": "Manhattan",
+   "lat": 40.718598,
+   "lng": -74.001244,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/6ad607ee2c0a290001f73dba",
+     "checked_at": "2026-10-22T17:49:04.892Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "264 CANAL STREET, New York, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "boho-oasis",
+    "name": "Boho Oasis",
+    "aliases": [],
+    "rooms": [],
+    "address": "264 CANAL STREET",
+    "zip": "10013",
+    "borough": "Manhattan",
+    "neighborhood": null,
+    "lat": 40.718598,
+    "lng": -74.001244,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/6ad607ee2c0a290001f73dba",
+      "name": "DICE",
+      "checked_at": "2026-10-22T17:49:04.892Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "264 CANAL STREET, New York, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-22T17:49:04.969577+00:00",
+    "updated_at": "2026-10-22T17:49:04.969577+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#15",
+  "rpc": "party_venue_hoods",
+  "ok": true,
+  "status": 200,
+  "body": 11
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad3d1bb7139940001f2076e",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad3d1bb7139940001f2076e"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad50aec5194aa0001c248c9",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad50aec5194aa0001c248c9"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad1435e07a54f0001bc0209",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad1435e07a54f0001bc0209"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad689c9ceb44f0001ce07ea",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad689c9ceb44f0001ce07ea"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad50ba7aadbc90001db7ebd",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad50ba7aadbc90001db7ebd"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad8049d298fb80001f56d71",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad8049d298fb80001f56d71"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad68a8cfa2b1b00017b429c",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad68a8cfa2b1b00017b429c"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad565d3aadbc9000149b59e",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad565d3aadbc9000149b59e"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad405913a743400017df2f0",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad405913a743400017df2f0"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6acfa1fea89f820001e46a8a",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6acfa1fea89f820001e46a8a"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad80add6b31ce0001c4dd27",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad80add6b31ce0001c4dd27"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad1467a07a54f0001520266",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad1467a07a54f0001520266"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad7d39571e636000170e2e8",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad7d39571e636000170e2e8"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad80abf3dafd60001aba1a0",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad80abf3dafd60001aba1a0"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad11ff76ebc510001efef14",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad11ff76ebc510001efef14"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad4e7171543810001a7146c",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad4e7171543810001a7146c"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad12c49d3fad100017070e0",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad12c49d3fad100017070e0"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad8397071e63600012ee673",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad8397071e63600012ee673"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad68bc29f982c00018cfee3",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad68bc29f982c00018cfee3"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad661f8d7bd9b0001d94a75",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad661f8d7bd9b0001d94a75"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ada3157f7142400013325ab",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ada3157f7142400013325ab"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6acfa901b7541b0001ce26bb",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6acfa901b7541b0001ce26bb"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad91edd09ee9800012bdf73",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad91edd09ee9800012bdf73"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad80b3ca260700001b925ba",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad80b3ca260700001b925ba"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad68c8f9d5bb50001975fb8",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad68c8f9d5bb50001975fb8"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad57fcd154381000171c305",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad57fcd154381000171c305"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad78d16d6c60600017757c2",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad78d16d6c60600017757c2"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ada12f051c230000125f227",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ada12f051c230000125f227"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad806ae71e6360001da6c78",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad806ae71e6360001da6c78"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6acfc0bf4a46260001257a04",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6acfc0bf4a46260001257a04"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad6b025006b2b0001ebe388",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad6b025006b2b0001ebe388"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad93b3bf3f3370001fb6f1e",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad93b3bf3f3370001fb6f1e"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad586e4aadbc9000164c65f",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad586e4aadbc9000164c65f"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad8e0f4f3f3370001538206",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad8e0f4f3f3370001538206"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad80ade876a060001221a84",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad80ade876a060001221a84"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad80f98e905c700018e5ba7",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad80f98e905c700018e5ba7"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad1048ff8ed610001d2dd68",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad1048ff8ed610001d2dd68"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6acfc23be12f1c000170762b",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6acfc23be12f1c000170762b"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad7a1dd876a06000101d755",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad7a1dd876a06000101d755"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad60ab61d865800016f7f1a",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad60ab61d865800016f7f1a"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad2980fdf05190001bddd9a",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad2980fdf05190001bddd9a"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad19c2c160b9b0001468a20",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad19c2c160b9b0001468a20"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad149bd9fcdc30001ca80d5",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad149bd9fcdc30001ca80d5"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad7c8d68baba000017382c2",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad7c8d68baba000017382c2"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad0f0594bb02b0001c8c4d5",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad0f0594bb02b0001c8c4d5"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ada1ed92f29740001fdd32b",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ada1ed92f29740001fdd32b"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad1490f06206d0001e76e2c",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad1490f06206d0001e76e2c"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad11cc907a54f00014aac72",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad11cc907a54f00014aac72"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6aced314cb03a70001863823",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6aced314cb03a70001863823"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad056bed30e0900011bdfdc",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad056bed30e0900011bdfdc"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad80add3dafd60001dbc890",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad80add3dafd60001dbc890"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad29672849ebe0001c7031d",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad29672849ebe0001c7031d"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad1213b07a54f000117adc6",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad1213b07a54f000117adc6"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad848b0298fb80001f7abda",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad848b0298fb80001f7abda"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad15dcb9fcdc300015ef75c",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad15dcb9fcdc300015ef75c"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6acfb7a74a462600012f4500",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6acfb7a74a462600012f4500"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6acfa45b9caad4000159d523",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6acfa45b9caad4000159d523"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad636592d881c00016f7968",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad636592d881c00016f7968"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad120d93cdbd50001b3ccc6",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad120d93cdbd50001b3ccc6"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6aced137914a2c0001123039",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6aced137914a2c0001123039"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad14c506ebc510001e19b90",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad14c506ebc510001e19b90"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad80add9dbbd900011a7f01",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad80add9dbbd900011a7f01"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ace9660df233900016a2606",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ace9660df233900016a2606"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ace9b1955542e00018e7326",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ace9b1955542e00018e7326"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad8e0843691bc000108f03a",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad8e0843691bc000108f03a"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ada23a665ca490001e25922",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ada23a665ca490001e25922"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad77728ba932100018a5f70",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad77728ba932100018a5f70"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6acfb8dde12f1c0001deb7c4",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6acfb8dde12f1c0001deb7c4"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad15e0507a54f0001740815",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad15e0507a54f0001740815"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad681ed006b2b0001000acd",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad681ed006b2b0001000acd"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad8f1efc6d972000107669b",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad8f1efc6d972000107669b"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad7773cba932100019bb321",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad7773cba932100019bb321"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad9fb6c51c23000012df143",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad9fb6c51c23000012df143"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad1210ca9c19c000123a885",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad1210ca9c19c000123a885"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad0ff62b4413e00012431ca",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad0ff62b4413e00012431ca"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad80add8baba0000160508e",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad80add8baba0000160508e"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad0fc653621320001eaf455",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad0fc653621320001eaf455"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad372e0df26f8000129e607",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad372e0df26f8000129e607"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6acf9b221f6323000198dd0f",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6acf9b221f6323000198dd0f"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad77772ed6e2c0001f6146a",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad77772ed6e2c0001f6146a"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6acfbd8dd30e090001f6e6ad",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6acfbd8dd30e090001f6e6ad"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad683bffa2b1b0001ba6be3",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad683bffa2b1b0001ba6be3"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad15e4207a54f00010da9d9",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad15e4207a54f00010da9d9"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad65c42d7bd9b0001300378",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad65c42d7bd9b0001300378"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad7777eed6e2c00013e41b8",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad7777eed6e2c00013e41b8"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad607ee2c0a290001f73dba",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad607ee2c0a290001f73dba"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad02681e5ae0c0001c4fe1e",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad02681e5ae0c0001c4fe1e"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad4e0133a743400011c60da",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad4e0133a743400011c60da"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad1213b07a54f000117adc5",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad1213b07a54f000117adc5"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad9a21c09ee98000124ffe3",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad9a21c09ee98000124ffe3"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad8db5dc6d9720001b181e6",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad8db5dc6d9720001b181e6"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad80ade6b31ce0001e76175",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad80ade6b31ce0001e76175"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad7778bb1f79900015d4639",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad7778bb1f79900015d4639"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad15e6806206d0001c03ca9",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad15e6806206d0001c03ca9"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad77797ba93210001c3030c",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad77797ba93210001c3030c"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad12183a9c19c00017754f6",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad12183a9c19c00017754f6"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad80add6b31ce0001c4dd28",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad80add6b31ce0001c4dd28"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ada2dc1922d7800014d4a8f",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ada2dc1922d7800014d4a8f"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad777a3ba9321000130a8ff",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad777a3ba9321000130a8ff"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ace7d0ea4141300015b1365",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ace7d0ea4141300015b1365"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad912457e17530001203c9f",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad912457e17530001203c9f"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad777afba932100016e954d",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad777afba932100016e954d"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad80ade6b31ce0001e76173",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad80ade6b31ce0001e76173"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad631961e8f4a000187cd46",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad631961e8f4a000187cd46"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad1152907a54f0001611616",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad1152907a54f0001611616"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad0e82ec6852a0001908cb2",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad0e82ec6852a0001908cb2"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad777dbba93210001341460",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad777dbba93210001341460"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad7bf848baba00001a655b8",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad7bf848baba00001a655b8"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad91270f3f33700016974c7",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad91270f3f33700016974c7"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad777e7f21a45000150dec8",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad777e7f21a45000150dec8"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad1346ba9c19c000152e454",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad1346ba9c19c000152e454"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad606881d8658000138302b",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad606881d8658000138302b"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad1247407a54f0001978f96",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad1247407a54f0001978f96"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad80ade6b31ce0001e76174",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad80ade6b31ce0001e76174"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad12296b4413e0001a5b021",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad12296b4413e0001a5b021"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad777f3238918000128d1a2",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad777f3238918000128d1a2"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad915f87e17530001229f2d",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad915f87e17530001229f2d"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad685819d5bb50001514bbf",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad685819d5bb50001514bbf"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad77800f21a450001407a14",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad77800f21a450001407a14"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad80add876a06000140c4c9",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad80add876a06000140c4c9"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad7780c00733b00014e3f27",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad7780c00733b00014e3f27"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad78b4d33ec2f00014074ab",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad78b4d33ec2f00014074ab"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6ad37f1c3e67030001c095ec",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ad37f1c3e67030001c095ec"
+ },
+ {
+  "step": "#18",
+  "round": 0,
+  "ingest": {
+   "gone": 0,
+   "read": 123,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 0
+ },
+ {
+  "step": "#18",
+  "round": 1,
+  "ingest": {
+   "gone": 0,
+   "read": 0,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 0
  }
 ]
