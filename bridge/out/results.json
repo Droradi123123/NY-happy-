@@ -1,0 +1,183 @@
+[
+ {
+  "step": "#1",
+  "insert": "party_runs",
+  "status": 201,
+  "body": [
+   {
+    "id": 2,
+    "started_at": "2026-10-22T17:03:54.124315+00:00",
+    "finished_at": null,
+    "kind": "skill",
+    "stats": null,
+    "notes": "bridge run: DICE refresh + dump for SEO/GEO copy pass (2026-10-22)"
+   }
+  ]
+ },
+ {
+  "step": "#2",
+  "round": 0,
+  "ingest": {
+   "gone": 0,
+   "read": 0,
+   "waiting": 0,
+   "ended_now": 107,
+   "unreadable": 0
+  },
+  "queued": 40
+ },
+ {
+  "step": "#2",
+  "round": 1,
+  "ingest": {
+   "gone": 0,
+   "read": 40,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 40
+ },
+ {
+  "step": "#2",
+  "round": 2,
+  "ingest": {
+   "gone": 0,
+   "read": 40,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 40
+ },
+ {
+  "step": "#2",
+  "round": 3,
+  "ingest": {
+   "gone": 0,
+   "read": 40,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 40
+ },
+ {
+  "step": "#2",
+  "round": 4,
+  "ingest": {
+   "gone": 0,
+   "read": 40,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 40
+ },
+ {
+  "step": "#2",
+  "round": 5,
+  "ingest": {
+   "gone": 0,
+   "read": 0,
+   "waiting": 40,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 40
+ },
+ {
+  "step": "#2",
+  "round": 6,
+  "ingest": {
+   "gone": 0,
+   "read": 80,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 40
+ },
+ {
+  "step": "#2",
+  "round": 7,
+  "ingest": {
+   "gone": 0,
+   "read": 0,
+   "waiting": 40,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 40
+ },
+ {
+  "step": "#2",
+  "round": 8,
+  "ingest": {
+   "code": "57014",
+   "details": null,
+   "hint": null,
+   "message": "canceling statement due to statement timeout"
+  },
+  "queued": 40
+ },
+ {
+  "step": "#2",
+  "round": 9,
+  "ingest": {
+   "code": "57014",
+   "details": null,
+   "hint": null,
+   "message": "canceling statement due to statement timeout"
+  },
+  "queued": 40
+ },
+ {
+  "step": "#2",
+  "round": 10,
+  "ingest": {
+   "gone": 0,
+   "read": 160,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 40
+ },
+ {
+  "step": "#2",
+  "round": 11,
+  "ingest": {
+   "gone": 0,
+   "read": 40,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 40
+ },
+ {
+  "step": "#2",
+  "round": 12,
+  "ingest": {
+   "gone": 0,
+   "read": 40,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 19
+ },
+ {
+  "step": "#2",
+  "round": 13,
+  "ingest": {
+   "gone": 0,
+   "read": 19,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 0
+ }
+]
