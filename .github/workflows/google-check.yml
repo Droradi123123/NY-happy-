@@ -1,0 +1,27 @@
+# Checks that the Google service account (repository secrets GOOGLE_SA_JSON, GA4_PROPERTY_ID) can read
+# Google Analytics and Search Console. Run by hand; the log shows only success and 28-day totals.
+name: Google access check
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    defaults:
+      run:
+        working-directory: site
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Check
+        env:
+          GOOGLE_SA_JSON: ${{ secrets.GOOGLE_SA_JSON }}
+          GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+        run: node scripts/google-check.mjs
