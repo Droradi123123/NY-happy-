@@ -79,6 +79,7 @@ function candidate(p, at, hood) {
     : !(ii.width > ii.height) ? 'portrait orientation'
     : year < 2005 ? 'older than 2005 or undated'
     : NOT_STREET.test(`${title} ${strip(md.ObjectName?.value) ?? ''}`) ? 'not a street view'
+    : /\b(18|19)\d\d\b|\b200[0-4]\b/.test(title) ? 'title dates it before 2005'
     : !(STREETISH.test(title) || (hood && title.toLowerCase().includes(hood.toLowerCase()))) ? 'title does not name a street or building'
     : null;
   if (why) return null;
