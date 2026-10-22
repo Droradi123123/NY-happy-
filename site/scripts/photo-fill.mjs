@@ -38,8 +38,9 @@ const strip = (t) => (t ? String(t).replace(/<[^>]*>/g, '').replace(/\s+/g, ' ')
 const licenseOk = (l) => !!l && !/(NC|ND|non-?commercial|no ?deriv|fair use|GFDL|all rights)/i.test(l)
   && /^(CC0( 1\.0)?|Public domain|PD[- ].*|PD|CC BY(-SA)? [1-4]\.0( [a-z-]+)?|CC BY(-SA)?)$/i.test(l);
 // not the neighborhood: people, events, vehicles, artwork, food, documents, interiors
-const NOT_STREET = /(portrait|selfie|\bDJ\b|concert|perform|parade|protest|march\b|rally|festival|marathon|wedding|crowd|people|\bman\b|\bwoman\b|\bmen\b|\bwomen\b|girl|\bboy|child|kids|\bdog\b|\bcat\b|\bbus\b|taxi|\bcab\b|\bcar\b|\bcars\b|truck|locomotive|\btrain\b|police|\bNYPD\b|\bFDNY\b|fire engine|ambulance|mural|graffiti|street art|sculpture|statue|mapillary|interior|inside|\bfood\b|dish|menu|plate|cocktail|\bdrink|beer|wine|logo|\bmap\b|diagram|\bplan\b|screenshot|poster|flyer|ticket|\bsign\b|signage|plaque|bird|squirrel|flower|tree\b|snow ?storm|blizzard|flood|fire\b|accident|crash|construction site|demolition|night sky|moon|sunset|aerial)/i;
-const STREETISH = /(street|\bst\b|avenue|\bave\b|block|corner|building|storefront|store front|facade|façade|row ?house|brownstone|tenement|looking (north|south|east|west)|\bview\b|\bbridge\b|park|square|plaza)/i;
+const NOT_STREET = /(portrait|selfie|\bDJ\b|concert|perform|parade|protest|march\b|rally|festival|marathon|wedding|crowd|people|\bman\b|\bwoman\b|\bmen\b|\bwomen\b|girl|\bboy|child|kids|\bdog\b|\bcat\b|\bbus\b|taxi|\bcab\b|\bcar\b|\bcars\b|truck|chevy|chevrolet|camaro|\bford\b|bmw|toyota|honda|locomotive|\btrain\b|police|\bNYPD\b|\bFDNY\b|fire engine|ambulance|mural|graffiti|street art|\bart\b|artwork|collective|installation|exhibit|sculpture|statue|mapillary|interior|inside|lobby|\broom\b|\bfood\b|dish|menu|plate|crab|cocktail|\bdrink|beer|wine|logo|\bmap\b|diagram|\bplan\b|screenshot|poster|flyer|ticket|\bsign\b|signage|plaque|parking|violation|bike ?rack|roller|\bframe\b|\bfence\b|\bband\b|\bshow\b|\btour\b|\bgig\b|\bstage\b|\bparty\b|\bevent\b|halloween|filming|\bset\b|bird|squirrel|flower|tree\b|snow ?storm|blizzard|flood|fire\b|accident|crash|construction site|demolition|night sky|moon|sunset|aerial|\s(at|@)\s+(?!\d))/i;
+// the title must say it shows a street, a building or a public place (or name the neighborhood)
+const STREETISH = /\b(st|street|av|ave|avenue|blvd|boulevard|road|rd|place|pl|broadway|bowery|row|building|bldg|houses?|church|cathedral|synagogue|temple|station|sta|bridge|park|square|sq|plaza|corner|block|storefront|facade|brownstones?|tenements?|armory|school|library|hotel|tower|market|pier|terrace|parkway|pkwy|looking|skyline|waterfront|exterior)\b/i;
 
 function meters(a, b) {
   const R = 6371000, k = Math.PI / 180, dLa = (b[0] - a[0]) * k, dLo = (b[1] - a[1]) * k;
@@ -60,7 +61,7 @@ async function commons(lat, lng, radius) {
   return [];
 }
 
-function candidate(p, at) {
+function candidate(p, at, hood) {
   const ii = p.imageinfo?.[0];
   if (!ii) return null;
   const md = ii.extmetadata ?? {};
@@ -78,6 +79,7 @@ function candidate(p, at) {
     : !(ii.width > ii.height) ? 'portrait orientation'
     : year < 2005 ? 'older than 2005 or undated'
     : NOT_STREET.test(`${title} ${strip(md.ObjectName?.value) ?? ''}`) ? 'not a street view'
+    : !(STREETISH.test(title) || (hood && title.toLowerCase().includes(hood.toLowerCase()))) ? 'title does not name a street or building'
     : null;
   if (why) return null;
   const dist = c ? Math.round(meters(at, [c.lat, c.lon])) : null;
@@ -89,7 +91,7 @@ function candidate(p, at) {
     license: lic, license_url: md.LicenseUrl?.value ?? null, description: strip(md.ImageDescription?.value)?.slice(0, 400) ?? null,
     distance_m: dist, taken: String(year),
     // nearer first; a title that names a street or building counts as 150 m nearer
-    score: dist - (STREETISH.test(title) ? 150 : 0),
+    score: dist,
   };
 }
 
@@ -103,8 +105,8 @@ const used = new Map(); // file -> how many places already show it
 for (const x of have) used.set(x.file_title, (used.get(x.file_title) ?? 0) + 1);
 
 const todo = [
-  ...bars.filter((b) => !has.has(`bar:${b.slug}`)).map((b) => ({ kind: 'bar', key: b.slug, name: b.name, lat: b.lat, lng: b.lng, radii: [300, 600] })),
-  ...venues.filter((v) => !has.has(`venue:${v.id}`)).map((v) => ({ kind: 'venue', key: v.id, name: v.name, lat: v.lat, lng: v.lng, radii: [400, 800] })),
+  ...bars.filter((b) => !has.has(`bar:${b.slug}`)).map((b) => ({ kind: 'bar', key: b.slug, name: b.name, hood: b.hood, lat: b.lat, lng: b.lng, radii: [300, 600] })),
+  ...venues.filter((v) => !has.has(`venue:${v.id}`)).map((v) => ({ kind: 'venue', key: v.id, name: v.name, hood: v.neighborhood, lat: v.lat, lng: v.lng, radii: [400, 800] })),
 ];
 console.log(`bars ${bars.length}, venues ${venues.length}; without a photo: ${todo.length}`);
 
@@ -113,7 +115,7 @@ for (const s of todo) {
   if (s.lat == null || s.lng == null) { report.none.push({ kind: s.kind, key: s.key, why: 'no coordinates' }); continue; }
   let pick = null;
   for (const r of s.radii) {
-    const cands = (await commons(s.lat, s.lng, r)).map((p) => candidate(p, [s.lat, s.lng])).filter(Boolean);
+    const cands = (await commons(s.lat, s.lng, r)).map((p) => candidate(p, [s.lat, s.lng], s.hood)).filter(Boolean);
     await sleep(400);
     // a file nobody shows yet, else the least used
     cands.sort((a, b) => (used.get(a.file_title) ?? 0) - (used.get(b.file_title) ?? 0) || a.score - b.score);
