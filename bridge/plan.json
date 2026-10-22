@@ -1,10 +1,36 @@
 {
-  "steps": [
-    { "insert": "party_runs", "rows": [{ "kind": "skill", "notes": "bridge run: DICE refresh + dump for SEO/GEO copy pass (2026-10-22)" }] },
-    { "dice_refresh": { "rounds": 45, "n": 40, "older_than": "1 day" } },
-    { "dump": "events", "path": "party_events?select=id,slug,title,night_date,starts_at,doors_at,ends_at,venue_id,room,neighborhood,borough,genres,themes,tags,performers,organizer,age_min,price_from,price_status,event_status,publish_status,ticket_url,ticket_vendor,refund_terms,facts,copy,raw,sources,last_checked&night_date=gte.2026-10-22&order=night_date" },
-    { "dump": "venues", "path": "party_venues?select=*" },
-    { "dump": "leads", "path": "party_leads?select=*&status=eq.open" },
-    { "dump": "sources", "path": "party_sources?select=*" }
-  ]
+ "steps": [
+  {
+   "insert": "party_runs",
+   "rows": [
+    {
+     "kind": "skill",
+     "notes": "bridge run: DICE refresh + dump for SEO/GEO copy pass (2026-10-22)"
+    }
+   ]
+  },
+  {
+   "dice_refresh": {
+    "rounds": 45,
+    "n": 40,
+    "older_than": "1 day"
+   }
+  },
+  {
+   "dump": "events",
+   "path": "party_events?select=*&night_date=gte.2026-10-22&order=night_date"
+  },
+  {
+   "dump": "venues",
+   "path": "party_venues?select=*"
+  },
+  {
+   "dump": "leads",
+   "path": "party_leads?select=*&status=eq.open"
+  },
+  {
+   "dump": "sources",
+   "path": "party_sources?select=*"
+  }
+ ]
 }
