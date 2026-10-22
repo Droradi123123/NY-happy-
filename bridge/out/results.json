@@ -1,214 +1,80 @@
 [
  {
   "step": "#1",
-  "insert": "party_runs",
-  "status": 201,
-  "body": [
-   {
-    "id": 3,
-    "started_at": "2026-10-22T17:12:18.012796+00:00",
-    "finished_at": null,
-    "kind": "skill",
-    "stats": null,
-    "notes": "bridge: add 3 new DICE nights (Thanksgiving, NYE) found by web search on 2026-10-22"
+  "rpc": "party_event_copy",
+  "args": {
+   "p_id": "dice:wwnrex-groundcontrol-presents-thanksgiving-with-kofla-cristian-arango-26th-nov-superior-ingredients-main-room-new-york-tickets",
+   "p_copy": {
+    "about": "Ground Control brings back its annual Thanksgiving night party at Superior Ingredients in Williamsburg on Thursday, November 26, 2026, with KOFLA and Cristian Arango in the Main Room. It is the night of Thanksgiving itself, after dinner: the DICE listing runs it from 10pm to 4am.",
+    "expect": "The promoter pitches it as the part of the holiday that starts once the plates are cleared, a night on the dance floor rather than at the table. Theme, dress and production are not described in the listing. My take: this is for people who want to dance after Thanksgiving dinner, not for a Thanksgiving Eve night out.",
+    "music": "KOFLA and Cristian Arango are the two artists named in the title and the description of the DICE listing. No supporting lineup, set times or genre description are listed, so the running order and set lengths are not confirmed.",
+    "before_you_go": "Doors at 10pm on Thursday, November 26; the listing ends at 4am. 21+ with a government-issued photo ID. Superior Ingredients is at 74 Wythe Ave in Williamsburg, Brooklyn, and this night is in the Main Room. The listing points table requests to nightout@groundcontrol.com. Re-entry, coat check and accessibility are not stated.",
+    "faq": [
+     {
+      "q": "Is this on Thanksgiving Eve or Thanksgiving night?",
+      "a": "Thanksgiving night: Thursday, November 26, 2026, with doors at 10pm."
+     },
+     {
+      "q": "Who is playing?",
+      "a": "KOFLA and Cristian Arango, per the DICE listing. Set times are not listed."
+     },
+     {
+      "q": "What is the age limit?",
+      "a": "21+. Bring a government-issued photo ID."
+     },
+     {
+      "q": "Can I book a table?",
+      "a": "The listing says table requests go to nightout@groundcontrol.com."
+     },
+     {
+      "q": "Can I get a refund?",
+      "a": "On DICE, within 24 hours of purchase (but not within 24 hours of the event), or if the event is cancelled or rescheduled."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "Refund within 24 hours of purchase (not within 24 hours of the event), or if the event is cancelled or rescheduled."
+    },
+    "sources": [
+     "https://dice.fm/event/wwnrex-groundcontrol-presents-thanksgiving-with-kofla-cristian-arango-26th-nov-superior-ingredients-main-room-new-york-tickets"
+    ],
+    "verification_note": "Read from the DICE listing on October 22, 2026: date, doors 10pm, end 4am, 21+, Main Room, artists and table contact. Not cross-checked against a Ground Control or venue page."
    }
-  ]
+  },
+  "ok": true,
+  "status": 200,
+  "body": "review"
  },
  {
   "step": "#2",
-  "venue": "cipriani-42nd-street",
-  "status": 201,
-  "row": {
-   "id": "cipriani-42nd-street",
-   "name": "Cipriani 42nd St",
-   "address": "110 EAST 42 STREET",
-   "zip": "10017",
-   "borough": "Manhattan",
-   "lat": 40.751609,
-   "lng": -73.977143,
-   "sources": [
-    {
-     "name": "DICE",
-     "url": "https://dice.fm/event/pyra3k-cipriani-new-years-eve-party-2026-31st-dec-cipriani-42nd-st-new-york-city-tickets",
-     "checked_at": "2026-10-22T17:12:19.487Z"
-    },
-    {
-     "name": "NYC GeoSearch",
-     "url": "https://geosearch.planninglabs.nyc",
-     "label": "110 EAST 42 STREET, New York, NY, USA"
-    }
-   ]
+  "rpc": "party_publish_blockers",
+  "args": {
+   "p_id": "dice:wwnrex-groundcontrol-presents-thanksgiving-with-kofla-cristian-arango-26th-nov-superior-ingredients-main-room-new-york-tickets"
   },
-  "body": [
-   {
-    "id": "cipriani-42nd-street",
-    "name": "Cipriani 42nd St",
-    "aliases": [],
-    "rooms": [],
-    "address": "110 EAST 42 STREET",
-    "zip": "10017",
-    "borough": "Manhattan",
-    "neighborhood": null,
-    "lat": 40.751609,
-    "lng": -73.977143,
-    "kind": null,
-    "facts": {},
-    "copy": {},
-    "sources": [
-     {
-      "url": "https://dice.fm/event/pyra3k-cipriani-new-years-eve-party-2026-31st-dec-cipriani-42nd-st-new-york-city-tickets",
-      "name": "DICE",
-      "checked_at": "2026-10-22T17:12:19.487Z"
-     },
-     {
-      "url": "https://geosearch.planninglabs.nyc",
-      "name": "NYC GeoSearch",
-      "label": "110 EAST 42 STREET, New York, NY, USA"
-     }
-    ],
-    "status": "active",
-    "google_checked_at": null,
-    "created_at": "2026-10-22T17:12:19.568951+00:00",
-    "updated_at": "2026-10-22T17:12:19.568951+00:00"
-   }
-  ]
+  "ok": true,
+  "status": 200,
+  "body": []
  },
  {
   "step": "#3",
-  "venue": "stone-street-tavern",
+  "insert": "party_leads",
   "status": 201,
-  "row": {
-   "id": "stone-street-tavern",
-   "name": "Stone Street Tavern",
-   "address": "52 STONE STREET",
-   "zip": "10004",
-   "borough": "Manhattan",
-   "lat": 40.70423,
-   "lng": -74.010206,
-   "sources": [
-    {
-     "name": "DICE",
-     "url": "https://dice.fm/event/rybdm5-new-years-eve-party-at-historic-landmark-venue-31st-dec-stone-street-tavern-new-york-city-tickets",
-     "checked_at": "2026-10-22T17:12:20.107Z"
-    },
-    {
-     "name": "NYC GeoSearch",
-     "url": "https://geosearch.planninglabs.nyc",
-     "label": "52 STONE STREET, New York, NY, USA"
-    }
-   ]
-  },
   "body": [
    {
-    "id": "stone-street-tavern",
-    "name": "Stone Street Tavern",
-    "aliases": [],
-    "rooms": [],
-    "address": "52 STONE STREET",
-    "zip": "10004",
-    "borough": "Manhattan",
-    "neighborhood": null,
-    "lat": 40.70423,
-    "lng": -74.010206,
-    "kind": null,
-    "facts": {},
-    "copy": {},
-    "sources": [
-     {
-      "url": "https://dice.fm/event/rybdm5-new-years-eve-party-at-historic-landmark-venue-31st-dec-stone-street-tavern-new-york-city-tickets",
-      "name": "DICE",
-      "checked_at": "2026-10-22T17:12:20.107Z"
-     },
-     {
-      "url": "https://geosearch.planninglabs.nyc",
-      "name": "NYC GeoSearch",
-      "label": "52 STONE STREET, New York, NY, USA"
-     }
-    ],
-    "status": "active",
-    "google_checked_at": null,
-    "created_at": "2026-10-22T17:12:20.191657+00:00",
-    "updated_at": "2026-10-22T17:12:20.191657+00:00"
+    "id": 224,
+    "source": "web search",
+    "date_text": null,
+    "night_date": "2026-11-25",
+    "time_text": null,
+    "title": "Thanksgiving Eve Party @ 230 Fifth Rooftop",
+    "venue_text": "230 Fifth Rooftop, 1150 Broadway, Manhattan",
+    "url": "https://230-fifth.com/upcoming-events/",
+    "match_status": null,
+    "matched_event_id": null,
+    "status": "open",
+    "notes": null,
+    "checked_at": "2026-10-22T17:00:00+00:00",
+    "created_at": "2026-10-22T17:18:54.82173+00:00"
    }
   ]
- },
- {
-  "step": "#4",
-  "rpc": "party_venue_hoods",
-  "ok": true,
-  "status": 200,
-  "body": 2
- },
- {
-  "step": "#5",
-  "rpc": "party_add_dice",
-  "args": {
-   "p_url": "https://dice.fm/event/wwnrex-groundcontrol-presents-thanksgiving-with-kofla-cristian-arango-26th-nov-superior-ingredients-main-room-new-york-tickets",
-   "p_venue_id": "superior-ingredients",
-   "p_room": "Main Room",
-   "p_found_via": "web search site:dice.fm 2026-10-22",
-   "p_themes": [
-    "thanksgiving"
-   ]
-  },
-  "ok": true,
-  "status": 200,
-  "body": "dice:wwnrex-groundcontrol-presents-thanksgiving-with-kofla-cristian-arango-26th-nov-superior-ingredients-main-room-new-york-tickets"
- },
- {
-  "step": "#6",
-  "rpc": "party_add_dice",
-  "args": {
-   "p_url": "https://dice.fm/event/pyra3k-cipriani-new-years-eve-party-2026-31st-dec-cipriani-42nd-st-new-york-city-tickets",
-   "p_venue_id": "cipriani-42nd-street",
-   "p_room": null,
-   "p_found_via": "web search site:dice.fm 2026-10-22",
-   "p_themes": [
-    "nye"
-   ]
-  },
-  "ok": true,
-  "status": 200,
-  "body": "dice:pyra3k-cipriani-new-years-eve-party-2026-31st-dec-cipriani-42nd-st-new-york-city-tickets"
- },
- {
-  "step": "#7",
-  "rpc": "party_add_dice",
-  "args": {
-   "p_url": "https://dice.fm/event/rybdm5-new-years-eve-party-at-historic-landmark-venue-31st-dec-stone-street-tavern-new-york-city-tickets",
-   "p_venue_id": "stone-street-tavern",
-   "p_room": null,
-   "p_found_via": "web search site:dice.fm 2026-10-22",
-   "p_themes": [
-    "nye"
-   ]
-  },
-  "ok": true,
-  "status": 200,
-  "body": "dice:rybdm5-new-years-eve-party-at-historic-landmark-venue-31st-dec-stone-street-tavern-new-york-city-tickets"
- },
- {
-  "step": "#9",
-  "round": 0,
-  "ingest": {
-   "gone": 0,
-   "read": 3,
-   "waiting": 0,
-   "ended_now": 2,
-   "unreadable": 0
-  },
-  "queued": 0
- },
- {
-  "step": "#9",
-  "round": 1,
-  "ingest": {
-   "gone": 0,
-   "read": 0,
-   "waiting": 0,
-   "ended_now": 0,
-   "unreadable": 0
-  },
-  "queued": 0
  }
 ]
