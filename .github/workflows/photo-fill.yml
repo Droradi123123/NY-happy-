@@ -1,0 +1,40 @@
+# Photo fill: gives every bar and venue without a photo a freely licensed Commons photo of the
+# neighborhood around it (site/scripts/photo-fill.mjs), recorded in image_rights with author and
+# license. Run by hand; commits bridge/out/photo-fill.json with what it chose.
+name: Photo fill
+
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Report only, write nothing (1 or 0)'
+        default: '0'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: db-bridge
+  cancel-in-progress: false
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Fill
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: node site/scripts/photo-fill.mjs
+      - name: Commit report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add bridge/out
+          git commit -m "Photo fill: $(date -u +%FT%H:%M)" || exit 0
+          for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done
