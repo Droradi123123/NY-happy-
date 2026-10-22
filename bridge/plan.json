@@ -1,37 +1,116 @@
 {
  "steps": [
   {
-   "rpc": "party_publish_blockers",
-   "args": {
-    "p_id": "dice:wwnrex-groundcontrol-presents-thanksgiving-with-kofla-cristian-arango-26th-nov-superior-ingredients-main-room-new-york-tickets"
-   }
-  },
-  {
-   "rpc": "party_event_status",
-   "args": {
-    "p_id": "dice:wwnrex-groundcontrol-presents-thanksgiving-with-kofla-cristian-arango-26th-nov-superior-ingredients-main-room-new-york-tickets",
-    "p_status": "ready"
-   }
-  },
-  {
-   "rpc": "party_event_status",
-   "args": {
-    "p_id": "dice:wwnrex-groundcontrol-presents-thanksgiving-with-kofla-cristian-arango-26th-nov-superior-ingredients-main-room-new-york-tickets",
-    "p_status": "published"
-   }
-  },
-  {
    "insert": "party_runs",
    "rows": [
     {
-     "kind": "skill-summary",
-     "notes": "bridge run 2026-10-22: DICE refresh of 499 upcoming (107 ended); added Groundcontrol Thanksgiving (published), Cipriani and Stone Street NYE (2025, ended); 230 Fifth Thanksgiving Eve lead"
+     "kind": "skill",
+     "notes": "bridge: add new DICE parties from workbook nyc-new-parties-2026-10-22.xlsx (136 rows)"
     }
    ]
   },
   {
-   "dump": "new_events",
-   "path": "party_events?select=slug,night_date,publish_status,review_reason&id=eq.dice:wwnrex-groundcontrol-presents-thanksgiving-with-kofla-cristian-arango-26th-nov-superior-ingredients-main-room-new-york-tickets"
+   "venue_from_dice": {
+    "id": "altheas-hideaway",
+    "url": "https://dice.fm/event/6ad50aec5194aa0001c248c9"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "jupiter-disco",
+    "url": "https://dice.fm/event/6ad689c9ceb44f0001ce07ea"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "the-crown-rooftop",
+    "url": "https://dice.fm/event/6ada3157f7142400013325ab"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "open-air-club-sixty-les",
+    "url": "https://dice.fm/event/6ad6b025006b2b0001ebe388"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "the-newsroom-lic",
+    "url": "https://dice.fm/event/6ad80f98e905c700018e5ba7"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "outer-heaven",
+    "url": "https://dice.fm/event/6ad7a1dd876a06000101d755"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "firehouse-engine-company-31",
+    "url": "https://dice.fm/event/6ad60ab61d865800016f7f1a"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "rebel-nyc",
+    "url": "https://dice.fm/event/6ad149bd9fcdc30001ca80d5"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "harmony-yacht-skyport-marina",
+    "url": "https://dice.fm/event/6ad7c8d68baba000017382c2"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "polygon-brooklyn",
+    "url": "https://dice.fm/event/6ad0f0594bb02b0001c8c4d5"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "the-highlight-room",
+    "url": "https://dice.fm/event/6ad1490f06206d0001e76e2c"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "52-walker-street",
+    "url": "https://dice.fm/event/6ad65c42d7bd9b0001300378"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "boho-oasis",
+    "url": "https://dice.fm/event/6ad607ee2c0a290001f73dba"
+   }
+  },
+  {
+   "rpc": "party_venue_hoods"
+  },
+  {
+   "rpc_each": "party_add_dice",
+   "args_from": "bridge/adds.json"
+  },
+  {
+   "sleep": 15
+  },
+  {
+   "dice_refresh": {
+    "rounds": 10,
+    "n": 40,
+    "older_than": "1 day"
+   }
+  },
+  {
+   "dump": "workbook_events",
+   "path": "party_events?select=*&ticket_url=like.*dice.fm*&created_at=gte.2026-10-22T17:30:00Z"
+  },
+  {
+   "dump": "venues_new",
+   "path": "party_venues?select=id,name,address,borough,neighborhood,lat,lng&created_at=gte.2026-10-22T17:00:00Z"
   }
  ]
 }
