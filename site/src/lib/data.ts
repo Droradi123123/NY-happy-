@@ -415,11 +415,14 @@ export const creditShort = (p: Photo) => (p.source === 'google_places' ? `${p.au
  */
 export type PhotoRel = 'own' | 'nearby' | 'area' | 'hood';
 export interface PlacePhoto { photo: Photo; rel: PhotoRel; hood: string | null }
-export function placePhoto(kind: 'bar' | 'venue', key: string | null | undefined, hood: string | null, hoodSlug?: string | null, _withHood = true): PlacePhoto | null {
+export function placePhoto(kind: 'bar' | 'venue', key: string | null | undefined, hood: string | null, hoodSlug?: string | null, _withHood = true, borough?: string | null): PlacePhoto | null {
   const own = photoOf(kind, key);
   if (own) return { photo: own, rel: own.match === 'nearby' ? 'nearby' : own.match === 'area' ? 'area' : 'own', hood };
   const h = photoOf('hood', hoodSlug ?? (hood ? slugify(hood) : null));
-  return h ? { photo: h, rel: 'hood', hood } : null;
+  if (h) return { photo: h, rel: 'hood', hood };
+  // last resort: a street photo from the borough, captioned with the borough
+  const b = borough ? photoOf('hood', slugify(borough)) : null;
+  return b ? { photo: b, rel: 'hood', hood: borough ?? null } : null;
 }
 /** the line that says what the picture shows, e.g. "The street outside Rangoon" */
 export const photoNote = (pp: PlacePhoto, name: string) => (pp.rel === 'nearby' ? `The street outside ${name}`

@@ -23,7 +23,7 @@ const actKeys = new Set(Object.entries(actVenues).filter(([, a]) => a.partyVenue
 const actNights = [...actTrivia, ...actBingo].filter((t) => actKeys.has(t.v)).sort((p, q) => DAYS.indexOf(p.day) - DAYS.indexOf(q.day));
 const actGamesHere = actGames.filter((a) => actKeys.has(a.v));
 const x = (v.extra ?? {}) as Record<string, any>;
-const vp = placePhoto('venue', v.id, v.neighborhood);
+const vp = placePhoto('venue', v.id, v.neighborhood, null, true, v.borough);
 const website: string | null = x.website ?? null;
 const genres = [...new Set(nights.flatMap((p) => p.genres))].slice(0, 5).map((g) => GENRE_NAME[g] ?? g);
 const elsewhere = parties.filter((p) => p.venue_id !== v.id && (p.borough === v.borough || !v.borough)).slice(0, 6);

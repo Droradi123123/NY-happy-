@@ -5,7 +5,7 @@ import Line from './Line.astro';
 interface Props { bar: Bar; note?: string; eager?: boolean }
 const { bar: b, note, eager = false } = Astro.props;
 const deal = dealLabel(b);
-const pp = placePhoto('bar', b.slug, b.hood, b.hoodSlug, false);
+const pp = placePhoto('bar', b.slug, b.hood, b.hoodSlug, false, b.borough);
 ---
 <article class="xcard">
   {pp && <figure class="xcard-img"><img src={pp.photo.thumb} alt="" width="500" height="281" loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} decoding="async" /><figcaption>{cardCredit(pp)}</figcaption></figure>}

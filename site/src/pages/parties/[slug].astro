@@ -15,7 +15,7 @@ export async function getStaticPaths() {
   return parties.map((party) => ({ params: { slug: party.slug }, props: { party, venue: venueOf(party, venues), parties, venues, recurring: (names.get(partyName(party).toLowerCase()) ?? 0) > 1 } }));
 }
 const { party: p, venue: v, parties, venues, recurring } = Astro.props as { party: Party; venue: Venue | null; parties: Party[]; venues: Venue[]; recurring: boolean };
-const vp = v ? placePhoto('venue', v.id, v.neighborhood ?? p.neighborhood) : null;
+const vp = v ? placePhoto('venue', v.id, v.neighborhood ?? p.neighborhood, null, true, v.borough ?? p.borough) : null;
 // a party that repeats (same name, several nights) targets "<name> <Oct 24>" on each night's page
 const kw = `${partyName(p)}${recurring ? ` ${nightDate(p.night_date, { month: 'short', day: 'numeric' })}` : ''}`;
 const url = `${SITE}/parties/${p.slug}`;

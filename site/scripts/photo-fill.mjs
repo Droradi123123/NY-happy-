@@ -97,8 +97,8 @@ function candidate(p, at, hood) {
 }
 
 const [bars, venues, have] = await Promise.all([
-  get('site_bars?select=slug,name,hood,hood_slug,lat,lng'),
-  get('site_venues?select=id,name,neighborhood,lat,lng'),
+  get('site_bars?select=slug,name,hood,hood_slug,borough,lat,lng'),
+  get('site_venues?select=id,name,neighborhood,borough,lat,lng'),
   get('site_images?select=subject_kind,subject_key,file_title'),
 ]);
 const has = new Set(have.map((x) => `${x.subject_kind}:${x.subject_key}`));
@@ -134,6 +134,44 @@ for (const s of todo) {
   if (res.ok) report.insert.ok++; else { report.insert.failed++; if (report.insert.failed <= 3) report.insert.error = `${res.status} ${(await res.text()).slice(0, 300)}`; }
 }
 
+// Places still without a photo fall back to their neighborhood's photo, then their borough's
+// (lib/data.ts placePhoto). Neighborhoods and boroughs that have none get a street photo taken near
+// the middle of their places, recorded as subject 'hood' with match 'area'.
+const slug = (t) => String(t ?? '').normalize('NFKD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/&/g, ' and ').replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const gotPlace = new Set([...has, ...report.chosen.map((c) => `${c.kind}:${c.key}`)]);
+const places = [...bars.map((b) => ({ k: `bar:${b.slug}`, hood: b.hood_slug, hoodName: b.hood, boro: b.borough, lat: b.lat, lng: b.lng })),
+  ...venues.map((v) => ({ k: `venue:${v.id}`, hood: v.neighborhood ? slug(v.neighborhood) : null, hoodName: v.neighborhood, boro: v.borough, lat: v.lat, lng: v.lng }))];
+const areas = new Map();
+for (const p of places) for (const [key, name] of [[p.hood, p.hoodName], [p.boro ? slug(p.boro) : null, p.boro]]) {
+  if (!key || has.has(`hood:${key}`)) continue;
+  if (!areas.has(key)) areas.set(key, { key, name, pts: [], needed: false });
+  const a = areas.get(key);
+  if (p.lat != null) a.pts.push([p.lat, p.lng]);
+  if (!gotPlace.has(p.k)) a.needed = true;
+}
+report.areas = [];
+for (const a of areas.values()) {
+  if (!a.pts.length) continue;
+  const at = [a.pts.reduce((s, x) => s + x[0], 0) / a.pts.length, a.pts.reduce((s, x) => s + x[1], 0) / a.pts.length];
+  let pick = null;
+  for (const r of [500, 1000, 2000]) {
+    const cands = (await commons(at[0], at[1], r)).map((p) => candidate(p, at, a.name)).filter(Boolean);
+    await sleep(400);
+    cands.sort((x, y) => (used.get(x.file_title) ?? 0) - (used.get(y.file_title) ?? 0) || x.score - y.score);
+    if (cands.length) { pick = cands[0]; break; }
+  }
+  if (!pick) { report.none.push({ kind: 'hood', key: a.key, why: 'no free street photo near its middle' }); continue; }
+  used.set(pick.file_title, (used.get(pick.file_title) ?? 0) + 1);
+  const { score, ...row } = pick;
+  report.areas.push({ key: a.key, needed: a.needed, file: row.file_title, m: row.distance_m });
+  if (DRY) continue;
+  const res = await fetch(`${URL}/rest/v1/image_rights?on_conflict=subject_kind,subject_key,file_title`, {
+    method: 'POST', headers: { ...H, Prefer: 'resolution=ignore-duplicates,return=minimal' },
+    body: JSON.stringify({ subject_kind: 'hood', subject_key: a.key, ...row, source: 'wikimedia_commons', match: 'area', status: 'approved' }),
+  });
+  if (res.ok) report.insert.ok++; else { report.insert.failed++; report.insert.error ??= `${res.status} ${(await res.text()).slice(0, 300)}`; }
+}
+
 const after = DRY ? null : await get('site_images?select=subject_kind,subject_key,match');
 if (after) {
   const a = new Set(after.map((x) => `${x.subject_kind}:${x.subject_key}`));
@@ -144,6 +182,10 @@ if (after) {
     by_match: after.reduce((o, x) => ((o[`${x.subject_kind}:${x.match}`] = (o[`${x.subject_kind}:${x.match}`] ?? 0) + 1), o), {}),
   };
   report.hoods_missing = [...new Set(bars.filter((b) => !a.has(`bar:${b.slug}`)).map((b) => b.hood_slug))].filter((h) => !a.has(`hood:${h}`));
+  // every place: its own photo, else its neighborhood's, else its borough's
+  const covered = (p) => a.has(p.k) || (p.hood && a.has(`hood:${p.hood}`)) || (p.boro && a.has(`hood:${slug(p.boro)}`));
+  report.coverage.any_photo = `${places.filter(covered).length}/${places.length}`;
+  report.uncovered = places.filter((p) => !covered(p)).map((p) => p.k);
 }
 mkdirSync('bridge/out', { recursive: true });
 writeFileSync('bridge/out/photo-fill.json', JSON.stringify(report, null, 1));

@@ -27,7 +27,7 @@ const cover = picks.map((p) => placePhoto('bar', p.b.slug, p.b.hood, p.b.hoodSlu
 // guides built on a table get a strip of the bars in it, with photos, linking to the live pages
 const allB = picks.length ? [] : await allBars();
 const strip = picks.length ? [] : (await guideBars(g)).map((s) => allB.find((b) => b.slug === s)).filter((b): b is Bar => !!b)
-  .map((b) => ({ b, pp: placePhoto('bar', b.slug, b.hood, b.hoodSlug, false) })).filter((x) => x.pp).slice(0, 6);
+  .map((b) => ({ b, pp: placePhoto('bar', b.slug, b.hood, b.hoodSlug, false, b.borough) })).filter((x) => x.pp).slice(0, 6);
 const coverName = picks[0]?.b.name ?? strip[0]?.b.name ?? g.short;
 const words = [g.answer, g.intro ?? '', ...g.sections.flatMap((s) => s.paras), ...picks.map((p) => p.why), ...(g.faq ?? []).map((f) => f.a)].join(' ').replace(/<[^>]+>/g, '').split(/\s+/).length;
 const readMin = Math.max(1, Math.round(words / 230));
@@ -54,7 +54,7 @@ const live = await livePartySlugs();
         <h2>{g.route ? 'The route, stop by stop' : 'Our picks'}</h2>
         <ol class="picks">
           {picks.map(({ b, why }, i) => {
-            const pp = placePhoto('bar', b.slug, b.hood, b.hoodSlug, false);
+            const pp = placePhoto('bar', b.slug, b.hood, b.hoodSlug, false, b.borough);
             const next = g.route && i > 0 ? walk(picks[i - 1].b, b) : null;
             return (
               <li class="pick">

@@ -24,7 +24,7 @@ const fixHood = (t: string) => alignHood(t, b, hoodNames);
 const copy = rawCopy ? { ...rawCopy, intro: fixHood(rawCopy.intro), sections: rawCopy.sections.map((x) => ({ ...x, body: fixHood(x.body) })), faq: (rawCopy.faq ?? []).map((f) => ({ q: f.q, a: fixHood(f.a) })) } : null;
 const url = `${SITE}/bars/${b.slug}`;
 const deal = dealLabel(b);
-const pp = placePhoto('bar', b.slug, b.hood, b.hoodSlug);
+const pp = placePhoto('bar', b.slug, b.hood, b.hoodSlug, true, b.borough);
 const drinks = b.offers.filter((o) => o.kind === 'drink');
 const food = b.offers.filter((o) => o.kind === 'food');
 const near = b.onMap
