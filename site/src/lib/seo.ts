@@ -115,6 +115,13 @@ export function partyDescription(p: Party, v: Venue | null): string {
     `${priceLabel(p)}${p.age_min ? `, ${p.age_min}+` : ''}.`,
   ].filter(Boolean).join(' '));
 }
+/** "123 Main St, Brooklyn, NY 11211, United States" as a schema.org PostalAddress (street, locality, zip) */
+export function postalAddress(v: Venue) {
+  const a = (v.address ?? '').replace(/,?\s*(United States|USA)$/, '');
+  const zip = a.match(/\b(1\d{4})\b/)?.[1];
+  const locality = v.borough === 'Manhattan' || !v.borough ? 'New York' : v.borough.replace(/^The /, '');
+  return { '@type': 'PostalAddress', streetAddress: a.split(',')[0].trim(), addressLocality: locality, addressRegion: 'NY', ...(zip ? { postalCode: zip } : {}), addressCountry: 'US' };
+}
 export function partyJsonLd(p: Party, v: Venue | null, url: string) {
   return {
     '@context': 'https://schema.org', '@type': 'MusicEvent', name: cleanTitle(p.title), url,
@@ -122,11 +129,14 @@ export function partyJsonLd(p: Party, v: Venue | null, url: string) {
     eventStatus: `https://schema.org/${{ scheduled: 'EventScheduled', postponed: 'EventPostponed', rescheduled: 'EventRescheduled', cancelled: 'EventCancelled', sold_out: 'EventScheduled' }[p.event_status] ?? 'EventScheduled'}`,
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
     ...(p.copy?.about ? { description: p.copy.about } : {}),
-    location: { '@type': 'Place', name: v?.name, ...(v?.address ? { address: v.address } : {}), ...(v?.lat ? { geo: { '@type': 'GeoCoordinates', latitude: v.lat, longitude: v.lng } } : {}) },
+    location: { '@type': 'Place', name: v?.name, ...(v?.address ? { address: postalAddress(v) } : {}), ...(v?.lat ? { geo: { '@type': 'GeoCoordinates', latitude: v.lat, longitude: v.lng } } : {}) },
     ...(p.performers.length ? { performer: p.performers.map((n) => ({ '@type': 'PerformingGroup', name: n })) } : {}),
     ...(p.organizer ? { organizer: { '@type': 'Organization', name: p.organizer } } : {}),
-    offers: { '@type': 'Offer', url: p.ticket_url, ...(p.price_from !== null ? { price: p.price_from, priceCurrency: 'USD' } : {}), availability: `https://schema.org/${p.event_status === 'sold_out' ? 'SoldOut' : 'InStock'}` },
+    offers: { '@type': 'Offer', url: p.ticket_url, ...(p.price_status === 'free' ? { price: 0, priceCurrency: 'USD' } : p.price_from !== null ? { price: p.price_from, priceCurrency: 'USD' } : {}), availability: `https://schema.org/${p.event_status === 'sold_out' ? 'SoldOut' : 'InStock'}`, ...(p.ticket_vendor ? { seller: { '@type': 'Organization', name: p.ticket_vendor } } : {}) },
+    ...(p.price_status === 'free' ? { isAccessibleForFree: true } : {}),
     ...(p.age_min ? { typicalAgeRange: `${p.age_min}-` } : {}),
+    ...(p.genres.length ? { keywords: p.genres.join(', ') } : {}),
+    ...(p.last_checked ? { dateModified: p.last_checked } : {}),
   };
 }
 export { DAY_NAME, ampm };

@@ -27,14 +27,28 @@ const endsNextDay = p.ends_at && nyDate(p.ends_at, { month: 'short', day: 'numer
 const host = (u: string) => { try { return new URL(u).host.replace(/^www\./, ''); } catch { return u; } };
 const sameNight = parties.filter((o) => o.slug !== p.slug && o.night_date === p.night_date).slice(0, 6);
 const atVenue = parties.filter((o) => o.slug !== p.slug && o.venue_id === p.venue_id).slice(0, 4);
-const faq = c.faq?.length ? c.faq : [
-  { q: 'What time are doors?', a: doors ? `Doors at ${doors}${ends ? `; the listing ends at ${ends}${endsNextDay ? ' the next morning' : ''}` : ''}.` : 'Not listed.' },
+const lastSeen = p.sources?.find((s) => s.name === 'DICE')?.checked_at ?? p.last_checked;
+// one answer-first sentence with the facts people (and AI answers) look for: what, where, when, age, price
+const where = v ? `${v.name}${p.neighborhood ? ` in ${p.neighborhood}` : ''}${p.borough && p.borough !== p.neighborhood ? `, ${p.borough}` : ''}` : (p.neighborhood ?? 'a New York venue');
+const music = p.genres.slice(0, 3).map((g) => GENRE_NAME[g] ?? g).join(', ');
+const summary = [
+  `${partyName(p)} is ${music ? `${/^[aeiou]/i.test(music) ? 'an' : 'a'} ${music} party` : 'a party'} at ${where} on ${nightDate(p.night_date, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}.`,
+  doors ? `Doors ${doors}${ends ? `, ends ${ends}${endsNextDay ? ' the next morning' : ''}` : ''}.` : '',
+  p.age_min ? `${p.age_min}+ with ID.` : '',
+  p.event_status === 'sold_out' ? 'Sold out when we last checked.' : p.price_status === 'free' ? `Free to enter${p.ticket_vendor ? ` (RSVP on ${p.ticket_vendor})` : ''}.` : p.price_from ? `Tickets from $${Math.round(p.price_from)} on ${p.ticket_vendor} when checked ${fmtDate(lastSeen)}.` : '',
+].filter(Boolean).join(' ');
+const extraFaq = [
+  ...(v ? [{ t: /where|address|location|venue/i, q: `Where is ${partyName(p)}?`, a: `At ${v.name}${v.address ? `, ${v.address.replace(/, United States$|, USA$/, '')}` : ''}${p.neighborhood ? ` (${p.neighborhood})` : ''}.` }] : []),
+  ...(p.price_status === 'free' || p.price_from ? [{ t: /price|cost|how much|ticket/i, q: 'How much are tickets?', a: p.price_status === 'free' ? `Free to enter per the listing on ${p.ticket_vendor}.` : `From $${Math.round(p.price_from!)} including fees on ${p.ticket_vendor} when we checked on ${fmtDate(lastSeen)}. Prices rise as tiers sell out.` }] : []),
+  ...(music ? [{ t: /music|genre|lineup|dj|who is playing/i, q: 'What kind of music is it?', a: `${music}${p.performers.length ? `, with ${p.performers.slice(0, 4).join(', ')} listed` : ''}, per the ticket listing.` }] : []),
+];
+// the written FAQ comes first; a generated question is added only when no written one covers its topic
+const faq = c.faq?.length ? [...c.faq, ...extraFaq.filter((e) => !c.faq!.some((f) => e.t.test(f.q))).map(({ q, a }) => ({ q, a }))] : [...extraFaq.map(({ q, a }) => ({ q, a })),   { q: 'What time are doors?', a: doors ? `Doors at ${doors}${ends ? `; the listing ends at ${ends}${endsNextDay ? ' the next morning' : ''}` : ''}.` : 'Not listed.' },
   { q: 'What is the age limit?', a: p.age_min ? `${p.age_min}+. Bring a government-issued photo ID.` : 'Not listed: check with the venue.' },
   { q: 'Can I get a refund?', a: p.refund_terms ?? 'Not listed: check the terms on the ticket page.' },
 ];
 // a Halloween night links to the Halloween hub and to every indexed sub-page it appears on
 const hw = p.themes.includes('halloween') ? (await halloweenPages()).built.filter((b) => b.indexable && b.parties.some((o) => o.slug === p.slug)) : [];
-const lastSeen = p.sources?.find((s) => s.name === 'DICE')?.checked_at ?? p.last_checked;
 // before the party: happy hours near the venue that run that night and start before doors, deal read
 // recently first, then the closest (walking at about 80 m a minute)
 const nyMin = (iso: string) => { const t = Object.fromEntries(new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' }).formatToParts(new Date(iso)).map((x) => [x.type, x.value])); return Number(t.hour) * 60 + Number(t.minute); };
@@ -53,6 +67,7 @@ const pregame = v?.lat && v.lng && (doorsMin === null || doorsMin >= 17 * 60)
   <div class="cols">
     <div>
       <h1><span class="when-big">{nightDate(p.night_date, { weekday: 'long', month: 'short', day: 'numeric' })}{x.multi_day ? ' (multi-day)' : ''}</span> {cleanTitle(p.title)}</h1>
+      <p class="lede summary">{summary}</p>
       <p class="ended-note" hidden data-show-after={endsAt}>This night is over. <a href="/parties">See the next parties in NYC</a>{atVenue.length > 0 && <> or <a href="#at-venue">what is next at this venue</a></>}.</p>
       <div class="tagrow">
         {p.event_status === 'sold_out' && <span class="chip dark">Sold out</span>}
