@@ -1,20 +1,20 @@
 {
- "ran": "2026-10-22T17:56:50.363Z",
+ "ran": "2026-10-22T18:10:48.666Z",
  "dry": true,
  "without": 339,
  "chosen": [
   {
    "kind": "bar",
    "key": "rivercrest-astoria",
-   "file": "File:TakeTheTrain Restaurant Event (51188591919).jpg",
-   "m": 27,
-   "license": "CC BY 2.0"
+   "file": "File:Immaculate Consception Parish School jeh.jpg",
+   "m": 208,
+   "license": "CC0"
   },
   {
    "kind": "bar",
    "key": "bar-baserri-williamsburg",
-   "file": "File:N.Y.C. Dept of Finance Parking Violations (5919845942).jpg",
-   "m": 193,
+   "file": "File:High Rising Williamsburg (5918821129).jpg",
+   "m": 110,
    "license": "CC BY 2.0"
   },
   {
@@ -33,20 +33,6 @@
   },
   {
    "kind": "bar",
-   "key": "saar-indian-restaurant-times-square",
-   "file": "File:Counting Crows @ Roseland (8196305383).jpg",
-   "m": 47,
-   "license": "CC BY-SA 2.0"
-  },
-  {
-   "kind": "bar",
-   "key": "the-cooper-still-chelsea",
-   "file": "File:NYC Pride 2019 08.jpg",
-   "m": 21,
-   "license": "CC BY-SA 4.0"
-  },
-  {
-   "kind": "bar",
    "key": "jones-wood-foundry-upper-east-side",
    "file": "File:First 79th St clock jeh.JPG",
    "m": 236,
@@ -55,9 +41,9 @@
   {
    "kind": "bar",
    "key": "deja-vu-new-york-koreatown",
-   "file": "File:30 Avenue 3 vc.jpg",
-   "m": 291,
-   "license": "CC BY 2.0"
+   "file": "File:30th Av BMT td (2019-08-21) 03.jpg",
+   "m": 288,
+   "license": "CC BY-SA 4.0"
   },
   {
    "kind": "bar",
@@ -69,8 +55,8 @@
   {
    "kind": "bar",
    "key": "the-whiskey-williamsburg",
-   "file": "File:2016 Zenith Electric Van (DHL), rear right.jpg",
-   "m": 64,
+   "file": "File:Imm Consc Mary RCC fr Alfred Cepe Corner jeh.jpg",
+   "m": 288,
    "license": "CC BY-SA 3.0"
   },
   {
@@ -90,16 +76,16 @@
   {
    "kind": "bar",
    "key": "ponty-bistro-harlem",
-   "file": "File:211 West 137th Street.jpg",
-   "m": 179,
+   "file": "File:2014 Striver's Row 211-203 W 138 by Bruce Price & Clarence S. Luce.jpg",
+   "m": 93,
    "license": "CC BY-SA 4.0"
   },
   {
    "kind": "bar",
    "key": "baylander-steel-beach-harlem",
-   "file": "File:Dinosaur Bar B Que W125 St jeh.jpg",
-   "m": 153,
-   "license": "CC BY 3.0"
+   "file": "File:West Harlem Piers jeh.JPG",
+   "m": 122,
+   "license": "Public domain"
   },
   {
    "kind": "bar",
@@ -111,9 +97,9 @@
   {
    "kind": "bar",
    "key": "nostrand-station-bar-lounge-crown-heights",
-   "file": "File:Nostrand Avenue-Eastern Parkway.jpg",
-   "m": 88,
-   "license": "Public domain"
+   "file": "File:Crown Heights, Brooklyn, NY, USA - panoramio.jpg",
+   "m": 57,
+   "license": "CC BY 3.0"
   },
   {
    "kind": "bar",
@@ -131,23 +117,9 @@
   },
   {
    "kind": "bar",
-   "key": "the-brazen-tavern-hell-s-kitchen",
-   "file": "File:Film Center lobby jeh.jpg",
-   "m": 60,
-   "license": "CC0"
-  },
-  {
-   "kind": "bar",
    "key": "boqueria-upper-east-side",
    "file": "File:Greek Orth Cathedral of Trinity 319 E74 jeh.jpg",
    "m": 204,
-   "license": "CC0"
-  },
-  {
-   "kind": "bar",
-   "key": "tipsy-nomad-koreatown",
-   "file": "File:28th Lex IRT sb glass wall jeh.jpg",
-   "m": 66,
    "license": "CC0"
   },
   {
@@ -174,9 +146,9 @@
   {
    "kind": "bar",
    "key": "cantina-valencia-tex-mex-tequila-bar",
-   "file": "File:Dongan Hills SIRT parking jeh.jpg",
-   "m": 479,
-   "license": "CC0"
+   "file": "File:Dongan Hills si sb plat jeh.JPG",
+   "m": 444,
+   "license": "Public domain"
   },
   {
    "kind": "bar",
@@ -188,9 +160,9 @@
   {
    "kind": "bar",
    "key": "mad-tropical-bushwick",
-   "file": "File:Maria Hernandez Park June 2021 center plaza.jpg",
-   "m": 225,
-   "license": "CC BY 4.0"
+   "file": "File:Fermi jr high 111 Bushwick jeh.jpg",
+   "m": 120,
+   "license": "CC0"
   },
   {
    "kind": "bar",
@@ -209,30 +181,16 @@
   {
    "kind": "bar",
    "key": "diamond-lil-greenpoint",
-   "file": "File:Winthrop Sh Pav North jeh.JPG",
-   "m": 238,
-   "license": "Public domain"
-  },
-  {
-   "kind": "bar",
-   "key": "hart-bar-bushwick",
-   "file": "File:Artwork by American visual artist Quinn Marston (right) 1 of 6.jpg",
-   "m": 218,
-   "license": "CC BY-SA 4.0"
-  },
-  {
-   "kind": "bar",
-   "key": "loreley-restaurant-biergarten-nolita",
-   "file": "File:Freeman Alley.jpg",
-   "m": 5,
+   "file": "File:Greenpoint Brooklyn July 2022 028.jpg",
+   "m": 285,
    "license": "CC BY-SA 4.0"
   },
   {
    "kind": "bar",
    "key": "rove-forest-hills",
-   "file": "File:Evening View, New York City - panoramio.jpg",
-   "m": 254,
-   "license": "CC BY 3.0"
+   "file": "File:Our Lady Queen of Martyrs Forest Hills jeh.jpg",
+   "m": 116,
+   "license": "Public domain"
   },
   {
    "kind": "bar",
@@ -272,8 +230,8 @@
   {
    "kind": "bar",
    "key": "patrick-s-on-the-hill-harlem",
-   "file": "File:CCNY 141-Convent gate jeh.JPG",
-   "m": 115,
+   "file": "File:CCNY Grove school jeh.JPG",
+   "m": 198,
    "license": "Public domain"
   },
   {
@@ -286,16 +244,9 @@
   {
    "kind": "bar",
    "key": "boca-chica-jackson-heights",
-   "file": "File:What's In the Hand - panoramio.jpg",
-   "m": 224,
-   "license": "CC BY-SA 3.0"
-  },
-  {
-   "kind": "bar",
-   "key": "leaf-bar-lounge-flushing",
-   "file": "File:Chinatown, Queens, New York City (3435115315).jpg",
-   "m": 47,
-   "license": "CC BY 2.0"
+   "file": "File:Junction Boulevard Station.jpg",
+   "m": 294,
+   "license": "CC BY 4.0"
   },
   {
    "kind": "bar",
@@ -320,24 +271,17 @@
   },
   {
    "kind": "bar",
-   "key": "vacations-bar-rooftop-bushwick",
-   "file": "File:Bushwick Collective 018.jpg",
-   "m": 136,
-   "license": "CC BY-SA 4.0"
-  },
-  {
-   "kind": "bar",
    "key": "margarita-island",
-   "file": "File:Cyclone Roller Coaster - Top.JPG",
-   "m": 32,
-   "license": "CC BY-SA 3.0"
+   "file": "File:Disgruntled Cow Admirals Row CIP11 jeh.jpg",
+   "m": 101,
+   "license": "CC0"
   },
   {
    "kind": "bar",
    "key": "mollusca-nyc-west-village",
-   "file": "File:Meatpacking District 2.jpg",
-   "m": 46,
-   "license": "CC BY 2.0"
+   "file": "File:55 Gansevoort St Manhattan 2006.jpg",
+   "m": 90,
+   "license": "CC BY-SA 2.0"
   },
   {
    "kind": "bar",
@@ -345,13 +289,6 @@
    "file": "File:517 East 11th Street top.jpg",
    "m": 78,
    "license": "CC BY-SA 4.0"
-  },
-  {
-   "kind": "bar",
-   "key": "little-beaver-bushwick",
-   "file": "File:Bushwick Chevrolet.jpg",
-   "m": 22,
-   "license": "CC BY 2.0"
   },
   {
    "kind": "bar",
@@ -363,16 +300,16 @@
   {
    "kind": "bar",
    "key": "panzo-n-greenpoint",
-   "file": "File:Editing at Kickstarter 2017-03 jeh.jpg",
-   "m": 100,
-   "license": "CC BY 4.0"
+   "file": "File:EF Star bldg GP jeh.jpg",
+   "m": 138,
+   "license": "CC0"
   },
   {
    "kind": "bar",
    "key": "mostrador-nyc-soho",
-   "file": "File:Manhattan City.jpg",
-   "m": 30,
-   "license": "CC BY-SA 3.0"
+   "file": "File:First National City Bank of New York 415-417 Broadway.jpg",
+   "m": 85,
+   "license": "CC BY-SA 4.0"
   },
   {
    "kind": "bar",
@@ -387,13 +324,6 @@
    "file": "File:381 2nd St - panoramio.jpg",
    "m": 103,
    "license": "CC BY 3.0"
-  },
-  {
-   "kind": "bar",
-   "key": "la-loncheria-bushwick",
-   "file": "File:Bushwick Brooklyn Art 572.jpg",
-   "m": 181,
-   "license": "CC BY-SA 4.0"
   },
   {
    "kind": "bar",
@@ -418,20 +348,6 @@
   },
   {
    "kind": "bar",
-   "key": "bar-belly-lower-east-side",
-   "file": "File:Dragon Fighters E9 L6 jeh.jpg",
-   "m": 121,
-   "license": "Public domain"
-  },
-  {
-   "kind": "bar",
-   "key": "bar-mexicana-midtown",
-   "file": "File:New York City by Augusto Janiscki Junior - Flickr - AUGUSTO JANISKI JUNIOR (15).jpg",
-   "m": 73,
-   "license": "CC BY 2.0"
-  },
-  {
-   "kind": "bar",
    "key": "bar-francis-prospect-heights",
    "file": "File:Brown Memorial Baptist Gates Av fr Waverly jeh.jpg",
    "m": 212,
@@ -447,9 +363,9 @@
   {
    "kind": "bar",
    "key": "bati-ethiopian-kitchen-prospect-heights",
-   "file": "File:NYC from the air (37092389695).jpg",
-   "m": 22,
-   "license": "CC BY-SA 2.0"
+   "file": "File:Clinton Hill South, Historic District, Roughly Lefferts and Brevoort Pl. between Washington Ave. and Bedford Pl., Clinton Hill, Kings County, New York.JPG",
+   "m": 173,
+   "license": "CC BY-SA 3.0"
   },
   {
    "kind": "bar",
@@ -503,16 +419,16 @@
   {
    "kind": "bar",
    "key": "popina-cobble-hill",
-   "file": "File:Islander at Governors Island, June 2009.JPG",
-   "m": 263,
-   "license": "CC BY-SA 3.0"
+   "file": "File:Warren Place snow jeh.jpg",
+   "m": 274,
+   "license": "CC0"
   },
   {
    "kind": "bar",
    "key": "bellyful",
-   "file": "File:J A Baxter 1640 E48 jeh.JPG",
-   "m": 152,
-   "license": "Public domain"
+   "file": "File:Flatlands Av East 01.jpg",
+   "m": 521,
+   "license": "CC BY-SA 4.0"
   },
   {
    "kind": "bar",
@@ -524,16 +440,16 @@
   {
    "kind": "bar",
    "key": "dkpublic-astoria",
-   "file": "File:George Coptic 3825 31st St Astoria jeh.jpg",
-   "m": 234,
-   "license": "CC0"
+   "file": "File:39th Av Astoria BMT jeh.jpg",
+   "m": 170,
+   "license": "Public domain"
   },
   {
    "kind": "bar",
    "key": "addictive-wine-and-tapas-jackson-heights",
-   "file": "File:1976 Oldsmobile Cutlass Supreme four-door sedan in silver, rear right.jpg",
-   "m": 47,
-   "license": "CC BY-SA 3.0"
+   "file": "File:PS 212 34-25 82 St JH jeh.jpg",
+   "m": 492,
+   "license": "CC0"
   },
   {
    "kind": "bar",
@@ -559,8 +475,8 @@
   {
    "kind": "bar",
    "key": "bar-dalia-astoria",
-   "file": "File:Trinity Lutheran Church. Entire building..JPG",
-   "m": 265,
+   "file": "File:Trinity Lutheran Church. Little farther away, covering the height and trees..JPG",
+   "m": 247,
    "license": "CC BY-SA 3.0"
   },
   {
@@ -575,13 +491,6 @@
    "key": "reif-s-tavern-upper-east-side",
    "file": "File:96 St SAS Entrance 2 construction.jpg",
    "m": 196,
-   "license": "CC BY-SA 4.0"
-  },
-  {
-   "kind": "bar",
-   "key": "santa-panza-bushwick",
-   "file": "File:Artwork in background by American visual artist Quinn Marston in foreground 3 of 6.jpg",
-   "m": 33,
    "license": "CC BY-SA 4.0"
   },
   {
@@ -601,9 +510,9 @@
   {
    "kind": "bar",
    "key": "carneval-williamsburg",
-   "file": "File:Escape (Brooklyn, NY) (5720197794).jpg",
-   "m": 70,
-   "license": "CC BY 2.0"
+   "file": "File:Union n Metro Av BMT sta jeh.JPG",
+   "m": 290,
+   "license": "CC0"
   },
   {
    "kind": "bar",
@@ -615,9 +524,9 @@
   {
    "kind": "bar",
    "key": "south-4th-bar-cafe-williamsburg",
-   "file": "File:Domino WBB jeh.jpg",
-   "m": 201,
-   "license": "CC0"
+   "file": "File:Williamsburg, Brooklyn, NY, USA - panoramio - Sergei Gussev (13).jpg",
+   "m": 231,
+   "license": "CC BY 3.0"
   },
   {
    "kind": "bar",
@@ -642,20 +551,6 @@
   },
   {
    "kind": "bar",
-   "key": "cobblestones-pub-and-biergarten-forest-hills",
-   "file": "File:MTA Kew Gdns Union Tpke 17.jpg",
-   "m": 82,
-   "license": "CC BY-SA 4.0"
-  },
-  {
-   "kind": "bar",
-   "key": "artesano-tribeca",
-   "file": "File:Flickr - DVIDSHUB - New York Air National Guard conducts water rescue demonstration in New York City (Image 4 of 4).jpg",
-   "m": 28,
-   "license": "CC BY 2.0"
-  },
-  {
-   "kind": "bar",
    "key": "congress-cobble-hill",
    "file": "File:Cobble Hill Pk snow jeh.jpg",
    "m": 187,
@@ -671,9 +566,9 @@
   {
    "kind": "bar",
    "key": "ay-guey-nyc-astoria",
-   "file": "File:Strippoli Triangle jeh.jpg",
-   "m": 47,
-   "license": "CC BY-SA 4.0"
+   "file": "File:Acela 58 St 31 Av NYCRR jeh.jpg",
+   "m": 231,
+   "license": "CC0"
   },
   {
    "kind": "bar",
@@ -684,37 +579,16 @@
   },
   {
    "kind": "bar",
-   "key": "francie-williamsburg",
-   "file": "File:Shannon and the Clams (32211942432).jpg",
-   "m": 38,
-   "license": "CC BY-SA 2.0"
-  },
-  {
-   "kind": "bar",
-   "key": "kings-of-kobe-hell-s-kitchen",
-   "file": "File:Bike n Roll P84 Feb jeh.JPG",
-   "m": 164,
-   "license": "Public domain"
-  },
-  {
-   "kind": "bar",
    "key": "the-holler-bed-stuy",
-   "file": "File:Evening Star Baptist cornerstone 2019 jeh.jpg",
-   "m": 183,
+   "file": "File:Evening Star Baptist Gates Av 2019 jeh.jpg",
+   "m": 200,
    "license": "CC BY 4.0"
   },
   {
    "kind": "bar",
-   "key": "bobo-greenwich-village",
-   "file": "File:Kiss 20091211.7D.01509.P1.L1.C45.BW SML (4200674947).jpg",
-   "m": 77,
-   "license": "CC BY-SA 2.0"
-  },
-  {
-   "kind": "bar",
    "key": "ashford-simpson-s-sugar-bar-upper-west-side",
-   "file": "File:Rutgers Building 2095 Bwy jeh.jpg",
-   "m": 156,
+   "file": "File:Rutgers Presbyterian n church house jeh.jpg",
+   "m": 153,
    "license": "CC0"
   },
   {
@@ -727,8 +601,8 @@
   {
    "kind": "bar",
    "key": "queen-s-room-astoria",
-   "file": "File:TakeTheTrain Restaurant Event (51188039083).jpg",
-   "m": 132,
+   "file": "File:Astoria Ditmars Boulevard tunnel vc.jpg",
+   "m": 359,
    "license": "CC BY 2.0"
   },
   {
@@ -741,23 +615,16 @@
   {
    "kind": "bar",
    "key": "coszcal-de-allende-bay-ridge",
-   "file": "File:1947 Willys Jeep Pickup - 02.jpg",
-   "m": 55,
-   "license": "CC BY-SA 4.0"
-  },
-  {
-   "kind": "bar",
-   "key": "the-summit-east-village",
-   "file": "File:Community Garden Fence Art (14645742175).jpg",
-   "m": 42,
-   "license": "CC BY 2.0"
+   "file": "File:Holy Angels Catholic Academy Bay Ridge 2014-03-14 jeh.jpg",
+   "m": 170,
+   "license": "CC BY-SA 3.0"
   },
   {
    "kind": "bar",
    "key": "layla-williamsburg",
-   "file": "File:Paint roller 4.jpg",
-   "m": 139,
-   "license": "CC BY 2.0"
+   "file": "File:White Cross 310 Bedford Av jeh.jpg",
+   "m": 172,
+   "license": "CC BY 3.0"
   },
   {
    "kind": "bar",
@@ -775,23 +642,16 @@
   },
   {
    "kind": "bar",
-   "key": "cherry-on-top-bushwick",
-   "file": "File:RIDGEWOOD-GLENDALE-FRESH POND 003.JPG",
+   "key": "the-woods-williamsburg",
+   "file": "File:NYCSub JMZ Williamsburg 1.jpg",
    "m": 127,
    "license": "CC BY-SA 3.0"
   },
   {
    "kind": "bar",
-   "key": "the-woods-williamsburg",
-   "file": "File:Domino WBB jeh.jpg",
-   "m": 87,
-   "license": "CC0"
-  },
-  {
-   "kind": "bar",
    "key": "crystal-lake-brooklyn-williamsburg",
-   "file": "File:Imm Consc Mary RCC fr Alfred Cepe Corner jeh.jpg",
-   "m": 114,
+   "file": "File:Mary school Leonard Ten Eyck 1985 jeh.jpg",
+   "m": 146,
    "license": "CC BY-SA 3.0"
   },
   {
@@ -811,23 +671,16 @@
   {
    "kind": "bar",
    "key": "new-green-dragon",
-   "file": "File:2024-08-05 11 42 16 View north along Interstate 295 (Cross Bronx Expressway Extension) just north of Exit 10 (Interstate 695) in the Bronx, New York City, New York.jpg",
-   "m": 340,
+   "file": "File:2024-06-18 13 44 42 View north along Interstate 295 (Cross Bronx Expressway Extension) from the overpass for Dewey Avenue and East Tremont Avenue in the Bronx, New York City, New York.jpg",
+   "m": 438,
    "license": "CC BY-SA 4.0"
   },
   {
    "kind": "bar",
    "key": "bee-s-knees-provisions-cobble-hill",
-   "file": "File:301 - 307A Warren Street Brooklyn.jpg",
-   "m": 133,
-   "license": "CC BY-SA 4.0"
-  },
-  {
-   "kind": "bar",
-   "key": "bayridge-sushi-bay-ridge",
-   "file": "File:1969 Chevy Camaro 396 SS (1).jpg",
-   "m": 112,
-   "license": "CC BY 2.0"
+   "file": "File:Cobble Hill Amer school jeh.JPG",
+   "m": 65,
+   "license": "Public domain"
   },
   {
    "kind": "bar",
@@ -866,13 +719,6 @@
   },
   {
    "kind": "bar",
-   "key": "el-vez-tribeca",
-   "file": "File:Irish Hunger mem east jeh.jpg",
-   "m": 35,
-   "license": "CC0"
-  },
-  {
-   "kind": "bar",
    "key": "jalopy-tavern-carroll-gardens",
    "file": "File:BBT toll plaza jeh.jpg",
    "m": 156,
@@ -887,24 +733,10 @@
   },
   {
    "kind": "bar",
-   "key": "elsa-cobble-hill",
-   "file": "File:Atlavtdbkjeh.JPG",
-   "m": 233,
-   "license": "Public domain"
-  },
-  {
-   "kind": "bar",
    "key": "ella-social-upper-west-side",
    "file": "File:Grace & St Paul Lutheran 123 W71 jeh.jpg",
    "m": 109,
    "license": "CC BY-SA 4.0"
-  },
-  {
-   "kind": "bar",
-   "key": "hair-of-the-dog-lower-east-side",
-   "file": "File:Katya Zakharova at Rockwood Music Hall - New York City - July 2006.jpg",
-   "m": 52,
-   "license": "CC BY 2.0"
   },
   {
    "kind": "bar",
@@ -915,17 +747,10 @@
   },
   {
    "kind": "bar",
-   "key": "michael-s-new-york-times-square",
-   "file": "File:Moma bikerack jeh.JPG",
-   "m": 75,
-   "license": "CC0"
-  },
-  {
-   "kind": "bar",
    "key": "joyce-s-tavern",
-   "file": "File:SIR Countdown Clock (11966179493).jpg",
-   "m": 17,
-   "license": "CC BY 2.0"
+   "file": "File:Eltingville SIR jeh.JPG",
+   "m": 87,
+   "license": "Public domain"
   },
   {
    "kind": "bar",
@@ -937,9 +762,9 @@
   {
    "kind": "bar",
    "key": "therapy-wine-bar-bed-stuy",
-   "file": "File:Hey u.jpg",
-   "m": 175,
-   "license": "CC BY 2.0"
+   "file": "File:Immanuel Congregational Church Brooklyn.JPG",
+   "m": 427,
+   "license": "CC BY-SA 3.0"
   },
   {
    "kind": "bar",
@@ -964,24 +789,10 @@
   },
   {
    "kind": "bar",
-   "key": "whiskey-tavern-financial-district",
-   "file": "File:New York City Criminal Court - USA - panoramio.jpg",
-   "m": 10,
-   "license": "CC BY-SA 3.0"
-  },
-  {
-   "kind": "bar",
-   "key": "bitter-monk-sunset-park",
-   "file": "File:1990 Toyota Land Cruiser FJ62, gray met., front right.jpg",
-   "m": 20,
-   "license": "CC BY-SA 3.0"
-  },
-  {
-   "kind": "bar",
    "key": "tap-house-forest-hills",
-   "file": "File:Extended Platform at Forest Hills (42826696960).jpg",
-   "m": 224,
-   "license": "CC BY 2.0"
+   "file": "File:Forest Hills–71st Av td (2019-02-20) 02.jpg",
+   "m": 267,
+   "license": "CC BY-SA 4.0"
   },
   {
    "kind": "bar",
@@ -1014,8 +825,8 @@
   {
    "kind": "bar",
    "key": "fandi-mata-williamsburg",
-   "file": "File:McCarren Pool empty jeh.jpg",
-   "m": 138,
+   "file": "File:Mccarren Pk Pool bldg renovating jeh.jpg",
+   "m": 166,
    "license": "CC0"
   },
   {
@@ -1035,16 +846,16 @@
   {
    "kind": "bar",
    "key": "lofi-park-slope",
-   "file": "File:Sears Tote bike 3d St jeh.jpg",
-   "m": 200,
-   "license": "CC0"
+   "file": "File:Old-stone-house-brooklyn.JPG",
+   "m": 137,
+   "license": "CC BY-SA 3.0"
   },
   {
    "kind": "bar",
    "key": "mazzat-cobble-hill",
-   "file": "File:Frame (165818123).jpeg",
-   "m": 65,
-   "license": "CC BY 3.0"
+   "file": "File:76 Pct 191 Union St sun jeh.jpg",
+   "m": 263,
+   "license": "CC0"
   },
   {
    "kind": "bar",
@@ -1063,9 +874,9 @@
   {
    "kind": "bar",
    "key": "uncle-peter-s-jackson-heights",
-   "file": "File:1976 Oldsmobile Cutlass Supreme four-door sedan in silver, front right.jpg",
-   "m": 255,
-   "license": "CC BY-SA 3.0"
+   "file": "File:St. Marks Episcopal Church, Jackson Heights 2011 jeh.jpg",
+   "m": 287,
+   "license": "CC0"
   },
   {
    "kind": "bar",
@@ -1077,15 +888,8 @@
   {
    "kind": "bar",
    "key": "east-coast-burger-ridgewood",
-   "file": "File:Flushing Av under Bushw LIRR jeh.JPG",
-   "m": 309,
-   "license": "CC0"
-  },
-  {
-   "kind": "bar",
-   "key": "bijan-s-downtown-brooklyn",
-   "file": "File:Hoyt–Schermerhorn Sts IND td (2023-04-07) 01 - Hoyt & Horn Entrance.jpg",
-   "m": 120,
+   "file": "File:Linden Hill Jewish Cemetery Met Av gate jeh.jpg",
+   "m": 71,
    "license": "CC BY-SA 4.0"
   },
   {
@@ -1104,13 +908,6 @@
   },
   {
    "kind": "bar",
-   "key": "casa-pu-blica-williamsburg",
-   "file": "File:Bamonte's Restaurant (Brooklyn, New York) 002.jpg",
-   "m": 193,
-   "license": "CC BY-SA 4.0"
-  },
-  {
-   "kind": "bar",
    "key": "cocteleria-perla-negra-harlem",
    "file": "File:137st IRT st jeh.JPG",
    "m": 298,
@@ -1119,16 +916,16 @@
   {
    "kind": "bar",
    "key": "american-brass-long-island-city",
-   "file": "File:2017 MV Agusta Brutale Dragster 800 RC, right side view.jpg",
-   "m": 63,
-   "license": "CC BY-SA 3.0"
+   "file": "File:Gantry Plaza td (2019-04-14) 070 - Esplanade Bridge.jpg",
+   "m": 87,
+   "license": "CC BY-SA 4.0"
   },
   {
    "kind": "bar",
    "key": "burgerology-midtown-midtown",
-   "file": "File:Manhattan - 8th Ave north from 36th St.jpg",
-   "m": 113,
-   "license": "CC BY-SA 3.0"
+   "file": "File:Midtown South Pct 357 W35 jeh.jpg",
+   "m": 107,
+   "license": "CC0"
   },
   {
    "kind": "bar",
@@ -1153,13 +950,6 @@
   },
   {
    "kind": "bar",
-   "key": "casa-louie-times-square",
-   "file": "File:HL 21 & Eng 34 in 2025 jeh.jpg",
-   "m": 89,
-   "license": "CC BY-SA 4.0"
-  },
-  {
-   "kind": "bar",
    "key": "horn-s-hook-tavern-upper-east-side",
    "file": "File:86 St 2 Av Jan 2017 18.jpg",
    "m": 216,
@@ -1175,8 +965,8 @@
   {
    "kind": "bar",
    "key": "hutch-astoria-astoria",
-   "file": "File:Trinity Lutheran Church. Closer shot of building..JPG",
-   "m": 147,
+   "file": "File:Trinity Lutheran Church. Side wall with engraving..JPG",
+   "m": 125,
    "license": "CC BY-SA 3.0"
   },
   {
@@ -1188,31 +978,17 @@
   },
   {
    "kind": "bar",
-   "key": "bella-union-gramercy",
-   "file": "File:Engine 16 snow jeh.jpg",
-   "m": 134,
-   "license": "CC0"
-  },
-  {
-   "kind": "bar",
-   "key": "covacha-upper-west-side",
-   "file": "File:Apthorp Clock.jpg",
-   "m": 108,
+   "key": "dakota-bar-upper-west-side",
+   "file": "File:Conservatory Water in Central Park, November 2018.jpg",
+   "m": 10,
    "license": "CC BY-SA 4.0"
   },
   {
    "kind": "bar",
-   "key": "dakota-bar-upper-west-side",
-   "file": "File:New York City Snow Day (3126766336).jpg",
-   "m": 54,
-   "license": "CC BY 2.0"
-  },
-  {
-   "kind": "bar",
    "key": "district-tap-house-midtown",
-   "file": "File:7.9.10OliviaMunnByLuigiNovi76.jpg",
-   "m": 188,
-   "license": "CC BY 3.0"
+   "file": "File:Manhattan - 8th Ave north from 36th St.jpg",
+   "m": 178,
+   "license": "CC BY-SA 3.0"
   },
   {
    "kind": "bar",
@@ -1237,30 +1013,9 @@
   },
   {
    "kind": "bar",
-   "key": "emily-greenwich-village",
-   "file": "File:6.7.11WC3.9OnTheFenceDushkuBomerByLuigiNovi2.jpg",
-   "m": 127,
-   "license": "CC BY 3.0"
-  },
-  {
-   "kind": "bar",
    "key": "fortina-downtown-brooklyn",
    "file": "File:Dekalb BMT st jeh.JPG",
    "m": 81,
-   "license": "CC0"
-  },
-  {
-   "kind": "bar",
-   "key": "gui-steakhouse-times-square",
-   "file": "File:220714-335 CPS (24145100940).jpg",
-   "m": 22,
-   "license": "CC BY 2.0"
-  },
-  {
-   "kind": "bar",
-   "key": "gyu-kaku-times-square",
-   "file": "File:IUOE94 jeh.jpg",
-   "m": 32,
    "license": "CC0"
   },
   {
@@ -1294,37 +1049,30 @@
   {
    "kind": "bar",
    "key": "keg-lantern-brewery-red-hook",
-   "file": "File:Toroidheadendjeh.JPG",
-   "m": 72,
+   "file": "File:Lehigh Valley Red Hook jeh.JPG",
+   "m": 239,
    "license": "Public domain"
   },
   {
    "kind": "bar",
    "key": "keybar-bushwick",
-   "file": "File:Oberheim Prommer (ROM toaster).jpg",
-   "m": 89,
-   "license": "CC BY-SA 2.0"
-  },
-  {
-   "kind": "bar",
-   "key": "tulum-brooklyn-bushwick",
-   "file": "File:Artwork in background by American visual artist Quinn Marston in foreground 6 of 6.jpg",
-   "m": 111,
-   "license": "CC BY-SA 4.0"
+   "file": "File:Fermi jr high 111 Bushwick jeh.jpg",
+   "m": 271,
+   "license": "CC0"
   },
   {
    "kind": "bar",
    "key": "arden-prospect-heights",
-   "file": "File:Botanic Garden Station street stair jeh.JPG",
-   "m": 156,
+   "file": "File:Franklin Av IRT stair jeh.JPG",
+   "m": 93,
    "license": "Public domain"
   },
   {
    "kind": "bar",
    "key": "the-monster-crab-sunnyside",
-   "file": "File:Paul Klee, westöstliches Dorf (west-eastern village), catalogue raisonné 3852, 1925 171(H1), photo 1.jpg",
-   "m": 236,
-   "license": "CC BY-SA 3.0"
+   "file": "File:Al-Amin Jame Masjid 35-19 36 Av jeh.JPG",
+   "m": 272,
+   "license": "CC0"
   },
   {
    "kind": "bar",
@@ -1332,13 +1080,6 @@
    "file": "File:96th St Bwy IRT stair jeh.JPG",
    "m": 177,
    "license": "Public domain"
-  },
-  {
-   "kind": "bar",
-   "key": "marco-polo-ristorante-carroll-gardens",
-   "file": "File:BPL Union Clinton jeh.JPG",
-   "m": 188,
-   "license": "CC0"
   },
   {
    "kind": "bar",
@@ -1371,8 +1112,8 @@
   {
    "kind": "bar",
    "key": "olea-fort-greene",
-   "file": "File:Masonic Lafayette Clermont sunny jeh.jpg",
-   "m": 68,
+   "file": "File:Lafayette Av IND sta jeh.jpg",
+   "m": 278,
    "license": "CC0"
   },
   {
@@ -1381,13 +1122,6 @@
    "file": "File:Essex Street Market.JPG",
    "m": 85,
    "license": "Public domain"
-  },
-  {
-   "kind": "bar",
-   "key": "otb-williamsburg",
-   "file": "File:Shannon and the Clams (32241904481).jpg",
-   "m": 42,
-   "license": "CC BY-SA 2.0"
   },
   {
    "kind": "bar",
@@ -1412,27 +1146,6 @@
   },
   {
    "kind": "bar",
-   "key": "playa-betty-s-upper-west-side",
-   "file": "File:2ST Uptown Bwy 76 jeh.jpg",
-   "m": 129,
-   "license": "CC0"
-  },
-  {
-   "kind": "bar",
-   "key": "r40-long-island-city",
-   "file": "File:Hunter's Pt Community Pk td (2019-04-11) 04.jpg",
-   "m": 151,
-   "license": "CC BY-SA 4.0"
-  },
-  {
-   "kind": "bar",
-   "key": "raices-colombianas-restaurant-jackson-heights",
-   "file": "File:DSC 0424 (7333965516).jpg",
-   "m": 197,
-   "license": "CC BY 2.0"
-  },
-  {
-   "kind": "bar",
    "key": "rafele-greenwich-village",
    "file": "File:24-28 Commerce Street.jpg",
    "m": 92,
@@ -1441,43 +1154,22 @@
   {
    "kind": "bar",
    "key": "raizes-churrascaria-greenpoint",
-   "file": "File:PLAV Leonard St sunny jeh.jpg",
-   "m": 209,
-   "license": "CC0"
+   "file": "File:PS 34 Greenpoint jeh.JPG",
+   "m": 188,
+   "license": "Public domain"
   },
   {
    "kind": "bar",
    "key": "reclamation-bar-williamsburg",
-   "file": "File:Cooper Park NYC Playground.jpg",
-   "m": 257,
-   "license": "CC BY 4.0"
-  },
-  {
-   "kind": "bar",
-   "key": "ray-s-nolita",
-   "file": "File:Freeman Alley 007.jpg",
-   "m": 33,
-   "license": "CC BY-SA 4.0"
+   "file": "File:Graham Av vc.jpg",
+   "m": 171,
+   "license": "CC BY 2.0"
   },
   {
    "kind": "bar",
    "key": "rosa-s-at-park-east-harlem",
    "file": "File:138 St - Grand Concourse MH vc.jpg",
    "m": 119,
-   "license": "CC BY 2.0"
-  },
-  {
-   "kind": "bar",
-   "key": "sabay-thai-cuisine-jackson-heights",
-   "file": "File:74 Roosevelt xfer stair jeh.jpg",
-   "m": 136,
-   "license": "CC0"
-  },
-  {
-   "kind": "bar",
-   "key": "russian-samovar-restaurant-and-piano-bar-times-square",
-   "file": "File:Feel at Roseland Ballroom.jpg",
-   "m": 54,
    "license": "CC BY 2.0"
   },
   {
@@ -1490,15 +1182,15 @@
   {
    "kind": "bar",
    "key": "sea-witch-gowanus",
-   "file": "File:Gen Washington before 2016 battle jeh.jpg",
-   "m": 260,
-   "license": "CC BY 4.0"
+   "file": "File:Al-Noor School 4th Av sun jeh.jpg",
+   "m": 296,
+   "license": "CC0"
   },
   {
    "kind": "bar",
    "key": "spanglish-nyc-astoria",
-   "file": "File:TakeTheTrain Restaurant Event (51187118007).jpg",
-   "m": 147,
+   "file": "File:Astoria Ditmars Boulevard tunnel vc.jpg",
+   "m": 387,
    "license": "CC BY 2.0"
   },
   {
@@ -1511,23 +1203,16 @@
   {
    "kind": "bar",
    "key": "stumble-inn-upper-east-side",
-   "file": "File:208e78-nyc.jpg",
-   "m": 258,
-   "license": "CC BY 3.0"
-  },
-  {
-   "kind": "bar",
-   "key": "sura-bushwick",
-   "file": "File:Bushwick Brooklyn Art 027.jpg",
-   "m": 39,
-   "license": "CC BY-SA 4.0"
+   "file": "File:Jean-baptiste-school.jpg",
+   "m": 297,
+   "license": "CC BY-SA 3.0"
   },
   {
    "kind": "bar",
    "key": "sycamore-park-slope",
-   "file": "File:Cortelyou BMT station house jeh.jpg",
-   "m": 322,
-   "license": "Public domain"
+   "file": "File:Westminster Rd Beverley Sq 2013 jeh.jpg",
+   "m": 250,
+   "license": "CC BY-SA 3.0"
   },
   {
    "kind": "bar",
@@ -1539,9 +1224,9 @@
   {
    "kind": "bar",
    "key": "terraza-7-jackson-heights",
-   "file": "File:Manuel de Dios Uranue Triangle jeh.jpg",
-   "m": 60,
-   "license": "CC BY-SA 3.0"
+   "file": "File:Jackson Heights NY 82nd Street.jpg",
+   "m": 219,
+   "license": "CC BY 3.0"
   },
   {
    "kind": "bar",
@@ -1549,13 +1234,6 @@
    "file": "File:69th-regiment-armory.JPG",
    "m": 176,
    "license": "CC BY-SA 3.0"
-  },
-  {
-   "kind": "bar",
-   "key": "the-binc-brooklyn-heights",
-   "file": "File:Bklyn War Mem noon jeh.JPG",
-   "m": 146,
-   "license": "CC0"
   },
   {
    "kind": "bar",
@@ -1567,23 +1245,23 @@
   {
    "kind": "bar",
    "key": "the-ditty-astoria",
-   "file": "File:Admirando panorama - panoramio.jpg",
-   "m": 151,
-   "license": "CC BY 3.0"
-  },
-  {
-   "kind": "bar",
-   "key": "the-green-room-plg-crown-heights",
-   "file": "File:Jas Davis USPS 11225 jeh.jpg",
-   "m": 233,
+   "file": "File:Immaculate Consception Parish School jeh.jpg",
+   "m": 245,
    "license": "CC0"
   },
   {
    "kind": "bar",
+   "key": "the-green-room-plg-crown-heights",
+   "file": "File:Bedford Av Lincoln Rd td (2022-11-28) 03 - 174 Lincoln Road.jpg",
+   "m": 298,
+   "license": "CC BY-SA 4.0"
+  },
+  {
+   "kind": "bar",
    "key": "the-horny-ram-murray-hill",
-   "file": "File:Jewish Cen for UN 225 E51 jeh.JPG",
-   "m": 84,
-   "license": "Public domain"
+   "file": "File:51 Street entrance 2 vc.jpg",
+   "m": 48,
+   "license": "CC BY-SA 2.0"
   },
   {
    "kind": "bar",
@@ -1594,44 +1272,23 @@
   },
   {
    "kind": "bar",
-   "key": "the-little-whiskey-bushwick",
-   "file": "File:Bushwick Brooklyn Art 568.jpg",
-   "m": 215,
+   "key": "the-market-table-greenwich-village",
+   "file": "File:260-270 Sixth Avenue.jpg",
+   "m": 123,
    "license": "CC BY-SA 4.0"
   },
   {
    "kind": "bar",
-   "key": "the-market-table-greenwich-village",
-   "file": "File:6.7.11WC3.9OnTheFenceByLuigiNovi1.jpg",
-   "m": 119,
-   "license": "CC BY 3.0"
-  },
-  {
-   "kind": "bar",
-   "key": "the-purple-tongue-wine-bar-hell-s-kitchen",
-   "file": "File:Film Center lobby jeh.jpg",
-   "m": 166,
-   "license": "CC0"
-  },
-  {
-   "kind": "bar",
-   "key": "the-ribbon-upper-west-side",
-   "file": "File:Dakotanewyork.jpg",
-   "m": 135,
-   "license": "CC BY-SA 3.0"
-  },
-  {
-   "kind": "bar",
    "key": "the-rabbit-hole-astoria",
-   "file": "File:Moose 31 St Astoria Door jeh.JPG",
-   "m": 137,
+   "file": "File:Moose bldg from west jeh.JPG",
+   "m": 131,
    "license": "CC0"
   },
   {
    "kind": "bar",
    "key": "the-rosemont-williamsburg",
-   "file": "File:VZ Lorimer Meserole Streets 2011 jeh.jpg",
-   "m": 87,
+   "file": "File:German Savings Bklyn facade from north jeh.jpg",
+   "m": 281,
    "license": "CC0"
   },
   {
@@ -1643,24 +1300,10 @@
   },
   {
    "kind": "bar",
-   "key": "the-ten-bells-brooklyn-bushwick",
-   "file": "File:Bushwick Brooklyn Art 078.jpg",
-   "m": 16,
-   "license": "CC BY-SA 4.0"
-  },
-  {
-   "kind": "bar",
    "key": "tin-marin-tapas-bar",
-   "file": "File:Softshell crab are- in-season.jpg",
-   "m": 135,
-   "license": "CC0"
-  },
-  {
-   "kind": "bar",
-   "key": "toloache-upper-east-side",
-   "file": "File:Metro Republican Club 122 E83 jeh.JPG",
-   "m": 158,
-   "license": "CC0"
+   "file": "File:Henry Hudson Pkwy 239 jeh.JPG",
+   "m": 284,
+   "license": "Public domain"
   },
   {
    "kind": "bar",
@@ -1672,9 +1315,9 @@
   {
    "kind": "bar",
    "key": "troost-greenpoint",
-   "file": "File:211 Franklin St 2021 jeh.jpg",
-   "m": 282,
-   "license": "CC BY 4.0"
+   "file": "File:Greenpoint Brooklyn.JPG",
+   "m": 191,
+   "license": "Public domain"
   },
   {
    "kind": "bar",
@@ -1686,8 +1329,8 @@
   {
    "kind": "bar",
    "key": "verdello-harlem",
-   "file": "File:Avalon Morningside sun snow jeh.jpg",
-   "m": 123,
+   "file": "File:106st Columbus Av jeh.jpg",
+   "m": 232,
    "license": "CC0"
   },
   {
@@ -1698,39 +1341,11 @@
    "license": "CC0"
   },
   {
-   "kind": "bar",
-   "key": "winnie-s-times-square",
-   "file": "File:Lady Gaga Sold Out at Roseland Ballroom.jpg",
-   "m": 17,
-   "license": "CC BY-SA 2.0"
-  },
-  {
-   "kind": "bar",
-   "key": "yummy-yummy-jackson-heights",
-   "file": "File:Mount Zion Cemetery, Triangle Shirtwaist Factory.png",
-   "m": 325,
-   "license": "CC BY-SA 4.0"
-  },
-  {
-   "kind": "venue",
-   "key": "bogart-house",
-   "file": "File:Bushwick Brooklyn Art 264.jpg",
-   "m": 63,
-   "license": "CC BY-SA 4.0"
-  },
-  {
    "kind": "venue",
    "key": "brooklyn-storehouse",
-   "file": "File:Building 124 - pump house at Brooklyn Navy Yard.jpg",
-   "m": 222,
-   "license": "CC BY-SA 4.0"
-  },
-  {
-   "kind": "venue",
-   "key": "marquee-skydeck-at-edge-hudson-yards",
-   "file": "File:Construction at Hudson Yards (14815015813).jpg",
-   "m": 8,
-   "license": "CC BY 2.0"
+   "file": "File:Kent Av Bkln bike lane jeh.JPG",
+   "m": 380,
+   "license": "CC0"
   },
   {
    "kind": "venue",
@@ -1742,43 +1357,15 @@
   {
    "kind": "venue",
    "key": "cipriani-42nd-street",
-   "file": "File:Apple store silhouettes.jpg",
-   "m": 44,
-   "license": "CC BY 2.0"
-  },
-  {
-   "kind": "venue",
-   "key": "jupiter-disco",
-   "file": "File:Bushwick Collective 039.jpg",
-   "m": 75,
-   "license": "CC BY-SA 4.0"
-  },
-  {
-   "kind": "venue",
-   "key": "open-air-club-sixty-les",
-   "file": "File:Katya Zakharova at Rockwood Music Hall - New York City - July 2006 - (1).jpg",
-   "m": 55,
-   "license": "CC BY 2.0"
-  },
-  {
-   "kind": "venue",
-   "key": "outer-heaven",
-   "file": "File:Freeman Alley 059.jpg",
-   "m": 29,
-   "license": "CC BY-SA 4.0"
+   "file": "File:Flickr - Shinrya - Grand Central Station HDR.jpg",
+   "m": 52,
+   "license": "CC BY-SA 2.0"
   },
   {
    "kind": "venue",
    "key": "the-newsroom-lic",
    "file": "File:12 St 43 Rd boulder jeh.jpg",
    "m": 178,
-   "license": "CC0"
-  },
-  {
-   "kind": "venue",
-   "key": "harmony-yacht-skyport-marina",
-   "file": "File:Bellevue cube E27 jeh.JPG",
-   "m": 264,
    "license": "CC0"
   },
   {
@@ -1790,13 +1377,6 @@
   },
   {
    "kind": "venue",
-   "key": "52-walker-street",
-   "file": "File:Spokes Council Meeting.jpg",
-   "m": 26,
-   "license": "CC BY-SA 3.0"
-  },
-  {
-   "kind": "venue",
    "key": "boho-oasis",
    "file": "File:94-100 Lafayette Street from north.jpg",
    "m": 84,
@@ -1805,44 +1385,23 @@
   {
    "kind": "venue",
    "key": "the-highlight-room",
-   "file": "File:Bowery Bank of New York Building 124 Bowery.jpg",
-   "m": 86,
-   "license": "CC BY-SA 4.0"
-  },
-  {
-   "kind": "venue",
-   "key": "skyport-marina",
-   "file": "File:Bellevue cube E27 jeh.JPG",
-   "m": 242,
-   "license": "CC0"
-  },
-  {
-   "kind": "venue",
-   "key": "jewel-yacht",
-   "file": "File:Bellevue cube E27 jeh.JPG",
-   "m": 257,
-   "license": "CC0"
-  },
-  {
-   "kind": "venue",
-   "key": "314-scholes-street",
-   "file": "File:-( ^ -) - panoramio.jpg",
-   "m": 72,
-   "license": "CC BY-SA 3.0"
+   "file": "File:Best Western Bowery Grand jeh.JPG",
+   "m": 75,
+   "license": "Public domain"
   },
   {
    "kind": "venue",
    "key": "99-scott",
-   "file": "File:Bushwick Brooklyn Art 847.jpg",
-   "m": 13,
-   "license": "CC BY-SA 4.0"
+   "file": "File:Bushwick Branch LIRR 2008 jeh.jpg",
+   "m": 23,
+   "license": "Public domain"
   },
   {
    "kind": "venue",
    "key": "acoustik-garden-lounge",
-   "file": "File:Interfaith Medical Center.jpg",
-   "m": 33,
-   "license": "CC BY-SA 3.0"
+   "file": "File:Fulton Street, Brooklyn.jpg",
+   "m": 188,
+   "license": "Public domain"
   },
   {
    "kind": "venue",
@@ -1853,17 +1412,10 @@
   },
   {
    "kind": "venue",
-   "key": "brooklyn-art-haus",
-   "file": "File:Carmel RCC Havermeyer setting up jeh.jpg",
-   "m": 317,
-   "license": "CC0"
-  },
-  {
-   "kind": "venue",
    "key": "brooklyn-roots-collective",
-   "file": "File:Bushwick Brooklyn Art 846.jpg",
-   "m": 65,
-   "license": "CC BY-SA 4.0"
+   "file": "File:Bushwick Branch LIRR 2008 jeh.jpg",
+   "m": 67,
+   "license": "Public domain"
   },
   {
    "kind": "venue",
@@ -1895,13 +1447,6 @@
   },
   {
    "kind": "venue",
-   "key": "deluxx-fluxx",
-   "file": "File:MNDR Webster Hall (5079539347).jpg",
-   "m": 2,
-   "license": "CC BY 2.0"
-  },
-  {
-   "kind": "venue",
    "key": "ernest-records",
    "file": "File:Bed-Stuy 20191130 - 16 - Madison btwn Marcus Garvey & Throop.jpg",
    "m": 80,
@@ -1916,31 +1461,10 @@
   },
   {
    "kind": "venue",
-   "key": "green-room-nyc",
-   "file": "File:Bushwick Brooklyn Art 244.jpg",
-   "m": 108,
-   "license": "CC BY-SA 4.0"
-  },
-  {
-   "kind": "venue",
-   "key": "jolene-sound-room-brooklyn",
-   "file": "File:Paint roller 4.jpg",
-   "m": 164,
-   "license": "CC BY 2.0"
-  },
-  {
-   "kind": "venue",
    "key": "liberty-belle-pier-36-nyc",
    "file": "File:Manhattan Bridge Reflected.jpg",
    "m": 193,
    "license": "CC BY-SA 3.0"
-  },
-  {
-   "kind": "venue",
-   "key": "lillistar-at-moxy-williamsburg",
-   "file": "File:Paint roller 4.jpg",
-   "m": 164,
-   "license": "CC BY 2.0"
   },
   {
    "kind": "venue",
@@ -1958,31 +1482,10 @@
   },
   {
    "kind": "venue",
-   "key": "lucky-strike-times-square",
-   "file": "File:Daniel Radcliffe NY1.jpg",
-   "m": 26,
-   "license": "CC BY 2.0"
-  },
-  {
-   "kind": "venue",
-   "key": "moondog-hifi",
-   "file": "File:500px photo (30347581).jpeg",
-   "m": 8,
-   "license": "CC BY-SA 3.0"
-  },
-  {
-   "kind": "venue",
    "key": "one-77",
    "file": "File:Gowanus Canal turn jeh.jpg",
    "m": 279,
    "license": "CC0"
-  },
-  {
-   "kind": "venue",
-   "key": "seventh-heaven-bar-and-karaoke",
-   "file": "File:Bushwick Brooklyn Art 075.jpg",
-   "m": 183,
-   "license": "CC BY-SA 4.0"
   },
   {
    "kind": "venue",
@@ -1993,38 +1496,10 @@
   },
   {
    "kind": "venue",
-   "key": "signal",
-   "file": "File:Bushwick Brooklyn Art 238.jpg",
-   "m": 138,
-   "license": "CC BY-SA 4.0"
-  },
-  {
-   "kind": "venue",
    "key": "silo-brooklyn",
-   "file": "File:Bushwick Brooklyn Art 499.jpg",
-   "m": 29,
-   "license": "CC BY-SA 4.0"
-  },
-  {
-   "kind": "venue",
-   "key": "the-brooklyn-monarch",
-   "file": "File:Bushwick Brooklyn Art 231.jpg",
-   "m": 74,
-   "license": "CC BY-SA 4.0"
-  },
-  {
-   "kind": "venue",
-   "key": "the-chocolate-factory",
-   "file": "File:Bushwick Brooklyn Art 502.jpg",
-   "m": 45,
-   "license": "CC BY-SA 4.0"
-  },
-  {
-   "kind": "venue",
-   "key": "the-meadows",
-   "file": "File:Bushwick Brooklyn Art 224.jpg",
+   "file": "File:Bushwick Branch LIRR 2008 jeh.jpg",
    "m": 59,
-   "license": "CC BY-SA 4.0"
+   "license": "Public domain"
   },
   {
    "kind": "venue",
@@ -2032,34 +1507,6 @@
    "file": "File:36th Av BMT Astoria jeh.JPG",
    "m": 135,
    "license": "Public domain"
-  },
-  {
-   "kind": "venue",
-   "key": "the-onyx-room-at-house-of-yes",
-   "file": "File:Bushwick Brooklyn Art 039.jpg",
-   "m": 25,
-   "license": "CC BY-SA 4.0"
-  },
-  {
-   "kind": "venue",
-   "key": "the-skinny-bar",
-   "file": "File:Katya Zakharova at Rockwood Music Hall - New York City - July 2006.jpg",
-   "m": 52,
-   "license": "CC BY 2.0"
-  },
-  {
-   "kind": "venue",
-   "key": "the-sultan-room",
-   "file": "File:Bushwick Brooklyn Art 1289.jpg",
-   "m": 17,
-   "license": "CC BY-SA 4.0"
-  },
-  {
-   "kind": "venue",
-   "key": "the-woodshop",
-   "file": "File:Bushwick Brooklyn Art 227.jpg",
-   "m": 72,
-   "license": "CC BY-SA 4.0"
   },
   {
    "kind": "venue",
@@ -2085,19 +1532,22 @@
   {
    "kind": "venue",
    "key": "westlight-rooftop-at-the-william-vale",
-   "file": "File:1972 Ford Courier, rear right side.jpg",
-   "m": 214,
-   "license": "CC BY-SA 3.0"
-  },
-  {
-   "kind": "venue",
-   "key": "xanadu",
-   "file": "File:Bushwick Brooklyn Art 011.jpg",
-   "m": 25,
-   "license": "CC BY-SA 4.0"
+   "file": "File:Brewers Row Wythe Av N11 St jeh.jpg",
+   "m": 135,
+   "license": "CC0"
   }
  ],
  "none": [
+  {
+   "kind": "bar",
+   "key": "saar-indian-restaurant-times-square",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "the-cooper-still-chelsea",
+   "why": "no free street photo within range"
+  },
   {
    "kind": "bar",
    "key": "hi-life-bar-grill-upper-west-side",
@@ -2120,7 +1570,57 @@
   },
   {
    "kind": "bar",
+   "key": "the-brazen-tavern-hell-s-kitchen",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "tipsy-nomad-koreatown",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "hart-bar-bushwick",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "loreley-restaurant-biergarten-nolita",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "leaf-bar-lounge-flushing",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "vacations-bar-rooftop-bushwick",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "little-beaver-bushwick",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
    "key": "felice-brooklyn-heights",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "la-loncheria-bushwick",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "bar-belly-lower-east-side",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "bar-mexicana-midtown",
    "why": "no free street photo within range"
   },
   {
@@ -2170,7 +1670,22 @@
   },
   {
    "kind": "bar",
+   "key": "santa-panza-bushwick",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "cobblestones-pub-and-biergarten-forest-hills",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
    "key": "the-red-lion-greenwich-village",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "artesano-tribeca",
    "why": "no free street photo within range"
   },
   {
@@ -2180,7 +1695,37 @@
   },
   {
    "kind": "bar",
+   "key": "francie-williamsburg",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "kings-of-kobe-hell-s-kitchen",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "bobo-greenwich-village",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
    "key": "sonnyboy-lower-east-side",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "the-summit-east-village",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "cherry-on-top-bushwick",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "bayridge-sushi-bay-ridge",
    "why": "no free street photo within range"
   },
   {
@@ -2190,12 +1735,42 @@
   },
   {
    "kind": "bar",
+   "key": "el-vez-tribeca",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
    "key": "casa-colven-lower-east-side",
    "why": "no free street photo within range"
   },
   {
    "kind": "bar",
+   "key": "elsa-cobble-hill",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
    "key": "meraki-greek-bistro-brooklyn-williamsburg",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "hair-of-the-dog-lower-east-side",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "michael-s-new-york-times-square",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "whiskey-tavern-financial-district",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "bitter-monk-sunset-park",
    "why": "no free street photo within range"
   },
   {
@@ -2210,7 +1785,52 @@
   },
   {
    "kind": "bar",
+   "key": "bijan-s-downtown-brooklyn",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "casa-pu-blica-williamsburg",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "casa-louie-times-square",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "bella-union-gramercy",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "covacha-upper-west-side",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "emily-greenwich-village",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "gui-steakhouse-times-square",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "gyu-kaku-times-square",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
    "key": "juniper-koreatown",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "tulum-brooklyn-bushwick",
    "why": "no free street photo within range"
   },
   {
@@ -2220,7 +1840,17 @@
   },
   {
    "kind": "bar",
+   "key": "marco-polo-ristorante-carroll-gardens",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
    "key": "ofcorsica-chelsea",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "otb-williamsburg",
    "why": "no free street photo within range"
   },
   {
@@ -2230,12 +1860,47 @@
   },
   {
    "kind": "bar",
+   "key": "playa-betty-s-upper-west-side",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "r40-long-island-city",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "raices-colombianas-restaurant-jackson-heights",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
    "key": "recette-williamsburg",
    "why": "no free street photo within range"
   },
   {
    "kind": "bar",
+   "key": "ray-s-nolita",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "sabay-thai-cuisine-jackson-heights",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "russian-samovar-restaurant-and-piano-bar-times-square",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
    "key": "spicy-moon-greenwich-village",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "sura-bushwick",
    "why": "no free street photo within range"
   },
   {
@@ -2260,7 +1925,82 @@
   },
   {
    "kind": "bar",
+   "key": "the-binc-brooklyn-heights",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "the-little-whiskey-bushwick",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
    "key": "the-malt-house-greenwich-village",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "the-purple-tongue-wine-bar-hell-s-kitchen",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "the-ribbon-upper-west-side",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "the-ten-bells-brooklyn-bushwick",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "toloache-upper-east-side",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "winnie-s-times-square",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "bar",
+   "key": "yummy-yummy-jackson-heights",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
+   "key": "bogart-house",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
+   "key": "marquee-skydeck-at-edge-hudson-yards",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
+   "key": "jupiter-disco",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
+   "key": "open-air-club-sixty-les",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
+   "key": "outer-heaven",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
+   "key": "harmony-yacht-skyport-marina",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
+   "key": "52-walker-street",
    "why": "no free street photo within range"
   },
   {
@@ -2270,7 +2010,57 @@
   },
   {
    "kind": "venue",
+   "key": "skyport-marina",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
+   "key": "jewel-yacht",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
    "key": "3-dollar-bill",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
+   "key": "314-scholes-street",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
+   "key": "brooklyn-art-haus",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
+   "key": "deluxx-fluxx",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
+   "key": "green-room-nyc",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
+   "key": "jolene-sound-room-brooklyn",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
+   "key": "lillistar-at-moxy-williamsburg",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
+   "key": "lucky-strike-times-square",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
+   "key": "moondog-hifi",
    "why": "no free street photo within range"
   },
   {
@@ -2285,7 +2075,27 @@
   },
   {
    "kind": "venue",
+   "key": "seventh-heaven-bar-and-karaoke",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
+   "key": "signal",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
    "key": "the-1896",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
+   "key": "the-brooklyn-monarch",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
+   "key": "the-chocolate-factory",
    "why": "no free street photo within range"
   },
   {
@@ -2295,7 +2105,37 @@
   },
   {
    "kind": "venue",
+   "key": "the-meadows",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
+   "key": "the-onyx-room-at-house-of-yes",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
+   "key": "the-skinny-bar",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
+   "key": "the-sultan-room",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
+   "key": "the-woodshop",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
    "key": "trans-pecos",
+   "why": "no free street photo within range"
+  },
+  {
+   "kind": "venue",
+   "key": "xanadu",
    "why": "no free street photo within range"
   }
  ],
