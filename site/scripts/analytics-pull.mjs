@@ -75,6 +75,14 @@ if (sa.client_email) {
       events: await ga(['eventName'], ['eventCount', 'totalUsers']),
       eventsByPage: await ga(['eventName', 'pagePath'], ['eventCount']),
       outbound: await ga(['linkDomain'], ['eventCount'], { dimensionFilter: { filter: { fieldName: 'eventName', stringFilter: { value: 'click' } } } }),
+      // cross-cuts for the analyst report: where each source lands, what each source does, by day
+      landingBySource: await ga(['sessionSource', 'landingPagePlusQueryString'], ['sessions', 'engagedSessions']),
+      eventsByChannel: await ga(['sessionDefaultChannelGroup', 'eventName'], ['eventCount', 'totalUsers']),
+      dateByChannel: await ga(['date', 'sessionDefaultChannelGroup'], ['sessions'], { dateRanges: [{ startDate: '90daysAgo', endDate: 'yesterday' }] }),
+      cityBySource: await ga(['sessionDefaultChannelGroup', 'city'], ['sessions', 'engagedSessions']),
+      hourOfDay: await ga(['hour'], ['sessions']),
+      dayOfWeek: await ga(['dayOfWeek'], ['sessions']),
+      browser: await ga(['browser', 'operatingSystem'], ['sessions']),
     };
     note('ga4', Array.isArray(out.ga4.total) ? 'ok' : `error ${out.ga4.total.error}`);
   } else note('ga4', 'GA4_PROPERTY_ID missing');
