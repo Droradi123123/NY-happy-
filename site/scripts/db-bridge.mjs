@@ -82,6 +82,26 @@ for (const [i, s] of plan.steps.entries()) {
       const body = await r.json().catch(() => null);
       results.push({ step: tag, insert: s.insert, status: r.status, body });
       console.log(`${tag} insert ${s.insert}: ${r.status}`);
+    } else if (s.venue_from_dice) {
+      // a venue that is not in party_venues yet: its name and address from the DICE event page's own
+      // JSON-LD, coordinates and borough from NYC GeoSearch; five boroughs only, never guessed
+      const { id, url } = s.venue_from_dice;
+      const have = await get(`party_venues?select=id&id=eq.${encodeURIComponent(id)}`);
+      if (have.length) { console.log(`${tag} venue ${id}: exists`); continue; }
+      const html = await (await fetch(url, { headers: { 'User-Agent': 'Mozilla/5.0 (compatible; NYHappy/1.0; +https://github.com/Droradi123123/NY-happy-)' } })).text();
+      const ld = [...html.matchAll(/<script[^>]*application\/ld\+json[^>]*>([\s\S]*?)<\/script>/g)].map((m) => { try { return JSON.parse(m[1]); } catch { return null; } }).flat().find((x) => x?.location);
+      const loc = ld?.location ?? {};
+      const a = typeof loc.address === 'string' ? loc.address : [loc.address?.streetAddress, loc.address?.addressLocality, loc.address?.postalCode].filter(Boolean).join(', ');
+      if (!loc.name || !a) { results.push({ step: tag, venue: id, error: 'no venue in DICE JSON-LD' }); console.log(`${tag} venue ${id}: no address on DICE`); continue; }
+      const g = await (await fetch(`https://geosearch.planninglabs.nyc/v2/search?size=1&text=${encodeURIComponent(a)}`)).json();
+      const f = g.features?.[0], p = f?.properties ?? {};
+      const boro = { Manhattan: 'Manhattan', Brooklyn: 'Brooklyn', Queens: 'Queens', Bronx: 'The Bronx', 'Staten Island': 'Staten Island' }[p.borough];
+      if (!f || !boro || (p.confidence ?? 0) < 0.8) { results.push({ step: tag, venue: id, error: 'not geocoded in NYC', address: a, geo: p.label }); console.log(`${tag} venue ${id}: not placed in the five boroughs`); continue; }
+      const row = { id, name: loc.name, address: `${p.housenumber ?? ''} ${p.street ?? ''}`.trim() || a, zip: p.postalcode ?? null, borough: boro,
+        lat: f.geometry.coordinates[1], lng: f.geometry.coordinates[0], sources: [{ name: 'DICE', url, checked_at: new Date().toISOString() }, { name: 'NYC GeoSearch', url: 'https://geosearch.planninglabs.nyc', label: p.label }] };
+      const r = await fetch(`${URL}/rest/v1/party_venues`, { method: 'POST', headers: { ...H, Prefer: 'return=representation' }, body: JSON.stringify(row) });
+      results.push({ step: tag, venue: id, status: r.status, row, body: await r.json().catch(() => null) });
+      console.log(`${tag} venue ${id}: ${r.status}`);
     } else if (s.sleep) {
       await sleep(s.sleep);
     }

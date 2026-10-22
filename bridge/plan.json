@@ -1,36 +1,14 @@
 {
- "steps": [
-  {
-   "insert": "party_runs",
-   "rows": [
-    {
-     "kind": "skill",
-     "notes": "bridge run: DICE refresh + dump for SEO/GEO copy pass (2026-10-22)"
-    }
-   ]
-  },
-  {
-   "dice_refresh": {
-    "rounds": 45,
-    "n": 40,
-    "older_than": "1 day"
-   }
-  },
-  {
-   "dump": "events",
-   "path": "party_events?select=*&night_date=gte.2026-10-22&order=night_date"
-  },
-  {
-   "dump": "venues",
-   "path": "party_venues?select=*"
-  },
-  {
-   "dump": "leads",
-   "path": "party_leads?select=*&status=eq.open"
-  },
-  {
-   "dump": "sources",
-   "path": "party_sources?select=*"
-  }
- ]
+  "steps": [
+    { "insert": "party_runs", "rows": [{ "kind": "skill", "notes": "bridge: add 3 new DICE nights (Thanksgiving, NYE) found by web search on 2026-10-22" }] },
+    { "venue_from_dice": { "id": "cipriani-42nd-street", "url": "https://dice.fm/event/pyra3k-cipriani-new-years-eve-party-2026-31st-dec-cipriani-42nd-st-new-york-city-tickets" } },
+    { "venue_from_dice": { "id": "stone-street-tavern", "url": "https://dice.fm/event/rybdm5-new-years-eve-party-at-historic-landmark-venue-31st-dec-stone-street-tavern-new-york-city-tickets" } },
+    { "rpc": "party_venue_hoods" },
+    { "rpc": "party_add_dice", "args": { "p_url": "https://dice.fm/event/wwnrex-groundcontrol-presents-thanksgiving-with-kofla-cristian-arango-26th-nov-superior-ingredients-main-room-new-york-tickets", "p_venue_id": "superior-ingredients", "p_room": "Main Room", "p_found_via": "web search site:dice.fm 2026-10-22", "p_themes": ["thanksgiving"] } },
+    { "rpc": "party_add_dice", "args": { "p_url": "https://dice.fm/event/pyra3k-cipriani-new-years-eve-party-2026-31st-dec-cipriani-42nd-st-new-york-city-tickets", "p_venue_id": "cipriani-42nd-street", "p_room": null, "p_found_via": "web search site:dice.fm 2026-10-22", "p_themes": ["nye"] } },
+    { "rpc": "party_add_dice", "args": { "p_url": "https://dice.fm/event/rybdm5-new-years-eve-party-at-historic-landmark-venue-31st-dec-stone-street-tavern-new-york-city-tickets", "p_venue_id": "stone-street-tavern", "p_room": null, "p_found_via": "web search site:dice.fm 2026-10-22", "p_themes": ["nye"] } },
+    { "sleep": 15 },
+    { "dice_refresh": { "rounds": 6, "n": 40, "older_than": "1 day" } },
+    { "dump": "new_events", "path": "party_events?select=id,slug,title,night_date,starts_at,doors_at,ends_at,venue_id,room,age_min,price_from,price_status,event_status,publish_status,review_reason,performers,organizer,genres,themes,refund_terms,ticket_url,facts,raw,copy&venue_id=in.(superior-ingredients,cipriani-42nd-street,stone-street-tavern)&night_date=gte.2026-11-01" }
+  ]
 }
