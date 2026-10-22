@@ -1,0 +1,23 @@
+# Tells IndexNow (Bing, ChatGPT search, Yandex...) and Bing Webmaster Tools about every page in the
+# live sitemap. Run by hand after big content changes. Logs statuses only.
+name: Search engine ping
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Ping
+        env:
+          BING_API_KEY: ${{ secrets.BING_API_KEY }}
+        run: node site/scripts/search-ping.mjs
