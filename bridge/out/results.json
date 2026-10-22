@@ -5,175 +5,206 @@
   "status": 201,
   "body": [
    {
-    "id": 2,
-    "started_at": "2026-10-22T17:03:54.124315+00:00",
+    "id": 3,
+    "started_at": "2026-10-22T17:12:18.012796+00:00",
     "finished_at": null,
     "kind": "skill",
     "stats": null,
-    "notes": "bridge run: DICE refresh + dump for SEO/GEO copy pass (2026-10-22)"
+    "notes": "bridge: add 3 new DICE nights (Thanksgiving, NYE) found by web search on 2026-10-22"
    }
   ]
  },
  {
   "step": "#2",
+  "venue": "cipriani-42nd-street",
+  "status": 201,
+  "row": {
+   "id": "cipriani-42nd-street",
+   "name": "Cipriani 42nd St",
+   "address": "110 EAST 42 STREET",
+   "zip": "10017",
+   "borough": "Manhattan",
+   "lat": 40.751609,
+   "lng": -73.977143,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/pyra3k-cipriani-new-years-eve-party-2026-31st-dec-cipriani-42nd-st-new-york-city-tickets",
+     "checked_at": "2026-10-22T17:12:19.487Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "110 EAST 42 STREET, New York, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "cipriani-42nd-street",
+    "name": "Cipriani 42nd St",
+    "aliases": [],
+    "rooms": [],
+    "address": "110 EAST 42 STREET",
+    "zip": "10017",
+    "borough": "Manhattan",
+    "neighborhood": null,
+    "lat": 40.751609,
+    "lng": -73.977143,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/pyra3k-cipriani-new-years-eve-party-2026-31st-dec-cipriani-42nd-st-new-york-city-tickets",
+      "name": "DICE",
+      "checked_at": "2026-10-22T17:12:19.487Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "110 EAST 42 STREET, New York, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-22T17:12:19.568951+00:00",
+    "updated_at": "2026-10-22T17:12:19.568951+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#3",
+  "venue": "stone-street-tavern",
+  "status": 201,
+  "row": {
+   "id": "stone-street-tavern",
+   "name": "Stone Street Tavern",
+   "address": "52 STONE STREET",
+   "zip": "10004",
+   "borough": "Manhattan",
+   "lat": 40.70423,
+   "lng": -74.010206,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/rybdm5-new-years-eve-party-at-historic-landmark-venue-31st-dec-stone-street-tavern-new-york-city-tickets",
+     "checked_at": "2026-10-22T17:12:20.107Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "52 STONE STREET, New York, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "stone-street-tavern",
+    "name": "Stone Street Tavern",
+    "aliases": [],
+    "rooms": [],
+    "address": "52 STONE STREET",
+    "zip": "10004",
+    "borough": "Manhattan",
+    "neighborhood": null,
+    "lat": 40.70423,
+    "lng": -74.010206,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/rybdm5-new-years-eve-party-at-historic-landmark-venue-31st-dec-stone-street-tavern-new-york-city-tickets",
+      "name": "DICE",
+      "checked_at": "2026-10-22T17:12:20.107Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "52 STONE STREET, New York, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-22T17:12:20.191657+00:00",
+    "updated_at": "2026-10-22T17:12:20.191657+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#4",
+  "rpc": "party_venue_hoods",
+  "ok": true,
+  "status": 200,
+  "body": 2
+ },
+ {
+  "step": "#5",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/wwnrex-groundcontrol-presents-thanksgiving-with-kofla-cristian-arango-26th-nov-superior-ingredients-main-room-new-york-tickets",
+   "p_venue_id": "superior-ingredients",
+   "p_room": "Main Room",
+   "p_found_via": "web search site:dice.fm 2026-10-22",
+   "p_themes": [
+    "thanksgiving"
+   ]
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:wwnrex-groundcontrol-presents-thanksgiving-with-kofla-cristian-arango-26th-nov-superior-ingredients-main-room-new-york-tickets"
+ },
+ {
+  "step": "#6",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/pyra3k-cipriani-new-years-eve-party-2026-31st-dec-cipriani-42nd-st-new-york-city-tickets",
+   "p_venue_id": "cipriani-42nd-street",
+   "p_room": null,
+   "p_found_via": "web search site:dice.fm 2026-10-22",
+   "p_themes": [
+    "nye"
+   ]
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:pyra3k-cipriani-new-years-eve-party-2026-31st-dec-cipriani-42nd-st-new-york-city-tickets"
+ },
+ {
+  "step": "#7",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/rybdm5-new-years-eve-party-at-historic-landmark-venue-31st-dec-stone-street-tavern-new-york-city-tickets",
+   "p_venue_id": "stone-street-tavern",
+   "p_room": null,
+   "p_found_via": "web search site:dice.fm 2026-10-22",
+   "p_themes": [
+    "nye"
+   ]
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:rybdm5-new-years-eve-party-at-historic-landmark-venue-31st-dec-stone-street-tavern-new-york-city-tickets"
+ },
+ {
+  "step": "#9",
   "round": 0,
   "ingest": {
    "gone": 0,
-   "read": 0,
+   "read": 3,
    "waiting": 0,
-   "ended_now": 107,
+   "ended_now": 2,
    "unreadable": 0
   },
-  "queued": 40
+  "queued": 0
  },
  {
-  "step": "#2",
+  "step": "#9",
   "round": 1,
   "ingest": {
    "gone": 0,
-   "read": 40,
-   "waiting": 0,
-   "ended_now": 0,
-   "unreadable": 0
-  },
-  "queued": 40
- },
- {
-  "step": "#2",
-  "round": 2,
-  "ingest": {
-   "gone": 0,
-   "read": 40,
-   "waiting": 0,
-   "ended_now": 0,
-   "unreadable": 0
-  },
-  "queued": 40
- },
- {
-  "step": "#2",
-  "round": 3,
-  "ingest": {
-   "gone": 0,
-   "read": 40,
-   "waiting": 0,
-   "ended_now": 0,
-   "unreadable": 0
-  },
-  "queued": 40
- },
- {
-  "step": "#2",
-  "round": 4,
-  "ingest": {
-   "gone": 0,
-   "read": 40,
-   "waiting": 0,
-   "ended_now": 0,
-   "unreadable": 0
-  },
-  "queued": 40
- },
- {
-  "step": "#2",
-  "round": 5,
-  "ingest": {
-   "gone": 0,
    "read": 0,
-   "waiting": 40,
-   "ended_now": 0,
-   "unreadable": 0
-  },
-  "queued": 40
- },
- {
-  "step": "#2",
-  "round": 6,
-  "ingest": {
-   "gone": 0,
-   "read": 80,
-   "waiting": 0,
-   "ended_now": 0,
-   "unreadable": 0
-  },
-  "queued": 40
- },
- {
-  "step": "#2",
-  "round": 7,
-  "ingest": {
-   "gone": 0,
-   "read": 0,
-   "waiting": 40,
-   "ended_now": 0,
-   "unreadable": 0
-  },
-  "queued": 40
- },
- {
-  "step": "#2",
-  "round": 8,
-  "ingest": {
-   "code": "57014",
-   "details": null,
-   "hint": null,
-   "message": "canceling statement due to statement timeout"
-  },
-  "queued": 40
- },
- {
-  "step": "#2",
-  "round": 9,
-  "ingest": {
-   "code": "57014",
-   "details": null,
-   "hint": null,
-   "message": "canceling statement due to statement timeout"
-  },
-  "queued": 40
- },
- {
-  "step": "#2",
-  "round": 10,
-  "ingest": {
-   "gone": 0,
-   "read": 160,
-   "waiting": 0,
-   "ended_now": 0,
-   "unreadable": 0
-  },
-  "queued": 40
- },
- {
-  "step": "#2",
-  "round": 11,
-  "ingest": {
-   "gone": 0,
-   "read": 40,
-   "waiting": 0,
-   "ended_now": 0,
-   "unreadable": 0
-  },
-  "queued": 40
- },
- {
-  "step": "#2",
-  "round": 12,
-  "ingest": {
-   "gone": 0,
-   "read": 40,
-   "waiting": 0,
-   "ended_now": 0,
-   "unreadable": 0
-  },
-  "queued": 19
- },
- {
-  "step": "#2",
-  "round": 13,
-  "ingest": {
-   "gone": 0,
-   "read": 19,
    "waiting": 0,
    "ended_now": 0,
    "unreadable": 0
