@@ -178,12 +178,14 @@ const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 // a dated party page (/parties/<name>-2026-10-31) leaves the site once the night is over: a link to one
 // that is no longer listed becomes plain text, so an older post never points at a missing page
 const PARTY_PAGE = /^\/parties\/(.+-\d{4}-\d{2}-\d{2})$/;
+/** a party or venue page that this build may not have (nights end, venues without nights drop off) */
+export const PARTY_OR_VENUE = (href: string) => PARTY_PAGE.test(href) || /^\/parties\/venue\/[a-z0-9-]+$/.test(href);
 export const prose = (t: string, live?: Set<string>) => esc(t).replace(/&lt;a href="(\/[a-z0-9\-/]*)"&gt;((?:(?!&lt;|&gt;).)+?)&lt;\/a&gt;/gi,
-  (_, href: string, text: string) => { const m = href.match(PARTY_PAGE); return m && live && !live.has(m[1]) ? text : `<a href="${href}">${text}</a>`; });
+  (_, href: string, text: string) => (live && PARTY_OR_VENUE(href) && !live.has(href) ? text : `<a href="${href}">${text}</a>`));
 let _live: Promise<Set<string>> | null = null;
-/** slugs of the party pages this build publishes */
+/** paths of the party and venue pages this build publishes ("/parties/<slug>", "/parties/venue/<id>") */
 export function livePartySlugs(): Promise<Set<string>> {
-  _live ??= partyData().then(({ parties }) => new Set(parties.map((p) => p.slug)));
+  _live ??= partyData().then(({ parties, venuePages }) => new Set([...parties.map((p) => `/parties/${p.slug}`), ...venuePages.map((v) => `/parties/venue/${v.id}`)]));
   return _live;
 }
 let _all: Promise<Guide[]> | null = null;

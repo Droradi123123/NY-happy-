@@ -5,7 +5,7 @@
  */
 import Base from '../../layouts/Base.astro';
 import Photo from '../../components/Photo.astro';
-import { allGuides, guideBars, guideCover, prose, livePartySlugs, type Guide } from '../../lib/guides';
+import { allGuides, guideBars, guideCover, prose, livePartySlugs, PARTY_OR_VENUE, type Guide } from '../../lib/guides';
 import { guideTable } from '../../lib/guideTables';
 import { crumbs, faqLd, SITE } from '../../lib/seo';
 import { allBars, checkedRange, fmtDate, dealLabel, scheduleLabel, placePhoto, photoNote, cardCredit, boroughSlug, meters, paragraphs, type Bar } from '../../lib/data';
@@ -39,6 +39,7 @@ const ld = {
   image: cover ? `${SITE}${cover.photo.src}` : `${SITE}/og-default.png`, wordCount: words,
 };
 const live = await livePartySlugs();
+const related = g.related.filter(([, href]) => !PARTY_OR_VENUE(href) || live.has(href));
 ---
 <Base title={g.title} description={g.description} keyword={g.keyword} noindex={g.status !== 'published' || thin}
   jsonld={[ld, crumbs([['YaY NYC', '/'], ['Blog', '/blog'], [g.h1, `/blog/${g.slug}`]]), ...(g.faq?.length ? [faqLd(g.faq)] : [])]}>
@@ -127,10 +128,10 @@ const live = await livePartySlugs();
         <a class="btn ghost" href="/parties?when=tonight">Parties tonight</a>
       </div>
     </section>
-    {g.related.length > 0 && (
+    {related.length > 0 && (
       <section class="section">
         <h2>Keep looking</h2>
-        <ul class="link-cloud">{g.related.map(([label, href]) => <li><a href={href}>{label}</a></li>)}</ul>
+        <ul class="link-cloud">{related.map(([label, href]) => <li><a href={href}>{label}</a></li>)}</ul>
       </section>
     )}
   </article>
