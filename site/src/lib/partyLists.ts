@@ -6,7 +6,7 @@
 import { partyData, venueOf, GENRE_NAME, nightDate, type Party, type Venue } from './data';
 import { partyTags } from './index';
 
-export interface PartyList { slug: string; kind: 'genre' | 'day' | 'season' | 'tag'; h1: string; label: string; keyword: string; short: string; parties: Party[] }
+export interface PartyList { slug: string; kind: 'genre' | 'day' | 'season' | 'tag' | 'when'; h1: string; label: string; keyword: string; short: string; parties: Party[]; title?: string; note?: string }
 
 const GENRE_KW: Record<string, [string, string]> = { house: ['House Music', 'house music'], 'hip-hop': ['Hip-Hop', 'hip-hop'], 'r-and-b': ['R&B', 'r&b'], 'funk-soul': ['Funk & Soul', 'funk & soul'], edm: ['EDM', 'edm'], 'k-pop': ['K-Pop', 'k-pop'] };
 const SEASONS: [string, string, string, string][] = [
@@ -23,6 +23,11 @@ const TAG_PAGES: [string, string, string, string, string][] = [
   ['openbar', 'open-bar', 'Open Bar Parties in NYC', 'open bar parties nyc', 'Open bar'],
   ['drag', 'drag', 'Drag Parties and Shows in NYC', 'drag parties nyc', 'Drag'],
 ];
+/** New York's date at build time, plus n days (the site rebuilds every few hours) */
+function nyDate(n = 0) {
+  const d = new Date(Date.now() + n * 864e5);
+  return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' }).format(d);
+}
 const WEEKDAY = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
 const sentence = (t: string) => t.replace(/ Parties in NYC$/, ' parties in NYC').replace(/ Parties and Shows in NYC$/, ' parties and shows in NYC');
 
@@ -44,6 +49,21 @@ export function partyLists(): Promise<PartyList[]> {
     }
     for (const [theme, slug, h1, keyword] of SEASONS)
       add({ slug, kind: 'season', h1, label: sentence(h1), keyword, short: h1.replace(/ Parties in NYC$/, '') }, parties.filter((p) => p.themes.includes(theme)), 2);
+    // tonight and this weekend: always built (a page that comes and goes would 404 for search engines);
+    // when nothing is listed for tonight, the next night with parties is shown and said so
+    const today = nyDate(), dow = new Date(`${today}T12:00:00Z`).getUTCDay();
+    const tonight = parties.filter((p) => p.night_date === today);
+    const next = tonight.length ? null : parties.find((p) => p.night_date > today)?.night_date ?? null;
+    const shortDate = (d: string) => nightDate(d, { weekday: 'long', month: 'short', day: 'numeric' });
+    if (tonight.length || next) out.push({ slug: 'tonight', kind: 'when', h1: 'Parties Tonight in NYC', label: 'Parties tonight in NYC', keyword: 'parties tonight nyc', short: 'Tonight',
+      title: `Parties Tonight in NYC: ${shortDate(today)}`,
+      parties: tonight.length ? tonight : parties.filter((p) => p.night_date === next),
+      ...(tonight.length ? {} : { note: next ? `Nothing is listed for tonight yet. These are the next parties, on ${shortDate(next)}.` : 'Nothing is listed for tonight yet.' }) });
+    // Friday to Sunday nights: the coming weekend from Monday to Thursday, the rest of this one from Friday
+    const from = dow >= 5 || dow === 0 ? today : nyDate(5 - dow), to = nyDate(dow === 0 ? 0 : 7 - dow);
+    const weekend = parties.filter((p) => p.night_date >= from && p.night_date <= to);
+    if (weekend.length) out.push({ slug: 'this-weekend', kind: 'when', h1: 'Parties This Weekend in NYC', label: 'Parties this weekend in NYC', keyword: 'parties this weekend nyc', short: 'This weekend',
+      title: `Parties This Weekend in NYC: ${dateRange(weekend)} (${weekend.length} Parties)`, parties: weekend });
     for (const [tag, slug, h1, keyword, short] of TAG_PAGES)
       add({ slug, kind: 'tag', h1, label: sentence(h1), keyword, short }, parties.filter((p) => partyTags(p, venueOf(p, venues)).includes(tag)), 2);
     return out;

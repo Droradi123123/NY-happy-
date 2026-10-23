@@ -21,10 +21,10 @@ const free = ps.filter((p) => p.price_status === 'free').length;
 const soldOut = ps.filter((p) => p.event_status === 'sold_out').length;
 const allAges = ps.filter((p) => p.age_min !== null && p.age_min < 21).length;
 const lower = L.label.replace(/ in NYC$/, '');
-const subject = L.kind === 'day' || L.kind === 'season' ? lower : lower[0].toLowerCase() + lower.slice(1);
+const subject = L.kind === 'day' || L.kind === 'season' || L.kind === 'when' ? lower : lower[0].toLowerCase() + lower.slice(1);
 
 const lede = [
-  `${plural(ps.length, 'upcoming night')} from ${dateRange(ps)}, at ${plural(venueNames.length, 'venue')}${venueNames.length ? ` including ${venueNames.slice(0, 3).join(', ')}` : ''}.`,
+  `${L.kind === 'when' ? plural(ps.length, 'party', 'parties') : plural(ps.length, 'upcoming night')} ${L.kind === 'when' ? 'on' : 'from'} ${dateRange(ps)}, at ${plural(venueNames.length, 'venue')}${venueNames.length ? ` including ${venueNames.slice(0, 3).join(', ')}` : ''}.`,
   priced.length ? `Tickets from $${Math.round(Math.min(...priced))}${free ? `; ${free} free` : ''}.` : free ? `${free} free.` : '',
   soldOut ? `${soldOut} already sold out.` : '',
 ].filter(Boolean).join(' ');
@@ -38,13 +38,14 @@ const faq = [
   ...(priced.length ? [{ q: `How much are tickets for ${subject} in NYC?`, a: `From $${Math.round(Math.min(...priced))} to $${Math.round(Math.max(...priced))} for the cheapest ticket on each night${free ? `, and ${free} are free` : ''}. Prices are the lowest listed on the ticket site when we checked, with fees.` }] : []),
   { q: `Are ${subject} in NYC 21+?`, a: allAges ? `Most are 21+, but ${plural(allAges, 'night')} let in younger guests; the age is on each party's page.` : 'Every night we list here is 21+, unless its page says otherwise. Bring a government photo ID; tourists should bring a passport.' },
 ];
-const title = `${L.h1} ${new Date(ps[0].night_date).getFullYear()}: ${ps.length} Upcoming Nights`;
-const groups: [string, PartyList[]][] = [['Music', lists.filter((l) => l.kind === 'genre')], ['Nights', lists.filter((l) => l.kind === 'day')], ['Seasons', lists.filter((l) => l.kind === 'season')], ['Kind of party', lists.filter((l) => l.kind === 'tag')]];
+const title = L.title ?? `${L.h1} ${new Date(ps[0].night_date).getFullYear()}: ${ps.length} Upcoming Nights`;
+const groups: [string, PartyList[]][] = [['When', lists.filter((l) => l.kind === 'when')], ['Music', lists.filter((l) => l.kind === 'genre')], ['Nights', lists.filter((l) => l.kind === 'day')], ['Seasons', lists.filter((l) => l.kind === 'season')], ['Kind of party', lists.filter((l) => l.kind === 'tag')]];
 ---
 <Base title={title} description={description} keyword={L.keyword}
   jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [L.short, `/parties/${L.slug}`]]), itemList(L.label, ps.map((p) => `/parties/${p.slug}`)), faqLd(faq)]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li><li aria-current="page">{L.short}</li></ol></nav>
   <h1>{L.h1}</h1>
+  {L.note && <p class="lede"><strong>{L.note}</strong></p>}
   <p class="lede">{lede}</p>
   <div class="xgrid">{ps.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>
   <section class="section faq">

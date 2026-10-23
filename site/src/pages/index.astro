@@ -42,7 +42,7 @@ const tag = (slug: string, e: string, t: string) => (lists.has(slug) ? [{ href: 
 // four big doors, no more: what is on now, tonight's parties, the season's night (or cheap drinks), the map
 const moods = [
   { href: '/happy-hours/now', e: '⏰', t: 'Happy hour now', cls: 'hot' },
-  { href: '/parties?when=tonight', e: '🪩', t: 'Parties tonight', cls: '' },
+  { href: '/parties/tonight', e: '🪩', t: 'Parties tonight', cls: '' },
   hwOn ? { href: '/parties/halloween', e: '🎃', t: 'Halloween', cls: 'hw' } : { href: '/happy-hours/cheap-drinks', e: '💸', t: 'Cheap drinks', cls: '' },
   { href: '/map', e: '🗺️', t: 'The map', cls: '' },
 ];

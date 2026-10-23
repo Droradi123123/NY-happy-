@@ -18,6 +18,7 @@ const plists = await partyLists();
 const halloween = parties.filter((p) => p.themes.includes('halloween')).length;
 const row = (l: { slug: string; short: string; parties: unknown[] }) => ({ href: `/parties/${l.slug}`, short: l.short, n: l.parties.length });
 const groups: [string, { href: string; short: string; n: number }[]][] = [
+  ['Tonight and this weekend', plists.filter((l) => l.kind === 'when').map(row)],
   ['Parties by music', plists.filter((l) => l.kind === 'genre').map(row)],
   ['Parties by night', plists.filter((l) => l.kind === 'day').map(row)],
   ['Holidays and seasons', [...(halloween >= 2 ? [{ href: '/parties/halloween', short: 'Halloween', n: halloween }] : []), ...plists.filter((l) => l.kind === 'season').map(row)]],
