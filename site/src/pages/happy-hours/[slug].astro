@@ -24,6 +24,8 @@ const foldList = page.kind !== 'hood' && list.length > 40;
 const byHood = [...list.reduce((m, b) => m.set(b.hood, [...(m.get(b.hood) ?? []), b]), new Map<string, Bar[]>())].sort((a, b) => b[1].length - a[1].length || a[0].localeCompare(b[0]));
 const s = stats(list);
 const year = new Date().getFullYear();
+// the month the list was built (it is rebuilt every few hours): shows searchers the list is current
+const stamp = `${new Date().toLocaleString('en-US', { month: 'short', timeZone: 'America/New_York' })} ${year}`;
 const ph = page.kind === 'hood' ? photoOf('hood', page.slug) : null;
 const day = page.kind === 'day' ? (page.preset.day as Day) : null;
 
@@ -77,9 +79,9 @@ const description = (() => {
   for (const m of more) if (m && (d + ' ' + m).length <= 158) d += ` ${m}`;
   return d;
 })();
-const title = page.kind === 'hood' ? `Happy Hour in ${page.short}, NYC: ${s.n} Bars and Deals (${year})`
-  : page.kind === 'borough' ? `${page.short.replace(/^The /, '')} Happy Hours: ${s.n} Bars, Deals and Times (${year})`
-  : `${page.h1.replace(/:.*$/, '')}: ${s.n} Bars (${year})`;
+const title = page.kind === 'hood' ? `Happy Hour in ${page.short}, NYC: ${s.n} Bars and Deals (${stamp})`
+  : page.kind === 'borough' ? `${page.short.replace(/^The /, '')} Happy Hours: ${s.n} Bars, Deals and Times (${stamp})`
+  : `${page.h1.replace(/:.*$/, '')}: ${s.n} Bars (${stamp})`;
 
 const groups: [string, ListPage[]][] = [
   ['Boroughs', pages.filter((p) => p.kind === 'borough')],

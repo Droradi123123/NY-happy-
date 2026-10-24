@@ -26,6 +26,8 @@ const kw = `happy hour near ${short ? short.replace(/&/g, ' ').replace(/\s+/g, '
 const where = kind === 'station' ? 'a 10-minute walk' : 'a short walk';
 const description = (() => {
   let d = `Happy hour near ${Name}${short ? ` (${short.replace(/^.*& /, '')})` : ''}: ${plural(s.n, 'bar')} within ${where}, closest first, with the deal and times.`;
+  const closest = items[0] ? `Closest: ${items[0].b.name}, ${items[0].note}.` : '';
+  if (closest && d.length + closest.length + 1 <= 160) d += ` ${closest}`;
   if (s.cheapestLabel && d.length + s.cheapestLabel.length + 12 <= 160) d += ` Cheapest: ${s.cheapestLabel}.`;
   return d.length > 160 ? `Happy hour near ${Short}: ${plural(s.n, 'bar')} within ${where}, with the deal and times.` : d;
 })();
@@ -36,7 +38,7 @@ const faq = [
 ];
 const pts = items.filter((i) => i.b.onMap).slice(0, 30).map((i) => ({ lat: i.b.lat!, lng: i.b.lng!, name: i.b.name, url: `/bars/${i.b.slug}` }));
 ---
-<Base title={`Happy Hour Near ${Short}: ${s.n} Bars, Closest First`} keyword={kw}
+<Base title={(() => { const t = `Happy Hour Near ${Short}: ${s.n} Bars, Closest First`, m = new Date().toLocaleString('en-US', { month: 'short', year: 'numeric', timeZone: 'America/New_York' }); return t.length + m.length + 3 <= 62 ? `${t} (${m})` : t; })()} keyword={kw}
   description={description}
   jsonld={[crumbs([['YaY NYC', '/'], ['Happy hours', '/happy-hours'], [`Near ${Name}`, Astro.url.pathname]]), faqLd(faq), itemList(`Happy hours near ${name}`, items.map((i) => `/bars/${i.b.slug}`))]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/happy-hours">Happy hours</a></li><li><a href="/happy-hours/neighborhoods">Near</a></li><li aria-current="page">{Name}</li></ol></nav>

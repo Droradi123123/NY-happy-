@@ -44,7 +44,7 @@ export function barDescription(b: Bar): string {
   const menu = b.offers.slice(0, 3).map((o) => `${o.item} ${o.price}`).join(', ');
   const bits = hasMenu(b)
     ? [`Happy hour menu at ${b.name}, ${b.hood}: ${menu}${b.offers.length > 3 ? ' and more' : ''}.`, `${sched}.`]
-    : [`${b.name} in ${b.hood} has happy hour ${sched}.`, deal ? `The deal: ${deal}.` : 'Times are published; the deal is not listed.'];
+    : [`${b.name} in ${b.hood} has happy hour ${sched}.`, deal ? `The deal: ${deal}.` : b.source || b.website ? 'Times, a link to the bar\'s own menu and nearby deals.' : 'Times and nearby bars with listed deals.'];
   bits.push(
     b.subway ? `${b.subway.walk_min} min from ${b.subway.station} (${b.subway.lines.join(', ')}).` : '',
     b.checked ? `Checked ${new Date(b.checked).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}.` : '',
