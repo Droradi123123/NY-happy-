@@ -27,7 +27,7 @@ const endsNextDay = p.ends_at && nyDate(p.ends_at, { month: 'short', day: 'numer
 const host = (u: string) => { try { return new URL(u).host.replace(/^www\./, ''); } catch { return u; } };
 const sameNight = parties.filter((o) => o.slug !== p.slug && o.night_date === p.night_date).slice(0, 6);
 const atVenue = parties.filter((o) => o.slug !== p.slug && o.venue_id === p.venue_id).slice(0, 4);
-const lastSeen = p.sources?.find((s) => s.name === 'DICE')?.checked_at ?? p.last_checked;
+const lastSeen = p.sources?.find((s) => s.name === 'DICE' || s.name === p.ticket_vendor)?.checked_at ?? p.last_checked;
 // one answer-first sentence with the facts people (and AI answers) look for: what, where, when, age, price
 const where = v ? `${v.name}${p.neighborhood ? ` in ${p.neighborhood}` : ''}${p.borough && p.borough !== p.neighborhood ? `, ${p.borough}` : ''}` : (p.neighborhood ?? 'a New York venue');
 const music = p.genres.slice(0, 3).map((g) => GENRE_NAME[g] ?? g).join(', ');

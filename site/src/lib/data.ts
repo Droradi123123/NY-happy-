@@ -353,7 +353,9 @@ export function partyData() {
       : { parties: await rest<Party>('site_parties?select=*&order=starts_at'), venues: await rest<Venue>('site_venues?select=*') };
     // a night that is over is not built (the HappyTLV rule); the fixture keeps its nights for development
     const cutoff = FIXTURE ? 0 : Date.now() - 2 * 3600e3;
-    const live = parties.filter((p) => new Date(p.ends_at ?? p.starts_at).getTime() > cutoff && p.event_status !== 'cancelled')
+    // a night sold outside DICE is re-read by hand (party_add_listing): 10 days without a read takes it off the site
+    const stale = (p: Party) => p.ticket_vendor !== 'DICE' && !FIXTURE && (!p.last_checked || Date.parse(p.last_checked) < Date.now() - 10 * 864e5);
+    const live = parties.filter((p) => new Date(p.ends_at ?? p.starts_at).getTime() > cutoff && p.event_status !== 'cancelled' && !stale(p))
       // the NYE rule matches text ("NYE tickets on sale"); only the nights around New Year's Eve are NYE parties
       .map((p) => (p.themes.includes('nye') && !/-(12-3[01]|01-01)$/.test(p.night_date) ? { ...p, themes: p.themes.filter((t) => t !== 'nye') } : p));
     // a club keeps its page once it has had a published night, even between parties
