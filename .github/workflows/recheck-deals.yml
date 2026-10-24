@@ -34,7 +34,7 @@ jobs:
           node-version: 22
       - name: Tools
         run: |
-          sudo apt-get install -y -q poppler-utils >/dev/null
+          sudo apt-get update -q >/dev/null && sudo apt-get install -y -q poppler-utils >/dev/null
           npm install --no-save --no-audit --no-fund playwright-core@1.56.1
       - name: Re-check
         env:
