@@ -1,0 +1,8 @@
+-- Applied 2026-10-25 as bar_promote (full body as applied live).
+-- A pending bar whose happy hour the importer found but could not parse (status_reason
+-- 'happy_hour_found_but_no_usable_schedule' or 'multiple_schedules_in_one_line', 479 bars on Oct 25)
+-- goes live only through bar_promote(slug, hh, source_url, evidence_quote, reason), after a person or
+-- agent read the schedule on the bar's own page. It refuses without a source URL, a quote, days, an
+-- address, coordinates or a neighborhood known to nyc_hoods; it stores the window with its source and
+-- quote, computes the nearest MTA station complex (data.ny.gov 39hk-dx4f, within 1.6 km) like the live
+-- bars, sets status live and logs the change in bar_fix_log. Not callable by anon or authenticated.
