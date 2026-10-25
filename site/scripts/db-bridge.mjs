@@ -11,6 +11,7 @@
  *   { "dice_refresh": { "rounds": 40 } }                              party_dice_ingest + party_dice_request until done
  *   { "dump": "events", "path": "party_events?select=...&night_date=gte.2026-10-22" }   GET into bridge/out/<name>.json
  *   { "insert": "party_leads", "rows": [ ... ] }                      plain insert (allowlisted tables)
+ *   { "bar_locate": { "slug": "...", "address": "250 Ashland Pl, Brooklyn, NY 11217", "source": "https://...", "hood": "Fort Greene" } }
  *   { "sleep": 10 }
  */
 import { readFileSync, writeFileSync, mkdirSync } from 'node:fs';
@@ -19,7 +20,7 @@ const URL = 'https://zqfscuwkxcoktpjhaebv.supabase.co';
 const KEY = process.env.SUPABASE_SERVICE_KEY;
 if (!KEY) { console.log('SUPABASE_SERVICE_KEY missing'); process.exit(1); }
 const H = { apikey: KEY, authorization: `Bearer ${KEY}`, 'content-type': 'application/json' };
-const RPC_OK = /^(party_[a-z_]+|bar_(fix_hh|fix_field|set_status|recheck_request|recheck_ingest|recheck_apply|recheck_pull|recheck_import)|page_copy_save|blog_post_save)$/;
+const RPC_OK = /^(party_[a-z_]+|bar_(fix_hh|fix_field|promote|set_status|recheck_request|recheck_ingest|recheck_apply|recheck_pull|recheck_import)|page_copy_save|blog_post_save)$/;
 const INSERT_OK = new Set(['party_leads', 'party_venues', 'party_runs', 'party_rules']);
 const plan = JSON.parse(readFileSync(process.argv[2] ?? 'bridge/plan.json', 'utf-8'));
 mkdirSync('bridge/out', { recursive: true });
@@ -102,6 +103,31 @@ for (const [i, s] of plan.steps.entries()) {
       const r = await fetch(`${URL}/rest/v1/party_venues`, { method: 'POST', headers: { ...H, Prefer: 'return=representation' }, body: JSON.stringify(row) });
       results.push({ step: tag, venue: id, status: r.status, row, body: await r.json().catch(() => null) });
       console.log(`${tag} venue ${id}: ${r.status}`);
+    } else if (s.bar_locate) {
+      // a pending bar's street address as its own site prints it; coordinates and borough from NYC
+      // GeoSearch (an address match, five boroughs only). Refuses when the bar already has coordinates
+      // more than 400 m away (a different branch), or when no neighborhood known to nyc_hoods applies.
+      // Logged in bar_fix_log; bar_promote then takes it live.
+      const { slug, address, source, hood, reason } = s.bar_locate;
+      const [b] = await get(`h_nyc_happy_hour?select=slug,status,geo,address,lat,lng&slug=eq.${encodeURIComponent(slug)}`);
+      const fail = (error, extra = {}) => { results.push({ step: tag, bar: slug, error, ...extra }); console.log(`${tag} locate ${slug}: ${error}`); };
+      if (!b || b.status !== 'pending') { fail('not pending'); continue; }
+      if (!/^https?:\/\//.test(source ?? '') || !address) { fail('address and source required'); continue; }
+      const g = await (await fetch(`https://geosearch.planninglabs.nyc/v2/search?size=1&text=${encodeURIComponent(address)}`)).json();
+      const f = g.features?.[0], p = f?.properties ?? {};
+      if (!f || !p.borough || !p.housenumber || (p.confidence ?? 0) < 0.8) { fail('not an address in the five boroughs', { geo: p.label ?? null }); continue; }
+      const [lng, lat] = f.geometry.coordinates;
+      const off = b.lat == null ? 0 : Math.round(111320 * Math.hypot(lat - b.lat, (lng - b.lng) * Math.cos((lat * Math.PI) / 180)));
+      if (off > 400) { fail(`${off} m from the coordinates on record`, { geo: p.label }); continue; }
+      const hoods = new Set((await get('nyc_hoods?select=name')).map((h) => h.name));
+      const geo = hoods.has(b.geo) ? b.geo : hood;
+      if (!hoods.has(geo)) { fail(`neighborhood not recognized: ${geo}`); continue; }
+      const row = { address: address.split(',')[0].trim(), lat, lng, geo };
+      const r = await fetch(`${URL}/rest/v1/h_nyc_happy_hour?slug=eq.${encodeURIComponent(slug)}&status=eq.pending`, { method: 'PATCH', headers: { ...H, Prefer: 'return=minimal' }, body: JSON.stringify(row) });
+      await fetch(`${URL}/rest/v1/bar_fix_log`, { method: 'POST', headers: H, body: JSON.stringify({ slug, field: 'address',
+        old: { address: b.address, lat: b.lat, lng: b.lng, geo: b.geo }, new: { ...row, geosearch: p.label }, source, reason: reason ?? 'address from the bar\'s own site' }) });
+      results.push({ step: tag, bar: slug, status: r.status, row, geosearch: p.label, moved_m: off });
+      console.log(`${tag} locate ${slug}: ${r.status}`);
     } else if (s.sleep) {
       await sleep(s.sleep);
     }
