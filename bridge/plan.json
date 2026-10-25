@@ -1,6 +1,12 @@
 {
  "steps": [
-  { "dice_refresh": { "rounds": 25, "n": 40, "older_than": "12 hours" } },
-  { "insert": "party_runs", "rows": [{ "kind": "skill-summary", "notes": "bridge run 2026-10-23: DICE refresh of upcoming parties older than 12 hours" }] }
+  {
+   "dump": "promote_bars",
+   "path": "h_nyc_happy_hour?select=slug,name,geo,address,lat,lng,status,status_reason,facts&or=(slug.like.*fumo-murray-hill*,slug.like.*hollow-nickel*,slug.like.*savelli*,slug.like.*michaelangelo*,slug.like.*rusty-nail*,slug.like.*darbar*,slug.like.*lula-mae*,slug.like.*drips*,slug.like.*pollos-dona-maria*,slug.like.*miatzil*,slug.like.*zona-sur*,slug.like.*vinateri*,slug.like.*clover-club*,slug.like.*coyote-ugly*,slug.like.*mangoseed*,slug.like.*ogliastro*,slug.like.*bar-camillo*,slug.like.*fulton-hall*,slug.like.*rosemary-s*,slug.like.*don-tequila*,slug.like.*tasca*,slug.like.*11th-street-bar*,slug.like.*1803-tribeca*,slug.like.*bodega-88*,slug.like.*dia-noche*,slug.like.*neir-s-tavern*,slug.like.*bricks-hops*)"
+  },
+  {
+   "dump": "nyc_hoods",
+   "path": "nyc_hoods?select=name"
+  }
  ]
 }
