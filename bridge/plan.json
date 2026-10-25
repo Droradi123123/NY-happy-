@@ -1,12 +1,91 @@
 {
  "steps": [
   {
-   "dump": "promote_bars",
-   "path": "h_nyc_happy_hour?select=slug,name,geo,address,lat,lng,status,status_reason,facts&or=(slug.like.*fumo-murray-hill*,slug.like.*hollow-nickel*,slug.like.*savelli*,slug.like.*michaelangelo*,slug.like.*rusty-nail*,slug.like.*darbar*,slug.like.*lula-mae*,slug.like.*drips*,slug.like.*pollos-dona-maria*,slug.like.*miatzil*,slug.like.*zona-sur*,slug.like.*vinateri*,slug.like.*clover-club*,slug.like.*coyote-ugly*,slug.like.*mangoseed*,slug.like.*ogliastro*,slug.like.*bar-camillo*,slug.like.*fulton-hall*,slug.like.*rosemary-s*,slug.like.*don-tequila*,slug.like.*tasca*,slug.like.*11th-street-bar*,slug.like.*1803-tribeca*,slug.like.*bodega-88*,slug.like.*dia-noche*,slug.like.*neir-s-tavern*,slug.like.*bricks-hops*)"
-  },
-  {
-   "dump": "nyc_hoods",
-   "path": "nyc_hoods?select=name"
+   "fetch_pages": {
+    "name": "bar_pages",
+    "sites": {
+     "clover-club-cobble-hill": [
+      "https://www.cloverclubny.com/"
+     ],
+     "bar-camillo-bed-stuy": [
+      "https://www.barcamillo.com/"
+     ],
+     "savelli-cobble-hill": [
+      "https://savellibrooklyn.com/"
+     ],
+     "mangoseed-crown-heights": [
+      "https://www.mangoseedbrooklyn.com/",
+      "https://www.mangoseedbrooklyn.com/menu"
+     ],
+     "zona-sur-sunset-park": [
+      "https://www.cafezonasur.com/",
+      "https://www.cafezonasur.com/menus/"
+     ],
+     "miatzil-park-slope": [
+      "https://miatzilnyc.com/",
+      "https://miatzilnyc.com/happy-hour/"
+     ],
+     "ogliastro-prospect-heights": [
+      "https://www.ogliastropizza.com/",
+      "https://www.ogliastropizza.com/happy-hour"
+     ],
+     "fulton-hall-fort-greene": [
+      "https://fultonhall.com/"
+     ],
+     "lula-mae-fort-greene": [
+      "https://www.lulamaenyc.com/"
+     ],
+     "hollow-nickel-fort-greene": [
+      "https://hollownickel.com/"
+     ],
+     "rosemary-s-greenwich-village": [
+      "https://www.rosemarysnyc.com/",
+      "https://www.rosemarysnyc.com/west-village-menu/"
+     ],
+     "fumo-murray-hill": [
+      "https://www.fumorestaurant.com/",
+      "https://www.fumorestaurant.com/fumo-caffe-e-vino-menu/"
+     ],
+     "coyote-ugly-gramercy": [
+      "https://www.coyoteuglysaloon.com/newyork/"
+     ],
+     "tasca-uws": [
+      "https://www.tasca-nyc.com/",
+      "https://www.tasca-nyc.com/menu/"
+     ],
+     "11th-street-bar-east-village": [
+      "https://11thstbar.com/",
+      "https://11thstbar.com/new-york-east-village-11th-st-bar-happy-hours-specials"
+     ],
+     "pollos-dona-maria-restaurant-and-bar": [
+      "https://www.pollosdonamaria.com/",
+      "https://www.pollosdonamaria.com/bar-menu-and-gallery"
+     ],
+     "1803-tribeca": [
+      "https://1803nyc.com/",
+      "https://1803nyc.com/specials"
+     ],
+     "neir-s-tavern": [
+      "https://neirstavern.com/"
+     ],
+     "bodega-88-upper-west-side": [
+      "https://bodega88nyc.com/",
+      "https://bodega88nyc.com/new-york-upper-west-side-bodega-88-happy-hours-specials"
+     ],
+     "drips-restaurant-and-lounge": [
+      "https://www.dripsnyc.com/",
+      "https://www.dripsnyc.com/menus/happy-hour"
+     ],
+     "rusty-nail-brooklyn": [
+      "https://www.rustynailbrooklyn.com/",
+      "https://www.rustynailbrooklyn.com/happy-hour"
+     ],
+     "michaelangelo-s-little-italy": [
+      "https://michaelangelosnyc.com/",
+      "https://michaelangelosnyc.com/specials"
+     ]
+    }
+   }
   }
  ]
 }

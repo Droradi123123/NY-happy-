@@ -128,6 +128,40 @@ for (const [i, s] of plan.steps.entries()) {
         old: { address: b.address, lat: b.lat, lng: b.lng, geo: b.geo }, new: { ...row, geosearch: p.label }, source, reason: reason ?? 'address from the bar\'s own site' }) });
       results.push({ step: tag, bar: slug, status: r.status, row, geosearch: p.label, moved_m: off });
       console.log(`${tag} locate ${slug}: ${r.status}`);
+    } else if (s.fetch_pages) {
+      // public pages a review needs (a bar's own site), as plain text into bridge/out/<name>.json: each
+      // starting URL plus up to 7 same-site links whose path or text mentions happy hour, specials,
+      // menus, hours or location. For sessions whose own network cannot reach the sites.
+      const UA = { 'User-Agent': 'Mozilla/5.0 (compatible; NYHappy/1.0; +https://github.com/Droradi123123/NY-happy-)' };
+      const plain = (html) => html.replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ')
+        .replace(/<(br|\/p|\/div|\/li|\/h\d|\/tr)[^>]*>/gi, '\n').replace(/<[^>]+>/g, ' ')
+        .replace(/&nbsp;/g, ' ').replace(/&amp;/g, '&').replace(/&#8211;|&ndash;/g, '–').replace(/&#8217;|&rsquo;/g, "'")
+        .replace(/[ \t]+/g, ' ').replace(/\n\s*\n+/g, '\n').trim();
+      const out = [];
+      for (const [key, urls] of Object.entries(s.fetch_pages.sites)) {
+        const seen = new Set(), queue = [...urls];
+        while (queue.length && seen.size < urls.length + 7) {
+          const u = queue.shift();
+          if (seen.has(u)) continue;
+          seen.add(u);
+          try {
+            const r = await fetch(u, { headers: UA, signal: AbortSignal.timeout(20000) });
+            const ct = r.headers.get('content-type') ?? '';
+            if (!ct.includes('html')) { out.push({ key, url: r.url, status: r.status, type: ct }); continue; }
+            const html = await r.text();
+            out.push({ key, url: r.url, status: r.status, text: plain(html).slice(0, 15000) });
+            if (seen.size > urls.length) continue; // links from the starting pages only
+            const host = new URL(r.url).host.replace(/^www\./, '');
+            for (const m of html.matchAll(/<a[^>]+href="([^"#]+)"[^>]*>([\s\S]*?)<\/a>/gi)) {
+              let h; try { h = new URL(m[1], r.url); } catch { continue; }
+              if (h.host.replace(/^www\./, '') !== host || seen.has(h.href)) continue;
+              if (/happy|special|menu|hour|drink|contact|location|visit|about|find/i.test(`${h.pathname} ${m[2].replace(/<[^>]+>/g, '')}`)) queue.push(h.href);
+            }
+          } catch (e) { out.push({ key, url: u, error: String(e.message ?? e).slice(0, 100) }); }
+        }
+      }
+      writeFileSync(`bridge/out/${s.fetch_pages.name ?? 'pages'}.json`, JSON.stringify(out));
+      console.log(`${tag} fetch_pages: ${out.length} pages, ${out.filter((p) => p.text).length} with text`);
     } else if (s.sleep) {
       await sleep(s.sleep);
     }
