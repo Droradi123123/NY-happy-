@@ -1,0 +1,28 @@
+# Index check: URL Inspection on a sample of every page type (site/scripts/index-check.mjs).
+# Run by hand; the log shows counts only.
+name: Index check
+
+on:
+  workflow_dispatch:
+    inputs:
+      per_type:
+        description: 'URLs to inspect per page type'
+        default: '12'
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Inspect
+        env:
+          GOOGLE_SA_JSON: ${{ secrets.GOOGLE_SA_JSON }}
+          PER_TYPE: ${{ inputs.per_type }}
+        run: node site/scripts/index-check.mjs
