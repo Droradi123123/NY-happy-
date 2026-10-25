@@ -52,6 +52,24 @@ if (sa.client_email) {
   };
   note('search_console', Array.isArray(out.gsc.query) ? `ok (${out.gsc.query.length} queries, ${out.gsc.page.length} pages)` : 'error');
 
+  // ---- Index coverage: the sitemaps Google has, and URL Inspection on a sample of each page type ----
+  const sm = await fetch(`https://www.googleapis.com/webmasters/v3/sites/${encodeURIComponent(site)}/sitemaps`, { headers: auth });
+  out.sitemaps = sm.ok ? ((await sm.json()).sitemap ?? []).map((x) => ({ path: x.path, submitted: x.lastSubmitted, downloaded: x.lastDownloaded, errors: x.errors, warnings: x.warnings, contents: x.contents })) : { error: sm.status };
+  const xml = await (await fetch(`${SITE}/sitemap.xml`)).text().catch(() => '');
+  const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
+  const typeOf = (u) => { const p = new URL(u).pathname.split('/').filter(Boolean); return p.length ? (p[0] === 'happy-hours' && p[1] === 'near' ? 'near' : p[0] === 'parties' && p[1] === 'venue' ? 'venue' : p[0]) : 'home'; };
+  const byType = {};
+  for (const u of urls) (byType[typeOf(u)] ??= []).push(u);
+  const sample = Object.values(byType).flatMap((list) => list.filter((_, i) => i % Math.max(1, Math.floor(list.length / 25)) === 0).slice(0, 25));
+  out.inspect = { sitemapUrls: urls.length, byType: Object.fromEntries(Object.entries(byType).map(([k, v]) => [k, v.length])), rows: [] };
+  for (const u of sample) {
+    const r = await post('https://searchconsole.googleapis.com/v1/urlInspection/index:inspect', { inspectionUrl: u, siteUrl: site }, auth);
+    const s = r.j.inspectionResult?.indexStatusResult ?? {};
+    out.inspect.rows.push(r.ok ? { url: u, type: typeOf(u), verdict: s.verdict, coverage: s.coverageState, crawled: s.lastCrawlTime, canonical: s.googleCanonical, robots: s.robotsTxtState, fetch: s.pageFetchState }
+      : { url: u, type: typeOf(u), error: r.status });
+  }
+  note('url_inspection', `${out.inspect.rows.filter((x) => !x.error).length}/${sample.length} inspected`);
+
   // ---- GA4 ----
   const prop = (process.env.GA4_PROPERTY_ID || '').trim();
   if (prop) {
