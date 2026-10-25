@@ -25,7 +25,7 @@ const faq = [
 <Base keyword="nyc happy hours" title={`NYC Happy Hours: ${s.n} Bars, Deals and Times (${new Date().toLocaleString('en-US', { month: 'short', year: 'numeric', timeZone: 'America/New_York' })})`} description={`Every NYC happy hour we could verify: ${s.n} bars with the deal, hours and date checked. Filter by neighborhood, subway line, price and what's on now.`}
   jsonld={[crumbs([['YaY NYC', '/'], ['Happy hours', '/happy-hours']]), faqLd(faq), itemList('NYC happy hours', bars.slice(0, 100).map((b) => `/bars/${b.slug}`))]}>
   <h1>NYC Happy Hours</h1>
-  <p class="lede">{plural(s.n, 'happy hour')} across the five boroughs, each with the deal, the times and the date we checked it. {s.deals} list exactly what is discounted.</p>
+  <p class="lede">{plural(s.n, 'happy hour')} across the five boroughs, each with the deal, the times and the date we checked it. {s.deals} list exactly what is discounted. What a drink costs in each neighborhood: <a href="/nyc-happy-hour-index">the NYC Happy Hour Price Index</a>.</p>
   <Explorer kind="bars" hoods={hoods} heading="Find a happy hour">
     {[...bars].sort(rank).slice(0, 24).map((b, i) => <BarCard bar={b} eager={i < 2} />)}
   </Explorer>

@@ -1,0 +1,126 @@
+---
+/**
+ * The NYC Happy Hour Price Index (lib/priceIndex.ts): a citable data page. Every figure is computed at
+ * build from the prices bars publish on their own sites; the CSV next to it has one row per bar.
+ */
+import Base from '../layouts/Base.astro';
+import { priceIndex, KINDS, MIN, money, type Kind } from '../lib/priceIndex';
+import { crumbs, SITE } from '../lib/seo';
+
+const ix = await priceIndex();
+const month = new Date(`${ix.built}T12:00:00Z`).toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+const c = ix.city;
+const withBeer = ix.hoods.filter((h) => h.cells.beer).sort((a, b) => a.cells.beer!.median - b.cells.beer!.median || b.cells.beer!.n - a.cells.beer!.n);
+const withCocktail = ix.hoods.filter((h) => h.cells.cocktail).sort((a, b) => a.cells.cocktail!.median - b.cells.cocktail!.median || b.cells.cocktail!.n - a.cells.cocktail!.n);
+// the most expensive list only names neighborhoods dearer than every one on the cheapest list
+const ends = (xs: typeof withBeer, k: Kind) => { const cheap = xs.slice(0, 3), top = Math.max(...cheap.map((h) => h.cells[k]!.median)); return [cheap, [...xs].reverse().filter((h) => h.cells[k]!.median > top).slice(0, 3)] as const; };
+const [cheapBeer, dearBeer] = ends(withBeer, 'beer');
+const [cheapCocktail, dearCocktail] = ends(withCocktail, 'cocktail');
+const list = (xs: typeof withBeer, k: Kind) => xs.map((h) => `${h.name} (${money(h.cells[k]!.median)})`).join(', ');
+const findings = [
+  `The median happy-hour beer in New York City costs ${money(c.beer.median)}, a glass of wine ${money(c.wine.median)}, a cocktail ${money(c.cocktail.median)} and a well drink ${money(c.well.median)}, across ${ix.priced} bars that publish their happy-hour prices.`,
+  `${c.beer.under[5]}% of the bars with a beer on their happy hour price it at $5 or less; ${c.cocktail.under[10]}% of the bars with a cocktail price it at $10 or less.`,
+  cheapBeer.length >= 3 && dearBeer.length ? `The cheapest neighborhoods for a happy-hour beer are ${list(cheapBeer, 'beer')}; the most expensive are ${list(dearBeer, 'beer')}.` : '',
+  cheapCocktail.length >= 3 && dearCocktail.length ? `For cocktails, ${list(cheapCocktail, 'cocktail')} are the cheapest; ${list(dearCocktail, 'cocktail')} the most expensive.` : '',
+].filter(Boolean);
+const title = `NYC Happy Hour Prices: Beer, Wine, Cocktails (${month})`;
+const description = `NYC happy hour prices by neighborhood: the median happy-hour beer is ${money(c.beer.median)} and a cocktail ${money(c.cocktail.median)}, from ${ix.priced} bars' own menus. Updated ${month}.`;
+const dataset = {
+  '@context': 'https://schema.org', '@type': 'Dataset', name: 'NYC Happy Hour Price Index', description,
+  url: `${SITE}/nyc-happy-hour-index`, creator: { '@type': 'Organization', name: 'YaY NYC', url: SITE }, dateModified: ix.built,
+  spatialCoverage: { '@type': 'Place', name: 'New York City' }, license: 'https://creativecommons.org/licenses/by/4.0/',
+  distribution: [{ '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: `${SITE}/nyc-happy-hour-index.csv` }],
+  variableMeasured: KINDS.map((k) => `Median happy-hour price, ${k.label.toLowerCase()} (USD)`),
+};
+// histogram geometry: one scale for all four charts
+const maxN = Math.max(...KINDS.flatMap((k) => ix.hist[k.id].map((b) => b.n)));
+const W = 320, H = 140, pad = 24, bw = (W - pad) / 7;
+const y = (n: number) => H - 22 - (n / maxN) * (H - 40);
+const binLabel = (b: { from: number; to: number }) => (b.from === 0 ? `≤$${b.to}` : b.to === 30 ? `$${b.from}+` : `$${b.from + 1}–${b.to}`);
+---
+<Base title={title} description={description} keyword="nyc happy hour prices" jsonld={[dataset, crumbs([['YaY NYC', '/'], ['Happy hours', '/happy-hours'], ['Price index', '/nyc-happy-hour-index']])]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/happy-hours">Happy hours</a></li><li aria-current="page">Price index</li></ol></nav>
+  <h1>NYC Happy Hour Prices: The Price Index</h1>
+  <p class="lede">What a happy-hour drink actually costs in New York City, by kind of drink, borough and neighborhood. Built from the prices {ix.priced} bars publish on their own menus, and updated every time the site is rebuilt. Last update: {ix.built}.</p>
+
+  <section class="section answer-box">
+    <h2>Key findings, {month}</h2>
+    <ul>{findings.map((f) => <li>{f}</li>)}</ul>
+  </section>
+
+  <section class="section">
+    <h2>The median happy-hour price</h2>
+    <div class="ix-tiles">
+      {KINDS.map((k) => (
+        <div class="ix-tile"><span class="ix-k">{k.label}</span><span class="ix-v">{money(c[k.id].median)}</span><span class="ix-n">middle half {money(c[k.id].p25)} to {money(c[k.id].p75)} · {c[k.id].n} bars</span></div>
+      ))}
+    </div>
+    <div class="ix-charts">
+      {KINDS.map((k) => (
+        <figure class="ix-chart">
+          <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`How many bars price ${k.one} in each range`}>
+            <line x1={pad} x2={W} y1={H - 22} y2={H - 22} class="ix-axis" />
+            {ix.hist[k.id].map((b, i) => (
+              <g>
+                <rect x={pad + i * bw + 3} y={y(b.n)} width={bw - 6} height={H - 22 - y(b.n)} class="ix-bar" />
+                {b.n > 0 && <text x={pad + i * bw + bw / 2} y={y(b.n) - 4} text-anchor="middle" class="ix-t">{b.n}</text>}
+                <text x={pad + i * bw + bw / 2} y={H - 6} text-anchor="middle" class="ix-t">{binLabel(b)}</text>
+              </g>
+            ))}
+          </svg>
+          <figcaption>{k.label}: bars by cheapest happy-hour price</figcaption>
+        </figure>
+      ))}
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>By borough</h2>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Median happy-hour prices by borough">
+      <table>
+        <thead><tr><th>Borough</th>{KINDS.map((k) => <th>{k.label}</th>)}<th>Bars</th></tr></thead>
+        <tbody>{ix.boroughs.map((b) => <tr><th scope="row"><a href={`/happy-hours/${b.slug}`}>{b.name}</a></th>{KINDS.map((k) => <td>{b.cells[k.id] ? money(b.cells[k.id]!.median) : '–'}</td>)}<td>{b.bars}</td></tr>)}</tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>By neighborhood</h2>
+    <p>A neighborhood shows a price only when at least {MIN} bars there publish one for that kind of drink.</p>
+    <div class="table-wrap" tabindex="0" role="region" aria-label="Median happy-hour prices by neighborhood">
+      <table>
+        <thead><tr><th>Neighborhood</th>{KINDS.map((k) => <th>{k.label}</th>)}<th>Bars</th></tr></thead>
+        <tbody>{ix.hoods.map((h) => <tr><th scope="row"><a href={`/happy-hours/${h.slug}`}>{h.name}</a></th>{KINDS.map((k) => <td>{h.cells[k.id] ? money(h.cells[k.id]!.median) : '–'}</td>)}<td>{h.bars}</td></tr>)}</tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <h2>How the index is built</h2>
+    <p>Every price comes from a bar's own website or menu, read by us; each bar page links to the page we read and shows the date. For each bar we take its cheapest happy-hour price in each kind of drink (beer, wine, cocktail, well drink), then report the median across bars. Discounts without a price ("$2 off", "half price") are not counted, nor are prices a later re-read could no longer find. Prices are before sales tax (8.875%) and tip.</p>
+    <p>{ix.priced} of the {ix.bars} bars with a known happy hour publish at least one drink price. Bars that do not publish prices are not in the figures, which may lean toward bars that advertise their deals.</p>
+  </section>
+
+  <section class="section">
+    <h2>Use this data</h2>
+    <p>Journalists, researchers and anyone else are welcome to use these figures with a credit and a link. <a href="/nyc-happy-hour-index.csv">Download every bar's prices (CSV)</a>, licensed CC BY 4.0.</p>
+    <p class="cite">Cite as: YaY NYC, "NYC Happy Hour Price Index", {month}, https://yaynyc.com/nyc-happy-hour-index</p>
+    <p>Related: <a href="/happy-hours/cheap-drinks">cheap drinks in NYC</a> · <a href="/blog/what-time-is-happy-hour-in-nyc">what time happy hour is in NYC</a> · <a href="/happy-hours/now">happy hours on right now</a></p>
+  </section>
+</Base>
+<style>
+  .ix-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+  .ix-tile { border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; display: grid; gap: 2px; background: #fff; }
+  .ix-k { font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-2); }
+  .ix-v { font-size: 34px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .ix-n { font-size: 13px; color: var(--ink-2); }
+  .ix-charts { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 16px; margin-top: 16px; }
+  .ix-chart { margin: 0; border: 1px solid var(--line); border-radius: 14px; padding: 12px; background: #fff; }
+  .ix-chart svg { width: 100%; height: auto; display: block; }
+  .ix-bar { fill: var(--brand); }
+  .ix-axis { stroke: var(--line); }
+  .ix-t { font-size: 10px; fill: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .ix-chart figcaption { font-size: 13px; color: var(--ink-2); margin-top: 6px; }
+  .cite { font-family: ui-monospace, monospace; font-size: 14px; background: var(--brand-soft, #EFEAFD); padding: 10px 12px; border-radius: 10px; }
+  td { font-variant-numeric: tabular-nums; }
+</style>

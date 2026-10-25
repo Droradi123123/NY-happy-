@@ -37,7 +37,7 @@ export function sitemapRows(): Promise<[string, string | null][]> {
     }
     const near = new Set([...(await landmarks()).map((l) => l.slug), ...(await stations()).map((s) => s.slug)]);
     const rows: [string, string | null][] = [
-      ['/', null], ['/happy-hours', null], ['/happy-hours/now', null], ['/happy-hours/neighborhoods', null], ['/parties', null], ['/map', null], ['/map/happy-hours', null], ['/map/parties', null], ['/about', null], ['/contact', null], ['/image-credits', null], ['/privacy', null], ['/accessibility', null],
+      ['/', null], ['/happy-hours', null], ['/nyc-happy-hour-index', null], ['/happy-hours/now', null], ['/happy-hours/neighborhoods', null], ['/parties', null], ['/map', null], ['/map/happy-hours', null], ['/map/parties', null], ['/about', null], ['/contact', null], ['/image-credits', null], ['/privacy', null], ['/accessibility', null],
       ...(parties.some((p) => p.themes.includes('halloween')) ? [['/parties/halloween', null] as [string, null]] : []),
       ...(await halloweenPages()).built.filter((b) => b.indexable).map((b) => [`/parties/halloween/${b.page.slug}`, null] as [string, null]),
       ...lists.map((l) => [`/happy-hours/${l.slug}`, null] as [string, null]),
