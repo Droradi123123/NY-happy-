@@ -27,6 +27,15 @@ const endsNextDay = p.ends_at && nyDate(p.ends_at, { month: 'short', day: 'numer
 const host = (u: string) => { try { return new URL(u).host.replace(/^www\./, ''); } catch { return u; } };
 const sameNight = parties.filter((o) => o.slug !== p.slug && o.night_date === p.night_date).slice(0, 6);
 const atVenue = parties.filter((o) => o.slug !== p.slug && o.venue_id === p.venue_id).slice(0, 4);
+// "Add to calendar": Google Calendar link and an .ics file, both built here (nothing is sent anywhere)
+const calStart = new Date(p.doors_at ?? p.starts_at), calEnd = new Date(p.ends_at ?? Date.parse(p.doors_at ?? p.starts_at) + 5 * 3600e3);
+const utc = (d: Date) => d.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}/, '');
+const calTitle = cleanTitle(p.title), calWhere = [v?.name, v?.address?.replace(/, United States$|, USA$/, '')].filter(Boolean).join(', ');
+const calText = `Tickets and details: ${SITE}/parties/${p.slug}`;
+const gcal = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent(calTitle)}&dates=${utc(calStart)}/${utc(calEnd)}&location=${encodeURIComponent(calWhere)}&details=${encodeURIComponent(calText)}`;
+const icsEsc = (t: string) => t.replace(/[\\;,]/g, (m) => `\\${m}`).replace(/\n/g, '\\n');
+const ics = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//YaY NYC//Parties//EN', 'BEGIN:VEVENT', `UID:${p.slug}@yaynyc.com`, `DTSTAMP:${utc(new Date())}`, `DTSTART:${utc(calStart)}`, `DTEND:${utc(calEnd)}`, `SUMMARY:${icsEsc(calTitle)}`, `LOCATION:${icsEsc(calWhere)}`, `DESCRIPTION:${icsEsc(calText)}`, `URL:${SITE}/parties/${p.slug}`, 'END:VEVENT', 'END:VCALENDAR'].join('\r\n');
+const icsHref = `data:text/calendar;charset=utf-8,${encodeURIComponent(ics)}`;
 const lastSeen = p.sources?.find((s) => s.name === 'DICE' || s.name === p.ticket_vendor)?.checked_at ?? p.last_checked;
 // one answer-first sentence with the facts people (and AI answers) look for: what, where, when, age, price
 const where = v ? `${v.name}${p.neighborhood ? ` in ${p.neighborhood}` : ''}${p.borough && p.borough !== p.neighborhood ? `, ${p.borough}` : ''}` : (p.neighborhood ?? 'a New York venue');
@@ -88,6 +97,7 @@ const pregame = v?.lat && v.lng && (doorsMin === null || doorsMin >= 17 * 60)
         </dl>
         {p.event_status !== 'sold_out' && <a class="btn" href={p.ticket_url} rel="nofollow noopener" target="_blank" data-ev="tickets">Tickets on {p.ticket_vendor}</a>}
         {p.event_status === 'sold_out' && <a class="btn ghost" href={p.ticket_url} rel="noopener" target="_blank">Check for resale or waiting list</a>}
+        <p class="cal-links">Add to calendar: <a href={gcal} rel="nofollow noopener" target="_blank" data-ev="calendar">Google</a> · <a href={icsHref} download={`${p.slug}.ics`} data-ev="calendar">Apple / Outlook (.ics)</a></p>
       </section>
 
       {c.about && <section class="section"><h2>About the party</h2><p>{c.about}</p></section>}
@@ -133,6 +143,7 @@ const pregame = v?.lat && v.lng && (doorsMin === null || doorsMin >= 17 * 60)
   {sameNight.length > 0 && <section class="section"><h2>Also on {nightDate(p.night_date, { weekday: 'long' })}</h2><div class="xgrid">{sameNight.map((o) => <PartyCard party={o} venue={venueOf(o, venues)} />)}</div></section>}
 </Base>
 <style>
+  .cal-links { font-size: 14px; color: var(--ink-2); margin: 10px 0 0; }
   .when-big { display: block; font-size: 20px; font-weight: 800; color: var(--coral-ink); margin: 0 0 6px; letter-spacing: 0; }
   .tagrow { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
   .tagrow a.chip { text-decoration: none; }
