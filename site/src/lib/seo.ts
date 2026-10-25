@@ -102,10 +102,12 @@ export function itemList(name: string, urls: string[]) {
 
 /** the party's name as people search it: the title up to a colon or bar ("Boo Yourself") */
 export const partyName = (p: Party) => cleanTitle(p.title).replace(/\s*[|·]\s*.*$/, '').replace(/:\s.*$/, '').trim();
-export function partyTitle(p: Party, v: Venue | null): string {
+/** crowded: another party has the same name that night, so the venue is what tells them apart and stays in */
+export function partyTitle(p: Party, v: Venue | null, crowded = false): string {
   const t = cleanTitle(p.title).replace(/\s*[|·]\s*.*$/, '');
   const d = nightDate(p.night_date, { month: 'short', day: 'numeric' });
-  return fit([`${t} at ${v?.name ?? 'NYC'}, ${d}: Tickets, Time, Lineup`, `${t} at ${v?.name ?? 'NYC'}, ${d}`, `${t}, ${d}`]);
+  const at = `at ${v?.name ?? 'NYC'}, ${d}`;
+  return fit([`${t} ${at}: Tickets, Time, Lineup`, `${t} ${at}`, crowded && v ? `${partyName(p)} ${at}` : `${t}, ${d}`]);
 }
 export function partyDescription(p: Party, v: Venue | null): string {
   const lead = p.copy?.about?.split(/(?<=\.)\s/)[0];

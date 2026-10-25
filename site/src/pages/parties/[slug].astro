@@ -79,7 +79,7 @@ const pregame = v?.lat && v.lng && (doorsMin === null || doorsMin >= 17 * 60)
       .sort((a, c) => tier(a.b) - tier(c.b) || a.m - c.m).slice(0, 3)
   : [];
 ---
-<Base title={partyTitle(p, v)} description={partyDescription(p, v)} keyword={kw} jsonld={[partyJsonLd(p, v, url), crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [cleanTitle(p.title), `/parties/${p.slug}`]]), faqLd(faq)]}>
+<Base title={partyTitle(p, v, crowded)} description={partyDescription(p, v)} keyword={kw} jsonld={[partyJsonLd(p, v, url), crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [cleanTitle(p.title), `/parties/${p.slug}`]]), faqLd(faq)]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li>{v && <li><a href={`/parties/venue/${v.id}`}>{v.name}</a></li>}<li aria-current="page">{nightDate(p.night_date, { month: 'short', day: 'numeric' })}</li></ol></nav>
   <div class="cols">
     <div>
