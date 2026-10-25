@@ -151,9 +151,9 @@ for (const [i, s] of plan.steps.entries()) {
             const html = await r.text();
             out.push({ key, url: r.url, status: r.status, text: plain(html).slice(0, 15000) });
             if (seen.size > urls.length) continue; // links from the starting pages only
-            const host = new URL(r.url).host.replace(/^www\./, '');
+            const host = new globalThis.URL(r.url).host.replace(/^www\./, '');
             for (const m of html.matchAll(/<a[^>]+href="([^"#]+)"[^>]*>([\s\S]*?)<\/a>/gi)) {
-              let h; try { h = new URL(m[1], r.url); } catch { continue; }
+              let h; try { h = new globalThis.URL(m[1], r.url); } catch { continue; }
               if (h.host.replace(/^www\./, '') !== host || seen.has(h.href)) continue;
               if (/happy|special|menu|hour|drink|contact|location|visit|about|find/i.test(`${h.pathname} ${m[2].replace(/<[^>]+>/g, '')}`)) queue.push(h.href);
             }
