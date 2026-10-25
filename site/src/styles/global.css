@@ -219,3 +219,11 @@ main.wide { padding-bottom: 0; }
 .rail-more b { font-size: 20px; }
 .rail-note { color: var(--muted); font-size: 15px; margin: -8px 0 10px; min-height: 1em; }
 .badge-soon { background: var(--brand-soft); color: var(--brand-dark); }
+
+/* A to Z link lists under the explorer: every item in plain HTML (the explorer shows 24 and loads the rest in the browser) */
+.az { margin: 18px 0 8px; border: 1px solid var(--line); border-radius: 14px; padding: 12px 16px; background: #fff; }
+.az summary { cursor: pointer; font-weight: 800; }
+.az-list { columns: 3 220px; column-gap: 24px; list-style: none; padding: 0; margin: 12px 0 0; font-size: 15px; }
+.az-list li { break-inside: avoid; padding: 3px 0; }
+.az-hood { color: var(--ink-2); font-size: 13px; }
+.az-day { font-size: 15px; margin: 14px 0 0; }

@@ -130,6 +130,12 @@ const hoods = (await allHoods()).filter((h) => list.some((b) => b.hoodSlug === h
   <Explorer kind="bars" preset={page.preset} hide={page.kind === 'hood' ? ['where'] : []} hoods={hoods} heading={page.label}>
     {list.slice(0, 24).map((b, i) => <BarCard bar={b} eager={i < 2} />)}
   </Explorer>
+  {list.length > 24 && (
+    <details class="az">
+      <summary>All {list.length} happy hours in {page.short}, A to Z</summary>
+      <ul class="az-list">{[...list].sort((a, b) => a.name.localeCompare(b.name)).map((b) => <li><a href={`/bars/${b.slug}`}>{b.name}</a>{page.kind !== 'hood' && <span class="az-hood"> · {b.hood}</span>}</li>)}</ul>
+    </details>
+  )}
   {weekend.some((x) => x.bars.length > 0) && (
     <section class="section" id="weekend">
       <h2>Weekend happy hours in {page.short}</h2>

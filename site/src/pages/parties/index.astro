@@ -2,7 +2,7 @@
 import Base from '../../layouts/Base.astro';
 import Explorer from '../../components/Explorer.astro';
 import PartyCard from '../../components/PartyCard.astro';
-import { partyData, venueOf } from '../../lib/data';
+import { partyData, venueOf, nightDate, cleanTitle } from '../../lib/data';
 import { partyLists } from '../../lib/partyLists';
 import { crumbs, itemList, faqLd } from '../../lib/seo';
 
@@ -32,6 +32,15 @@ const groups: [string, { href: string; short: string; n: number }[]][] = [
   <Explorer kind="parties" genres={genres} hoods={hoods} heading="Find a party">
     {parties.slice(0, 24).map((p, i) => <PartyCard party={p} venue={venueOf(p, venues)} eager={i < 2} />)}
   </Explorer>
+  {parties.length > 24 && (
+    <details class="az">
+      <summary>Every upcoming party, night by night ({parties.length})</summary>
+      {[...new Set(parties.map((p) => p.night_date))].map((d) => (
+        <><h3 class="az-day">{nightDate(d, { weekday: 'long', month: 'short', day: 'numeric' })}</h3>
+        <ul class="az-list">{parties.filter((p) => p.night_date === d).map((p) => <li><a href={`/parties/${p.slug}`}>{cleanTitle(p.title)}</a><span class="az-hood"> · {venueOf(p, venues)?.name ?? ''}</span></li>)}</ul></>
+      ))}
+    </details>
+  )}
   {groups.filter(([, g]) => g.length).map(([name, g]) => (
     <section class="section"><h2>{name}</h2>
       <ul class="link-cloud">{g.map((l) => <li><a href={l.href}>{l.short}<span class="count">{l.n}</span></a></li>)}</ul>
