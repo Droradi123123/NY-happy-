@@ -28,18 +28,18 @@ const website: string | null = x.website ?? null;
 const genres = [...new Set(nights.flatMap((p) => p.genres))].slice(0, 5).map((g) => GENRE_NAME[g] ?? g);
 const elsewhere = parties.filter((p) => p.venue_id !== v.id && (p.borough === v.borough || !v.borough)).slice(0, 6);
 const description = nights.length
-  ? `Parties at ${v.name}, ${where}: ${nights.length} upcoming night${nights.length === 1 ? '' : 's'} (${dateRange(nights)})${genres.length ? `, ${genres.slice(0, 3).join(', ')}` : ''}, with doors, age and tickets.`
-  : `Parties at ${v.name}, ${where}: no nights listed right now. Address, how to get there, and other NYC parties coming up.`;
+  ? `${v.name} events, ${where}: ${nights.length} upcoming night${nights.length === 1 ? '' : 's'} (${dateRange(nights)})${genres.length ? `, ${genres.slice(0, 3).join(', ')}` : ''}, with doors, age and tickets.`
+  : `${v.name} events, ${where}: no nights listed right now. Address, how to get there, and other NYC parties coming up.`;
 const placeLd = {
   '@context': 'https://schema.org', '@type': v.kind === 'club' || v.kind === 'nightclub' ? 'NightClub' : 'Place', name: v.name, url: `${SITE}/parties/venue/${v.id}`,
   ...(v.address ? { address: v.address } : {}), ...(v.lat ? { geo: { '@type': 'GeoCoordinates', latitude: v.lat, longitude: v.lng } } : {}),
   ...(website ? { sameAs: [website] } : {}),
 };
 ---
-<Base title={`${v.name} NYC: Upcoming Parties and Tickets`} keyword={`${v.name} parties`} description={description}
+<Base title={`${v.name} Events: Upcoming Parties and Tickets`} keyword={`${v.name} events`} description={description}
   jsonld={[placeLd, crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [v.name, `/parties/venue/${v.id}`]]), ...(nights.length ? [itemList(`Parties at ${v.name}`, nights.map((p) => `/parties/${p.slug}`))] : [])]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li><li aria-current="page">{v.name}</li></ol></nav>
-  <h1>Parties at {v.name}</h1>
+  <h1>{v.name} Events and Parties</h1>
   <p class="lede">{v.address?.replace(/, United States$|, USA$/, '')}{v.rooms.length > 0 && ` · Rooms: ${v.rooms.join(', ')}`}</p>
   {vp && <Photo photo={vp.photo} note={photoNote(vp, v.name)} alt={vp.rel === 'own' ? `${v.name}, ${where}` : vp.rel === 'nearby' ? `The street outside ${v.name}, ${where}` : `${where}, the neighborhood around ${v.name}`} hero />}
   {v.lat && <MiniMap lat={v.lat} lng={v.lng!} label={v.name} />}
