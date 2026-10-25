@@ -29,7 +29,7 @@ async function token() {
   if (!j.access_token) throw new Error(`sign-in ${r.status}`);
   return j.access_token;
 }
-const post = async (url, body, headers) => { const r = await fetch(url, { method: 'POST', headers: { 'content-type': 'application/json', ...headers }, body: JSON.stringify(body) }); return { ok: r.ok, status: r.status, j: await r.json().catch(() => ({})) }; };
+const post = async (url, body, headers) => { const r = await fetch(url, { method: 'POST', headers: { 'content-type': 'application/json', ...headers }, body: JSON.stringify(body), signal: AbortSignal.timeout(30000) }); return { ok: r.ok, status: r.status, j: await r.json().catch(() => ({})) }; };
 
 if (sa.client_email) {
   const auth = { authorization: `Bearer ${await token()}` };
@@ -53,17 +53,17 @@ if (sa.client_email) {
   note('search_console', Array.isArray(out.gsc.query) ? `ok (${out.gsc.query.length} queries, ${out.gsc.page.length} pages)` : 'error');
 
   // ---- Index coverage: the sitemaps Google has, and URL Inspection on a sample of each page type ----
-  const sm = await fetch(`https://www.googleapis.com/webmasters/v3/sites/${encodeURIComponent(site)}/sitemaps`, { headers: auth });
+  const sm = await fetch(`https://www.googleapis.com/webmasters/v3/sites/${encodeURIComponent(site)}/sitemaps`, { headers: auth, signal: AbortSignal.timeout(30000) });
   out.sitemaps = sm.ok ? ((await sm.json()).sitemap ?? []).map((x) => ({ path: x.path, submitted: x.lastSubmitted, downloaded: x.lastDownloaded, errors: x.errors, warnings: x.warnings, contents: x.contents })) : { error: sm.status };
-  const xml = await (await fetch(`${SITE}/sitemap.xml`)).text().catch(() => '');
+  const xml = await fetch(`${SITE}/sitemap.xml`, { signal: AbortSignal.timeout(30000) }).then((r) => r.text()).catch(() => '');
   const urls = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
   const typeOf = (u) => { const p = new URL(u).pathname.split('/').filter(Boolean); return p.length ? (p[0] === 'happy-hours' && p[1] === 'near' ? 'near' : p[0] === 'parties' && p[1] === 'venue' ? 'venue' : p[0]) : 'home'; };
   const byType = {};
   for (const u of urls) (byType[typeOf(u)] ??= []).push(u);
-  const sample = Object.values(byType).flatMap((list) => list.filter((_, i) => i % Math.max(1, Math.floor(list.length / 25)) === 0).slice(0, 25));
+  const sample = Object.values(byType).flatMap((list) => list.filter((_, i) => i % Math.max(1, Math.floor(list.length / 25)) === 0).slice(0, 10));
   out.inspect = { sitemapUrls: urls.length, byType: Object.fromEntries(Object.entries(byType).map(([k, v]) => [k, v.length])), rows: [] };
   for (const u of sample) {
-    const r = await post('https://searchconsole.googleapis.com/v1/urlInspection/index:inspect', { inspectionUrl: u, siteUrl: site }, auth);
+    const r = await post('https://searchconsole.googleapis.com/v1/urlInspection/index:inspect', { inspectionUrl: u, siteUrl: site }, auth).catch((e) => ({ ok: false, status: String(e.name), j: {} }));
     const s = r.j.inspectionResult?.indexStatusResult ?? {};
     out.inspect.rows.push(r.ok ? { url: u, type: typeOf(u), verdict: s.verdict, coverage: s.coverageState, crawled: s.lastCrawlTime, canonical: s.googleCanonical, robots: s.robotsTxtState, fetch: s.pageFetchState }
       : { url: u, type: typeOf(u), error: r.status });
