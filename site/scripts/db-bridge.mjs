@@ -106,7 +106,7 @@ for (const [i, s] of plan.steps.entries()) {
     } else if (s.bar_locate) {
       // a pending bar's street address as its own site prints it; coordinates and borough from NYC
       // GeoSearch (an address match, five boroughs only). Refuses when the bar already has coordinates
-      // more than 400 m away (a different branch), or when no neighborhood known to nyc_hoods applies.
+      // more than 400 m away (a different branch), or when the neighborhood is not one nyc_hoods knows.
       // Logged in bar_fix_log; bar_promote then takes it live.
       const { slug, address, source, hood, reason } = s.bar_locate;
       const [b] = await get(`h_nyc_happy_hour?select=slug,status,geo,address,lat,lng&slug=eq.${encodeURIComponent(slug)}`);
@@ -120,7 +120,7 @@ for (const [i, s] of plan.steps.entries()) {
       const off = b.lat == null ? 0 : Math.round(111320 * Math.hypot(lat - b.lat, (lng - b.lng) * Math.cos((lat * Math.PI) / 180)));
       if (off > 400) { fail(`${off} m from the coordinates on record`, { geo: p.label }); continue; }
       const hoods = new Set((await get('nyc_hoods?select=name')).map((h) => h.name));
-      const geo = hoods.has(b.geo) ? b.geo : hood;
+      const geo = hood ?? b.geo; // a hood passed in corrects the one on record (read off the address)
       if (!hoods.has(geo)) { fail(`neighborhood not recognized: ${geo}`); continue; }
       const row = { address: address.split(',')[0].trim(), lat, lng, geo };
       const r = await fetch(`${URL}/rest/v1/h_nyc_happy_hour?slug=eq.${encodeURIComponent(slug)}&status=eq.pending`, { method: 'PATCH', headers: { ...H, Prefer: 'return=minimal' }, body: JSON.stringify(row) });
