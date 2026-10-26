@@ -1,230 +1,275 @@
 {
  "steps": [
   {
-   "fetch_pages": {
-    "name": "bar_pages",
-    "sites": {
-     "dante-s": [
-      "https://www.dantesclifton.com/happy-hour/",
-      "https://www.dantesclifton.com/"
+   "bar_locate": {
+    "slug": "misc-prospect-heights",
+    "address": "758 Franklin Avenue, Brooklyn, NY 11238",
+    "source": "https://miscbklyn.com/brooklyn-crown-heights-misc-happy-hours-specials",
+    "hood": "Crown Heights",
+    "reason": "street address from the bar's own site, review 2026-10-26"
+   }
+  },
+  {
+   "bar_locate": {
+    "slug": "tropix-bar-lounge-forest-hills",
+    "address": "95-32 Queens Blvd, Queens, NY 11374",
+    "source": "https://tropixnyc.com/queens-rego-park-tropix-bar-and-lounge-food-menu",
+    "hood": "Rego Park",
+    "reason": "street address from the bar's own site (printed 9532 Queens Blvd), review 2026-10-26"
+   }
+  },
+  {
+   "rpc": "bar_promote",
+   "args": {
+    "p_slug": "the-dynamo-room-koreatown",
+    "p_hh": {
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
      ],
-     "benihana-murray-hill": [
-      "https://www.benihana.com/menus/happy-hour/",
-      "https://www.benihana.com/"
+     "start": "16:00",
+     "end": "18:00",
+     "windows": [
+      {
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "16:00",
+       "end": "18:00"
+      }
      ],
-     "mezcal-kitchen-jc": [
-      "https://www.mezcalkitchenjc.com/menu",
-      "https://www.mezcalkitchenjc.com/"
+     "deal_text": "In the bar or terrace only: martinis from $11.95, margaritas $13.95, wine $12.95, Miller High Life $6.95 and oysters 3 for $9.95."
+    },
+    "p_source": "https://www.thedynamoroom.com/location/the-dynamo-room/",
+    "p_evidence": "Happy Hour \n Daily 4pm - 6pm",
+    "p_reason": "review 2026-10-26: schedule read on the bar's own page"
+   }
+  },
+  {
+   "rpc": "bar_promote",
+   "args": {
+    "p_slug": "adria-upper-east-side",
+    "p_hh": {
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
      ],
-     "ellie-s-bistro": [
-      "https://www.elliesbistro.com/menu",
-      "https://www.elliesbistro.com/"
+     "start": "16:00",
+     "end": "18:00",
+     "windows": [
+      {
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat",
+        "sun"
+       ],
+       "start": "16:00",
+       "end": "18:00"
+      }
      ],
-     "india-passage": [
-      "https://indiapassageny.com/menu/",
-      "https://indiapassageny.com/"
+     "deal_text": "Aperitivo bites at the bar, such as crostini $12, antipasto $15 and a cheese plate $18."
+    },
+    "p_source": "https://www.adrianyc.com/",
+    "p_evidence": "Hours\n Monday - Sunday\n 12 PM - 10 PM \n Happy Hour\n 4 PM - 6 PM",
+    "p_reason": "review 2026-10-26: schedule read on the bar's own page"
+   }
+  },
+  {
+   "rpc": "bar_promote",
+   "args": {
+    "p_slug": "grove-street-social-greenwich-village",
+    "p_hh": {
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri"
      ],
-     "waterzooi-brasserie-oyster-bar": [
-      "https://www.waterzooi.com/weekly-specials-at-waterzooi/",
-      "https://www.waterzooi.com/"
+     "start": "16:00",
+     "end": "19:00",
+     "windows": [
+      {
+       "days": [
+        "mon",
+        "tue",
+        "wed"
+       ],
+       "start": "16:00",
+       "end": "19:00"
+      },
+      {
+       "days": [
+        "thu",
+        "fri"
+       ],
+       "start": "12:00",
+       "end": "19:00"
+      }
      ],
-     "joe-pat-s-east-village": [
-      "https://joeandpatsnyc.com/"
+     "deal_text": "Happy hour food and drink specials."
+    },
+    "p_source": "https://61grovestreet.com/new-york-west-village-grove-street-social-happy-hours-specials",
+    "p_evidence": "Monday October 26th\n Happy Hour! Food & Drink! \n 04:00 PM - 07:00 PM \n Tuesday October 27th\n Happy Hour! Food & Drink! \n 04:00 PM - 07:00 PM \n Wednesday October 28th\n Happy Hour! Food & Drink! \n 04:00 PM - 07:00 PM \n Thursday October 29th\n Happy Hour! Food & Drink! \n 12:00 PM - 07:00 PM \n Friday October 30th\n Happy Hour! Food & Drink! \n 12:00 PM - 07:00 PM",
+    "p_reason": "review 2026-10-26: schedule read on the bar's own page"
+   }
+  },
+  {
+   "rpc": "bar_promote",
+   "args": {
+    "p_slug": "tropix-bar-lounge-forest-hills",
+    "p_hh": {
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat",
+      "sun"
      ],
-     "flame-upper-west-side": [
-      "https://flamenyc.com/"
+     "start": "15:30",
+     "end": "18:00",
+     "windows": [
+      {
+       "days": [
+        "sun",
+        "mon"
+       ],
+       "start": "15:30",
+       "end": "18:00"
+      },
+      {
+       "days": [
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat"
+       ],
+       "start": "15:30",
+       "end": "19:00"
+      }
      ],
-     "lingo-greenpoint": [
-      "https://www.lingobk.com/menu/",
-      "https://www.lingobk.com/"
+     "deal_text": "$8.49 house margaritas and frozen ros\u00e9, $7.99 tequila shots, $7.99 24oz import drafts and $6.99 24oz Coors Light drafts."
+    },
+    "p_source": "https://tropixnyc.com/queens-rego-park-tropix-bar-and-lounge-food-menu",
+    "p_evidence": "Everyday of The Week | Sun & Mon 3:30pm - 6pm | Tues - Sat 3:30pm - 7pm",
+    "p_reason": "review 2026-10-26: schedule read on the bar's own page"
+   }
+  },
+  {
+   "rpc": "bar_promote",
+   "args": {
+    "p_slug": "misc-prospect-heights",
+    "p_hh": {
+     "days": [
+      "mon",
+      "tue",
+      "wed",
+      "thu",
+      "fri",
+      "sat"
      ],
-     "vin-sur-vingt-murray-hill": [
-      "https://www.vsvwinebars.com/location/vin-sur-vingt-wine-bar-bistro-e-51st-st/",
-      "https://www.vsvwinebars.com/"
+     "start": "12:00",
+     "end": "20:30",
+     "windows": [
+      {
+       "days": [
+        "mon",
+        "tue",
+        "wed",
+        "thu",
+        "fri",
+        "sat"
+       ],
+       "start": "12:00",
+       "end": "20:30"
+      }
      ],
-     "the-dynamo-room-koreatown": [
-      "https://www.thedynamoroom.com/menus/",
-      "https://www.thedynamoroom.com/"
+     "deal_text": "Happy hour on cocktails, beer and wine, including $7 beers and $49 cocktail pitchers."
+    },
+    "p_source": "https://miscbklyn.com/brooklyn-crown-heights-misc-happy-hours-specials",
+    "p_evidence": "Thursday October 29th\n Happy Hour: Cocktail, Beer, and Wine \n 12:00 PM - 08:30 PM \n Friday October 30th\n Happy Hour: Cocktail, Beer, and Wine \n 12:00 PM - 08:30 PM \n Saturday October 31st\n Happy Hour: Cocktail, Beer, and Wine \n 12:00 PM - 08:30 PM \n Sunday November 1st\n Happy Hour: Cocktail, Beer, and Wine \n 12:00 PM - 08:30 PM",
+    "p_reason": "review 2026-10-26: schedule read on the bar's own page"
+   }
+  },
+  {
+   "rpc": "bar_promote",
+   "args": {
+    "p_slug": "lido-harlem",
+    "p_hh": {
+     "days": [
+      "mon",
+      "tue",
+      "thu",
+      "fri"
      ],
-     "the-rum-house-times-square": [
-      "https://www.therumhousenyc.com/menus/",
-      "https://www.therumhousenyc.com/"
+     "start": "16:00",
+     "end": "19:00",
+     "windows": [
+      {
+       "days": [
+        "mon",
+        "tue",
+        "thu",
+        "fri"
+       ],
+       "start": "16:00",
+       "end": "19:00"
+      }
      ],
-     "westside-tavern-chelsea": [
-      "https://www.westsidetavern.com/"
+     "deal_text": "$6 select beers, $9 glasses of wine and well drinks, and $10 small bites."
+    },
+    "p_source": "https://lidoharlem.com/happy-hours-specials",
+    "p_evidence": "Monday October 26th\n HAPPY HOUR $6 select beers, $9 glasses of wine and well drinks, $10 small bites \n 04:00 PM - 07:00 PM \n Tuesday October 27th\n HAPPY HOUR $6 select beers, $9 glasses of wine and well drinks, $10 small bites \n 04:00 PM - 07:00 PM",
+    "p_reason": "review 2026-10-26: schedule read on the bar's own page"
+   }
+  },
+  {
+   "rpc": "bar_promote",
+   "args": {
+    "p_slug": "umbertos-clam-house-nolita",
+    "p_hh": {
+     "days": [
+      "sat"
      ],
-     "area-140-first-bar-east-village": [
-      "https://www.area140first.com/"
+     "start": "11:30",
+     "end": "16:00",
+     "windows": [
+      {
+       "days": [
+        "sat"
+       ],
+       "start": "11:30",
+       "end": "16:00"
+      }
      ],
-     "the-immigrant-east-village": [
-      "https://www.theimmigrantnyc.com/menus/",
-      "https://www.theimmigrantnyc.com/"
-     ],
-     "madame-george-midtown": [
-      "https://www.madamegeorgenyc.com/menus/",
-      "https://www.madamegeorgenyc.com/"
-     ],
-     "fito-inwood": [
-      "https://www.fitonyc.com/menu-1",
-      "https://www.fitonyc.com/"
-     ],
-     "adria-upper-east-side": [
-      "https://www.adrianyc.com/"
-     ],
-     "savvy-bistro-and-bar-crown-heights": [
-      "https://savvybistro.com/"
-     ],
-     "acadia-times-square": [
-      "https://www.acadianyc.com/menus/",
-      "https://www.acadianyc.com/"
-     ],
-     "seoul-bap-koreatown": [
-      "https://seoulbapnyc.com/"
-     ],
-     "grove-street-social-greenwich-village": [
-      "https://61grovestreet.com/"
-     ],
-     "yum-yum-too-hell-s-kitchen": [
-      "https://yumtoo.com/"
-     ],
-     "talea-beer-co-cobble-hill": [
-      "https://www.taleabeer.com/pages/visit-us",
-      "https://www.taleabeer.com/"
-     ],
-     "greens-irish-pub": [
-      "https://www.greensirishpub.com/"
-     ],
-     "bon-courage-tribeca": [
-      "https://1803nyc.com/new-york-tribeca-1803-nyc-food-menu",
-      "https://1803nyc.com/"
-     ],
-     "decibel-east-village": [
-      "https://www.sakebardecibel.com/happyhour",
-      "https://www.sakebardecibel.com/"
-     ],
-     "tropix-bar-lounge-forest-hills": [
-      "https://tropixnyc.com/"
-     ],
-     "essence-crown-heights": [
-      "https://essencebar.com/"
-     ],
-     "lucky-7-tavern": [
-      "https://lucky7tavern.com/menus/",
-      "https://lucky7tavern.com/"
-     ],
-     "ellington-in-the-park-upper-west-side": [
-      "https://www.ellingtoninthepark.com/"
-     ],
-     "houlihan-s": [
-      "https://www.houlihans.com/location/seacaucus-houlihans/",
-      "https://www.houlihans.com/"
-     ],
-     "misc-prospect-heights": [
-      "https://miscbklyn.com/"
-     ],
-     "lefkes-estiatorio": [
-      "https://lefkesnj.com/"
-     ],
-     "lido-harlem": [
-      "https://lidoharlem.com/food-menu",
-      "https://lidoharlem.com/"
-     ],
-     "lungi-upper-east-side": [
-      "https://lungirestaurant.com/new-york-upper-east-side-lungi-drink-menu",
-      "https://lungirestaurant.com/"
-     ],
-     "ruby-tuesday": [
-      "https://www.rubytuesday.com/daily-drink-deals/",
-      "https://www.rubytuesday.com/"
-     ],
-     "que-pasta": [
-      "https://www.qpitalian.com/"
-     ],
-     "redd-s-restaurant": [
-      "https://reddsrestaurant.com/happy-hour/",
-      "https://reddsrestaurant.com/"
-     ],
-     "the-dubliner-financial-district": [
-      "https://havanasocialnyc.com/new-york-city-havana-social-happy-hours-specials",
-      "https://havanasocialnyc.com/"
-     ],
-     "gotham-city-lounge-bushwick": [
-      "https://myspace.com/happyhour",
-      "https://myspace.com/"
-     ],
-     "boulevard-lounge-sunnyside": [
-      "https://www.boulevard.com/events/happy-hour-tasting/",
-      "https://www.boulevard.com/"
-     ],
-     "the-shannon-rose": [
-      "https://www.theshannonrose.com/clifton-menu/",
-      "https://www.theshannonrose.com/"
-     ],
-     "pinstripes": [
-      "https://www.pinstripes.com/"
-     ],
-     "karaoke-shout-astoria": [
-      "https://www.karaokeshout.com/menu",
-      "https://www.karaokeshout.com/"
-     ],
-     "inca-paisa-restaurant-astoria-astoria": [
-      "https://incapaisa.com/"
-     ],
-     "mosaic-astoria": [
-      "https://mosaicastoria.com/happy-hour",
-      "https://mosaicastoria.com/"
-     ],
-     "salvatoria-kitchen-and-bar-astoria": [
-      "https://salvatoriakitchenandbar3118.com/"
-     ],
-     "umbertos-clam-house-nolita": [
-      "https://umbertosclamhouse.com/specials",
-      "https://umbertosclamhouse.com/"
-     ],
-     "grand-vin-west-village": [
-      "https://grandvinhoboken.com/hoboken-hoboken-grand-vin-kitchen-and-bar-food-menu",
-      "https://grandvinhoboken.com/"
-     ],
-     "chiflez-jackson-heights": [
-      "http://www.chiflez.com/"
-     ],
-     "queens-bully-forest-hills": [
-      "https://queensbully.com/pages/menu",
-      "https://queensbully.com/"
-     ],
-     "brazeiro-churrascaria-hell-s-kitchen": [
-      "https://www.brazeirobbq.com/happy-hour",
-      "https://www.brazeirobbq.com/"
-     ],
-     "aquamarina-washington-heights": [
-      "https://www.aquamarinany.com/happy-hour/",
-      "https://www.aquamarinany.com/"
-     ],
-     "hello-hello-flatiron": [
-      "https://hellohellobar.com/menus/",
-      "https://hellohellobar.com/"
-     ],
-     "tarallucci-e-vino-upper-west-side": [
-      "https://www.taralluccievino.net/upper-west-side-location",
-      "https://www.taralluccievino.net/"
-     ],
-     "osteria-brooklyn-fort-greene": [
-      "https://www.osteriabrooklyn.com/menus/",
-      "https://www.osteriabrooklyn.com/"
-     ],
-     "han-dynasty-upper-west-side": [
-      "https://www.handynasty.net/location/han-dynasty-upper-west-side/",
-      "https://www.handynasty.net/"
-     ],
-     "anthony-david-restaurant": [
-      "https://anthonydavids.com/food-menu",
-      "https://anthonydavids.com/"
-     ],
-     "amami-greenpoint": [
-      "https://amamibk.com/specials",
-      "https://amamibk.com/"
-     ]
-    }
+     "deal_text": "Saturday happy hour on drinks including Aperol Spritz, mimosas and wines."
+    },
+    "p_source": "https://umbertosclamhouse.com/new-york-little-italy-umbertos-clam-house-happy-hours-specials",
+    "p_evidence": "Happy Hour every SATURDAY! at Umberto&apos;s Clam House! From Aperol Spritz to Mimosas and your Favorites wines! \nJoin us with your Friends and loved ones! \ud83e\udd29 \n 11:30 AM - 04:00 PM",
+    "p_reason": "review 2026-10-26: schedule read on the bar's own page"
    }
   }
  ]
