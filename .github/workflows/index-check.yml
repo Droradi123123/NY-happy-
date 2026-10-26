@@ -1,8 +1,10 @@
 # Index check: URL Inspection on a sample of every page type (site/scripts/index-check.mjs).
-# Run by hand; the log shows counts only.
+# Weekly (approved Oct 26) and by hand; the log shows counts only.
 name: Index check
 
 on:
+  schedule:
+    - cron: '37 13 * * 1' # Mondays 9:37am New York (8:37 in winter)
   workflow_dispatch:
     inputs:
       per_type:
