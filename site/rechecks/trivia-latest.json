@@ -1,7 +1,7 @@
 {
- "date": "2026-10-19",
+ "date": "2026-10-26",
  "read": {
-  "NYC Trivia League": 176,
+  "NYC Trivia League": 175,
   "TriviaNYC": 7,
   "Uptown Pub Quiz": 1,
   "NYC Trivia List": 318,
@@ -9,18 +9,13 @@
  },
  "removed": [
   {
-   "night": "Beer Garage (tue)",
-   "key": "beer-garage--118-christopher-st:trivia:tue",
-   "why": "no longer listed by TriviaNYC"
-  },
-  {
-   "night": "Jake’s Dilemma (wed)",
-   "key": "jakes-dilemma--430-amsterdam-ave:trivia:wed",
+   "night": "The Brew Inn (wed)",
+   "key": "brew-inn--924-manhattan-ave:trivia:wed",
    "why": "no longer listed by NYC Trivia League"
   }
  ],
  "time_changed": [],
- "still_listed": 282,
+ "still_listed": 281,
  "new_at_operators": [
   {
    "name": "CURRENTLY ON HOLD",
