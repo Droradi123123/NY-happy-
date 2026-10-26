@@ -1,1 +1,310 @@
-[]
+[
+ {
+  "step": "#1",
+  "bar": "misc-prospect-heights",
+  "status": 204,
+  "row": {
+   "address": "758 Franklin Avenue",
+   "lat": 40.672702,
+   "lng": -73.957473,
+   "geo": "Crown Heights"
+  },
+  "geosearch": "758 FRANKLIN AVENUE, Brooklyn, NY, USA",
+  "moved_m": 6
+ },
+ {
+  "step": "#2",
+  "bar": "tropix-bar-lounge-forest-hills",
+  "status": 204,
+  "row": {
+   "address": "95-32 Queens Blvd",
+   "lat": 40.730152,
+   "lng": -73.863669,
+   "geo": "Rego Park"
+  },
+  "geosearch": "95-32 QUEENS BOULEVARD, Rego Park, NY, USA",
+  "moved_m": 13
+ },
+ {
+  "step": "#3",
+  "rpc": "bar_promote",
+  "args": {
+   "p_slug": "the-dynamo-room-koreatown",
+   "p_hh": {
+    "days": [
+     "mon",
+     "tue",
+     "wed",
+     "thu",
+     "fri",
+     "sat",
+     "sun"
+    ],
+    "start": "16:00",
+    "end": "18:00",
+    "windows": [
+     {
+      "days": [
+       "mon",
+       "tue",
+       "wed",
+       "thu",
+       "fri",
+       "sat",
+       "sun"
+      ],
+      "start": "16:00",
+      "end": "18:00"
+     }
+    ],
+    "deal_text": "In the bar or terrace only: martinis from $11.95, margaritas $13.95, wine $12.95, Miller High Life $6.95 and oysters 3 for $9.95."
+   },
+   "p_source": "https://www.thedynamoroom.com/location/the-dynamo-room/",
+   "p_evidence": "Happy Hour \n Daily 4pm - 6pm",
+   "p_reason": "review 2026-10-26: schedule read on the bar's own page"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "live"
+ },
+ {
+  "step": "#4",
+  "rpc": "bar_promote",
+  "args": {
+   "p_slug": "adria-upper-east-side",
+   "p_hh": {
+    "days": [
+     "mon",
+     "tue",
+     "wed",
+     "thu",
+     "fri",
+     "sat",
+     "sun"
+    ],
+    "start": "16:00",
+    "end": "18:00",
+    "windows": [
+     {
+      "days": [
+       "mon",
+       "tue",
+       "wed",
+       "thu",
+       "fri",
+       "sat",
+       "sun"
+      ],
+      "start": "16:00",
+      "end": "18:00"
+     }
+    ],
+    "deal_text": "Aperitivo bites at the bar, such as crostini $12, antipasto $15 and a cheese plate $18."
+   },
+   "p_source": "https://www.adrianyc.com/",
+   "p_evidence": "Hours\n Monday - Sunday\n 12 PM - 10 PM \n Happy Hour\n 4 PM - 6 PM",
+   "p_reason": "review 2026-10-26: schedule read on the bar's own page"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "live"
+ },
+ {
+  "step": "#5",
+  "rpc": "bar_promote",
+  "args": {
+   "p_slug": "grove-street-social-greenwich-village",
+   "p_hh": {
+    "days": [
+     "mon",
+     "tue",
+     "wed",
+     "thu",
+     "fri"
+    ],
+    "start": "16:00",
+    "end": "19:00",
+    "windows": [
+     {
+      "days": [
+       "mon",
+       "tue",
+       "wed"
+      ],
+      "start": "16:00",
+      "end": "19:00"
+     },
+     {
+      "days": [
+       "thu",
+       "fri"
+      ],
+      "start": "12:00",
+      "end": "19:00"
+     }
+    ],
+    "deal_text": "Happy hour food and drink specials."
+   },
+   "p_source": "https://61grovestreet.com/new-york-west-village-grove-street-social-happy-hours-specials",
+   "p_evidence": "Monday October 26th\n Happy Hour! Food & Drink! \n 04:00 PM - 07:00 PM \n Tuesday October 27th\n Happy Hour! Food & Drink! \n 04:00 PM - 07:00 PM \n Wednesday October 28th\n Happy Hour! Food & Drink! \n 04:00 PM - 07:00 PM \n Thursday October 29th\n Happy Hour! Food & Drink! \n 12:00 PM - 07:00 PM \n Friday October 30th\n Happy Hour! Food & Drink! \n 12:00 PM - 07:00 PM",
+   "p_reason": "review 2026-10-26: schedule read on the bar's own page"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "live"
+ },
+ {
+  "step": "#6",
+  "rpc": "bar_promote",
+  "args": {
+   "p_slug": "tropix-bar-lounge-forest-hills",
+   "p_hh": {
+    "days": [
+     "mon",
+     "tue",
+     "wed",
+     "thu",
+     "fri",
+     "sat",
+     "sun"
+    ],
+    "start": "15:30",
+    "end": "18:00",
+    "windows": [
+     {
+      "days": [
+       "sun",
+       "mon"
+      ],
+      "start": "15:30",
+      "end": "18:00"
+     },
+     {
+      "days": [
+       "tue",
+       "wed",
+       "thu",
+       "fri",
+       "sat"
+      ],
+      "start": "15:30",
+      "end": "19:00"
+     }
+    ],
+    "deal_text": "$8.49 house margaritas and frozen rosé, $7.99 tequila shots, $7.99 24oz import drafts and $6.99 24oz Coors Light drafts."
+   },
+   "p_source": "https://tropixnyc.com/queens-rego-park-tropix-bar-and-lounge-food-menu",
+   "p_evidence": "Everyday of The Week | Sun & Mon 3:30pm - 6pm | Tues - Sat 3:30pm - 7pm",
+   "p_reason": "review 2026-10-26: schedule read on the bar's own page"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "live"
+ },
+ {
+  "step": "#7",
+  "rpc": "bar_promote",
+  "args": {
+   "p_slug": "misc-prospect-heights",
+   "p_hh": {
+    "days": [
+     "mon",
+     "tue",
+     "wed",
+     "thu",
+     "fri",
+     "sat"
+    ],
+    "start": "12:00",
+    "end": "20:30",
+    "windows": [
+     {
+      "days": [
+       "mon",
+       "tue",
+       "wed",
+       "thu",
+       "fri",
+       "sat"
+      ],
+      "start": "12:00",
+      "end": "20:30"
+     }
+    ],
+    "deal_text": "Happy hour on cocktails, beer and wine, including $7 beers and $49 cocktail pitchers."
+   },
+   "p_source": "https://miscbklyn.com/brooklyn-crown-heights-misc-happy-hours-specials",
+   "p_evidence": "Thursday October 29th\n Happy Hour: Cocktail, Beer, and Wine \n 12:00 PM - 08:30 PM \n Friday October 30th\n Happy Hour: Cocktail, Beer, and Wine \n 12:00 PM - 08:30 PM \n Saturday October 31st\n Happy Hour: Cocktail, Beer, and Wine \n 12:00 PM - 08:30 PM \n Sunday November 1st\n Happy Hour: Cocktail, Beer, and Wine \n 12:00 PM - 08:30 PM",
+   "p_reason": "review 2026-10-26: schedule read on the bar's own page"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "live"
+ },
+ {
+  "step": "#8",
+  "rpc": "bar_promote",
+  "args": {
+   "p_slug": "lido-harlem",
+   "p_hh": {
+    "days": [
+     "mon",
+     "tue",
+     "thu",
+     "fri"
+    ],
+    "start": "16:00",
+    "end": "19:00",
+    "windows": [
+     {
+      "days": [
+       "mon",
+       "tue",
+       "thu",
+       "fri"
+      ],
+      "start": "16:00",
+      "end": "19:00"
+     }
+    ],
+    "deal_text": "$6 select beers, $9 glasses of wine and well drinks, and $10 small bites."
+   },
+   "p_source": "https://lidoharlem.com/happy-hours-specials",
+   "p_evidence": "Monday October 26th\n HAPPY HOUR $6 select beers, $9 glasses of wine and well drinks, $10 small bites \n 04:00 PM - 07:00 PM \n Tuesday October 27th\n HAPPY HOUR $6 select beers, $9 glasses of wine and well drinks, $10 small bites \n 04:00 PM - 07:00 PM",
+   "p_reason": "review 2026-10-26: schedule read on the bar's own page"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "live"
+ },
+ {
+  "step": "#9",
+  "rpc": "bar_promote",
+  "args": {
+   "p_slug": "umbertos-clam-house-nolita",
+   "p_hh": {
+    "days": [
+     "sat"
+    ],
+    "start": "11:30",
+    "end": "16:00",
+    "windows": [
+     {
+      "days": [
+       "sat"
+      ],
+      "start": "11:30",
+      "end": "16:00"
+     }
+    ],
+    "deal_text": "Saturday happy hour on drinks including Aperol Spritz, mimosas and wines."
+   },
+   "p_source": "https://umbertosclamhouse.com/new-york-little-italy-umbertos-clam-house-happy-hours-specials",
+   "p_evidence": "Happy Hour every SATURDAY! at Umberto&apos;s Clam House! From Aperol Spritz to Mimosas and your Favorites wines! \nJoin us with your Friends and loved ones! 🤩 \n 11:30 AM - 04:00 PM",
+   "p_reason": "review 2026-10-26: schedule read on the bar's own page"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "live"
+ }
+]
