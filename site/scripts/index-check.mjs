@@ -1,7 +1,7 @@
 /**
  * Index check (GitHub Actions, run by hand): Search Console URL Inspection on a sample of every page
- * type from the live sitemap, 4 at a time. The repository is public, so the log shows only counts per
- * page type and coverage state, never page URLs.
+ * type from the live sitemap, 4 at a time. The repository is public, so the log shows counts per page
+ * type and coverage state; only the site's fixed pages (about, privacy, ...) are named, with crawl details.
  */
 import { createSign } from 'node:crypto';
 
@@ -36,12 +36,22 @@ const inspect = async (u) => {
   try {
     const r = await fetch('https://searchconsole.googleapis.com/v1/urlInspection/index:inspect', { method: 'POST', headers: auth, body: JSON.stringify({ inspectionUrl: u, siteUrl: PROPERTY }), signal: AbortSignal.timeout(60000) });
     const j = await r.json().catch(() => ({}));
-    results.push({ type: typeOf(u), state: r.ok ? (j.inspectionResult?.indexStatusResult?.coverageState ?? 'unknown') : `error ${r.status}` });
+    const x = j.inspectionResult?.indexStatusResult ?? {};
+    results.push({ type: typeOf(u), state: r.ok ? (x.coverageState ?? 'unknown') : `error ${r.status}`, u, x });
   } catch (e) { results.push({ type: typeOf(u), state: `error ${e.name}` }); }
 };
 for (let i = 0; i < sample.length; i += 4) await Promise.all(sample.slice(i, i + 4).map(inspect));
 const table = {};
 for (const r of results) { table[r.type] ??= {}; table[r.type][r.state] = (table[r.type][r.state] ?? 0) + 1; }
 for (const [t, states] of Object.entries(table)) console.log(`inspect ${t} (${Object.values(states).reduce((a, b) => a + b, 0)} of ${byType[t].length}): ${Object.entries(states).map(([s, n]) => `${s}: ${n}`).join('; ')}`);
+// the site's own fixed pages (public paths, no visitor data): how Google last fetched each one, to tell
+// a crawl or canonical problem from a plain "not yet" or a quality call
+const FIXED = new Set(['home', 'about', 'contact', 'privacy', 'accessibility', 'image-credits', 'music-bingo', 'nyc-happy-hour-index']);
+for (const r of results.filter((r) => FIXED.has(r.type))) {
+  const x = r.x ?? {};
+  console.log(`fixed ${new URL(r.u).pathname}: ${r.state}; crawled ${x.lastCrawlTime?.slice(0, 16) ?? '-'} as ${x.crawledAs ?? '-'}; fetch ${x.pageFetchState ?? '-'}; robots ${x.robotsTxtState ?? '-'}; indexing ${x.indexingState ?? '-'}; canonical ${x.googleCanonical ? (x.googleCanonical === x.userCanonical ? 'same' : `google picked ${x.googleCanonical}`) : '-'}`);
+}
+const crawled = results.filter((r) => /Crawled - currently not indexed/.test(r.state)).map((r) => r.x?.lastCrawlTime?.slice(0, 10) ?? '-');
+if (crawled.length) console.log(`crawled-not-indexed by last crawl date: ${Object.entries(crawled.reduce((a, d) => ((a[d] = (a[d] ?? 0) + 1), a), {})).map(([d, n]) => `${d} ${n}`).join(', ')}`);
 const indexed = results.filter((r) => /indexed/i.test(r.state) && !/not indexed/i.test(r.state)).length;
 console.log(`indexed in sample: ${indexed}/${results.length}`);
