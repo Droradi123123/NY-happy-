@@ -1,20 +1,231 @@
 {
  "steps": [
   {
-   "dump": "seasonal_parties",
-   "path": "site_parties?select=slug,title,night_date,themes,venue_id&night_date=gte.2026-10-26&or=(themes.cs.{thanksgiving},themes.cs.{nye},themes.cs.{christmas})"
-  },
-  {
-   "dump": "upcoming_counts",
-   "path": "site_parties?select=night_date,themes&night_date=gte.2026-11-01"
-  },
-  {
-   "dump": "blog_slugs",
-   "path": "site_blog_posts?select=slug,title"
-  },
-  {
-   "dump": "pending_bars",
-   "path": "h_nyc_happy_hour?select=slug,name,geo,address,lat,status_reason,hh_src:facts->happy_hour->>source_url,web:facts->website,deal:facts->happy_hour->value->>deal_text&status=eq.pending"
+   "fetch_pages": {
+    "name": "bar_pages",
+    "sites": {
+     "dante-s": [
+      "https://www.dantesclifton.com/happy-hour/",
+      "https://www.dantesclifton.com/"
+     ],
+     "benihana-murray-hill": [
+      "https://www.benihana.com/menus/happy-hour/",
+      "https://www.benihana.com/"
+     ],
+     "mezcal-kitchen-jc": [
+      "https://www.mezcalkitchenjc.com/menu",
+      "https://www.mezcalkitchenjc.com/"
+     ],
+     "ellie-s-bistro": [
+      "https://www.elliesbistro.com/menu",
+      "https://www.elliesbistro.com/"
+     ],
+     "india-passage": [
+      "https://indiapassageny.com/menu/",
+      "https://indiapassageny.com/"
+     ],
+     "waterzooi-brasserie-oyster-bar": [
+      "https://www.waterzooi.com/weekly-specials-at-waterzooi/",
+      "https://www.waterzooi.com/"
+     ],
+     "joe-pat-s-east-village": [
+      "https://joeandpatsnyc.com/"
+     ],
+     "flame-upper-west-side": [
+      "https://flamenyc.com/"
+     ],
+     "lingo-greenpoint": [
+      "https://www.lingobk.com/menu/",
+      "https://www.lingobk.com/"
+     ],
+     "vin-sur-vingt-murray-hill": [
+      "https://www.vsvwinebars.com/location/vin-sur-vingt-wine-bar-bistro-e-51st-st/",
+      "https://www.vsvwinebars.com/"
+     ],
+     "the-dynamo-room-koreatown": [
+      "https://www.thedynamoroom.com/menus/",
+      "https://www.thedynamoroom.com/"
+     ],
+     "the-rum-house-times-square": [
+      "https://www.therumhousenyc.com/menus/",
+      "https://www.therumhousenyc.com/"
+     ],
+     "westside-tavern-chelsea": [
+      "https://www.westsidetavern.com/"
+     ],
+     "area-140-first-bar-east-village": [
+      "https://www.area140first.com/"
+     ],
+     "the-immigrant-east-village": [
+      "https://www.theimmigrantnyc.com/menus/",
+      "https://www.theimmigrantnyc.com/"
+     ],
+     "madame-george-midtown": [
+      "https://www.madamegeorgenyc.com/menus/",
+      "https://www.madamegeorgenyc.com/"
+     ],
+     "fito-inwood": [
+      "https://www.fitonyc.com/menu-1",
+      "https://www.fitonyc.com/"
+     ],
+     "adria-upper-east-side": [
+      "https://www.adrianyc.com/"
+     ],
+     "savvy-bistro-and-bar-crown-heights": [
+      "https://savvybistro.com/"
+     ],
+     "acadia-times-square": [
+      "https://www.acadianyc.com/menus/",
+      "https://www.acadianyc.com/"
+     ],
+     "seoul-bap-koreatown": [
+      "https://seoulbapnyc.com/"
+     ],
+     "grove-street-social-greenwich-village": [
+      "https://61grovestreet.com/"
+     ],
+     "yum-yum-too-hell-s-kitchen": [
+      "https://yumtoo.com/"
+     ],
+     "talea-beer-co-cobble-hill": [
+      "https://www.taleabeer.com/pages/visit-us",
+      "https://www.taleabeer.com/"
+     ],
+     "greens-irish-pub": [
+      "https://www.greensirishpub.com/"
+     ],
+     "bon-courage-tribeca": [
+      "https://1803nyc.com/new-york-tribeca-1803-nyc-food-menu",
+      "https://1803nyc.com/"
+     ],
+     "decibel-east-village": [
+      "https://www.sakebardecibel.com/happyhour",
+      "https://www.sakebardecibel.com/"
+     ],
+     "tropix-bar-lounge-forest-hills": [
+      "https://tropixnyc.com/"
+     ],
+     "essence-crown-heights": [
+      "https://essencebar.com/"
+     ],
+     "lucky-7-tavern": [
+      "https://lucky7tavern.com/menus/",
+      "https://lucky7tavern.com/"
+     ],
+     "ellington-in-the-park-upper-west-side": [
+      "https://www.ellingtoninthepark.com/"
+     ],
+     "houlihan-s": [
+      "https://www.houlihans.com/location/seacaucus-houlihans/",
+      "https://www.houlihans.com/"
+     ],
+     "misc-prospect-heights": [
+      "https://miscbklyn.com/"
+     ],
+     "lefkes-estiatorio": [
+      "https://lefkesnj.com/"
+     ],
+     "lido-harlem": [
+      "https://lidoharlem.com/food-menu",
+      "https://lidoharlem.com/"
+     ],
+     "lungi-upper-east-side": [
+      "https://lungirestaurant.com/new-york-upper-east-side-lungi-drink-menu",
+      "https://lungirestaurant.com/"
+     ],
+     "ruby-tuesday": [
+      "https://www.rubytuesday.com/daily-drink-deals/",
+      "https://www.rubytuesday.com/"
+     ],
+     "que-pasta": [
+      "https://www.qpitalian.com/"
+     ],
+     "redd-s-restaurant": [
+      "https://reddsrestaurant.com/happy-hour/",
+      "https://reddsrestaurant.com/"
+     ],
+     "the-dubliner-financial-district": [
+      "https://havanasocialnyc.com/new-york-city-havana-social-happy-hours-specials",
+      "https://havanasocialnyc.com/"
+     ],
+     "gotham-city-lounge-bushwick": [
+      "https://myspace.com/happyhour",
+      "https://myspace.com/"
+     ],
+     "boulevard-lounge-sunnyside": [
+      "https://www.boulevard.com/events/happy-hour-tasting/",
+      "https://www.boulevard.com/"
+     ],
+     "the-shannon-rose": [
+      "https://www.theshannonrose.com/clifton-menu/",
+      "https://www.theshannonrose.com/"
+     ],
+     "pinstripes": [
+      "https://www.pinstripes.com/"
+     ],
+     "karaoke-shout-astoria": [
+      "https://www.karaokeshout.com/menu",
+      "https://www.karaokeshout.com/"
+     ],
+     "inca-paisa-restaurant-astoria-astoria": [
+      "https://incapaisa.com/"
+     ],
+     "mosaic-astoria": [
+      "https://mosaicastoria.com/happy-hour",
+      "https://mosaicastoria.com/"
+     ],
+     "salvatoria-kitchen-and-bar-astoria": [
+      "https://salvatoriakitchenandbar3118.com/"
+     ],
+     "umbertos-clam-house-nolita": [
+      "https://umbertosclamhouse.com/specials",
+      "https://umbertosclamhouse.com/"
+     ],
+     "grand-vin-west-village": [
+      "https://grandvinhoboken.com/hoboken-hoboken-grand-vin-kitchen-and-bar-food-menu",
+      "https://grandvinhoboken.com/"
+     ],
+     "chiflez-jackson-heights": [
+      "http://www.chiflez.com/"
+     ],
+     "queens-bully-forest-hills": [
+      "https://queensbully.com/pages/menu",
+      "https://queensbully.com/"
+     ],
+     "brazeiro-churrascaria-hell-s-kitchen": [
+      "https://www.brazeirobbq.com/happy-hour",
+      "https://www.brazeirobbq.com/"
+     ],
+     "aquamarina-washington-heights": [
+      "https://www.aquamarinany.com/happy-hour/",
+      "https://www.aquamarinany.com/"
+     ],
+     "hello-hello-flatiron": [
+      "https://hellohellobar.com/menus/",
+      "https://hellohellobar.com/"
+     ],
+     "tarallucci-e-vino-upper-west-side": [
+      "https://www.taralluccievino.net/upper-west-side-location",
+      "https://www.taralluccievino.net/"
+     ],
+     "osteria-brooklyn-fort-greene": [
+      "https://www.osteriabrooklyn.com/menus/",
+      "https://www.osteriabrooklyn.com/"
+     ],
+     "han-dynasty-upper-west-side": [
+      "https://www.handynasty.net/location/han-dynasty-upper-west-side/",
+      "https://www.handynasty.net/"
+     ],
+     "anthony-david-restaurant": [
+      "https://anthonydavids.com/food-menu",
+      "https://anthonydavids.com/"
+     ],
+     "amami-greenpoint": [
+      "https://amamibk.com/specials",
+      "https://amamibk.com/"
+     ]
+    }
+   }
   }
  ]
 }
