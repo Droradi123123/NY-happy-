@@ -1,18 +1,10 @@
 [
  {
-  "step": "#1",
-  "rpc": "blog_post_save",
-  "key": "thanksgiving-weekend-nyc-2026",
+  "step": "#2",
+  "rpc": "party_venue_hoods",
+  "args": {},
   "ok": true,
   "status": 200,
-  "body": "saved"
- },
- {
-  "step": "#1",
-  "rpc": "blog_post_save",
-  "key": "free-things-to-do-in-nyc-at-night",
-  "ok": true,
-  "status": 200,
-  "body": "saved"
+  "body": 22
  }
 ]
