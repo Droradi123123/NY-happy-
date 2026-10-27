@@ -162,6 +162,20 @@ for (const [i, s] of plan.steps.entries()) {
       }
       writeFileSync(`bridge/out/${s.fetch_pages.name ?? 'pages'}.json`, JSON.stringify(out));
       console.log(`${tag} fetch_pages: ${out.length} pages, ${out.filter((p) => p.text).length} with text`);
+    } else if (s.probe) {
+      // what a crawler gets from public URLs: status, redirect, robots headers and tags, canonical, title
+      for (const u of s.probe.urls) for (const [who, ua] of Object.entries(s.probe.agents ?? { browser: 'Mozilla/5.0' })) {
+        try {
+          const r = await fetch(u, { headers: { 'User-Agent': ua }, redirect: 'manual', signal: AbortSignal.timeout(20000) });
+          const body = r.status < 300 ? await r.text() : '';
+          const pick = (re) => body.match(re)?.[1] ?? null;
+          const row = { url: u, who, status: r.status, location: r.headers.get('location'), xrobots: r.headers.get('x-robots-tag'), mitigated: r.headers.get('cf-mitigated'),
+            type: r.headers.get('content-type'), bytes: body.length, robots: pick(/<meta name="robots" content="([^"]+)"/), canonical: pick(/<link rel="canonical" href="([^"]+)"/),
+            title: pick(/<title>([^<]*)<\/title>/), head: /\.(txt|xml)$/.test(new globalThis.URL(u).pathname) ? body.slice(0, 600) : undefined };
+          results.push({ step: tag, probe: row });
+          console.log(`${tag} probe ${who} ${new globalThis.URL(u).pathname}: ${r.status}${row.location ? ` -> ${row.location}` : ''}${row.robots ? ` robots=${row.robots}` : ''}${row.xrobots ? ` x-robots=${row.xrobots}` : ''}${row.mitigated ? ` cf-mitigated=${row.mitigated}` : ''}`);
+        } catch (e) { results.push({ step: tag, probe: { url: u, who, error: String(e.message ?? e) } }); }
+      }
     } else if (s.sleep) {
       await sleep(s.sleep);
     }
