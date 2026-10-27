@@ -29,7 +29,8 @@ const THEME_MIN = 5;
 type Test = RegExp | ((p: Party) => boolean);
 const THEMES: [kind: 'tag' | 'season', slug: string, h1: string, keyword: string, short: string, test: Test, titleOnly?: boolean][] = [
   ['tag', 'throwback', 'Throwback Parties in NYC', 'throwback parties nyc', 'Throwback',
-    (p) => p.genres.some((g) => ['80s', '90s', '2000s', 'emo'].includes(g)) || /throwback|nostalgi|\by2k\b|\b(80s|90s|00s|2000s|2010s)\b|emo night|old ?school/i.test(`${p.title} ${p.copy?.about ?? ''}`)],
+    // the night itself says so (genre tags alone also catch '90s-style techno bills)
+    /throwback|nostalgi|\by2k\b|\b(80s|90s|00s|2000s|2000's|2010s)\b|'(80|90)s|emo night|old ?school/i],
   ['tag', 'singles', 'Singles Parties and Speed Dating in NYC', 'singles parties nyc', 'Singles', /speed ?dating|\bsingles\b|dating mixer/i],
   ['tag', 'after-hours', 'After Hours Parties in NYC', 'after hours parties nyc', 'After hours', /after[- ]?hours|\bafters\b|until sunrise|till sunrise/i],
   ['tag', 'warehouse-raves', 'Warehouse Raves in NYC', 'warehouse raves nyc', 'Warehouse raves', /warehouse|\brave\b/i, true],
