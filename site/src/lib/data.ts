@@ -453,7 +453,7 @@ export const placeUrl = (name: string, placeId: string) => `https://www.google.c
 
 /** original copy for a page (prose only: prices and times are rendered from live data next to it) */
 export interface PageCopy {
-  kind: 'hood' | 'borough' | 'tag' | 'day' | 'bar' | 'venue' | 'near'; key: string; intro: string;
+  kind: 'hood' | 'borough' | 'tag' | 'day' | 'bar' | 'venue' | 'near' | 'parties'; key: string; intro: string;
   picks: { slug: string; why: string }[]; sections: { h: string; body: string }[]; faq: { q: string; a: string }[]; written: string;
 }
 let _copy: Promise<Map<string, PageCopy>> | null = null;

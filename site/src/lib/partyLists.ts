@@ -23,6 +23,27 @@ const TAG_PAGES: [string, string, string, string, string][] = [
   ['openbar', 'open-bar', 'Open Bar Parties in NYC', 'open bar parties nyc', 'Open bar'],
   ['drag', 'drag', 'Drag Parties and Shows in NYC', 'drag parties nyc', 'Drag'],
 ];
+// themes read from the party itself; each page is built only from THEME_MIN upcoming nights, so a new
+// theme page is never thin. `title` = only the party's own title (for words that copy uses loosely)
+const THEME_MIN = 5;
+type Test = RegExp | ((p: Party) => boolean);
+const THEMES: [kind: 'tag' | 'season', slug: string, h1: string, keyword: string, short: string, test: Test, titleOnly?: boolean][] = [
+  ['tag', 'throwback', 'Throwback Parties in NYC', 'throwback parties nyc', 'Throwback',
+    (p) => p.genres.some((g) => ['80s', '90s', '2000s', 'emo'].includes(g)) || /throwback|nostalgi|\by2k\b|\b(80s|90s|00s|2000s|2010s)\b|emo night|old ?school/i.test(`${p.title} ${p.copy?.about ?? ''}`)],
+  ['tag', 'singles', 'Singles Parties and Speed Dating in NYC', 'singles parties nyc', 'Singles', /speed ?dating|\bsingles\b|dating mixer/i],
+  ['tag', 'after-hours', 'After Hours Parties in NYC', 'after hours parties nyc', 'After hours', /after[- ]?hours|\bafters\b|until sunrise|till sunrise/i],
+  ['tag', 'warehouse-raves', 'Warehouse Raves in NYC', 'warehouse raves nyc', 'Warehouse raves', /warehouse|\brave\b/i, true],
+  ['tag', 'silent-disco', 'Silent Disco Parties in NYC', 'silent disco nyc', 'Silent disco', /silent disco/i],
+  ['tag', 'brunch-parties', 'Brunch Parties in NYC', 'brunch parties nyc', 'Brunch parties', /brunch/i, true],
+  ['tag', 'free', 'Free Parties in NYC', 'free parties nyc', 'Free', (p) => p.price_status === 'free'],
+  ['tag', '18-plus', '18+ Parties in NYC', '18+ parties nyc', '18+', (p) => p.age_min !== null && p.age_min <= 18],
+  ['season', 'christmas', 'Christmas and Holiday Parties in NYC', 'christmas parties nyc', 'Christmas', /christmas|xmas|holiday party|ugly sweater|santa ?con|jingle/i],
+  ['season', 'hanukkah', 'Hanukkah Parties in NYC', 'hanukkah parties nyc', 'Hanukkah', /hanukk?ah|chanukk?ah|matzo ball/i],
+  ['season', 'diwali', 'Diwali Parties in NYC', 'diwali parties nyc', 'Diwali', /diwali/i],
+  ['season', 'friendsgiving', 'Friendsgiving Parties in NYC', 'friendsgiving parties nyc', 'Friendsgiving', /friendsgiving/i],
+  ['season', 'day-of-the-dead', 'Day of the Dead Parties in NYC', 'day of the dead parties nyc', 'Day of the Dead', /d[ií]a de (los )?muertos|day of the dead/i],
+];
+const passes = (p: Party, test: Test, titleOnly = false) => typeof test === 'function' ? test(p) : test.test(titleOnly ? p.title : `${p.title} ${p.copy?.about ?? ''} ${p.copy?.expect ?? ''}`);
 /** New York's date at build time, plus n days (the site rebuilds every few hours) */
 function nyDate(n = 0) {
   const d = new Date(Date.now() + n * 864e5);
@@ -64,6 +85,8 @@ export function partyLists(): Promise<PartyList[]> {
     const weekend = parties.filter((p) => p.night_date >= from && p.night_date <= to);
     if (weekend.length) out.push({ slug: 'this-weekend', kind: 'when', h1: 'Parties This Weekend in NYC', label: 'Parties this weekend in NYC', keyword: 'parties this weekend nyc', short: 'This weekend',
       title: `Parties This Weekend in NYC: ${dateRange(weekend)} (${weekend.length} Parties)`, parties: weekend });
+    for (const [kind, slug, h1, keyword, short, test, titleOnly] of THEMES)
+      add({ slug, kind, h1, label: sentence(h1), keyword, short }, parties.filter((p) => passes(p, test, titleOnly)), THEME_MIN);
     for (const [tag, slug, h1, keyword, short] of TAG_PAGES)
       add({ slug, kind: 'tag', h1, label: sentence(h1), keyword, short }, parties.filter((p) => partyTags(p, venueOf(p, venues)).includes(tag)), 2);
     return out;

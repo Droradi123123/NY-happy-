@@ -2,7 +2,7 @@
 /** Music, day, season and kind-of-party pages (lib/partyLists.ts decides which exist). */
 import Base from '../../layouts/Base.astro';
 import PartyCard from '../../components/PartyCard.astro';
-import { partyData, venueOf, nightDate, nyTime, priceLabel, cleanTitle } from '../../lib/data';
+import { partyData, venueOf, nightDate, nyTime, priceLabel, cleanTitle, copyOf, paragraphs, fmtDate } from '../../lib/data';
 import { partyLists, dateRange, type PartyList } from '../../lib/partyLists';
 import { crumbs, faqLd, itemList } from '../../lib/seo';
 import { plural } from '../../lib/stats';
@@ -13,6 +13,9 @@ export async function getStaticPaths() {
 }
 const { list: L, lists } = Astro.props as { list: PartyList; lists: PartyList[] };
 const { venues, parties: all } = await partyData();
+// editorial copy for the hub when written (page_copy kind 'parties', key = the list slug): prose only,
+// the dates, prices and counts next to it come from the live data
+const copy = await copyOf('parties', L.slug);
 const halloween = all.filter((p) => p.themes.includes('halloween')).length;
 const ps = L.parties;
 const venueNames = [...new Set(ps.map((p) => venueOf(p, venues)?.name).filter(Boolean))] as string[];
@@ -34,6 +37,7 @@ const description = (() => {
   return d.length > 160 ? d.slice(0, 157).replace(/\s\S*$/, '') + '…' : d;
 })();
 const faq = [
+  ...(copy?.faq ?? []),
   { q: `What are the next ${subject} in NYC?`, a: ps.slice(0, 3).map((p) => `${cleanTitle(p.title)} at ${venueOf(p, venues)?.name ?? 'a NYC venue'}, ${nightDate(p.night_date, { weekday: 'short', month: 'short', day: 'numeric' })}${nyTime(p.doors_at ?? p.starts_at) ? `, doors ${nyTime(p.doors_at ?? p.starts_at)}` : ''}`).join('; ') + '.' },
   ...(priced.length ? [{ q: `How much are tickets for ${subject} in NYC?`, a: `From $${Math.round(Math.min(...priced))} to $${Math.round(Math.max(...priced))} for the cheapest ticket on each night${free ? `, and ${free} are free` : ''}. Prices are the lowest listed on the ticket site when we checked, with fees.` }] : []),
   { q: `Are ${subject} in NYC 21+?`, a: allAges ? `Most are 21+, but ${plural(allAges, 'night')} let in younger guests; the age is on each party's page.` : 'Every night we list here is 21+, unless its page says otherwise. Bring a government photo ID; tourists should bring a passport.' },
@@ -47,7 +51,14 @@ const groups: [string, PartyList[]][] = [['When', lists.filter((l) => l.kind ===
   <h1>{L.h1}</h1>
   {L.note && <p class="lede"><strong>{L.note}</strong></p>}
   <p class="lede">{lede}</p>
+  {copy && (
+    <section class="section prose">
+      <p class="byline">By the YaY NYC team · Updated {fmtDate(copy.written)}</p>
+      {paragraphs(copy.intro).map((p) => <p>{p}</p>)}
+    </section>
+  )}
   <div class="xgrid">{ps.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>
+  {copy?.sections.map((s) => <section class="section prose"><h2>{s.h}</h2>{paragraphs(s.body).map((p) => <p>{p}</p>)}</section>)}
   <section class="section faq">
     <h2>Questions</h2>
     {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
