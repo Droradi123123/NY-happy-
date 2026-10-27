@@ -2,7 +2,7 @@
  {
   "step": "#1",
   "rpc": "bar_fix_hh",
-  "key": "as-is-nyc-hell-s-kitchen",
+  "key": "toloache-upper-east-side",
   "ok": true,
   "status": 200,
   "body": "fixed"
@@ -10,119 +10,7 @@
  {
   "step": "#1",
   "rpc": "bar_fix_hh",
-  "key": "the-lexington-social-east-harlem",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "edward-s-tribeca",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "calle-dao-midtown",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "amity-hall-greenwich-village",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "stella-s-park-slope",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "saint-eves-park-slope",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "chela-park-slope",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "sing-sing-ave-a-east-village",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "bar-mexicana-midtown",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "sarabeth-s-upper-west-side",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "artesano-tribeca",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "covacha-upper-west-side",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "madam-mikette-s-murray-hill",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "arte-cafe-upper-west-side",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "bonnie-vee-nolita",
+  "key": "bar-lunatico-bed-stuy",
   "ok": true,
   "status": 200,
   "body": "fixed"
