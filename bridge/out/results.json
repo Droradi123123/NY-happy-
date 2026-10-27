@@ -1,6 +1,3417 @@
 [
  {
+  "step": "#1",
+  "venue": "baci-studio",
+  "status": 201,
+  "row": {
+   "id": "baci-studio",
+   "name": "Baci Studio",
+   "address": "55 TECH PLACE",
+   "zip": "11201",
+   "borough": "Brooklyn",
+   "lat": 40.695224,
+   "lng": -73.988335,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/q23v29-kylin-obrien-art-under-the-bridge-29th-oct-baci-studio-new-york-city-tickets",
+     "checked_at": "2026-10-27T11:44:55.489Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "55 TECH PLACE, Brooklyn, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "baci-studio",
+    "name": "Baci Studio",
+    "aliases": [],
+    "rooms": [],
+    "address": "55 TECH PLACE",
+    "zip": "11201",
+    "borough": "Brooklyn",
+    "neighborhood": null,
+    "lat": 40.695224,
+    "lng": -73.988335,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/q23v29-kylin-obrien-art-under-the-bridge-29th-oct-baci-studio-new-york-city-tickets",
+      "name": "DICE",
+      "checked_at": "2026-10-27T11:44:55.489Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "55 TECH PLACE, Brooklyn, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-27T11:44:55.563667+00:00",
+    "updated_at": "2026-10-27T11:44:55.563667+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#2",
+  "venue": "car-part-time",
+  "status": 201,
+  "row": {
+   "id": "car-part-time",
+   "name": "car part time",
+   "address": "904 GRAND STREET",
+   "zip": "11211",
+   "borough": "Brooklyn",
+   "lat": 40.712457,
+   "lng": -73.9379,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/wwnrvp-amradio-night-time-caf-30th-oct-car-part-time-new-york-city-tickets",
+     "checked_at": "2026-10-27T11:44:55.992Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "904 GRAND STREET, Brooklyn, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "car-part-time",
+    "name": "car part time",
+    "aliases": [],
+    "rooms": [],
+    "address": "904 GRAND STREET",
+    "zip": "11211",
+    "borough": "Brooklyn",
+    "neighborhood": null,
+    "lat": 40.712457,
+    "lng": -73.9379,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/wwnrvp-amradio-night-time-caf-30th-oct-car-part-time-new-york-city-tickets",
+      "name": "DICE",
+      "checked_at": "2026-10-27T11:44:55.992Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "904 GRAND STREET, Brooklyn, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-27T11:44:56.040797+00:00",
+    "updated_at": "2026-10-27T11:44:56.040797+00:00"
+   }
+  ]
+ },
+ {
   "step": "#3",
-  "error": "GET party_events: 400 {\"code\":\"42703\",\"details\":null,\"hint\":null,\"message\":\"column party_events.links does not exist\"}"
+  "venue": "the-purple-room",
+  "status": 201,
+  "row": {
+   "id": "the-purple-room",
+   "name": "THE PURPLE ROOM",
+   "address": "110 SCOTT AVENUE",
+   "zip": "11237",
+   "borough": "Brooklyn",
+   "lat": 40.710957,
+   "lng": -73.922843,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/xe83m3-the-purple-room-bushwick-30th-oct-the-purple-room-new-york-city-tickets",
+     "checked_at": "2026-10-27T11:44:56.400Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "110 SCOTT AVENUE, Brooklyn, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "the-purple-room",
+    "name": "THE PURPLE ROOM",
+    "aliases": [],
+    "rooms": [],
+    "address": "110 SCOTT AVENUE",
+    "zip": "11237",
+    "borough": "Brooklyn",
+    "neighborhood": null,
+    "lat": 40.710957,
+    "lng": -73.922843,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/xe83m3-the-purple-room-bushwick-30th-oct-the-purple-room-new-york-city-tickets",
+      "name": "DICE",
+      "checked_at": "2026-10-27T11:44:56.400Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "110 SCOTT AVENUE, Brooklyn, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-27T11:44:56.452779+00:00",
+    "updated_at": "2026-10-27T11:44:56.452779+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#4",
+  "venue": "the-bronze-owl",
+  "status": 201,
+  "row": {
+   "id": "the-bronze-owl",
+   "name": "The Bronze Owl",
+   "address": "52 WEST 33 STREET",
+   "zip": "10001",
+   "borough": "Manhattan",
+   "lat": 40.748464,
+   "lng": -73.987786,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/eo9xyw-the-bronze-owl-nye-27-31st-oct-the-bronze-owl-new-york-city-tickets",
+     "checked_at": "2026-10-27T11:44:56.868Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "52 WEST 33 STREET, New York, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "the-bronze-owl",
+    "name": "The Bronze Owl",
+    "aliases": [],
+    "rooms": [],
+    "address": "52 WEST 33 STREET",
+    "zip": "10001",
+    "borough": "Manhattan",
+    "neighborhood": null,
+    "lat": 40.748464,
+    "lng": -73.987786,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/eo9xyw-the-bronze-owl-nye-27-31st-oct-the-bronze-owl-new-york-city-tickets",
+      "name": "DICE",
+      "checked_at": "2026-10-27T11:44:56.868Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "52 WEST 33 STREET, New York, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-27T11:44:56.888398+00:00",
+    "updated_at": "2026-10-27T11:44:56.888398+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#5",
+  "venue": "niku-x-rooftop",
+  "status": 201,
+  "row": {
+   "id": "niku-x-rooftop",
+   "name": "niku x rooftop",
+   "address": "21 WEST 35 STREET",
+   "zip": "10001",
+   "borough": "Manhattan",
+   "lat": 40.749813,
+   "lng": -73.985133,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/bbqgkk-wavcrash-halloween-niku-x-rooftop-31st-oct-niku-x-rooftop-new-york-city-tickets",
+     "checked_at": "2026-10-27T11:44:57.338Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "21 WEST 35 STREET, New York, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "niku-x-rooftop",
+    "name": "niku x rooftop",
+    "aliases": [],
+    "rooms": [],
+    "address": "21 WEST 35 STREET",
+    "zip": "10001",
+    "borough": "Manhattan",
+    "neighborhood": null,
+    "lat": 40.749813,
+    "lng": -73.985133,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/bbqgkk-wavcrash-halloween-niku-x-rooftop-31st-oct-niku-x-rooftop-new-york-city-tickets",
+      "name": "DICE",
+      "checked_at": "2026-10-27T11:44:57.338Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "21 WEST 35 STREET, New York, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-27T11:44:57.360243+00:00",
+    "updated_at": "2026-10-27T11:44:57.360243+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#6",
+  "venue": "harriets-lounge-1-hotel",
+  "status": 201,
+  "row": {
+   "id": "harriets-lounge-1-hotel",
+   "name": "Harriet's Lounge - 1 Hotel",
+   "address": "60 FURMAN STREET",
+   "zip": "11201",
+   "borough": "Brooklyn",
+   "lat": 40.70228,
+   "lng": -73.995519,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/bbogvg-1-hotel-haunted-lounge-halloween-1031-31st-oct-harriets-lounge-1-hotel-new-york-city-tickets",
+     "checked_at": "2026-10-27T11:44:57.755Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "60 FURMAN STREET, Brooklyn, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "harriets-lounge-1-hotel",
+    "name": "Harriet's Lounge - 1 Hotel",
+    "aliases": [],
+    "rooms": [],
+    "address": "60 FURMAN STREET",
+    "zip": "11201",
+    "borough": "Brooklyn",
+    "neighborhood": null,
+    "lat": 40.70228,
+    "lng": -73.995519,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/bbogvg-1-hotel-haunted-lounge-halloween-1031-31st-oct-harriets-lounge-1-hotel-new-york-city-tickets",
+      "name": "DICE",
+      "checked_at": "2026-10-27T11:44:57.755Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "60 FURMAN STREET, Brooklyn, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-27T11:44:57.770148+00:00",
+    "updated_at": "2026-10-27T11:44:57.770148+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#7",
+  "venue": "ding-a-ling",
+  "status": 201,
+  "row": {
+   "id": "ding-a-ling",
+   "name": "Ding-a-Ling",
+   "address": "116 AVENUE C",
+   "zip": "10009",
+   "borough": "Manhattan",
+   "lat": 40.724287,
+   "lng": -73.978412,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/bbq2oo-rumor-stoop-world-vol-2-12th-nov-ding-a-ling-new-york-city-tickets",
+     "checked_at": "2026-10-27T11:44:58.191Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "116 AVENUE C, New York, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "ding-a-ling",
+    "name": "Ding-a-Ling",
+    "aliases": [],
+    "rooms": [],
+    "address": "116 AVENUE C",
+    "zip": "10009",
+    "borough": "Manhattan",
+    "neighborhood": null,
+    "lat": 40.724287,
+    "lng": -73.978412,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/bbq2oo-rumor-stoop-world-vol-2-12th-nov-ding-a-ling-new-york-city-tickets",
+      "name": "DICE",
+      "checked_at": "2026-10-27T11:44:58.191Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "116 AVENUE C, New York, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-27T11:44:58.244709+00:00",
+    "updated_at": "2026-10-27T11:44:58.244709+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#8",
+  "venue": "the-house",
+  "status": 201,
+  "row": {
+   "id": "the-house",
+   "name": "The House",
+   "address": "29 LOCUST STREET",
+   "zip": "11206",
+   "borough": "Brooklyn",
+   "lat": 40.69949,
+   "lng": -73.937636,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/wwn3nv-club-cocoa-ft-halima-live-ubabu-ch3ri-nebula-13th-nov-the-house-new-york-city-tickets",
+     "checked_at": "2026-10-27T11:44:58.671Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "29 LOCUST STREET, Brooklyn, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "the-house",
+    "name": "The House",
+    "aliases": [],
+    "rooms": [],
+    "address": "29 LOCUST STREET",
+    "zip": "11206",
+    "borough": "Brooklyn",
+    "neighborhood": null,
+    "lat": 40.69949,
+    "lng": -73.937636,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/wwn3nv-club-cocoa-ft-halima-live-ubabu-ch3ri-nebula-13th-nov-the-house-new-york-city-tickets",
+      "name": "DICE",
+      "checked_at": "2026-10-27T11:44:58.671Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "29 LOCUST STREET, Brooklyn, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-27T11:44:58.693111+00:00",
+    "updated_at": "2026-10-27T11:44:58.693111+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#9",
+  "venue": "empire-stage",
+  "status": 201,
+  "row": {
+   "id": "empire-stage",
+   "name": "Empire Stage",
+   "address": "229 EMPIRE BOULEVARD",
+   "zip": "11225",
+   "borough": "Brooklyn",
+   "lat": 40.663972,
+   "lng": -73.954469,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/bbq79g-pressure-point-a-multimedia-warehouse-party-19th-nov-empire-stage-new-york-city-tickets",
+     "checked_at": "2026-10-27T11:44:59.052Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "229 EMPIRE BOULEVARD, Brooklyn, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "empire-stage",
+    "name": "Empire Stage",
+    "aliases": [],
+    "rooms": [],
+    "address": "229 EMPIRE BOULEVARD",
+    "zip": "11225",
+    "borough": "Brooklyn",
+    "neighborhood": null,
+    "lat": 40.663972,
+    "lng": -73.954469,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/bbq79g-pressure-point-a-multimedia-warehouse-party-19th-nov-empire-stage-new-york-city-tickets",
+      "name": "DICE",
+      "checked_at": "2026-10-27T11:44:59.052Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "229 EMPIRE BOULEVARD, Brooklyn, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-27T11:44:59.076998+00:00",
+    "updated_at": "2026-10-27T11:44:59.076998+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#10",
+  "venue": "brooklyn-music-kitchen",
+  "status": 201,
+  "row": {
+   "id": "brooklyn-music-kitchen",
+   "name": "Brooklyn Music Kitchen",
+   "address": "177 VANDERBILT AVENUE",
+   "zip": "11205",
+   "borough": "Brooklyn",
+   "lat": 40.692646,
+   "lng": -73.96947,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/k67gq9-joey-konopka-zaire-bloomfield-and-more-3rd-dec-brooklyn-music-kitchen-new-york-city-tickets",
+     "checked_at": "2026-10-27T11:44:59.462Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "177 VANDERBILT AVENUE, Brooklyn, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "brooklyn-music-kitchen",
+    "name": "Brooklyn Music Kitchen",
+    "aliases": [],
+    "rooms": [],
+    "address": "177 VANDERBILT AVENUE",
+    "zip": "11205",
+    "borough": "Brooklyn",
+    "neighborhood": null,
+    "lat": 40.692646,
+    "lng": -73.96947,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/k67gq9-joey-konopka-zaire-bloomfield-and-more-3rd-dec-brooklyn-music-kitchen-new-york-city-tickets",
+      "name": "DICE",
+      "checked_at": "2026-10-27T11:44:59.462Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "177 VANDERBILT AVENUE, Brooklyn, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-27T11:44:59.486385+00:00",
+    "updated_at": "2026-10-27T11:44:59.486385+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#11",
+  "venue": "pianos-showroom",
+  "status": 201,
+  "row": {
+   "id": "pianos-showroom",
+   "name": "Pianos: Showroom",
+   "address": "158 LUDLOW STREET",
+   "zip": "10002",
+   "borough": "Manhattan",
+   "lat": 40.721012,
+   "lng": -73.987622,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/6dy3y8-stram-chris-olsen-nonsense-awful-christine-3rd-dec-pianos-showroom-new-york-tickets",
+     "checked_at": "2026-10-27T11:44:59.847Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "158 LUDLOW STREET, New York, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "pianos-showroom",
+    "name": "Pianos: Showroom",
+    "aliases": [],
+    "rooms": [],
+    "address": "158 LUDLOW STREET",
+    "zip": "10002",
+    "borough": "Manhattan",
+    "neighborhood": null,
+    "lat": 40.721012,
+    "lng": -73.987622,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/6dy3y8-stram-chris-olsen-nonsense-awful-christine-3rd-dec-pianos-showroom-new-york-tickets",
+      "name": "DICE",
+      "checked_at": "2026-10-27T11:44:59.847Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "158 LUDLOW STREET, New York, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-27T11:44:59.866813+00:00",
+    "updated_at": "2026-10-27T11:44:59.866813+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#12",
+  "venue": "union-pool",
+  "status": 201,
+  "row": {
+   "id": "union-pool",
+   "name": "Union Pool",
+   "address": "484 UNION AVENUE",
+   "zip": "11211",
+   "borough": "Brooklyn",
+   "lat": 40.715004,
+   "lng": -73.951552,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/bbgqoo-ris-3rd-dec-union-pool-new-york-tickets",
+     "checked_at": "2026-10-27T11:45:00.229Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "484 UNION AVENUE, Brooklyn, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "union-pool",
+    "name": "Union Pool",
+    "aliases": [],
+    "rooms": [],
+    "address": "484 UNION AVENUE",
+    "zip": "11211",
+    "borough": "Brooklyn",
+    "neighborhood": null,
+    "lat": 40.715004,
+    "lng": -73.951552,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/bbgqoo-ris-3rd-dec-union-pool-new-york-tickets",
+      "name": "DICE",
+      "checked_at": "2026-10-27T11:45:00.229Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "484 UNION AVENUE, Brooklyn, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-27T11:45:00.27201+00:00",
+    "updated_at": "2026-10-27T11:45:00.27201+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#13",
+  "venue": "good-room",
+  "status": 201,
+  "row": {
+   "id": "good-room",
+   "name": "Good Room",
+   "address": "98 MESEROLE AVENUE",
+   "zip": "11222",
+   "borough": "Brooklyn",
+   "lat": 40.72688,
+   "lng": -73.952869,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/avxxvv-lucy-cooper-b-handy-fgs-3rd-dec-good-room-new-york-tickets",
+     "checked_at": "2026-10-27T11:45:00.852Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "98 MESEROLE AVENUE, Brooklyn, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "good-room",
+    "name": "Good Room",
+    "aliases": [],
+    "rooms": [],
+    "address": "98 MESEROLE AVENUE",
+    "zip": "11222",
+    "borough": "Brooklyn",
+    "neighborhood": null,
+    "lat": 40.72688,
+    "lng": -73.952869,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/avxxvv-lucy-cooper-b-handy-fgs-3rd-dec-good-room-new-york-tickets",
+      "name": "DICE",
+      "checked_at": "2026-10-27T11:45:00.852Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "98 MESEROLE AVENUE, Brooklyn, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-27T11:45:00.887184+00:00",
+    "updated_at": "2026-10-27T11:45:00.887184+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#14",
+  "venue": "stone-circle-theatre",
+  "status": 201,
+  "row": {
+   "id": "stone-circle-theatre",
+   "name": "Stone Circle Theatre",
+   "address": "59-14 70 AVENUE",
+   "zip": "11385",
+   "borough": "Queens",
+   "lat": 40.701037,
+   "lng": -73.899666,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/7d5pk6-junior-mesa-night-2-sold-out-6th-dec-stone-circle-theatre-new-york-city-tickets",
+     "checked_at": "2026-10-27T11:45:02.093Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "59-14 70 AVENUE, Ridgewood, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "stone-circle-theatre",
+    "name": "Stone Circle Theatre",
+    "aliases": [],
+    "rooms": [],
+    "address": "59-14 70 AVENUE",
+    "zip": "11385",
+    "borough": "Queens",
+    "neighborhood": null,
+    "lat": 40.701037,
+    "lng": -73.899666,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/7d5pk6-junior-mesa-night-2-sold-out-6th-dec-stone-circle-theatre-new-york-city-tickets",
+      "name": "DICE",
+      "checked_at": "2026-10-27T11:45:02.093Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "59-14 70 AVENUE, Ridgewood, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-27T11:45:02.115297+00:00",
+    "updated_at": "2026-10-27T11:45:02.115297+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#15",
+  "venue": "babys-all-right",
+  "status": 201,
+  "row": {
+   "id": "babys-all-right",
+   "name": "Baby's All Right",
+   "address": "146 B'WAY",
+   "zip": "11211",
+   "borough": "Brooklyn",
+   "lat": 40.709994,
+   "lng": -73.963495,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/q2d37x-stevie-bill-pieces-mini-tour-10th-dec-babys-all-right-new-york-tickets",
+     "checked_at": "2026-10-27T11:45:02.529Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "146 B'WAY, Brooklyn, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "babys-all-right",
+    "name": "Baby's All Right",
+    "aliases": [],
+    "rooms": [],
+    "address": "146 B'WAY",
+    "zip": "11211",
+    "borough": "Brooklyn",
+    "neighborhood": null,
+    "lat": 40.709994,
+    "lng": -73.963495,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/q2d37x-stevie-bill-pieces-mini-tour-10th-dec-babys-all-right-new-york-tickets",
+      "name": "DICE",
+      "checked_at": "2026-10-27T11:45:02.529Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "146 B'WAY, Brooklyn, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-27T11:45:02.571318+00:00",
+    "updated_at": "2026-10-27T11:45:02.571318+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#16",
+  "venue": "st-ann-and-the-holy-trinity",
+  "status": 201,
+  "row": {
+   "id": "st-ann-and-the-holy-trinity",
+   "name": "St. Ann & The Holy Trinity",
+   "address": "157 MONTAGUE STREET",
+   "zip": "11201",
+   "borough": "Brooklyn",
+   "lat": 40.694686,
+   "lng": -73.993047,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/6dobb2-gallant-10th-dec-st-ann-the-holy-trinity-new-york-city-tickets",
+     "checked_at": "2026-10-27T11:45:03.357Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "157 MONTAGUE STREET, Brooklyn, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "st-ann-and-the-holy-trinity",
+    "name": "St. Ann & The Holy Trinity",
+    "aliases": [],
+    "rooms": [],
+    "address": "157 MONTAGUE STREET",
+    "zip": "11201",
+    "borough": "Brooklyn",
+    "neighborhood": null,
+    "lat": 40.694686,
+    "lng": -73.993047,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/6dobb2-gallant-10th-dec-st-ann-the-holy-trinity-new-york-city-tickets",
+      "name": "DICE",
+      "checked_at": "2026-10-27T11:45:03.357Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "157 MONTAGUE STREET, Brooklyn, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-27T11:45:03.388847+00:00",
+    "updated_at": "2026-10-27T11:45:03.388847+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#17",
+  "venue": "margaritaville-time-square",
+  "error": "no venue in DICE JSON-LD"
+ },
+ {
+  "step": "#18",
+  "venue": "puttery",
+  "status": 201,
+  "row": {
+   "id": "puttery",
+   "name": "Puttery",
+   "address": "446 WEST 14 STREET",
+   "zip": "10014",
+   "borough": "Manhattan",
+   "lat": 40.741579,
+   "lng": -74.007591,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/k67y5p-puttery-new-years-eve-2027-access-rorys-rooftop-rojo-room-31st-dec-puttery-new-york-city-tickets",
+     "checked_at": "2026-10-27T11:45:04.178Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "446 WEST 14 STREET, New York, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "puttery",
+    "name": "Puttery",
+    "aliases": [],
+    "rooms": [],
+    "address": "446 WEST 14 STREET",
+    "zip": "10014",
+    "borough": "Manhattan",
+    "neighborhood": null,
+    "lat": 40.741579,
+    "lng": -74.007591,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/k67y5p-puttery-new-years-eve-2027-access-rorys-rooftop-rojo-room-31st-dec-puttery-new-york-city-tickets",
+      "name": "DICE",
+      "checked_at": "2026-10-27T11:45:04.178Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "446 WEST 14 STREET, New York, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-27T11:45:04.206311+00:00",
+    "updated_at": "2026-10-27T11:45:04.206311+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#19",
+  "venue": "le-poisson-rouge",
+  "status": 201,
+  "row": {
+   "id": "le-poisson-rouge",
+   "name": "Le Poisson Rouge",
+   "address": "158 BLEECKER STREET",
+   "zip": "10012",
+   "borough": "Manhattan",
+   "lat": 40.728443,
+   "lng": -74.000202,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/oema7a-lpr-new-years-eve-2027-31st-dec-le-poisson-rouge-new-york-tickets",
+     "checked_at": "2026-10-27T11:45:04.618Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "158 BLEECKER STREET, New York, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "le-poisson-rouge",
+    "name": "Le Poisson Rouge",
+    "aliases": [],
+    "rooms": [],
+    "address": "158 BLEECKER STREET",
+    "zip": "10012",
+    "borough": "Manhattan",
+    "neighborhood": null,
+    "lat": 40.728443,
+    "lng": -74.000202,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/oema7a-lpr-new-years-eve-2027-31st-dec-le-poisson-rouge-new-york-tickets",
+      "name": "DICE",
+      "checked_at": "2026-10-27T11:45:04.618Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "158 BLEECKER STREET, New York, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-27T11:45:04.636398+00:00",
+    "updated_at": "2026-10-27T11:45:04.636398+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#20",
+  "venue": "arlo-soho",
+  "status": 201,
+  "row": {
+   "id": "arlo-soho",
+   "name": "Arlo Soho",
+   "address": "231 HUDSON STREET",
+   "zip": "10013",
+   "borough": "Manhattan",
+   "lat": 40.724439,
+   "lng": -74.008432,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/nvr6p3-arlo-soho-new-years-eve-2027-31st-dec-arlo-soho-new-york-city-tickets",
+     "checked_at": "2026-10-27T11:45:05.107Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "231 HUDSON STREET, New York, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "arlo-soho",
+    "name": "Arlo Soho",
+    "aliases": [],
+    "rooms": [],
+    "address": "231 HUDSON STREET",
+    "zip": "10013",
+    "borough": "Manhattan",
+    "neighborhood": null,
+    "lat": 40.724439,
+    "lng": -74.008432,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/nvr6p3-arlo-soho-new-years-eve-2027-31st-dec-arlo-soho-new-york-city-tickets",
+      "name": "DICE",
+      "checked_at": "2026-10-27T11:45:05.107Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "231 HUDSON STREET, New York, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-27T11:45:05.128709+00:00",
+    "updated_at": "2026-10-27T11:45:05.128709+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#21",
+  "venue": "yesterdays",
+  "status": 201,
+  "row": {
+   "id": "yesterdays",
+   "name": "Yesterday's",
+   "address": "157 BLEECKER STREET",
+   "zip": "10012",
+   "borough": "Manhattan",
+   "lat": 40.728706,
+   "lng": -73.999711,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/5326mw-yesterdays-new-years-eve-2027-31st-dec-yesterdays-new-york-city-tickets",
+     "checked_at": "2026-10-27T11:45:05.559Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "157 BLEECKER STREET, New York, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "yesterdays",
+    "name": "Yesterday's",
+    "aliases": [],
+    "rooms": [],
+    "address": "157 BLEECKER STREET",
+    "zip": "10012",
+    "borough": "Manhattan",
+    "neighborhood": null,
+    "lat": 40.728706,
+    "lng": -73.999711,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/5326mw-yesterdays-new-years-eve-2027-31st-dec-yesterdays-new-york-city-tickets",
+      "name": "DICE",
+      "checked_at": "2026-10-27T11:45:05.559Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "157 BLEECKER STREET, New York, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-27T11:45:05.588609+00:00",
+    "updated_at": "2026-10-27T11:45:05.588609+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#22",
+  "venue": "la-caverna",
+  "status": 201,
+  "row": {
+   "id": "la-caverna",
+   "name": "La Caverna",
+   "address": "122 RIVINGTON STREET",
+   "zip": "10002",
+   "borough": "Manhattan",
+   "lat": 40.719889,
+   "lng": -73.987093,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/8edl9w-new-years-eve-2027-at-la-caverna-31st-dec-la-caverna-new-york-city-tickets",
+     "checked_at": "2026-10-27T11:45:05.968Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "122 RIVINGTON STREET, New York, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "la-caverna",
+    "name": "La Caverna",
+    "aliases": [],
+    "rooms": [],
+    "address": "122 RIVINGTON STREET",
+    "zip": "10002",
+    "borough": "Manhattan",
+    "neighborhood": null,
+    "lat": 40.719889,
+    "lng": -73.987093,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/8edl9w-new-years-eve-2027-at-la-caverna-31st-dec-la-caverna-new-york-city-tickets",
+      "name": "DICE",
+      "checked_at": "2026-10-27T11:45:05.968Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "122 RIVINGTON STREET, New York, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-27T11:45:05.992604+00:00",
+    "updated_at": "2026-10-27T11:45:05.992604+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#23",
+  "venue": "waiting-on-a-friend",
+  "status": 201,
+  "row": {
+   "id": "waiting-on-a-friend",
+   "name": "Waiting On A Friend",
+   "address": "206 AVENUE A",
+   "zip": "10009",
+   "borough": "Manhattan",
+   "lat": 40.729464,
+   "lng": -73.980733,
+   "sources": [
+    {
+     "name": "DICE",
+     "url": "https://dice.fm/event/av85rx-new-years-eve-2027-at-waiting-on-a-friend-31st-dec-waiting-on-a-friend-new-york-city-tickets",
+     "checked_at": "2026-10-27T11:45:06.556Z"
+    },
+    {
+     "name": "NYC GeoSearch",
+     "url": "https://geosearch.planninglabs.nyc",
+     "label": "206 AVENUE A, New York, NY, USA"
+    }
+   ]
+  },
+  "body": [
+   {
+    "id": "waiting-on-a-friend",
+    "name": "Waiting On A Friend",
+    "aliases": [],
+    "rooms": [],
+    "address": "206 AVENUE A",
+    "zip": "10009",
+    "borough": "Manhattan",
+    "neighborhood": null,
+    "lat": 40.729464,
+    "lng": -73.980733,
+    "kind": null,
+    "facts": {},
+    "copy": {},
+    "sources": [
+     {
+      "url": "https://dice.fm/event/av85rx-new-years-eve-2027-at-waiting-on-a-friend-31st-dec-waiting-on-a-friend-new-york-city-tickets",
+      "name": "DICE",
+      "checked_at": "2026-10-27T11:45:06.556Z"
+     },
+     {
+      "url": "https://geosearch.planninglabs.nyc",
+      "name": "NYC GeoSearch",
+      "label": "206 AVENUE A, New York, NY, USA"
+     }
+    ],
+    "status": "active",
+    "google_checked_at": null,
+    "created_at": "2026-10-27T11:45:06.604416+00:00",
+    "updated_at": "2026-10-27T11:45:06.604416+00:00"
+   }
+  ]
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/av826q-lewis-recordings-25th-anniversary-feat-edan-skinshape-dj-the-still-brothers-charlie-forest-midnight-cafe-raining-blue-more-27th-oct-public-records-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:av826q-lewis-recordings-25th-anniversary-feat-edan-skinshape-dj-the-still-brothers-charlie-forest-midnight-cafe-raining-blue-more-27th-oct-public-records-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/g58nva-aerobicide-slimer-edition-27th-oct-saint-vitus-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:g58nva-aerobicide-slimer-edition-27th-oct-saint-vitus-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/dkyd3e--karaoke-tuesday-night-27th-oct-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:dkyd3e--karaoke-tuesday-night-27th-oct-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/nvrlpl-afrobeats-happy-hour-28th-oct-acoustik-garden-lounge-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:nvrlpl-afrobeats-happy-hour-28th-oct-acoustik-garden-lounge-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/2wnwyo-baby-buck-28th-oct-desert-5-spot-ny-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:2wnwyo-baby-buck-28th-oct-desert-5-spot-ny-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/l8pm2l-5k-run-afterparty-w-alp-and-ege-dai-28th-oct-jupiter-disco-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:l8pm2l-5k-run-afterparty-w-alp-and-ege-dai-28th-oct-jupiter-disco-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/k675al--karaoke-wednesday-night-28th-oct-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:k675al--karaoke-wednesday-night-28th-oct-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/q23v29-kylin-obrien-art-under-the-bridge-29th-oct-baci-studio-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:q23v29-kylin-obrien-art-under-the-bridge-29th-oct-baci-studio-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/yoqdar--karaoke-thursday-night-29th-oct-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:yoqdar--karaoke-thursday-night-29th-oct-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/dky7ko-yalla-yalla-thatguyhabibi-29th-oct-altheas-hideaway-nyc-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:dky7ko-yalla-yalla-thatguyhabibi-29th-oct-altheas-hideaway-nyc-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/92vl9o-traitors-viewing-party-29th-oct-cmon-everybody-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:92vl9o-traitors-viewing-party-29th-oct-cmon-everybody-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/g5v8y6-symposium-records-scott-mx-29th-oct-jupiter-disco-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:g5v8y6-symposium-records-scott-mx-29th-oct-jupiter-disco-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/k6759l--karaoke-friday-night-30th-oct-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:k6759l--karaoke-friday-night-30th-oct-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/wwnrvp-amradio-night-time-caf-30th-oct-car-part-time-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:wwnrvp-amradio-night-time-caf-30th-oct-car-part-time-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6dgnn8-the-rocky-horror-picture-show-live-30th-oct-cmon-everybody-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6dgnn8-the-rocky-horror-picture-show-live-30th-oct-cmon-everybody-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6dgbv2-halloween-at-gitano-nyc-club-bohemia-oct-30-30th-oct-gitano-nyc-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6dgbv2-halloween-at-gitano-nyc-club-bohemia-oct-30-30th-oct-gitano-nyc-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/eo985o-halloween-hoodini-friends-30th-oct-altheas-hideaway-nyc-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:eo985o-halloween-hoodini-friends-30th-oct-altheas-hideaway-nyc-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/xegrrk-shimza-capitale-ny-jungle-galactica-halloween-30th-oct-capitale-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:xegrrk-shimza-capitale-ny-jungle-galactica-halloween-30th-oct-capitale-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/xe83m3-the-purple-room-bushwick-30th-oct-the-purple-room-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:xe83m3-the-purple-room-bushwick-30th-oct-the-purple-room-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/l87gxw-all-ages-spooky-skate-with-dj-big-bob-skate-31st-oct-xanadu-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:l87gxw-all-ages-spooky-skate-with-dj-big-bob-skate-31st-oct-xanadu-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/v3xa87-downtown-halloween-bar-fest-hosted-by-brianna-chickenfry-31st-oct-multiple-venues-lower-east-side-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:v3xa87-downtown-halloween-bar-fest-hosted-by-brianna-chickenfry-31st-oct-multiple-venues-lower-east-side-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/oe99km--halloween-karaoke-costume-party-31st-oct-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:oe99km--halloween-karaoke-costume-party-31st-oct-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/nvp2eq-les-killshot-halloween-bar-crawl-1031-31st-oct-sour-mouse-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:nvp2eq-les-killshot-halloween-bar-crawl-1031-31st-oct-sour-mouse-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/yoqdbr--karaoke-saturday-night-31st-oct-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:yoqdbr--karaoke-saturday-night-31st-oct-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/l8mbbp-the-rocky-horror-picture-show-live-31st-oct-cmon-everybody-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:l8mbbp-the-rocky-horror-picture-show-live-31st-oct-cmon-everybody-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/l876xl-vesper-halloween-at-laissez-faire-31st-oct-laissez-faire-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:l876xl-vesper-halloween-at-laissez-faire-31st-oct-laissez-faire-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/eo9xyw-the-bronze-owl-nye-27-31st-oct-the-bronze-owl-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:eo9xyw-the-bronze-owl-nye-27-31st-oct-the-bronze-owl-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/bbqgkk-wavcrash-halloween-niku-x-rooftop-31st-oct-niku-x-rooftop-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:bbqgkk-wavcrash-halloween-niku-x-rooftop-31st-oct-niku-x-rooftop-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/bbogvg-1-hotel-haunted-lounge-halloween-1031-31st-oct-harriets-lounge-1-hotel-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:bbogvg-1-hotel-haunted-lounge-halloween-1031-31st-oct-harriets-lounge-1-hotel-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/mxwm39-boo-at-the-zoo-the-legendary-halloween-party-31st-oct-oberon-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:mxwm39-boo-at-the-zoo-the-legendary-halloween-party-31st-oct-oberon-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6dgy38-dungeons-and-drag-vampires-a-masquerade-31st-oct-purgatory-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6dgy38-dungeons-and-drag-vampires-a-masquerade-31st-oct-purgatory-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/v35lwv-zestyworld-no-rest-for-the-wicked-1st-nov-the-sultan-room-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:v35lwv-zestyworld-no-rest-for-the-wicked-1st-nov-the-sultan-room-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/3o8g2p-buckaroo-1st-nov-desert-5-spot-ny-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:3o8g2p-buckaroo-1st-nov-desert-5-spot-ny-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/g5vd96-buck-wild-1st-nov-desert-5-spot-ny-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:g5vd96-buck-wild-1st-nov-desert-5-spot-ny-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/nvrxq9-ben-zo-drtoof-henry-jennings-scallywag-1st-nov-jupiter-disco-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:nvrxq9-ben-zo-drtoof-henry-jennings-scallywag-1st-nov-jupiter-disco-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/8ed9x7--karaoke-sunday-night-1st-nov-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:8ed9x7--karaoke-sunday-night-1st-nov-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/8e7aww-karaoke-night-1st-nov-cassette-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:8e7aww-karaoke-night-1st-nov-cassette-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/wwkm6v-yard-sale-comedy-open-mic-2nd-nov-alphaville-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:wwkm6v-yard-sale-comedy-open-mic-2nd-nov-alphaville-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/nvxmw8-karaoke-mondays-2nd-nov-alphaville-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:nvxmw8-karaoke-mondays-2nd-nov-alphaville-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/v35xg7--karaoke-monday-night-2nd-nov-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:v35xg7--karaoke-monday-night-2nd-nov-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/532aaw-downstairs-karaoke-free-2nd-nov-purgatory-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:532aaw-downstairs-karaoke-free-2nd-nov-purgatory-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/g5v78b-rolling-for-democracy-election-day-viewing-party-w-misbehaviour-varunisme-silent-h-serrian-skate-3rd-nov-xanadu-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:g5v78b-rolling-for-democracy-election-day-viewing-party-w-misbehaviour-varunisme-silent-h-serrian-skate-3rd-nov-xanadu-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/7d9nav-open-decks-w-steen-vrsnne-3rd-nov-silo-brooklyn-brooklyn-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:7d9nav-open-decks-w-steen-vrsnne-3rd-nov-silo-brooklyn-brooklyn-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/eo9632--karaoke-tuesday-night-3rd-nov-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:eo9632--karaoke-tuesday-night-3rd-nov-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/pyxowy-afrobeats-happy-hour-4th-nov-acoustik-garden-lounge-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:pyxowy-afrobeats-happy-hour-4th-nov-acoustik-garden-lounge-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/xe8eom-baby-buck-4th-nov-desert-5-spot-ny-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:xe8eom-baby-buck-4th-nov-desert-5-spot-ny-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/rye32v-talk-it-up-a-drag-tribute-to-sammy-rae-the-friends-4th-nov-cmon-everybody-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:rye32v-talk-it-up-a-drag-tribute-to-sammy-rae-the-friends-4th-nov-cmon-everybody-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/av8o7v-wednesday-on-wheels-ft-dj-arson-skate-4th-nov-xanadu-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:av8o7v-wednesday-on-wheels-ft-dj-arson-skate-4th-nov-xanadu-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/g5vbdb--karaoke-wednesday-night-4th-nov-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:g5vbdb--karaoke-wednesday-night-4th-nov-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/bbqmqm-dirty-magazines-lingerie-skate-skate-all-night-5th-nov-xanadu-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:bbqmqm-dirty-magazines-lingerie-skate-skate-all-night-5th-nov-xanadu-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/xe836l--karaoke-thursday-night-5th-nov-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:xe836l--karaoke-thursday-night-5th-nov-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/3o85kv-traitors-viewing-party-5th-nov-cmon-everybody-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:3o85kv-traitors-viewing-party-5th-nov-cmon-everybody-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/av8xo2-who-let-the-chu-out-tobias-chuwee-5th-nov-moondog-hifi-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:av8xo2-who-let-the-chu-out-tobias-chuwee-5th-nov-moondog-hifi-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/yoq572-ctrl-alt-dlt-5th-nov-cmon-everybody-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:yoq572-ctrl-alt-dlt-5th-nov-cmon-everybody-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/eon6r2-weekend-warm-up-skate-6th-nov-xanadu-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:eon6r2-weekend-warm-up-skate-6th-nov-xanadu-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/g5vbmb--karaoke-friday-night-6th-nov-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:g5vbmb--karaoke-friday-night-6th-nov-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6dyamq-adult-skate-night-ft-dj-suave-skate-6th-nov-xanadu-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6dyamq-adult-skate-night-ft-dj-suave-skate-6th-nov-xanadu-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/ryrwlv-the-do-over-20-year-anniversary-6th-nov-314-scholes-street-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:ryrwlv-the-do-over-20-year-anniversary-6th-nov-314-scholes-street-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/l8pm6r-royalty-at-the-crown-6th-nov-the-crown-rooftop-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:l8pm6r-royalty-at-the-crown-6th-nov-the-crown-rooftop-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/l8p7ll-less-is-more-rich-bass-quentin-kanze-6th-nov-moondog-hifi-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:l8p7ll-less-is-more-rich-bass-quentin-kanze-6th-nov-moondog-hifi-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/l8prwb-1-hotel-lounge-brooklyn-bridge-6th-nov-1-hotel-brooklyn-bridge-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:l8prwb-1-hotel-lounge-brooklyn-bridge-6th-nov-1-hotel-brooklyn-bridge-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/l8mgrx-sith-secret-rendezvous-nov-6th-20-w-36th-st-new-york-ny-6th-nov-eden-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:l8mgrx-sith-secret-rendezvous-nov-6th-20-w-36th-st-new-york-ny-6th-nov-eden-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/53km7l-xanadu-day-disco-skate-7th-nov-xanadu-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:53km7l-xanadu-day-disco-skate-7th-nov-xanadu-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6dyovq-moondog-hifis-2-year-anniversary-7th-nov-moondog-hifi-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6dyovq-moondog-hifis-2-year-anniversary-7th-nov-moondog-hifi-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/yoq5p2-afrohouse-day-party-7th-nov-acoustik-garden-lounge-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:yoq5p2-afrohouse-day-party-7th-nov-acoustik-garden-lounge-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/nvrx2q-bear-belly-bear-tea-dance-7th-nov-cmon-everybody-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:nvrx2q-bear-belly-bear-tea-dance-7th-nov-cmon-everybody-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/xe83al--karaoke-saturday-night-7th-nov-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:xe83al--karaoke-saturday-night-7th-nov-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/wwnd2p-birthday-behavior-scorpio-edition-ft-dj-arson-skate-7th-nov-xanadu-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:wwnd2p-birthday-behavior-scorpio-edition-ft-dj-arson-skate-7th-nov-xanadu-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/532lak-afrojam-first-saturday-nigeria-independence-edition-7th-nov-acoustik-garden-lounge-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:532lak-afrojam-first-saturday-nigeria-independence-edition-7th-nov-acoustik-garden-lounge-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/g5vre5-new-york-latin-indie-girl-mala-dj-set-kat-marcella-otro-martnez-mara-alejandra-7th-nov-sleepwalk-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:g5vre5-new-york-latin-indie-girl-mala-dj-set-kat-marcella-otro-martnez-mara-alejandra-7th-nov-sleepwalk-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/92vnp9-pork-butt-7th-nov-cmon-everybody-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:92vnp9-pork-butt-7th-nov-cmon-everybody-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/eon5vy-sunday-afterglow-skate-8th-nov-xanadu-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:eon5vy-sunday-afterglow-skate-8th-nov-xanadu-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/bbq3kx-buckaroo-8th-nov-desert-5-spot-ny-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:bbq3kx-buckaroo-8th-nov-desert-5-spot-ny-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/pyx5v8-buck-wild-8th-nov-desert-5-spot-ny-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:pyx5v8-buck-wild-8th-nov-desert-5-spot-ny-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/3o86xg-honey-trap-roller-discoteque-ft-amelia-holt-bouffant-bouffant-club-flush-second-contact-b2b-conduit-skate-8th-nov-xanadu-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:3o86xg-honey-trap-roller-discoteque-ft-amelia-holt-bouffant-bouffant-club-flush-second-contact-b2b-conduit-skate-8th-nov-xanadu-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/wwn9ln--karaoke-sunday-night-8th-nov-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:wwn9ln--karaoke-sunday-night-8th-nov-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/wwkvax-karaoke-night-8th-nov-cassette-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:wwkvax-karaoke-night-8th-nov-cassette-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/q2dpwo-yard-sale-comedy-open-mic-9th-nov-alphaville-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:q2dpwo-yard-sale-comedy-open-mic-9th-nov-alphaville-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/py37rp-karaoke-mondays-9th-nov-alphaville-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:py37rp-karaoke-mondays-9th-nov-alphaville-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/oem8qr--karaoke-monday-night-9th-nov-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:oem8qr--karaoke-monday-night-9th-nov-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/7d9ll6-downstairs-karaoke-free-9th-nov-purgatory-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:7d9ll6-downstairs-karaoke-free-9th-nov-purgatory-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/v3ll3l-free-pure-chaos-open-mic-comedy-10th-nov-alphaville-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:v3ll3l-free-pure-chaos-open-mic-comedy-10th-nov-alphaville-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/3obm3x-wild-card-comedy-free-every-tuesday-10th-nov-alphaville-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:3obm3x-wild-card-comedy-free-every-tuesday-10th-nov-alphaville-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/8ed39v-afrobeats-happy-hour-11th-nov-acoustik-garden-lounge-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:8ed39v-afrobeats-happy-hour-11th-nov-acoustik-garden-lounge-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/pywg2p-baby-buck-11th-nov-desert-5-spot-ny-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:pywg2p-baby-buck-11th-nov-desert-5-spot-ny-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/2wnapa-mall-drag-12th-nov-cmon-everybody-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:2wnapa-mall-drag-12th-nov-cmon-everybody-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/dky9le-traitors-viewing-party-12th-nov-cmon-everybody-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:dky9le-traitors-viewing-party-12th-nov-cmon-everybody-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/bbq2oo-rumor-stoop-world-vol-2-12th-nov-ding-a-ling-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:bbq2oo-rumor-stoop-world-vol-2-12th-nov-ding-a-ling-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/v3lx97-weekend-warm-up-skate-13th-nov-xanadu-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:v3lx97-weekend-warm-up-skate-13th-nov-xanadu-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/eo93l2-daks-skate-dance-party-skate-club-13th-nov-xanadu-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:eo93l2-daks-skate-dance-party-skate-club-13th-nov-xanadu-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/wwn3nv-club-cocoa-ft-halima-live-ubabu-ch3ri-nebula-13th-nov-the-house-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:wwn3nv-club-cocoa-ft-halima-live-ubabu-ch3ri-nebula-13th-nov-the-house-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/923kon-dj-harvey-13th-nov-knockdown-center-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:923kon-dj-harvey-13th-nov-knockdown-center-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/2wnaga-royalty-at-the-crown-13th-nov-the-crown-rooftop-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:2wnaga-royalty-at-the-crown-13th-nov-the-crown-rooftop-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/g5v326-perreo-meets-techno-21-13th-nov-the-meadows-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:g5v326-perreo-meets-techno-21-13th-nov-the-meadows-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6dylmq-100-above-artist-tbd-13th-nov-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6dylmq-100-above-artist-tbd-13th-nov-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/q23yaa-tba-13th-nov-somewhere-nowhere-nyc-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:q23yaa-tba-13th-nov-somewhere-nowhere-nyc-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/py3w5w-xanadu-day-disco-skate-14th-nov-xanadu-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:py3w5w-xanadu-day-disco-skate-14th-nov-xanadu-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/92vq7n-cadence-seb-wildblood-with-delacour-14th-nov-secret-bowery-location-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:92vq7n-cadence-seb-wildblood-with-delacour-14th-nov-secret-bowery-location-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/l8m86l-ridgewood-rendezvous-drag-show-14th-nov-cassette-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:l8m86l-ridgewood-rendezvous-drag-show-14th-nov-cassette-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/wwn6ap-100-above-artist-tbd-14th-nov-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:wwn6ap-100-above-artist-tbd-14th-nov-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/v3le6d-sunday-afterglow-skate-15th-nov-xanadu-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:v3le6d-sunday-afterglow-skate-15th-nov-xanadu-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/k67am9-buckaroo-15th-nov-desert-5-spot-ny-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:k67am9-buckaroo-15th-nov-desert-5-spot-ny-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/8ed8m5-buck-wild-15th-nov-desert-5-spot-ny-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:8ed8m5-buck-wild-15th-nov-desert-5-spot-ny-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/l8po2b-sunday-skate-club-ft-sissies-of-mercy-club-flush-sidestreets-skate-15th-nov-xanadu-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:l8po2b-sunday-skate-club-ft-sissies-of-mercy-club-flush-sidestreets-skate-15th-nov-xanadu-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/q2368y-dj-monay-15th-nov-ernest-records-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:q2368y-dj-monay-15th-nov-ernest-records-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/q23q6x--karaoke-sunday-night-15th-nov-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:q23q6x--karaoke-sunday-night-15th-nov-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/q2d5my-karaoke-night-15th-nov-cassette-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:q2d5my-karaoke-night-15th-nov-cassette-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/ryo8qv-yard-sale-comedy-open-mic-16th-nov-alphaville-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:ryo8qv-yard-sale-comedy-open-mic-16th-nov-alphaville-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/8e7wrr-karaoke-mondays-16th-nov-alphaville-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:8e7wrr-karaoke-mondays-16th-nov-alphaville-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6dyowb--karaoke-monday-night-16th-nov-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6dyowb--karaoke-monday-night-16th-nov-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/nvr883-downstairs-karaoke-free-16th-nov-purgatory-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:nvr883-downstairs-karaoke-free-16th-nov-purgatory-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/oe99em-free-pure-chaos-open-mic-comedy-17th-nov-alphaville-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:oe99em-free-pure-chaos-open-mic-comedy-17th-nov-alphaville-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/dk7w8o-wild-card-comedy-free-every-tuesday-17th-nov-alphaville-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:dk7w8o-wild-card-comedy-free-every-tuesday-17th-nov-alphaville-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/wwn39v-afrobeats-happy-hour-18th-nov-acoustik-garden-lounge-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:wwn39v-afrobeats-happy-hour-18th-nov-acoustik-garden-lounge-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/92v2ko-baby-buck-18th-nov-desert-5-spot-ny-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:92v2ko-baby-buck-18th-nov-desert-5-spot-ny-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/eo92k2-traitors-viewing-party-19th-nov-cmon-everybody-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:eo92k2-traitors-viewing-party-19th-nov-cmon-everybody-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/eo9kky-cahoots-country-dancing-19th-nov-desert-5-spot-ny-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:eo9kky-cahoots-country-dancing-19th-nov-desert-5-spot-ny-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/bbq79g-pressure-point-a-multimedia-warehouse-party-19th-nov-empire-stage-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:bbq79g-pressure-point-a-multimedia-warehouse-party-19th-nov-empire-stage-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/oe98vr-weekend-warm-up-skate-20th-nov-xanadu-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:oe98vr-weekend-warm-up-skate-20th-nov-xanadu-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/l8pmnr-priv-union-20th-nov-acoustik-garden-lounge-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:l8pmnr-priv-union-20th-nov-acoustik-garden-lounge-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/2wn3ma-100-above-artist-tbd-20th-nov-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:2wn3ma-100-above-artist-tbd-20th-nov-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/8e7987-xanadu-day-disco-skate-21st-nov-xanadu-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:8e7987-xanadu-day-disco-skate-21st-nov-xanadu-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/8e7q32-1-hotel-nyc-apres-ski-november-21-21st-nov-1-hotel-brooklyn-bridge-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:8e7q32-1-hotel-nyc-apres-ski-november-21-21st-nov-1-hotel-brooklyn-bridge-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/oem7aa-vinyl-nights-trans-family-disco-w-impala-skate-feat-misbehaviour-illexxandra-tipyourdj-skate-21st-nov-xanadu-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:oem7aa-vinyl-nights-trans-family-disco-w-impala-skate-feat-misbehaviour-illexxandra-tipyourdj-skate-21st-nov-xanadu-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/ryeo5r-royalty-at-the-crown-21st-nov-the-crown-rooftop-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:ryeo5r-royalty-at-the-crown-21st-nov-the-crown-rooftop-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/532my8-st-gloria-presents-salon-no-3-21st-nov-sleepwalk-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:532my8-st-gloria-presents-salon-no-3-21st-nov-sleepwalk-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/92v6b9-afrobeats-x-amapiano-a-night-lagos-party-21st-nov-boho-oasis-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:92v6b9-afrobeats-x-amapiano-a-night-lagos-party-21st-nov-boho-oasis-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/q236ao-bloodrave-wonderland-21st-nov-saint-vitus-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:q236ao-bloodrave-wonderland-21st-nov-saint-vitus-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/l8p5vr-100-above-artist-tbd-21st-nov-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:l8p5vr-100-above-artist-tbd-21st-nov-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/oe9yoa-sunday-afterglow-skate-22nd-nov-xanadu-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:oe9yoa-sunday-afterglow-skate-22nd-nov-xanadu-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/5327dl-buckaroo-22nd-nov-desert-5-spot-ny-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:5327dl-buckaroo-22nd-nov-desert-5-spot-ny-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/wwnr2p-buck-wild-22nd-nov-desert-5-spot-ny-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:wwnr2p-buck-wild-22nd-nov-desert-5-spot-ny-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6dywq2-sunday-skate-club-ft-dj-dream-conrad-dirty-finger-club-flush-zariya-mantle-skate-22nd-nov-xanadu-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6dywq2-sunday-skate-club-ft-dj-dream-conrad-dirty-finger-club-flush-zariya-mantle-skate-22nd-nov-xanadu-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/ryeray--karaoke-sunday-night-22nd-nov-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:ryeray--karaoke-sunday-night-22nd-nov-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/2wa53m-yard-sale-comedy-open-mic-23rd-nov-alphaville-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:2wa53m-yard-sale-comedy-open-mic-23rd-nov-alphaville-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/wwka5r-karaoke-mondays-23rd-nov-alphaville-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:wwka5r-karaoke-mondays-23rd-nov-alphaville-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/av8xe7--karaoke-monday-night-23rd-nov-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:av8xe7--karaoke-monday-night-23rd-nov-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/pyx66l-downstairs-karaoke-free-23rd-nov-purgatory-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:pyx66l-downstairs-karaoke-free-23rd-nov-purgatory-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/v359ll-grown-folks-adult-skate-ft-dj-big-bob-skate-24th-nov-xanadu-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:v359ll-grown-folks-adult-skate-ft-dj-big-bob-skate-24th-nov-xanadu-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6dgg93-free-pure-chaos-open-mic-comedy-24th-nov-alphaville-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6dgg93-free-pure-chaos-open-mic-comedy-24th-nov-alphaville-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/eonvw6-wild-card-comedy-free-every-tuesday-24th-nov-alphaville-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:eonvw6-wild-card-comedy-free-every-tuesday-24th-nov-alphaville-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/q23xqo-afrobeats-happy-hour-25th-nov-acoustik-garden-lounge-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:q23xqo-afrobeats-happy-hour-25th-nov-acoustik-garden-lounge-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/dkykpe-baby-buck-25th-nov-desert-5-spot-ny-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:dkykpe-baby-buck-25th-nov-desert-5-spot-ny-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/v35vvd-cahoots-country-dancing-26th-nov-desert-5-spot-ny-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:v35vvd-cahoots-country-dancing-26th-nov-desert-5-spot-ny-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6dgo2b-weekend-warm-up-skate-27th-nov-xanadu-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6dgo2b-weekend-warm-up-skate-27th-nov-xanadu-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/oe9yba-minty-boi-presents-boy2000-in-new-york-27th-nov-trans-pecos-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:oe9yba-minty-boi-presents-boy2000-in-new-york-27th-nov-trans-pecos-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/g5van6-100-above-artist-tbd-27th-nov-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:g5van6-100-above-artist-tbd-27th-nov-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/wwk9rn-xanadu-day-disco-skate-28th-nov-xanadu-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:wwk9rn-xanadu-day-disco-skate-28th-nov-xanadu-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/dkybwq-the-kage-chapter-01-combat-x-music-28th-nov-capitale-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:dkybwq-the-kage-chapter-01-combat-x-music-28th-nov-capitale-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/mxw7mw-100-above-artist-tbd-28th-nov-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:mxw7mw-100-above-artist-tbd-28th-nov-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/7d9alv-afrobeat-nights-nyc-28th-nov-the-sultan-room-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:7d9alv-afrobeat-nights-nyc-28th-nov-the-sultan-room-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6dgem8-sunday-afterglow-skate-29th-nov-xanadu-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6dgem8-sunday-afterglow-skate-29th-nov-xanadu-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/7d9pnb-buckaroo-29th-nov-desert-5-spot-ny-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:7d9pnb-buckaroo-29th-nov-desert-5-spot-ny-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/2wnk9a-buck-wild-29th-nov-desert-5-spot-ny-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:2wnk9a-buck-wild-29th-nov-desert-5-spot-ny-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/2wnq7o--karaoke-sunday-night-29th-nov-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:2wnq7o--karaoke-sunday-night-29th-nov-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/mxyg7k-yard-sale-comedy-open-mic-30th-nov-alphaville-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:mxyg7k-yard-sale-comedy-open-mic-30th-nov-alphaville-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/bbq9xx--karaoke-monday-night-30th-nov-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:bbq9xx--karaoke-monday-night-30th-nov-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/8edkkw-downstairs-karaoke-free-30th-nov-purgatory-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:8edkkw-downstairs-karaoke-free-30th-nov-purgatory-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/3o8yyg-downstairs-level-up-video-game-club-1st-dec-purgatory-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:3o8yyg-downstairs-level-up-video-game-club-1st-dec-purgatory-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/rye2rv-afrobeats-happy-hour-2nd-dec-acoustik-garden-lounge-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:rye2rv-afrobeats-happy-hour-2nd-dec-acoustik-garden-lounge-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/eo9o82-baby-buck-2nd-dec-desert-5-spot-ny-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:eo9o82-baby-buck-2nd-dec-desert-5-spot-ny-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/wwk7bv-caspian-industries-of-the-blind-the-infinity-ring-3rd-dec-saint-vitus-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:wwk7bv-caspian-industries-of-the-blind-the-infinity-ring-3rd-dec-saint-vitus-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/k67gq9-joey-konopka-zaire-bloomfield-and-more-3rd-dec-brooklyn-music-kitchen-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:k67gq9-joey-konopka-zaire-bloomfield-and-more-3rd-dec-brooklyn-music-kitchen-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/g5v2e5-net-loss-album-release-club-ecology-pffu-3rd-dec-alphaville-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:g5v2e5-net-loss-album-release-club-ecology-pffu-3rd-dec-alphaville-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/nvrqq3-shane-butler-heavy-debt-record-release-silk-fence-strugglin-3rd-dec-public-records-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:nvrqq3-shane-butler-heavy-debt-record-release-silk-fence-strugglin-3rd-dec-public-records-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6dy3y8-stram-chris-olsen-nonsense-awful-christine-3rd-dec-pianos-showroom-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6dy3y8-stram-chris-olsen-nonsense-awful-christine-3rd-dec-pianos-showroom-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/bbgqoo-ris-3rd-dec-union-pool-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:bbgqoo-ris-3rd-dec-union-pool-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/avxxvv-lucy-cooper-b-handy-fgs-3rd-dec-good-room-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:avxxvv-lucy-cooper-b-handy-fgs-3rd-dec-good-room-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/oemkka-cahoots-country-dancing-3rd-dec-desert-5-spot-ny-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:oemkka-cahoots-country-dancing-3rd-dec-desert-5-spot-ny-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6dgmn7-java-jam-3rd-dec-alphaville-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6dgmn7-java-jam-3rd-dec-alphaville-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/av8kdd-michael-simpson-4th-dec-somewhere-nowhere-nyc-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:av8kdd-michael-simpson-4th-dec-somewhere-nowhere-nyc-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/532bd8-100-above-artist-tbd-4th-dec-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:532bd8-100-above-artist-tbd-4th-dec-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/eo9wpw-liminal-collective-kitty-flip-5th-dec-secret-location-brooklyn-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:eo9wpw-liminal-collective-kitty-flip-5th-dec-secret-location-brooklyn-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/7d9knp-100-above-artist-tbd-5th-dec-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:7d9knp-100-above-artist-tbd-5th-dec-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/3oryyl-pig-destroyer-prowler-in-the-yard-undeath-couch-slut-6th-dec-saint-vitus-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:3oryyl-pig-destroyer-prowler-in-the-yard-undeath-couch-slut-6th-dec-saint-vitus-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/532v7y-qi-ming-dionne-van-den-berg-glacial-humming-olivia-mancuso-6th-dec-cassette-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:532v7y-qi-ming-dionne-van-den-berg-glacial-humming-olivia-mancuso-6th-dec-cassette-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/mxw39l-evolfo-secret-family-abby-jeanne-the-shadowband-low-noon-djs-thomas-g-weed-zzola-6th-dec-alphaville-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:mxw39l-evolfo-secret-family-abby-jeanne-the-shadowband-low-noon-djs-thomas-g-weed-zzola-6th-dec-alphaville-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/7d5pk6-junior-mesa-night-2-sold-out-6th-dec-stone-circle-theatre-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:7d5pk6-junior-mesa-night-2-sold-out-6th-dec-stone-circle-theatre-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/2wa55p-real-young-lazy-horse-6th-dec-union-pool-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:2wa55p-real-young-lazy-horse-6th-dec-union-pool-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/k6yyk9-world-music-institute-presents-laura-itandehui-6th-dec-public-records-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:k6yyk9-world-music-institute-presents-laura-itandehui-6th-dec-public-records-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/mxwn8v--karaoke-sunday-night-6th-dec-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:mxwn8v--karaoke-sunday-night-6th-dec-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/avxepx-mareux-future-nobodies-7th-dec-saint-vitus-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:avxepx-mareux-future-nobodies-7th-dec-saint-vitus-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/l8p3vp-shepup-lilith-phillips-prachi-sinha-7th-dec-sleepwalk-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:l8p3vp-shepup-lilith-phillips-prachi-sinha-7th-dec-sleepwalk-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/oe8wmy-rev-vince-anderson-the-love-choir-7th-dec-union-pool-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:oe8wmy-rev-vince-anderson-the-love-choir-7th-dec-union-pool-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/l8p7ob--karaoke-monday-night-7th-dec-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:l8p7ob--karaoke-monday-night-7th-dec-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/wwn77x-downstairs-karaoke-free-7th-dec-purgatory-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:wwn77x-downstairs-karaoke-free-7th-dec-purgatory-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/dky66q-downstairs-level-up-video-game-club-8th-dec-purgatory-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:dky66q-downstairs-level-up-video-game-club-8th-dec-purgatory-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/2wnlqm-afrobeats-happy-hour-9th-dec-acoustik-garden-lounge-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:2wnlqm-afrobeats-happy-hour-9th-dec-acoustik-garden-lounge-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/l8p8xb-baby-buck-9th-dec-desert-5-spot-ny-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:l8p8xb-baby-buck-9th-dec-desert-5-spot-ny-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/3o8ndv-emma-ruth-rundle-cinder-well-early-show-10th-dec-saint-vitus-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:3o8ndv-emma-ruth-rundle-cinder-well-early-show-10th-dec-saint-vitus-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/q2d37x-stevie-bill-pieces-mini-tour-10th-dec-babys-all-right-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:q2d37x-stevie-bill-pieces-mini-tour-10th-dec-babys-all-right-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/8eda2r-deaf-club-10th-dec-tv-eye-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:8eda2r-deaf-club-10th-dec-tv-eye-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/8e7692-manas-10th-dec-union-pool-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:8e7692-manas-10th-dec-union-pool-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/oe9ryr-international-anthem-presents-josh-johnson-animative-with-anna-butterss-ben-lumsdaine-10th-dec-public-records-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:oe9ryr-international-anthem-presents-josh-johnson-animative-with-anna-butterss-ben-lumsdaine-10th-dec-public-records-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6dobb2-gallant-10th-dec-st-ann-the-holy-trinity-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6dobb2-gallant-10th-dec-st-ann-the-holy-trinity-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6dy998-cahoots-country-dancing-10th-dec-desert-5-spot-ny-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6dy998-cahoots-country-dancing-10th-dec-desert-5-spot-ny-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/bb9pkg-emma-ruth-rundle-cinder-well-10th-dec-saint-vitus-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:bb9pkg-emma-ruth-rundle-cinder-well-10th-dec-saint-vitus-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/yoqb92-100-above-artist-tbd-11th-dec-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:yoqb92-100-above-artist-tbd-11th-dec-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/l87ydl-resolute-presents-kerri-chandler-12th-dec-secret-location-brooklyn-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:l87ydl-resolute-presents-kerri-chandler-12th-dec-secret-location-brooklyn-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/nvrnm9-100-above-artist-tbd-12th-dec-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:nvrnm9-100-above-artist-tbd-12th-dec-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/yoqdnv--karaoke-sunday-night-13th-dec-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:yoqdnv--karaoke-sunday-night-13th-dec-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/k675n9--karaoke-monday-night-14th-dec-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:k675n9--karaoke-monday-night-14th-dec-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/mxwbnk-afrobeats-happy-hour-16th-dec-acoustik-garden-lounge-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:mxwbnk-afrobeats-happy-hour-16th-dec-acoustik-garden-lounge-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/av8v57-baby-buck-16th-dec-desert-5-spot-ny-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:av8v57-baby-buck-16th-dec-desert-5-spot-ny-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/k67l5p-anatolian-folk-ensemble-17th-dec-drom-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:k67l5p-anatolian-folk-ensemble-17th-dec-drom-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/q235ma-108-soma-ache-17th-dec-saint-vitus-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:q235ma-108-soma-ache-17th-dec-saint-vitus-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/g5vaga-delicate-steve-holiday-show-17th-dec-pianos-showroom-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:g5vaga-delicate-steve-holiday-show-17th-dec-pianos-showroom-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/mxw7vw-pat-party-17th-dec-union-pool-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:mxw7vw-pat-party-17th-dec-union-pool-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/g5v62b-trace-mountains-mallory-hawk-17th-dec-public-records-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:g5v62b-trace-mountains-mallory-hawk-17th-dec-public-records-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/532qad-maz-17th-dec-cassette-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:532qad-maz-17th-dec-cassette-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/av8aax-cahoots-country-dancing-17th-dec-desert-5-spot-ny-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:av8aax-cahoots-country-dancing-17th-dec-desert-5-spot-ny-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/av83kv-fantcha-cesria-evora-15-year-anniversary-17th-dec-drom-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:av83kv-fantcha-cesria-evora-15-year-anniversary-17th-dec-drom-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/8edgw5-100-above-artist-tbd-18th-dec-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:8edgw5-100-above-artist-tbd-18th-dec-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/g5vap6-revision-rooftop-party-1121-19th-dec-phd-lounge-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:g5vap6-revision-rooftop-party-1121-19th-dec-phd-lounge-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/xe8axe-100-above-artist-tbd-19th-dec-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:xe8axe-100-above-artist-tbd-19th-dec-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/xe837m--karaoke-sunday-night-20th-dec-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:xe837m--karaoke-sunday-night-20th-dec-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/g5vbka--karaoke-monday-night-21st-dec-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:g5vbka--karaoke-monday-night-21st-dec-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/g5v5qa-baby-buck-23rd-dec-desert-5-spot-ny-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:g5v5qa-baby-buck-23rd-dec-desert-5-spot-ny-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/92v5y9-100-above-artist-tbd-26th-dec-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:92v5y9-100-above-artist-tbd-26th-dec-marquee-skydeck-at-edge-hudson-yards-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/92v36o--karaoke-sunday-night-27th-dec-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:92v36o--karaoke-sunday-night-27th-dec-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/532m8l--karaoke-monday-night-28th-dec-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:532m8l--karaoke-monday-night-28th-dec-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/53236l-baby-buck-30th-dec-desert-5-spot-ny-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:53236l-baby-buck-30th-dec-desert-5-spot-ny-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/nvpebl-official-all-ages-times-square-party-pass-31st-dec-margaritaville-time-square-new-york-city-lucky-strike-times-square-new-york-city-tickets",
+  "ok": false,
+  "status": 400,
+  "body": {
+   "code": "P0001",
+   "details": null,
+   "hint": null,
+   "message": "unknown venue margaritaville-time-square: add it to party_venues first"
+  }
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/pywknp-times-square-bowling-31st-dec-lucky-strike-times-square-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:pywknp-times-square-bowling-31st-dec-lucky-strike-times-square-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/mxnad9-gala-in-paradise-31st-dec-margaritaville-landshark-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:mxnad9-gala-in-paradise-31st-dec-margaritaville-landshark-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/k67y5p-puttery-new-years-eve-2027-access-rorys-rooftop-rojo-room-31st-dec-puttery-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:k67y5p-puttery-new-years-eve-2027-access-rorys-rooftop-rojo-room-31st-dec-puttery-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/oema7a-lpr-new-years-eve-2027-31st-dec-le-poisson-rouge-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:oema7a-lpr-new-years-eve-2027-31st-dec-le-poisson-rouge-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/nvr6p3-arlo-soho-new-years-eve-2027-31st-dec-arlo-soho-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:nvr6p3-arlo-soho-new-years-eve-2027-31st-dec-arlo-soho-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/5326mw-yesterdays-new-years-eve-2027-31st-dec-yesterdays-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:5326mw-yesterdays-new-years-eve-2027-31st-dec-yesterdays-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/l8p3lw-dueling-pianos-31st-dec-chelsea-table-stage-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:l8p3lw-dueling-pianos-31st-dec-chelsea-table-stage-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/dkdxx6-all-access-party-pass-31st-dec-sony-hall-new-york-5thmad-new-york-city-the-saint-new-york-city-ainsworth-midtown-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:dkdxx6-all-access-party-pass-31st-dec-sony-hall-new-york-5thmad-new-york-city-the-saint-new-york-city-ainsworth-midtown-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/8edl9w-new-years-eve-2027-at-la-caverna-31st-dec-la-caverna-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:8edl9w-new-years-eve-2027-at-la-caverna-31st-dec-la-caverna-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/av85rx-new-years-eve-2027-at-waiting-on-a-friend-31st-dec-waiting-on-a-friend-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:av85rx-new-years-eve-2027-at-waiting-on-a-friend-31st-dec-waiting-on-a-friend-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/3o8gvv-music-is-the-answer-club-1st-jan-xanadu-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:3o8gvv-music-is-the-answer-club-1st-jan-xanadu-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/rye3xw-zomboy-2nd-jan-silo-brooklyn-brooklyn-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:rye3xw-zomboy-2nd-jan-silo-brooklyn-brooklyn-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/eo9y5o-armana-khan-friends-2nd-jan-elsewhere-brooklyn-new-york-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:eo9y5o-armana-khan-friends-2nd-jan-elsewhere-brooklyn-new-york-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/3o8rnv--karaoke-sunday-night-3rd-jan-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:3o8rnv--karaoke-sunday-night-3rd-jan-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/7d9xqb--karaoke-monday-night-4th-jan-seventh-heaven-bar-karaoke-new-york-city-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:7d9xqb--karaoke-monday-night-4th-jan-seventh-heaven-bar-karaoke-new-york-city-tickets"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "key": "https://dice.fm/event/6dgly3-vhs-x-bounce-project-present-flash-gea-nettta-edgar-os-more-8th-jan-silo-brooklyn-brooklyn-tickets",
+  "ok": true,
+  "status": 200,
+  "body": "dice:6dgly3-vhs-x-bounce-project-present-flash-gea-nettta-edgar-os-more-8th-jan-silo-brooklyn-brooklyn-tickets"
+ },
+ {
+  "step": "#26",
+  "round": 0,
+  "ingest": {
+   "gone": 0,
+   "read": 238,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 40
+ },
+ {
+  "step": "#26",
+  "round": 1,
+  "ingest": {
+   "gone": 0,
+   "read": 40,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 40
+ },
+ {
+  "step": "#26",
+  "round": 2,
+  "ingest": {
+   "gone": 0,
+   "read": 40,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 40
+ },
+ {
+  "step": "#26",
+  "round": 3,
+  "ingest": {
+   "gone": 0,
+   "read": 40,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 40
+ },
+ {
+  "step": "#26",
+  "round": 4,
+  "ingest": {
+   "gone": 0,
+   "read": 40,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 40
+ },
+ {
+  "step": "#26",
+  "round": 5,
+  "ingest": {
+   "gone": 0,
+   "read": 40,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 40
+ },
+ {
+  "step": "#26",
+  "round": 6,
+  "ingest": {
+   "gone": 0,
+   "read": 40,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 40
+ },
+ {
+  "step": "#26",
+  "round": 7,
+  "ingest": {
+   "gone": 0,
+   "read": 40,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 40
+ },
+ {
+  "step": "#26",
+  "round": 8,
+  "ingest": {
+   "gone": 0,
+   "read": 40,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 40
+ },
+ {
+  "step": "#26",
+  "round": 9,
+  "ingest": {
+   "gone": 0,
+   "read": 40,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 40
+ },
+ {
+  "step": "#26",
+  "round": 10,
+  "ingest": {
+   "gone": 0,
+   "read": 40,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 40
+ },
+ {
+  "step": "#26",
+  "round": 11,
+  "ingest": {
+   "gone": 0,
+   "read": 40,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 40
+ },
+ {
+  "step": "#26",
+  "round": 12,
+  "ingest": {
+   "gone": 0,
+   "read": 40,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 40
+ },
+ {
+  "step": "#26",
+  "round": 13,
+  "ingest": {
+   "gone": 0,
+   "read": 40,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 15
+ },
+ {
+  "step": "#26",
+  "round": 14,
+  "ingest": {
+   "gone": 0,
+   "read": 15,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 0
+ },
+ {
+  "step": "#27",
+  "insert": "party_runs",
+  "status": 201,
+  "body": [
+   {
+    "id": 16,
+    "started_at": "2026-10-27T11:48:48.079271+00:00",
+    "finished_at": null,
+    "kind": "skill-summary",
+    "stats": null,
+    "notes": "bridge run 2026-10-27: 239 DICE events from a supplied list added as drafts (23 new venues from DICE pages); DICE refresh"
+   }
+  ]
  }
 ]
