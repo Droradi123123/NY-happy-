@@ -1,25 +1,8 @@
 {
  "steps": [
   {
-   "probe": {
-    "urls": [
-     "https://yaynyc.com/",
-     "https://yaynyc.com/robots.txt",
-     "https://yaynyc.com/sitemap-bars.xml",
-     "https://yaynyc.com/about",
-     "https://yaynyc.com/happy-hours/williamsburg",
-     "https://yaynyc.com/happy-hours/near/penn-station-msg",
-     "https://yaynyc.com/bars/as-is-nyc-hell-s-kitchen",
-     "https://yaynyc.com/blog/west-village-bar-crawl",
-     "https://yaynyc.com/parties/halloween",
-     "http://yaynyc.com/about",
-     "https://www.yaynyc.com/"
-    ],
-    "agents": {
-     "googlebot": "Mozilla/5.0 (Linux; Android 6.0.1; Nexus 5X Build/MMB29P) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Mobile Safari/537.36 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)",
-     "browser": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1"
-    }
-   }
+   "dump": "site_bars_hh",
+   "path": "site_bars?select=slug,hh"
   }
  ]
 }
