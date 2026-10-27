@@ -1,12 +1,16 @@
 {
  "steps": [
   {
-   "dump": "wave1_events",
-   "path": "party_events?select=id,slug,title,night_date,starts_at,ends_at,doors_at,venue_id,room,genres,themes,performers,price_from,price_to,age_min,event_status,raw&first_seen=gte.2026-10-27T11:00:00Z&night_date=lte.2026-11-08&event_status=in.(scheduled,sold_out)&order=night_date"
+   "rpc_each": "party_event_copy",
+   "args_from": "bridge/copy.json"
   },
   {
-   "dump": "wave1_venues",
-   "path": "party_venues?select=id,name,address,borough,neighborhood"
+   "rpc_each": "party_event_status",
+   "args_from": "bridge/holds.json"
+  },
+  {
+   "rpc_each": "party_publish_blockers",
+   "args_from": "bridge/publish_ids.json"
   }
  ]
 }
