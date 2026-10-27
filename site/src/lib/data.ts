@@ -161,11 +161,15 @@ function clean(b: RawBar): Bar | null {
     subway: b.subway?.station ? b.subway : null, hours,
     phone, // a widget or client link with no venue in it opens nothing useful
     booking: b.booking && !/widgets\.resy\.com\/?$|opentable\.com\/restref\/client\/?$/.test(b.booking) ? b.booking : null,
-    instagram: b.instagram, website: b.website, priceRange: b.price_range, cuisine: b.cuisine, licence: b.licence,
+    instagram: b.instagram, website: WRONG_SITE.has(b.slug) ? null : b.website, priceRange: b.price_range, cuisine: b.cuisine, licence: b.licence,
     source: b.hh_source, checked: b.hh_checked ?? b.last_verified, recheck, doubt,
     dealKnown: offers.length > 0 || !!drinksDeal || !!foodDeal || !!hh.two_for_one,
   };
 }
+
+/** websites that no longer belong to the bar (read Oct 27, 2026): a gambling page on the old domain, or
+ * another business with the same name elsewhere. The page shows no link until the record is fixed. */
+const WRONG_SITE = new Set(['mollusca-nyc-west-village', 'midori-sushi-flatiron', 'boca-chica-jackson-heights']);
 
 /** one listing per place: same spot (about 15 m) and same phone or address means the same bar */
 function dedupe(bars: Bar[]): Bar[] {
