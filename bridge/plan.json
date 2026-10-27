@@ -1,57 +1,44 @@
 {
  "steps": [
   {
-   "fetch_pages": {
-    "name": "fix_pages",
-    "sites": {
-     "mile-17-upper-east-side": [
-      "http://www.mile17.nyc"
-     ],
-     "hofbra-u-bierhaus-nyc-murray-hill": [
-      "http://www.bierhausnyc.com"
-     ],
-     "baires-grill-new-york-hell-s-kitchen": [
-      "https://www.bairesgrill.com/"
-     ],
-     "ben-jack-s-steakhouse-flatiron": [
-      "https://www.benandjackssteakhouse.com"
-     ],
-     "bobo-greenwich-village": [
-      "http://www.bobonyc.com/"
-     ],
-     "jack-demsey-s-koreatown": [
-      "https://jackdemseys.com/"
-     ],
-     "post-no-bills-williamsburg": [
-      "http://www.postnobillsbk.com/"
-     ],
-     "ella-social-upper-west-side": [
-      "https://ellasocial.com"
-     ],
-     "sea-wolf-bushwick": [
-      "https://seawolfbk.com/"
-     ],
-     "inwood-bar-grill-inwood": [
-      "https://inwoodbarandgrill.com/"
-     ],
-     "barfly-gramercy": [
-      "https://barfly.nyc"
-     ],
-     "meller-s-sports-hub-grill-upper-east-side": [
-      "https://www.mellers1702.com"
-     ],
-     "ray-s-greenpoint": [
-      "https://www.raysbarnyc.com"
-     ],
-     "ray-s-nolita": [
-      "https://www.raysbarnyc.com/location/les/"
-     ]
-    }
+   "rpc_each": "bar_fix_hh",
+   "args_from": "bridge/copy.json"
+  },
+  {
+   "rpc": "party_venue_set",
+   "args": {
+    "p_id": "artspace",
+    "p_patch": {
+     "neighborhood": "Lower East Side"
+    },
+    "p_src": "venue address 215 Chrystie Street (Lower East Side, NYC GeoSearch)",
+    "p_url": "https://geosearch.planninglabs.nyc/v2/search?size=1&text=215%20Chrystie%20Street,%20New%20York,%20NY"
+   }
+  },
+  {
+   "rpc": "party_venue_set",
+   "args": {
+    "p_id": "shinsen",
+    "p_patch": {
+     "neighborhood": "Chinatown"
+    },
+    "p_src": "venue address 44 Bowery (Chinatown, NYC GeoSearch)",
+    "p_url": "https://geosearch.planninglabs.nyc/v2/search?size=1&text=44%20Bowery,%20New%20York,%20NY"
    }
   },
   {
    "rpc": "party_venue_hoods",
    "args": {}
+  },
+  {
+   "bar_locate": {
+    "slug": "bricks-hops-beer-garden-east-harlem",
+    "address": "65 Bruckner Blvd, Bronx, NY",
+    "source": "http://www.bricksandhops.com/",
+    "hood": "Mott Haven",
+    "live": true,
+    "reason": "address on record is in the Bronx (Mott Haven), not East Harlem"
+   }
   }
  ]
 }
