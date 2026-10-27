@@ -1,8 +1,16 @@
 {
  "steps": [
   {
-   "dump": "site_bars_hh",
-   "path": "site_bars?select=slug,hh"
+   "dump": "party_venues",
+   "path": "party_venues?select=id,name,address,borough"
+  },
+  {
+   "dump": "party_rules",
+   "path": "party_rules?select=*"
+  },
+  {
+   "dump": "party_event_ids",
+   "path": "party_events?select=id,slug,night_date,publish_status,venue_id,url:links->>dice&night_date=gte.2026-10-27"
   }
  ]
 }
