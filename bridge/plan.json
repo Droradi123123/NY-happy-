@@ -1,16 +1,8 @@
 {
  "steps": [
   {
-   "dump": "blog_bars",
-   "path": "site_bars?select=slug,name,category,hood,borough,address,subway,hh,hh_checked,tags,website"
-  },
-  {
-   "dump": "blog_parties",
-   "path": "site_parties?select=slug,title,night_date,starts_at,doors_at,venue_id,neighborhood,borough,genres,themes,price_status,price_from,age_min,event_status,copy&night_date=gte.2026-10-28&night_date=lte.2026-12-31"
-  },
-  {
-   "dump": "blog_slugs",
-   "path": "site_blog_posts?select=slug,title,keyword"
+   "rpc_each": "blog_post_save",
+   "args_from": "bridge/copy.json"
   }
  ]
 }
