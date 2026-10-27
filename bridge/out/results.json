@@ -2,7 +2,7 @@
  {
   "step": "#1",
   "rpc": "bar_fix_hh",
-  "key": "toloache-upper-east-side",
+  "key": "11th-street-bar-east-village",
   "ok": true,
   "status": 200,
   "body": "fixed"
@@ -10,7 +10,223 @@
  {
   "step": "#1",
   "rpc": "bar_fix_hh",
-  "key": "bar-lunatico-bed-stuy",
+  "key": "bird-in-hand-harlem",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "bodega-88-upper-west-side",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "clover-club-cobble-hill",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "empellon-taqueria-greenwich-village",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "gastromarket-ltd-chelsea",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "miatzil-park-slope",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "nightly-s-upper-east-side",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "romeo-s-east-village",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "the-laurels-gramercy",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "1803-tribeca",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "arcadia-bar-and-kitchen-astoria",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "bar-camillo-bed-stuy",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "coyote-ugly-gramercy",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "grand-army-downtown-brooklyn",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "lido-harlem",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "off-the-wagon-greenwich-village",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "teddy-s-williamsburg",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "baht-jackson-heights",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "blue-seafood-bar-hell-s-kitchen",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "crown-alley-chelsea",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "greenwich-street-tavern-tribeca",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "the-queensboro-jackson-heights",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "drips-restaurant-and-lounge",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "lavender-lake-gowanus",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "rice-k-astoria",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "rusty-nail-brooklyn",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "sophistian-mexican-pizzeria-astoria",
+  "ok": true,
+  "status": 200,
+  "body": "fixed"
+ },
+ {
+  "step": "#1",
+  "rpc": "bar_fix_hh",
+  "key": "sweet-catch-bk-crown-heights",
   "ok": true,
   "status": 200,
   "body": "fixed"
