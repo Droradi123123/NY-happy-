@@ -162,7 +162,7 @@ function clean(b: RawBar): Bar | null {
     phone, // a widget or client link with no venue in it opens nothing useful
     booking: b.booking && !/widgets\.resy\.com\/?$|opentable\.com\/restref\/client\/?$/.test(b.booking) ? b.booking : null,
     instagram: b.instagram, website: WRONG_SITE.has(b.slug) ? null : b.website, priceRange: b.price_range, cuisine: b.cuisine, licence: b.licence,
-    source: b.hh_source, checked: b.hh_checked ?? b.last_verified, recheck, doubt,
+    source: WRONG_SITE.has(b.slug) ? null : b.hh_source, checked: b.hh_checked ?? b.last_verified, recheck, doubt,
     dealKnown: offers.length > 0 || !!drinksDeal || !!foodDeal || !!hh.two_for_one,
   };
 }
