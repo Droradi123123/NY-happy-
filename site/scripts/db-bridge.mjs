@@ -111,7 +111,9 @@ for (const [i, s] of plan.steps.entries()) {
       const { slug, address, source, hood, reason } = s.bar_locate;
       const [b] = await get(`h_nyc_happy_hour?select=slug,status,geo,address,lat,lng&slug=eq.${encodeURIComponent(slug)}`);
       const fail = (error, extra = {}) => { results.push({ step: tag, bar: slug, error, ...extra }); console.log(`${tag} locate ${slug}: ${error}`); };
-      if (!b || b.status !== 'pending') { fail('not pending'); continue; }
+      // live: true corrects a live bar's neighborhood only (address and coordinates stay), still checked
+      // against GeoSearch and nyc_hoods and logged
+      if (!b || b.status !== (s.bar_locate.live ? 'live' : 'pending')) { fail(s.bar_locate.live ? 'not live' : 'not pending'); continue; }
       if (!/^https?:\/\//.test(source ?? '') || !address) { fail('address and source required'); continue; }
       const g = await (await fetch(`https://geosearch.planninglabs.nyc/v2/search?size=1&text=${encodeURIComponent(address)}`)).json();
       const f = g.features?.[0], p = f?.properties ?? {};
@@ -122,9 +124,9 @@ for (const [i, s] of plan.steps.entries()) {
       const hoods = new Set((await get('nyc_hoods?select=name')).map((h) => h.name));
       const geo = hood ?? b.geo; // a hood passed in corrects the one on record (read off the address)
       if (!hoods.has(geo)) { fail(`neighborhood not recognized: ${geo}`); continue; }
-      const row = { address: address.split(',')[0].trim(), lat, lng, geo };
-      const r = await fetch(`${URL}/rest/v1/h_nyc_happy_hour?slug=eq.${encodeURIComponent(slug)}&status=eq.pending`, { method: 'PATCH', headers: { ...H, Prefer: 'return=minimal' }, body: JSON.stringify(row) });
-      await fetch(`${URL}/rest/v1/bar_fix_log`, { method: 'POST', headers: H, body: JSON.stringify({ slug, field: 'address',
+      const row = s.bar_locate.live ? { geo } : { address: address.split(',')[0].trim(), lat, lng, geo };
+      const r = await fetch(`${URL}/rest/v1/h_nyc_happy_hour?slug=eq.${encodeURIComponent(slug)}&status=eq.${s.bar_locate.live ? 'live' : 'pending'}`, { method: 'PATCH', headers: { ...H, Prefer: 'return=minimal' }, body: JSON.stringify(row) });
+      await fetch(`${URL}/rest/v1/bar_fix_log`, { method: 'POST', headers: H, body: JSON.stringify({ slug, field: s.bar_locate.live ? 'geo' : 'address',
         old: { address: b.address, lat: b.lat, lng: b.lng, geo: b.geo }, new: { ...row, geosearch: p.label }, source, reason: reason ?? 'address from the bar\'s own site' }) });
       results.push({ step: tag, bar: slug, status: r.status, row, geosearch: p.label, moved_m: off });
       console.log(`${tag} locate ${slug}: ${r.status}`);
