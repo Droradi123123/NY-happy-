@@ -1,16 +1,165 @@
 {
  "steps": [
   {
-   "dump": "party_venues",
-   "path": "party_venues?select=id,name,address,borough"
+   "venue_from_dice": {
+    "id": "baci-studio",
+    "url": "https://dice.fm/event/q23v29-kylin-obrien-art-under-the-bridge-29th-oct-baci-studio-new-york-city-tickets"
+   }
   },
   {
-   "dump": "party_rules",
-   "path": "party_rules?select=*"
+   "venue_from_dice": {
+    "id": "car-part-time",
+    "url": "https://dice.fm/event/wwnrvp-amradio-night-time-caf-30th-oct-car-part-time-new-york-city-tickets"
+   }
   },
   {
-   "dump": "party_event_ids",
-   "path": "party_events?select=id,slug,night_date,publish_status,venue_id,url:links->>dice&night_date=gte.2026-10-27"
+   "venue_from_dice": {
+    "id": "the-purple-room",
+    "url": "https://dice.fm/event/xe83m3-the-purple-room-bushwick-30th-oct-the-purple-room-new-york-city-tickets"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "the-bronze-owl",
+    "url": "https://dice.fm/event/eo9xyw-the-bronze-owl-nye-27-31st-oct-the-bronze-owl-new-york-city-tickets"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "niku-x-rooftop",
+    "url": "https://dice.fm/event/bbqgkk-wavcrash-halloween-niku-x-rooftop-31st-oct-niku-x-rooftop-new-york-city-tickets"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "harriets-lounge-1-hotel",
+    "url": "https://dice.fm/event/bbogvg-1-hotel-haunted-lounge-halloween-1031-31st-oct-harriets-lounge-1-hotel-new-york-city-tickets"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "ding-a-ling",
+    "url": "https://dice.fm/event/bbq2oo-rumor-stoop-world-vol-2-12th-nov-ding-a-ling-new-york-city-tickets"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "the-house",
+    "url": "https://dice.fm/event/wwn3nv-club-cocoa-ft-halima-live-ubabu-ch3ri-nebula-13th-nov-the-house-new-york-city-tickets"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "empire-stage",
+    "url": "https://dice.fm/event/bbq79g-pressure-point-a-multimedia-warehouse-party-19th-nov-empire-stage-new-york-city-tickets"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "brooklyn-music-kitchen",
+    "url": "https://dice.fm/event/k67gq9-joey-konopka-zaire-bloomfield-and-more-3rd-dec-brooklyn-music-kitchen-new-york-city-tickets"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "pianos-showroom",
+    "url": "https://dice.fm/event/6dy3y8-stram-chris-olsen-nonsense-awful-christine-3rd-dec-pianos-showroom-new-york-tickets"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "union-pool",
+    "url": "https://dice.fm/event/bbgqoo-ris-3rd-dec-union-pool-new-york-tickets"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "good-room",
+    "url": "https://dice.fm/event/avxxvv-lucy-cooper-b-handy-fgs-3rd-dec-good-room-new-york-tickets"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "stone-circle-theatre",
+    "url": "https://dice.fm/event/7d5pk6-junior-mesa-night-2-sold-out-6th-dec-stone-circle-theatre-new-york-city-tickets"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "babys-all-right",
+    "url": "https://dice.fm/event/q2d37x-stevie-bill-pieces-mini-tour-10th-dec-babys-all-right-new-york-tickets"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "st-ann-and-the-holy-trinity",
+    "url": "https://dice.fm/event/6dobb2-gallant-10th-dec-st-ann-the-holy-trinity-new-york-city-tickets"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "margaritaville-time-square",
+    "url": "https://dice.fm/event/nvpebl-official-all-ages-times-square-party-pass-31st-dec-margaritaville-time-square-new-york-city-lucky-strike-times-square-new-york-city-tickets"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "puttery",
+    "url": "https://dice.fm/event/k67y5p-puttery-new-years-eve-2027-access-rorys-rooftop-rojo-room-31st-dec-puttery-new-york-city-tickets"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "le-poisson-rouge",
+    "url": "https://dice.fm/event/oema7a-lpr-new-years-eve-2027-31st-dec-le-poisson-rouge-new-york-tickets"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "arlo-soho",
+    "url": "https://dice.fm/event/nvr6p3-arlo-soho-new-years-eve-2027-31st-dec-arlo-soho-new-york-city-tickets"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "yesterdays",
+    "url": "https://dice.fm/event/5326mw-yesterdays-new-years-eve-2027-31st-dec-yesterdays-new-york-city-tickets"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "la-caverna",
+    "url": "https://dice.fm/event/8edl9w-new-years-eve-2027-at-la-caverna-31st-dec-la-caverna-new-york-city-tickets"
+   }
+  },
+  {
+   "venue_from_dice": {
+    "id": "waiting-on-a-friend",
+    "url": "https://dice.fm/event/av85rx-new-years-eve-2027-at-waiting-on-a-friend-31st-dec-waiting-on-a-friend-new-york-city-tickets"
+   }
+  },
+  {
+   "rpc_each": "party_add_dice",
+   "args_from": "bridge/adds.json"
+  },
+  {
+   "sleep": 20
+  },
+  {
+   "dice_refresh": {
+    "rounds": 30,
+    "n": 40,
+    "older_than": "1 hour"
+   }
+  },
+  {
+   "insert": "party_runs",
+   "rows": [
+    {
+     "kind": "skill-summary",
+     "notes": "bridge run 2026-10-27: 239 DICE events from a supplied list added as drafts (23 new venues from DICE pages); DICE refresh"
+    }
+   ]
   }
  ]
 }
