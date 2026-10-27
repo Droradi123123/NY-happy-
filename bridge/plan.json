@@ -1,8 +1,57 @@
 {
  "steps": [
   {
-   "rpc_each": "blog_post_save",
-   "args_from": "bridge/copy.json"
+   "fetch_pages": {
+    "name": "fix_pages",
+    "sites": {
+     "mile-17-upper-east-side": [
+      "http://www.mile17.nyc"
+     ],
+     "hofbra-u-bierhaus-nyc-murray-hill": [
+      "http://www.bierhausnyc.com"
+     ],
+     "baires-grill-new-york-hell-s-kitchen": [
+      "https://www.bairesgrill.com/"
+     ],
+     "ben-jack-s-steakhouse-flatiron": [
+      "https://www.benandjackssteakhouse.com"
+     ],
+     "bobo-greenwich-village": [
+      "http://www.bobonyc.com/"
+     ],
+     "jack-demsey-s-koreatown": [
+      "https://jackdemseys.com/"
+     ],
+     "post-no-bills-williamsburg": [
+      "http://www.postnobillsbk.com/"
+     ],
+     "ella-social-upper-west-side": [
+      "https://ellasocial.com"
+     ],
+     "sea-wolf-bushwick": [
+      "https://seawolfbk.com/"
+     ],
+     "inwood-bar-grill-inwood": [
+      "https://inwoodbarandgrill.com/"
+     ],
+     "barfly-gramercy": [
+      "https://barfly.nyc"
+     ],
+     "meller-s-sports-hub-grill-upper-east-side": [
+      "https://www.mellers1702.com"
+     ],
+     "ray-s-greenpoint": [
+      "https://www.raysbarnyc.com"
+     ],
+     "ray-s-nolita": [
+      "https://www.raysbarnyc.com/location/les/"
+     ]
+    }
+   }
+  },
+  {
+   "rpc": "party_venue_hoods",
+   "args": {}
   }
  ]
 }
