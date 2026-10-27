@@ -115,7 +115,8 @@ export function partyDescription(p: Party, v: Venue | null): string {
     `${partyName(p)} at ${v?.name ?? 'a NYC venue'}${p.neighborhood ? `, ${p.neighborhood}` : ''}: ${nightDate(p.night_date, { weekday: 'long', month: 'short', day: 'numeric' })}${nyTime(p.doors_at ?? p.starts_at) ? `, doors ${nyTime(p.doors_at ?? p.starts_at)}` : ''}.`,
     lead ?? '',
     `${priceLabel(p)}${p.age_min ? `, ${p.age_min}+` : ''}.`,
-  ].filter(Boolean).join(' '));
+    // a short listing still gets a useful snippet (search engines want 70+ characters)
+  ].filter(Boolean).join(' ').replace(/^(.{0,69})$/s, '$1 Doors, age, tickets and how to get there.'));
 }
 /** "123 Main St, Brooklyn, NY 11211, United States" as a schema.org PostalAddress (street, locality, zip) */
 export function postalAddress(v: Venue) {
