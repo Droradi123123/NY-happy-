@@ -1,234 +1,228 @@
 [
  {
   "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "11th-street-bar-east-village",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
+  "probe": {
+   "url": "https://yaynyc.com/",
+   "who": "browser",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html",
+   "bytes": 142473,
+   "robots": null,
+   "canonical": "https://yaynyc.com/",
+   "title": "YaY NYC: Happy Hours, Parties and What&#39;s On Tonight in New York"
+  }
  },
  {
   "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "bird-in-hand-harlem",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
+  "probe": {
+   "url": "https://yaynyc.com/parties",
+   "who": "browser",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html",
+   "bytes": 167216,
+   "robots": null,
+   "canonical": "https://yaynyc.com/parties",
+   "title": "NYC Parties: 510 Club Nights, Raves and Events | YaY NYC"
+  }
  },
  {
   "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "bodega-88-upper-west-side",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
+  "probe": {
+   "url": "https://yaynyc.com/happy-hours",
+   "who": "browser",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html",
+   "bytes": 139190,
+   "robots": null,
+   "canonical": "https://yaynyc.com/happy-hours",
+   "title": "NYC Happy Hours: 842 Bars, Deals and Times (Oct 2026) | YaY NYC"
+  }
  },
  {
   "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "clover-club-cobble-hill",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
+  "probe": {
+   "url": "https://yaynyc.com/parties/throwback",
+   "who": "browser",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html",
+   "bytes": 56239,
+   "robots": null,
+   "canonical": "https://yaynyc.com/parties/throwback",
+   "title": "Throwback Parties in NYC 2026: 16 Upcoming Nights | YaY NYC"
+  }
  },
  {
   "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "empellon-taqueria-greenwich-village",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
+  "probe": {
+   "url": "https://yaynyc.com/parties/free",
+   "who": "browser",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html",
+   "bytes": 60490,
+   "robots": null,
+   "canonical": "https://yaynyc.com/parties/free",
+   "title": "Free Parties in NYC 2026: 23 Upcoming Nights | YaY NYC"
+  }
  },
  {
   "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "gastromarket-ltd-chelsea",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
+  "probe": {
+   "url": "https://yaynyc.com/parties/new-years-eve",
+   "who": "browser",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html",
+   "bytes": 66018,
+   "robots": null,
+   "canonical": "https://yaynyc.com/parties/new-years-eve",
+   "title": "New Year&#39;s Eve Parties in NYC 2026: 28 Upcoming Nights | YaY NYC"
+  }
  },
  {
   "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "miatzil-park-slope",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
+  "probe": {
+   "url": "https://yaynyc.com/blog/thanksgiving-weekend-nyc-2026",
+   "who": "browser",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html",
+   "bytes": 81501,
+   "robots": null,
+   "canonical": "https://yaynyc.com/blog/thanksgiving-weekend-nyc-2026",
+   "title": "Thanksgiving Weekend NYC 2026: Parties and Happy Hours | YaY NYC"
+  }
  },
  {
   "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "nightly-s-upper-east-side",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
+  "probe": {
+   "url": "https://yaynyc.com/blog/free-things-to-do-in-nyc-at-night",
+   "who": "browser",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html",
+   "bytes": 78536,
+   "robots": null,
+   "canonical": "https://yaynyc.com/blog/free-things-to-do-in-nyc-at-night",
+   "title": "Free Things to Do in NYC at Night: Fall Parties and Cheap Drinks"
+  }
  },
  {
   "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "romeo-s-east-village",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
+  "probe": {
+   "url": "https://yaynyc.com/bars/clover-club-cobble-hill",
+   "who": "browser",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html",
+   "bytes": 43318,
+   "robots": null,
+   "canonical": "https://yaynyc.com/bars/clover-club-cobble-hill",
+   "title": "Clover Club Happy Hour Menu: drinks from $10, Mon–Fri 4–6pm | YaY NYC"
+  }
  },
  {
   "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "the-laurels-gramercy",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
+  "probe": {
+   "url": "https://yaynyc.com/bars/mollusca-nyc-west-village",
+   "who": "browser",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html",
+   "bytes": 45162,
+   "robots": "noindex, follow",
+   "canonical": "https://yaynyc.com/bars/mollusca-nyc-west-village",
+   "title": "Mollusca Nyc Happy Hour, West Village: Mon–Fri 5–6pm | YaY NYC"
+  }
  },
  {
   "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "1803-tribeca",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
+  "probe": {
+   "url": "https://yaynyc.com/parties/tonight",
+   "who": "browser",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html",
+   "bytes": 39384,
+   "robots": null,
+   "canonical": "https://yaynyc.com/parties/tonight",
+   "title": "Parties Tonight in NYC: Tuesday, Oct 27 | YaY NYC"
+  }
  },
  {
   "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "arcadia-bar-and-kitchen-astoria",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
+  "probe": {
+   "url": "https://yaynyc.com/nyc-happy-hour-index",
+   "who": "browser",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html",
+   "bytes": 56900,
+   "robots": null,
+   "canonical": "https://yaynyc.com/nyc-happy-hour-index",
+   "title": "NYC Happy Hour Prices: Beer, Wine, Cocktails (October 2026) | YaY NYC"
+  }
  },
  {
   "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "bar-camillo-bed-stuy",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
+  "probe": {
+   "url": "https://yaynyc.com/sitemap.xml",
+   "who": "browser",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "application/xml",
+   "bytes": 144675,
+   "robots": null,
+   "canonical": null,
+   "title": null,
+   "head": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n<url><loc>https://yaynyc.com/</loc></url>\n<url><loc>https://yaynyc.com/happy-hours</loc></url>\n<url><loc>https://yaynyc.com/nyc-happy-hour-index</loc></url>\n<url><loc>https://yaynyc.com/happy-hours/now</loc></url>\n<url><loc>https://yaynyc.com/happy-hours/neighborhoods</loc></url>\n<url><loc>https://yaynyc.com/parties</loc></url>\n<url><loc>https://yaynyc.com/about</loc></url>\n<url><loc>https://yaynyc.com/contact</loc></url>\n<url><loc>https://yaynyc.com/privacy</loc></url>\n<url><loc>https://yaynyc."
+  }
  },
  {
   "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "coyote-ugly-gramercy",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "grand-army-downtown-brooklyn",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "lido-harlem",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "off-the-wagon-greenwich-village",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "teddy-s-williamsburg",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "baht-jackson-heights",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "blue-seafood-bar-hell-s-kitchen",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "crown-alley-chelsea",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "greenwich-street-tavern-tribeca",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "the-queensboro-jackson-heights",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "drips-restaurant-and-lounge",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "lavender-lake-gowanus",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "rice-k-astoria",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "rusty-nail-brooklyn",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "sophistian-mexican-pizzeria-astoria",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
- },
- {
-  "step": "#1",
-  "rpc": "bar_fix_hh",
-  "key": "sweet-catch-bk-crown-heights",
-  "ok": true,
-  "status": 200,
-  "body": "fixed"
+  "probe": {
+   "url": "https://yaynyc.com/robots.txt",
+   "who": "browser",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/plain",
+   "bytes": 313,
+   "robots": null,
+   "canonical": null,
+   "title": null,
+   "head": "User-agent: *\nAllow: /\nDisallow: /data/\n\nSitemap: https://yaynyc.com/sitemap.xml\nSitemap: https://yaynyc.com/sitemap-bars.xml\nSitemap: https://yaynyc.com/sitemap-parties.xml\nSitemap: https://yaynyc.com/sitemap-lists.xml\nSitemap: https://yaynyc.com/sitemap-guides.xml\nSitemap: https://yaynyc.com/sitemap-other.xml\n"
+  }
  }
 ]
