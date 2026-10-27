@@ -1,21 +1,16 @@
 {
  "steps": [
   {
-   "rpc_each": "party_event_status",
-   "args_from": "bridge/holds.json"
+   "dump": "wave2_events",
+   "path": "party_events?select=id,slug,title,night_date,starts_at,ends_at,doors_at,venue_id,room,genres,themes,performers,price_from,price_to,age_min,event_status,raw&first_seen=gte.2026-10-27T11:00:00Z&night_date=gt.2026-11-08&publish_status=eq.draft&event_status=in.(scheduled,sold_out)&order=night_date"
   },
   {
-   "rpc_each": "party_event_status",
-   "args_from": "bridge/adds.json"
+   "dump": "wave1_venues",
+   "path": "party_venues?select=id,name,address,borough,neighborhood"
   },
   {
-   "insert": "party_runs",
-   "rows": [
-    {
-     "kind": "skill-summary",
-     "notes": "bridge 2026-10-27: supplied list wave 1 (to Nov 8): 21 published with copy, 42 rejected (karaoke, skate, classes, screenings, shows), 8 in review"
-    }
-   ]
+   "dump": "site_parties_all",
+   "path": "site_parties?select=slug,title,night_date,genres,themes,price_status,price_from,age_min,venue_id,neighborhood,borough,event_status,copy&night_date=gte.2026-10-27"
   }
  ]
 }
