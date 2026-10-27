@@ -1,16 +1,21 @@
 {
  "steps": [
   {
-   "rpc_each": "party_event_copy",
-   "args_from": "bridge/copy.json"
-  },
-  {
    "rpc_each": "party_event_status",
    "args_from": "bridge/holds.json"
   },
   {
-   "rpc_each": "party_publish_blockers",
-   "args_from": "bridge/publish_ids.json"
+   "rpc_each": "party_event_status",
+   "args_from": "bridge/adds.json"
+  },
+  {
+   "insert": "party_runs",
+   "rows": [
+    {
+     "kind": "skill-summary",
+     "notes": "bridge 2026-10-27: supplied list wave 1 (to Nov 8): 21 published with copy, 42 rejected (karaoke, skate, classes, screenings, shows), 8 in review"
+    }
+   ]
   }
  ]
 }
