@@ -7,7 +7,7 @@ const hoods = (await allHoods()).filter((h) => bars.some((b) => b.hoodSlug === h
 const { parties } = await partyData();
 const genres = [...new Set(parties.flatMap((p) => p.genres))].sort();
 ---
-<Base title="NYC Nightlife Map: Happy Hours and Parties Near You" keyword="nyc nightlife map" description="The NYC nightlife map: every happy hour and party we track on one map. Filter by what's on now, day, subway line, price and music; tap a pin for details.">
+<Base noindex title="NYC Nightlife Map: Happy Hours and Parties Near You" keyword="nyc nightlife map" description="The NYC nightlife map: every happy hour and party we track on one map. Filter by what's on now, day, subway line, price and music; tap a pin for details.">
   <h1>NYC Nightlife Map</h1>
   <p class="lede">Happy hours and parties on one map. Or open a dedicated map: <a href="/map/happy-hours">the happy hour map</a> or <a href="/map/parties">the party map</a>.</p>
   <div class="tabs" role="tablist" aria-label="What to show">

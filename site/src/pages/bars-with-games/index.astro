@@ -20,7 +20,7 @@ const faq = [
   { q: 'How did you pick these?', a: 'Each venue is listed by its own website or by two editorial guides, and its address matches a New York City address record. Places only listed on a crowdsourced pinball map, or that a source says closed or not yet open, are left out.' },
 ];
 ---
-<Base title={`Bars With Games in NYC: ${nv} Arcade, Pinball, Bowling and More (${new Date().getFullYear()})`} description={`Bars with games in NYC: ${plural(nv, 'venue')} for arcade games, pinball, bowling, shuffleboard, mini golf, pool, darts and board games, with sources.`}
+<Base noindex title={`Bars With Games in NYC: ${nv} Arcade, Pinball, Bowling and More (${new Date().getFullYear()})`} description={`Bars with games in NYC: ${plural(nv, 'venue')} for arcade games, pinball, bowling, shuffleboard, mini golf, pool, darts and board games, with sources.`}
   keyword="bars with games nyc" jsonld={[crumbs([['YaY NYC', '/'], ['Bars with games', '/bars-with-games']]), faqLd(faq)]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">YaY NYC</a></li><li aria-current="page">Bars with games</li></ol></nav>
   <h1>Bars With Games in NYC</h1>

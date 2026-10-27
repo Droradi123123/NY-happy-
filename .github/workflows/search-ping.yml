@@ -1,8 +1,11 @@
 # Tells IndexNow (Bing, ChatGPT search, Yandex...) and Bing Webmaster Tools about every page in the
-# live sitemap. Run by hand after big content changes. Logs statuses only.
+# live sitemap. Daily (approved Oct 27: Bing's 100-URL quota and IndexNow, the index behind
+# ChatGPT search) and by hand after big content changes. Logs statuses only.
 name: Search engine ping
 
 on:
+  schedule:
+    - cron: '41 11 * * *' # daily 7:41am New York (6:41 in winter), after the overnight rebuilds
   workflow_dispatch:
 
 permissions:

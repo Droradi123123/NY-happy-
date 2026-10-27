@@ -23,7 +23,7 @@ const faq = [
   { q: 'How do I know a party is still on?', a: 'We refresh every party from its ticket page every day. Cancelled or rescheduled nights are marked, sold-out nights say so, and nights that are over leave the map.' },
 ];
 ---
-<Base noindex={parties.length < 2} title={`NYC Party Map: ${parties.length} Parties, Clubs and Raves`} keyword="nyc party map" description={`The NYC party map: ${parties.length} upcoming parties at ${venueCount} venues with doors, age and tickets. Filter by night, music, price and borough.`}
+<Base noindex title={`NYC Party Map: ${parties.length} Parties, Clubs and Raves`} keyword="nyc party map" description={`The NYC party map: ${parties.length} upcoming parties at ${venueCount} venues with doors, age and tickets. Filter by night, music, price and borough.`}
   jsonld={[crumbs([['YaY NYC', '/'], ['Map', '/map'], ['Party map', '/map/parties']]), itemList('Parties on the NYC party map', parties.slice(0, 50).map((p) => `/parties/${p.slug}`)), faqLd(faq)]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/map">Map</a></li><li aria-current="page">Parties</li></ol></nav>
   <h1>NYC Party Map</h1>

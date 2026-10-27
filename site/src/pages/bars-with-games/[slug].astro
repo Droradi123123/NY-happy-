@@ -23,7 +23,7 @@ const faq = [
   { q: 'What does it cost?', a: 'We print a price only when the venue’s own site states it. Most arcade and pinball bars charge per game; check before you go.' },
 ];
 ---
-<Base title={`${page.h1}: ${nv} Places to Play (${new Date().getFullYear()})`} description={`${page.h1.replace(' in NYC', '')} in NYC: ${plural(nv, 'venue')} in ${boroughs.join(', ')}, with the games each one has and links to the sources.`}
+<Base noindex title={`${page.h1}: ${nv} Places to Play (${new Date().getFullYear()})`} description={`${page.h1.replace(' in NYC', '')} in NYC: ${plural(nv, 'venue')} in ${boroughs.join(', ')}, with the games each one has and links to the sources.`}
   keyword={page.keyword} jsonld={[crumbs([['YaY NYC', '/'], ['Bars with games', '/bars-with-games'], [page.short, `/bars-with-games/${page.slug}`]]), faqLd(faq)]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/bars-with-games">Bars with games</a></li><li aria-current="page">{page.short}</li></ol></nav>
   <h1>{page.h1}</h1>

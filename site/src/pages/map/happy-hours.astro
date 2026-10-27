@@ -23,7 +23,7 @@ const faq = [
   { q: 'How current is the map?', a: 'Every pin comes from the bar’s own website or menu, and each bar’s page shows the date we last checked it. The site rebuilds every day.' },
 ];
 ---
-<Base title={`NYC Happy Hour Map: ${s.n} Bars With Deals and Times`} keyword="nyc happy hour map" description={`The NYC happy hour map: ${onMap.length} bars with the deal, the hours and the nearest subway. Filter by happening now, day, subway line and price.`}
+<Base noindex title={`NYC Happy Hour Map: ${s.n} Bars With Deals and Times`} keyword="nyc happy hour map" description={`The NYC happy hour map: ${onMap.length} bars with the deal, the hours and the nearest subway. Filter by happening now, day, subway line and price.`}
   jsonld={[crumbs([['YaY NYC', '/'], ['Map', '/map'], ['Happy hour map', '/map/happy-hours']]), faqLd(faq)]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/map">Map</a></li><li aria-current="page">Happy hours</li></ol></nav>
   <h1>NYC Happy Hour Map</h1>
