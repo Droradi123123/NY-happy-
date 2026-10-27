@@ -1,165 +1,4636 @@
 {
  "steps": [
   {
-   "venue_from_dice": {
-    "id": "baci-studio",
-    "url": "https://dice.fm/event/q23v29-kylin-obrien-art-under-the-bridge-29th-oct-baci-studio-new-york-city-tickets"
-   }
-  },
-  {
-   "venue_from_dice": {
-    "id": "car-part-time",
-    "url": "https://dice.fm/event/wwnrvp-amradio-night-time-caf-30th-oct-car-part-time-new-york-city-tickets"
-   }
-  },
-  {
-   "venue_from_dice": {
-    "id": "the-purple-room",
-    "url": "https://dice.fm/event/xe83m3-the-purple-room-bushwick-30th-oct-the-purple-room-new-york-city-tickets"
-   }
-  },
-  {
-   "venue_from_dice": {
-    "id": "the-bronze-owl",
-    "url": "https://dice.fm/event/eo9xyw-the-bronze-owl-nye-27-31st-oct-the-bronze-owl-new-york-city-tickets"
-   }
-  },
-  {
-   "venue_from_dice": {
-    "id": "niku-x-rooftop",
-    "url": "https://dice.fm/event/bbqgkk-wavcrash-halloween-niku-x-rooftop-31st-oct-niku-x-rooftop-new-york-city-tickets"
-   }
-  },
-  {
-   "venue_from_dice": {
-    "id": "harriets-lounge-1-hotel",
-    "url": "https://dice.fm/event/bbogvg-1-hotel-haunted-lounge-halloween-1031-31st-oct-harriets-lounge-1-hotel-new-york-city-tickets"
-   }
-  },
-  {
-   "venue_from_dice": {
-    "id": "ding-a-ling",
-    "url": "https://dice.fm/event/bbq2oo-rumor-stoop-world-vol-2-12th-nov-ding-a-ling-new-york-city-tickets"
-   }
-  },
-  {
-   "venue_from_dice": {
-    "id": "the-house",
-    "url": "https://dice.fm/event/wwn3nv-club-cocoa-ft-halima-live-ubabu-ch3ri-nebula-13th-nov-the-house-new-york-city-tickets"
-   }
-  },
-  {
-   "venue_from_dice": {
-    "id": "empire-stage",
-    "url": "https://dice.fm/event/bbq79g-pressure-point-a-multimedia-warehouse-party-19th-nov-empire-stage-new-york-city-tickets"
-   }
-  },
-  {
-   "venue_from_dice": {
-    "id": "brooklyn-music-kitchen",
-    "url": "https://dice.fm/event/k67gq9-joey-konopka-zaire-bloomfield-and-more-3rd-dec-brooklyn-music-kitchen-new-york-city-tickets"
-   }
-  },
-  {
-   "venue_from_dice": {
-    "id": "pianos-showroom",
-    "url": "https://dice.fm/event/6dy3y8-stram-chris-olsen-nonsense-awful-christine-3rd-dec-pianos-showroom-new-york-tickets"
-   }
-  },
-  {
-   "venue_from_dice": {
-    "id": "union-pool",
-    "url": "https://dice.fm/event/bbgqoo-ris-3rd-dec-union-pool-new-york-tickets"
-   }
-  },
-  {
-   "venue_from_dice": {
-    "id": "good-room",
-    "url": "https://dice.fm/event/avxxvv-lucy-cooper-b-handy-fgs-3rd-dec-good-room-new-york-tickets"
-   }
-  },
-  {
-   "venue_from_dice": {
-    "id": "stone-circle-theatre",
-    "url": "https://dice.fm/event/7d5pk6-junior-mesa-night-2-sold-out-6th-dec-stone-circle-theatre-new-york-city-tickets"
-   }
-  },
-  {
-   "venue_from_dice": {
-    "id": "babys-all-right",
-    "url": "https://dice.fm/event/q2d37x-stevie-bill-pieces-mini-tour-10th-dec-babys-all-right-new-york-tickets"
-   }
-  },
-  {
-   "venue_from_dice": {
-    "id": "st-ann-and-the-holy-trinity",
-    "url": "https://dice.fm/event/6dobb2-gallant-10th-dec-st-ann-the-holy-trinity-new-york-city-tickets"
-   }
-  },
-  {
-   "venue_from_dice": {
-    "id": "margaritaville-time-square",
-    "url": "https://dice.fm/event/nvpebl-official-all-ages-times-square-party-pass-31st-dec-margaritaville-time-square-new-york-city-lucky-strike-times-square-new-york-city-tickets"
-   }
-  },
-  {
-   "venue_from_dice": {
-    "id": "puttery",
-    "url": "https://dice.fm/event/k67y5p-puttery-new-years-eve-2027-access-rorys-rooftop-rojo-room-31st-dec-puttery-new-york-city-tickets"
-   }
-  },
-  {
-   "venue_from_dice": {
-    "id": "le-poisson-rouge",
-    "url": "https://dice.fm/event/oema7a-lpr-new-years-eve-2027-31st-dec-le-poisson-rouge-new-york-tickets"
-   }
-  },
-  {
-   "venue_from_dice": {
-    "id": "arlo-soho",
-    "url": "https://dice.fm/event/nvr6p3-arlo-soho-new-years-eve-2027-31st-dec-arlo-soho-new-york-city-tickets"
-   }
-  },
-  {
-   "venue_from_dice": {
-    "id": "yesterdays",
-    "url": "https://dice.fm/event/5326mw-yesterdays-new-years-eve-2027-31st-dec-yesterdays-new-york-city-tickets"
-   }
-  },
-  {
-   "venue_from_dice": {
-    "id": "la-caverna",
-    "url": "https://dice.fm/event/8edl9w-new-years-eve-2027-at-la-caverna-31st-dec-la-caverna-new-york-city-tickets"
-   }
-  },
-  {
-   "venue_from_dice": {
-    "id": "waiting-on-a-friend",
-    "url": "https://dice.fm/event/av85rx-new-years-eve-2027-at-waiting-on-a-friend-31st-dec-waiting-on-a-friend-new-york-city-tickets"
-   }
-  },
-  {
-   "rpc_each": "party_add_dice",
-   "args_from": "bridge/adds.json"
-  },
-  {
-   "sleep": 20
-  },
-  {
    "dice_refresh": {
-    "rounds": 30,
+    "rounds": 20,
     "n": 40,
     "older_than": "1 hour"
    }
   },
   {
-   "insert": "party_runs",
+   "insert": "party_leads",
    "rows": [
     {
-     "kind": "skill-summary",
-     "notes": "bridge run 2026-10-27: 239 DICE events from a supplied list added as drafts (23 new venues from DICE pages); DICE refresh"
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-27",
+     "time_text": "1:00 PM - 4:00 PM",
+     "title": "Deep Listening: Maxime Denuc",
+     "venue_text": "Silence Please | 132 Bowery Floor 2, New York, NY 10013",
+     "url": "https://ra.co/events/2570169"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-27",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "Beats From Beyond",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2569371"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-27",
+     "time_text": "7:00 PM - 11:59 PM",
+     "title": "Deep Listening",
+     "venue_text": "Moondog Hifi | 119 Ingraham Street, Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2567121"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-27",
+     "time_text": "7:00 PM - 8:30 PM",
+     "title": "BEYOND THE STARDUST",
+     "venue_text": "The Flea Theater | 20 Thomas St, New York, NY 10007",
+     "url": "https://ra.co/events/2550094"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-27",
+     "time_text": "8:00 PM - 11:59 PM",
+     "title": "kshack club night",
+     "venue_text": "Selva NYC | 1329 WILLOUGHBY AVE BROOKLYN, NY 11237, USA",
+     "url": "https://ra.co/events/2564974"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-27",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "KISMET // N1NA + Mui Mui + serpentskirt",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2542082"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-27",
+     "time_text": "10:00 PM - 3:00 AM",
+     "title": "starstruck: h\u00e0ob\u00e8i, Aleister, v64",
+     "venue_text": "Happyfun Hideaway | 1211 Myrtle Ave, Brooklyn, NY 11221, USA",
+     "url": "https://ra.co/events/2568992"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-27",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "Off The Record - Tuesday Sessions at PUBLIC Hotel",
+     "venue_text": "Public Arts | 215 Chrystie St, New York, NY 10002, USA",
+     "url": "https://ra.co/events/2509983"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-28",
+     "time_text": "5:00 PM - 12:00 AM",
+     "title": "Juan Fawcett",
+     "venue_text": "MAD Radio NYC | 395 WYTHE AVE, BROOKLYN, NEW YORK",
+     "url": "https://ra.co/events/2568666"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-28",
+     "time_text": "6:00 PM - 10:00 PM",
+     "title": "Francisco C\u00e9spedes with Special Guest Gerardo Contino",
+     "venue_text": "SOBs | 204 Varick Street, New York, NY 10014-4810, USA",
+     "url": "https://ra.co/events/2540193"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-28",
+     "time_text": "7:00 PM - 11:00 PM",
+     "title": "The Blaze (Live)",
+     "venue_text": "Knockdown Center | 52-19 Flushing Ave., Queens, NY 11378 USA",
+     "url": "https://ra.co/events/2546249"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-28",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "Club Management LIVE: The Life and Sounds Of Stacey 'Hotwaxx' Hale: Listening + Discussion",
+     "venue_text": "public records | 233 Butler St, Brooklyn, NY 11217, USA",
+     "url": "https://ra.co/events/2539764"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-28",
+     "time_text": "7:00 PM - 11:00 PM",
+     "title": "Foreplay by South Brooklyn Sapphic",
+     "venue_text": "Loafers Cocktail Bar | 517 Court Street, Brooklyn NY 11231",
+     "url": "https://ra.co/events/2555622"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-28",
+     "time_text": "7:00 PM - 8:30 PM",
+     "title": "BEYOND THE STARDUST",
+     "venue_text": "The Flea Theater | 20 Thomas St, New York, NY 10007",
+     "url": "https://ra.co/events/2550095"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-28",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "Nicky Siano Film Screening + Record Magazine Issue 11 Launch",
+     "venue_text": "Head Hifi | 146 Flushing Ave. Brooklyn,NY 11205",
+     "url": "https://ra.co/events/2564596"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-28",
+     "time_text": "7:00 PM - 11:59 PM",
+     "title": "Wednesday JAmZZ: Evan Wood Trio + Matthew Pearl Quartet",
+     "venue_text": "Moondog Hifi | 119 Ingraham Street, Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2569170"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-28",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "Happy Hour: NITE SWIM",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2570190"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-28",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "Outer Heaven presents: Matteo Dio b2b Parea",
+     "venue_text": "Outer Heaven | 191 Chrystie Street, New York, NY 10002",
+     "url": "https://ra.co/events/2543503"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-28",
+     "time_text": "9:00 PM - 2:00 AM",
+     "title": "New Party Preview: CUERO // A Latin Leather Night 10.28.26 w/ Fried Platano, JULIO CZR",
+     "venue_text": "Club Rawhide | 250 W 26TH ST",
+     "url": "https://ra.co/events/2567947"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-28",
+     "time_text": "9:00 PM - 1:00 AM",
+     "title": "Just A Faze: Boogie, Funk & Int'l Disco Vinyl Set",
+     "venue_text": "Doris | 1088 Fulton St, Brooklyn, NY 11238",
+     "url": "https://ra.co/events/2568763"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-28",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "CULT",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2543770"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-28",
+     "time_text": "10:00 PM - 2:00 AM",
+     "title": "Spectral Evidence: The Halloween Edition",
+     "venue_text": "Mood Ring | 1260 Myrtle Ave, Brooklyn, NY 11221, USA",
+     "url": "https://ra.co/events/2567992"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-28",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "DANCE DANCE DANCE",
+     "venue_text": "Le Bain | 444 W 13th Street, New York, NY 10014",
+     "url": "https://ra.co/events/2570041"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-28",
+     "time_text": "10:30 PM - 2:30 AM",
+     "title": "Jazz For Lovers: Halloween Masquerade",
+     "venue_text": "SOBs | 204 Varick Street, New York, NY 10014-4810, USA",
+     "url": "https://ra.co/events/2565959"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "10:00 AM - 4:00 AM",
+     "title": "Tonite Worldwide presents: NITE CAP",
+     "venue_text": "Happyfun Hideaway | 1211 Myrtle Ave, Brooklyn, NY 11221, USA",
+     "url": "https://ra.co/events/2566625"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Halloween del Perreo Parrty Reggaeton Bar",
+     "venue_text": "San Antonios | 247 Eldridge Street, New York, NY 10002",
+     "url": "https://ra.co/events/2543226"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge Street, New York, NY 10002",
+     "url": "https://ra.co/events/2541982"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "5:00 PM - 2:00 AM",
+     "title": "SOIR\u00c9E: Jean-Paul / J.N.R / Chilly & Gams",
+     "venue_text": "MAD Radio NYC | 395 WYTHE AVE, BROOKLYN, NEW YORK",
+     "url": "https://ra.co/events/2568668"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "6:00 PM - 9:30 PM",
+     "title": "King & Queen of the Cypher",
+     "venue_text": "SOBs | 204 Varick Street, New York, NY 10014-4810, USA",
+     "url": "https://ra.co/events/2551450"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "The Cure's Disintegration Listening Session with Andi",
+     "venue_text": "Silence Please | 132 Bowery Floor 2, New York, NY 10013",
+     "url": "https://ra.co/events/2546165"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "7:00 PM - 2:30 AM",
+     "title": "5IVEDOLLAHOLLAWEEN",
+     "venue_text": "Honey's | 93 Scott Avenue, Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2559461"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "7:00 PM - 12:00 AM",
+     "title": "Happy Hour: More Heart",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2566890"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "7:30 PM - 9:30 PM",
+     "title": "CLUB KID \u2013 NYC Special Nightlife Community Screening",
+     "venue_text": "Regal Union Square | 850 Broadway, New York, NY 10003",
+     "url": "https://ra.co/events/2567887"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "Body Hack",
+     "venue_text": "Nowadays | 56-06 Cooper Ave. Ridgewood, NY 11385 USA",
+     "url": "https://ra.co/events/2522234"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "8:00 PM - 2:00 AM",
+     "title": "Resolved: DSA Halloween",
+     "venue_text": "Paragon | 990 Broadway Brooklyn, NY",
+     "url": "https://ra.co/events/2550591"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "8:00 PM - 11:30 PM",
+     "title": "Vortex presents: An Evening of Trance Films",
+     "venue_text": "telos.haus | 303 Ten Eyck St, Brooklyn NY 11206",
+     "url": "https://ra.co/events/2550485"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "8:00 PM - 12:00 AM",
+     "title": "Breaking Capacity presents: Dykes n' Bass (DNB)",
+     "venue_text": "Boyfriend co-op | 1157 Myrtle Ave, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2548002"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "White Lodge presents: Bobby",
+     "venue_text": "Outer Heaven | 191 Chrystie Street, New York, NY 10002",
+     "url": "https://ra.co/events/2543514"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "9:00 PM - 2:00 AM",
+     "title": "Curse of the CODED w/ Prince Rose, Boomer Banks",
+     "venue_text": "Club Rawhide | 250 W 26TH ST",
+     "url": "https://ra.co/events/2556103"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "9:00 PM - 3:00 AM",
+     "title": "ROMANCE w Eli Escobar",
+     "venue_text": "Gabriela | 90 Wythe Ave, Brooklyn, NY 11249",
+     "url": "https://ra.co/events/2549972"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "9:00 PM - 3:00 AM",
+     "title": "Purelink All Night Long",
+     "venue_text": "Mansions | 46-63 Metropolitan Ave, Queens, NY, 11385, USA",
+     "url": "https://ra.co/events/2567920"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "9:00 PM - 2:00 AM",
+     "title": "Rendezvous Grooves Open decks",
+     "venue_text": "Idle Mind Tavern | 623 Manhattan Ave, Brooklyn, NY 11222",
+     "url": "https://ra.co/events/2545968"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "DickAppointment Halloween (Boom Takeover): BEARCAT, TAH, Fried Platano, LITNEY",
+     "venue_text": "The Standard | 444 W 13th St, New York, New York 10014",
+     "url": "https://ra.co/events/2568054"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "2ManyDJs, Rory Phillips",
+     "venue_text": "Good Room | 98 Meserole Ave, Brooklyn, NY 11222 USA",
+     "url": "https://ra.co/events/2562732"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "AKATA",
+     "venue_text": "H0L0 | 1090 Wyckoff Ave, Queens, NY 11385, United States",
+     "url": "https://ra.co/events/2560167"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "GARBAGE TRASH WHORE Halloween Party",
+     "venue_text": "Le Bain | 444 W 13th Street, New York, NY 10014",
+     "url": "https://ra.co/events/2560165"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "10:00 PM - 3:00 AM",
+     "title": "Hi-fi Halloween",
+     "venue_text": "Mood Ring | 1260 Myrtle Ave, Brooklyn, NY 11221, USA",
+     "url": "https://ra.co/events/2510960"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "PURGATORY: Thursday Night with salute B2B Stacey Pullen",
+     "venue_text": "Refuge | 366 Ten Eyck, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2545600"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "DAYTONA 500: Maude Vos, Solofan, SIETE",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2566124"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "D*KE DUNGEON: SAPPHIC CIRCUS",
+     "venue_text": "TBA - Then House 29 locust street. Brooklyn",
+     "url": "https://ra.co/events/2560862"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Rocky Whorer",
+     "venue_text": "Eagle NYC | 554 W 28th St, New York, NY 10001",
+     "url": "https://ra.co/events/2566782"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-29",
+     "time_text": "10:00 PM - 3:00 AM",
+     "title": "Secret Tempo: theguyfromathens b2b Larry Masmero",
+     "venue_text": "Bar Bonobo | 184 8th Ave, New York, NY 10011",
+     "url": "https://ra.co/events/2543671"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "6:00 AM - 3:00 AM",
+     "title": "Halloween at 'Hexley' with Kweyolkidz, Ryan McKnight and LOFTUS",
+     "venue_text": "The Exley | 1 Jackson St, Brooklyn, New York 11211",
+     "url": "https://ra.co/events/2566040"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "3:00 PM - 6:00 PM",
+     "title": "After Eden with Lorien Well (Live)",
+     "venue_text": "Silence Please | 132 Bowery Floor 2, New York, NY 10013",
+     "url": "https://ra.co/events/2569276"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "5:00 PM - 4:00 AM",
+     "title": "NEIGHBOURS / SAM PERRICONE /Tone Troy /Max Parkinson",
+     "venue_text": "MAD Radio NYC | 395 WYTHE AVE, BROOKLYN, NEW YORK",
+     "url": "https://ra.co/events/2568672"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Medellin Fridays - Colombian Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge Street, New York, NY 10002",
+     "url": "https://ra.co/events/2531522"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "6:00 PM - 12:00 AM",
+     "title": "s p o o k y b a b y",
+     "venue_text": "Heaven & Earth | 290 Nassau Ave, Brooklyn, NY 11222",
+     "url": "https://ra.co/events/2556373"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "horsegiirL",
+     "venue_text": "Terminal 5 | 610 West 56th Street; New York, NY 10019; United States",
+     "url": "https://ra.co/events/2563429"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "7:00 PM - 4:00 AM",
+     "title": "Ataud",
+     "venue_text": "Friends & Lovers | 641 Classon Avenue Brooklyn NY",
+     "url": "https://ra.co/events/2562878"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "Heart Beats",
+     "venue_text": "Mood Ring | 1260 Myrtle Ave, Brooklyn, NY 11221, USA",
+     "url": "https://ra.co/events/2568917"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "8:00 PM - 3:00 AM",
+     "title": "MAD Records LAB: THE GROOVE w/ James Park & Onakan Disko",
+     "venue_text": "MAD Radio NYC | 395 WYTHE AVE, BROOKLYN, NEW YORK",
+     "url": "https://ra.co/events/2543624"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "8:00 PM - 2:00 AM",
+     "title": "The Heist - Old Savings Bank Halloween feat. Emmit Fenn",
+     "venue_text": "Old Savings Bank | One Hanson Pl, Brooklyn, NY 11243",
+     "url": "https://ra.co/events/2549931"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "NYC Halloween Bar Crawl 2026 \u2013 Manhattan Halloween Nightlife",
+     "venue_text": "Croton Reservoir Tavern | 108 West 40th Street, New York, NY 10018",
+     "url": "https://ra.co/events/2563678"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "Outer Heaven Halloween: Orson b2b KOZLOW",
+     "venue_text": "Outer Heaven | 191 Chrystie Street, New York, NY 10002",
+     "url": "https://ra.co/events/2568047"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "8:00 PM - 3:00 AM",
+     "title": "Perreo on the Roof Halloween Latin & Reggaeton Rooftop Dance Party NYC",
+     "venue_text": "High Bar New York | 346 West 40th Street, New York, NY 10018",
+     "url": "https://ra.co/events/2549958"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "9:00 PM - 4:00 AM",
+     "title": "Club Rawhide FRIDAY: Freakish Friday Formula #79 with Will Automagic, Leonce, Delilah At Night",
+     "venue_text": "Club Rawhide | 250 W 26TH ST",
+     "url": "https://ra.co/events/2556106"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "9:00 PM - 3:00 AM",
+     "title": "Haunting on the Roof - Friday Halloween Rooftop #1 Skyline Views NYC",
+     "venue_text": "High Bar New York | 120 Water Street, New York, NY 10005",
+     "url": "https://ra.co/events/2568697"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "9:00 PM - 3:00 AM",
+     "title": "CHERRY POP w Nadine + Rider",
+     "venue_text": "Gabriela | 90 Wythe Ave, Brooklyn, NY 11249",
+     "url": "https://ra.co/events/2552985"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "9:00 PM - 2:00 AM",
+     "title": "Distant Matter",
+     "venue_text": "Chambers Courthouse | 31 Chambers St, New York, NY 10007",
+     "url": "https://ra.co/events/2548586"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "9:00 PM - 4:00 AM",
+     "title": "DAINTREE ROOFTOP HALLOWEEN PARTY 2026",
+     "venue_text": "Daintree Roof Top NYC | 25 West 38th Street #29th Floor, New York, NY 10018",
+     "url": "https://ra.co/events/2556472"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "9:00 PM - 4:00 AM",
+     "title": "LE JARDIN ROOFTOP HALLOWEEN PARTY 2026",
+     "venue_text": "LE Jardin NYC | 120 West 57th Street, New York, NY 10019",
+     "url": "https://ra.co/events/2568151"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "10:00 PM - 3:00 PM",
+     "title": "Halloween Nonstop: DJ Stingray, Convextion, Rene Wise, Juliana Huxtable, DJ Koolt + more",
+     "venue_text": "Nowadays | 56-06 Cooper Ave. Ridgewood, NY 11385 USA",
+     "url": "https://ra.co/events/2522261"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "10:00 PM - 5:00 AM",
+     "title": "Synthicide Halloween ft Terence Fixmer, Andi, Justin Aulis Long, Stiffdance",
+     "venue_text": "Good Room | 98 Meserole Ave, Brooklyn, NY 11222 USA",
+     "url": "https://ra.co/events/2519294"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Kinder Circus Halloween",
+     "venue_text": "The Ornate Studio | 650 Sackett Street, Brooklyn, NY 11217",
+     "url": "https://ra.co/events/2551305"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "10:00 PM - 2:00 AM",
+     "title": "Bruja & Bichota Halloween REGGAETON Boat Party NYC Yacht Cruise",
+     "venue_text": "Pier 78 at Hudson River Park | 455 12th Avenue, New York, NY 10018",
+     "url": "https://ra.co/events/2554746"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "HALLOWEEN BOOM! by Susanne Bartsch",
+     "venue_text": "Le Bain | 444 W 13th Street, New York, NY 10014",
+     "url": "https://ra.co/events/2550298"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "10:00 PM - 8:00 AM",
+     "title": "Level III Halloween: Bambounou, Dennis Free, Mai Iachetti, MESA, RHR, Rose Kourts, 1morning",
+     "venue_text": "Green Room NYC | 195 Morgan Ave, Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2549246"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "POTLUCK HALLOWEEN",
+     "venue_text": "Mood Ring | 1260 Myrtle Ave, Brooklyn, NY 11221, USA",
+     "url": "https://ra.co/events/2510940"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Good Friday",
+     "venue_text": "Red Eye NY | 355 W 41st Street, New York, NY 10036",
+     "url": "https://ra.co/events/2562879"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "10:00 PM - 6:00 AM",
+     "title": "PURGATORY: Friday Night with Jayda G + Suze Ij\u00f3",
+     "venue_text": "Refuge | 366 Ten Eyck Street, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2545601"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "VYPER: UNLEASHED",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2547886"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "10:00 PM - 3:00 AM",
+     "title": "FEAR OF A BLACK PLANET: Petal, Botanist, Sugo2000, Seangreentea, Tallboy",
+     "venue_text": "Empire Stage | 229 Empire Blvd, Brooklyn, NY 11225, USA",
+     "url": "https://ra.co/events/2539139"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "DETOX UNIT, RESONANT LANGUAGE, Schmoop, SORTOF VAGUE + PETALS",
+     "venue_text": "The Chocolate Factory | 70 Scott Ave Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2545907"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Resonance Halloween: Oscil / Uttaraa / Alter",
+     "venue_text": "Mr. Nancy\u2019s | 7-02 Seneca Ave, Ridgewood, NY 11385",
+     "url": "https://ra.co/events/2522037"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "#1 AVENIDA DE PERREO - Latin Reggaeton Rooftop Party",
+     "venue_text": "Avenida NYC | 1 Pennsylvania Plaza, New York, NY 10119, USA",
+     "url": "https://ra.co/events/2490067"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "THE Y2K Parrty at the Legendary Mehanata NYC - 18",
+     "venue_text": "Mehanata Bar | 113 Ludlow Street, New York, NY 10002",
+     "url": "https://ra.co/events/2508294"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "The Night Before Halloween Rave NYC",
+     "venue_text": "Club 51 | 627 West 51st Street",
+     "url": "https://ra.co/events/2558262"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "PERREO HALLOWEEN - Latin Reggaeton Dance Party in NYC (18+)",
+     "venue_text": "Bar 13 | 121 University Place, New York, NY 10003",
+     "url": "https://ra.co/events/2549996"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Motion Massacre Halloween Party",
+     "venue_text": "Level Astoria | 23-66 Steinway Street, Queens, NY 11105",
+     "url": "https://ra.co/events/2553102"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Nightmare on Steinway St \u2013 Halloween Party",
+     "venue_text": "Egypt Astoria | 30-91 Steinway Street, Queens, NY 11103",
+     "url": "https://ra.co/events/2558259"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Sounds So Sweet Halloween Eve Dance Party & Pop-Up",
+     "venue_text": "Danger Danger | 232 Knickerbocker Ave, New York, 11237",
+     "url": "https://ra.co/events/2567916"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "10:00 PM - 6:00 AM",
+     "title": "ELSIE ROOFTOP HALLOWEEN PARTY 2026",
+     "venue_text": "Elsie Rooftop NYC | 1412 Broadway, New York, NY 10018, United States",
+     "url": "https://ra.co/events/2568137"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "10:30 PM - 7:00 AM",
+     "title": "BOUND Blackout: Laure Croft / SKIN / Katie Rex / Kim Anh / Dj Warning / likeholywine / nonsuit",
+     "venue_text": "BASEMENT | 52-19 Flushing Ave., Maspeth, NY 11378 USA",
+     "url": "https://ra.co/events/2523921"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "10:30 PM - 4:00 AM",
+     "title": "GIRL CODE HOTTIEWEEN",
+     "venue_text": "Oberon | 196 N 10th St, Brooklyn, NY, 11211",
+     "url": "https://ra.co/events/2557447"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "11:00 PM - 1:00 PM",
+     "title": "MERGE HALLOWEEN",
+     "venue_text": "TBA - Brooklyn",
+     "url": "https://ra.co/events/2520913"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "WHOREPOCALYPSE w/ Zutzut, 2AT, RICO RICA, DJ Rankng, Sterling Juan Diaz, Litney + more",
+     "venue_text": "The Meadows | 17 Meadow St, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2526569"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "VERS UNDIES: SCAREDY PANTS 5",
+     "venue_text": "VERS | 714 9th Ave, New York, NY 10019",
+     "url": "https://ra.co/events/2539420"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "GHOULS GONE WILD: 8-BALL-O-WEEN",
+     "venue_text": "Trans-Pecos | 9-15 Wyckoff Ave, Queens, NY 11385",
+     "url": "https://ra.co/events/2548058"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "11:00 PM - 6:00 AM",
+     "title": "Apollo Studio presents",
+     "venue_text": "Apollo Studio | 72 Apollo St Brooklyn, NY 11222",
+     "url": "https://ra.co/events/2415406"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "11:00 PM - 3:00 AM",
+     "title": "SOB's presents: Y2K Party: Halloween Eve",
+     "venue_text": "SOBs | 204 Varick Street, New York, NY 10014-4810, USA",
+     "url": "https://ra.co/events/2560638"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "11:00 PM - 6:00 AM",
+     "title": "bradezy - NYC",
+     "venue_text": "Le Poisson Rouge | 158 Bleecker Street; New York, NY 10012; United States",
+     "url": "https://ra.co/events/2500860"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-30",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "Halloween Reggaeton Party",
+     "venue_text": "Skinos NYC | 123 Washington Street, New York, NY 10006",
+     "url": "https://ra.co/events/2570325"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "3:00 AM - 10:00 PM",
+     "title": "Rooftop Halloween: Krewella & Nervo, Arty & DVBBS",
+     "venue_text": "Pier 17 | South Street Seaport, 12 Fulton St; New York, NY 10038; United States",
+     "url": "https://ra.co/events/2567972"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "6:00 AM - 10:00 PM",
+     "title": "PURGATORY: Saturday All Day with Victor Calderone, Anthony Middleton",
+     "venue_text": "Refuge | 366 Ten Eyck, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2545602"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "11:30 AM - 1:00 PM",
+     "title": "Hard Yoga: Halloween \u2014 One Year Anniversary",
+     "venue_text": "Baby Cobra - Bushwick | 47 Thames St Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2545534"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "3:00 PM - 10:00 PM",
+     "title": "BEVERAGES presents HalloWine",
+     "venue_text": "Roberta's | 261 Moore St, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2554604"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "3:00 PM - 9:00 PM",
+     "title": "AGF Events presents Chromatic Shift with My Friend, Hausman, Schuyler Ocean, and Henry Neely",
+     "venue_text": "Bogart House | 230 Bogart St, Brooklyn, 11206",
+     "url": "https://ra.co/events/2552046"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2542014"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "The Conjuring On Eldridge Halloween Parrty Reggaeton Bar",
+     "venue_text": "San Antonios | 247 Eldridge Street, New York, NY 10002",
+     "url": "https://ra.co/events/2543165"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "5:00 PM - 4:00 AM",
+     "title": "MADLYWEEN:Amelia Holt / Gamma Vibes / Nico Noir / NO JUVENTUD",
+     "venue_text": "MAD Radio NYC | 395 WYTHE AVE, BROOKLYN, NEW YORK",
+     "url": "https://ra.co/events/2568674"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "6:00 PM - 10:00 PM",
+     "title": "LIFE AFTER TRANCE HALLOWEEN OPEN DECKS",
+     "venue_text": "Bootleg Bar NYC | 1438 Myrtle Ave, Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2568948"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "7:00 PM - 10:30 PM",
+     "title": "Elsewhere Halloween: Cannelle, EQ, Tommy Fleece, Corridos Ketamina, Isla Den, Ali RQ + more",
+     "venue_text": "Elsewhere | 599 Johnson Avenue, Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2518607"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "7:00 PM - 12:00 AM",
+     "title": "Paul Oakenfold & The Crystal Method",
+     "venue_text": "Racket NY | 431 West 16th Street, New York, NY 10011",
+     "url": "https://ra.co/events/2547805"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "The Pregame",
+     "venue_text": "Mood Ring | 1260 Myrtle Ave, Brooklyn, NY 11221, USA",
+     "url": "https://ra.co/events/2560376"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "[Happy Hour] Poison Paradise with Monreomami & Herzen",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2569090"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "Club Rawhide SATURDAY: Potent HALLOWEEN Concentrate #26 with Lauren Flax, Alexis, Stiletto",
+     "venue_text": "Club Rawhide | 250 W 26TH ST",
+     "url": "https://ra.co/events/2556111"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "8:00 PM - 3:00 AM",
+     "title": "The Haunting on the Roof - Halloween Rooftop #1 Skyline Views NYC",
+     "venue_text": "High Bar New York | 346 West 40th Street, New York, NY 10018",
+     "url": "https://ra.co/events/2550598"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "8:00 PM - 2:00 AM",
+     "title": "Dan Molinari",
+     "venue_text": "Old Savings Bank | One Hanson Pl, Brooklyn, NY 11243",
+     "url": "https://ra.co/events/2550012"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "8:00 PM - 1:00 AM",
+     "title": "Hallowine",
+     "venue_text": "Cherry On Top | 379 Suydam St, Brooklyn, NY 11237, United States",
+     "url": "https://ra.co/events/2568504"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "Halloween + The Keep CANCELLED",
+     "venue_text": "The Keep | 205 Cypress Ave Brooklyn NY",
+     "url": "https://ra.co/events/2559630"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "The Loft HALLOWEEN NYC PARTY 2026",
+     "venue_text": "The Loft | 1604 Broadway, NEW YORK, NY 10019",
+     "url": "https://ra.co/events/2549464"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "HK Hall Halloween: The Haunting of HK Hall 2026",
+     "venue_text": "HK Hall | 605 West 48th Street, New York, NY 10036",
+     "url": "https://ra.co/events/2558287"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "NYC Halloween Bar Crawl 2026 \u2013 Times Square to East Village",
+     "venue_text": "Croton Reservoir Tavern | 108 w. 40th Street, New York City, NY 10018",
+     "url": "https://ra.co/events/2568816"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "Into: Haven Halloween Edition",
+     "venue_text": "Haven Lounge | 683 Grand Street Brooklyn NY 11211",
+     "url": "https://ra.co/events/2569033"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "9:00 PM - 4:00 AM",
+     "title": "The Perreo Parrty Halloween Haunted Warehouse (18+)",
+     "venue_text": "15-41 Covert St. | 15-41 Covert Street, Queens, NY 11385",
+     "url": "https://ra.co/events/2555196"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "9:00 PM - 3:00 AM",
+     "title": "Book Club Radio Meeting #39 Maneater",
+     "venue_text": "TBA - Brooklyn",
+     "url": "https://ra.co/events/2553541"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "9:00 PM - 3:30 AM",
+     "title": "Natasha Kitty Katt // ALL NIGHT LONG",
+     "venue_text": "Gabriela | 90 Wythe Ave, Brooklyn, NY 11249",
+     "url": "https://ra.co/events/2552986"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "9:00 PM - 4:00 AM",
+     "title": "Off The Record at PUBLIC Hotel",
+     "venue_text": "Public Arts | 215 Chrystie St, New York, NY 10002, USA",
+     "url": "https://ra.co/events/2509994"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "9:00 PM - 4:00 AM",
+     "title": "Halloween at The Woods",
+     "venue_text": "The Woods | 48 South 4th Street, Brooklyn, NY 11211",
+     "url": "https://ra.co/events/2563298"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "9:00 PM - 2:00 AM",
+     "title": "Vigilia",
+     "venue_text": "Art X | 409 W 14th St, New York, New York",
+     "url": "https://ra.co/events/2552847"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "9:00 PM - 4:00 AM",
+     "title": "Club De Vampiros X Discolocas Halloween Party",
+     "venue_text": "Danger Danger | 232 Knickerbocker Ave, New York, 11237",
+     "url": "https://ra.co/events/2567926"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "9:30 PM - 11:30 PM",
+     "title": "Vick Vapors and Holy Water Live Halloween Show",
+     "venue_text": "Talon Bar | 220 Wyckoff Ave, Brooklyn, New York 11237",
+     "url": "https://ra.co/events/2546546"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "9:30 PM - 4:00 AM",
+     "title": "NIGHT OF THE LIVING SOUND",
+     "venue_text": "Dada | 6047 Myrtle Avenue, Ridgewood NY 11385",
+     "url": "https://ra.co/events/2569279"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "TIKI DISCO HALLOWEEN",
+     "venue_text": "Good Room | 98 Meserole Ave, Brooklyn, NY 11222 USA",
+     "url": "https://ra.co/events/2553958"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "10:00 PM - 2:00 AM",
+     "title": "The Day of the Dead Halloween Latin & Reggaeton Boat Party NYC Yacht Cruise",
+     "venue_text": "Pier 78 at Hudson River Park | 455 12th Avenue, New York, NY 10018",
+     "url": "https://ra.co/events/2556138"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "HALLOWEEN Le Bain + Boom",
+     "venue_text": "Le Bain | 444 W 13th Street, New York, NY 10014",
+     "url": "https://ra.co/events/2557317"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "JACOBDIOR PRESENTS HALLOWEEN",
+     "venue_text": "Mood Ring | 1260 Myrtle Ave, Brooklyn, NY 11221, USA",
+     "url": "https://ra.co/events/2510944"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "10:00 PM - 6:00 AM",
+     "title": "PURGATORY: Saturday Night with Nicole Moudaber",
+     "venue_text": "Refuge | 366 Ten Eyck, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2545603"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "TWERK 2 FREEDOM ATTACK ON TWERKERS",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2550644"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Schrotthagen: New World Tour 2026",
+     "venue_text": "314 Scholes | 314 Scholes St Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2500280"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Lower East Record Club presents Halloween at Night Club 101",
+     "venue_text": "Nightclub 101 | 101 Avenue A, New York, NY 10009",
+     "url": "https://ra.co/events/2549360"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "THE Y2K Parrty at the Legendary Mehanata NYC - 18",
+     "venue_text": "Mehanata Bar | 113 Ludlow Street, New York City, NY 10002",
+     "url": "https://ra.co/events/2544424"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "E11EVEN x Cipriani: All Hallows' Eve",
+     "venue_text": "Cipriani Wall Street | 55 Wall St, New York, NY 10005",
+     "url": "https://ra.co/events/2528724"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "ANGELS CALL 2 DEMON TIME",
+     "venue_text": "Jade | 4 Stuyvesant Avenue, Brooklyn, NY 11221",
+     "url": "https://ra.co/events/2561818"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "10:00 PM - 5:00 AM",
+     "title": "Afraid of the Dark 2026",
+     "venue_text": "20 Meadow | 20 Meadow St. Brooklyn NY 11206",
+     "url": "https://ra.co/events/2548265"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Moondog HiFi presents: DISCO AFTERLIFE",
+     "venue_text": "Moondog Hifi | 119 Ingraham Street, Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2557401"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "SIDERA X LIFE AFTER TRANCE: BOOTLEG'S HALLOWEEN",
+     "venue_text": "Bootleg Bar NYC | 1438 Myrtle Ave, Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2569265"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "DISTRICT PERREO - Latin & Reggaeton Dance Party - Nexo CLUB NYC",
+     "venue_text": "Nexo | 29 W 36TH ST, New York, NY 10018",
+     "url": "https://ra.co/events/2501762"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Troublemakers",
+     "venue_text": "Night Club 101 | 101 Avenue A, New York, NY 10009",
+     "url": "https://ra.co/events/2556482"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "The 2000s Forever Parrty by THE Y2K Parrty - Saturdays at Mehanata NYC",
+     "venue_text": "Mehanata Bar | 113 Ludlow Street, New York, NY 10002",
+     "url": "https://ra.co/events/2545642"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "DJ CAMILO FEAR GARDEN NYC HALLOWEEN PARTY 2026",
+     "venue_text": "Harbor | 621 West 46th Street, New York, NY 10036",
+     "url": "https://ra.co/events/2558476"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "PHD ROOFTOP HALLOWEEN PARTY 2026",
+     "venue_text": "PHD NY | 355 West 16th Street, New York, NY",
+     "url": "https://ra.co/events/2563854"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Viva Toro Halloween",
+     "venue_text": "Viva Toro Nightclub | 987 Grand Street, Brooklyn, NY 11211",
+     "url": "https://ra.co/events/2568804"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Perreo del Infierno: Halloween Reggaeton Party \u2013 Croton NYC",
+     "venue_text": "Croton Reservoir Tavern | 108 West 40th Street, New York, NY 10018",
+     "url": "https://ra.co/events/2568825"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Solarium Halloween Edition - A House Music Journey",
+     "venue_text": "Althea's Rooftop | 603 W 44th St, New York, NY 10036",
+     "url": "https://ra.co/events/2569377"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "10:00 PM - 12:00 AM",
+     "title": "Dia de los Muertos Astoria",
+     "venue_text": "Magic Lounge | 30-73 Steinway Street, Queens, NY 11103",
+     "url": "https://ra.co/events/2569555"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "10:30 PM - 7:00 AM",
+     "title": "Herrensauna: MCMLXXXV / SALOME / LORD ASA / CEM / Dee Diggs / Sevyn Love",
+     "venue_text": "BASEMENT | 52-19 Flushing Ave., Maspeth, NY 11378 USA",
+     "url": "https://ra.co/events/2533915"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "HAUNTED HOTEL: Market Hotel HALLOWEEN PARTY",
+     "venue_text": "Market Hotel | 1140 Myrtle Avenue; Brooklyn, NY 11206; United States",
+     "url": "https://ra.co/events/2558064"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "Halloween Parrty at District Saturdays Midtown NYC Nightclub",
+     "venue_text": "Nexo | 29 W 36TH ST, New York, NY 10018",
+     "url": "https://ra.co/events/2552301"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "11:00 PM - 6:00 AM",
+     "title": "NYC'S BIGGEST DRUM AND BASS & DUBSTEP HALLOWEEN CELEBRATION WITH DR. APOLLO & LMNOP",
+     "venue_text": "The Woodshop | 21a Meadow Street, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2376938"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "11:00 PM - 6:00 AM",
+     "title": "Apollo Studio presents",
+     "venue_text": "Apollo Studio | 72 Apollo St Brooklyn, NY 11222",
+     "url": "https://ra.co/events/2415407"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "Nightmare on 36th Street Halloween Parrty Nightclub",
+     "venue_text": "Nexo | 29 W 36TH ST, New York, NY 10018",
+     "url": "https://ra.co/events/2470719"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "SLOW JAMS NYC - HALLOWEEN Slow Jams & RnB Party in Brooklyn",
+     "venue_text": "Littlefield | 635 Sackett Street, Brooklyn, NY 11217",
+     "url": "https://ra.co/events/2550343"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "11:00 PM - 6:00 AM",
+     "title": "Conway the Machine UK Tour",
+     "venue_text": "Club Rawhide | 250 W 26TH ST",
+     "url": "https://ra.co/events/2569245"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-10-31",
+     "time_text": "11:59 PM - 4:00 AM",
+     "title": "The Disco Express: Halloween in NYC",
+     "venue_text": "Ciao Ciao | 97 N 10th St, Brooklyn, NY 11249",
+     "url": "https://ra.co/events/2540271"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-01",
+     "time_text": "4:00 AM - 2:00 PM",
+     "title": "Fever x Frisky: Afterhours Revolution",
+     "venue_text": "Elsewhere | 599 Johnson Avenue ##1, Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2568639"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-01",
+     "time_text": "4:00 AM - 8:00 AM",
+     "title": "CHXRCH - Halloween Afters",
+     "venue_text": "TBA - Brooklyn",
+     "url": "https://ra.co/events/2568698"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-01",
+     "time_text": "6:00 AM - 12:00 PM",
+     "title": "PURGATORY: Sunday Sunrise with Mira",
+     "venue_text": "Refuge | 366 Ten Eyck, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2545604"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-01",
+     "time_text": "12:00 PM - 12:00 AM",
+     "title": "SHIFT: The Nightmare Isn't Over \u2014 Developer , DJ Plant Texture (Live) & Orlando Voorn",
+     "venue_text": "Eden NYC | 20 w 36th St",
+     "url": "https://ra.co/events/2555321"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-01",
+     "time_text": "2:00 PM - 11:59 PM",
+     "title": "bumpy!",
+     "venue_text": "TBA - Brooklyn",
+     "url": "https://ra.co/events/2551216"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-01",
+     "time_text": "3:00 PM - 9:00 PM",
+     "title": "Mister Halloween Sunday, Our Season Closer: Eamon Harkin and Justin Carter",
+     "venue_text": "Nowadays | 56-06 Cooper Ave. Ridgewood, NY 11385 USA",
+     "url": "https://ra.co/events/2503334"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-01",
+     "time_text": "4:00 PM - 10:00 PM",
+     "title": "WORLD OF ECHOES by Fran\u00e7ois K",
+     "venue_text": "Le Bain | 444 W 13th Street, New York, NY 10014",
+     "url": "https://ra.co/events/2570088"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-01",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Halloween Y2K Parrty $500 Costume Prize Reggaeton Bar",
+     "venue_text": "San Antonios | 247 Eldridge Street, New York, NY 10002",
+     "url": "https://ra.co/events/2543271"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-01",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "The Y2k Parrty- Can you hear me now? Classics Cocktail Bar",
+     "venue_text": "San Antonios | 247 Eldridge Street, New York, NY 10002",
+     "url": "https://ra.co/events/2546050"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-01",
+     "time_text": "6:00 PM - 1:00 AM",
+     "title": "LOVE SENSATION SUNDAYS: S\u00c9ANCE FOR THE DAY OF THE DEAD DISCO with DJ Lina, Dawson",
+     "venue_text": "Club Rawhide | 250 W 26TH ST",
+     "url": "https://ra.co/events/2556116"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-01",
+     "time_text": "7:00 PM - 11:00 PM",
+     "title": "SOB's presents: Nightmare on Varick St. - presented by NFU Radio",
+     "venue_text": "SOBs | 204 Varick Street, New York, NY 10014-4810, USA",
+     "url": "https://ra.co/events/2557301"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-01",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Scary Records with Doula b2b Kiernan Laveaux, Dick Void",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2560501"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-01",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Day Of The Dead: Halloween Dance Party",
+     "venue_text": "The Penthouse NYC | 617 W 46th Street PH Floor, New York, NY 10036",
+     "url": "https://ra.co/events/2568379"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-01",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "Dia de los Muertos Rooftop Party",
+     "venue_text": "Lost in Paradise Rooftop | 11-01 43rd Ave, Long Island City, NY 11101",
+     "url": "https://ra.co/events/2559917"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-02",
+     "time_text": "6:00 PM - 12:00 AM",
+     "title": "MMF Society Open Decks",
+     "venue_text": "The Rose | 160 W 25th St, New York, NY 10001",
+     "url": "https://ra.co/events/2565101"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-02",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Earmrk after Drk",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2552143"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-03",
+     "time_text": "5:00 PM - 8:00 PM",
+     "title": "Cleo Reed: 'Is This How Empires Die?' Listening & Dialogue",
+     "venue_text": "Silence Please | 132 Bowery Floor 2, New York, NY 10013",
+     "url": "https://ra.co/events/2570167"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-03",
+     "time_text": "5:00 PM - 8:30 PM",
+     "title": "22 Pushup Challenge",
+     "venue_text": "The Rose | 160 W 25th St, New York, NY 10001",
+     "url": "https://ra.co/events/2544283"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-03",
+     "time_text": "5:00 PM - 11:59 PM",
+     "title": "Deep Listening",
+     "venue_text": "Moondog Hifi | 119 Ingraham Street, Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2569172"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-03",
+     "time_text": "6:00 PM - 11:59 PM",
+     "title": "Swallowed Open Decks",
+     "venue_text": "Selva NYC | 1329 WILLOUGHBY AVE BROOKLYN, NY 11237, USA",
+     "url": "https://ra.co/events/2561516"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-03",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Terroir: Korr\u0113, Niyah West, Daystar, antron",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2559367"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-03",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Club Baile ft: Lil Z\u00e9, Papi Weli, Powla",
+     "venue_text": "Pianos | 158 Ludlow Street; New York, NY 10002; United States",
+     "url": "https://ra.co/events/2313346"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-03",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "Off The Record - Tuesday Sessions at PUBLIC Hotel",
+     "venue_text": "Public Arts | 215 Chrystie St, New York, NY 10002, USA",
+     "url": "https://ra.co/events/2510002"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-04",
+     "time_text": "7:00 PM - 2:00 AM",
+     "title": "futago: chioske b2b DJ eh, Gigi Rio b2b amita",
+     "venue_text": "Jupiter Disco | 1237 Flushing Avenue, Brooklyn, NY 11237, USA",
+     "url": "https://ra.co/events/2564178"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-04",
+     "time_text": "7:00 PM - 11:00 PM",
+     "title": "Qtea (Live) with support from AUTUMNATIC / John-Lewis Anderson",
+     "venue_text": "Sleepwalk | 251 Bushwick Avenue, Brooklyn, NY, 11211",
+     "url": "https://ra.co/events/2517084"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-04",
+     "time_text": "7:00 PM - 11:59 PM",
+     "title": "Wednesday JAmZZ: Nico Jin Group",
+     "venue_text": "Moondog Hifi | 119 Ingraham Street, Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2569173"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-04",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "Outer Heaven presents: Nuno Carneiro",
+     "venue_text": "Outer Heaven | 191 Chrystie Street, New York, NY 10002",
+     "url": "https://ra.co/events/2544325"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-04",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Fahrenheit\u00b0",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2558028"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-04",
+     "time_text": "10:00 PM - 2:00 AM",
+     "title": "Beats without Borders",
+     "venue_text": "Mood Ring | 1260 Myrtle Ave, Brooklyn, NY 11221, USA",
+     "url": "https://ra.co/events/2558468"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-04",
+     "time_text": "10:00 PM - 1:00 AM",
+     "title": "Halcyon Veil LIVE: SCRAAATCH Embaci STEMLINES Doula Havoc On World",
+     "venue_text": "Nightclub 101 | 101 Avenue A, New York, NY 10009",
+     "url": "https://ra.co/events/2568187"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-05",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2547963"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-05",
+     "time_text": "7:00 PM - 11:59 PM",
+     "title": "Avalon Emerson & The Charm",
+     "venue_text": "Music Hall of Williamsburg | 66 North 6th Street; New York, NY 11211; United States",
+     "url": "https://ra.co/events/2515799"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-05",
+     "time_text": "7:00 PM - 12:00 AM",
+     "title": "Entangled Opening Night + Festival Passes",
+     "venue_text": "Qncc | 100 Hinsdale Street, Brooklyn, NY",
+     "url": "https://ra.co/events/2552256"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-05",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "Happy Hour: Sex Over Thirty",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2553531"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-05",
+     "time_text": "7:00 PM - 11:00 PM",
+     "title": "Avalon Emerson & The Charm",
+     "venue_text": "Music Hall of Williamsburg | 66 North 6th Street; New York, NY 11211; United States",
+     "url": "https://ra.co/events/2547806"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-05",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "super sweet happy hour with yung_womb (SLIC Unit) b2b Nissa Carrington",
+     "venue_text": "Mood Ring | 1260 Myrtle Ave, Brooklyn, NY 11221, USA",
+     "url": "https://ra.co/events/2566060"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-05",
+     "time_text": "7:30 PM - 12:30 AM",
+     "title": "Support Women DJs Open Decks",
+     "venue_text": "Delirium | 286 Meserole, Brooklyn, NY 11206, United States",
+     "url": "https://ra.co/events/2552647"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-05",
+     "time_text": "8:00 PM - 11:30 PM",
+     "title": "Sal\u00f3n Parcha: Boleros y Bailables with Gabriel Garz\u00f3n-Montano & Ella Bric",
+     "venue_text": "National Sawdust | 80 N 6th St, Brooklyn, NY 11249",
+     "url": "https://ra.co/events/2558762"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-05",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "Outer Heaven presents: Jivan Calderone - Willy Gorgon",
+     "venue_text": "Outer Heaven | 191 Chrystie Street, New York, NY 10002",
+     "url": "https://ra.co/events/2544329"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-05",
+     "time_text": "9:00 PM - 2:00 AM",
+     "title": "CODED Thursdays 11.05.26",
+     "venue_text": "Club Rawhide | 250 W 26TH ST",
+     "url": "https://ra.co/events/2565208"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-05",
+     "time_text": "9:00 PM - 2:00 AM",
+     "title": "Cute Toonz",
+     "venue_text": "Honey's | 93 Scott Avenue, Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2567787"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-05",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "eianne esau's FUCKINGLOVELY NO.8",
+     "venue_text": "H0L0 | 1090 Wyckoff Ave, Queens, NY 11385, United States",
+     "url": "https://ra.co/events/2560855"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-05",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Synthicide with Tyrel Williams, Fugitive Artifact, Andi",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2551965"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-05",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Refuge Thursday: MALUGI, STRAWBRY",
+     "venue_text": "Refuge | 366 Ten Eyck St, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2563877"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-05",
+     "time_text": "10:00 PM - 2:00 AM",
+     "title": "Ardio presents: Ardio + Yurk",
+     "venue_text": "Jupiter Disco | 1237 Flushing Avenue, Brooklyn, NY 11237, USA",
+     "url": "https://ra.co/events/2567301"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-05",
+     "time_text": "10:30 PM - 2:00 AM",
+     "title": "SOB's presents: Young Miko: Late Checkout Tour After Party",
+     "venue_text": "SOBs | 204 Varick Street, New York, NY 10014-4810, USA",
+     "url": "https://ra.co/events/2566078"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2547986"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Medellin Fridays - Colombian Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2531526"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "5:00 PM - 4:00 AM",
+     "title": "KUN\u00c1 X SLAPPED Records Takeover",
+     "venue_text": "MAD Radio NYC | 395 WYTHE AVE, BROOKLYN, NEW YORK",
+     "url": "https://ra.co/events/2565404"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "Margot \u2014 The Villain: First Listen + Live Performance",
+     "venue_text": "Silence Please | 132 Bowery Floor 2, New York, NY 10013",
+     "url": "https://ra.co/events/2546156"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "Dark Matter",
+     "venue_text": "9 Bob Note | 270 Meserole St, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2552991"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "DRAMAMA",
+     "venue_text": "Mood Ring | 1260 Myrtle Ave, Brooklyn, NY 11221, USA",
+     "url": "https://ra.co/events/2555022"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "7:30 PM - 11:30 PM",
+     "title": "The Mother Particle",
+     "venue_text": "Qncc | 100 Hinsdale Street, Brooklyn, NY",
+     "url": "https://ra.co/events/2546468"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "Outer Heaven presents: Secret Guest",
+     "venue_text": "Outer Heaven | 191 Chrystie Street, New York, NY 10002",
+     "url": "https://ra.co/events/2544337"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "8:00 PM - 2:00 AM",
+     "title": "KATIEE 'Resonant Objects' Record Release Party",
+     "venue_text": "Nightmoves | 295 grand street, brooklyn ny 11211",
+     "url": "https://ra.co/events/2559374"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "9:00 PM - 2:00 AM",
+     "title": "Club Rawhide FRIDAY NIGHT 11.06.26",
+     "venue_text": "Club Rawhide | 250 W 26TH ST",
+     "url": "https://ra.co/events/2565209"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "10:00 PM - 5:00 AM",
+     "title": "22 Years of FIXED ft Kelly Lee Owens (dj set), JDH & Dave P, Ivan Berko (all night)",
+     "venue_text": "Good Room | 98 Meserole Ave, Brooklyn, NY 11222 USA",
+     "url": "https://ra.co/events/2537429"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "10:00 PM - 6:00 AM",
+     "title": "Binh All Night",
+     "venue_text": "Nowadays | 56-06 Cooper Ave. Ridgewood, NY 11385 USA",
+     "url": "https://ra.co/events/2549118"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "CLUB NIGHT // Le Petit Box",
+     "venue_text": "Green Room NYC | 195 Morgan Ave, Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2559260"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "FACETIME at BOSSA: Scotia, Henry Chow, Eric Umble, Nymphostar",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2566926"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Rich Medina All Night",
+     "venue_text": "Le Bain | 444 W 13th Street, New York, NY 10014",
+     "url": "https://ra.co/events/2565909"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "10:00 PM - 9:00 AM",
+     "title": "Refuge Friday with Joss Dean, Gigsta, Claudio. and Rana Iravani",
+     "venue_text": "Refuge | 366 Ten Eyck St, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2560679"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Baddie 2 Baddie",
+     "venue_text": "Mood Ring | 1260 Myrtle Ave, Brooklyn, NY 11221, USA",
+     "url": "https://ra.co/events/2544655"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Bendito + Special Guests TBA",
+     "venue_text": "Jupiter Disco | 1237 Flushing Avenue, Brooklyn, NY 11237, USA",
+     "url": "https://ra.co/events/2570054"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "10:00 PM - 2:00 AM",
+     "title": "Jay Dimes - Dime in Da Rough Show (concert)",
+     "venue_text": "Xanadu | 262 Starr St, Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2529736"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "#1 AVENIDA DE PERREO - Latin Reggaeton Rooftop Party",
+     "venue_text": "Avenida NYC | 1 Pennsylvania Plaza, New York, NY 10119, USA",
+     "url": "https://ra.co/events/2490068"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "B2Bassment 1 Year Return-iversary",
+     "venue_text": "The Monster | 80 Grove Street; New York, NY 10014; United States",
+     "url": "https://ra.co/events/2569578"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "10:30 PM - 7:00 AM",
+     "title": "Aurora Halal / Altinbas / Roza Terenzi / Alex Kassian / Matas",
+     "venue_text": "BASEMENT | 52-19 Flushing Ave., Maspeth, NY 11378 USA",
+     "url": "https://ra.co/events/2553711"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "VUI V\u1eba FEST 05: VINA-HEY",
+     "venue_text": "Trans-Pecos | 9-15 Wyckoff Ave, Queens, NY 11385",
+     "url": "https://ra.co/events/2561810"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "11:00 PM - 6:00 AM",
+     "title": "Apollo Studio presents",
+     "venue_text": "Apollo Studio | 72 Apollo St Brooklyn, NY 11222",
+     "url": "https://ra.co/events/2415408"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "11:00 PM - 3:00 AM",
+     "title": "POLENTA",
+     "venue_text": "SOBs | 204 Varick Street, New York, NY 10014-4810, USA",
+     "url": "https://ra.co/events/2551444"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-06",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "AFROVRSE - NYC's Biggest Celebration of African Music",
+     "venue_text": "Littlefield | 635 Sackett Street, Brooklyn, NY 11217",
+     "url": "https://ra.co/events/2568908"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "3:00 PM - 10:00 PM",
+     "title": "PIV Records w. Prunk + Kellie Allen, MADVILLA, & More",
+     "venue_text": "H0L0 | 1090 Wyckoff Ave, Queens, NY 11385, United States",
+     "url": "https://ra.co/events/2531302"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "4:00 PM - 10:00 PM",
+     "title": "Refuge Saturday Daytime with Coco & Breezy, Lincoln Jesser, Ksenyeah and L3Ni",
+     "venue_text": "Refuge | 366 Ten Eyck St, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2563878"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2547992"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "6:00 PM - 9:30 PM",
+     "title": "Kwesi Arthur: Redemption Valley Tour",
+     "venue_text": "SOBs | 204 Varick Street, New York, NY 10014-4810, USA",
+     "url": "https://ra.co/events/2545488"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "7:00 PM - 4:00 AM",
+     "title": "BOUNCY by she.they.dj",
+     "venue_text": "Mood Ring | 1260 Myrtle Ave, Brooklyn, NY 11221, USA",
+     "url": "https://ra.co/events/2568641"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "Rochelle",
+     "venue_text": "Nightmoves | 295 grand street, brooklyn ny 11211",
+     "url": "https://ra.co/events/2569272"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "7:30 PM - 12:00 AM",
+     "title": "RBT presents Evening Tea with Mondolok x Dune45 (Hybrid Live), DJ Passion Fruit & Unsub",
+     "venue_text": "Crossroads Cafe | 119 Knickerbocker Ave, Brooklyn, NY 11237, USA",
+     "url": "https://ra.co/events/2567837"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "8:00 PM - 2:00 AM",
+     "title": "FACESTRAPPED Vol II",
+     "venue_text": "Qncc | 100 Hinsdale Street, Brooklyn, NY",
+     "url": "https://ra.co/events/2546470"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "Outer Heaven presents: DJ Immortal [Live]",
+     "venue_text": "Outer Heaven | 191 Chrystie Street, New York, NY 10002",
+     "url": "https://ra.co/events/2544341"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "8:00 PM - 10:00 PM",
+     "title": "GINUWINE WITH SPECIAL GUEST RO JAMES @Lehman Center, Sat., Nov. 7th @8 PM",
+     "venue_text": "Lehman Center for the Performing Arts | 250 Bedford Park Boulevard West Bronx, New York 10468",
+     "url": "https://ra.co/events/2558106"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "9:00 PM - 4:00 AM",
+     "title": "Club Rawhide SATURDAY NIGHT 11.07.26",
+     "venue_text": "Club Rawhide | 250 W 26TH ST",
+     "url": "https://ra.co/events/2565210"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "9:00 PM - 2:00 AM",
+     "title": "Aventura Night - #1 Bachata Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2440651"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "9:00 PM - 2:00 AM",
+     "title": "PJ Psoas (PDX), Max Pearl & Turner Capehart",
+     "venue_text": "Beverly's NYC | 297 Grand St, New York, NY",
+     "url": "https://ra.co/events/2565242"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "10:00 PM - 10:00 PM",
+     "title": "TraTraTrax Nonstop: Verraco, Pariah, PLO Man, BADSISTA, Gabrielle Kwarteng, Nick Le\u00f3n + more",
+     "venue_text": "Nowadays | 56-06 Cooper Ave. Ridgewood, NY 11385 USA",
+     "url": "https://ra.co/events/2549176"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "10:00 PM - 5:00 AM",
+     "title": "Members Party: Tam Tam, Mike Guimond & Harim, Fever Dream & ellen.j",
+     "venue_text": "Good Room | 98 Meserole Ave, Brooklyn, NY 11222 USA",
+     "url": "https://ra.co/events/2548803"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "10:00 PM - 6:00 AM",
+     "title": "Skatepark Art & Music Festival: Impossible Illusions",
+     "venue_text": "Substance Skatepark | 314 Scholes St., Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2522361"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "10:00 PM - 11:59 PM",
+     "title": "nimino",
+     "venue_text": "Terminal 5 | 610 West 56th Street; New York, NY 10019; United States",
+     "url": "https://ra.co/events/2469922"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Louie Vega, Oscar G, SURPRISE GUEST + MORE",
+     "venue_text": "Brooklyn Pacha | 140 Stewart Ave, BROOKLYN, NY 11237, UNITED STATES",
+     "url": "https://ra.co/events/2557249"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "10:00 PM - 8:00 AM",
+     "title": "PAST presents: Flug, .VRIL (live), Marteka Fair, RAH, THUMB5",
+     "venue_text": "Green Room NYC | 195 Morgan Ave, Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2553924"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "HEAVY WASTE: Antenes, R-DNA, HNDRNC, Erik Braun",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2550385"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "10:00 PM - 12:00 PM",
+     "title": "Refuge Saturday: Balance w/ BASHKKA, Satoshi Tomiie, Kim Anh, Justin Cudmore and More",
+     "venue_text": "Refuge | 366 Ten Eyck St, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2563880"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Micro Movement #05: Tim Lucent, Joiah, Jean Paul, ABS",
+     "venue_text": "Jupiter Disco | 1237 Flushing Avenue, Brooklyn, NY 11237, USA",
+     "url": "https://ra.co/events/2570036"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "10:30 PM - 7:00 AM",
+     "title": "WRECKED: Partok / Mike Servito / PEPIITA / Loren / Ron Like Hell / Ryan Smith",
+     "venue_text": "BASEMENT | 52-19 Flushing Ave., Maspeth, NY 11378 USA",
+     "url": "https://ra.co/events/2553723"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "10:30 PM - 4:00 AM",
+     "title": "Off The Record at PUBLIC Hotel",
+     "venue_text": "Public Arts | 215 Chrystie St, New York, NY 10002, USA",
+     "url": "https://ra.co/events/2510003"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "DISTRICT PERREO - Latin & Reggaeton Dance Party - Nexo CLUB NYC",
+     "venue_text": "Nexo | 29 W 36th St., New York, NY 10018, USA",
+     "url": "https://ra.co/events/2501777"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-07",
+     "time_text": "11:00 PM - 6:00 AM",
+     "title": "Apollo Studio presents",
+     "venue_text": "Apollo Studio | 72 Apollo St Brooklyn, NY 11222",
+     "url": "https://ra.co/events/2415409"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-08",
+     "time_text": "1:00 PM - 3:00 PM",
+     "title": "Entangled Talks & Workshops",
+     "venue_text": "Qncc | 100 Hinsdale Street, Brooklyn, NY",
+     "url": "https://ra.co/events/2566820"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-08",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "The Y2k Parrty- Can you hear me now? Classics Cocktail Bar",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2546057"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-08",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2547998"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-08",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Glizzy Sundays NYC Bar - Free Hotdogs & Happy Hour & DJ",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2569226"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-08",
+     "time_text": "5:00 PM - 8:00 PM",
+     "title": "Cu\u00e9ntame x Positive Deviance",
+     "venue_text": "Qncc | 100 Hinsdale Street, Brooklyn, NY",
+     "url": "https://ra.co/events/2546473"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-08",
+     "time_text": "6:00 PM - 12:00 AM",
+     "title": "ConTEAnental",
+     "venue_text": "Banya Brooklyn | 602 coney island avenue , brooklyn , 11218, NYC",
+     "url": "https://ra.co/events/2567781"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-08",
+     "time_text": "6:00 PM - 11:59 PM",
+     "title": "LOVE SENSATION SUNDAYS 11.08.26",
+     "venue_text": "Club Rawhide | 250 W 26TH ST",
+     "url": "https://ra.co/events/2565211"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-08",
+     "time_text": "7:00 PM - 2:00 AM",
+     "title": "I <3 HOUSE MUSIK: HelloNiyx, DJ cega, SINA, silkshirt, seangreentea",
+     "venue_text": "Jupiter Disco | 1237 Flushing Avenue, Brooklyn, NY 11237, USA",
+     "url": "https://ra.co/events/2564179"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-08",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Eli Escobar ALL NIGHT",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2553753"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-08",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "S\u00e1sta Sundays: Gabrielito, Club S\u00e1sta",
+     "venue_text": "Bar Bonobo | 184 8th Ave, New York, NY 10011",
+     "url": "https://ra.co/events/2568744"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-09",
+     "time_text": "6:30 PM - 10:00 PM",
+     "title": "DURATIONS Festival 2026",
+     "venue_text": "public records | 233 Butler St, Brooklyn, NY 11217, USA",
+     "url": "https://ra.co/events/2493855"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-09",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "DURATIONS: William Basinski, Cholla",
+     "venue_text": "public records | 233 Butler St, Brooklyn, NY 11217, USA",
+     "url": "https://ra.co/events/2513935"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-09",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Evolution: Saga's Gender Affirming Fundraiser",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2558032"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-10",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "DURATIONS: William Basinski, muein",
+     "venue_text": "public records | 233 Butler St, Brooklyn, NY 11217, USA",
+     "url": "https://ra.co/events/2513937"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-10",
+     "time_text": "7:00 PM - 11:00 PM",
+     "title": "Charles Hamilton - The Night of The Pink Lavalamp",
+     "venue_text": "SOBs | 204 Varick Street, New York, NY 10014-4810, USA",
+     "url": "https://ra.co/events/2540848"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-10",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Village Hidden in Sound",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2547882"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-10",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "Off The Record - Tuesday Sessions at PUBLIC Hotel",
+     "venue_text": "Public Arts | 215 Chrystie St, New York, NY 10002, USA",
+     "url": "https://ra.co/events/2510005"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-11",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "DURATIONS: William Basinski, Chantal Michelle",
+     "venue_text": "public records | 233 Butler St, Brooklyn, NY 11217, USA",
+     "url": "https://ra.co/events/2513938"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-11",
+     "time_text": "7:00 PM - 2:00 AM",
+     "title": "Pure Space: Headphones Girl, CYCLO BONETTE, Josephine, Forfex",
+     "venue_text": "Jupiter Disco | 1237 Flushing Avenue, Brooklyn, NY 11237, USA",
+     "url": "https://ra.co/events/2564181"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-11",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "MASCHINENHALLE: BODY SHIFT - ft Nikitaurech, Moment of Terror, XSB-R",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2550557"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-11",
+     "time_text": "8:00 PM - 12:00 AM",
+     "title": "Chai Room: Ghar Wali Diwali",
+     "venue_text": "SOBs | 204 Varick Street, New York, NY 10014-4810, USA",
+     "url": "https://ra.co/events/2566092"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-11",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "glue2glue",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2565887"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-11",
+     "time_text": "10:00 PM - 2:00 AM",
+     "title": "Hand to Phone",
+     "venue_text": "Mood Ring | 1260 Myrtle Ave, Brooklyn, NY 11221, USA",
+     "url": "https://ra.co/events/2569868"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-12",
+     "time_text": "5:00 PM - 7:00 PM",
+     "title": "What To Do Until Help Arrives",
+     "venue_text": "Qncc | 100 Hinsdale Street, Brooklyn, NY",
+     "url": "https://ra.co/events/2567009"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-12",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2548000"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-12",
+     "time_text": "7:00 PM - 12:00 AM",
+     "title": "DURATIONS: Ballet: Buttechno, Klein, Matana Roberts & Lesley Mok, Significant Other",
+     "venue_text": "public records | 233 Butler St, Brooklyn, NY 11217, USA",
+     "url": "https://ra.co/events/2513939"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-12",
+     "time_text": "7:00 PM - 2:00 AM",
+     "title": "Groove Mission: Iz:ak, Joey Blond, Love Frequency",
+     "venue_text": "Jupiter Disco | 1237 Flushing Avenue, Brooklyn, NY 11237, USA",
+     "url": "https://ra.co/events/2570050"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-12",
+     "time_text": "9:00 PM - 4:00 AM",
+     "title": "Mess Is Lore: Arushi Jain, Carpet (F.L.H.P), Crimeboys, Cry, MARBLE RYE, Motion Graphics, rrao",
+     "venue_text": "Nowadays | 56-06 Cooper Ave. Ridgewood, NY 11385 USA",
+     "url": "https://ra.co/events/2549138"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-12",
+     "time_text": "9:00 PM - 3:00 AM",
+     "title": "Tower - album premiere + afterparty",
+     "venue_text": "Mansions | 46-63 Metropolitan Ave, Queens, NY, 11385, USA",
+     "url": "https://ra.co/events/2563606"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-12",
+     "time_text": "10:00 PM - 3:00 AM",
+     "title": "RENDERS.003",
+     "venue_text": "Mood Ring | 1260 Myrtle Ave, Brooklyn, NY 11221, USA",
+     "url": "https://ra.co/events/2567242"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-12",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "White Label Yerba Mate 10 Year Anniversary",
+     "venue_text": "Le Bain | 444 W 13th Street, New York, NY 10014",
+     "url": "https://ra.co/events/2570032"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-13",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2548004"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-13",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Medellin Fridays - Colombian Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2531528"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-13",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "DURATIONS: Suzanne Ciani, Courtney Bailey",
+     "venue_text": "public records | 233 Butler St, Brooklyn, NY 11217, USA",
+     "url": "https://ra.co/events/2513942"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-13",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "Happy Hour: Pressure Front with Stephen's Wet, goodnight goodnight, NZR",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2554938"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-13",
+     "time_text": "7:00 PM - 11:59 PM",
+     "title": "The Reserve December Edition",
+     "venue_text": "TBA - The Reserve, 212 E 125th St The Living Room, New York, NY",
+     "url": "https://ra.co/events/2311259"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-13",
+     "time_text": "7:30 PM - 9:00 PM",
+     "title": "All the Beauty and the Terror visual album + live set",
+     "venue_text": "The Tiny Cupboard | 10 Cooper Street, Brooklyn, NY 11207",
+     "url": "https://ra.co/events/2567293"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-13",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "Outer Heaven presents: Make A Dance [All Night Long]",
+     "venue_text": "Outer Heaven | 191 Chrystie Street, New York, NY 10002",
+     "url": "https://ra.co/events/2544354"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-13",
+     "time_text": "9:30 PM - 3:00 AM",
+     "title": "Club Stars: Byrell The Great, Leonce, Daniro, FLWRSHRK, Madam 007 + Euwhoria",
+     "venue_text": "Paragon | 990 Broadway Brooklyn, NY",
+     "url": "https://ra.co/events/2567012"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-13",
+     "time_text": "10:00 PM - 6:00 AM",
+     "title": "Label Night: Tempa: Carr\u00e9, Eva Loveless, Introspekt, re:ni",
+     "venue_text": "Nowadays | 56-06 Cooper Ave. Ridgewood, NY 11385 USA",
+     "url": "https://ra.co/events/2532645"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-13",
+     "time_text": "10:00 PM - 6:00 AM",
+     "title": "ABOV FLINTA* NYC",
+     "venue_text": "H0L0 | 1090 Wyckoff Ave, Queens, NY 11385, United States",
+     "url": "https://ra.co/events/2559565"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-13",
+     "time_text": "10:00 PM - 5:00 AM",
+     "title": "Anastazja, Honey Bun, Royal Male, LOLO",
+     "venue_text": "Good Room | 98 Meserole Ave, Brooklyn, NY 11222 USA",
+     "url": "https://ra.co/events/2559200"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-13",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Third Floor Sounds: Foundations",
+     "venue_text": "Green Room NYC | 195 Morgan Ave, Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2568497"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-13",
+     "time_text": "10:00 PM - 8:00 AM",
+     "title": "Mind Cargo 1st Anniversary Party",
+     "venue_text": "ErF Studios | 1 ingraham st, Brooklyn NY, 11206",
+     "url": "https://ra.co/events/2560627"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-13",
+     "time_text": "10:00 PM - 6:00 AM",
+     "title": "Funk On Mars, Transmission #002",
+     "venue_text": "telos.haus | 303 Ten Eyck St, Brooklyn NY 11206",
+     "url": "https://ra.co/events/2564956"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-13",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Rollup: Aleroj [COL], Ultrabruma (Brenda + Mar\u00eda Manuela) [COL], grunge mum b2b zorenLo",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2567078"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-13",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Protein 2 Year Celebration",
+     "venue_text": "Mood Ring | 1260 Myrtle Ave, Brooklyn, NY 11221, USA",
+     "url": "https://ra.co/events/2544656"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-13",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Miss Monique: BIORHYTHM",
+     "venue_text": "Brooklyn Pacha | 140 Stewart Ave, BROOKLYN, NY 11237, UNITED STATES",
+     "url": "https://ra.co/events/2557250"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-13",
+     "time_text": "10:00 PM - 9:00 AM",
+     "title": "Refuge Friday with Jeremy Olander",
+     "venue_text": "Refuge | 366 Ten Eyck St, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2563881"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-13",
+     "time_text": "10:00 PM - 11:30 PM",
+     "title": "Apollo Music Cafe: Jane Handcock",
+     "venue_text": "The Apollo Theater | 253 W 125th St, New York, NY 10027, USA",
+     "url": "https://ra.co/events/2535530"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-13",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "#1 AVENIDA DE PERREO - Latin Reggaeton Rooftop Party",
+     "venue_text": "Avenida NYC | 1 Pennsylvania Plaza, New York, NY 10119, USA",
+     "url": "https://ra.co/events/2490069"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-13",
+     "time_text": "10:30 PM - 7:00 AM",
+     "title": "Schwefelgelb / Justine Perry / Liza Rivs / Makadsi / Serenda / Sterling Juan Diaz",
+     "venue_text": "BASEMENT | 52-19 Flushing Ave., Maspeth, NY 11378 USA",
+     "url": "https://ra.co/events/2553735"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-13",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "MYSTOPIA PRESENTS: SWEAT",
+     "venue_text": "The Parkside Lounge | 317 E Houston St, New York, NY 10002",
+     "url": "https://ra.co/events/2557470"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-13",
+     "time_text": "11:00 PM - 6:00 AM",
+     "title": "Dirtyphonics (DRUM AND BASS & DUBSTEP) FRIDAY NOVEMBER 13TH (11PM) WOODSHOP BROOKLYN",
+     "venue_text": "The Woodshop | 21a Meadow Street, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2547762"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-13",
+     "time_text": "11:00 PM - 3:00 AM",
+     "title": "FREE PLAY: Jake Korolev + stjarnafaen & Friends",
+     "venue_text": "Wonderville | 1186 Broadway, Brooklyn, NY 11221, USA",
+     "url": "https://ra.co/events/2568471"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-13",
+     "time_text": "11:00 PM - 6:00 AM",
+     "title": "Apollo Studio presents",
+     "venue_text": "Apollo Studio | 72 Apollo St Brooklyn, NY 11222",
+     "url": "https://ra.co/events/2415410"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "3:00 PM - 10:00 PM",
+     "title": "Dance Infusion #3 **Day Time**",
+     "venue_text": "Signal | 175 Morgan Ave, Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2553444"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2548344"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "6:00 PM - 3:00 AM",
+     "title": "Common Ground",
+     "venue_text": "The House On Locust | 29 Locust Street, Brooklyn, NY 11206 USA",
+     "url": "https://ra.co/events/2534876"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "6:00 PM - 10:00 PM",
+     "title": "Irretrievable Breakdown",
+     "venue_text": "Jade | 4 Stuyvesant Ave, Brooklyn, NY 11221, USA",
+     "url": "https://ra.co/events/2560831"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "6:00 PM - 10:00 PM",
+     "title": "Aaron Mclain",
+     "venue_text": "SOBs | 204 Varick Street, New York, NY 10014-4810, USA",
+     "url": "https://ra.co/events/2543494"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "DURATIONS: JJJJJerome Ellis, Fred Moten & Brandon Lopez",
+     "venue_text": "public records | 233 Butler St, Brooklyn, NY 11217, USA",
+     "url": "https://ra.co/events/2513954"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "Happy Hour: Cow Tools, Alex Hell-n, Airali",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2566170"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "Outer Heaven presents: O.BEE [All Night Long]",
+     "venue_text": "Outer Heaven | 191 Chrystie Street, New York, NY 10002",
+     "url": "https://ra.co/events/2544356"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "8:00 PM - 3:00 AM",
+     "title": "Common Ground",
+     "venue_text": "The House On Locust | 29 Locust Street, Brooklyn, NY 11206 USA",
+     "url": "https://ra.co/events/2534885"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "Liquid Chrome",
+     "venue_text": "Idle Mind Tavern | 623 Manhattan Ave, Brooklyn, NY 11222",
+     "url": "https://ra.co/events/2561009"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "9:00 PM - 4:00 AM",
+     "title": "Cadence presents: Seb Wildblood with DELACOUR",
+     "venue_text": "TBA - Secret Bowery Loft (Manhattan)",
+     "url": "https://ra.co/events/2543761"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "9:30 PM - 3:00 AM",
+     "title": "Pressure: Matrixxman, Joanna Kuchta, Marco Neves + Skin2Skin",
+     "venue_text": "Paragon | 990 Broadway Brooklyn, NY",
+     "url": "https://ra.co/events/2567905"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "AGAP\u0112 PRESENTS: Ueberrest + SHOKI287",
+     "venue_text": "Brooklyn Roots Collective | 255 Randolph St, Brooklyn, NY 11237, USA",
+     "url": "https://ra.co/events/2565084"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "10:00 PM - 6:00 AM",
+     "title": "ReSolute with Dyed Soundorom",
+     "venue_text": "H0L0 | 1090 Wyckoff Ave, Queens, NY 11385, United States",
+     "url": "https://ra.co/events/2557989"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "10:00 PM - 5:00 AM",
+     "title": "240 Months of Riotvan ft Panthera Krause, Peter Invasion, Timo Lee, Mike Simonetti (all night)",
+     "venue_text": "Good Room | 98 Meserole Ave, Brooklyn, NY 11222 USA",
+     "url": "https://ra.co/events/2557802"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "10:00 PM - 12:00 PM",
+     "title": "Refuge Saturday: Enzo Siragusa, Laidlaw, Daniel Dutts & Bella Mutino",
+     "venue_text": "Refuge | 366 Ten Eyck St, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2563883"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Quantum",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2567749"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Madeon: Victory Live",
+     "venue_text": "Pacha New York | 140 Stewart Ave, Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2557253"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "BOLO THE DJ: 314 Scholes",
+     "venue_text": "314 Scholes | 314 Scholes St Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2515934"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "10:00 PM - 11:30 PM",
+     "title": "Apollo Music Cafe: ADEVA",
+     "venue_text": "The Apollo Theater | 253 W 125th St, New York, NY 10027, USA",
+     "url": "https://ra.co/events/2535523"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Headcrack: Fugitive Artifact + KATA",
+     "venue_text": "Jupiter Disco | 1237 Flushing Avenue, Brooklyn, NY 11237, USA",
+     "url": "https://ra.co/events/2564182"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "10:00 PM - 5:30 AM",
+     "title": "SUNRISESSION.TV: DEA MAGNA - Saint Velez - MEDINA - MiGS718",
+     "venue_text": "TBA - Bushwick, Brooklyn",
+     "url": "https://ra.co/events/2569852"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "10:30 PM - 7:00 AM",
+     "title": "Pornceptual: The Lady Machine/ Huamaniser/ KONZ/ LYDO/ Curses/ Kim Ann Foxman / Shaun J. Wright",
+     "venue_text": "BASEMENT | 52-19 Flushing Ave., Maspeth, NY 11378 USA",
+     "url": "https://ra.co/events/2553746"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "10:30 PM - 4:00 AM",
+     "title": "Off The Record at PUBLIC Hotel",
+     "venue_text": "Public Arts | 215 Chrystie St, New York, NY 10002, USA",
+     "url": "https://ra.co/events/2510010"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "DISTRICT PERREO - Latin & Reggaeton Dance Party - Nexo CLUB NYC",
+     "venue_text": "Nexo | 29 W 36th St., New York, NY 10018, USA",
+     "url": "https://ra.co/events/2501778"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "11:00 PM - 6:00 AM",
+     "title": "Apollo Studio presents",
+     "venue_text": "Apollo Studio | 72 Apollo St Brooklyn, NY 11222",
+     "url": "https://ra.co/events/2415411"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "A Night of Your Lifetime (ii)",
+     "venue_text": "TBA - Brooklyn secret location",
+     "url": "https://ra.co/events/2567974"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-14",
+     "time_text": "11:59 PM - 11:59 PM",
+     "title": "The Bunker presents: No Way Back Nonstop",
+     "venue_text": "Nowadays | 56-06 Cooper Ave. Ridgewood, NY 11385 USA",
+     "url": "https://ra.co/events/2549177"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-15",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "The Y2k Parrty- Can you hear me now? Classics Cocktail Bar",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2546061"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-15",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2548366"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-15",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Glizzy Sundays NYC Bar - Hotdogs & Happy Hour & DJ",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2569228"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-15",
+     "time_text": "5:00 PM - 11:59 PM",
+     "title": "Orbit Night: Caire b2b Wauce, SubSpace (Space Gray & Subjxct 5), Garbage b2b Union",
+     "venue_text": "Honey's | 93 Scott Avenue, Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2568465"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-15",
+     "time_text": "6:00 PM - 2:00 AM",
+     "title": "718 Sessions- 24th Year Anniversary Party",
+     "venue_text": "Good Room | 98 Meserole Ave, Brooklyn, NY 11222 USA",
+     "url": "https://ra.co/events/2565925"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-15",
+     "time_text": "6:00 PM - 10:00 PM",
+     "title": "DURATIONS: Kara-Lis Coverdale, Molina, Pavel Milyakov",
+     "venue_text": "public records | 233 Butler St, Brooklyn, NY 11217, USA",
+     "url": "https://ra.co/events/2513950"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-15",
+     "time_text": "6:00 PM - 10:00 PM",
+     "title": "Happy Hour: Bajo Constructo with Synestesia & Yann Brogard",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2569987"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-15",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "DURATIONS: An Evening with Terre Thaemlitz [Live Piano] + Conversation with Ciar\u00e1n Finlayson",
+     "venue_text": "Roulette | 509 Atlantic Avenue; Brooklyn, NY 11217; United States",
+     "url": "https://ra.co/events/2513951"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-15",
+     "time_text": "8:00 PM - 2:00 AM",
+     "title": "Refuge Sunday: Neil Frances (DJ set) & Fundido",
+     "venue_text": "Refuge | 366 Ten Eyck St, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2563884"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-15",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Battle Hymn",
+     "venue_text": "Rumi | 229 W 28th St, New York, NY 10001",
+     "url": "https://ra.co/events/2561708"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-15",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Mike Servito / Colored Craig / Avenue F",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2559334"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-16",
+     "time_text": "6:00 PM - 12:00 AM",
+     "title": "MMF Society Open Decks",
+     "venue_text": "The Rose | 160 W 25th St, New York, NY 10001",
+     "url": "https://ra.co/events/2569266"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-16",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Fractals pres SANCTUM with CRYFXB, Dante Pasquale, DJGothQueen, Rapture",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2553606"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-17",
+     "time_text": "5:00 PM - 8:30 PM",
+     "title": "Eugene presents The Dragons Fist Special Guest Tinamarie Diva",
+     "venue_text": "The Rose | 160 W 25th St, New York, NY 10001",
+     "url": "https://ra.co/events/2568355"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-17",
+     "time_text": "6:00 PM - 10:00 PM",
+     "title": "Playback 0040",
+     "venue_text": "Bar Laika | 224 Greene Ave Brooklyn, New York",
+     "url": "https://ra.co/events/2543382"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-17",
+     "time_text": "8:00 PM - 1:00 AM",
+     "title": "Delirium Open Decks",
+     "venue_text": "Delirium | 286 Meserole, Brooklyn, NY 11206, United States",
+     "url": "https://ra.co/events/2569842"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-17",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "CMPLTLYGONE",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2566061"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-17",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "Off The Record - Tuesday Sessions at PUBLIC Hotel",
+     "venue_text": "Public Arts | 215 Chrystie St, New York, NY 10002, USA",
+     "url": "https://ra.co/events/2510012"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-18",
+     "time_text": "7:00 PM - 2:00 AM",
+     "title": "Sonara House: La Vega & NONI",
+     "venue_text": "Jupiter Disco | 1237 Flushing Avenue, Brooklyn, NY 11237, USA",
+     "url": "https://ra.co/events/2564183"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-18",
+     "time_text": "7:00 PM - 11:00 PM",
+     "title": "SoleTies: The Conversation & Crafts Experience",
+     "venue_text": "SOBs | 204 Varick Street, New York, NY 10014-4810, USA",
+     "url": "https://ra.co/events/2567939"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-18",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "CRUD0 TAKES OVER Bossa Nova Civic Club - FREE WITH RSVP",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2568687"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-18",
+     "time_text": "10:00 PM - 2:00 AM",
+     "title": "Errant Forms: Retrograde's Shadow",
+     "venue_text": "Mood Ring | 1260 Myrtle Ave, Brooklyn, NY 11221, USA",
+     "url": "https://ra.co/events/2567932"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-19",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2548412"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-19",
+     "time_text": "7:00 PM - 10:30 PM",
+     "title": "SASSY 009 - In the Round",
+     "venue_text": "Elsewhere | 599 Johnson Ave, Brooklyn, NY 11237 USA",
+     "url": "https://ra.co/events/2518637"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-19",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "Happy Hour: ENDOCYTOSIS",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2553552"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-19",
+     "time_text": "7:00 PM - 11:00 PM",
+     "title": "Fernando Villalona",
+     "venue_text": "SOBs | 204 Varick Street, New York, NY 10014-4810, USA",
+     "url": "https://ra.co/events/2567970"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-19",
+     "time_text": "7:30 PM - 12:30 AM",
+     "title": "Support Women DJs Open Decks",
+     "venue_text": "Delirium | 286 Meserole, Brooklyn, NY 11206, United States",
+     "url": "https://ra.co/events/2568085"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-19",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "Homies Givin' 2026",
+     "venue_text": "Good Room | 98 Meserole Ave, Brooklyn, NY 11222 USA",
+     "url": "https://ra.co/events/2532704"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-19",
+     "time_text": "9:00 PM - 3:00 AM",
+     "title": "BKG Takeover",
+     "venue_text": "H0L0 | 1090 Wyckoff Ave, Queens, NY 11385, United States",
+     "url": "https://ra.co/events/2560527"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-19",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "OST & Conditioner: African American Sound Recordings, chinapoet, Loidis, more eaze, Purelink",
+     "venue_text": "Nowadays | 56-06 Cooper Ave. Ridgewood, NY 11385 USA",
+     "url": "https://ra.co/events/2549142"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-19",
+     "time_text": "10:00 PM - 2:00 AM",
+     "title": "God Bless This Whorehouse",
+     "venue_text": "Paragon | 990 Broadway Brooklyn, NY",
+     "url": "https://ra.co/events/2534728"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-19",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Refuge Thursday with Enrico Sangiuliano",
+     "venue_text": "Refuge | 366 Ten Eyck St, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2563885"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-20",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2548425"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-20",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Medellin Fridays - Colombian Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2531529"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-20",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "Outer Heaven presents: Zeina",
+     "venue_text": "Outer Heaven | 191 Chrystie Street, New York, NY 10002",
+     "url": "https://ra.co/events/2544363"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-20",
+     "time_text": "9:00 PM - 12:00 AM",
+     "title": "Mark Solotroff NY Album Release Show",
+     "venue_text": "Fringe Records NYC | 656 Woodward Ave, Ridgewood, NY 11385",
+     "url": "https://ra.co/events/2530504"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-20",
+     "time_text": "10:00 PM - 6:00 AM",
+     "title": "Laurel Halo All Night",
+     "venue_text": "Nowadays | 56-06 Cooper Ave. Ridgewood, NY 11385 USA",
+     "url": "https://ra.co/events/2549121"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-20",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Queer Vinyl Collective: 1 YEAR ANNIVERSARY",
+     "venue_text": "Empire Stage | 229 Empire Blvd, Brooklyn, NY 11225, USA",
+     "url": "https://ra.co/events/2563379"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-20",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Truth, Wraz x Hypho, DR USHUU, Neumonic, ISDED, SISTER GAIA",
+     "venue_text": "The Chocolate Factory | 70 Scott Ave Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2557977"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-20",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Fractals presents: GWELD (Live)",
+     "venue_text": "Eden | 20 West 36th Street, New York, NY US 10018",
+     "url": "https://ra.co/events/2559507"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-20",
+     "time_text": "10:00 PM - 3:00 AM",
+     "title": "Brooklyn Dub Club XII: OBF x Iration Steppas",
+     "venue_text": "Sugar Hill Disco | 217 Nostrand Ave, Brooklyn, NY 11205, USA",
+     "url": "https://ra.co/events/2568632"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-20",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "#1 AVENIDA DE PERREO - Latin Reggaeton Rooftop Party",
+     "venue_text": "Avenida NYC | 1 Pennsylvania Plaza, New York, NY 10119, USA",
+     "url": "https://ra.co/events/2490070"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-20",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Carozilla + Muscle Memory",
+     "venue_text": "Jupiter Disco | 1237 Flushing Avenue, Brooklyn, NY 11237, USA",
+     "url": "https://ra.co/events/2570046"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-20",
+     "time_text": "10:30 PM - 7:00 AM",
+     "title": "Lady Starlight live / Amotik / Nymph / Courtesy / Meilgaarden / Giovannii",
+     "venue_text": "BASEMENT | 52-19 Flushing Ave., Maspeth, NY 11378 USA",
+     "url": "https://ra.co/events/2553755"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-20",
+     "time_text": "11:00 PM - 6:00 AM",
+     "title": "Apollo Studio presents",
+     "venue_text": "Apollo Studio | 72 Apollo St Brooklyn, NY 11222",
+     "url": "https://ra.co/events/2415412"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-21",
+     "time_text": "2:00 PM - 8:00 PM",
+     "title": "Let's Dance Brooklyn x Saint James Joy: ThanksChristmaHanukKwanzaa Boogie & Toy Drive",
+     "venue_text": "Nowadays | 56-06 Cooper Ave. Ridgewood, NY 11385 USA",
+     "url": "https://ra.co/events/2549156"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-21",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2548435"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-21",
+     "time_text": "6:00 PM - 9:30 PM",
+     "title": "SOB's presents: Vicente Garcia",
+     "venue_text": "SOBs | 204 Varick Street, New York, NY 10014-4810, USA",
+     "url": "https://ra.co/events/2551456"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-21",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "Outer Heaven presents: Jack Mulqueen",
+     "venue_text": "Outer Heaven | 191 Chrystie Street, New York, NY 10002",
+     "url": "https://ra.co/events/2544364"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-21",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "AUTUMN LIGHTS FESTIVAL",
+     "venue_text": "Melrose Ballroom | 36-08 33rd st. Astoria, NY 11106",
+     "url": "https://ra.co/events/2568720"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-21",
+     "time_text": "9:00 PM - 11:59 PM",
+     "title": "Dreamons: Sagittarius",
+     "venue_text": "Cosmic Arts | 56 Bogart Street, Gallery #1J Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2569540"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-21",
+     "time_text": "9:00 PM - 3:00 AM",
+     "title": "DUALITY",
+     "venue_text": "Cloud Ultra Studio | 117 Grattan St, Brooklyn, NY 11237, USA",
+     "url": "https://ra.co/events/2563367"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-21",
+     "time_text": "10:00 PM - 10:00 PM",
+     "title": "Dekmantel Nonstop: adobeprincess, DeepChord, Helena Hauff, K Wata, Konduku, Rhadoo, Sharlese",
+     "venue_text": "Nowadays | 56-06 Cooper Ave. Ridgewood, NY 11385 USA",
+     "url": "https://ra.co/events/2549180"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-21",
+     "time_text": "10:00 PM - 5:00 AM",
+     "title": "Juan Maclean (all night), Tavish, Gee Dee",
+     "venue_text": "Good Room | 98 Meserole Ave, Brooklyn, NY 11222 USA",
+     "url": "https://ra.co/events/2545030"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-21",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "MegaMilk",
+     "venue_text": "H0L0 | 1090 Wyckoff Ave, Queens, NY 11385, United States",
+     "url": "https://ra.co/events/2560193"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-21",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Toribio",
+     "venue_text": "Moondog Hifi | 119 Ingraham Street, Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2567863"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-21",
+     "time_text": "10:00 PM - 5:00 AM",
+     "title": "Sights & Sounds: Et al. \u2013 Demi Riqu\u00edsimo (extended set)",
+     "venue_text": "TBA - Secret Manhattan Location",
+     "url": "https://ra.co/events/2558100"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-21",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "BASE SEVEN",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2556184"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-21",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Luciano & Friends - Pacha NYC",
+     "venue_text": "Pacha New York | 140 Stewart Ave, Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2556066"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-21",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Luciano & Friends",
+     "venue_text": "Brooklyn Pacha | 140 Stewart Ave, BROOKLYN, NY 11237, UNITED STATES",
+     "url": "https://ra.co/events/2557255"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-21",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Red Eye Serves Techno",
+     "venue_text": "Red Eye NY | 355 W 41st Street, New York, NY 10036",
+     "url": "https://ra.co/events/2560767"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-21",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "World Tour Radio: 2 Year Anniversary",
+     "venue_text": "Trans-Pecos | 9-15 Wyckoff Ave, Queens, NY 11385",
+     "url": "https://ra.co/events/2546153"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-21",
+     "time_text": "10:30 PM - 7:00 AM",
+     "title": "Function b2b Nastia Reigel / NEUX / Juana / Cormac / x3butterfly / Will Automagic",
+     "venue_text": "BASEMENT | 52-19 Flushing Ave., Maspeth, NY 11378 USA",
+     "url": "https://ra.co/events/2553762"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-21",
+     "time_text": "10:30 PM - 4:00 AM",
+     "title": "Off The Record",
+     "venue_text": "Public Arts | 215 Chrystie St, New York, NY 10002, USA",
+     "url": "https://ra.co/events/2564301"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-21",
+     "time_text": "11:00 PM - 3:00 AM",
+     "title": "Descend",
+     "venue_text": "Music For A While | 518 W 27th St, New York, NY 10001",
+     "url": "https://ra.co/events/2567792"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-21",
+     "time_text": "11:00 PM - 2:00 AM",
+     "title": "Richard Finger",
+     "venue_text": "Webster Hall | 125 East 11th Street; New York, NY 10003; United States",
+     "url": "https://ra.co/events/2527686"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-21",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "DISTRICT PERREO - Latin & Reggaeton Dance Party - Nexo CLUB NYC",
+     "venue_text": "Nexo | 29 W 36th St., New York, NY 10018, USA",
+     "url": "https://ra.co/events/2501779"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-22",
+     "time_text": "4:00 PM - 10:00 PM",
+     "title": "The Atrium: Jump Source [Live], Hank Jackson, Mariposa",
+     "venue_text": "public records | 233 Butler St, Brooklyn, NY 11217, USA",
+     "url": "https://ra.co/events/2520128"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-22",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2548991"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-22",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "The Y2k Parrty- Can you hear me now? Classics Cocktail Bar",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2546066"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-22",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Glizzy Sundays - Free Hotdogs & Happy Hour & DJ",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2569483"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-22",
+     "time_text": "6:00 PM - 9:30 PM",
+     "title": "SOB's presents: Vicente Garc\u00eda Night 2",
+     "venue_text": "SOBs | 204 Varick Street, New York, NY 10014-4810, USA",
+     "url": "https://ra.co/events/2555082"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-22",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "Happy Hour: Oscil, Uttaraa, Alter",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2563399"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-22",
+     "time_text": "7:00 PM - 2:00 AM",
+     "title": "Downtempo: DJ Tara, Niyah West, Clam, FLORA, cry$cross",
+     "venue_text": "Jupiter Disco | 1237 Flushing Avenue, Brooklyn, NY 11237, USA",
+     "url": "https://ra.co/events/2564185"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-22",
+     "time_text": "8:00 PM - 3:00 AM",
+     "title": "Timo's Birthday Chomp! Tom of England, Timo Lee, Farley & Chittom, UMA DJ, Kels + more",
+     "venue_text": "Good Room | 98 Meserole Ave, Brooklyn, NY 11222 USA",
+     "url": "https://ra.co/events/2569278"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-22",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "1-800 GIRLS + Akanbi + Bunni",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2569942"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-23",
+     "time_text": "6:00 PM - 10:00 PM",
+     "title": "SOB's presents: Vicente Garc\u00eda Night 3",
+     "venue_text": "SOBs | 204 Varick Street, New York, NY 10014-4810, USA",
+     "url": "https://ra.co/events/2563434"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-23",
+     "time_text": "7:00 PM - 9:30 PM",
+     "title": "Uniting Entity presents: Tim Kinsella with more eaze + Wendy Eisenberg",
+     "venue_text": "Baby's All Right | 146 Broadway Brooklyn, NY",
+     "url": "https://ra.co/events/2563395"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-24",
+     "time_text": "7:00 PM - 8:30 PM",
+     "title": "Techno Yoga with Yaya Flows & Lychee",
+     "venue_text": "Nowadays | 56-06 Cooper Ave. Ridgewood, NY 11385 USA",
+     "url": "https://ra.co/events/2549164"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-24",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "Off The Record - Tuesday Sessions at PUBLIC Hotel",
+     "venue_text": "Public Arts | 215 Chrystie St, New York, NY 10002, USA",
+     "url": "https://ra.co/events/2510015"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-25",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "Out The Bag presents: Choukroun b2b Monk",
+     "venue_text": "Outer Heaven | 191 Chrystie Street, New York, NY 10002",
+     "url": "https://ra.co/events/2544366"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-25",
+     "time_text": "10:00 PM - 6:00 AM",
+     "title": "Ryan Elliott All Night",
+     "venue_text": "Nowadays | 56-06 Cooper Ave. Ridgewood, NY 11385 USA",
+     "url": "https://ra.co/events/2549130"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-25",
+     "time_text": "10:00 PM - 5:00 AM",
+     "title": "Gloria Danger",
+     "venue_text": "Good Room | 98 Meserole Ave, Brooklyn, NY 11222 USA",
+     "url": "https://ra.co/events/2569807"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-25",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "SLIST PRESENTS FERAL (US DEBUT)",
+     "venue_text": "The Brooklyn Monarch | 23 Meadow Street, Brooklyn, NY 11206 USA",
+     "url": "https://ra.co/events/2569026"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-25",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "SLIST X FERAL (US DEBUT)",
+     "venue_text": "The Brooklyn Monarch | 23 Meadow Street, Brooklyn, NY 11206 USA",
+     "url": "https://ra.co/events/2561568"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-26",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2549021"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-26",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "David Morales",
+     "venue_text": "Refuge | 366 Ten Eyck St, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2537406"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-27",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2549045"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-27",
+     "time_text": "5:00 PM - 2:00 AM",
+     "title": "Panama Independence Weekend Party Latin Bar NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2509454"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-27",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Medellin Fridays - Colombian Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2531530"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-27",
+     "time_text": "6:00 PM - 10:00 PM",
+     "title": "SOB's presents: midwxst: Solitude in Silence Tour",
+     "venue_text": "SOBs | 204 Varick Street, New York, NY 10014-4810, USA",
+     "url": "https://ra.co/events/2558081"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-27",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "Outer Heaven presents: Erez b2b shanty mane",
+     "venue_text": "Outer Heaven | 191 Chrystie Street, New York, NY 10002",
+     "url": "https://ra.co/events/2544369"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-27",
+     "time_text": "9:30 PM - 3:00 AM",
+     "title": "DIVAS & DONS: BLACK FRIDAY with FUNK FLEX",
+     "venue_text": "Paragon | 990 Broadway Brooklyn, NY",
+     "url": "https://ra.co/events/2569690"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-27",
+     "time_text": "10:00 PM - 6:00 AM",
+     "title": "Club Night: AceMo & Swami Sound (live), GENG PTP, Princess Peggie",
+     "venue_text": "Nowadays | 56-06 Cooper Ave. Ridgewood, NY 11385 USA",
+     "url": "https://ra.co/events/2549125"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-27",
+     "time_text": "10:00 PM - 5:00 AM",
+     "title": "Love Games with Dee Diggs, Lauren Murada & Finn Jones, Benny Soto, Frantz",
+     "venue_text": "Good Room | 98 Meserole Ave, Brooklyn, NY 11222 USA",
+     "url": "https://ra.co/events/2563187"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-27",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Guy Gerber",
+     "venue_text": "Brooklyn Pacha | 140 Stewart Ave, BROOKLYN, NY 11237, UNITED STATES",
+     "url": "https://ra.co/events/2557258"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-27",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "#1 AVENIDA DE PERREO - Latin Reggaeton Rooftop Party",
+     "venue_text": "Avenida NYC | 1 Pennsylvania Plaza, New York, NY 10119, USA",
+     "url": "https://ra.co/events/2490072"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-27",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "EscaFlowne + UPRFXR",
+     "venue_text": "Jupiter Disco | 1237 Flushing Avenue, Brooklyn, NY 11237, USA",
+     "url": "https://ra.co/events/2564184"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-27",
+     "time_text": "11:00 PM - 6:00 AM",
+     "title": "Apollo Studio presents",
+     "venue_text": "Apollo Studio | 72 Apollo St Brooklyn, NY 11222",
+     "url": "https://ra.co/events/2415413"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-28",
+     "time_text": "2:00 PM - 9:00 PM",
+     "title": "SanDia: Family Affair with Bendito, Jeremy Giros, Kata, Miss Gypsy",
+     "venue_text": "Nowadays | 56-06 Cooper Ave. Ridgewood, NY 11385 USA",
+     "url": "https://ra.co/events/2549170"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-28",
+     "time_text": "4:00 PM - 10:00 PM",
+     "title": "Refuge Saturday Daytime: PNK Records Showcase",
+     "venue_text": "Refuge | 366 Ten Eyck St, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2563886"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-28",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2549056"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-28",
+     "time_text": "5:00 PM - 2:00 AM",
+     "title": "Panama Independence Weekend Party Latin Bar NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2509480"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-28",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "SOB's presents: Lavender & Velvet",
+     "venue_text": "SOBs | 204 Varick Street, New York, NY 10014-4810, USA",
+     "url": "https://ra.co/events/2567954"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-28",
+     "time_text": "9:00 PM - 4:00 AM",
+     "title": "La Gasolina Reggaeton Parrty Thanksgiving Weekend Nightclub Midtown",
+     "venue_text": "Nexo | 29 W 36th St., New York, NY 10018, USA",
+     "url": "https://ra.co/events/2550220"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-28",
+     "time_text": "10:00 PM - 6:00 AM",
+     "title": "livwutang All Night",
+     "venue_text": "Nowadays | 56-06 Cooper Ave. Ridgewood, NY 11385 USA",
+     "url": "https://ra.co/events/2549132"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-28",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Mathame",
+     "venue_text": "Brooklyn Pacha | 140 Stewart Ave, BROOKLYN, NY 11237, UNITED STATES",
+     "url": "https://ra.co/events/2557262"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-28",
+     "time_text": "10:30 PM - 4:00 AM",
+     "title": "Off The Record at PUBLIC Hotel",
+     "venue_text": "Public Arts | 215 Chrystie St, New York, NY 10002, USA",
+     "url": "https://ra.co/events/2510019"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-28",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "DISTRICT PERREO - Latin & Reggaeton Dance Party - Nexo CLUB NYC",
+     "venue_text": "Nexo | 29 W 36th St., New York, NY 10018, USA",
+     "url": "https://ra.co/events/2501780"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-29",
+     "time_text": "3:00 AM - 12:00 PM",
+     "title": "Sunday Service With Tauceti & Lea Node",
+     "venue_text": "TBA - Brooklyn Warehouse",
+     "url": "https://ra.co/events/2559684"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-29",
+     "time_text": "3:00 PM - 11:00 PM",
+     "title": "Theo Parrish All Day",
+     "venue_text": "Nowadays | 56-06 Cooper Ave. Ridgewood, NY 11385 USA",
+     "url": "https://ra.co/events/2549136"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-29",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "The Y2k Parrty- Can you hear me now? Classics Cocktail Bar",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2546072"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-29",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2549066"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-29",
+     "time_text": "5:00 PM - 2:00 AM",
+     "title": "2-for-1 in San Juan - Latin Sunday Party at Reggaeton Bar San Antonios",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2450280"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-11-30",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "NATALIA & FRiENDS",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2569259"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-01",
+     "time_text": "5:00 PM - 8:30 PM",
+     "title": "Heather Teather",
+     "venue_text": "The Rose | 160 W 25th St, New York, NY 10001",
+     "url": "https://ra.co/events/2545554"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-01",
+     "time_text": "6:00 PM - 11:59 PM",
+     "title": "Swallowed Open Decks",
+     "venue_text": "Honey's | 93 Scott Avenue, Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2561519"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-01",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "Off The Record - Tuesday Sessions at PUBLIC Hotel",
+     "venue_text": "Public Arts | 215 Chrystie St, New York, NY 10002, USA",
+     "url": "https://ra.co/events/2510033"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-02",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "The Neuroscience of Music, Drugs, and Brains in Sync",
+     "venue_text": "Ernest Records | 337 Marcus Garvey Blvd, Brooklyn, NY 11221",
+     "url": "https://ra.co/events/2570006"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-03",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2549114"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-04",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2549155"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-04",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Medellin Fridays - Colombian Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2531534"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-04",
+     "time_text": "8:30 PM - 3:00 AM",
+     "title": "SWAMP RATZ: Florida x New York Takeover",
+     "venue_text": "Wonderville | 1186 Broadway, Brooklyn, NY 11221, USA",
+     "url": "https://ra.co/events/2562676"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-04",
+     "time_text": "9:30 PM - 3:00 AM",
+     "title": "Paradiso: Baltra, No_4mat, S4M23 + SINCERELY x SKIN2SKIN",
+     "venue_text": "Paragon | 990 Broadway Brooklyn, NY",
+     "url": "https://ra.co/events/2569815"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-04",
+     "time_text": "10:00 PM - 8:00 AM",
+     "title": "Golden Record NYC x pregame present Krol B2B Aline Brooklyn",
+     "venue_text": "Green Room NYC | 195 Morgan Ave, Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2552041"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-04",
+     "time_text": "10:00 PM - 9:00 AM",
+     "title": "Refuge Friday: Skream [Open To Close]",
+     "venue_text": "Refuge | 366 Ten Eyck St, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2563888"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-04",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "#1 AVENIDA DE PERREO - Latin Reggaeton Rooftop Party",
+     "venue_text": "Avenida NYC | 1 Pennsylvania Plaza, New York, NY 10119, USA",
+     "url": "https://ra.co/events/2490074"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-04",
+     "time_text": "10:30 PM - 4:00 AM",
+     "title": "Laylit",
+     "venue_text": "Elsewhere | 599 Johnson Ave, Brooklyn, NY 11237 USA",
+     "url": "https://ra.co/events/2547796"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-04",
+     "time_text": "11:00 PM - 6:00 AM",
+     "title": "Apollo Studio presents",
+     "venue_text": "Apollo Studio | 72 Apollo St Brooklyn, NY 11222",
+     "url": "https://ra.co/events/2415414"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-05",
+     "time_text": "2:00 PM - 10:00 PM",
+     "title": "Trance, Bro! Festival",
+     "venue_text": "Warsaw | 261 Driggs Ave, Brooklyn, NY",
+     "url": "https://ra.co/events/2518729"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-05",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2549161"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-05",
+     "time_text": "7:00 PM - 10:30 PM",
+     "title": "Malibu, Kelly Moran",
+     "venue_text": "Elsewhere | 599 Johnson Ave, Brooklyn, NY 11237 USA",
+     "url": "https://ra.co/events/2546013"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-05",
+     "time_text": "9:00 PM - 2:00 AM",
+     "title": "Aventura Night - #1 Bachata Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2440649"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-05",
+     "time_text": "10:00 PM - 5:00 AM",
+     "title": "AGAP\u0112 PRESENTS: Serafina - ALL NIGHT LONG",
+     "venue_text": "TBA - BROOKLYN NY",
+     "url": "https://ra.co/events/2384560"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-05",
+     "time_text": "10:00 PM - 5:00 AM",
+     "title": "FIXED with HAAi, JDH & Dave P, JEWELSSEA and QRTR (all night)",
+     "venue_text": "Good Room | 98 Meserole Ave, Brooklyn, NY 11222 USA",
+     "url": "https://ra.co/events/2565956"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-05",
+     "time_text": "10:00 PM - 5:00 AM",
+     "title": "E.LINA b2b Hugo Martinez, Maxime dB, Clovis b2b Matt Foley, Nate S.U",
+     "venue_text": "Signal | 175 Morgan Ave, Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2564170"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-05",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Damian Lazarus and Maceo Plex",
+     "venue_text": "Brooklyn Pacha | 140 Stewart Ave, BROOKLYN, NY 11237, UNITED STATES",
+     "url": "https://ra.co/events/2557265"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-05",
+     "time_text": "10:30 PM - 4:00 AM",
+     "title": "Off The Record at PUBLIC Hotel",
+     "venue_text": "Public Arts | 215 Chrystie St, New York, NY 10002, USA",
+     "url": "https://ra.co/events/2510034"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-05",
+     "time_text": "11:00 PM - 6:00 AM",
+     "title": "TUFF NYC - 2 Yr Anniversary",
+     "venue_text": "9 Bob Note | 270 Meserole St, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2566368"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-05",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "London Elektricity at Driven AM",
+     "venue_text": "The Woodshop | 21a Meadow Street, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2567772"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-05",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "DISTRICT PERREO - Latin & Reggaeton Dance Party - Nexo CLUB NYC",
+     "venue_text": "Nexo | 29 W 36th St., New York, NY 10018, USA",
+     "url": "https://ra.co/events/2501781"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-05",
+     "time_text": "11:00 PM - 6:00 AM",
+     "title": "Apollo Studio presents",
+     "venue_text": "Apollo Studio | 72 Apollo St Brooklyn, NY 11222",
+     "url": "https://ra.co/events/2415415"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-06",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "The Y2k Parrty- Can you hear me now? Classics Cocktail Bar",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2546079"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-06",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2549174"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-06",
+     "time_text": "5:00 PM - 2:00 AM",
+     "title": "2-for-1 in San Juan - Latin Sunday Party at Reggaeton Bar San Antonios",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2450287"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-06",
+     "time_text": "7:00 PM - 10:30 PM",
+     "title": "Zo\u00eb Keating",
+     "venue_text": "First Unitarian Congregational Society | 116 Pierrepont St., Brooklyn, NY 11201",
+     "url": "https://ra.co/events/2564771"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-06",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "DJ THADZ, TONIC, & Honey Dip",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2568076"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-08",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "Off The Record - Tuesday Sessions at PUBLIC Hotel",
+     "venue_text": "Public Arts | 215 Chrystie St, New York, NY 10002, USA",
+     "url": "https://ra.co/events/2510037"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-09",
+     "time_text": "10:00 PM - 2:00 AM",
+     "title": "Beats without Borders: Birthday without Borders",
+     "venue_text": "Mood Ring | 1260 Myrtle Ave, Brooklyn, NY 11221, USA",
+     "url": "https://ra.co/events/2558469"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-10",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2549182"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-10",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Toy Tonics Jam",
+     "venue_text": "Good Room | 98 Meserole Ave, Brooklyn, NY 11222 USA",
+     "url": "https://ra.co/events/2535756"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-10",
+     "time_text": "11:00 PM - 6:00 AM",
+     "title": "DRUM AND BASS LENS (UK) NYC DEBUT",
+     "venue_text": "The Woodshop | 21a Meadow Street, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2504441"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-11",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2549199"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-11",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Medellin Fridays - Colombian Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2531535"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-11",
+     "time_text": "7:00 PM - 10:00 PM",
+     "title": "Juke New City",
+     "venue_text": "Mood Ring | 1260 Myrtle Ave, Brooklyn, NY 11221, USA",
+     "url": "https://ra.co/events/2565856"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-11",
+     "time_text": "7:00 PM - 11:00 PM",
+     "title": "Tinlicker",
+     "venue_text": "Brooklyn Paramount | 385 Flatbush Ave. Extension Brooklyn, NY 11201",
+     "url": "https://ra.co/events/2550279"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-11",
+     "time_text": "10:00 PM - 6:00 AM",
+     "title": "KEIN KLUB",
+     "venue_text": "H0L0 | 1090 Wyckoff Ave, Queens, NY 11385, United States",
+     "url": "https://ra.co/events/2524543"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-11",
+     "time_text": "10:00 PM - 2:00 AM",
+     "title": "Oscil All Night",
+     "venue_text": "Mr. Nancy\u2019s | 7-02 Seneca Ave, Ridgewood, NY 11385",
+     "url": "https://ra.co/events/2546552"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-11",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "#1 AVENIDA DE PERREO - Latin Reggaeton Rooftop Party",
+     "venue_text": "Avenida NYC | 1 Pennsylvania Plaza, New York, NY 10119, USA",
+     "url": "https://ra.co/events/2490075"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-11",
+     "time_text": "11:00 PM - 6:00 AM",
+     "title": "Apollo Studio presents",
+     "venue_text": "Apollo Studio | 72 Apollo St Brooklyn, NY 11222",
+     "url": "https://ra.co/events/2415416"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-12",
+     "time_text": "3:00 PM - 10:00 PM",
+     "title": "Kyle Watson & Guests",
+     "venue_text": "Refuge | 366 Ten Eyck St, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2457584"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-12",
+     "time_text": "4:00 PM - 10:00 PM",
+     "title": "Refuge Saturday Daytime: Kyle Watson & Guests",
+     "venue_text": "Refuge | 366 Ten Eyck St, Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2563889"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-12",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2549206"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-12",
+     "time_text": "10:00 PM - 5:00 AM",
+     "title": "Mr. Ho & Luca Lozano, J.Richards",
+     "venue_text": "Signal | 175 Morgan Ave, Brooklyn, NY 11237",
+     "url": "https://ra.co/events/2564172"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-12",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Nic Fanciulli & Friends",
+     "venue_text": "Brooklyn Pacha | 140 Stewart Ave, BROOKLYN, NY 11237, UNITED STATES",
+     "url": "https://ra.co/events/2557271"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-12",
+     "time_text": "10:30 PM - 4:00 AM",
+     "title": "Off The Record at PUBLIC Hotel",
+     "venue_text": "Public Arts | 215 Chrystie St, New York, NY 10002, USA",
+     "url": "https://ra.co/events/2510041"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-12",
+     "time_text": "11:00 PM - 2:00 AM",
+     "title": "Amtrac",
+     "venue_text": "Webster Hall | 125 East 11th Street; New York, NY 10003; United States",
+     "url": "https://ra.co/events/2527683"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-12",
+     "time_text": "11:00 PM - 6:00 AM",
+     "title": "Apollo Studio presents",
+     "venue_text": "Apollo Studio | 72 Apollo St Brooklyn, NY 11222",
+     "url": "https://ra.co/events/2415417"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-12",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "DISTRICT PERREO - Latin & Reggaeton Dance Party - Nexo CLUB NYC",
+     "venue_text": "Nexo | 29 W 36th St., New York, NY 10018, USA",
+     "url": "https://ra.co/events/2501783"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-13",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "The Y2k Parrty- Can you hear me now? Classics Cocktail Bar",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2546086"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-13",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2549217"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-13",
+     "time_text": "5:00 PM - 2:00 AM",
+     "title": "2-for-1 in San Juan - Latin Sunday Party at Reggaeton Bar San Antonios",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2450289"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-13",
+     "time_text": "8:00 PM - 2:00 AM",
+     "title": "FIXED x Synthicide present: Curses (live), JDH b2b Andi",
+     "venue_text": "Good Room | 98 Meserole Ave, Brooklyn, NY 11222 USA",
+     "url": "https://ra.co/events/2562863"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-15",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "Off The Record - Tuesday Sessions at PUBLIC Hotel",
+     "venue_text": "Public Arts | 215 Chrystie St, New York, NY 10002, USA",
+     "url": "https://ra.co/events/2510046"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-16",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "Out The Bag presents: Choukroun b2b Monk",
+     "venue_text": "Outer Heaven | 191 Chrystie Street, New York, NY 10002",
+     "url": "https://ra.co/events/2544373"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-16",
+     "time_text": "9:00 PM - 4:00 AM",
+     "title": "Torture Chamber VOL 15 - DJ SOUL SLINGER, Eric Yaz (Washington DC), Decibel Flekx, MTECH",
+     "venue_text": "Bossa Nova Civic Club | 1271 Myrtle Ave; Brooklyn, NY 11221; United States",
+     "url": "https://ra.co/events/2570065"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-17",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2549223"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-18",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2549227"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-18",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Medellin Fridays - Colombian Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2531536"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-18",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "Honey Trap presents: Amelia Holt - Second Contact - Carpet (F.L.H.P)",
+     "venue_text": "Outer Heaven | 191 Chrystie Street, New York, NY 10002",
+     "url": "https://ra.co/events/2544380"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-18",
+     "time_text": "9:00 PM - 11:59 PM",
+     "title": "LYNY",
+     "venue_text": "Brooklyn Steel | 319 Frost Street, Brooklyn, NY 11222, USA",
+     "url": "https://ra.co/events/2563440"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-18",
+     "time_text": "10:00 PM - 5:00 AM",
+     "title": "Stuntsz",
+     "venue_text": "Good Room | 98 Meserole Ave, Brooklyn, NY 11222 USA",
+     "url": "https://ra.co/events/2563732"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-18",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "Nora En Pure",
+     "venue_text": "Brooklyn Pacha | 140 Stewart Ave, BROOKLYN, NY 11237, UNITED STATES",
+     "url": "https://ra.co/events/2557273"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-18",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "#1 AVENIDA DE PERREO - Latin Reggaeton Rooftop Party",
+     "venue_text": "Avenida NYC | 1 Pennsylvania Plaza, New York, NY 10119, USA",
+     "url": "https://ra.co/events/2490076"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-18",
+     "time_text": "11:00 PM - 6:00 AM",
+     "title": "Apollo Studio presents",
+     "venue_text": "Apollo Studio | 72 Apollo St Brooklyn, NY 11222",
+     "url": "https://ra.co/events/2415418"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-19",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2549232"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-19",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "Outer Heaven presents: Satoshi Tomiie",
+     "venue_text": "Outer Heaven | 191 Chrystie Street, New York, NY 10002",
+     "url": "https://ra.co/events/2544374"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-19",
+     "time_text": "10:30 PM - 4:00 AM",
+     "title": "Off The Record",
+     "venue_text": "Public Arts | 215 Chrystie St, New York, NY 10002, USA",
+     "url": "https://ra.co/events/2564302"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-19",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "DISTRICT PERREO - Latin & Reggaeton Dance Party - Nexo CLUB NYC",
+     "venue_text": "Nexo | 29 W 36th St., New York, NY 10018, USA",
+     "url": "https://ra.co/events/2501784"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-19",
+     "time_text": "11:00 PM - 6:00 AM",
+     "title": "Apollo Studio presents",
+     "venue_text": "Apollo Studio | 72 Apollo St Brooklyn, NY 11222",
+     "url": "https://ra.co/events/2415421"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-19",
+     "time_text": "11:59 PM - 12:00 PM",
+     "title": "WORLD CUP iii",
+     "venue_text": "Qncc | 100 Hinsdale Street, Brooklyn, NY",
+     "url": "https://ra.co/events/2559596"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-20",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "The Y2k Parrty- Can you hear me now? Classics Cocktail Bar",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2546092"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-20",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2549237"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-20",
+     "time_text": "5:00 PM - 2:00 AM",
+     "title": "2-for-1 in San Juan - Latin Sunday Party at Reggaeton Bar San Antonios",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2450292"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-22",
+     "time_text": "5:00 PM - 8:30 PM",
+     "title": "Eugene presents Merry Christmas with Dj Lisa Silvio & Friends",
+     "venue_text": "The Rose | 160 W 25th St, New York, NY 10001",
+     "url": "https://ra.co/events/2569983"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-22",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "Off The Record - Tuesday Sessions at PUBLIC Hotel",
+     "venue_text": "Public Arts | 215 Chrystie St, New York, NY 10002, USA",
+     "url": "https://ra.co/events/2510051"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-23",
+     "time_text": "8:00 PM - 4:00 AM",
+     "title": "Outer Heaven presents: RAAUL",
+     "venue_text": "Outer Heaven | 191 Chrystie Street, New York, NY 10002",
+     "url": "https://ra.co/events/2544377"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-24",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2549264"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-25",
+     "time_text": "12:00 AM - 11:59 PM",
+     "title": "All Rose Events by Gino are Herby Cancelled due to Clery Act Concerns",
+     "venue_text": "The Rose | 160 W 25th St, New York, NY 10001",
+     "url": "https://ra.co/events/2508140"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-25",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2551208"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-25",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Medellin Fridays - Colombian Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2531538"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-25",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "#1 AVENIDA DE PERREO - Latin Reggaeton Rooftop Party",
+     "venue_text": "Avenida NYC | 1 Pennsylvania Plaza, New York, NY 10119, USA",
+     "url": "https://ra.co/events/2490079"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-25",
+     "time_text": "11:00 PM - 6:00 AM",
+     "title": "Apollo Studio presents",
+     "venue_text": "Apollo Studio | 72 Apollo St Brooklyn, NY 11222",
+     "url": "https://ra.co/events/2415419"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-26",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2551221"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-26",
+     "time_text": "10:30 PM - 4:00 AM",
+     "title": "Off The Record at PUBLIC Hotel",
+     "venue_text": "Public Arts | 215 Chrystie St, New York, NY 10002, USA",
+     "url": "https://ra.co/events/2510052"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-26",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "DISTRICT PERREO - Latin & Reggaeton Dance Party - Nexo CLUB NYC",
+     "venue_text": "Nexo | 29 W 36th St., New York, NY 10018, USA",
+     "url": "https://ra.co/events/2501785"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-26",
+     "time_text": "11:00 PM - 6:00 AM",
+     "title": "Apollo Studio presents",
+     "venue_text": "Apollo Studio | 72 Apollo St Brooklyn, NY 11222",
+     "url": "https://ra.co/events/2415422"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-27",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "The Y2k Parrty- Can you hear me now? Classics Cocktail Bar",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2546102"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-27",
+     "time_text": "5:00 PM - 2:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2551235"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-27",
+     "time_text": "5:00 PM - 2:00 AM",
+     "title": "2-for-1 in San Juan - Latin Sunday Party at Reggaeton Bar San Antonios",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2450297"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-29",
+     "time_text": "11:00 PM - 4:00 AM",
+     "title": "Off The Record - Tuesday Sessions at PUBLIC Hotel",
+     "venue_text": "Public Arts | 215 Chrystie St, New York, NY 10002, USA",
+     "url": "https://ra.co/events/2510056"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-31",
+     "time_text": "10:00 AM - 3:00 PM",
+     "title": "The Ace Hotel NYE 27 NYC",
+     "venue_text": "Ace Hotel | 20 W. 29th St. New York, NY 10001",
+     "url": "https://ra.co/events/2562739"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-31",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Reggaeton on Houston - Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2551287"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-31",
+     "time_text": "7:00 PM - 2:00 AM",
+     "title": "Lucky Strike Times Square NYE 27",
+     "venue_text": "Lucky Strike / Luxe | 624-660 W 42nd Street Manhattan, NY 10036",
+     "url": "https://ra.co/events/2496967"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-31",
+     "time_text": "8:30 PM - 1:00 AM",
+     "title": "A Midnight Kiss New Year's Eve Fireworks 2027 Countdown Cruise",
+     "venue_text": "Jewel Yacht | East 23rd St & FDR Drive New York, NY 10010",
+     "url": "https://ra.co/events/2516040"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-31",
+     "time_text": "8:30 PM - 1:00 AM",
+     "title": "Under the Stars Family Friendly New Year's Eve Fireworks Cruise",
+     "venue_text": "Cabana Yacht | Sky Port Marina, 2430 FDR Drive. East. NY 10010",
+     "url": "https://ra.co/events/2515989"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-31",
+     "time_text": "8:30 PM - 1:00 AM",
+     "title": "All That Glitters NYE All Ages Fireworks Cruise New York City",
+     "venue_text": "Skyport Marina | 2430 FDR Drive, New York, New York, 10010, United States",
+     "url": "https://ra.co/events/2516018"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-31",
+     "time_text": "9:00 PM - 4:00 AM",
+     "title": "Hotel Alameda NYE 27",
+     "venue_text": "Hotel Alameda | 518 West 27th Street, New York, NY US 10001",
+     "url": "https://ra.co/events/2497814"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-31",
+     "time_text": "9:00 PM - 4:00 AM",
+     "title": "Unveiled NYE 27 NYC",
+     "venue_text": "Unveiled | 94 n 13th st, brooklyn, NY 11249",
+     "url": "https://ra.co/events/2500325"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-31",
+     "time_text": "9:00 PM - 4:00 AM",
+     "title": "Virgo NYE 27 NYC",
+     "venue_text": "Virgo | 324 Grand St, New York, New York, 10002",
+     "url": "https://ra.co/events/2549016"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-31",
+     "time_text": "9:00 PM - 2:00 AM",
+     "title": "Versa Rooftop NYE 27 NYC",
+     "venue_text": "Versa Rooftop | 218 W 35th St New York NY US 10001",
+     "url": "https://ra.co/events/2500331"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-31",
+     "time_text": "9:30 PM - 3:00 AM",
+     "title": "New Years Eve: Thunderpuss, 550am, Dj Warning + WTCHCRFT & Guillotine",
+     "venue_text": "Paragon | 990 Broadway Brooklyn, NY",
+     "url": "https://ra.co/events/2565897"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2026-12-31",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "JACOBDIOR PRESENTS NYE 2027",
+     "venue_text": "Mood Ring | 1260 Myrtle Ave, Brooklyn, NY 11221, USA",
+     "url": "https://ra.co/events/2341195"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2027-01-01",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "Medellin Fridays - Colombian Latin & Reggaeton Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2532622"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2027-01-01",
+     "time_text": "10:00 PM - 3:00 AM",
+     "title": "Resonance NYD: Oscil / Uttaraa / Alter",
+     "venue_text": "Hart Bar | 538 Hart Street, Brooklyn, NY 11221 USA",
+     "url": "https://ra.co/events/2547654"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2027-01-02",
+     "time_text": "8:00 PM - 11:59 PM",
+     "title": "Ian Asher",
+     "venue_text": "Terminal 5 | 610 West 56th Street; New York, NY 10019; United States",
+     "url": "https://ra.co/events/2563433"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2027-01-02",
+     "time_text": "9:00 PM - 2:00 AM",
+     "title": "Aventura Night - #1 Bachata Party NYC",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2440655"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2027-01-02",
+     "time_text": "10:00 PM - 4:00 AM",
+     "title": "SOSA",
+     "venue_text": "Brooklyn Pacha | 140 Stewart Ave, BROOKLYN, NY 11237, UNITED STATES",
+     "url": "https://ra.co/events/2557277"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2027-01-03",
+     "time_text": "5:00 AM - 8:00 PM",
+     "title": "The Carry Nation: They Went On Forever",
+     "venue_text": "314 Scholes | 314 Scholes St Brooklyn, NY 11206",
+     "url": "https://ra.co/events/2568000"
+    },
+    {
+     "source": "supplied list 2026-10-27 (RA listing)",
+     "night_date": "2027-01-03",
+     "time_text": "5:00 PM - 3:00 AM",
+     "title": "The Y2k Parrty- Can you hear me now? Classics Cocktail Bar",
+     "venue_text": "San Antonios | 247 Eldridge St, New York, NY 10002, US",
+     "url": "https://ra.co/events/2546117"
     }
    ]
+  },
+  {
+   "dump": "new_events",
+   "path": "party_events?select=id,slug,title,night_date,publish_status,event_status,venue_id,genres,themes,price_from,age_min&first_seen=gte.2026-10-27T11:00:00Z"
   }
  ]
 }
