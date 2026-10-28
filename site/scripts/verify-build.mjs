@@ -125,8 +125,8 @@ const rd = existsSync(join(DIST, '_redirects')) ? readFileSync(join(DIST, '_redi
 for (const line of rd.split('\n')) {
   const [from, to] = line.trim().split(/\s+/);
   if (!from || from.startsWith('#') || from.includes('*') || from.includes(':')) continue;
-  if (built(from)) warn.push(`_redirects: ${from} is a built page (the redirect hides it)`);
-  if (to?.startsWith('/') && !to.includes('*') && !to.includes(':') && !built(to.split(/[?#]/)[0])) warn.push(`_redirects: ${from} -> ${to}, which is not a built page`);
+  if (built(from)) fail.push(`_redirects: ${from} is a built page (the redirect hides it)`);
+  if (to?.startsWith('/') && !to.includes('*') && !to.includes(':') && !built(to.split(/[?#]/)[0])) fail.push(`_redirects: ${from} -> ${to}, which is not a built page`);
 }
 for (const w of warn.filter((w) => w.startsWith('_redirects'))) console.warn(`! ${w}`);
 const longTitles = warn.filter((w) => !w.startsWith('_redirects'));
