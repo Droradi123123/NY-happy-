@@ -6,3 +6,9 @@
 /happy-hours/jackson-heights /happy-hours/queens 301
 /happy-hours/forest-hills /happy-hours/queens 301
 /happy-hours/nolita /happy-hours/soho 301
+
+# Bars that closed (checked Oct 28 2026; the reason and source are on each record): their pages go to
+# the neighborhood list so links and search results still land somewhere useful.
+/bars/ben-jack-s-steakhouse-flatiron /happy-hours/midtown 301
+/bars/sabor-argentino-greenwich-village /happy-hours/greenwich-village 301
+/bars/midori-sushi-flatiron /happy-hours/midtown 301
