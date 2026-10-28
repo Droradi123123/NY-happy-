@@ -119,7 +119,18 @@ for (const f of pages) {
   const u = '/' + relative(DIST, f).replace(/\.html$/, '').replace(/^index$/, '');
   if (!inMap.has(u)) fail.push(`sitemap.xml: indexable page ${u} is missing`);
 }
-if (warn.length) console.warn(`! ${warn.length} title(s) over 70 characters (Google cuts them; allowed for long names), e.g. ${warn[0]}`);
+// redirects: a line must not hide a page this build has (Cloudflare serves the redirect first), and
+// must not send people to a page that is not there
+const rd = existsSync(join(DIST, '_redirects')) ? readFileSync(join(DIST, '_redirects'), 'utf-8') : '';
+for (const line of rd.split('\n')) {
+  const [from, to] = line.trim().split(/\s+/);
+  if (!from || from.startsWith('#') || from.includes('*') || from.includes(':')) continue;
+  if (built(from)) warn.push(`_redirects: ${from} is a built page (the redirect hides it)`);
+  if (to?.startsWith('/') && !to.includes('*') && !to.includes(':') && !built(to.split(/[?#]/)[0])) warn.push(`_redirects: ${from} -> ${to}, which is not a built page`);
+}
+for (const w of warn.filter((w) => w.startsWith('_redirects'))) console.warn(`! ${w}`);
+const longTitles = warn.filter((w) => !w.startsWith('_redirects'));
+if (longTitles.length) console.warn(`! ${longTitles.length} title(s) over 70 characters (Google cuts them; allowed for long names), e.g. ${longTitles[0]}`);
 
 const uniq = [...new Set(fail)];
 if (uniq.length) {
