@@ -1,27 +1,8 @@
 {
  "steps": [
   {
-   "probe": {
-    "urls": [
-     "https://yaynyc.com/",
-     "https://yaynyc.com/parties",
-     "https://yaynyc.com/happy-hours",
-     "https://yaynyc.com/parties/throwback",
-     "https://yaynyc.com/parties/free",
-     "https://yaynyc.com/parties/new-years-eve",
-     "https://yaynyc.com/blog/thanksgiving-weekend-nyc-2026",
-     "https://yaynyc.com/blog/free-things-to-do-in-nyc-at-night",
-     "https://yaynyc.com/bars/clover-club-cobble-hill",
-     "https://yaynyc.com/bars/mollusca-nyc-west-village",
-     "https://yaynyc.com/parties/tonight",
-     "https://yaynyc.com/nyc-happy-hour-index",
-     "https://yaynyc.com/sitemap.xml",
-     "https://yaynyc.com/robots.txt"
-    ],
-    "agents": {
-     "browser": "Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/18.0 Mobile/15E148 Safari/604.1"
-    }
-   }
+   "rpc_each": "bar_set_status",
+   "args_from": "bridge/holds.json"
   }
  ]
 }
