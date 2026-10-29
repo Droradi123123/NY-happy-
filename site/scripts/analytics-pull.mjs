@@ -49,6 +49,10 @@ if (sa.client_email) {
     page: await gsc(...cur, ['page']), pagePrev: await gsc(...prev, ['page']),
     queryPage: await gsc(...cur, ['query', 'page'], 10000),
     device: await gsc(...cur, ['device']), country: await gsc(...cur, ['country'], 30),
+    // the last 3 months, for the audit: intent groups, quick wins, cannibalization
+    range90: [day(92), day(2)],
+    query90: await gsc(day(92), day(2), ['query']), page90: await gsc(day(92), day(2), ['page']),
+    queryPage90: await gsc(day(92), day(2), ['query', 'page'], 25000),
   };
   note('search_console', Array.isArray(out.gsc.query) ? `ok (${out.gsc.query.length} queries, ${out.gsc.page.length} pages)` : 'error');
 

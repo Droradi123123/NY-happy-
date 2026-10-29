@@ -1,8 +1,16 @@
 {
  "steps": [
   {
-   "rpc_each": "bar_set_status",
-   "args_from": "bridge/holds.json"
+   "probe": {
+    "urls": [
+     "https://yaynyc.com/", "https://www.yaynyc.com/", "https://www.yaynyc.com/happy-hours/williamsburg?x=1", "http://yaynyc.com/parties",
+     "http://www.yaynyc.com/bars/clover-club-cobble-hill", "https://yaynyc.com/parties/", "https://yaynyc.com/happy-hours/williamsburg",
+     "https://yaynyc.com/parties/tonight", "https://yaynyc.com/parties/halloween", "https://yaynyc.com/happy-hours/now",
+     "https://yaynyc.com/no-such-page-xyz", "https://yaynyc.com/sitemap.xml", "https://yaynyc.com/robots.txt", "https://yaynyc.com/llms.txt",
+     "https://yaynyc.com/_astro/", "https://yaynyc.com/data/quality.json", "https://yaynyc.com/favicon.svg"
+    ],
+    "agents": { "googlebot": "Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)" }
+   }
   }
  ]
 }

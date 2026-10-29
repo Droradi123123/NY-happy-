@@ -172,7 +172,7 @@ for (const [i, s] of plan.steps.entries()) {
           const body = r.status < 300 ? await r.text() : '';
           const pick = (re) => body.match(re)?.[1] ?? null;
           const row = { url: u, who, status: r.status, location: r.headers.get('location'), xrobots: r.headers.get('x-robots-tag'), mitigated: r.headers.get('cf-mitigated'),
-            type: r.headers.get('content-type'), bytes: body.length, robots: pick(/<meta name="robots" content="([^"]+)"/), canonical: pick(/<link rel="canonical" href="([^"]+)"/),
+            type: r.headers.get('content-type'), cache: r.headers.get('cache-control'), cfcache: r.headers.get('cf-cache-status'), server: r.headers.get('server'), bytes: body.length, robots: pick(/<meta name="robots" content="([^"]+)"/), canonical: pick(/<link rel="canonical" href="([^"]+)"/),
             title: pick(/<title>([^<]*)<\/title>/), head: /\.(txt|xml)$/.test(new globalThis.URL(u).pathname) ? body.slice(0, 600) : undefined };
           results.push({ step: tag, probe: row });
           console.log(`${tag} probe ${who} ${new globalThis.URL(u).pathname}: ${r.status}${row.location ? ` -> ${row.location}` : ''}${row.robots ? ` robots=${row.robots}` : ''}${row.xrobots ? ` x-robots=${row.xrobots}` : ''}${row.mitigated ? ` cf-mitigated=${row.mitigated}` : ''}`);
