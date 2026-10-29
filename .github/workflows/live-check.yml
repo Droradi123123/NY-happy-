@@ -1,0 +1,55 @@
+# Live check of yaynyc.com (approved Oct 29, 2026): after every push that changes the site (waits until
+# Cloudflare has deployed that commit, then checks it), and every 6 hours. Every sitemap URL must answer
+# 200 without noindex, and the main flows must open on a 390px phone without overflow or JS errors.
+# A failure fails the run (GitHub emails the owner). The scheduled run writes reports/live-check.json
+# when the result changes.
+name: Live check
+
+on:
+  push:
+    branches: [claude/lucid-keller-2hsgwn]
+    paths: ['site/**']
+  schedule:
+    - cron: '29 */6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: live-check-${{ github.event_name }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 100
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Browser
+        run: |
+          npm i --no-save --no-package-lock playwright@1.55.1
+          npx playwright install --with-deps chromium
+      - name: Check
+        run: node site/scripts/live-check.mjs ${{ github.event_name == 'push' && format('--wait-for {0}', github.sha) || '' }}
+      - name: Summary
+        if: always()
+        run: cat live-check.md >> "$GITHUB_STEP_SUMMARY" || true
+      - name: Report file (scheduled runs, when the result changes)
+        if: always() && github.event_name == 'schedule'
+        run: |
+          [ -f live-check.json ] || exit 0
+          mkdir -p reports
+          key() { node -e 'const r=JSON.parse(require("fs").readFileSync(process.argv[1]));console.log(JSON.stringify([r.ok,r.sitemap.bad.map(b=>b.url).sort(),r.flows.filter(f=>!f.ok).map(f=>f.path)]))' "$1" 2>/dev/null; }
+          [ -f reports/live-check.json ] && [ "$(key live-check.json)" = "$(key reports/live-check.json)" ] && exit 0
+          cp live-check.json reports/live-check.json
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add reports/live-check.json
+          git commit -m "Live check: $(node -e 'console.log(require("./live-check.json").ok ? "all good" : "problems found")')"
+          for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done

@@ -1,0 +1,39 @@
+# Daily page-level analytics (approved Oct 29, 2026): GA4 views and ticket clicks per page and Google
+# impressions per page, written to site/src/data/proof.json for "real proof", "most read" and the index
+# scope. Per-page totals only (public repository): no queries, no visitor data. The commit triggers the
+# Cloudflare rebuild, so the site shows the new numbers the same morning.
+name: Analytics export (daily, page counts)
+
+on:
+  schedule:
+    - cron: '47 10 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: analytics-export
+  cancel-in-progress: false
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Export
+        env:
+          GOOGLE_SA_JSON: ${{ secrets.GOOGLE_SA_JSON }}
+          GA4_PROPERTY_ID: ${{ secrets.GA4_PROPERTY_ID }}
+        run: node site/scripts/analytics-export.mjs
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add site/src/data/proof.json
+          git commit -m "Analytics export (page counts): $(date -u +%F)" || exit 0
+          for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done
