@@ -178,6 +178,22 @@ for (const [i, s] of plan.steps.entries()) {
           console.log(`${tag} probe ${who} ${new globalThis.URL(u).pathname}: ${r.status}${row.location ? ` -> ${row.location}` : ''}${row.robots ? ` robots=${row.robots}` : ''}${row.xrobots ? ` x-robots=${row.xrobots}` : ''}${row.mitigated ? ` cf-mitigated=${row.mitigated}` : ''}`);
         } catch (e) { results.push({ step: tag, probe: { url: u, who, error: String(e.message ?? e) } }); }
       }
+    } else if (s.fetch_ld) {
+      // public event pages: their schema.org JSON-LD (dates, place, offers) and Open Graph tags, saved to
+      // bridge/out/<name>.json for an offline review. One request at a time, `delay` ms apart.
+      const out = [];
+      for (const u of s.fetch_ld.urls) {
+        try {
+          const r = await fetch(u, { headers: { 'User-Agent': 'Mozilla/5.0 (compatible; NYHappy/1.0; +https://github.com/Droradi123123/NY-happy-)' }, signal: AbortSignal.timeout(20000) });
+          const html = await r.text();
+          const ld = [...html.matchAll(/<script[^>]*application\/ld\+json[^>]*>([\s\S]*?)<\/script>/g)].map((m) => { try { return JSON.parse(m[1]); } catch { return null; } }).filter(Boolean);
+          const og = Object.fromEntries([...html.matchAll(/<meta[^>]+property="og:([a-z:_]+)"[^>]+content="([^"]*)"/g)].map((m) => [m[1], m[2]]));
+          out.push({ url: u, final: r.url, status: r.status, ld, og, title: html.match(/<title>([^<]*)<\/title>/)?.[1] ?? null });
+        } catch (e) { out.push({ url: u, error: String(e.message ?? e).slice(0, 100) }); }
+        await sleep((s.fetch_ld.delay ?? 1500) / 1000);
+      }
+      writeFileSync(`bridge/out/${s.fetch_ld.name ?? 'ld'}.json`, JSON.stringify(out));
+      console.log(`${tag} fetch_ld: ${out.length} pages, ${out.filter((p) => p.ld?.length).length} with JSON-LD`);
     } else if (s.sleep) {
       await sleep(s.sleep);
     }
