@@ -12,7 +12,9 @@ name: Deploy yaynyc.com
 
 on:
   push:
-    branches: [main]
+    # the production branch: every push that changes the site is built on live data here (the build gate
+    # runs), and deployed from here once CLOUDFLARE_ACCOUNT_ID and CLOUDFLARE_API_TOKEN are set
+    branches: [claude/lucid-keller-2hsgwn]
     paths: ['site/**', '.github/workflows/deploy-site.yml']
   schedule:
     # every 4 hours: ended parties drop off and re-checked deals show their new dates
