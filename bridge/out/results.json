@@ -1,1 +1,287 @@
-[]
+[
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/parties/city-of-gods-festival-2026-10-23",
+   "who": "browser",
+   "status": 301,
+   "location": "/parties/venue/industry-city",
+   "xrobots": null,
+   "mitigated": null,
+   "type": null,
+   "cache": null,
+   "cfcache": null,
+   "server": "cloudflare",
+   "bytes": 0,
+   "robots": null,
+   "canonical": null,
+   "title": null
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/parties/crankdat-night-1-friday-2026-10-23",
+   "who": "browser",
+   "status": 301,
+   "location": "/parties/venue/brooklyn-storehouse",
+   "xrobots": null,
+   "mitigated": null,
+   "type": null,
+   "cache": null,
+   "cfcache": null,
+   "server": "cloudflare",
+   "bytes": 0,
+   "robots": null,
+   "canonical": null,
+   "title": null
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/parties/roz-2026-10-24",
+   "who": "browser",
+   "status": 301,
+   "location": "/parties/venue/marquee-skydeck-at-edge-hudson-yards",
+   "xrobots": null,
+   "mitigated": null,
+   "type": null,
+   "cache": null,
+   "cfcache": null,
+   "server": "cloudflare",
+   "bytes": 0,
+   "robots": null,
+   "canonical": null,
+   "title": null
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/parties/tiki-disco-in-the-ruins-2026-10-18",
+   "who": "browser",
+   "status": 301,
+   "location": "/parties/venue/knockdown-center",
+   "xrobots": null,
+   "mitigated": null,
+   "type": null,
+   "cache": null,
+   "cfcache": null,
+   "server": "cloudflare",
+   "bytes": 0,
+   "robots": null,
+   "canonical": null,
+   "title": null
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/parties/venue/colbo-next-door",
+   "who": "browser",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html",
+   "cache": "public, max-age=0, must-revalidate",
+   "cfcache": "HIT",
+   "server": "cloudflare",
+   "bytes": 35008,
+   "robots": null,
+   "canonical": "https://yaynyc.com/parties/venue/colbo-next-door",
+   "title": "COLBO NEXT DOOR Events: Upcoming Parties and Tickets | YaY NYC"
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/parties/venue/brooklyn-roots-collective",
+   "who": "browser",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html",
+   "cache": "public, max-age=0, must-revalidate",
+   "cfcache": "HIT",
+   "server": "cloudflare",
+   "bytes": 35321,
+   "robots": null,
+   "canonical": "https://yaynyc.com/parties/venue/brooklyn-roots-collective",
+   "title": "Brooklyn Roots Collective Events: Upcoming Parties and Tickets"
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/parties/venue/daintree-rooftop",
+   "who": "browser",
+   "status": 404,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html",
+   "cache": "public, max-age=0, must-revalidate",
+   "cfcache": "HIT",
+   "server": "cloudflare",
+   "bytes": 0,
+   "robots": null,
+   "canonical": null,
+   "title": null
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/bars/the-ox-tavern",
+   "who": "browser",
+   "status": 301,
+   "location": "/happy-hours/brooklyn",
+   "xrobots": null,
+   "mitigated": null,
+   "type": null,
+   "cache": null,
+   "cfcache": null,
+   "server": "cloudflare",
+   "bytes": 0,
+   "robots": null,
+   "canonical": null,
+   "title": null
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/bars/kashkaval-cheese-market-hell-s-kitchen",
+   "who": "browser",
+   "status": 301,
+   "location": "/bars/kashkaval-garden-hell-s-kitchen",
+   "xrobots": null,
+   "mitigated": null,
+   "type": null,
+   "cache": null,
+   "cfcache": null,
+   "server": "cloudflare",
+   "bytes": 0,
+   "robots": null,
+   "canonical": null,
+   "title": null
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/happy-hours/near/96th-street-q",
+   "who": "browser",
+   "status": 301,
+   "location": "/happy-hours/upper-east-side",
+   "xrobots": null,
+   "mitigated": null,
+   "type": null,
+   "cache": null,
+   "cfcache": null,
+   "server": "cloudflare",
+   "bytes": 0,
+   "robots": null,
+   "canonical": null,
+   "title": null
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/parties/",
+   "who": "browser",
+   "status": 301,
+   "location": "https://yaynyc.com/parties",
+   "xrobots": null,
+   "mitigated": null,
+   "type": null,
+   "cache": null,
+   "cfcache": null,
+   "server": "cloudflare",
+   "bytes": 0,
+   "robots": null,
+   "canonical": null,
+   "title": null
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/happy-hours/williamsburg/?a=1",
+   "who": "browser",
+   "status": 301,
+   "location": "https://yaynyc.com/happy-hours/williamsburg?a=1",
+   "xrobots": null,
+   "mitigated": null,
+   "type": null,
+   "cache": null,
+   "cfcache": null,
+   "server": "cloudflare",
+   "bytes": 0,
+   "robots": null,
+   "canonical": null,
+   "title": null
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/",
+   "who": "browser",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html",
+   "cache": "public, max-age=0, must-revalidate",
+   "cfcache": "MISS",
+   "server": "cloudflare",
+   "bytes": 142013,
+   "robots": null,
+   "canonical": "https://yaynyc.com/",
+   "title": "YaY NYC: Happy Hours, Parties and What&#39;s On Tonight in New York"
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/parties",
+   "who": "browser",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html",
+   "cache": "public, max-age=0, must-revalidate",
+   "cfcache": "MISS",
+   "server": "cloudflare",
+   "bytes": 166144,
+   "robots": null,
+   "canonical": "https://yaynyc.com/parties",
+   "title": "NYC Parties: 505 Club Nights, Raves and Events | YaY NYC"
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/happy-hours",
+   "who": "browser",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html",
+   "cache": "public, max-age=0, must-revalidate",
+   "cfcache": "HIT",
+   "server": "cloudflare",
+   "bytes": 139072,
+   "robots": null,
+   "canonical": "https://yaynyc.com/happy-hours",
+   "title": "NYC Happy Hours: 839 Bars, Deals and Times (Oct 2026) | YaY NYC"
+  }
+ }
+]
