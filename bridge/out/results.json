@@ -1,26 +1,328 @@
 [
  {
   "step": "#1",
-  "rpc": "bar_set_status",
-  "key": "ben-jack-s-steakhouse-flatiron",
-  "ok": true,
-  "status": 200,
-  "body": "rejected"
+  "probe": {
+   "url": "https://yaynyc.com/",
+   "who": "googlebot",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html",
+   "cache": "public, max-age=0, must-revalidate",
+   "cfcache": "HIT",
+   "server": "cloudflare",
+   "bytes": 142013,
+   "robots": null,
+   "canonical": "https://yaynyc.com/",
+   "title": "YaY NYC: Happy Hours, Parties and What&#39;s On Tonight in New York"
+  }
  },
  {
   "step": "#1",
-  "rpc": "bar_set_status",
-  "key": "sabor-argentino-greenwich-village",
-  "ok": true,
-  "status": 200,
-  "body": "rejected"
+  "probe": {
+   "url": "https://www.yaynyc.com/",
+   "who": "googlebot",
+   "status": 301,
+   "location": "https://yaynyc.com/",
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html; charset=UTF-8",
+   "cache": null,
+   "cfcache": null,
+   "server": "cloudflare",
+   "bytes": 0,
+   "robots": null,
+   "canonical": null,
+   "title": null
+  }
  },
  {
   "step": "#1",
-  "rpc": "bar_set_status",
-  "key": "midori-sushi-flatiron",
-  "ok": true,
-  "status": 200,
-  "body": "rejected"
+  "probe": {
+   "url": "https://www.yaynyc.com/happy-hours/williamsburg?x=1",
+   "who": "googlebot",
+   "status": 301,
+   "location": "https://yaynyc.com/happy-hours/williamsburg?x=1",
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html; charset=UTF-8",
+   "cache": null,
+   "cfcache": null,
+   "server": "cloudflare",
+   "bytes": 0,
+   "robots": null,
+   "canonical": null,
+   "title": null
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "http://yaynyc.com/parties",
+   "who": "googlebot",
+   "status": 301,
+   "location": "https://yaynyc.com/parties",
+   "xrobots": null,
+   "mitigated": null,
+   "type": null,
+   "cache": null,
+   "cfcache": null,
+   "server": "cloudflare",
+   "bytes": 0,
+   "robots": null,
+   "canonical": null,
+   "title": null
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "http://www.yaynyc.com/bars/clover-club-cobble-hill",
+   "who": "googlebot",
+   "status": 522,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html; charset=UTF-8",
+   "cache": "private, max-age=0, no-store, no-cache, must-revalidate, post-check=0, pre-check=0",
+   "cfcache": null,
+   "server": "cloudflare",
+   "bytes": 0,
+   "robots": null,
+   "canonical": null,
+   "title": null
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/parties/",
+   "who": "googlebot",
+   "status": 307,
+   "location": "/parties",
+   "xrobots": null,
+   "mitigated": null,
+   "type": null,
+   "cache": null,
+   "cfcache": null,
+   "server": "cloudflare",
+   "bytes": 0,
+   "robots": null,
+   "canonical": null,
+   "title": null
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/happy-hours/williamsburg",
+   "who": "googlebot",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html",
+   "cache": "public, max-age=0, must-revalidate",
+   "cfcache": "MISS",
+   "server": "cloudflare",
+   "bytes": 176085,
+   "robots": null,
+   "canonical": "https://yaynyc.com/happy-hours/williamsburg",
+   "title": "Happy Hour in Williamsburg, NYC: 51 Bars and Deals (Oct 2026)"
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/parties/tonight",
+   "who": "googlebot",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html",
+   "cache": "public, max-age=0, must-revalidate",
+   "cfcache": "HIT",
+   "server": "cloudflare",
+   "bytes": 51756,
+   "robots": null,
+   "canonical": "https://yaynyc.com/parties/tonight",
+   "title": "Parties Tonight in NYC: Thursday, Oct 29 | YaY NYC"
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/parties/halloween",
+   "who": "googlebot",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html",
+   "cache": "public, max-age=0, must-revalidate",
+   "cfcache": "HIT",
+   "server": "cloudflare",
+   "bytes": 154987,
+   "robots": null,
+   "canonical": "https://yaynyc.com/parties/halloween",
+   "title": "Halloween Parties NYC 2026: 144 Parties, Night by Night | YaY NYC"
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/happy-hours/now",
+   "who": "googlebot",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html",
+   "cache": "public, max-age=0, must-revalidate",
+   "cfcache": "HIT",
+   "server": "cloudflare",
+   "bytes": 101076,
+   "robots": null,
+   "canonical": "https://yaynyc.com/happy-hours/now",
+   "title": "Happy Hour Right Now in NYC: What&#39;s On Near You | YaY NYC"
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/no-such-page-xyz",
+   "who": "googlebot",
+   "status": 404,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html",
+   "cache": "public, max-age=0, must-revalidate",
+   "cfcache": "HIT",
+   "server": "cloudflare",
+   "bytes": 0,
+   "robots": null,
+   "canonical": null,
+   "title": null
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/sitemap.xml",
+   "who": "googlebot",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "application/xml",
+   "cache": "public, max-age=0, must-revalidate",
+   "cfcache": "HIT",
+   "server": "cloudflare",
+   "bytes": 143949,
+   "robots": null,
+   "canonical": null,
+   "title": null,
+   "head": "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n<url><loc>https://yaynyc.com/</loc></url>\n<url><loc>https://yaynyc.com/happy-hours</loc></url>\n<url><loc>https://yaynyc.com/nyc-happy-hour-index</loc></url>\n<url><loc>https://yaynyc.com/happy-hours/now</loc></url>\n<url><loc>https://yaynyc.com/happy-hours/neighborhoods</loc></url>\n<url><loc>https://yaynyc.com/parties</loc></url>\n<url><loc>https://yaynyc.com/about</loc></url>\n<url><loc>https://yaynyc.com/contact</loc></url>\n<url><loc>https://yaynyc.com/privacy</loc></url>\n<url><loc>https://yaynyc."
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/robots.txt",
+   "who": "googlebot",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/plain",
+   "cache": "public, max-age=0, must-revalidate",
+   "cfcache": "HIT",
+   "server": "cloudflare",
+   "bytes": 313,
+   "robots": null,
+   "canonical": null,
+   "title": null,
+   "head": "User-agent: *\nAllow: /\nDisallow: /data/\n\nSitemap: https://yaynyc.com/sitemap.xml\nSitemap: https://yaynyc.com/sitemap-bars.xml\nSitemap: https://yaynyc.com/sitemap-parties.xml\nSitemap: https://yaynyc.com/sitemap-lists.xml\nSitemap: https://yaynyc.com/sitemap-guides.xml\nSitemap: https://yaynyc.com/sitemap-other.xml\n"
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/llms.txt",
+   "who": "googlebot",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/plain",
+   "cache": "public, max-age=0, must-revalidate",
+   "cfcache": "MISS",
+   "server": "cloudflare",
+   "bytes": 218093,
+   "robots": null,
+   "canonical": null,
+   "title": null,
+   "head": "# YaY NYC\n\n> All the fun in NYC in one place: verified happy hours (deal, times, date checked, source) and parties (doors, venue, age, price, tickets) across the five boroughs.\n\n- [All NYC happy hours](https://yaynyc.com/happy-hours)\n- [Happy hour right now](https://yaynyc.com/happy-hours/now)\n- [Parties](https://yaynyc.com/parties)\n\n## Happy hours in Williamsburg\n\n- [All 51 in Williamsburg](https://yaynyc.com/happy-hours/williamsburg)\n- [Ainslie](https://yaynyc.com/bars/ainslie-williamsburg): Mon–Thu 5pm–7pm; checked 2026-09-02\n- [BABA on Withers](https://yaynyc.com/bars/baba-on-withers-willi"
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/_astro/",
+   "who": "googlebot",
+   "status": 404,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "text/html",
+   "cache": "public, max-age=31536000, immutable",
+   "cfcache": "HIT",
+   "server": "cloudflare",
+   "bytes": 0,
+   "robots": null,
+   "canonical": null,
+   "title": null
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/data/quality.json",
+   "who": "googlebot",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "application/json",
+   "cache": "public, max-age=3600",
+   "cfcache": "MISS",
+   "server": "cloudflare",
+   "bytes": 2830,
+   "robots": null,
+   "canonical": null,
+   "title": null
+  }
+ },
+ {
+  "step": "#1",
+  "probe": {
+   "url": "https://yaynyc.com/favicon.svg",
+   "who": "googlebot",
+   "status": 200,
+   "location": null,
+   "xrobots": null,
+   "mitigated": null,
+   "type": "image/svg+xml",
+   "cache": "public, max-age=86400",
+   "cfcache": "HIT",
+   "server": "cloudflare",
+   "bytes": 4770,
+   "robots": null,
+   "canonical": null,
+   "title": null
+  }
  }
 ]
