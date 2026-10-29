@@ -1,5 +1,8 @@
 {
  "steps": [
-  { "dump": "ended_parties", "path": "party_events?select=slug,venue_id,night_date,starts_at,ends_at&publish_status=in.(ended,published)&night_date=gte.2026-06-01&order=night_date.desc&limit=5000" }
+  { "dump": "gone_bars", "path": "h_nyc_happy_hour?select=slug,name,status,geo,address&slug=in.(kashkaval-cheese-market-hell-s-kitchen,souvlaki-gr-lower-east-side,the-ox-tavern,merchants-ny-chelsea,soup-queen-bk-bushwick,winter-garden-nolita,the-top-of-the-standard-west-village,brooklyn-ate-bar-greenpoint)" },
+  { "dump": "gone_bars_names", "path": "h_nyc_happy_hour?select=slug,name,status,geo&or=(name.ilike.*kashkaval*,name.ilike.*souvlaki*,name.ilike.*ox tavern*,name.ilike.*merchants*,name.ilike.*soup queen*,name.ilike.*winter garden*,name.ilike.*top of the standard*,name.ilike.*brooklyn ate*)" },
+  { "dump": "gone_venues", "path": "party_venues?select=id,name,status,kind,neighborhood&id=in.(colbo-next-door,brooklyn-roots-collective,daintree-rooftop)" },
+  { "dump": "gone_parties", "path": "party_events?select=slug,publish_status,venue_id,night_date&slug=in.(haunted-skyline-halloween-2026-10-30,suave-saturdays-latin-inspired-sunset-party-2026-11-21)" }
  ]
 }
