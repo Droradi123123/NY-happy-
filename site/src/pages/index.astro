@@ -1,19 +1,22 @@
 ---
 /**
- * Home: what is on (now, tonight, the season's big night), the map, the cheapest drinks and the next
- * parties, neighborhoods with photos, guides, the newsletter. Mobile first: one column, big tap targets.
+ * Home, content first: a short hero with the big doors as real buttons, then happy hours (two rows and a
+ * button to all), parties (two rows and a button), the season's big night, drinks $6 and under, this
+ * weekend's hottest nights, rooftops, the blog, neighborhoods, the map. No search or filters here: they
+ * live on /happy-hours and /parties.
  */
 import Base from '../layouts/Base.astro';
 import BarCard from '../components/BarCard.astro';
 import PartyCard from '../components/PartyCard.astro';
 import HomeMap from '../components/HomeMap.astro';
 import Newsletter from '../components/Newsletter.astro';
-import QuickPick from '../components/QuickPick.astro';
-import { allBars, allHoods, partyData, venueOf, landmarks, photoOf, creditShort } from '../lib/data';
+import { allBars, allHoods, partyData, venueOf, landmarks, photoOf, creditShort, DAYS, type Party } from '../lib/data';
+import { partyLists } from '../lib/partyLists';
+import proof from '../data/proof.json';
 import { allGuides, guideCover } from '../lib/guides';
 import { stats } from '../lib/stats';
 import { SITE } from '../lib/seo';
-import { listPages } from '../lib/lists';
+import { listPages, rank } from '../lib/lists';
 import { halloweenPages } from '../lib/halloween';
 import { trivia, DAY_PAGES, daySlugOf } from '../lib/activities';
 import { DAY_NAME } from '../lib/data';
@@ -31,25 +34,34 @@ const hwOn = halloween.length > 0 && new Date().toISOString().slice(0, 10) <= '2
 const hwPhoto = photoOf('page', 'halloween');
 const hwSubs = hwOn ? (await halloweenPages()).built.filter((b) => b.indexable) : [];
 const crawls = (await allGuides()).filter((g) => g.status === 'published' && g.slug.endsWith('-bar-crawl')).sort((a, b) => a.short.localeCompare(b.short));
-const upcoming = parties.slice(0, 10);
 const lm = (await landmarks()).slice(0, 8);
-const guides = (await allGuides()).filter((g) => g.status === 'published').sort((a, b) => b.updated.localeCompare(a.updated)).slice(0, 6);
+const guides = (await allGuides()).filter((g) => g.status === 'published').sort((a, b) => b.updated.localeCompare(a.updated)).slice(0, 3);
 const covers = await Promise.all(guides.map((g) => guideCover(g)));
 const onMap = bars.filter((b) => b.onMap).length;
-const lists = new Map((await listPages()).map((l) => [l.slug, l.bars.length]));
-// what are you in the mood for: one tap to each big intent (only pages this build has)
-const tag = (slug: string, e: string, t: string) => (lists.has(slug) ? [{ href: `/happy-hours/${slug}`, e, t, n: lists.get(slug), cls: '' }] : []);
-// four big doors, no more: what is on now, tonight's parties, the season's night (or cheap drinks), the map
-const moods = [
-  { href: '/happy-hours/now', e: '⏰', t: 'Happy hour now', cls: 'hot' },
-  { href: '/parties/tonight', e: '🪩', t: 'Parties tonight', cls: '' },
-  hwOn ? { href: '/parties/halloween', e: '🎃', t: 'Halloween', cls: 'hw' } : { href: '/happy-hours/cheap-drinks', e: '💸', t: 'Cheap drinks', cls: '' },
-  { href: '/map', e: '🗺️', t: 'The map', cls: '' },
-];
-const barChips = [
-  { href: '/happy-hours?sort=cheap', label: 'Cheapest' }, { href: '/happy-hours/now', label: 'On now' },
-  ...(lists.has('rooftop') ? [{ href: '/happy-hours/rooftop', label: 'Rooftops' }] : []),
-];
+const listsAll = await listPages();
+const lists = new Map(listsAll.map((l) => [l.slug, l.bars.length]));
+const plists = await partyLists();
+
+// the season's big night: Halloween until Nov 1, then the nearest holiday page with 5+ nights on sale
+const season = hwOn ? { href: '/parties/halloween', label: 'Halloween', n: halloween.length, name: 'Halloween 2026' }
+  : (() => { const h = plists.filter((l) => l.kind === 'holiday' && l.holiday && l.parties.length >= 5).sort((a, b) => a.holiday!.date.localeCompare(b.holiday!.date))[0];
+      return h ? { href: `/parties/${h.slug}`, label: h.short, n: h.parties.length, name: h.h1.replace(/ in NYC$/, '') } : null; })();
+
+// happy hours first: deals that run today, best first, one per neighborhood
+const today = DAYS[(new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' })).getDay() + 6) % 7];
+const oneEach = <T,>(xs: T[], key: (x: T) => string, n: number) => { const seen = new Set<string>(), out: T[] = []; for (const x of xs) { const k = key(x); if (seen.has(k)) continue; seen.add(k); out.push(x); if (out.length >= n) break; } return out; };
+const ranked = [...bars].filter((b) => b.dealKnown && !b.doubt).sort(rank);
+const hhPicks = oneEach([...ranked.filter((b) => b.days.includes(today)), ...ranked], (b) => b.hoodSlug, 6);
+// then parties: the next nights people click most (proof.json), one per venue, sold-out last
+const pr = (proof.pages ?? {}) as Record<string, { views28?: number; tickets28?: number }>;
+const pscore = (p: Party) => { const x = pr[`/parties/${p.slug}`] ?? {}; return (x.tickets28 ?? 0) * 10 + (x.views28 ?? 0); };
+const soon = parties.filter((p) => p.event_status !== 'sold_out' && p.night_date <= new Date(Date.now() + 9 * 864e5).toISOString().slice(0, 10));
+const partyPicks = oneEach([...soon].sort((a, b) => pscore(b) - pscore(a) || a.starts_at.localeCompare(b.starts_at)), (p) => p.venue_id, 6);
+// more sections: cheap drinks, rooftops, this weekend's biggest nights
+const cheap = oneEach([...bars].filter((b) => b.dealKnown && !b.doubt && b.cheapestDrink !== null && b.cheapestDrink <= 6).sort((a, b) => a.cheapestDrink! - b.cheapestDrink! || rank(a, b)), (b) => b.hoodSlug, 4);
+const rooftops = (listsAll.find((l) => l.slug === 'rooftop')?.bars ?? []).filter((b) => b.dealKnown && !hhPicks.includes(b)).sort(rank).slice(0, 4);
+const weekendList = plists.find((l) => l.slug === 'this-weekend');
+const weekendPicks = (weekendList?.parties ?? []).filter((p) => !partyPicks.includes(p) && p.event_status !== 'sold_out').sort((a, b) => pscore(b) - pscore(a)).slice(0, 4);
 ---
 <Base title="YaY NYC: Happy Hours, Parties and What's On Tonight in NYC" keyword="nyc happy hours and parties" description={`NYC happy hours and parties in one place: ${s.n} verified happy hours with the deal and times, plus parties with doors, age and tickets.`}
   ogImage={hwOn && hwPhoto ? hwPhoto.og ?? null : null}
@@ -58,37 +70,29 @@ const barChips = [
   <section class="hero-x">
     <div class="hero-in">
       <h1><span class="kicker">NYC happy hours and parties</span> All the fun in one place!</h1>
-      <p class="lede">The deal, the hours and the date we checked for {s.n} happy hours, plus {parties.length} parties with doors, age and tickets.</p>
-      <form action="/happy-hours" method="get" class="hero-search" role="search">
-        <label for="hq" class="sr">Search happy hours</label>
-        <input id="hq" name="q" type="search" placeholder="Bar, area or subway stop" />
-        <button class="btn coral" type="submit">Search</button>
-      </form>
+      <p class="lede">{s.n} happy hours with the deal and the hours, and {parties.length} parties with doors, age and tickets.</p>
+      <div class="hero-btns">
+        <a class="btn" href="/happy-hours">🍸 Happy hours</a>
+        <a class="btn coral" href="/parties">🪩 Parties</a>
+        {season && <a class="btn dark" href={season.href}>{hwOn ? '🎃' : '🎉'} {season.label}</a>}
+        <a class="btn ghost" href="/happy-hours/now">⏰ On right now</a>
+      </div>
     </div>
   </section>
 
-  <nav class="moods" aria-labelledby="moods-h">
-    <h2 id="moods-h" class="sr">What are you in the mood for?</h2>
-    {moods.map((m) => <a class:list={['mood', m.cls]} href={m.href}><span class="e" aria-hidden="true">{m.e}</span><span class="t">{m.t}</span></a>)}
-  </nav>
-
-  <QuickPick />
-
-  <section class="section rail" data-rail="bars" data-lists={[...lists.keys()].join(",")} aria-labelledby="rb-h">
-    <div class="rail-head">
-      <h2 id="rb-h">Happy hours in NYC</h2>
-      <div class="rail-arrows"><button type="button" data-dir="-1" aria-label="Scroll back">←</button><button type="button" data-dir="1" aria-label="Scroll forward">→</button></div>
-    </div>
-    <div class="chips-row" data-chips>
-      {barChips.map((c, i) => <a href={c.href} aria-current={i === 0 ? 'true' : undefined}>{c.label}</a>)}
-    </div>
-    <p class="rail-note" data-note aria-live="polite"></p>
-    <div class="rail-track" data-track>
-      {picks.map((b) => <BarCard bar={b} />)}
-      <a class="rail-more" href="/happy-hours"><span>{s.n} happy hours</span><b>See all →</b></a>
-    </div>
-    <p class="rail-foot"><a data-all href="/happy-hours?sort=cheap">See all {s.n} →</a></p>
+  <section class="section home-sec" aria-labelledby="hh-h">
+    <div class="sec-head"><h2 id="hh-h">Happy hours today</h2><span class="sec-sub">The best deals running {DAY_NAME[today]}, checked against each bar's own menu</span></div>
+    <div class="home-grid">{hhPicks.map((b, i) => <BarCard bar={b} eager={i < 2} />)}</div>
+    <a class="btn wide" href="/happy-hours">See all {s.n} happy hours →</a>
   </section>
+
+  {partyPicks.length > 0 && (
+    <section class="section home-sec" aria-labelledby="pp-h">
+      <div class="sec-head"><h2 id="pp-h">Parties coming up</h2><span class="sec-sub">The nights people are opening most, with doors, age and tickets</span></div>
+      <div class="home-grid">{partyPicks.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>
+      <a class="btn coral wide" href="/parties">See all {parties.length} parties →</a>
+    </section>
+  )}
 
   {hwOn && (
     <a class="hw-banner" href="/parties/halloween">
@@ -106,23 +110,55 @@ const barChips = [
       <ul class="link-cloud">{hwSubs.map((b) => <li><a href={`/parties/halloween/${b.page.slug}`}>{b.page.short === 'Sat Oct 31' || b.page.short === 'Fri Oct 30' ? `Halloween ${b.page.short}` : `${b.page.short} Halloween`}</a></li>)}</ul>
     </nav>
   )}
+  {!hwOn && season && (
+    <a class="hw-banner season" href={season.href}>
+      <span class="hw-text">
+        <span class="k">Coming up</span>
+        <span class="t">{season.n} {season.name} in NYC</span>
+        <span class="btn coral">See all {season.label} parties →</span>
+      </span>
+    </a>
+  )}
 
-  {upcoming.length > 0 && (
-    <section class="section rail" data-rail="parties" aria-labelledby="rp-h">
-      <div class="rail-head">
-        <h2 id="rp-h">Parties in NYC</h2>
-        <div class="rail-arrows"><button type="button" data-dir="-1" aria-label="Scroll back">←</button><button type="button" data-dir="1" aria-label="Scroll forward">→</button></div>
+  {cheap.length > 0 && (
+    <section class="section home-sec" aria-labelledby="ch-h">
+      <div class="sec-head"><h2 id="ch-h">💸 Drinks $6 and under</h2><span class="sec-sub">The cheapest happy-hour drinks in the city, as the bars publish them</span></div>
+      <div class="home-grid four">{cheap.map((b) => <BarCard bar={b} />)}</div>
+      {lists.has('cheap-drinks') && <a class="btn ghost wide" href="/happy-hours/cheap-drinks">All {lists.get('cheap-drinks')} cheap-drink happy hours →</a>}
+    </section>
+  )}
+
+  {weekendPicks.length > 0 && (
+    <section class="section home-sec" aria-labelledby="wk-h">
+      <div class="sec-head"><h2 id="wk-h">🔥 This weekend's hottest nights</h2><span class="sec-sub">{weekendList!.title?.replace(/^Parties This Weekend in NYC: /, '') ?? 'Friday to Sunday'}</span></div>
+      <div class="home-grid four">{weekendPicks.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>
+      <a class="btn ghost wide" href="/parties/this-weekend">Every party this weekend →</a>
+    </section>
+  )}
+
+  {rooftops.length > 0 && (
+    <section class="section home-sec" aria-labelledby="rt-h">
+      <div class="sec-head"><h2 id="rt-h">🌆 Rooftop happy hours with a view</h2><span class="sec-sub">Drinks with the skyline, deal included</span></div>
+      <div class="home-grid four">{rooftops.map((b) => <BarCard bar={b} />)}</div>
+      <a class="btn ghost wide" href="/happy-hours/rooftop">All rooftop happy hours →</a>
+    </section>
+  )}
+
+  {guides.length > 0 && (
+    <section class="section home-sec" aria-labelledby="gd-h">
+      <div class="sec-head"><h2 id="gd-h">📖 Fresh from the blog</h2><span class="sec-sub">Guides to going out in NYC, from our own data</span></div>
+      <div class="home-grid three">
+        {guides.map((g, i) => (
+          <article class="xcard guide-card">
+            {covers[i] ? <figure class="xcard-img"><img src={covers[i]!.photo.thumb} alt="" width="500" height="281" loading="lazy" decoding="async" /><figcaption>{creditShort(covers[i]!.photo)}</figcaption></figure>
+              : <div class="xcard-art" aria-hidden="true"><span>{g.short}</span></div>}
+            <h3><a href={`/blog/${g.slug}`}>{g.h1}</a></h3>
+            <p class="where">{g.description}</p>
+            <p class="xcard-cta" aria-hidden="true">Read the guide <span>→</span></p>
+          </article>
+        ))}
       </div>
-      <div class="chips-row" data-chips>
-        <a href="/parties?when=tonight">Tonight</a><a href="/parties?when=weekend">This weekend</a>
-        {hwOn && <a href="/parties/halloween">Halloween</a>}<a href="/parties" aria-current="true">All parties</a>
-      </div>
-      <p class="rail-note" data-note aria-live="polite"></p>
-      <div class="rail-track" data-track>
-        {upcoming.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}
-        <a class="rail-more" href="/parties"><span>{parties.length} parties</span><b>See all →</b></a>
-      </div>
-      <p class="rail-foot"><a data-all href="/parties">See all {parties.length} →</a></p>
+      <a class="btn ghost wide" href="/blog">All guides →</a>
     </section>
   )}
 
@@ -144,23 +180,6 @@ const barChips = [
       ); })}
     </ul>
   </section>
-
-  {guides.length > 0 && (
-    <section class="section">
-      <div class="rail-head"><h2>Guides</h2><a href="/blog">All guides</a></div>
-      <div class="rail-track">
-        {guides.map((g, i) => (
-          <article class="xcard guide-card">
-            {covers[i] ? <figure class="xcard-img"><img src={covers[i]!.photo.thumb} alt="" width="500" height="281" loading="lazy" decoding="async" /><figcaption>{creditShort(covers[i]!.photo)}</figcaption></figure>
-              : <div class="xcard-art" aria-hidden="true"><span>{g.short}</span></div>}
-            <h3><a href={`/blog/${g.slug}`}>{g.h1}</a></h3>
-            <p class="where">{g.description}</p>
-            <p class="xcard-cta" aria-hidden="true">Read the guide <span>→</span></p>
-          </article>
-        ))}
-      </div>
-    </section>
-  )}
 
   {(crawls.length > 0 || trivia.length > 0) && (
     <section class="section">
@@ -187,7 +206,6 @@ const barChips = [
     <p><a href="/about">More on how we check</a> · <a href="/contact">Share a tip</a></p>
   </section>
 </Base>
-<script>import '../scripts/rails';</script>
 <style>
   /* a clean hero: no photo, the headline and the search are the page's first frame */
   .hero-x { padding: 28px 0 8px; }
@@ -196,22 +214,40 @@ const barChips = [
   .hero-x h1 { font-size: clamp(34px, 6vw, 58px); line-height: 1.02; letter-spacing: -0.03em; margin: 0; }
   .kicker { display: table; font-size: 13px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: var(--brand); background: transparent; padding: 0; margin-bottom: 12px; }
   .hero-x .lede { color: var(--ink-2); max-width: 640px; margin: 14px 0 0; }
-  .hero-search { display: flex; gap: 8px; max-width: 640px; margin: 20px 0 0; }
-  .hero-search input { flex: 1; min-width: 0; height: 54px; border: 1.5px solid var(--line); border-radius: 14px; padding: 0 16px; font: inherit; font-size: 17px; background: #fff; color: var(--ink); }
-  .hero-search input:focus { outline: 3px solid var(--brand); outline-offset: 1px; border-color: var(--brand); }
-  .hero-search .btn { min-height: 54px; }
+  /* the big doors: real buttons, 2 x 2 on phones, one row from tablets */
+  .hero-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; max-width: 760px; }
+  @media (min-width: 720px) { .hero-btns { display: flex; flex-wrap: wrap; gap: 12px; } }
+  .hero-btns .btn { min-height: 52px; padding: 0 14px; font-size: 16px; white-space: nowrap; box-shadow: 0 2px 0 rgba(22, 18, 43, 0.18); }
+  /* home sections: two rows of cards, then one clear button */
+  .home-sec { display: grid; gap: 14px; }
+  .sec-head { display: grid; gap: 2px; }
+  .sec-head h2 { margin: 0; }
+  .sec-sub { color: var(--muted); font-size: 15px; }
+  .home-grid { display: grid; gap: 14px; grid-template-columns: 1fr; }
+  /* phones: two compact columns, so two rows of cards fit on about one screen */
+  @media (max-width: 639px) {
+    .home-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .home-grid :global(.xcard) { padding: 10px; gap: 4px; }
+    .home-grid :global(.xcard-img), .home-grid :global(.xcard-art) { margin: -10px -10px 4px; }
+    .home-grid :global(.xcard-art) { padding: 8px 10px 18px; }
+    .home-grid :global(.xcard-art span) { font-size: 17px; }
+    .home-grid :global(.xcard h3) { font-size: 15px; line-height: 1.2; }
+    .home-grid :global(.xcard .deal) { font-size: 14px; }
+    .home-grid :global(.xcard .sch), .home-grid :global(.xcard .when) { font-size: 13px; }
+    .home-grid :global(.xcard .where), .home-grid :global(.xcard .checked), .home-grid :global(.xcard .xcard-foot), .home-grid :global(.xcard-img figcaption) { display: none; }
+    .home-grid :global(.xcard-cta) { font-size: 13px; padding-top: 6px; flex-wrap: wrap; gap: 4px; }
+    .home-grid :global(.xcard-buy) { min-height: 32px; padding: 0 10px; font-size: 13px; }
+    .home-grid :global(.xcard-cta > span[aria-hidden]) { display: none; }
+  }
+  .home-grid > * { min-width: 0; }
+  @media (min-width: 640px) { .home-grid { grid-template-columns: 1fr 1fr; } }
+  @media (min-width: 1000px) { .home-grid { grid-template-columns: repeat(3, 1fr); } .home-grid.four { grid-template-columns: repeat(4, 1fr); } }
+  @media (max-width: 639px) { .home-grid > :nth-child(n+5) { display: none; } .home-grid.three > :nth-child(n+3) { display: none; } }
+  .btn.wide { justify-self: start; }
+  @media (max-width: 639px) { .btn.wide { justify-self: stretch; } }
+  .hw-banner.season { min-height: 0; background: linear-gradient(135deg, var(--ink), var(--brand-dark)); }
+  .hw-banner.season .hw-text { padding: 28px 20px; }
 
-  /* four doors under the hero: 2 x 2 on phones, one row on desktop */
-  .moods { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 22px; }
-  @media (min-width: 720px) { .moods { grid-template-columns: repeat(4, 1fr); gap: 14px; margin-top: 28px; } }
-  .mood { display: flex; align-items: center; gap: 10px; min-height: 60px; padding: 12px 14px; border-radius: 14px; background: #fff; border: 1px solid var(--line); text-decoration: none; transition: transform .15s ease; }
-  .mood .e { font-size: 24px; line-height: 1; }
-  .mood .t { font-size: 16px; font-weight: 800; line-height: 1.15; color: var(--ink); }
-  .mood:hover { transform: translateY(-2px); border-color: var(--brand); }
-  .mood.hot { background: var(--brand); border-color: transparent; }
-  .mood.hot .t { color: #fff; }
-  .mood.hw { background: var(--ink); border-color: transparent; }
-  .mood.hw .t { color: #fff; }
   .near-line { line-height: 1.9; }
   .near-line a { font-weight: 700; }
   .rail-foot { margin: 0; }
@@ -228,8 +264,6 @@ const barChips = [
   .hw-banner:hover { color: #fff; }
 
   .sub-lede { color: var(--ink-2); max-width: 760px; }
-  .sec-head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
-  .sec-head a { font-weight: 800; white-space: nowrap; text-decoration: none; color: var(--brand); }
   .tiles { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; grid-template-columns: 1fr 1fr; }
   @media (min-width: 900px) { .tiles { grid-template-columns: repeat(4, 1fr); gap: 14px; } }
   .tile { position: relative; display: block; border-radius: 16px; overflow: hidden; aspect-ratio: 4 / 3; color: #fff; text-decoration: none; background: var(--ink); }

@@ -47,8 +47,8 @@ main.wide { padding-bottom: 0; }
 .header-row { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 60px; }
 .logo-link { text-decoration: none; display: inline-flex; padding: 8px 0; }
 .site-header nav ul { list-style: none; display: flex; gap: 4px; margin: 0; padding: 0; }
-.site-header nav a { display: inline-block; padding: 9px 13px; border-radius: 999px; font-weight: 700; text-decoration: none; }
-.site-header nav a:hover { background: var(--brand-soft); color: var(--ink); }
+.site-header nav a { display: inline-block; padding: 8px 14px; border-radius: 999px; font-weight: 800; text-decoration: none; border: 1.5px solid var(--line); background: #fff; }
+.site-header nav a:hover { border-color: var(--brand); background: var(--brand-soft); color: var(--ink); }
 .site-header nav a[aria-current] { background: var(--brand); color: #fff; }
 .header-cta { display: none; }
 @media (max-width: 859px) {
@@ -89,7 +89,9 @@ main.wide { padding-bottom: 0; }
 .btn:hover { background: var(--brand-dark); color: #fff; }
 .btn.coral { background: var(--coral-btn); }
 .btn.coral:hover { background: var(--coral-ink); }
-.btn.ghost { background: #fff; color: var(--ink); border: 1.5px solid var(--line); }
+.btn.dark { background: var(--ink); }
+.btn.dark:hover { background: #000; }
+.btn.ghost { background: #fff; color: var(--ink); border: 1.5px solid var(--ink); }
 .btn.ghost:hover { border-color: var(--brand); color: var(--brand); background: #fff; }
 .grid-cards { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
 .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); }
