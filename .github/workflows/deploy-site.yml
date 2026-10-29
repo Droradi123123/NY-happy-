@@ -90,8 +90,9 @@ jobs:
         working-directory: .
         run: |
           date -u +%Y-%m-%dT%H:%MZ > site/.rebuild
+          node site/scripts/ended-redirects.mjs --ledger
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add site/.rebuild
+          git add site/.rebuild site/src/data/party-ledger.json
           git commit -m "Scheduled rebuild: fresh parties, prices and photos"
           git push origin HEAD:${{ github.ref_name }}

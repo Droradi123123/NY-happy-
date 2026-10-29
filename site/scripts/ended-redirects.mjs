@@ -4,14 +4,21 @@
  * the venue's next nights), or to /parties when the venue has no page. Appends the lines to
  * dist/_redirects (Cloudflare static assets). Only nights over for more than 2 hours (the site's own
  * cutoff) and from the last 150 days; never a URL that still has a page. YAY_FIXTURE=1 skips it.
+ *
+ * A night that is over is marked 'ended' and leaves site_parties, so the live read alone finds almost
+ * none (0 on Oct 29: 106 ended pages with Google impressions answered 404). src/data/party-ledger.json
+ * keeps every published party's slug, venue and end time; the scheduled deploy run adds to it
+ * (`--ledger`), and it was backfilled from party_events on Oct 29.
  */
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const SUPABASE_URL = 'https://zqfscuwkxcoktpjhaebv.supabase.co';
 const PUBLIC_KEY = 'sb_publishable_JxdYGXYsOzPNAC9avS8wfA_SExSJIHc';
 const dist = join(process.cwd(), 'dist');
 const file = join(dist, '_redirects');
+const ledgerFile = fileURLToPath(new URL('../src/data/party-ledger.json', import.meta.url));
 const LIMIT = 1800; // Cloudflare allows 2,000 static redirects; leave room for the hand-written ones
 
 if (process.env.YAY_FIXTURE === '1') { console.log('ended redirects: fixture mode, skipped'); process.exit(0); }
@@ -23,9 +30,20 @@ try {
   if (!r.ok) throw new Error(`HTTP ${r.status}`);
   rows = await r.json();
 } catch (e) {
-  console.warn(`ended redirects: could not read parties (${e.message}); none added`);
+  console.warn(`ended redirects: could not read parties (${e.message}); using the ledger only`);
+}
+const ledger = existsSync(ledgerFile) ? JSON.parse(readFileSync(ledgerFile, 'utf-8')) : [];
+if (process.argv.includes('--ledger')) {
+  // scheduled run: remember every published party, so its URL can redirect once it is over
+  const bySlug = new Map(ledger.map((p) => [p.slug, p]));
+  for (const p of rows) bySlug.set(p.slug, { slug: p.slug, venue_id: p.venue_id, night_date: p.night_date, starts_at: p.starts_at, ends_at: p.ends_at });
+  const kept = [...bySlug.values()].filter((p) => p.night_date >= since).sort((a, b) => (a.night_date < b.night_date ? 1 : a.night_date > b.night_date ? -1 : a.slug < b.slug ? -1 : 1));
+  writeFileSync(ledgerFile, JSON.stringify(kept, null, 0).replace(/\},\{/g, '},\n{') + '\n');
+  console.log(`party ledger: ${kept.length} parties (${kept.length - ledger.filter((p) => p.night_date >= since).length} new)`);
   process.exit(0);
 }
+const live = new Set(rows.map((p) => p.slug));
+rows = [...rows, ...ledger.filter((p) => !live.has(p.slug) && p.night_date >= since)];
 const cutoff = Date.now() - 2 * 3600e3;
 const have = existsSync(file) ? readFileSync(file, 'utf-8') : '';
 const taken = new Set(have.split('\n').map((l) => l.trim().split(/\s+/)[0]).filter(Boolean));
@@ -40,5 +58,10 @@ for (const p of rows) {
   taken.add(from);
   if (base + lines.length >= LIMIT) break;
 }
-writeFileSync(file, `${have.trimEnd()}\n\n# Parties that are over (scripts/ended-redirects.mjs, ${new Date().toISOString().slice(0, 10)})\n${lines.join('\n')}\n`);
-console.log(`ended redirects: ${lines.length} added`);
+// pages with impressions that are not built right now (src/data/gone-pages.json): only while they are not
+const page = (u) => existsSync(join(dist, `${u.slice(1)}.html`)) || existsSync(join(dist, u.slice(1), 'index.html'));
+const gone = JSON.parse(readFileSync(fileURLToPath(new URL('../src/data/gone-pages.json', import.meta.url)), 'utf-8')).pages
+  .filter((g) => !taken.has(g.from) && !page(g.from)).map((g) => `${g.from} ${page(g.to) ? g.to : g.fallback} 301`);
+lines.push(...gone);
+writeFileSync(file, `${have.trimEnd()}\n\n# Parties that are over, and pages in src/data/gone-pages.json (scripts/ended-redirects.mjs, ${new Date().toISOString().slice(0, 10)})\n${lines.join('\n')}\n`);
+console.log(`ended redirects: ${lines.length - gone.length} parties, ${gone.length} other pages`);

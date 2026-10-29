@@ -1,0 +1,16 @@
+{
+  "_": "Pages that had Google impressions and are not built right now (a bar moved back to pending for a deal re-check, a party back in review, a renamed stop). scripts/ended-redirects.mjs writes a 301 for each line only while the page is not built, to `to` if that page is built, else to `fallback`. Oct 29, 2026.",
+  "pages": [
+    { "from": "/bars/brooklyn-ate-bar-greenpoint", "to": "/happy-hours/greenpoint", "fallback": "/happy-hours/brooklyn" },
+    { "from": "/bars/kashkaval-cheese-market-hell-s-kitchen", "to": "/bars/kashkaval-garden-hell-s-kitchen", "fallback": "/happy-hours/hells-kitchen" },
+    { "from": "/bars/merchants-ny-chelsea", "to": "/happy-hours/chelsea", "fallback": "/happy-hours/manhattan" },
+    { "from": "/bars/soup-queen-bk-bushwick", "to": "/happy-hours/bushwick", "fallback": "/happy-hours/brooklyn" },
+    { "from": "/bars/souvlaki-gr-lower-east-side", "to": "/happy-hours/lower-east-side", "fallback": "/happy-hours/manhattan" },
+    { "from": "/bars/the-ox-tavern", "to": "/happy-hours/flatbush", "fallback": "/happy-hours/brooklyn" },
+    { "from": "/bars/the-top-of-the-standard-west-village", "to": "/happy-hours/west-village", "fallback": "/happy-hours/rooftop" },
+    { "from": "/bars/winter-garden-nolita", "to": "/happy-hours/east-village", "fallback": "/happy-hours/manhattan" },
+    { "from": "/happy-hours/near/96th-street-q", "to": "/happy-hours/upper-east-side", "fallback": "/happy-hours/manhattan" },
+    { "from": "/parties/haunted-skyline-halloween-2026-10-30", "to": "/parties/venue/daintree-rooftop", "fallback": "/parties/halloween" },
+    { "from": "/parties/suave-saturdays-latin-inspired-sunset-party-2026-11-21", "to": "/parties/venue/somewhere-nowhere-nyc", "fallback": "/parties" }
+  ]
+}

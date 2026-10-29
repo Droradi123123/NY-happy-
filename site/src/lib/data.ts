@@ -14,6 +14,7 @@
 import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import dealReviews from '../data/deal-reviews.json';
+import partyLedger from '../data/party-ledger.json';
 
 const SUPABASE_URL = 'https://zqfscuwkxcoktpjhaebv.supabase.co';
 const PUBLIC_KEY = 'sb_publishable_JxdYGXYsOzPNAC9avS8wfA_SExSJIHc'; // read-only, RLS-limited
@@ -363,8 +364,9 @@ export function partyData() {
       // the NYE rule matches text ("NYE tickets on sale"); only the nights around New Year's Eve are NYE parties
       .map((p) => (p.themes.includes('nye') && !/-(12-3[01]|01-01)$/.test(p.night_date) ? { ...p, themes: p.themes.filter((t) => t !== 'nye') } : p));
     // a club keeps its page once it has had a published night, even between parties
-    // (HappyTLV: two clubs lost 294 impressions while their pages were 404 between nights)
-    const ever = new Set(parties.map((p) => p.venue_id));
+    // (HappyTLV: two clubs lost 294 impressions while their pages were 404 between nights). A night that
+    // is over leaves site_parties, so the ledger of published nights (scripts/ended-redirects.mjs) counts too
+    const ever = new Set([...parties.map((p) => p.venue_id), ...(FIXTURE ? [] : (partyLedger as { venue_id: string | null }[]).map((p) => p.venue_id))]);
     const venuePages = venues.filter((v) => ever.has(v.id));
     return { parties: live.sort((a, b) => a.starts_at.localeCompare(b.starts_at)), venues, venuePages };
   })();
