@@ -10,6 +10,7 @@
     { "from": "/bars/the-top-of-the-standard-west-village", "to": "/happy-hours/west-village", "fallback": "/happy-hours/rooftop" },
     { "from": "/bars/winter-garden-nolita", "to": "/happy-hours/east-village", "fallback": "/happy-hours/manhattan" },
     { "from": "/happy-hours/near/96th-street-q", "to": "/happy-hours/upper-east-side", "fallback": "/happy-hours/manhattan" },
+    { "from": "/parties/venue/daintree-rooftop", "to": "/happy-hours/midtown", "fallback": "/parties" },
     { "from": "/parties/haunted-skyline-halloween-2026-10-30", "to": "/parties/venue/daintree-rooftop", "fallback": "/parties/halloween" },
     { "from": "/parties/suave-saturdays-latin-inspired-sunset-party-2026-11-21", "to": "/parties/venue/somewhere-nowhere-nyc", "fallback": "/parties" }
   ]
