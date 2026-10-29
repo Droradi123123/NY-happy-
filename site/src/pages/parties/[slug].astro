@@ -3,7 +3,7 @@ import Base from '../../layouts/Base.astro';
 import PartyCard from '../../components/PartyCard.astro';
 import MiniMap from '../../components/MiniMap.astro';
 import Photo from '../../components/Photo.astro';
-import { partyData, placePhoto, photoNote, venueOf, cleanTitle, nightDate, nyTime, nyDate, priceLabel, fmtDate, GENRE_NAME, allBars, meters, dealLabel, windowLabel, DAYS, type Party, type Venue } from '../../lib/data';
+import { partyData, placePhoto, photoNote, venueOf, cleanTitle, nightDate, nyTime, nyDate, priceLabel, fmtDate, ticketHref, TICKET_REL, GENRE_NAME, allBars, meters, dealLabel, windowLabel, DAYS, type Party, type Venue } from '../../lib/data';
 import { tier } from '../../lib/lists';
 import { partyTitle, partyName, partyDescription, partyJsonLd, crumbs, faqLd, SITE } from '../../lib/seo';
 import { halloweenPages } from '../../lib/halloween';
@@ -103,8 +103,8 @@ const pregame = v?.lat && v.lng && (doorsMin === null || doorsMin >= 17 * 60)
           <dt>Price</dt><dd>{priceLabel(p)}{p.price_from ? ` (lowest ${p.ticket_vendor} ticket incl. fees, seen ${fmtDate(lastSeen)})` : ''}</dd>
           {p.organizer && <><dt>Presented by</dt><dd>{p.organizer}</dd></>}
         </dl>
-        {p.event_status !== 'sold_out' && <a class="btn" href={p.ticket_url} rel="nofollow noopener" target="_blank" data-ev="tickets">Tickets on {p.ticket_vendor}</a>}
-        {p.event_status === 'sold_out' && <a class="btn ghost" href={p.ticket_url} rel="noopener" target="_blank">Check for resale or waiting list</a>}
+        {p.event_status !== 'sold_out' && <a class="btn" href={ticketHref(p)} rel={TICKET_REL} target="_blank" data-ev="tickets">Tickets on {p.ticket_vendor}</a>}
+        {p.event_status === 'sold_out' && <a class="btn ghost" href={ticketHref(p)} rel={TICKET_REL} target="_blank" data-ev="tickets">Check for resale or waiting list</a>}
         <p class="cal-links">Add to calendar: <a href={gcal} rel="nofollow noopener" target="_blank" data-ev="calendar">Google</a> · <a href={icsHref} download={`${p.slug}.ics`} data-ev="calendar">Apple / Outlook (.ics)</a></p>
       </section>
 

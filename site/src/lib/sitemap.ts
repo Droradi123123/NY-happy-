@@ -3,14 +3,14 @@
  * tagged with its page type so each type can have its own sitemap (Search Console then reports index
  * coverage per type: bars, parties, lists, guides, other).
  */
-import { allBars, partyData, landmarks } from './data';
+import { allBars, partyData, landmarks, stations } from './data';
 import { listPages } from './lists';
 import { partyLists } from './partyLists';
 import { halloweenPages } from './halloween';
 import { allGuides } from './guides';
 import { guideTable } from './guideTables';
 import { SITE } from './seo';
-import { barIndexable, pathIndexable } from './indexScope';
+import { barIndexable, pathIndexable, keptNear } from './indexScope';
 import { DAY_PAGES, BOROUGH_PAGES, GAME_PAGES, daySlugOf, OBSERVED, bingo, games } from './activities';
 
 
@@ -38,6 +38,9 @@ export function sitemapRows(): Promise<[string, string | null][]> {
     }
     // "near" pages: landmarks only (lib/indexScope.ts); a station page sharing a landmark's slug is the landmark's
     const near = new Set((await landmarks()).map((l) => l.slug));
+    // and the station pages that already had Google impressions (still built)
+    const built = new Set((await stations()).map((s) => s.slug));
+    for (const s of keptNear()) if (built.has(s)) near.add(s);
     const rows: [string, string | null][] = [
       ['/', null], ['/happy-hours', null], ['/nyc-happy-hour-index', null], ['/happy-hours/now', null], ['/happy-hours/neighborhoods', null], ['/parties', null], ['/map', null], ['/map/happy-hours', null], ['/map/parties', null], ['/about', null], ['/contact', null], ['/image-credits', null], ['/privacy', null], ['/accessibility', null],
       ...(parties.some((p) => p.themes.includes('halloween')) ? [['/parties/halloween', null] as [string, null]] : []),

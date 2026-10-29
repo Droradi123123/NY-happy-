@@ -372,6 +372,17 @@ export function partyData() {
   })();
   return _parties;
 }
+/** a ticket link carries our ref (so sellers see the sale came from YaY NYC) and is marked rel="sponsored"
+ * (TICKET_REL). There is no affiliate deal today: this is an attribution tag only; an affiliate code
+ * from DICE or another seller would go here. */
+export const TICKET_REL = 'sponsored nofollow noopener';
+export const ticketHref = (p: Party) => {
+  try {
+    const u = new URL(p.ticket_url);
+    u.searchParams.set('utm_source', 'yaynyc'); u.searchParams.set('utm_medium', 'referral'); u.searchParams.set('utm_campaign', p.slug.slice(0, 80));
+    return u.toString();
+  } catch { return p.ticket_url; }
+};
 export const venueOf = (p: Party, venues: Venue[]) => venues.find((v) => v.id === p.venue_id) ?? null;
 /** "Halloween Weekender: Apollonia,  + many more" -> tidy; "(Fri) SOLD OUT" stays out of titles */
 export const cleanTitle = (t: string) => t.replace(/\s+SOLD OUT\s*$/i, '').replace(/,\s*\+/g, ' +').replace(/\s{2,}/g, ' ').trim();

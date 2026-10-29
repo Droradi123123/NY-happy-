@@ -13,6 +13,9 @@
  *     the h1 or the meta description; two pages share a keyword, a title or a description
  *     (they would compete for the same search); a description is shorter than 70 or
  *     longer than 160 characters
+ *  8. a redirect hides a built page, points to a missing one, or breaks Cloudflare's limits (2,000 static,
+ *     100 dynamic, wildcards last, each source once)
+ *  9. a ticket link lacks our ref (utm_source=yaynyc) or rel="sponsored"
  */
 import { readdirSync, readFileSync, statSync, existsSync } from 'node:fs';
 import { join, relative } from 'node:path';
@@ -46,6 +49,9 @@ for (const f of pages) {
   if (m) fail.push(`${rel}: "${m[1]}" in output: ${m[0].slice(0, 80)}`);
   for (const [, href] of html.matchAll(/<a [^>]*href="(\/[^"]*)"/g)) if (!href.startsWith('/data/') && !built(href)) fail.push(`${rel}: broken link ${href}`);
   for (const [img] of html.matchAll(/<img\b[^>]*>/g)) if (!/\balt="/.test(img)) fail.push(`${rel}: image without alt`);
+  // every ticket link carries our ref and rel="sponsored"
+  for (const [a] of html.matchAll(/<a\b[^>]*data-ev="tickets"[^>]*>/g))
+    if (!/utm_source=yaynyc/.test(a) || !/rel="[^"]*\bsponsored\b/.test(a)) fail.push(`${rel}: ticket link without ref or rel="sponsored": ${a.slice(0, 100)}`);
 }
 // ---------- trivia, music bingo, games: only reviewed public records ----------
 {
@@ -127,6 +133,22 @@ for (const line of rd.split('\n')) {
   if (!from || from.startsWith('#') || from.includes('*') || from.includes(':')) continue;
   if (built(from)) fail.push(`_redirects: ${from} is a built page (the redirect hides it)`);
   if (to?.startsWith('/') && !to.includes('*') && !to.includes(':') && !built(to.split(/[?#]/)[0])) fail.push(`_redirects: ${from} -> ${to}, which is not a built page`);
+}
+// Cloudflare limits: 2,000 static and 100 dynamic (* or :placeholder) rules, 1,000 characters a line;
+// a dynamic rule goes after every static one (so it never catches a URL a later static line is for),
+// and each source appears once
+{
+  const rules = rd.split('\n').map((l) => l.trim()).filter((l) => l && !l.startsWith('#'));
+  const dyn = (l) => /[*:]/.test(l.split(/\s+/)[0]);
+  const nStatic = rules.filter((l) => !dyn(l)).length, nDyn = rules.length - nStatic;
+  if (nStatic > 2000) fail.push(`_redirects: ${nStatic} static rules (Cloudflare allows 2,000)`);
+  if (nDyn > 100) fail.push(`_redirects: ${nDyn} dynamic rules (Cloudflare allows 100)`);
+  const firstDyn = rules.findIndex(dyn);
+  if (firstDyn >= 0 && rules.slice(firstDyn).some((l) => !dyn(l))) fail.push(`_redirects: a wildcard rule (${rules[firstDyn]}) comes before static rules; wildcards go last`);
+  for (const l of rules) if (l.length > 1000) fail.push(`_redirects: line over 1,000 characters: ${l.slice(0, 60)}`);
+  const seenFrom = new Set();
+  for (const l of rules) { const f = l.split(/\s+/)[0]; if (seenFrom.has(f)) fail.push(`_redirects: ${f} appears twice`); seenFrom.add(f); }
+  console.log(`  redirects: ${nStatic} static, ${nDyn} dynamic`);
 }
 for (const w of warn.filter((w) => w.startsWith('_redirects'))) console.warn(`! ${w}`);
 const longTitles = warn.filter((w) => !w.startsWith('_redirects'));

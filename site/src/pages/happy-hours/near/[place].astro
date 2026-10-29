@@ -39,7 +39,7 @@ const faq = [
 ];
 const pts = items.filter((i) => i.b.onMap).slice(0, 30).map((i) => ({ lat: i.b.lat!, lng: i.b.lng!, name: i.b.name, url: `/bars/${i.b.slug}` }));
 ---
-<Base noindex={!nearIndexable(kind)} title={(() => { const t = `Happy Hour Near ${Short}: ${s.n} Bars, Closest First`, m = new Date().toLocaleString('en-US', { month: 'short', year: 'numeric', timeZone: 'America/New_York' }); return t.length + m.length + 3 <= 62 ? `${t} (${m})` : t; })()} keyword={kw}
+<Base noindex={!nearIndexable(kind, Astro.params.place)} title={(() => { const t = `Happy Hour Near ${Short}: ${s.n} Bars, Closest First`, m = new Date().toLocaleString('en-US', { month: 'short', year: 'numeric', timeZone: 'America/New_York' }); return t.length + m.length + 3 <= 62 ? `${t} (${m})` : t; })()} keyword={kw}
   description={description}
   jsonld={[crumbs([['YaY NYC', '/'], ['Happy hours', '/happy-hours'], [`Near ${Name}`, Astro.url.pathname]]), faqLd(faq), itemList(`Happy hours near ${name}`, items.map((i) => `/bars/${i.b.slug}`))]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/happy-hours">Happy hours</a></li><li><a href="/happy-hours/neighborhoods">Near</a></li><li aria-current="page">{Name}</li></ol></nav>
