@@ -11,7 +11,7 @@ import { partyData, venueOf, GENRE_NAME, nightDate, slugify, type Party, type Ve
 import { partyTags } from './index';
 import { pathKept } from './indexScope';
 
-export type ListKind = 'genre' | 'day' | 'season' | 'holiday' | 'tag' | 'age' | 'where' | 'when';
+export type ListKind = 'genre' | 'day' | 'season' | 'holiday' | 'tag' | 'age' | 'where' | 'when' | 'slice';
 export interface Holiday { name: string; date: string; note: string }
 export interface PartyList {
   slug: string; kind: ListKind; h1: string; label: string; keyword: string; short: string; parties: Party[]; title?: string; note?: string;
@@ -20,6 +20,8 @@ export interface PartyList {
   /** when it has few nights: the closest ones (nearby genres, the whole borough...), and what they are */
   standIns: Party[]; standInLabel?: string;
   holiday?: Holiday;
+  /** a slice (/parties/<parent>/<slice>): the page it narrows */
+  parent?: { slug: string; short: string };
 }
 export const INDEX_MIN = 5;
 
@@ -51,6 +53,7 @@ const THEMES: [kind: 'tag' | 'season', slug: string, h1: string, keyword: string
   ['season', 'hanukkah', 'Hanukkah Parties in NYC', 'hanukkah parties nyc', 'Hanukkah', /hanukk?ah|chanukk?ah|matzo ball/i],
   ['season', 'diwali', 'Diwali Parties in NYC', 'diwali parties nyc', 'Diwali', /diwali/i],
   ['season', 'friendsgiving', 'Friendsgiving Parties in NYC', 'friendsgiving parties nyc', 'Friendsgiving', /friendsgiving/i],
+  ['season', 'santacon', 'SantaCon Bar Crawls and Parties in NYC', 'santacon nyc', 'SantaCon', /santa ?con|santa (bar )?crawl|santa pub crawl/i],
 ];
 const passes = (p: Party, test: Test, titleOnly = false) => typeof test === 'function' ? test(p) : test.test(titleOnly ? p.title : `${p.title} ${p.copy?.about ?? ''} ${p.copy?.expect ?? ''}`);
 /** New York's date at build time, plus n days (the site rebuilds every few hours) */
@@ -59,7 +62,7 @@ function nyDate(n = 0) {
   return new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' }).format(d);
 }
 const WEEKDAY = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-const sentence = (t: string) => t.replace(/ Parties in NYC$/, ' parties in NYC').replace(/ Parties and Shows in NYC$/, ' parties and shows in NYC');
+const sentence = (t: string) => t.replace(/ Boat Parties in /, ' boat parties in ').replace(/ Bar Crawls and Parties in /, ' bar crawls and parties in ').replace(/ Parties and Shows in /, ' parties and shows in ').replace(/ Parties in /, ' parties in ').replace(/ Raves in /, ' raves in ');
 
 // for a genre page with few nights: the genres closest in sound (general scene knowledge, no facts)
 const GENRE_NEAR: Record<string, string[]> = {
@@ -80,24 +83,96 @@ const nthDow = (y: number, m: number, wd: number, n: number) => { let d = 1; whi
 const lastDow = (y: number, m: number, wd: number) => { let d = new Date(Date.UTC(y, m, 0)).getUTCDate(); while (dow(y, m, d) !== wd) d--; return d; };
 /** the next time a holiday falls on or after today (it stays "this year's" until the day after) */
 const next = (today: string, at: (y: number) => string) => { const y = Number(today.slice(0, 4)); return at(y) >= today ? at(y) : at(y + 1); };
-const HOLIDAYS: [theme: string | RegExp, slug: string, h1: string, keyword: string, short: string, name: string, at: (y: number) => string, note: (d: string) => string][] = [
-  ['thanksgiving', 'thanksgiving-eve', 'Thanksgiving Eve Parties in NYC', 'thanksgiving eve parties nyc', 'Thanksgiving Eve', 'Thanksgiving Eve',
-    (y) => iso(y, 11, nthDow(y, 11, 4, 4) - 1), (d) => `Thanksgiving Eve is ${fmt(d)}, the night before Thanksgiving, when people home for the holiday go out with old friends; it is one of the busiest bar nights of the year.`],
-  ['nye', 'new-years-eve', "New Year's Eve Parties in NYC", 'new years eve parties nyc', "New Year's Eve", "New Year's Eve",
-    (y) => iso(y, 12, 31), (d) => `New Year's Eve is ${fmt(d)}. Tickets for the big nights sell in price tiers that rise as the date gets closer.`],
-  ['st-patricks', 'st-patricks-day', "St. Patrick's Day Parties in NYC", 'st patricks day parties nyc', "St. Patrick's", "St. Patrick's Day",
-    (y) => iso(y, 3, 17), (d) => `St. Patrick's Day is ${fmt(d)}. New York's parade runs up Fifth Avenue, and the bars around Midtown and the East Village fill from the afternoon.`],
-  ['pride', 'pride', 'Pride Parties in NYC', 'pride parties nyc', 'Pride', 'the NYC Pride March',
-    (y) => iso(y, 6, lastDow(y, 6, 0)), (d) => `The NYC Pride March is on the last Sunday of June: ${fmt(d)}. The parties run all through Pride weekend and the month before it.`],
-  [/4th of july|july 4(th)?\b|fourth of july|independence day/i, 'july-4th', '4th of July Parties in NYC', '4th of july parties nyc', 'July 4th', 'the 4th of July',
-    (y) => iso(y, 7, 4), (d) => `The 4th of July is ${fmt(d)}. Rooftops and boats with a view of the fireworks are the classic picks.`],
-  [/labor day/i, 'labor-day', 'Labor Day Weekend Parties in NYC', 'labor day parties nyc', 'Labor Day', 'Labor Day',
-    (y) => iso(y, 9, nthDow(y, 9, 1, 1)), (d) => `Labor Day is ${fmt(d)}; the weekend before it is the last big weekend of summer, with day parties, rooftops and boats.`],
-  [/christmas|xmas|holiday party|ugly sweater|santa ?con|jingle/i, 'christmas', 'Christmas and Holiday Parties in NYC', 'christmas parties nyc', 'Christmas', 'Christmas',
-    (y) => iso(y, 12, 25), (d) => `Christmas is ${fmt(d)}. Holiday parties fill the weekends of December before it.`],
-  [/d[ií]a de (los )?muertos|day of the dead/i, 'day-of-the-dead', 'Day of the Dead Parties in NYC', 'day of the dead parties nyc', 'Day of the Dead', 'Día de los Muertos',
-    (y) => iso(y, 11, 2), (d) => `Día de los Muertos is celebrated on November 1 and 2 (this year's main day: ${fmt(d)}).`],
+// days between two YYYY-MM-DD dates, and a party night within [from, to] days of the holiday's date
+const dayDiff = (a: string, b: string) => Math.round((Date.parse(`${a}T12:00:00Z`) - Date.parse(`${b}T12:00:00Z`)) / 864e5);
+const around = (p: Party, d: string, from: number, to: number) => { const x = dayDiff(p.night_date, d); return x >= from && x <= to; };
+const said = (p: Party, re: RegExp) => re.test(`${p.title} ${p.copy?.about ?? ''}`);
+/** Easter Sunday (anonymous Gregorian algorithm), for Mardi Gras */
+const easter = (y: number) => { const a = y % 19, b = Math.floor(y / 100), c = y % 100, d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25), g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4, l = (32 + 2 * e + 2 * i - h - k) % 7, m = Math.floor((a + 11 * h + 22 * l) / 451), mo = Math.floor((h + l - 7 * m + 114) / 31), da = ((h + l - 7 * m + 114) % 31) + 1; return iso(y, mo, da); };
+const shift = (d: string, n: number) => new Date(Date.parse(`${d}T12:00:00Z`) + n * 864e5).toISOString().slice(0, 10);
+interface HolidayDef {
+  slug: string; h1: string; keyword: string; short: string; name: string;
+  /** the phrase slices are built from ("New Year's Eve") and its search form ("new years eve") */
+  base: string; kw: string;
+  at: (y: number) => string; note: (d: string) => string; match: (p: Party, d: string) => boolean;
+}
+const HOLIDAYS: HolidayDef[] = [
+  { slug: 'thanksgiving-eve', h1: 'Thanksgiving Eve Parties in NYC', keyword: 'thanksgiving eve parties nyc', short: 'Thanksgiving Eve', name: 'Thanksgiving Eve', base: 'Thanksgiving Eve', kw: 'thanksgiving eve',
+    at: (y) => iso(y, 11, nthDow(y, 11, 4, 4) - 1), note: (d) => `Thanksgiving Eve is ${fmt(d)}, the night before Thanksgiving, when people home for the holiday go out with old friends; it is one of the busiest bar nights of the year.`,
+    match: (p, d) => p.themes.includes('thanksgiving') || p.night_date === d },
+  { slug: 'thanksgiving-weekend', h1: 'Thanksgiving Weekend Parties in NYC', keyword: 'thanksgiving weekend parties nyc', short: 'Thanksgiving weekend', name: 'Thanksgiving weekend', base: 'Thanksgiving Weekend', kw: 'thanksgiving weekend',
+    at: (y) => iso(y, 11, nthDow(y, 11, 4, 4)), note: (d) => `Thanksgiving is ${fmt(d)}; the long weekend runs to ${fmt(shift(d, 3))}, with Black Friday and two weekend nights out.`,
+    match: (p, d) => around(p, d, 0, 3) },
+  { slug: 'christmas', h1: 'Christmas and Holiday Parties in NYC', keyword: 'christmas parties nyc', short: 'Christmas', name: 'Christmas', base: 'Christmas', kw: 'christmas',
+    at: (y) => iso(y, 12, 25), note: (d) => `Christmas is ${fmt(d)}. Holiday parties fill the weekends of December before it.`,
+    match: (p) => said(p, /christmas|xmas|holiday party|ugly sweater|jingle/i) },
+  { slug: 'christmas-eve', h1: 'Christmas Eve Parties in NYC', keyword: 'christmas eve parties nyc', short: 'Christmas Eve', name: 'Christmas Eve', base: 'Christmas Eve', kw: 'christmas eve',
+    at: (y) => iso(y, 12, 24), note: (d) => `Christmas Eve is ${fmt(d)}. Many bars close early that night; the parties listed here are open.`,
+    match: (p, d) => p.night_date === d },
+  { slug: 'new-years-eve', h1: "New Year's Eve Parties in NYC", keyword: 'new years eve parties nyc', short: "New Year's Eve", name: "New Year's Eve", base: "New Year's Eve", kw: 'new years eve',
+    at: (y) => iso(y, 12, 31), note: (d) => `New Year's Eve is ${fmt(d)}. Tickets for the big nights sell in price tiers that rise as the date gets closer.`,
+    match: (p) => p.themes.includes('nye') },
+  { slug: 'new-years-day', h1: "New Year's Day Parties in NYC", keyword: 'new years day parties nyc', short: "New Year's Day", name: "New Year's Day", base: "New Year's Day", kw: 'new years day',
+    at: (y) => iso(y, 1, 1), note: (d) => `New Year's Day is ${fmt(d)}: day parties, recovery brunches and afters that run from the night before.`,
+    match: (p, d) => p.night_date === d },
+  { slug: 'mlk-weekend', h1: 'MLK Weekend Parties in NYC', keyword: 'mlk weekend parties nyc', short: 'MLK weekend', name: 'MLK Day', base: 'MLK Weekend', kw: 'mlk weekend',
+    at: (y) => iso(y, 1, nthDow(y, 1, 1, 3)), note: (d) => `Martin Luther King Jr. Day is ${fmt(d)}, so the Saturday and Sunday before it are a long-weekend pair of nights out.`,
+    match: (p, d) => around(p, d, -2, -1) },
+  { slug: 'super-bowl', h1: 'Super Bowl Parties in NYC', keyword: 'super bowl parties nyc', short: 'Super Bowl', name: 'Super Bowl Sunday', base: 'Super Bowl', kw: 'super bowl',
+    at: (y) => iso(y, 2, nthDow(y, 2, 0, 2)), note: (d) => `Super Bowl Sunday is on the second Sunday of February: ${fmt(d)}.`,
+    match: (p) => said(p, /super ?bowl|big game watch/i) },
+  { slug: 'valentines-day', h1: "Valentine's Day Parties in NYC", keyword: 'valentines day parties nyc', short: "Valentine's", name: "Valentine's Day", base: "Valentine's Day", kw: 'valentines day',
+    at: (y) => iso(y, 2, 14), note: (d) => `Valentine's Day is ${fmt(d)}; Galentine's and anti-Valentine's parties run the nights around it.`,
+    match: (p, d) => p.night_date === d || said(p, /valentine|galentine/i) },
+  { slug: 'mardi-gras', h1: 'Mardi Gras Parties in NYC', keyword: 'mardi gras parties nyc', short: 'Mardi Gras', name: 'Mardi Gras', base: 'Mardi Gras', kw: 'mardi gras',
+    at: (y) => shift(easter(y), -47), note: (d) => `Mardi Gras (Fat Tuesday) is ${fmt(d)}, 47 days before Easter; the parties run the weekend before it.`,
+    match: (p) => said(p, /mardi gras|fat tuesday/i) },
+  { slug: 'st-patricks-day', h1: "St. Patrick's Day Parties in NYC", keyword: 'st patricks day parties nyc', short: "St. Patrick's", name: "St. Patrick's Day", base: "St. Patrick's Day", kw: 'st patricks day',
+    at: (y) => iso(y, 3, 17), note: (d) => `St. Patrick's Day is ${fmt(d)}. New York's parade runs up Fifth Avenue, and the bars around Midtown and the East Village fill from the afternoon.`,
+    match: (p, d) => p.themes.includes('st-patricks') || p.night_date === d },
+  { slug: 'cinco-de-mayo', h1: 'Cinco de Mayo Parties in NYC', keyword: 'cinco de mayo parties nyc', short: 'Cinco de Mayo', name: 'Cinco de Mayo', base: 'Cinco de Mayo', kw: 'cinco de mayo',
+    at: (y) => iso(y, 5, 5), note: (d) => `Cinco de Mayo is ${fmt(d)}; Mexican bars and Latin parties mark it, often over the nearest weekend too.`,
+    match: (p, d) => p.night_date === d || said(p, /cinco de mayo/i) },
+  { slug: 'memorial-day-weekend', h1: 'Memorial Day Weekend Parties in NYC', keyword: 'memorial day weekend parties nyc', short: 'Memorial Day', name: 'Memorial Day', base: 'Memorial Day Weekend', kw: 'memorial day weekend',
+    at: (y) => iso(y, 5, lastDow(y, 5, 1)), note: (d) => `Memorial Day is ${fmt(d)}, the unofficial start of summer: rooftops, boats and day parties run all weekend.`,
+    match: (p, d) => around(p, d, -3, 0) },
+  { slug: 'juneteenth', h1: 'Juneteenth Parties in NYC', keyword: 'juneteenth parties nyc', short: 'Juneteenth', name: 'Juneteenth', base: 'Juneteenth', kw: 'juneteenth',
+    at: (y) => iso(y, 6, 19), note: (d) => `Juneteenth is ${fmt(d)}, a federal holiday marking the end of slavery in the United States.`,
+    match: (p, d) => p.night_date === d || said(p, /juneteenth/i) },
+  { slug: 'puerto-rican-day-parade', h1: 'Puerto Rican Day Parade Weekend Parties in NYC', keyword: 'puerto rican day parade parties nyc', short: 'Puerto Rican Day', name: 'the Puerto Rican Day Parade', base: 'Puerto Rican Day Parade', kw: 'puerto rican day parade',
+    at: (y) => iso(y, 6, nthDow(y, 6, 0, 2)), note: (d) => `The National Puerto Rican Day Parade runs up Fifth Avenue on the second Sunday of June: ${fmt(d)}.`,
+    match: (p, d) => said(p, /puerto ric|boricua/i) || (around(p, d, -2, 0) && p.genres.some((g) => g === 'latin' || g === 'reggaeton')) },
+  { slug: 'pride', h1: 'Pride Parties in NYC', keyword: 'pride parties nyc', short: 'Pride', name: 'the NYC Pride March', base: 'Pride', kw: 'pride',
+    at: (y) => iso(y, 6, lastDow(y, 6, 0)), note: (d) => `The NYC Pride March is on the last Sunday of June: ${fmt(d)}. The parties run all through Pride weekend and the month before it.`,
+    match: (p) => p.themes.includes('pride') },
+  { slug: 'july-4th', h1: '4th of July Parties in NYC', keyword: '4th of july parties nyc', short: 'July 4th', name: 'the 4th of July', base: '4th of July', kw: '4th of july',
+    at: (y) => iso(y, 7, 4), note: (d) => `The 4th of July is ${fmt(d)}. Rooftops and boats with a view of the fireworks are the classic picks.`,
+    match: (p, d) => around(p, d, -1, 0) || said(p, /4th of july|july 4(th)?\b|fourth of july|independence day/i) },
+  { slug: 'labor-day', h1: 'Labor Day Weekend Parties in NYC', keyword: 'labor day parties nyc', short: 'Labor Day', name: 'Labor Day', base: 'Labor Day Weekend', kw: 'labor day weekend',
+    at: (y) => iso(y, 9, nthDow(y, 9, 1, 1)), note: (d) => `Labor Day is ${fmt(d)}; the weekend before it is the last big weekend of summer, with day parties, rooftops and boats.`,
+    match: (p, d) => around(p, d, -3, 0) || said(p, /labor day/i) },
+  { slug: 'day-of-the-dead', h1: 'Day of the Dead Parties in NYC', keyword: 'day of the dead parties nyc', short: 'Day of the Dead', name: 'Día de los Muertos', base: 'Day of the Dead', kw: 'day of the dead',
+    at: (y) => iso(y, 11, 2), note: (d) => `Día de los Muertos is celebrated on November 1 and 2 (this year's main day: ${fmt(d)}).`,
+    match: (p) => said(p, /d[ií]a de (los )?muertos|day of the dead/i) },
 ];
+// within a holiday (/parties/<holiday>/<slice>) and a borough (/parties/<borough>/<slice>): one URL per
+// narrower question ("rooftop new years eve parties nyc", "brooklyn parties friday night")
+const RAVE_G = new Set(['techno', 'edm', 'drum-and-bass', 'trance', 'breaks']);
+type Slice = { slug: string; h1: (base: string) => string; kw: (kw: string) => string; short: string; test: (p: Party, v: Venue | null) => boolean };
+const HOLIDAY_SLICES: Slice[] = [
+  ...(['Manhattan', 'Brooklyn', 'Queens'] as const).map((B) => ({ slug: B.toLowerCase(), short: B, h1: (b: string) => `${b} Parties in ${B}`, kw: (k: string) => `${k} parties ${B.toLowerCase()}`, test: (p: Party) => p.borough === B })),
+  { slug: 'rooftop', short: 'Rooftop', h1: (b) => `Rooftop ${b} Parties in NYC`, kw: (k) => `rooftop ${k} parties nyc`, test: (p, v) => partyTags(p, v).includes('rooftop') },
+  { slug: 'open-bar', short: 'Open bar', h1: (b) => `Open Bar ${b} Parties in NYC`, kw: (k) => `open bar ${k} parties nyc`, test: (p, v) => partyTags(p, v).includes('openbar') },
+  { slug: 'boat', short: 'Boat parties', h1: (b) => `${b} Boat Parties in NYC`, kw: (k) => `${k} boat parties nyc`, test: (p, v) => partyTags(p, v).includes('boat') },
+  { slug: 'lgbtq', short: 'LGBTQ+', h1: (b) => `Queer and LGBTQ+ ${b} Parties in NYC`, kw: (k) => `lgbtq ${k} parties nyc`, test: (p, v) => partyTags(p, v).includes('lgbtq') },
+  { slug: 'free', short: 'Free', h1: (b) => `Free ${b} Parties in NYC`, kw: (k) => `free ${k} parties nyc`, test: (p) => p.price_status === 'free' },
+  { slug: 'under-50', short: 'Under $50', h1: (b) => `Cheap ${b} Parties in NYC: Under $50`, kw: (k) => `cheap ${k} parties nyc`, test: (p) => p.price_status === 'free' || (p.price_from !== null && p.price_from <= 50) },
+  { slug: 'raves', short: 'Raves', h1: (b) => `${b} Raves in NYC: Techno, EDM and Drum & Bass`, kw: (k) => `${k} raves nyc`, test: (p) => p.genres.some((g) => RAVE_G.has(g)) || /\brave\b/i.test(p.title) },
+  { slug: 'latin', short: 'Latin', h1: (b) => `Latin and Reggaeton ${b} Parties in NYC`, kw: (k) => `latin ${k} parties nyc`, test: (p) => p.genres.some((g) => g === 'latin' || g === 'reggaeton') },
+  { slug: 'hip-hop', short: 'Hip-hop', h1: (b) => `Hip-Hop and R&B ${b} Parties in NYC`, kw: (k) => `hip-hop ${k} parties nyc`, test: (p) => p.genres.some((g) => g === 'hip-hop' || g === 'r-and-b') },
+  { slug: 'house', short: 'House', h1: (b) => `House Music ${b} Parties in NYC`, kw: (k) => `house music ${k} parties nyc`, test: (p) => p.genres.some((g) => g === 'house' || g === 'afro-house' || g === 'disco') },
+];
+const BOROUGH_GENRES: [string, string, string][] = [['techno', 'Techno', 'techno'], ['house', 'House Music', 'house music'], ['latin', 'Latin', 'latin'], ['reggaeton', 'Reggaeton', 'reggaeton'], ['hip-hop', 'Hip-Hop', 'hip-hop'], ['afrobeats', 'Afrobeats', 'afrobeats'], ['disco', 'Disco', 'disco']];
 const AGES: [slug: string, h1: string, keyword: string, short: string, min: number][] = [
   ['21-plus', '21+ Parties in NYC', '21+ parties nyc', '21+', 21],
   ['25-plus', '25+ Parties in NYC', '25+ parties nyc', '25+', 25],
@@ -153,10 +228,14 @@ export function partyLists(): Promise<PartyList[]> {
         standIns: parties }, list);
     }
     // holidays: always up, with when it is and how many nights are on sale
-    for (const [test, slug, h1, keyword, short, name, at, note] of HOLIDAYS) {
-      const date = next(today, at);
-      const list = parties.filter((p) => (typeof test === 'string' ? p.themes.includes(test) : passes(p, test)));
-      add({ slug, kind: 'holiday', h1, label: sentence(h1), keyword, short, holiday: { name, date, note: note(date) }, standIns: weekend.length ? weekend : parties, standInLabel: weekend.length ? 'Parties this weekend' : 'Coming up in NYC' }, list);
+    for (const H of HOLIDAYS) {
+      const date = next(today, H.at);
+      const list = parties.filter((p) => H.match(p, date));
+      add({ slug: H.slug, kind: 'holiday', h1: H.h1, label: sentence(H.h1), keyword: H.keyword, short: H.short, holiday: { name: H.name, date, note: H.note(date) }, standIns: weekend.length ? weekend : parties, standInLabel: weekend.length ? 'Parties this weekend' : 'Coming up in NYC' }, list);
+      const parent = { slug: H.slug, short: H.short };
+      for (const S of HOLIDAY_SLICES)
+        add({ slug: `${H.slug}/${S.slug}`, kind: 'slice', parent, h1: S.h1(H.base), label: sentence(S.h1(H.base)), keyword: S.kw(H.kw), short: S.short, holiday: { name: H.name, date, note: H.note(date) },
+          standIns: list.length ? list : weekend.length ? weekend : parties, standInLabel: list.length ? `All ${H.short} parties` : weekend.length ? 'Parties this weekend' : 'Coming up in NYC' }, list.filter((p) => S.test(p, venueOf(p, venues))));
     }
     for (const [kind, slug, h1, keyword, short, test, titleOnly] of THEMES)
       add({ slug, kind, h1, label: sentence(h1), keyword, short, standIns: parties, standInLabel: 'Coming up in NYC' }, parties.filter((p) => passes(p, test, titleOnly)));
@@ -169,8 +248,26 @@ export function partyLists(): Promise<PartyList[]> {
       if (min === 21 && list.length > 0.7 * parties.length) out[out.length - 1].indexable = false;
     }
     // where: the five boroughs, and every neighborhood with a club page (club pages stay between nights)
-    for (const [slug, B] of BOROUGHS)
-      add({ slug, kind: 'where', h1: `Parties in ${B}`, label: `Parties in ${B}`, keyword: `${B.replace(/^The /, '').toLowerCase()} parties`, short: B, standIns: parties, standInLabel: 'Coming up elsewhere in NYC' }, parties.filter((p) => p.borough === B));
+    for (const [slug, B] of BOROUGHS) {
+      const inB = parties.filter((p) => p.borough === B), bk = B.replace(/^The /, '').toLowerCase(), parent = { slug, short: B };
+      add({ slug, kind: 'where', h1: `Parties in ${B}`, label: `Parties in ${B}`, keyword: `${bk} parties`, short: B, standIns: parties, standInLabel: 'Coming up elsewhere in NYC' }, inB);
+      // borough by night: "brooklyn parties friday night", tonight, this weekend, and its main sounds
+      for (const [i, day] of WEEKDAY.entries()) {
+        const D = day[0].toUpperCase() + day.slice(1);
+        const list = inB.filter((p) => new Date(`${p.night_date}T12:00:00Z`).getUTCDay() === i);
+        add({ slug: `${slug}/${day}`, kind: 'slice', parent, h1: `${D} Night Parties in ${B}`, label: `${D} night parties in ${B}`, keyword: `${bk} parties ${day} night`, short: D,
+          ...(list[0] ? { title: `${D} Night Parties in ${B}: ${nightDate(list[0].night_date, { month: 'short', day: 'numeric' })} (${list.length})` } : {}),
+          standIns: parties.filter((p) => new Date(`${p.night_date}T12:00:00Z`).getUTCDay() === i), standInLabel: `${D} nights elsewhere in NYC` }, list);
+      }
+      const tonightB = inB.filter((p) => p.night_date === today);
+      add({ slug: `${slug}/tonight`, kind: 'slice', parent, h1: `Parties Tonight in ${B}`, label: `Parties tonight in ${B}`, keyword: `parties tonight ${bk}`, short: 'Tonight',
+        title: `Parties Tonight in ${B}: ${shortDate(today)}`, standIns: tonight, standInLabel: 'Tonight elsewhere in NYC' }, tonightB);
+      add({ slug: `${slug}/this-weekend`, kind: 'slice', parent, h1: `Parties This Weekend in ${B}`, label: `Parties this weekend in ${B}`, keyword: `${bk} parties this weekend`, short: 'This weekend',
+        ...(weekend.length ? { title: `Parties This Weekend in ${B}: ${dateRange(weekend)}` } : {}), standIns: weekend, standInLabel: 'This weekend elsewhere in NYC' }, inB.filter((p) => weekend.includes(p)));
+      for (const [g, G, gk] of BOROUGH_GENRES)
+        add({ slug: `${slug}/${g}`, kind: 'slice', parent, h1: `${G} Parties in ${B}`, label: `${G} parties in ${B}`, keyword: `${gk} parties ${bk}`, short: GENRE_NAME[g] ?? G,
+          standIns: parties.filter((p) => p.genres.includes(g)), standInLabel: `${GENRE_NAME[g] ?? G} elsewhere in NYC` }, inB.filter((p) => p.genres.includes(g)));
+    }
     const hoods = [...new Set(venuePages.map((v) => v.neighborhood).filter(Boolean) as string[])].sort();
     for (const H of hoods) {
       const borough = venuePages.find((v) => v.neighborhood === H)?.borough ?? null;

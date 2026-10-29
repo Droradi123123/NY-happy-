@@ -64,7 +64,7 @@ const menu = [
   { h: 'Trivia and games', links: [{ href: '/trivia', label: 'Trivia nights' }, { href: '/music-bingo', label: 'Music bingo' }, { href: '/bars-with-games', label: 'Bars with games' }] },
   { h: 'Maps', links: [{ href: '/map/happy-hours', label: 'Happy hour map' }, { href: '/map/parties', label: 'Party map' }] },
   ...(guidesMenu.length ? [{ h: 'Guides', links: [...guidesMenu.map((g) => ({ href: `/blog/${g.slug}`, label: g.short })), { href: '/blog', label: 'All guides' }] }] : []),
-  { h: 'YaY NYC', links: [{ href: '/about', label: 'How we check' }, { href: '/contact', label: 'Share a tip' }] },
+  { h: 'YaY NYC', links: [{ href: '/about', label: 'How we check' }, { href: '/contact', label: 'Contact us' }] },
 ];
 const tabs = [
   { href: '/happy-hours', label: 'Happy hours', icon: 'glass' },
@@ -210,7 +210,7 @@ const tabs = [
         <h2 class="foot-h">YaY NYC</h2>
         <ul class="foot-list">
           <li><a href="/about">About and how we check</a></li>
-          <li><a href="/contact">Share a tip or fix a listing</a></li>
+          <li><a href="/contact">Contact us: tips, fixes, questions</a></li>
           <li><a href="/image-credits">Image credits and takedown</a></li>
           <li><a href="/privacy">Privacy</a></li>
           <li><a href="/accessibility">Accessibility</a></li>

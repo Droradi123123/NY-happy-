@@ -167,7 +167,7 @@ const after = b.onMap ? allParties.filter((p) => p.night_date <= weekOut && p.ev
         <h2 class="h3">More in {b.hood}</h2>
         <p><a href={hoodUrl}>All happy hours in {b.hood}</a></p>
         {b.subway && <p><a href={`/happy-hours?line=${b.subway.lines[0]}`}>Happy hours on the {b.subway.lines[0]} train</a></p>}
-        <p><a href="/contact">Something wrong here? Tell us</a></p>
+        <p><a href={`/contact?place=${encodeURIComponent(b.name)}`}>Something wrong here? Tell us</a></p>
       </div>
     </aside>
   </div>

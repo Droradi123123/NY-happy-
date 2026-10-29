@@ -1,9 +1,9 @@
 ---
 import Base from '../layouts/Base.astro';
 ---
-<Base title="Share a Tip with YaY NYC" keyword="share a tip with yay nyc" description="Share a tip with YaY NYC, the free community guide: a happy hour we are missing, a deal that changed, a bar that closed or a party to add.">
-  <h1>Share a tip with YaY NYC</h1>
-  <p class="lede">YaY NYC is a free community guide to nights out in New York, kept fresh by the people who go out here. Know a happy hour, a trivia night or a party we're missing, or spotted a deal that changed? Tell us. We check every tip against the place's own page before it goes up.</p>
+<Base title="Contact YaY NYC: Share a Tip or Fix a Listing" keyword="contact yay nyc" description="Contact YaY NYC: a question for the team, a happy hour we are missing, a deal that changed, a bar that closed or a party to add. We read every message.">
+  <h1>Contact YaY NYC</h1>
+  <p class="lede">A question, a problem with a page, or a tip: write to us here and the team reads it. YaY NYC is a free community guide to nights out in New York, kept fresh by the people who go out here. Know a happy hour, a trivia night or a party we're missing, or spotted a deal that changed? Tell us. We check every tip against the place's own page before it goes up.</p>
   <p class="small">No one can pay to be listed or to be ranked higher: every place is here because its deal or its night checks out.</p>
   <form class="report card" id="report">
     <label>What is it about?
@@ -14,12 +14,13 @@ import Base from '../layouts/Base.astro';
         <option value="new_place">A trivia night or a bar with games you're missing</option>
         <option value="new_party">A party you're missing</option>
         <option value="correction">I work at this place and want to fix its listing</option>
+        <option value="other">A question or a message for the team</option>
         <option value="other">Something else</option>
       </select>
     </label>
     <label>Place or party name <input name="place" maxlength="200" /></label>
     <label>What should we know? <textarea name="details" required minlength="5" maxlength="3000" rows="6"></textarea></label>
-    <label>Your email (optional, only to follow up) <input name="contact" type="email" maxlength="200" /></label>
+    <label>Your email (optional, so we can reply) <input name="contact" type="email" maxlength="200" /></label>
     <button class="btn" type="submit">Send</button>
     <p class="small" role="status" id="report-status"></p>
   </form>
@@ -45,5 +46,6 @@ import Base from '../layouts/Base.astro';
 <style>
   .report { display: grid; gap: 16px; max-width: 640px; }
   .report label { display: grid; gap: 6px; font-weight: 700; }
-  .report input, .report select, .report textarea { font: inherit; font-weight: 400; border: 1.5px solid var(--ink); border-radius: 10px; padding: 10px 12px; min-height: 46px; background: #fff; }
+  .report label { min-width: 0; }
+  .report input, .report select, .report textarea { width: 100%; max-width: 100%; box-sizing: border-box; font: inherit; font-weight: 400; border: 1.5px solid var(--ink); border-radius: 10px; padding: 10px 12px; min-height: 46px; background: #fff; }
 </style>

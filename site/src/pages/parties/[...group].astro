@@ -33,9 +33,12 @@ const priced = ps.filter((p) => p.price_from !== null && p.price_status !== 'fre
 const free = ps.filter((p) => p.price_status === 'free').length;
 const soldOut = ps.filter((p) => p.event_status === 'sold_out').length;
 const allAges = ps.filter((p) => p.age_min !== null && p.age_min < 21).length;
-const lower = L.label.replace(/ in NYC$/, '');
-const subject = L.kind === 'where' ? `parties in ${L.short}` : ['day', 'season', 'holiday', 'when'].includes(L.kind) ? lower : lower[0].toLowerCase() + lower.slice(1);
-const where = L.kind === 'where' ? L.short : 'NYC';
+const lower = L.label.replace(/ in NYC(:.*)?$/, '');
+// "rooftop new year's eve parties" but "Friday night parties", "Thanksgiving Eve parties" (names keep their capitals)
+const PROPER = /^(New Year|Thanksgiving|Christmas|St\.|Pride|Valentine|Mardi|Cinco|Memorial|Juneteenth|Puerto|MLK|Super Bowl|Labor|Day of the Dead|4th|Halloween|SantaCon|Friendsgiving|Hanukkah|Diwali|LGBTQ|Afro|K-Pop|R&B|EDM|Monday|Tuesday|Wednesday|Thursday|Friday|Saturday|Sunday|Parties in)/;
+const inNyc = / in NYC\b/.test(L.label);
+const subject = L.kind === 'where' ? `parties in ${L.short}` : PROPER.test(lower) ? lower : lower[0].toLowerCase() + lower.slice(1);
+const where = L.kind === 'where' ? L.short : inNyc ? 'NYC' : '';
 
 // the nights of the week they fall on (Monday first), for "In numbers"
 const DOW = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
@@ -78,6 +81,9 @@ const faq = [
 const title = L.title ?? (n ? `${L.h1}: ${n} Upcoming Nights (${stamp})` : `${L.h1} (${stamp})`);
 const titles = L.title ? [] : n ? [`${L.h1}: ${n} Nights (${stamp})`, `${L.h1} (${stamp})`] : [L.h1];
 const live = (k: string) => lists.filter((l) => l.kind === k && l.slug !== L.slug && l.parties.length > 0);
+// the narrower pages under this one (/parties/<this>/<slice>), and the parent of a slice
+const slices = lists.filter((l) => l.parent?.slug === L.slug && l.parties.length > 0);
+const siblings = L.parent ? lists.filter((l) => l.parent?.slug === L.parent!.slug && l.slug !== L.slug && l.parties.length > 0) : [];
 const groups: [string, PartyList[]][] = [['When', live('when')], ['Music', live('genre')], ['Nights', live('day')], ['Holidays and seasons', [...live('holiday'), ...live('season')]], ['Kind of party', [...live('tag'), ...live('age')]], ['Where', live('where')]];
 // related guides: a published guide that names this list in its title
 const words = L.short.toLowerCase().replace(/[^a-z0-9+ ]/g, ' ').split(/\s+/).filter((w) => w.length > 2);
@@ -87,8 +93,8 @@ const playVenues = venueCount.slice(0, 5).map((x) => x.v);
 const nights = ['day', 'when', 'holiday'].includes(L.kind) ? (await datePages()).filter((d) => !d.past && d.parties.length > 0 && (L.kind !== 'day' || d.weekday === L.slug) && (L.kind !== 'holiday' || d.parties.some((p) => ps.includes(p)))) : [];
 ---
 <Base title={title} titles={titles} description={description} keyword={L.keyword} noindex={!L.indexable}
-  jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [L.short, `/parties/${L.slug}`]]), collectionLd(L.label, `/parties/${L.slug}`, ps.map((p) => `/parties/${p.slug}`), lastRead), ...(faq.length ? [faqLd(faq)] : [])]}>
-  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li>{L.kind === 'genre' && <li><a href="/parties/genres">Music</a></li>}<li aria-current="page">{L.short}</li></ol></nav>
+  jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties'], ...(L.parent ? [[L.parent.short, `/parties/${L.parent.slug}`] as [string, string]] : []), [L.short, `/parties/${L.slug}`]]), collectionLd(L.label, `/parties/${L.slug}`, ps.map((p) => `/parties/${p.slug}`), lastRead), ...(faq.length ? [faqLd(faq)] : [])]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li>{L.kind === 'genre' && <li><a href="/parties/genres">Music</a></li>}{L.parent && <li><a href={`/parties/${L.parent.slug}`}>{L.parent.short}</a></li>}<li aria-current="page">{L.short}</li></ol></nav>
   <h1>{L.h1}</h1>
   <Fresh inShort={inShort} />
   {L.note && <p class="lede"><strong>{L.note}</strong></p>}
@@ -142,6 +148,12 @@ const nights = ['day', 'when', 'holiday'].includes(L.kind) ? (await datePages())
     <section class="section">
       <h2>Night by night</h2>
       <ul class="link-cloud">{nights.map((d) => <li><a href={`/parties/date/${d.date}`}>{nightDate(d.date, { weekday: 'short', month: 'short', day: 'numeric' })}<span class="count">{d.parties.length}</span></a></li>)}</ul>
+    </section>
+  )}
+  {(slices.length > 0 || siblings.length > 0) && (
+    <section class="section">
+      <h2>{slices.length ? `Narrow it down` : `More ${L.parent!.short}`}</h2>
+      <ul class="link-cloud">{(slices.length ? slices : siblings).map((l) => <li><a href={`/parties/${l.slug}`}>{l.short}<span class="count">{l.parties.length}</span></a></li>)}{L.parent && <li><a href={`/parties/${L.parent.slug}`}>All {L.parent.short}</a></li>}</ul>
     </section>
   )}
   {venueCount.length >= 2 && L.kind !== 'where' && (

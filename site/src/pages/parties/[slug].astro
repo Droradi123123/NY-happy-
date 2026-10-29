@@ -166,6 +166,7 @@ faq.push(
   {sameNight.length > 0 && <section class="section"><h2>Also on {nightDate(p.night_date, { weekday: 'long' })}</h2><div class="xgrid">{sameNight.map((o) => <PartyCard party={o} venue={venueOf(o, venues)} />)}</div></section>}
   <footer class="fine-print">
     <p>Sources: {(p.sources ?? []).filter((s) => s.name !== 'found via').map((s, i) => <>{i > 0 && ', '}<a href={s.url} rel="nofollow noopener" target="_blank">{host(s.url)}</a> ({fmtDate(s.checked_at)})</>)}. Details change: the ticket page has the final word.</p>
+    <p>Something wrong on this page? <a href={`/contact?place=${encodeURIComponent(cleanTitle(p.title))}`}>Tell us</a> and we will check it.</p>
     <p>Prices are the lowest ticket the seller listed when we checked, with fees where the seller shows them; tiers sell out and prices rise. YaY NYC does not sell tickets: the ticket link goes to {p.ticket_vendor} and is tagged so they can see the visit came from us. No one pays to be listed.</p>
   </footer>
   <script is:inline>document.querySelectorAll('[data-night]').forEach(function (e) { var t = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date()); var d = Math.round((Date.parse(e.getAttribute('data-night') + 'T12:00:00Z') - Date.parse(t + 'T12:00:00Z')) / 864e5); if (d < 0 || d > 6) return; e.textContent = d === 0 ? 'Tonight' : d === 1 ? 'Tomorrow' : 'In ' + d + ' days'; e.hidden = false; });</script>

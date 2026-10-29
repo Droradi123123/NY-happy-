@@ -124,6 +124,8 @@ main.wide { padding-bottom: 0; }
 .xcard:hover .xcard-cta span { transform: translateX(3px); }
 .xcard-cta span { transition: transform 0.15s ease; }
 .xcard.party .xcard-cta { color: var(--coral-ink); }
+.xcard-buy { position: relative; z-index: 2; display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border-radius: 999px; background: var(--coral-btn); color: #fff; text-decoration: none; font-weight: 800; font-size: 14px; }
+.xcard-buy:hover { background: var(--coral-ink); }
 .xcard-top { display: flex; justify-content: space-between; gap: 10px; align-items: baseline; }
 .xcard .where { margin: 0; color: var(--muted); font-size: 15px; }
 .xcard .deal { margin: 0; font-weight: 800; font-size: 17px; }

@@ -1,5 +1,5 @@
 ---
-import { cleanTitle, nightDate, nyTime, priceLabel, GENRE_NAME, placePhoto, cardCredit, boroughSlug, type Party, type Venue } from '../lib/data';
+import { cleanTitle, nightDate, nyTime, priceLabel, GENRE_NAME, placePhoto, cardCredit, boroughSlug, ticketHref, TICKET_REL, type Party, type Venue } from '../lib/data';
 interface Props { party: Party; venue: Venue | null; eager?: boolean }
 const { party: p, venue: v, eager = false } = Astro.props;
 // when the night is over (ends_at, or six hours after the start): the page hides the card from then on, rebuild or not
@@ -17,5 +17,8 @@ const pp = placePhoto('venue', p.venue_id, v?.neighborhood ?? p.neighborhood, nu
     {p.age_min && <span class="chip outline">{p.age_min}+</span>}
     {p.genres.slice(0, 3).map((g) => <span class="chip">{GENRE_NAME[g] ?? g}</span>)}
   </div>
-  <p class="xcard-cta" aria-hidden="true">{p.event_status === 'sold_out' ? 'Details' : 'Tickets and details'} <span>→</span></p>
+  {/* straight to the seller from a list (one click less), above the card's own link to the party page */}
+  {p.event_status !== 'sold_out' && p.ticket_url
+    ? <div class="xcard-cta"><a class="xcard-buy" href={ticketHref(p)} rel={TICKET_REL} target="_blank" data-ev="tickets">{p.price_status === 'free' ? 'Free: RSVP' : p.price_from ? `Tickets from $${Math.round(p.price_from)}` : 'Tickets'}</a><span aria-hidden="true">Details →</span></div>
+    : <p class="xcard-cta" aria-hidden="true">Details <span>→</span></p>}
 </article>

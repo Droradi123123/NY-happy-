@@ -7,6 +7,7 @@ import Photo from '../../../components/Photo.astro';
 import { partyData, googleInfo, placeUrl, placePhoto, photoNote, venueOf, GENRE_NAME, type Party, type Venue, type GoogleInfo } from '../../../lib/data';
 import { crumbs, itemList, faqLd, postalAddress, SITE } from '../../../lib/seo';
 import HappyHourBefore from '../../../components/HappyHourBefore.astro';
+import { venueBars } from '../../../lib/venueBars';
 import { cleanTitle, nightDate, nyTime } from '../../../lib/data';
 import { dateRange } from '../../../lib/partyLists';
 import { venues as actVenues, trivia as actTrivia, bingo as actBingo, games as actGames, sourceLabel, GAME_NAME } from '../../../lib/activities';
@@ -46,6 +47,7 @@ const faq = [
   ...(ages.length ? [{ q: `What is the age limit at ${v.name}?`, a: ages.length === 1 ? `${ages[0]}+ for every night listed now. Bring a government photo ID.` : `It depends on the night: from ${ages[0]}+ to ${ages[ages.length - 1]}+ for the nights listed now. Bring a government photo ID.` }] : []),
   ...(priced.length ? [{ q: `How much are tickets at ${v.name}?`, a: `From $${Math.round(Math.min(...priced))} to $${Math.round(Math.max(...priced))} for the cheapest ticket on each night listed now, fees included where the seller shows them.` }] : []),
 ];
+const barsPage = (await venueBars()).find((x) => x.venue.id === v.id) ?? null;
 const placeLd = {
   '@context': 'https://schema.org', '@type': v.kind === 'club' || v.kind === 'nightclub' ? 'NightClub' : 'Place', name: v.name, url: `${SITE}/parties/venue/${v.id}`,
   ...(v.address ? { address: postalAddress(v) } : {}), ...(v.lat ? { geo: { '@type': 'GeoCoordinates', latitude: v.lat, longitude: v.lng } } : {}),
@@ -96,10 +98,12 @@ const placeLd = {
     </section>
   )}
   <HappyHourBefore venues={[v]} heading={`Happy hour before ${v.name}`} max={1} />
+  {barsPage && <p><a href={`/parties/venue/${v.id}/bars`}>All {barsPage.bars.length} bars with happy hour near {v.name}</a></p>}
   <section class="section faq">
     <h2>Questions</h2>
     {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
   </section>
+  <p class="small">Something wrong about {v.name}? <a href={`/contact?place=${encodeURIComponent(v.name)}`}>Tell us</a>.</p>
   {elsewhere.length > 0 && (
     <section class="section">
       <h2>More parties{v.borough ? ` in ${v.borough}` : ''}</h2>

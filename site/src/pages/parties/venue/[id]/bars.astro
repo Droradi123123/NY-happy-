@@ -1,0 +1,44 @@
+---
+/** /parties/venue/<id>/bars: happy hours within a short walk of a club, closest first (lib/venueBars.ts). */
+import Base from '../../../../layouts/Base.astro';
+import BarCard from '../../../../components/BarCard.astro';
+import Fresh from '../../../../components/Fresh.astro';
+import { dealLabel, scheduleLabel } from '../../../../lib/data';
+import { venueBars, RADIUS, type VenueBars } from '../../../../lib/venueBars';
+import { crumbs, faqLd, collectionLd, freshDescription } from '../../../../lib/seo';
+import { stats, plural } from '../../../../lib/stats';
+
+export async function getStaticPaths() {
+  return (await venueBars()).map((x) => ({ params: { id: x.venue.id }, props: { x } }));
+}
+const { x } = Astro.props as { x: VenueBars };
+const { venue: v, bars, nights } = x;
+const s = stats(bars.map((i) => i.b));
+const walk = (m: number) => `${Math.max(1, Math.round(m / 80))} min walk`;
+const kw = `bars near ${v.name.toLowerCase()}`;
+const lastRead = bars.map((i) => i.b.checked).filter(Boolean).sort().pop() ?? null;
+const inShort = `${plural(bars.length, 'bar')} with a published happy-hour deal within about ${Math.round(RADIUS / 80)} minutes' walk of ${v.name}${v.neighborhood ? ` in ${v.neighborhood}` : ''}; the closest is ${bars[0].b.name} (${walk(bars[0].m)})${s.cheapestLabel ? `, and the cheapest drink on file is ${s.cheapestLabel}` : ''}.`;
+const description = freshDescription(`Bars near ${v.name}`, [
+  `${plural(bars.length, 'happy hour')} within a short walk, closest first, with the deal and times.`,
+  `Closest: ${bars[0].b.name}, ${walk(bars[0].m)}.`,
+  s.cheapestLabel ? `Cheapest: ${s.cheapestLabel}.` : '',
+]);
+const faq = [
+  { q: `Where can I drink before a party at ${v.name}?`, a: `The closest happy hours with a published deal: ${bars.slice(0, 3).map((i) => `${i.b.name} (${dealLabel(i.b)}, ${walk(i.m)}; ${scheduleLabel(i.b)})`).join('; ')}.` },
+  ...(s.cheapestLabel ? [{ q: `What is the cheapest drink near ${v.name}?`, a: `${s.cheapestLabel}, before tax and tip, as published by the bar.` }] : []),
+  { q: `Do these happy hours run on party nights?`, a: 'Check the days next to each bar: most run on weekdays, some on weekends. Doors at most clubs open after happy hour ends, so plan the walk over.' },
+];
+---
+<Base title={`Bars Near ${v.name}: ${bars.length} Happy Hours Before the Party`} titles={[`Bars Near ${v.name}: ${bars.length} Happy Hours`, `Bars Near ${v.name}`]} keyword={kw} description={description} noindex={!x.indexable}
+  jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [v.name, `/parties/venue/${v.id}`], ['Bars nearby', `/parties/venue/${v.id}/bars`]]), collectionLd(`Bars near ${v.name}`, `/parties/venue/${v.id}/bars`, bars.map((i) => `/bars/${i.b.slug}`), lastRead), faqLd(faq)]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li><li><a href={`/parties/venue/${v.id}`}>{v.name}</a></li><li aria-current="page">Bars nearby</li></ol></nav>
+  <h1>Bars Near {v.name}: Happy Hour Before the Party</h1>
+  <Fresh inShort={inShort} />
+  <p class="lede">{nights > 0 ? <><a href={`/parties/venue/${v.id}`}>{plural(nights, 'upcoming night')} at {v.name}</a>. </> : ''}Every bar here publishes its happy-hour deal; the distance is a straight walk from the club.</p>
+  <div class="xgrid section">{bars.map((i) => <BarCard bar={i.b} note={walk(i.m)} />)}</div>
+  <section class="section faq">
+    <h2>Questions</h2>
+    {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+  </section>
+  <p class="section"><a href={`/parties/venue/${v.id}`}>{v.name} events</a> · <a href="/happy-hours">All NYC happy hours</a> · <a href="/parties">All parties</a></p>
+</Base>
