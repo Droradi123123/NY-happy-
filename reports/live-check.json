@@ -1,0 +1,55 @@
+{
+ "checked": "2026-10-29T18:35:46.376Z",
+ "deploy": {
+  "commit": "a8922ead9a757de73a79770fdf578080129479da",
+  "built": "2026-10-29T15:39:51.297Z",
+  "by": "cloudflare"
+ },
+ "sitemap": {
+  "urls": 1687,
+  "bad": []
+ },
+ "flows": [
+  {
+   "path": "/",
+   "ok": true,
+   "notes": []
+  },
+  {
+   "path": "/happy-hours",
+   "ok": true,
+   "notes": []
+  },
+  {
+   "path": "/happy-hours/now",
+   "ok": true,
+   "notes": []
+  },
+  {
+   "path": "/parties",
+   "ok": true,
+   "notes": []
+  },
+  {
+   "path": "/parties/tonight",
+   "ok": true,
+   "notes": []
+  },
+  {
+   "path": "/parties/trick-or-drink-nyc-halloween-bar-crawl-3-days-2026-10-24",
+   "ok": true,
+   "notes": []
+  },
+  {
+   "path": "/bars/11-tigers-east-village",
+   "ok": true,
+   "notes": []
+  },
+  {
+   "path": "/happy-hours/williamsburg",
+   "ok": true,
+   "notes": []
+  }
+ ],
+ "ok": true
+}
