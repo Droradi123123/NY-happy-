@@ -7,5 +7,7 @@
 export const GA_MEASUREMENT_ID = 'G-4SVKQNG36B';
 export const GOOGLE_SITE_VERIFICATION = '';
 export const BING_SITE_VERIFICATION = '';
+// affiliate network site verification (meta tag "fo-verify" on the home page), Oct 29, 2026
+export const FO_VERIFY = '97fba4ed-cd66-4c37-aabc-5bf28a8b7cf3';
 /** IndexNow (Bing, Yandex, Seznam...): the key is public by design and served at /<key>.txt */
 export const INDEXNOW_KEY = '71833f93db0dd3c44f0a3e6f2ced42e7';

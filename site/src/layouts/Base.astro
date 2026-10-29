@@ -6,7 +6,7 @@
  */
 import Logo from '../components/Logo.astro';
 import { fitTitle } from '../lib/seo';
-import { GA_MEASUREMENT_ID, GOOGLE_SITE_VERIFICATION, BING_SITE_VERIFICATION } from '../lib/site';
+import { GA_MEASUREMENT_ID, GOOGLE_SITE_VERIFICATION, BING_SITE_VERIFICATION, FO_VERIFY } from '../lib/site';
 import { allGuides } from '../lib/guides';
 import Newsletter from '../components/Newsletter.astro';
 import { listPages } from '../lib/lists';
@@ -83,6 +83,7 @@ const tabs = [
   <link rel="canonical" href={canonical} />
   {path === '/' && GOOGLE_SITE_VERIFICATION && <meta name="google-site-verification" content={GOOGLE_SITE_VERIFICATION} />}
   {path === '/' && BING_SITE_VERIFICATION && <meta name="msvalidate.01" content={BING_SITE_VERIFICATION} />}
+  {path === '/' && FO_VERIFY && <meta name="fo-verify" content={FO_VERIFY} />}
   {noindex && <meta name="robots" content="noindex, follow" />}
   <slot name="head" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
