@@ -188,7 +188,9 @@ for (const [i, s] of plan.steps.entries()) {
           const html = await r.text();
           const ld = [...html.matchAll(/<script[^>]*application\/ld\+json[^>]*>([\s\S]*?)<\/script>/g)].map((m) => { try { return JSON.parse(m[1]); } catch { return null; } }).filter(Boolean);
           const og = Object.fromEntries([...html.matchAll(/<meta[^>]+property="og:([a-z:_]+)"[^>]+content="([^"]*)"/g)].map((m) => [m[1], m[2]]));
-          out.push({ url: u, final: r.url, status: r.status, ld, og, title: html.match(/<title>([^<]*)<\/title>/)?.[1] ?? null });
+          // optional: short windows of the page around given patterns (for pages that keep their facts in a script)
+          const snips = (s.fetch_ld.snips ?? []).map((re) => [re, [...html.matchAll(new RegExp(re, 'gi'))].slice(0, 4).map((m) => html.slice(Math.max(0, m.index - 160), m.index + 240).replace(/\s+/g, ' '))]);
+          out.push({ url: u, final: r.url, status: r.status, ld, og, title: html.match(/<title>([^<]*)<\/title>/)?.[1] ?? null, bytes: html.length, ...(snips.length ? { snips: Object.fromEntries(snips) } : {}) });
         } catch (e) { out.push({ url: u, error: String(e.message ?? e).slice(0, 100) }); }
         await sleep((s.fetch_ld.delay ?? 1500) / 1000);
       }

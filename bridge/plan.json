@@ -1,6 +1,4 @@
 { "steps": [
-  { "probe": { "urls": ["https://feverup.com/robots.txt"] } },
-  { "fetch_ld": { "name": "fever_sample", "delay": 2000, "urls": ["https://feverup.com/m/775081", "https://feverup.com/m/286121", "https://feverup.com/m/132877"] } },
-  { "rpc": "party_add_listing", "args": { "p": { "vendor": "Fever", "url": "https://feverup.com/m/0", "title": "probe", "starts_at": "2026-11-01T00:00:00Z", "venue_id": "__none__" } } },
-  { "dump": "reports_count", "path": "site_reports?select=id,created_at,kind,handled&order=id.desc&limit=20" }
+  { "fetch_ld": { "name": "fever_sample2", "delay": 2500, "urls": ["https://feverup.com/m/775081", "https://feverup.com/m/286121"],
+    "snips": ["\"startDate\"|\"start_date\"|\"sessions\"", "\"address\"|\"venue\"", "21\\+|18\\+|age", "robots"] } }
 ] }
