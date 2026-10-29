@@ -71,8 +71,9 @@ const FLOWS = [
   [pick(/^\/bars\//), 'h1'],
   [pick(/^\/happy-hours\/(williamsburg|east-village|west-village)$/) ?? pick(/^\/happy-hours\/[a-z-]+$/), 'a[href^="/bars/"]'],
 ].filter(([p]) => p);
-const { chromium } = await import('playwright');
-const browser = await chromium.launch();
+// the runner's own Chrome (Playwright's browser download does not support the current Ubuntu image)
+const { chromium } = await import('playwright-core');
+const browser = await chromium.launch({ executablePath: process.env.CHROME_PATH || '/usr/bin/google-chrome', args: ['--no-sandbox'] });
 const ctx = await browser.newContext({ viewport: { width: 390, height: 844 }, deviceScaleFactor: 2, isMobile: true, hasTouch: true, userAgent: `${UA} Mobile` });
 for (const [path, need] of FLOWS) {
   const page = await ctx.newPage();

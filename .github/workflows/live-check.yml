@@ -33,8 +33,7 @@ jobs:
           node-version: 22
       - name: Browser
         run: |
-          npm i --no-save --no-package-lock playwright@1.55.1
-          npx playwright install --with-deps chromium
+          npm install --no-save --no-audit --no-fund --no-package-lock playwright-core@1.56.1
       - name: Check
         run: node site/scripts/live-check.mjs ${{ github.event_name == 'push' && format('--wait-for {0}', github.sha) || '' }}
       - name: Summary
