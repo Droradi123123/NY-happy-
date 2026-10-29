@@ -4,7 +4,7 @@
   "description": "NYC happy hours and parties. All the fun in one place!",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#16122B",
+  "background_color": "#FFD400",
   "theme_color": "#16122B",
   "icons": [
     {

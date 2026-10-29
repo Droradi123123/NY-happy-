@@ -52,11 +52,11 @@ const today = DAYS[(new Date(new Date().toLocaleString('en-US', { timeZone: 'Ame
 const oneEach = <T,>(xs: T[], key: (x: T) => string, n: number) => { const seen = new Set<string>(), out: T[] = []; for (const x of xs) { const k = key(x); if (seen.has(k)) continue; seen.add(k); out.push(x); if (out.length >= n) break; } return out; };
 const ranked = [...bars].filter((b) => b.dealKnown && !b.doubt).sort(rank);
 const hhPicks = oneEach([...ranked.filter((b) => b.days.includes(today)), ...ranked], (b) => b.hoodSlug, 6);
-// then parties: the next nights people click most (proof.json), one per venue, sold-out last
+// then parties: tonight first, then the next nights, the most clicked first within a night (proof.json), one per venue
 const pr = (proof.pages ?? {}) as Record<string, { views28?: number; tickets28?: number }>;
 const pscore = (p: Party) => { const x = pr[`/parties/${p.slug}`] ?? {}; return (x.tickets28 ?? 0) * 10 + (x.views28 ?? 0); };
 const soon = parties.filter((p) => p.event_status !== 'sold_out' && p.night_date <= new Date(Date.now() + 9 * 864e5).toISOString().slice(0, 10));
-const partyPicks = oneEach([...soon].sort((a, b) => pscore(b) - pscore(a) || a.starts_at.localeCompare(b.starts_at)), (p) => p.venue_id, 6);
+const partyPicks = oneEach([...soon].sort((a, b) => a.night_date.localeCompare(b.night_date) || pscore(b) - pscore(a) || a.starts_at.localeCompare(b.starts_at)), (p) => p.venue_id, 6);
 // more sections: cheap drinks, rooftops, this weekend's biggest nights
 const cheap = oneEach([...bars].filter((b) => b.dealKnown && !b.doubt && b.cheapestDrink !== null && b.cheapestDrink <= 6).sort((a, b) => a.cheapestDrink! - b.cheapestDrink! || rank(a, b)), (b) => b.hoodSlug, 4);
 const rooftops = (listsAll.find((l) => l.slug === 'rooftop')?.bars ?? []).filter((b) => b.dealKnown && !hhPicks.includes(b)).sort(rank).slice(0, 4);
@@ -65,7 +65,7 @@ const weekendPicks = (weekendList?.parties ?? []).filter((p) => !partyPicks.incl
 ---
 <Base title="YaY NYC: Happy Hours, Parties and What's On Tonight in NYC" keyword="nyc happy hours and parties" description={`NYC happy hours and parties in one place: ${s.n} verified happy hours with the deal and times, plus parties with doors, age and tickets.`}
   ogImage={hwOn && hwPhoto ? hwPhoto.og ?? null : null}
-  jsonld={[{ '@context': 'https://schema.org', '@type': 'WebSite', name: 'YaY NYC', url: SITE, potentialAction: { '@type': 'SearchAction', target: `${SITE}/happy-hours?q={search_term_string}`, 'query-input': 'required name=search_term_string' } },
+  jsonld={[{ '@context': 'https://schema.org', '@type': 'WebSite', name: 'YaY NYC', url: SITE },
     { '@context': 'https://schema.org', '@type': 'Organization', name: 'YaY NYC', url: SITE, logo: `${SITE}/icon-512.png`, slogan: 'All the fun in one place!' }]}>
   <section class="hero-x">
     <div class="hero-in">
@@ -88,11 +88,16 @@ const weekendPicks = (weekendList?.parties ?? []).filter((p) => !partyPicks.incl
 
   {partyPicks.length > 0 && (
     <section class="section home-sec" aria-labelledby="pp-h">
-      <div class="sec-head"><h2 id="pp-h">Parties coming up</h2><span class="sec-sub">The nights people are opening most, with doors, age and tickets</span></div>
+      <div class="sec-head"><h2 id="pp-h">Parties coming up</h2><span class="sec-sub">Tonight first, then the next nights, with doors, age and tickets</span></div>
       <div class="home-grid">{partyPicks.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>
       <a class="btn coral wide" href="/parties">See all {parties.length} parties →</a>
     </section>
   )}
+
+  <section class="section home-sec" aria-labelledby="mp-h">
+    <div class="sec-head"><h2 id="mp-h">🗺️ The map: what's around you</h2><span class="sec-sub">{onMap} happy hours and {parties.length} parties on one map. Tap a pin for the deal or the tickets.</span></div>
+    <HomeMap bars={onMap} parties={parties.length} />
+  </section>
 
   {hwOn && (
     <a class="hw-banner" href="/parties/halloween">
@@ -162,11 +167,6 @@ const weekendPicks = (weekendList?.parties ?? []).filter((p) => !partyPicks.incl
     </section>
   )}
 
-  <section class="section">
-    <h2>The map: every happy hour and party in NYC</h2>
-    <p class="sub-lede">{onMap} bars and {parties.length} parties on one map. Tap a dot for the deal or the tickets, or open a full map with filters for day, subway line and price.</p>
-    <HomeMap bars={onMap} parties={parties.length} />
-  </section>
 
   <section class="section">
     <div class="rail-head"><h2>Happy hours by neighborhood</h2><a href="/happy-hours/neighborhoods">All neighborhoods</a></div>
@@ -223,24 +223,9 @@ const weekendPicks = (weekendList?.parties ?? []).filter((p) => !partyPicks.incl
   .sec-head { display: grid; gap: 2px; }
   .sec-head h2 { margin: 0; }
   .sec-sub { color: var(--muted); font-size: 15px; }
-  .home-grid { display: grid; gap: 14px; grid-template-columns: 1fr; }
-  /* phones: two compact columns, so two rows of cards fit on about one screen */
-  @media (max-width: 639px) {
-    .home-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
-    .home-grid :global(.xcard) { padding: 10px; gap: 4px; }
-    .home-grid :global(.xcard-img), .home-grid :global(.xcard-art) { margin: -10px -10px 4px; }
-    .home-grid :global(.xcard-art) { padding: 8px 10px 18px; }
-    .home-grid :global(.xcard-art span) { font-size: 17px; }
-    .home-grid :global(.xcard h3) { font-size: 15px; line-height: 1.2; }
-    .home-grid :global(.xcard .deal) { font-size: 14px; }
-    .home-grid :global(.xcard .sch), .home-grid :global(.xcard .when) { font-size: 13px; }
-    .home-grid :global(.xcard .where), .home-grid :global(.xcard .checked), .home-grid :global(.xcard .xcard-foot), .home-grid :global(.xcard-img figcaption) { display: none; }
-    .home-grid :global(.xcard-cta) { font-size: 13px; padding-top: 6px; flex-wrap: wrap; gap: 4px; }
-    .home-grid :global(.xcard-buy) { min-height: 32px; padding: 0 10px; font-size: 13px; }
-    .home-grid :global(.xcard-cta > span[aria-hidden]) { display: none; }
-  }
+  .home-grid { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; }
+  @media (max-width: 639px) { .home-grid { gap: 10px; } }
   .home-grid > * { min-width: 0; }
-  @media (min-width: 640px) { .home-grid { grid-template-columns: 1fr 1fr; } }
   @media (min-width: 1000px) { .home-grid { grid-template-columns: repeat(3, 1fr); } .home-grid.four { grid-template-columns: repeat(4, 1fr); } }
   @media (max-width: 639px) { .home-grid > :nth-child(n+5) { display: none; } .home-grid.three > :nth-child(n+3) { display: none; } }
   .btn.wide { justify-self: start; }

@@ -67,6 +67,8 @@ const FLOWS = [
   ['/happy-hours/now', 'main'],
   ['/parties', 'a[href^="/parties/"]'],
   ['/parties/tonight', 'main a[href^="/parties/"]'],
+  // the map draws on a canvas once its style, pins and data have loaded
+  ['/map', 'canvas.maplibregl-canvas'],
   [pick(/^\/parties\/[^/]+-\d{4}-\d{2}-\d{2}$/), 'a[data-ev="tickets"]'],
   [pick(/^\/bars\//), 'h1'],
   [pick(/^\/happy-hours\/(williamsburg|east-village|west-village)$/) ?? pick(/^\/happy-hours\/[a-z-]+$/), 'a[href^="/bars/"]'],
@@ -83,7 +85,7 @@ for (const [path, need] of FLOWS) {
   const row = { path, ok: true, notes: [] };
   try {
     const r = await page.goto(`${SITE}${path}`, { waitUntil: 'load', timeout: 45000 });
-    await page.waitForTimeout(1500);
+    await page.waitForTimeout(path === '/map' ? 6000 : 1500);
     if (r?.status() !== 200) row.notes.push(`status ${r?.status()}`);
     const width = await page.evaluate(() => document.documentElement.scrollWidth);
     if (width > 390) row.notes.push(`page is ${width}px wide (horizontal scroll)`);

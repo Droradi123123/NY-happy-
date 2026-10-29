@@ -1,7 +1,7 @@
 ---
 /**
- * The home page map: every happy hour (violet) and party (coral) as clustered dots, loaded when it
- * scrolls into view, with the two full maps one tap away.
+ * The home page map: a live preview of every happy hour (🍸) and party (🪩) on the colorful map, loaded
+ * when it scrolls into view, with one big button to the full map.
  */
 import MapPoster from './MapPoster.astro';
 interface Props { bars: number; parties: number }
@@ -10,10 +10,8 @@ const { bars, parties } = Astro.props;
 <div class="homemap">
   <div class="hm-canvas" data-homemap role="region" aria-label="Map of NYC happy hours and parties"><MapPoster show="both" /></div>
   <div class="hm-legend" aria-hidden="true"><span><i class="dot b"></i>Happy hours</span><span><i class="dot p"></i>Parties</span></div>
-  <div class="hm-ctas">
-    <a class="btn" href="/map/happy-hours">Happy hour map <span aria-hidden="true">({bars})</span></a>
-    <a class="btn coral" href="/map/parties">Party map <span aria-hidden="true">({parties})</span></a>
-  </div>
+  <a class="btn dark hm-open" href="/map">🗺️ Open the map</a>
+  <p class="hm-links"><a href="/map/happy-hours">Happy hour map ({bars})</a> · <a href="/map/parties">Party map ({parties})</a></p>
 </div>
 <script>
   const el = document.querySelector<HTMLElement>('[data-homemap]');
@@ -25,15 +23,18 @@ const { bars, parties } = Astro.props;
         import('maplibre-gl'), fetch('/data/bars.json').then((r) => r.json()), fetch('/data/parties.json').then((r) => r.json()),
         import('../scripts/maplibre-css').then((m) => m.mapCss()),
       ]);
+      const fun = await import('../scripts/mapfun');
       const fc = (rows: any[], url: string) => ({ type: 'FeatureCollection', features: rows.filter((r) => r.la !== null && r.lo !== null).map((r) => ({ type: 'Feature', geometry: { type: 'Point', coordinates: [r.lo, r.la] }, properties: { name: r.n ?? r.t, url: `${url}/${r.s}` } })) });
-      const map = new maplibregl.Map({ container: el, style: 'https://tiles.openfreemap.org/styles/positron', center: [-73.965, 40.73], zoom: 11.2, attributionControl: { compact: true }, cooperativeGestures: true });
+      const map = new maplibregl.Map({ container: el, style: fun.STYLE, center: [-73.975, 40.725], zoom: 11.2, attributionControl: { compact: true }, cooperativeGestures: true });
       map.on('load', () => {
         el.classList.add('map-live');
-        for (const [id, data, color] of [['b', fc(bars, '/bars'), '#5B2EE8'], ['p', fc(parties, '/parties'), '#FF4F64']] as const) {
-          map.addSource(id, { type: 'geojson', data: data as any, cluster: true, clusterRadius: 38 });
-          map.addLayer({ id: `${id}-c`, type: 'circle', source: id, filter: ['has', 'point_count'], paint: { 'circle-color': color, 'circle-opacity': 0.88, 'circle-radius': ['step', ['get', 'point_count'], 13, 20, 18, 80, 24], 'circle-stroke-color': '#fff', 'circle-stroke-width': 2 } });
-          map.addLayer({ id: `${id}-n`, type: 'symbol', source: id, filter: ['has', 'point_count'], layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 12, 'text-font': ['Noto Sans Bold'] }, paint: { 'text-color': '#fff' } });
-          map.addLayer({ id: `${id}-u`, type: 'circle', source: id, filter: ['!', ['has', 'point_count']], paint: { 'circle-color': color, 'circle-radius': 6, 'circle-stroke-color': '#fff', 'circle-stroke-width': 2 } });
+        fun.warmUp(map); fun.addPins(map);
+        for (const [id, data, color, pin] of [['b', fc(bars, '/bars'), '#5B2EE8', 'pin-bar'], ['p', fc(parties, '/parties'), '#FF4F64', 'pin-party']] as const) {
+          const cp = fun.clusterPaint(color);
+          map.addSource(id, { type: 'geojson', data: data as any, cluster: true, clusterRadius: 42 });
+          map.addLayer({ id: `${id}-c`, type: 'circle', source: id, filter: ['has', 'point_count'], paint: cp.circle as any });
+          map.addLayer({ id: `${id}-n`, type: 'symbol', source: id, filter: ['has', 'point_count'], layout: cp.count.layout as any, paint: cp.count.paint });
+          map.addLayer({ id: `${id}-u`, type: 'symbol', source: id, filter: ['!', ['has', 'point_count']], layout: { 'icon-image': pin, 'icon-allow-overlap': true, 'icon-size': 0.85 } });
           map.on('click', `${id}-u`, (e: any) => { const f = e.features[0]; new maplibregl.Popup({ offset: 10 }).setLngLat(f.geometry.coordinates).setHTML(`<a class="pop-title" href="${f.properties.url}">${String(f.properties.name).replace(/[<>&"]/g, '')}</a>`).addTo(map); });
           map.on('click', `${id}-c`, (e: any) => map.easeTo({ center: e.lngLat, zoom: map.getZoom() + 2 }));
           for (const l of [`${id}-u`, `${id}-c`]) { map.on('mouseenter', l, () => (map.getCanvas().style.cursor = 'pointer')); map.on('mouseleave', l, () => (map.getCanvas().style.cursor = '')); }
@@ -45,12 +46,14 @@ const { bars, parties } = Astro.props;
 </script>
 <style>
   .homemap { position: relative; }
-  .hm-canvas { position: relative; height: 420px; border-radius: 22px; overflow: hidden; border: 1px solid var(--line); background: #ECE8F6; }
+  .hm-canvas { position: relative; height: 380px; border-radius: 22px; overflow: hidden; border: 3px solid var(--ink); background: #FFF8EC; box-shadow: 6px 6px 0 var(--ink); }
   @media (min-width: 900px) { .hm-canvas { height: 520px; } }
   .hm-legend { position: absolute; top: 12px; left: 12px; display: flex; gap: 12px; background: rgba(255,255,255,.94); border-radius: 999px; padding: 6px 12px; font-size: 13px; font-weight: 700; box-shadow: var(--shadow); }
   .hm-legend span { display: inline-flex; align-items: center; gap: 6px; }
   .dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; }
   .dot.b { background: #5B2EE8; } .dot.p { background: #FF4F64; }
-  .hm-ctas { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 12px; }
-  @media (max-width: 420px) { .hm-ctas { grid-template-columns: 1fr; } }
+  .hm-legend span:first-child::before { content: '🍸'; } .hm-legend span:last-child::before { content: '🪩'; }
+  .hm-legend .dot { display: none; }
+  .hm-open { position: absolute; left: 50%; bottom: 46px; transform: translateX(-50%); z-index: 2; white-space: nowrap; box-shadow: 0 6px 18px rgba(22, 18, 43, .35); }
+  .hm-links { margin: 14px 0 0; font-weight: 700; text-align: center; }
 </style>

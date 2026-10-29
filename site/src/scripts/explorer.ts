@@ -98,13 +98,15 @@ export function filterBars(rows: Row[], st: State, here: [number, number] | null
     out.push({ ...r, _until: until, _dist: dist });
   }
   const sort = String(st.sort || (here ? 'near' : st.day === 'now' ? 'ending' : 'best'));
+  // the best order puts the happy hours that run today first
+  const todayFirst = (r: Row) => (hhOnDay(r, now.day) ? 0 : 1);
   out.sort((a, b) =>
     sort === 'near' ? (a._dist ?? 1e9) - (b._dist ?? 1e9)
     : sort === 'cheap' ? (a.c ?? 99) - (b.c ?? 99)
     : sort === 'ending' ? (a._until ?? 9e9) - (b._until ?? 9e9)
-    // the server's order (lib/lists.ts rank): deal listed and read in the last 30 days first, then
+    // today first, then the server's order (lib/lists.ts rank): deal listed and read in the last 30 days first, then
     // cheapest drink, most recently checked, name
-    : tier(a) - tier(b) || (a.c ?? 99) - (b.c ?? 99) || (b.ck ?? '').localeCompare(a.ck ?? '') || a.n.localeCompare(b.n));
+    : todayFirst(a) - todayFirst(b) || tier(a) - tier(b) || (a.c ?? 99) - (b.c ?? 99) || (b.ck ?? '').localeCompare(a.ck ?? '') || a.n.localeCompare(b.n));
   return out;
 }
 
@@ -182,21 +184,23 @@ export function partyCard(r: Row) {
 async function makeMap(el: HTMLElement, kind: Kind) {
   const maplibregl = (await import('maplibre-gl')).default;
   await (await import('./maplibre-css')).mapCss();
+  const fun = await import('./mapfun');
   const map = new maplibregl.Map({
-    container: el, style: 'https://tiles.openfreemap.org/styles/positron', center: [-73.97, 40.73], zoom: 11.2,
+    container: el, style: fun.STYLE, center: [-73.97, 40.73], zoom: 11.2,
     attributionControl: { compact: true }, cooperativeGestures: matchMedia('(pointer: coarse)').matches,
   });
   map.addControl(new maplibregl.NavigationControl({ showCompass: false }), 'top-right');
   map.addControl(new maplibregl.GeolocateControl({ positionOptions: { enableHighAccuracy: true }, trackUserLocation: false }), 'top-right');
   await new Promise((r) => map.on('load', r));
   el.classList.add('map-live');
+  fun.warmUp(map); fun.addPins(map);
+  const cp = fun.clusterPaint(kind === 'parties' ? '#FF4F64' : '#5B2EE8');
   map.addSource('pts', { type: 'geojson', data: { type: 'FeatureCollection', features: [] }, cluster: true, clusterRadius: 44, clusterMaxZoom: 14 });
-  map.addLayer({ id: 'clusters', type: 'circle', source: 'pts', filter: ['has', 'point_count'],
-    paint: { 'circle-color': '#16122B', 'circle-radius': ['step', ['get', 'point_count'], 16, 20, 21, 80, 27], 'circle-stroke-color': '#FFFFFF', 'circle-stroke-width': 3 } });
-  map.addLayer({ id: 'cluster-count', type: 'symbol', source: 'pts', filter: ['has', 'point_count'],
-    layout: { 'text-field': ['get', 'point_count_abbreviated'], 'text-size': 13, 'text-font': ['Noto Sans Bold'] }, paint: { 'text-color': '#FFFFFF' } });
-  map.addLayer({ id: 'pt', type: 'circle', source: 'pts', filter: ['!', ['has', 'point_count']],
-    paint: { 'circle-color': ['case', ['get', 'live'], '#0B7A4B', kind === 'parties' ? '#FF4F64' : '#5B2EE8'], 'circle-radius': 8, 'circle-stroke-color': '#FFFFFF', 'circle-stroke-width': 2 } });
+  map.addLayer({ id: 'clusters', type: 'circle', source: 'pts', filter: ['has', 'point_count'], paint: cp.circle as any });
+  map.addLayer({ id: 'cluster-count', type: 'symbol', source: 'pts', filter: ['has', 'point_count'], layout: cp.count.layout as any, paint: cp.count.paint });
+  // one emoji pin per place: 🍹 green when the happy hour is on right now
+  map.addLayer({ id: 'pt', type: 'symbol', source: 'pts', filter: ['!', ['has', 'point_count']],
+    layout: { 'icon-image': ['case', ['get', 'live'], 'pin-live', kind === 'parties' ? 'pin-party' : 'pin-bar'], 'icon-allow-overlap': true, 'icon-size': ['interpolate', ['linear'], ['zoom'], 11, 0.8, 15, 1.1] } });
   map.on('click', 'clusters', async (e) => {
     const f = map.queryRenderedFeatures(e.point, { layers: ['clusters'] })[0];
     const z = await (map.getSource('pts') as any).getClusterExpansionZoom(f.properties!.cluster_id);
@@ -353,7 +357,7 @@ export async function initExplorer(root: HTMLElement) {
     }
     if (t.closest('[data-reset]')) {
       st = { ...preset }; here = null; closePop();
-      const near = root.querySelector<HTMLElement>('[data-near]'); if (near) { near.textContent = 'Near me'; near.classList.remove('on'); }
+      const near = root.querySelector<HTMLElement>('[data-near]'); if (near) { near.textContent = '📍 Near me'; near.classList.remove('on'); }
       render(); return;
     }
     if (t.closest('[data-more]')) { shown += PAGE; render(false); return; }
@@ -361,7 +365,7 @@ export async function initExplorer(root: HTMLElement) {
       const b = t.closest<HTMLButtonElement>('[data-near]')!;
       b.textContent = 'Finding you…';
       navigator.geolocation.getCurrentPosition(
-        (p) => { here = [p.coords.latitude, p.coords.longitude]; st.sort = 'near'; b.textContent = 'Near me ✓'; b.classList.add('on'); render(); },
+        (p) => { here = [p.coords.latitude, p.coords.longitude]; st.sort = 'near'; b.textContent = '📍 Near me ✓'; b.classList.add('on'); render(); },
         () => { b.textContent = 'Location blocked'; },
         { enableHighAccuracy: true, timeout: 10000 });
       return;

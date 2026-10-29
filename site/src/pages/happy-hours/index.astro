@@ -29,7 +29,7 @@ const faq = [
   jsonld={[crumbs([['YaY NYC', '/'], ['Happy hours', '/happy-hours']]), faqLd(faq), collectionLd('NYC happy hours', '/happy-hours', [...bars].sort(rank).map((b) => `/bars/${b.slug}`), lastRead)]}>
   <h1>NYC Happy Hours</h1>
   <Fresh inShort={inShort} />
-  <p class="lede">{plural(s.n, 'happy hour')} across the five boroughs, each with the deal, the times and the date we checked it. {s.deals} list exactly what is discounted. What a drink costs in each neighborhood: <a href="/nyc-happy-hour-index">the NYC Happy Hour Price Index</a>.</p>
+  <p class="lede">What a drink costs in each neighborhood: <a href="/nyc-happy-hour-index">the NYC Happy Hour Price Index</a>.</p>
   <Explorer kind="bars" hoods={hoods} heading="Find a happy hour">
     {[...bars].sort(rank).slice(0, 24).map((b, i) => <BarCard bar={b} eager={i < 2} />)}
   </Explorer>

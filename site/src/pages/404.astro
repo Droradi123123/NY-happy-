@@ -8,7 +8,7 @@ const { parties, venues } = await partyData();
 const next = parties.slice(0, 6);
 ---
 <Base title="Page Not Found" description="This page does not exist or the party is over. Here are the next parties in NYC and the happy hours on right now." noindex>
-  <div class="nf-mark" aria-hidden="true" set:html={markSvg({ id: 'nf' })} />
+  <div class="nf-mark" aria-hidden="true" set:html={markSvg()} />
   <h1>That page isn't here</h1>
   <p class="lede">If it was a party, it may be over: past nights leave the site.</p>
   <p><a class="btn" href="/parties">Parties coming up</a> <a class="btn ghost" href="/happy-hours/now">Happy hour right now</a></p>
