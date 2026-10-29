@@ -1,15 +1,1 @@
-{
- "steps": [
-  {
-   "probe": {
-    "urls": [
-     "https://yaynyc.com/parties/city-of-gods-festival-2026-10-23", "https://yaynyc.com/parties/crankdat-night-1-friday-2026-10-23",
-     "https://yaynyc.com/parties/roz-2026-10-24", "https://yaynyc.com/parties/tiki-disco-in-the-ruins-2026-10-18",
-     "https://yaynyc.com/parties/venue/colbo-next-door", "https://yaynyc.com/parties/venue/brooklyn-roots-collective", "https://yaynyc.com/parties/venue/daintree-rooftop",
-     "https://yaynyc.com/bars/the-ox-tavern", "https://yaynyc.com/bars/kashkaval-cheese-market-hell-s-kitchen", "https://yaynyc.com/happy-hours/near/96th-street-q",
-     "https://yaynyc.com/parties/", "https://yaynyc.com/happy-hours/williamsburg/?a=1", "https://yaynyc.com/", "https://yaynyc.com/parties", "https://yaynyc.com/happy-hours"
-    ]
-   }
-  }
- ]
-}
+{ "steps": [ { "fetch_pages": { "name": "live_stamp", "sites": { "stamp": ["https://yaynyc.com/build.json"] } } } ] }
