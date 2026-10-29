@@ -8,8 +8,11 @@ import { DAYS, DAY_NAME, ampm, daysLabel, dealLabel, windowLabel, type Bar, type
 
 export const SITE = 'https://yaynyc.com';
 const BRAND = ' | YaY NYC';
-const kwWords = (kw: string) => kw.toLowerCase().replace(/&/g, ' and ').replace(/['’]/g, '').split(/[^a-z0-9$+]+/).filter((w) => w && !['in', 'at', 'the', 'a', 'an', 'of', 'and', 'for', 'on', 'to', 'by', 'with'].includes(w));
-const hasAll = (t: string, kw: string) => { const got = t.toLowerCase().replace(/['’]/g, ''); return kwWords(kw).every((w) => got.includes(w.replace(/s$/, ''))); };
+// the same word rules as the build gate (scripts/verify-build.mjs): whole words, simple plurals
+const STOP = new Set(['in', 'at', 'the', 'a', 'an', 'of', 'and', 'for', 'on', 'to', 'by', 'with']);
+const wordSet = (t: string) => new Set(t.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/&/g, ' and ').replace(/['’]/g, '').split(/[^a-z0-9$]+/).filter(Boolean));
+const hasWord = (set: Set<string>, w: string) => set.has(w) || set.has(`${w}s`) || set.has(w.replace(/s$/, '')) || set.has(w.replace(/es$/, '')) || set.has(w.replace(/ies$/, 'y')) || set.has(w.replace(/y$/, 'ies'));
+const hasAll = (t: string, kw: string) => { const got = wordSet(t); return [...wordSet(kw)].filter((w) => !STOP.has(w)).every((w) => hasWord(got, w)); };
 /** a phrase cut at a word: no trailing punctuation or dangling little word ("... in NYC Every") */
 const WEAK = /\s+(at|in|on|for|and|with|the|of|&|every|from|to|by|a|an|ft\.?|feat\.?|x|w\/|\+)$/i;
 export const cutWords = (t: string) => { let x = t.replace(/[\s,:;·|–(-]+$/, ''); while (WEAK.test(x)) x = x.replace(WEAK, '').replace(/[\s,:;·|–(-]+$/, ''); return x; };
