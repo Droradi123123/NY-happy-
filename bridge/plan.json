@@ -1,8 +1,15 @@
 {
  "steps": [
-  { "dump": "gone_bars", "path": "h_nyc_happy_hour?select=slug,name,status,geo,address&slug=in.(kashkaval-cheese-market-hell-s-kitchen,souvlaki-gr-lower-east-side,the-ox-tavern,merchants-ny-chelsea,soup-queen-bk-bushwick,winter-garden-nolita,the-top-of-the-standard-west-village,brooklyn-ate-bar-greenpoint)" },
-  { "dump": "gone_bars_names", "path": "h_nyc_happy_hour?select=slug,name,status,geo&or=(name.ilike.*kashkaval*,name.ilike.*souvlaki*,name.ilike.*ox tavern*,name.ilike.*merchants*,name.ilike.*soup queen*,name.ilike.*winter garden*,name.ilike.*top of the standard*,name.ilike.*brooklyn ate*)" },
-  { "dump": "gone_venues", "path": "party_venues?select=id,name,status,kind,neighborhood&id=in.(colbo-next-door,brooklyn-roots-collective,daintree-rooftop)" },
-  { "dump": "gone_parties", "path": "party_events?select=slug,publish_status,venue_id,night_date&slug=in.(haunted-skyline-halloween-2026-10-30,suave-saturdays-latin-inspired-sunset-party-2026-11-21)" }
+  {
+   "probe": {
+    "urls": [
+     "https://yaynyc.com/parties/city-of-gods-festival-2026-10-23", "https://yaynyc.com/parties/crankdat-night-1-friday-2026-10-23",
+     "https://yaynyc.com/parties/roz-2026-10-24", "https://yaynyc.com/parties/tiki-disco-in-the-ruins-2026-10-18",
+     "https://yaynyc.com/parties/venue/colbo-next-door", "https://yaynyc.com/parties/venue/brooklyn-roots-collective", "https://yaynyc.com/parties/venue/daintree-rooftop",
+     "https://yaynyc.com/bars/the-ox-tavern", "https://yaynyc.com/bars/kashkaval-cheese-market-hell-s-kitchen", "https://yaynyc.com/happy-hours/near/96th-street-q",
+     "https://yaynyc.com/parties/", "https://yaynyc.com/happy-hours/williamsburg/?a=1", "https://yaynyc.com/", "https://yaynyc.com/parties", "https://yaynyc.com/happy-hours"
+    ]
+   }
+  }
  ]
 }
