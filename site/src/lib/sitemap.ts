@@ -5,7 +5,7 @@
  */
 import { allBars, partyData, landmarks, stations } from './data';
 import { listPages } from './lists';
-import { partyLists } from './partyLists';
+import { partyLists, datePages } from './partyLists';
 import { halloweenPages } from './halloween';
 import { allGuides } from './guides';
 import { guideTable } from './guideTables';
@@ -41,18 +41,22 @@ export function sitemapRows(): Promise<[string, string | null][]> {
     // and the station pages that already had Google impressions (still built)
     const built = new Set((await stations()).map((s) => s.slug));
     for (const s of keptNear()) if (built.has(s)) near.add(s);
+    // a list's lastmod is a real date: the newest read among the bars or parties on it
+    const newest = (ds: (string | null | undefined)[]) => (ds.filter(Boolean) as string[]).sort().pop()?.slice(0, 10) ?? null;
     const rows: [string, string | null][] = [
-      ['/', null], ['/happy-hours', null], ['/nyc-happy-hour-index', null], ['/happy-hours/now', null], ['/happy-hours/neighborhoods', null], ['/parties', null], ['/map', null], ['/map/happy-hours', null], ['/map/parties', null], ['/about', null], ['/contact', null], ['/image-credits', null], ['/privacy', null], ['/accessibility', null],
+      ['/', null], ['/happy-hours', newest(bars.map((b) => b.checked))], ['/nyc-happy-hour-index', null], ['/happy-hours/now', null], ['/happy-hours/neighborhoods', null], ['/parties', newest(parties.map((p) => p.last_checked))], ['/map', null], ['/map/happy-hours', null], ['/map/parties', null], ['/about', null], ['/contact', null], ['/image-credits', null], ['/privacy', null], ['/accessibility', null],
       ...(parties.some((p) => p.themes.includes('halloween')) ? [['/parties/halloween', null] as [string, null]] : []),
       ...(await halloweenPages()).built.filter((b) => b.indexable).map((b) => [`/parties/halloween/${b.page.slug}`, null] as [string, null]),
-      ...lists.map((l) => [`/happy-hours/${l.slug}`, null] as [string, null]),
+      ...lists.map((l) => [`/happy-hours/${l.slug}`, newest(l.bars.map((b) => b.checked))] as [string, string | null]),
       ...[...near].map((s) => [`/happy-hours/near/${s}`, null] as [string, null]),
       ...bars.filter(barIndexable).map((b) => [`/bars/${b.slug}`, b.checked?.slice(0, 10) ?? null] as [string, string | null]),
       ...parties.map((p) => [`/parties/${p.slug}`, p.last_checked?.slice(0, 10) ?? null] as [string, string | null]),
-      ...plists.map((l) => [`/parties/${l.slug}`, null] as [string, null]),
+      ['/parties/genres', null],
+      ...(await datePages()).filter((d) => d.indexable).map((d) => [`/parties/date/${d.date}`, newest(d.parties.map((p) => p.last_checked))] as [string, string | null]),
+      ...plists.filter((l) => l.indexable).map((l) => [`/parties/${l.slug}`, newest(l.parties.map((p) => p.last_checked))] as [string, string | null]),
       ...(guides.length ? [['/blog', guides.map((g) => g.updated).sort().pop()!] as [string, string]] : []),
       ...guides.map((g) => [`/blog/${g.slug}`, g.updated] as [string, string]),
-      ...venuePages.map((v) => [`/parties/venue/${v.id}`, null] as [string, null]),
+      ...venuePages.map((v) => [`/parties/venue/${v.id}`, newest(parties.filter((p) => p.venue_id === v.id).map((p) => p.last_checked))] as [string, string | null]),
       // trivia, music bingo and games: lastmod is the date the listings were read
       ['/trivia', OBSERVED], ...DAY_PAGES.map((d) => [`/trivia/${daySlugOf(d)}`, OBSERVED] as [string, string]),
       ...BOROUGH_PAGES.map(([slug]) => [`/trivia/${slug}`, OBSERVED] as [string, string]),

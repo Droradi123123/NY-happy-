@@ -3,6 +3,7 @@ import Base from '../../layouts/Base.astro';
 import PartyCard from '../../components/PartyCard.astro';
 import MiniMap from '../../components/MiniMap.astro';
 import Photo from '../../components/Photo.astro';
+import proof from '../../data/proof.json';
 import { partyData, placePhoto, photoNote, venueOf, cleanTitle, nightDate, nyTime, nyDate, priceLabel, fmtDate, ticketHref, TICKET_REL, GENRE_NAME, allBars, meters, dealLabel, windowLabel, DAYS, type Party, type Venue } from '../../lib/data';
 import { tier } from '../../lib/lists';
 import { partyTitle, partyName, partyDescription, partyJsonLd, crumbs, faqLd, SITE } from '../../lib/seo';
@@ -78,8 +79,20 @@ const pregame = v?.lat && v.lng && (doorsMin === null || doorsMin >= 17 * 60)
       .filter((x) => x.w && x.m <= 900)
       .sort((a, c) => tier(a.b) - tier(c.b) || a.m - c.m).slice(0, 3)
   : [];
+// real proof, only when large enough to mean something (10+ ticket clicks in 28 days, or 50+ views in 7)
+const pf = ((proof.pages ?? {}) as Record<string, { views7?: number; tickets28?: number }>)[`/parties/${p.slug}`] ?? {};
+const proofLine = (pf.tickets28 ?? 0) >= 10 ? `${pf.tickets28} people went to the tickets from this page in the last 4 weeks`
+  : (pf.views7 ?? 0) >= 50 ? `${pf.views7} people looked at this party this week` : null;
+const buyLabel = p.price_status === 'free' ? `Free: RSVP on ${p.ticket_vendor}` : p.price_from ? `Tickets from $${Math.round(p.price_from)} on ${p.ticket_vendor}` : `Tickets on ${p.ticket_vendor}`;
+// the rest of the questions people ask before a night out, answered from the data on this page
+faq.push(
+  ...(pregame.length ? [{ q: `Is there a happy hour near ${v?.name ?? 'the venue'} before the party?`, a: `Yes: ${pregame.map(({ b, m }) => `${b.name} (${dealLabel(b)}, ${Math.max(1, Math.round(m / 80))} min walk)`).join('; ')}, on ${nightDate(p.night_date, { weekday: 'long' })}s before doors, as published by each bar.` }] : []),
+  ...(sameNight.length ? [{ q: `What else is on in NYC that night?`, a: `${parties.filter((o) => o.night_date === p.night_date).length - 1} other parties are listed for ${nightDate(p.night_date, { weekday: 'long', month: 'short', day: 'numeric' })}, including ${sameNight.slice(0, 3).map((o) => `${cleanTitle(o.title)} at ${venueOf(o, venues)?.name ?? 'a NYC venue'}`).join('; ')}.` }] : []),
+  ...(v && atVenue.length ? [{ q: `What else is on at ${v.name}?`, a: `${atVenue.slice(0, 3).map((o) => `${cleanTitle(o.title)}, ${nightDate(o.night_date, { weekday: 'short', month: 'short', day: 'numeric' })}`).join('; ')}. All of its nights are on the ${v.name} page.` }] : []),
+  ...(v ? [{ q: `How do I get home from ${v.name}?`, a: `The New York subway runs all night, with fewer trains after midnight; check the MTA app for weekend changes. Yellow cabs and ride apps work across ${v.borough ?? 'the city'}${ends ? `; the night is listed to end at ${ends}${endsNextDay ? ' the next morning' : ''}` : ''}.` }] : []),
+);
 ---
-<Base title={partyTitle(p, v, crowded)} description={partyDescription(p, v)} keyword={kw} jsonld={[partyJsonLd(p, v, url), crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [cleanTitle(p.title), `/parties/${p.slug}`]]), faqLd(faq)]}>
+<Base title={partyTitle(p, v, crowded, kw)} description={partyDescription(p, v)} keyword={kw} jsonld={[partyJsonLd(p, v, url), crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [cleanTitle(p.title), `/parties/${p.slug}`]]), faqLd(faq)]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li>{v && <li><a href={`/parties/venue/${v.id}`}>{v.name}</a></li>}<li aria-current="page">{nightDate(p.night_date, { month: 'short', day: 'numeric' })}</li></ol></nav>
   <div class="cols">
     <div>
@@ -103,8 +116,11 @@ const pregame = v?.lat && v.lng && (doorsMin === null || doorsMin >= 17 * 60)
           <dt>Price</dt><dd>{priceLabel(p)}{p.price_from ? ` (lowest ${p.ticket_vendor} ticket incl. fees, seen ${fmtDate(lastSeen)})` : ''}</dd>
           {p.organizer && <><dt>Presented by</dt><dd>{p.organizer}</dd></>}
         </dl>
-        {p.event_status !== 'sold_out' && <a class="btn" href={ticketHref(p)} rel={TICKET_REL} target="_blank" data-ev="tickets">Tickets on {p.ticket_vendor}</a>}
+        <p class="countdown" data-night={p.night_date} hidden></p>
+        {p.event_status !== 'sold_out' && <a class="btn" href={ticketHref(p)} rel={TICKET_REL} target="_blank" data-ev="tickets">{buyLabel}</a>}
         {p.event_status === 'sold_out' && <a class="btn ghost" href={ticketHref(p)} rel={TICKET_REL} target="_blank" data-ev="tickets">Check for resale or waiting list</a>}
+        {p.event_status !== 'sold_out' && <p class="secure">You buy on {p.ticket_vendor}'s own secure checkout; YaY NYC never sees your payment.</p>}
+        {proofLine && <p class="proof">{proofLine} (as of {fmtDate(proof.updated)}).</p>}
         <p class="cal-links">Add to calendar: <a href={gcal} rel="nofollow noopener" target="_blank" data-ev="calendar">Google</a> · <a href={icsHref} download={`${p.slug}.ics`} data-ev="calendar">Apple / Outlook (.ics)</a></p>
       </section>
 
@@ -134,7 +150,6 @@ const pregame = v?.lat && v.lng && (doorsMin === null || doorsMin >= 17 * 60)
         </section>
       )}
       <section class="section faq"><h2>Questions</h2>{faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}</section>
-      <p class="small">Sources: {(p.sources ?? []).filter((s) => s.name !== 'found via').map((s, i) => <>{i > 0 && ', '}<a href={s.url} rel="nofollow noopener" target="_blank">{host(s.url)}</a> ({fmtDate(s.checked_at)})</>)}. Details change: the ticket page has the final word.</p>
     </div>
     <aside>
       {v && vp && <Photo photo={vp.photo} note={photoNote(vp, v.name)} alt={vp.rel === 'own' ? `${v.name}, ${v.neighborhood ?? v.borough ?? 'New York'}` : vp.rel === 'nearby' ? `The street outside ${v.name}` : `${v.neighborhood ?? 'The neighborhood'} around ${v.name}`} ratio="4 / 3" />}
@@ -149,8 +164,20 @@ const pregame = v?.lat && v.lng && (doorsMin === null || doorsMin >= 17 * 60)
     </nav>
   )}
   {sameNight.length > 0 && <section class="section"><h2>Also on {nightDate(p.night_date, { weekday: 'long' })}</h2><div class="xgrid">{sameNight.map((o) => <PartyCard party={o} venue={venueOf(o, venues)} />)}</div></section>}
+  <footer class="fine-print">
+    <p>Sources: {(p.sources ?? []).filter((s) => s.name !== 'found via').map((s, i) => <>{i > 0 && ', '}<a href={s.url} rel="nofollow noopener" target="_blank">{host(s.url)}</a> ({fmtDate(s.checked_at)})</>)}. Details change: the ticket page has the final word.</p>
+    <p>Prices are the lowest ticket the seller listed when we checked, with fees where the seller shows them; tiers sell out and prices rise. YaY NYC does not sell tickets: the ticket link goes to {p.ticket_vendor} and is tagged so they can see the visit came from us. No one pays to be listed.</p>
+  </footer>
+  <script is:inline>document.querySelectorAll('[data-night]').forEach(function (e) { var t = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date()); var d = Math.round((Date.parse(e.getAttribute('data-night') + 'T12:00:00Z') - Date.parse(t + 'T12:00:00Z')) / 864e5); if (d < 0 || d > 6) return; e.textContent = d === 0 ? 'Tonight' : d === 1 ? 'Tomorrow' : 'In ' + d + ' days'; e.hidden = false; });</script>
 </Base>
 <style>
+  .countdown { display: inline-block; margin: 14px 0 0; padding: 3px 10px; border-radius: 999px; background: #fff; color: var(--coral-ink); font-weight: 800; font-size: 14px; }
+  .countdown[hidden] { display: none; }
+  .secure { font-size: 13px; opacity: .9; margin: 8px 0 0; }
+  .proof { font-size: 14px; font-weight: 700; margin: 8px 0 0; }
+  .fine-print { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; line-height: 1.5; }
+  .fine-print p { margin: 0 0 6px; max-width: 760px; }
+  .fine-print a { color: inherit; }
   .cal-links { font-size: 14px; color: var(--ink-2); margin: 10px 0 0; }
   .when-big { display: block; font-size: 20px; font-weight: 800; color: var(--coral-ink); margin: 0 0 6px; letter-spacing: 0; }
   .tagrow { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }

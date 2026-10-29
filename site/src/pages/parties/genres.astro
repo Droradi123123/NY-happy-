@@ -1,0 +1,34 @@
+---
+/** /parties/genres: every music page, with how many nights each has right now. */
+import Base from '../../layouts/Base.astro';
+import Fresh from '../../components/Fresh.astro';
+import { partyData } from '../../lib/data';
+import { partyLists } from '../../lib/partyLists';
+import { crumbs, collectionLd, freshDescription } from '../../lib/seo';
+import { plural } from '../../lib/stats';
+
+const { parties } = await partyData();
+const genres = (await partyLists()).filter((l) => l.kind === 'genre').sort((a, b) => b.parties.length - a.parties.length || a.short.localeCompare(b.short));
+const on = genres.filter((g) => g.parties.length > 0);
+const tagged = parties.filter((p) => p.genres.length > 0).length;
+const top = on.slice(0, 3).map((g) => `${g.short} (${g.parties.length})`).join(', ');
+const inShort = `${plural(tagged, 'upcoming party', 'upcoming parties')} have a music style listed; the most common right now: ${top}.`;
+---
+<Base title={`NYC Parties by Music: ${on.length} Genres (${new Date().toLocaleString('en-US', { month: 'short', year: 'numeric', timeZone: 'America/New_York' })})`} keyword="nyc parties by music genre"
+  description={freshDescription('NYC parties by music genre', [`${plural(on.length, 'genre')} with nights coming up: ${top}.`, 'Doors, age, price and tickets for each.'])}
+  jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties'], ['Music', '/parties/genres']]), collectionLd('NYC parties by music genre', '/parties/genres', genres.map((g) => `/parties/${g.slug}`))]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li><li aria-current="page">Music</li></ol></nav>
+  <h1>NYC Parties by Music Genre</h1>
+  <Fresh inShort={inShort} />
+  <p class="lede">Every music page we keep, with the number of nights listed on it now. A genre with nothing coming up shows the closest nights in sound.</p>
+  <ul class="genre-list">
+    {genres.map((g) => (
+      <li><a href={`/parties/${g.slug}`}><strong>{g.short}</strong><span>{g.parties.length ? plural(g.parties.length, 'night') : 'nothing listed right now'}</span></a></li>
+    ))}
+  </ul>
+</Base>
+<style>
+  .genre-list { list-style: none; padding: 0; margin: 16px 0 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 10px; }
+  .genre-list a { display: grid; gap: 2px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--card); text-decoration: none; min-width: 0; }
+  .genre-list span { color: var(--muted); font-size: 14px; }
+</style>

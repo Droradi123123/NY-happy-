@@ -1,6 +1,7 @@
 # Live check of yaynyc.com (approved Oct 29, 2026): after every push that changes the site (waits until
 # Cloudflare has deployed that commit, then checks it), and every 6 hours. Every sitemap URL must answer
 # 200 without noindex, and the main flows must open on a 390px phone without overflow or JS errors.
+# A push that passes then tells IndexNow which pages changed.
 # A failure fails the run (GitHub emails the owner). The scheduled run writes reports/live-check.json
 # when the result changes.
 name: Live check
@@ -36,6 +37,9 @@ jobs:
           npm install --no-save --no-audit --no-fund --no-package-lock playwright-core@1.56.1
       - name: Check
         run: node site/scripts/live-check.mjs ${{ github.event_name == 'push' && format('--wait-for {0}', github.sha) || '' }}
+      - name: IndexNow (a push that is live and checked)
+        if: success() && github.event_name == 'push'
+        run: node site/scripts/indexnow.mjs --live
       - name: Summary
         if: always()
         run: cat live-check.md >> "$GITHUB_STEP_SUMMARY" || true

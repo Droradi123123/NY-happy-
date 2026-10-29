@@ -104,7 +104,7 @@ for (const f of pages) {
     if (miss.length) fail.push(`${rel}: keyword "${kw}" not in ${where} (missing: ${miss.join(', ')})`);
   }
   if (desc.length < 70 || desc.length > 160) fail.push(`${rel}: description is ${desc.length} characters (70-160)`);
-  if (title.length > 70) warn.push(`${rel}: title ${title.length} characters`);
+  if (title.length > 60) warn.push(`${rel}: title ${title.length} characters`);
   for (const [k, v] of [['kw', kw.toLowerCase()], ['title', title], ['desc', desc]]) {
     if (seen[k].has(v)) fail.push(`${rel}: same ${k === 'kw' ? 'keyword' : k === 'desc' ? 'description' : 'title'} as ${seen[k].get(v)}: "${v.slice(0, 70)}"`);
     else seen[k].set(v, rel);
@@ -152,7 +152,7 @@ for (const line of rd.split('\n')) {
 }
 for (const w of warn.filter((w) => w.startsWith('_redirects'))) console.warn(`! ${w}`);
 const longTitles = warn.filter((w) => !w.startsWith('_redirects'));
-if (longTitles.length) console.warn(`! ${longTitles.length} title(s) over 70 characters (Google cuts them; allowed for long names), e.g. ${longTitles[0]}`);
+if (longTitles.length) console.warn(`! ${longTitles.length} title(s) over 60 characters (names too long to cut without losing the keyword), e.g. ${longTitles[0]}`);
 
 const uniq = [...new Set(fail)];
 if (uniq.length) {

@@ -1,77 +1,190 @@
 ---
-/** Music, day, season and kind-of-party pages (lib/partyLists.ts decides which exist). */
+/**
+ * Music, night, holiday, season, kind-of-party, age and neighborhood pages (lib/partyLists.ts decides
+ * which exist; every one is always built). Every number is computed from the listed nights; the written
+ * guide (page_copy kind 'parties') is prose only. A page with few nights shows the closest ones and
+ * asks not to be indexed until it has INDEX_MIN.
+ */
 import Base from '../../layouts/Base.astro';
 import PartyCard from '../../components/PartyCard.astro';
-import { partyData, venueOf, nightDate, nyTime, priceLabel, cleanTitle, copyOf, paragraphs, fmtDate } from '../../lib/data';
-import { partyLists, dateRange, type PartyList } from '../../lib/partyLists';
-import { crumbs, faqLd, itemList } from '../../lib/seo';
+import Fresh from '../../components/Fresh.astro';
+import HappyHourBefore from '../../components/HappyHourBefore.astro';
+import { partyData, venueOf, nightDate, nyTime, cleanTitle, copyOf, paragraphs, fmtDate, type Party, type Venue } from '../../lib/data';
+import { partyLists, datePages, dateRange, INDEX_MIN, type PartyList } from '../../lib/partyLists';
+import { allGuides } from '../../lib/guides';
+import { crumbs, faqLd, collectionLd, freshDescription } from '../../lib/seo';
 import { plural } from '../../lib/stats';
+import proof from '../../data/proof.json';
 
 export async function getStaticPaths() {
   const lists = await partyLists();
   return lists.map((list) => ({ params: { group: list.slug }, props: { list, lists } }));
 }
 const { list: L, lists } = Astro.props as { list: PartyList; lists: PartyList[] };
-const { venues, parties: all } = await partyData();
+const { venues, venuePages, parties: all } = await partyData();
 // editorial copy for the hub when written (page_copy kind 'parties', key = the list slug): prose only,
 // the dates, prices and counts next to it come from the live data
 const copy = await copyOf('parties', L.slug);
 const halloween = all.filter((p) => p.themes.includes('halloween')).length;
 const ps = L.parties;
+const n = ps.length;
 const venueNames = [...new Set(ps.map((p) => venueOf(p, venues)?.name).filter(Boolean))] as string[];
-const priced = ps.filter((p) => p.price_from !== null && p.price_status !== 'free').map((p) => p.price_from!) ;
+const priced = ps.filter((p) => p.price_from !== null && p.price_status !== 'free').map((p) => p.price_from!);
 const free = ps.filter((p) => p.price_status === 'free').length;
 const soldOut = ps.filter((p) => p.event_status === 'sold_out').length;
 const allAges = ps.filter((p) => p.age_min !== null && p.age_min < 21).length;
 const lower = L.label.replace(/ in NYC$/, '');
-const subject = L.kind === 'day' || L.kind === 'season' || L.kind === 'when' ? lower : lower[0].toLowerCase() + lower.slice(1);
+const subject = L.kind === 'where' ? `parties in ${L.short}` : ['day', 'season', 'holiday', 'when'].includes(L.kind) ? lower : lower[0].toLowerCase() + lower.slice(1);
+const where = L.kind === 'where' ? L.short : 'NYC';
 
-const lede = [
-  `${L.kind === 'when' ? plural(ps.length, 'party', 'parties') : plural(ps.length, 'upcoming night')} ${L.kind === 'when' ? 'on' : 'from'} ${dateRange(ps)}, at ${plural(venueNames.length, 'venue')}${venueNames.length ? ` including ${venueNames.slice(0, 3).join(', ')}` : ''}.`,
-  priced.length ? `Tickets from $${Math.round(Math.min(...priced))}${free ? `; ${free} free` : ''}.` : free ? `${free} free.` : '',
-  soldOut ? `${soldOut} already sold out.` : '',
-].filter(Boolean).join(' ');
-const description = (() => {
-  let d = `${L.label}: ${plural(ps.length, 'party', 'parties')} from ${dateRange(ps)} with doors time, age, price and tickets.`;
-  if (venueNames.length && d.length + venueNames[0].length + 20 < 158) d += ` At ${venueNames.slice(0, 2).join(', ')} and more.`;
-  return d.length > 160 ? d.slice(0, 157).replace(/\s\S*$/, '') + '…' : d;
-})();
+// the nights of the week they fall on (Monday first), for "In numbers"
+const DOW = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const byDow = [1, 2, 3, 4, 5, 6, 0].map((d) => ({ d, n: ps.filter((p) => new Date(`${p.night_date}T12:00:00Z`).getUTCDay() === d).length }));
+const topDow = [...byDow].sort((a, b) => b.n - a.n)[0];
+const maxDow = Math.max(1, ...byDow.map((x) => x.n));
+// where it plays: venues by number of nights here
+const venueCount = [...ps.reduce((m, p) => m.set(p.venue_id, (m.get(p.venue_id) ?? 0) + 1), new Map<string, number>())]
+  .map(([id, c]) => ({ v: venues.find((v) => v.id === id) ?? null, c })).filter((x): x is { v: Venue; c: number } => !!x.v).sort((a, b) => b.c - a.c);
+const hasVenuePage = new Set(venuePages.map((v) => v.id));
+// our picks: the nights people opened and clicked through most this month (proof.json), then the soonest
+const pr = (proof.pages ?? {}) as Record<string, { views28?: number; tickets28?: number }>;
+const score = (p: Party) => { const x = pr[`/parties/${p.slug}`] ?? {}; return (x.tickets28 ?? 0) * 10 + (x.views28 ?? 0); };
+const picks = n >= 6 ? [...ps].filter((p) => p.event_status !== 'sold_out').sort((a, b) => score(b) - score(a) || a.starts_at.localeCompare(b.starts_at)).slice(0, 3) : [];
+
+const range = dateRange(ps);
+const description = freshDescription(L.label, n ? [
+  `${plural(n, 'party', 'parties')} from ${range} with doors, age, price and tickets.`,
+  priced.length ? `Tickets from $${Math.round(Math.min(...priced))}.` : free ? `${free} free.` : '',
+  venueNames.length ? `At ${venueNames.slice(0, 2).join(', ')} and more.` : '',
+] : [L.holiday ? `${L.holiday.name}: ${nightDate(L.holiday.date, { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' })}.` : '', 'No nights listed yet; the closest parties, doors, age and tickets.']);
+const inShort = n
+  ? `${plural(n, L.kind === 'when' ? 'party' : 'upcoming night', L.kind === 'when' ? 'parties' : 'upcoming nights')} ${L.kind === 'when' ? 'on' : 'from'} ${range} at ${plural(venueNames.length, 'venue')}${venueNames.length > 1 ? ` including ${venueNames.slice(0, 2).join(' and ')}` : venueNames.length ? ` (${venueNames[0]})` : ''}${!['day', 'when'].includes(L.kind) && topDow.n > 1 && n >= 4 ? `, most on ${DOW[topDow.d]}s` : ''}${priced.length ? `, tickets from $${Math.round(Math.min(...priced))}` : ''}${free ? ` (${free} free)` : ''}.`
+  : `No ${subject} are listed right now${L.holiday ? `; ${L.holiday.name} is ${nightDate(L.holiday.date, { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' })}` : ''}.`;
+const lastRead = ps.map((p) => p.last_checked).filter(Boolean).sort().pop() ?? null;
+const stamp = new Date().toLocaleString('en-US', { month: 'short', year: 'numeric', timeZone: 'America/New_York' });
+const days = L.holiday ? Math.round((Date.parse(`${L.holiday.date}T12:00:00Z`) - Date.parse(`${new Date().toISOString().slice(0, 10)}T12:00:00Z`)) / 864e5) : 0;
+const year = L.holiday?.date.slice(0, 4);
+
 const faq = [
   ...(copy?.faq ?? []),
-  { q: `What are the next ${subject} in NYC?`, a: ps.slice(0, 3).map((p) => `${cleanTitle(p.title)} at ${venueOf(p, venues)?.name ?? 'a NYC venue'}, ${nightDate(p.night_date, { weekday: 'short', month: 'short', day: 'numeric' })}${nyTime(p.doors_at ?? p.starts_at) ? `, doors ${nyTime(p.doors_at ?? p.starts_at)}` : ''}`).join('; ') + '.' },
-  ...(priced.length ? [{ q: `How much are tickets for ${subject} in NYC?`, a: `From $${Math.round(Math.min(...priced))} to $${Math.round(Math.max(...priced))} for the cheapest ticket on each night${free ? `, and ${free} are free` : ''}. Prices are the lowest listed on the ticket site when we checked, with fees.` }] : []),
-  { q: `Are ${subject} in NYC 21+?`, a: allAges ? `Most are 21+, but ${plural(allAges, 'night')} let in younger guests; the age is on each party's page.` : 'Every night we list here is 21+, unless its page says otherwise. Bring a government photo ID; tourists should bring a passport.' },
+  ...(L.holiday ? [{ q: `When is ${L.holiday.name} ${year}?`, a: `${L.holiday.note}${n ? ` We list ${plural(n, 'night')} on sale for it so far.` : ''}` }] : []),
+  ...(n ? [{ q: `What are the next ${subject}${where === 'NYC' ? ' in NYC' : ''}?`, a: ps.slice(0, 3).map((p) => `${cleanTitle(p.title)} at ${venueOf(p, venues)?.name ?? 'a NYC venue'}, ${nightDate(p.night_date, { weekday: 'short', month: 'short', day: 'numeric' })}${nyTime(p.doors_at ?? p.starts_at) ? `, doors ${nyTime(p.doors_at ?? p.starts_at)}` : ''}`).join('; ') + '.' }] : []),
+  ...(priced.length ? [{ q: `How much are tickets for ${subject}${where === 'NYC' ? ' in NYC' : ''}?`, a: `From $${Math.round(Math.min(...priced))} to $${Math.round(Math.max(...priced))} for the cheapest ticket on each night${free ? `, and ${free} are free` : ''}. Prices are the lowest listed on the ticket site when we checked, with fees.` }] : []),
+  ...(n >= 4 && L.kind !== 'day' && L.kind !== 'when' ? [{ q: `What night are most ${subject}${where === 'NYC' ? ' in NYC' : ''}?`, a: `${DOW[topDow.d]}: ${topDow.n} of the ${n} listed. ${byDow.filter((x) => x.n && x.d !== topDow.d).map((x) => `${DOW[x.d]} ${x.n}`).join(', ')}.` }] : []),
+  ...(venueCount.length >= 2 ? [{ q: `Where do ${subject} happen${where === 'NYC' ? ' in NYC' : ''}?`, a: `Most at ${venueCount.slice(0, 3).map((x) => `${x.v.name}${x.v.neighborhood ? ` (${x.v.neighborhood})` : ''}, ${plural(x.c, 'night')}`).join('; ')}.` }] : []),
+  ...(n ? [{ q: `Are ${subject}${where === 'NYC' ? ' in NYC' : ''} 21+?`, a: allAges ? `Most are 21+, but ${plural(allAges, 'night')} let in younger guests; the age is on each party's page.` : 'Every night we list here is 21+, unless its page says otherwise. Bring a government photo ID; tourists should bring a passport.' }] : []),
 ];
-const title = L.title ?? `${L.h1} ${new Date(ps[0].night_date).getFullYear()}: ${ps.length} Upcoming Nights`;
-const groups: [string, PartyList[]][] = [['When', lists.filter((l) => l.kind === 'when')], ['Music', lists.filter((l) => l.kind === 'genre')], ['Nights', lists.filter((l) => l.kind === 'day')], ['Seasons', lists.filter((l) => l.kind === 'season')], ['Kind of party', lists.filter((l) => l.kind === 'tag')]];
+// freshness in the title: the count and the month it was built (rebuilt every few hours)
+const title = L.title ?? (n ? `${L.h1}: ${n} Upcoming Nights (${stamp})` : `${L.h1} (${stamp})`);
+const titles = L.title ? [] : n ? [`${L.h1}: ${n} Nights (${stamp})`, `${L.h1} (${stamp})`] : [L.h1];
+const live = (k: string) => lists.filter((l) => l.kind === k && l.slug !== L.slug && l.parties.length > 0);
+const groups: [string, PartyList[]][] = [['When', live('when')], ['Music', live('genre')], ['Nights', live('day')], ['Holidays and seasons', [...live('holiday'), ...live('season')]], ['Kind of party', [...live('tag'), ...live('age')]], ['Where', live('where')]];
+// related guides: a published guide that names this list in its title
+const words = L.short.toLowerCase().replace(/[^a-z0-9+ ]/g, ' ').split(/\s+/).filter((w) => w.length > 2);
+const related = (await allGuides()).filter((g) => g.status === 'published' && words.length && words.every((w) => g.title.toLowerCase().includes(w))).slice(0, 3);
+const playVenues = venueCount.slice(0, 5).map((x) => x.v);
+// night by night: the date pages for the next two weeks (a night of the week: only that night)
+const nights = ['day', 'when', 'holiday'].includes(L.kind) ? (await datePages()).filter((d) => !d.past && d.parties.length > 0 && (L.kind !== 'day' || d.weekday === L.slug) && (L.kind !== 'holiday' || d.parties.some((p) => ps.includes(p)))) : [];
 ---
-<Base title={title} description={description} keyword={L.keyword}
-  jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [L.short, `/parties/${L.slug}`]]), itemList(L.label, ps.map((p) => `/parties/${p.slug}`)), faqLd(faq)]}>
-  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li><li aria-current="page">{L.short}</li></ol></nav>
+<Base title={title} titles={titles} description={description} keyword={L.keyword} noindex={!L.indexable}
+  jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [L.short, `/parties/${L.slug}`]]), collectionLd(L.label, `/parties/${L.slug}`, ps.map((p) => `/parties/${p.slug}`), lastRead), ...(faq.length ? [faqLd(faq)] : [])]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li>{L.kind === 'genre' && <li><a href="/parties/genres">Music</a></li>}<li aria-current="page">{L.short}</li></ol></nav>
   <h1>{L.h1}</h1>
+  <Fresh inShort={inShort} />
   {L.note && <p class="lede"><strong>{L.note}</strong></p>}
-  <p class="lede">{lede}</p>
+  {soldOut > 0 && <p class="lede">{soldOut} already sold out.</p>}
+  {n >= 3 && (
+    <ul class="stat-strip" aria-label="In numbers">
+      <li><strong>{n}</strong> {n === 1 ? 'night' : 'nights'}</li>
+      <li><strong>{venueNames.length}</strong> {venueNames.length === 1 ? 'venue' : 'venues'}</li>
+      {priced.length > 0 && <li>from <strong>${Math.round(Math.min(...priced))}</strong></li>}
+      {L.kind !== 'day' && L.kind !== 'when' && topDow.n > 0 && <li>busiest: <strong>{DOW[topDow.d]}</strong></li>}
+    </ul>
+  )}
+  {L.holiday && (
+    <section class="section holiday card">
+      <h2>When is {L.holiday.name} {year}?</h2>
+      <p class="big-date">{nightDate(L.holiday.date, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })} · <span data-countdown={L.holiday.date}>{days === 0 ? 'today' : days === 1 ? 'tomorrow' : `in ${days} days`}</span></p>
+      <p>{L.holiday.note}</p>
+      <p><strong>{plural(n, 'night')} on sale</strong>{n ? ` so far, from ${range}.` : ' so far: this page fills in as tickets are released.'}</p>
+    </section>
+  )}
   {copy && (
     <section class="section prose">
       <p class="byline">By the YaY NYC team · Updated {fmtDate(copy.written)}</p>
       {paragraphs(copy.intro).map((p) => <p>{p}</p>)}
     </section>
   )}
-  <div class="xgrid">{ps.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>
+  {picks.length > 0 && (
+    <section class="section">
+      <h2>Our picks</h2>
+      <div class="xgrid">{picks.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>
+    </section>
+  )}
+  {n > 0 && <h2 class="section">{picks.length ? 'Every night' : `${L.short} nights`}</h2>}
+  {n > 0 && <div class="xgrid">{ps.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>}
+  {L.standIns.length > 0 && (
+    <section class="section">
+      <h2>{L.standInLabel ?? 'Coming up in NYC'}</h2>
+      <div class="xgrid">{L.standIns.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>
+    </section>
+  )}
+  {n >= 4 && L.kind !== 'day' && L.kind !== 'when' && (
+    <section class="section">
+      <h2>In numbers</h2>
+      <p class="muted">Nights listed for each day of the week, from {range}.</p>
+      <ul class="dow-chart">
+        {byDow.map((x) => <li><span class="dow-name">{DOW[x.d].slice(0, 3)}</span><span class="dow-bar" style={`--w:${Math.round((x.n / maxDow) * 100)}%`}></span><span class="dow-n">{x.n}</span></li>)}
+      </ul>
+    </section>
+  )}
+  {nights.length > 0 && (
+    <section class="section">
+      <h2>Night by night</h2>
+      <ul class="link-cloud">{nights.map((d) => <li><a href={`/parties/date/${d.date}`}>{nightDate(d.date, { weekday: 'short', month: 'short', day: 'numeric' })}<span class="count">{d.parties.length}</span></a></li>)}</ul>
+    </section>
+  )}
+  {venueCount.length >= 2 && L.kind !== 'where' && (
+    <section class="section">
+      <h2>Where it plays</h2>
+      <ul class="link-cloud">{venueCount.slice(0, 8).map((x) => <li>{hasVenuePage.has(x.v.id) ? <a href={`/parties/venue/${x.v.id}`}>{x.v.name}<span class="count">{x.c}</span></a> : <span>{x.v.name}<span class="count">{x.c}</span></span>}</li>)}</ul>
+    </section>
+  )}
   {copy?.sections.map((s) => <section class="section prose"><h2>{s.h}</h2>{paragraphs(s.body).map((p) => <p>{p}</p>)}</section>)}
-  <section class="section faq">
-    <h2>Questions</h2>
-    {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
-  </section>
+  <HappyHourBefore venues={playVenues} heading="Happy hour before" />
+  {faq.length > 0 && (
+    <section class="section faq">
+      <h2>Questions</h2>
+      {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+    </section>
+  )}
+  {related.length > 0 && (
+    <section class="section">
+      <h2>Related guides</h2>
+      <ul>{related.map((g) => <li><a href={`/blog/${g.slug}`}>{g.title}</a></li>)}</ul>
+    </section>
+  )}
   <section class="section">
     <h2>More NYC parties</h2>
     {groups.filter(([, g]) => g.length).map(([name, g]) => (
       <>
         <h3 class="h3">{name}</h3>
-        <ul class="link-cloud">{g.filter((l) => l.slug !== L.slug).map((l) => <li><a href={`/parties/${l.slug}`}>{l.short}<span class="count">{l.parties.length}</span></a></li>)}</ul>
+        <ul class="link-cloud">{g.map((l) => <li><a href={`/parties/${l.slug}`}>{l.short}<span class="count">{l.parties.length}</span></a></li>)}</ul>
       </>
     ))}
-    <p><a href="/parties">All parties</a>{halloween >= 2 && <> · <a href="/parties/halloween">Halloween parties</a></>}</p>
+    <p><a href="/parties">All parties</a> · <a href="/parties/genres">All music</a>{halloween >= 2 && <> · <a href="/parties/halloween">Halloween parties</a></>}</p>
   </section>
+  {L.holiday && <script is:inline>document.querySelectorAll('[data-countdown]').forEach(function (e) { var d = Math.round((Date.parse(e.getAttribute('data-countdown') + 'T12:00:00Z') - Date.parse(new Date().toISOString().slice(0, 10) + 'T12:00:00Z')) / 864e5); if (d >= 0) e.textContent = d === 0 ? 'today' : d === 1 ? 'tomorrow' : 'in ' + d + ' days'; });</script>}
 </Base>
-<style>.h3 { margin-top: 18px; }</style>
+<style>
+  .h3 { margin-top: 18px; }
+  .stat-strip { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 8px 0 4px; }
+  .stat-strip li { padding: 6px 12px; border-radius: 999px; background: var(--brand-soft); color: var(--brand-dark); font-size: 14px; }
+  .holiday { padding: 18px; }
+  .big-date { font-size: 20px; font-weight: 700; }
+  .dow-chart { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 6px; max-width: 520px; }
+  .dow-chart li { display: grid; grid-template-columns: 40px 1fr 32px; align-items: center; gap: 8px; }
+  .dow-bar { display: block; height: 12px; border-radius: 6px; background: linear-gradient(90deg, var(--brand) var(--w), var(--brand-soft) var(--w)); }
+  .dow-n { text-align: right; font-weight: 700; }
+  .muted { color: var(--muted); }
+</style>

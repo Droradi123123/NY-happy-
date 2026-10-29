@@ -7,44 +7,62 @@
 import { DAYS, DAY_NAME, ampm, daysLabel, dealLabel, windowLabel, type Bar, type Party, type Venue, cleanTitle, nightDate, nyTime, priceLabel } from './data';
 
 export const SITE = 'https://yaynyc.com';
-const fit = (parts: string[], max = 60) => { for (const p of parts) if (p.length <= max) return p; return parts[parts.length - 1]; };
+const BRAND = ' | YaY NYC';
+const kwWords = (kw: string) => kw.toLowerCase().replace(/&/g, ' and ').replace(/['’]/g, '').split(/[^a-z0-9$+]+/).filter((w) => w && !['in', 'at', 'the', 'a', 'an', 'of', 'and', 'for', 'on', 'to', 'by', 'with'].includes(w));
+const hasAll = (t: string, kw: string) => { const got = t.toLowerCase().replace(/['’]/g, ''); return kwWords(kw).every((w) => got.includes(w.replace(/s$/, ''))); };
+/** a phrase cut at a word: no trailing punctuation or dangling little word ("... in NYC Every") */
+const WEAK = /\s+(at|in|on|for|and|with|the|of|&|every|from|to|by|a|an|ft\.?|feat\.?|x|w\/|\+)$/i;
+export const cutWords = (t: string) => { let x = t.replace(/[\s,:;·|–(-]+$/, ''); while (WEAK.test(x)) x = x.replace(WEAK, '').replace(/[\s,:;·|–(-]+$/, ''); return x; };
+const cutTo = (t: string, n: number) => { if (t.length <= n) return t; const ws = t.split(' '); let out = ''; for (const w of ws) { if ((out ? `${out} ${w}` : w).length > n) break; out = out ? `${out} ${w}` : w; } return cutWords(out); };
+/**
+ * The page title, at most 60 characters (what Google shows), never cut in the middle of a word:
+ * the candidates come longest first; " | YaY NYC" goes first, then the next shorter candidate; when none
+ * fits, the first is cut at a word boundary that keeps the target keyword; a name longer than that stays
+ * whole (the build warns about it).
+ */
+export function fitTitle(candidates: string[], keyword?: string, max = 60): string {
+  const cs = candidates.map((c) => c.replace(/\s+/g, ' ').trim()).filter(Boolean);
+  if (cs[0] && (cs[0] + BRAND).length <= max) return cs[0] + BRAND;
+  for (const c of cs) if (c.length <= max && (!keyword || hasAll(c, keyword))) return c;
+  const first = cs[0] ?? '';
+  const ws = first.split(' ');
+  for (let n = ws.length - 1; n > 0; n--) {
+    const t = cutWords(ws.slice(0, n).join(' '));
+    // never leave a lone word after a colon ("Halloween Parties NYC: 28")
+    if (/:\s*\S+$/.test(t)) continue;
+    if (t.length <= max && (!keyword || hasAll(t, keyword))) return t;
+  }
+  return first;
+}
 const cut = (s: string, n = 155) => { if (s.length <= n) return s; const c = s.slice(0, n - 1); return c.slice(0, c.lastIndexOf(' ')).replace(/[\s,.;:·-]+$/, '') + '…'; };
 
 /** the search phrase a bar page targets; a chain's branches add their neighborhood */
 export const barKeyword = (b: Bar, branch = false) => `${b.name}${branch ? ` ${b.hood}` : ''} happy hour`;
 /** "4pm–7pm" -> "4–7pm" when both ends share am/pm (titles have about 60 characters) */
 const compactWindow = (w: Bar['windows'][number]) => windowLabel(w).replace(/^(\d{1,2}(?::\d{2})?)(am|pm)–(\d{1,2}(?::\d{2})?)\2$/, '$1–$3$2');
-const whenLabel = (b: Bar) => (b.windows[0] ? `${daysLabel(b.windows[0].days)} ${compactWindow(b.windows[0])}` : '');
-/** the deal in a few words for a title: the bar's own short deal, else its cheapest drink */
-const shortDeal = (b: Bar) => {
-  const deal = dealLabel(b);
-  if (deal && deal.length <= 22) return deal;
-  return b.cheapestDrink !== null ? `drinks from $${b.cheapestDrink % 1 ? b.cheapestDrink.toFixed(2) : b.cheapestDrink}` : null;
-};
 // people search "<bar> menu" as often as "<bar> happy hour": "Happy Hour Menu" only when the page lists the items
 const hasMenu = (b: Bar) => b.offers.length >= 2;
+// the title format people search for a bar: "[Name] [Neighborhood]: Happy Hour, Hours & Menu"; "Hours"
+// only when we have its opening hours, "Menu" only when the page lists the items; the deal leads the description
 export function barTitle(b: Bar, branch = false): string {
-  const short = shortDeal(b);
-  const when = whenLabel(b);
+  const parts = ['Happy Hour', b.hours ? 'Hours' : null, hasMenu(b) ? 'Menu' : null].filter(Boolean) as string[];
+  const what = parts.length === 1 ? 'Happy Hour Times' : `${parts.slice(0, -1).join(', ')} & ${parts[parts.length - 1]}`;
   const name = branch ? `${b.name} ${b.hood}` : b.name;
-  const hh = hasMenu(b) ? 'Happy Hour Menu' : 'Happy Hour';
-  return fit([
-    short ? `${name} ${hh}: ${short}, ${when}` : '',
-    short ? `${name} Happy Hour: ${short}, ${when}` : '',
-    short ? `${name} ${hh}: ${short}` : '',
-    branch ? '' : `${name} Happy Hour, ${b.hood}: ${when}`,
-    `${name} Happy Hour: ${when}`,
-    `${name} Happy Hour: Times and Deals`,
+  return fitTitle([
+    branch ? '' : `${name} ${b.hood}: ${what}`,
+    `${name}: ${what}`,
+    branch ? '' : `${name} ${b.hood} Happy Hour`,
     `${name} Happy Hour`,
-  ].filter(Boolean));
+  ].filter(Boolean), barKeyword(b, branch)).replace(/ \| YaY NYC$/, '');
 }
 export function barDescription(b: Bar): string {
   const deal = dealLabel(b);
   const sched = b.windows.map((w) => `${daysLabel(w.days)} ${compactWindow(w)}`).join(', ');
   const menu = b.offers.slice(0, 3).map((o) => `${o.item} ${o.price}`).join(', ');
+  // opens with the focus phrase ("<name> happy hour"), then the deal and the times
   const bits = hasMenu(b)
-    ? [`Happy hour menu at ${b.name}, ${b.hood}: ${menu}${b.offers.length > 3 ? ' and more' : ''}.`, `${sched}.`]
-    : [`${b.name} in ${b.hood} has happy hour ${sched}.`, deal ? `The deal: ${deal}.` : b.source || b.website ? 'Times, a link to the bar\'s own menu and nearby deals.' : 'Times and nearby bars with listed deals.'];
+    ? [`${b.name} happy hour, ${b.hood}: ${menu}${b.offers.length > 3 ? ' and more' : ''}.`, `${sched}.`]
+    : [`${b.name} happy hour, ${b.hood}: ${sched}.`, deal ? `The deal: ${deal}.` : b.source || b.website ? 'Times, a link to the bar\'s own menu and nearby deals.' : 'Times and nearby bars with listed deals.'];
   bits.push(
     b.subway ? `${b.subway.walk_min} min from ${b.subway.station} (${b.subway.lines.join(', ')}).` : '',
     b.checked ? `Checked ${new Date(b.checked).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}.` : '',
@@ -85,6 +103,24 @@ export function barJsonLd(b: Bar, url: string) {
   return biz;
 }
 
+/** "Updated Oct 29" for descriptions (the page is rebuilt from the data every few hours) */
+export const updatedLabel = (d = new Date()) => `Updated ${d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'America/New_York' })}`;
+/** a list page's description: the focus phrase first, then "Updated Oct 29", then as many of the facts
+ *  as fit in 160 characters (whole sentences, in order) */
+export function freshDescription(focus: string, facts: string[], min = 70): string {
+  let d = `${focus[0].toUpperCase()}${focus.slice(1)}. ${updatedLabel()}.`;
+  for (const f of facts.filter(Boolean)) if (`${d} ${f}`.length <= 160) d = `${d} ${f}`;
+  if (d.length < min) d = `${d} Times, prices and links, checked daily.`;
+  return d.length > 160 ? cut(d, 160) : d;
+}
+/** a list page as schema.org CollectionPage: when its data last changed, and what is on it */
+export function collectionLd(name: string, path: string, urls: string[], dateModified?: string | null) {
+  return {
+    '@context': 'https://schema.org', '@type': 'CollectionPage', name, url: `${SITE}${path}`,
+    ...(dateModified ? { dateModified } : {}), isPartOf: { '@type': 'WebSite', name: 'YaY NYC', url: SITE },
+    mainEntity: { '@type': 'ItemList', numberOfItems: urls.length, itemListElement: urls.slice(0, 100).map((u, i) => ({ '@type': 'ListItem', position: i + 1, url: `${SITE}${u}` })) },
+  };
+}
 export function crumbs(items: [string, string][]) {
   return {
     '@context': 'https://schema.org', '@type': 'BreadcrumbList',
@@ -103,11 +139,14 @@ export function itemList(name: string, urls: string[]) {
 /** the party's name as people search it: the title up to a colon or bar ("Boo Yourself") */
 export const partyName = (p: Party) => cleanTitle(p.title).replace(/\s*[|·]\s*.*$/, '').replace(/:\s.*$/, '').trim();
 /** crowded: another party has the same name that night, so the venue is what tells them apart and stays in */
-export function partyTitle(p: Party, v: Venue | null, crowded = false): string {
+export function partyTitle(p: Party, v: Venue | null, crowded = false, keyword?: string): string {
   const t = cleanTitle(p.title).replace(/\s*[|·]\s*.*$/, '');
   const d = nightDate(p.night_date, { month: 'short', day: 'numeric' });
   const at = `at ${v?.name ?? 'NYC'}, ${d}`;
-  return fit([`${t} ${at}: Tickets, Time, Lineup`, `${t} ${at}`, crowded && v ? `${partyName(p)} ${at}` : `${t}, ${d}`]);
+  const name = partyName(p);
+  return fitTitle([`${t} ${at}: Tickets, Time, Lineup`, `${t} ${at}`, crowded && v ? `${name} ${at}` : `${t}, ${d}`,
+    // a long name: cut at a word, the date stays (two nights of one party never share a title)
+    crowded && v ? `${cutTo(name, 60 - at.length - 1)} ${at}` : `${cutTo(t, 60 - d.length - 2)}, ${d}`, `${cutTo(name, 60 - d.length - 2)}, ${d}`], keyword).replace(/ \| YaY NYC$/, '');
 }
 export function partyDescription(p: Party, v: Venue | null): string {
   const lead = p.copy?.about?.split(/(?<=\.)\s/)[0];

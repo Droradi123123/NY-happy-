@@ -11,7 +11,8 @@ import Photo from '../../components/Photo.astro';
 import { checkedRange, allBars, allHoods, ampm, dealLabel, scheduleLabel, fmtDate, photoOf, placePhoto, photoNote, boroughSlug, copyOf, paragraphs, readMinutes, DAY_NAME, windowLabel, type Bar, type Day, type PageCopy } from '../../lib/data';
 import { listPages, type ListPage } from '../../lib/lists';
 import { stats, plural } from '../../lib/stats';
-import { crumbs, faqLd, itemList } from '../../lib/seo';
+import { crumbs, faqLd, collectionLd, freshDescription } from '../../lib/seo';
+import Fresh from '../../components/Fresh.astro';
 
 export async function getStaticPaths() {
   const pages = await listPages();
@@ -72,13 +73,15 @@ const faq = [
 const picks = (copy?.picks ?? []).map((p) => ({ b: list.find((x) => x.slug === p.slug), why: p.why })).filter((p): p is { b: Bar; why: string } => !!p.b);
 const allFaq = [...(copy?.faq ?? []), ...faq.filter((f) => !(copy?.faq ?? []).some((c) => c.q.toLowerCase() === f.q.toLowerCase()))];
 
-const description = (() => {
-  const base = `${page.label}: ${plural(s.n, 'bar')} with the deal, times and date checked.`;
-  const more = [s.cheapestLabel ? `Cheapest drink: ${s.cheapestLabel}.` : '', 'Filter by day and subway line.'];
-  let d = base;
-  for (const m of more) if (m && (d + ' ' + m).length <= 158) d += ` ${m}`;
-  return d;
-})();
+const description = freshDescription(page.label, [
+  `${plural(s.n, 'bar')} with the deal, times and date checked.`,
+  s.cheapestLabel ? `Cheapest drink: ${s.cheapestLabel}.` : '',
+  common ? `Most start at ${ampm(common[0])}.` : '',
+  'Filter by day and subway line.',
+]);
+// the summary an assistant can quote: the computed opening lines (every number from the bars below)
+const inShort = lede;
+const lastRead = list.map((b) => b.checked).filter(Boolean).sort().pop() ?? null;
 const title = page.kind === 'hood' ? `Happy Hour in ${page.short}, NYC: ${s.n} Bars and Deals (${stamp})`
   : page.kind === 'borough' ? `${page.short.replace(/^The /, '')} Happy Hours: ${s.n} Bars, Deals and Times (${stamp})`
   : `${page.h1.replace(/:.*$/, '')}: ${s.n} Bars (${stamp})`;
@@ -93,10 +96,10 @@ const crumb: [string, string][] = [['YaY NYC', '/'], ['Happy hours', '/happy-hou
 const hoods = (await allHoods()).filter((h) => list.some((b) => b.hoodSlug === h.slug));
 ---
 <Base title={title} description={description} keyword={page.keyword}
-  jsonld={[crumbs(crumb), faqLd(allFaq), itemList(page.label, list.map((b) => `/bars/${b.slug}`))]}>
+  jsonld={[crumbs(crumb), faqLd(allFaq), collectionLd(page.label, `/happy-hours/${page.slug}`, list.map((b) => `/bars/${b.slug}`), lastRead)]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/happy-hours">Happy hours</a></li>{page.kind === 'hood' && page.borough && pages.some((p) => p.kind === 'borough' && p.borough === page.borough) && <li><a href={`/happy-hours/${pages.find((p) => p.kind === 'borough' && p.borough === page.borough)!.slug}`}>{page.borough}</a></li>}<li aria-current="page">{page.short}</li></ol></nav>
   <h1>{page.h1}</h1>
-  <p class="lede">{lede}</p>
+  <Fresh inShort={inShort} />
   {ph && <div class="hood-hero"><Photo photo={ph} alt={`${page.short}, ${page.borough}${ph.title ? `: ${ph.title}` : ''}`} ratio="21 / 9" hero /></div>}
   {copy && (
     <section class="guide-intro">

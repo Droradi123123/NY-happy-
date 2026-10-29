@@ -1,0 +1,40 @@
+---
+/**
+ * "Happy hour before": for one or more party venues, the closest bars with a published deal (within
+ * about a 12-minute walk), one per venue, with the deal and times from the data. Renders nothing
+ * when no venue has one nearby.
+ */
+import { allBars, meters, dealLabel, scheduleLabel, type Venue } from '../lib/data';
+interface Props { venues: Venue[]; heading?: string; max?: number }
+const { venues, heading = 'Happy hour before', max = 3 } = Astro.props;
+const bars = (await allBars()).filter((b) => b.onMap && b.dealKnown && !b.doubt);
+const picks: { v: Venue; b: (typeof bars)[number]; min: number }[] = [];
+for (const v of venues) {
+  if (!v.lat || !v.lng || picks.length >= max) continue;
+  const near = bars.filter((b) => !picks.some((p) => p.b.slug === b.slug))
+    .map((b) => ({ b, m: meters({ lat: v.lat!, lng: v.lng! }, { lat: b.lat!, lng: b.lng! }) }))
+    .filter((x) => x.m <= 1000).sort((a, b) => a.m - b.m)[0];
+  if (near) picks.push({ v, b: near.b, min: Math.max(1, Math.round(near.m / 80)) });
+}
+---
+{picks.length > 0 && (
+  <section class="section hh-before">
+    <h2>{heading}</h2>
+    <ul class="hhb">
+      {picks.map(({ v, b, min }) => (
+        <li>
+          <a href={`/bars/${b.slug}`}><strong>{b.name}</strong></a>
+          <span class="hhb-deal">{dealLabel(b)}</span>
+          <span class="hhb-meta">{scheduleLabel(b)} · {min} min walk to {v.name}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+)}
+<style>
+  .hhb { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .hhb li { display: grid; gap: 2px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--card); min-width: 0; }
+  .hhb a { text-decoration: none; }
+  .hhb-deal { color: var(--green); font-weight: 700; overflow-wrap: anywhere; }
+  .hhb-meta { color: var(--muted); font-size: 14px; overflow-wrap: anywhere; }
+</style>

@@ -1,0 +1,78 @@
+---
+/**
+ * One page per night: /parties/date/2026-10-31 ("nyc parties october 31"). The next 14 nights, and the
+ * 7 before today (kept up, out of the sitemap, then a 301 to the night of the week). Indexed from
+ * INDEX_MIN parties. Every number comes from the listed nights.
+ */
+import Base from '../../../layouts/Base.astro';
+import PartyCard from '../../../components/PartyCard.astro';
+import Fresh from '../../../components/Fresh.astro';
+import HappyHourBefore from '../../../components/HappyHourBefore.astro';
+import { partyData, venueOf, nightDate, nyTime, cleanTitle, GENRE_NAME, type Venue } from '../../../lib/data';
+import { datePages, partyLists, type DatePage } from '../../../lib/partyLists';
+import { crumbs, faqLd, collectionLd, freshDescription } from '../../../lib/seo';
+import { plural } from '../../../lib/stats';
+
+export async function getStaticPaths() {
+  const pages = await datePages();
+  return pages.map((page, i) => ({ params: { date: page.date }, props: { page, prev: pages[i - 1] ?? null, next: pages[i + 1] ?? null } }));
+}
+const { page, prev, next } = Astro.props as { page: DatePage; prev: DatePage | null; next: DatePage | null };
+const { parties, venues } = await partyData();
+const ps = page.parties, n = ps.length;
+const long = nightDate(page.date, { weekday: 'long', month: 'long', day: 'numeric' });
+const monthDay = nightDate(page.date, { month: 'long', day: 'numeric' });
+const year = page.date.slice(0, 4);
+const D = page.weekday[0].toUpperCase() + page.weekday.slice(1);
+const dayList = (await partyLists()).find((l) => l.kind === 'day' && l.slug === page.weekday) ?? null;
+const priced = ps.filter((p) => p.price_from !== null && p.price_status !== 'free').map((p) => p.price_from!);
+const free = ps.filter((p) => p.price_status === 'free').length;
+const venueIds = [...new Set(ps.map((p) => p.venue_id))];
+const genreCount = [...ps.flatMap((p) => p.genres).reduce((m, g) => m.set(g, (m.get(g) ?? 0) + 1), new Map<string, number>())].sort((a, b) => b[1] - a[1]);
+const topGenres = genreCount.slice(0, 3).map(([g, c]) => `${GENRE_NAME[g] ?? g} (${c})`);
+// a night that is over: the same night of the week, coming up
+const standIns = n ? [] : (dayList?.parties ?? parties).slice(0, 6);
+const kw = `nyc parties ${monthDay.toLowerCase()}`;
+const inShort = page.past
+  ? `${long}, ${year} is over. The next ${D} nights are below.`
+  : n ? `${plural(n, 'party', 'parties')} in NYC on ${long} at ${plural(venueIds.length, 'venue')}${topGenres.length ? `; most of it ${topGenres.slice(0, 2).join(' and ')}` : ''}${priced.length ? `; tickets from $${Math.round(Math.min(...priced))}` : ''}${free ? `, ${free} free` : ''}.`
+  : `No parties are listed for ${long} yet. They appear here as tickets go on sale.`;
+const description = freshDescription(`NYC parties on ${long}`, page.past ? [`This night is over; the next ${D} night parties, with doors, age and tickets.`] : [
+  n ? `${plural(n, 'party', 'parties')} with doors time, venue, age, price and tickets.` : 'Nothing listed yet; the next parties, with doors, age and tickets.',
+  priced.length ? `Tickets from $${Math.round(Math.min(...priced))}.` : '',
+  topGenres.length ? `Mostly ${topGenres.slice(0, 2).join(', ')}.` : '',
+]);
+const faq = n ? [
+  { q: `What parties are on in NYC on ${monthDay}?`, a: `${plural(n, 'party', 'parties')} are listed, including ${ps.slice(0, 3).map((p) => `${cleanTitle(p.title)} at ${venueOf(p, venues)?.name ?? 'a NYC venue'}${nyTime(p.doors_at ?? p.starts_at) ? ` (doors ${nyTime(p.doors_at ?? p.starts_at)})` : ''}`).join('; ')}.` },
+  ...(priced.length ? [{ q: `How much are party tickets in NYC on ${monthDay}?`, a: `The cheapest tickets listed run from $${Math.round(Math.min(...priced))} to $${Math.round(Math.max(...priced))}${free ? `, and ${free} ${free === 1 ? 'party is' : 'parties are'} free` : ''}, fees included where the seller shows them, as of when we checked.` }] : []),
+] : [];
+const top = venueIds.map((id) => venues.find((v) => v.id === id)).filter((v): v is Venue => !!v).slice(0, 5);
+---
+<Base title={`NYC Parties on ${long}: ${n} ${n === 1 ? 'Party' : 'Parties'}`} titles={[`NYC Parties ${nightDate(page.date, { month: 'short', day: 'numeric' })}: ${n} ${n === 1 ? 'Party' : 'Parties'}`]} keyword={kw} description={description} noindex={!page.indexable}
+  jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [long, `/parties/date/${page.date}`]]), collectionLd(`NYC parties on ${long}`, `/parties/date/${page.date}`, ps.map((p) => `/parties/${p.slug}`)), ...(faq.length ? [faqLd(faq)] : [])]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li>{dayList && <li><a href={`/parties/${dayList.slug}`}>{D}s</a></li>}<li aria-current="page">{nightDate(page.date, { month: 'short', day: 'numeric' })}</li></ol></nav>
+  <h1>NYC Parties on {long}</h1>
+  <Fresh inShort={inShort} />
+  <nav class="date-nav" aria-label="Other nights">
+    {prev ? <a href={`/parties/date/${prev.date}`}>← {nightDate(prev.date, { weekday: 'short', month: 'short', day: 'numeric' })}</a> : <span></span>}
+    {next ? <a href={`/parties/date/${next.date}`}>{nightDate(next.date, { weekday: 'short', month: 'short', day: 'numeric' })} →</a> : <span></span>}
+  </nav>
+  {n > 0 && <div class="xgrid">{ps.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>}
+  {standIns.length > 0 && (
+    <section class="section">
+      <h2>Next {D} nights</h2>
+      <div class="xgrid">{standIns.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>
+    </section>
+  )}
+  {!page.past && <HappyHourBefore venues={top} heading="Happy hour before" />}
+  {faq.length > 0 && (
+    <section class="section faq">
+      <h2>Questions</h2>
+      {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+    </section>
+  )}
+  <p class="section"><a href="/parties/tonight">Parties tonight</a> · <a href="/parties/this-weekend">This weekend</a>{dayList && <> · <a href={`/parties/${dayList.slug}`}>{D} night parties</a></>} · <a href="/parties">All parties</a></p>
+</Base>
+<style>
+  .date-nav { display: flex; justify-content: space-between; gap: 12px; margin: 8px 0 16px; font-weight: 700; }
+</style>

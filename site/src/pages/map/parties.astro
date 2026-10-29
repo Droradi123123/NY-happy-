@@ -9,7 +9,7 @@ import { crumbs, faqLd, itemList } from '../../lib/seo';
 
 const { parties, venues } = await partyData();
 const genres = [...new Set(parties.flatMap((p) => p.genres))].sort();
-const lists = await partyLists();
+const lists = (await partyLists()).filter((l) => l.parties.length > 0);
 const genrePages = lists.filter((l) => l.kind === 'genre').sort((a, b) => b.parties.length - a.parties.length);
 const otherPages = lists.filter((l) => l.kind !== 'genre');
 const boroughs = [...new Set(parties.map((p) => p.borough).filter(Boolean))] as string[];

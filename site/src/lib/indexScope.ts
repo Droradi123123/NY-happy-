@@ -17,6 +17,8 @@ import proof from '../data/proof.json';
 const KEPT = new Set([...kept.paths, ...(proof.everInSearch ?? [])]);
 export const barIndexable = (b: Bar) => b.dealKnown || KEPT.has(`/bars/${b.slug}`);
 export const nearIndexable = (kind: string, slug = '') => kind === 'landmark' || KEPT.has(`/happy-hours/near/${slug}`);
+/** the page already had Google impressions */
+export const pathKept = (path: string) => KEPT.has(path);
 export const keptNear = () => [...KEPT].filter((p) => p.startsWith('/happy-hours/near/')).map((p) => p.slice('/happy-hours/near/'.length));
 const FIXED = new Set(['/map', '/map/happy-hours', '/map/parties', '/image-credits', '/accessibility', '/bars-with-games']);
 export const pathIndexable = (path: string) => !FIXED.has(path) && !path.startsWith('/bars-with-games/');

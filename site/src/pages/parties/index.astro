@@ -4,7 +4,9 @@ import Explorer from '../../components/Explorer.astro';
 import PartyCard from '../../components/PartyCard.astro';
 import { partyData, venueOf, nightDate, cleanTitle } from '../../lib/data';
 import { partyLists } from '../../lib/partyLists';
-import { crumbs, itemList, faqLd } from '../../lib/seo';
+import { crumbs, faqLd, collectionLd, freshDescription } from '../../lib/seo';
+import Fresh from '../../components/Fresh.astro';
+import { plural } from '../../lib/stats';
 
 const { parties, venues } = await partyData();
 const genres = [...new Set(parties.flatMap((p) => p.genres))].sort();
@@ -15,19 +17,29 @@ const faq = [
   { q: 'Are the prices final?', a: 'We show the lowest ticket price listed by the seller when we last checked, fees included where the seller shows them. Prices rise as tiers sell out.' },
 ];
 const plists = await partyLists();
+const tonight = plists.find((l) => l.slug === 'tonight' && !l.note)?.parties.length ?? 0;
+const nVenues = new Set(parties.map((p) => p.venue_id)).size;
+const priced = parties.filter((p) => p.price_from !== null && p.price_status !== 'free').map((p) => p.price_from!);
+const inShort = `${plural(parties.length, 'upcoming party', 'upcoming parties')} at ${plural(nVenues, 'venue')} across the five boroughs${tonight ? `, ${tonight} of them tonight` : ''}${priced.length ? `; tickets from $${Math.round(Math.min(...priced))}` : ''}.`;
+const lastRead = parties.map((p) => p.last_checked).filter(Boolean).sort().pop() ?? null;
 const halloween = parties.filter((p) => p.themes.includes('halloween')).length;
 const row = (l: { slug: string; short: string; parties: unknown[] }) => ({ href: `/parties/${l.slug}`, short: l.short, n: l.parties.length });
+// link only the lists that have nights right now (the others stay up, out of the way)
+const live = (k: string) => plists.filter((l) => l.kind === k && l.parties.length > 0).map(row);
 const groups: [string, { href: string; short: string; n: number }[]][] = [
-  ['Tonight and this weekend', plists.filter((l) => l.kind === 'when').map(row)],
-  ['Parties by music', plists.filter((l) => l.kind === 'genre').map(row)],
-  ['Parties by night', plists.filter((l) => l.kind === 'day').map(row)],
-  ['Holidays and seasons', [...(halloween >= 2 ? [{ href: '/parties/halloween', short: 'Halloween', n: halloween }] : []), ...plists.filter((l) => l.kind === 'season').map(row)]],
-  ['Kind of party', plists.filter((l) => l.kind === 'tag').map(row)],
+  ['Tonight and this weekend', live('when')],
+  ['Parties by music', live('genre')],
+  ['Parties by night', live('day')],
+  ['Holidays and seasons', [...(halloween >= 2 ? [{ href: '/parties/halloween', short: 'Halloween', n: halloween }] : []), ...live('holiday'), ...live('season')]],
+  ['Kind of party', [...live('tag'), ...live('age')]],
+  ['By borough and neighborhood', live('where')],
 ];
 ---
-<Base title={`NYC Parties: ${parties.length} Club Nights, Raves and Events`} keyword="nyc parties" description="NYC parties this week: techno, house, Latin, hip-hop, Halloween and more, with doors time, age, price and tickets. Filter by date, music, borough and price."
-  jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties']]), itemList('NYC parties', parties.map((p) => `/parties/${p.slug}`)), faqLd(faq)]}>
+<Base title={`NYC Parties: ${parties.length} Club Nights, Raves and Events`} keyword="nyc parties"
+  description={freshDescription('NYC parties this week', [`${plural(parties.length, 'party', 'parties')}: techno, house, Latin, hip-hop and more, with doors time, age, price and tickets.`, 'Filter by date, music, borough and price.'])}
+  jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties']]), collectionLd('NYC parties', '/parties', parties.map((p) => `/parties/${p.slug}`), lastRead), faqLd(faq)]}>
   <h1>Parties in NYC</h1>
+  <Fresh inShort={inShort} />
   <p class="lede">Club nights, raves and parties across the five boroughs, with doors time, venue, age and price. Nights that are over leave the list on their own.</p>
   <Explorer kind="parties" genres={genres} hoods={hoods} heading="Find a party">
     {parties.slice(0, 24).map((p, i) => <PartyCard party={p} venue={venueOf(p, venues)} eager={i < 2} />)}

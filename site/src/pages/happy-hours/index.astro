@@ -5,7 +5,8 @@ import BarCard from '../../components/BarCard.astro';
 import { allBars, allHoods } from '../../lib/data';
 import { rank, listPages } from '../../lib/lists';
 import { stats, plural } from '../../lib/stats';
-import { crumbs, faqLd, itemList } from '../../lib/seo';
+import { crumbs, faqLd, collectionLd, freshDescription } from '../../lib/seo';
+import Fresh from '../../components/Fresh.astro';
 
 const bars = await allBars();
 const hoods = (await allHoods()).filter((h) => bars.some((b) => b.hoodSlug === h.slug)).sort((a, b) => a.name.localeCompare(b.name));
@@ -15,6 +16,8 @@ for (const b of bars) counts.set(b.hoodSlug, (counts.get(b.hoodSlug) ?? 0) + 1);
 const lists = await listPages();
 const big = lists.filter((l) => l.kind === 'hood').sort((a, b) => b.bars.length - a.bars.length);
 const groups: [string, typeof lists][] = [['By borough', lists.filter((l) => l.kind === 'borough')], ['By deal', lists.filter((l) => l.kind === 'tag')], ['By day', lists.filter((l) => l.kind === 'day')]];
+const inShort = `${plural(s.n, 'bar')} across the five boroughs run a happy hour, ${s.deals} with the deal spelled out${s.cheapestLabel ? `; the cheapest drink on file is ${s.cheapestLabel}` : ''}.`;
+const lastRead = bars.map((b) => b.checked).filter(Boolean).sort().pop() ?? null;
 const faq = [
   { q: 'What time is happy hour in NYC?', a: `Most NYC happy hours run on weekdays from 4pm or 5pm to 7pm. Of the ${s.n} we list, ${s.late} also have a late-night happy hour and ${s.weekend} run on the weekend.` },
   { q: 'Is happy hour legal in New York?', a: 'Yes. New York State allows drink specials and 2-for-1 deals, but not unlimited drinks for a fixed price.' },
@@ -22,9 +25,10 @@ const faq = [
   { q: 'How do you check these happy hours?', a: 'Each one is read from the bar\'s own website or menu, and every page shows the date we last checked it and a link to the source.' },
 ];
 ---
-<Base keyword="nyc happy hours" title={`NYC Happy Hours: ${s.n} Bars, Deals and Times (${new Date().toLocaleString('en-US', { month: 'short', year: 'numeric', timeZone: 'America/New_York' })})`} description={`Every NYC happy hour we could verify: ${s.n} bars with the deal, hours and date checked. Filter by neighborhood, subway line, price and what's on now.`}
-  jsonld={[crumbs([['YaY NYC', '/'], ['Happy hours', '/happy-hours']]), faqLd(faq), itemList('NYC happy hours', bars.slice(0, 100).map((b) => `/bars/${b.slug}`))]}>
+<Base keyword="nyc happy hours" title={`NYC Happy Hours: ${s.n} Bars, Deals and Times (${new Date().toLocaleString('en-US', { month: 'short', year: 'numeric', timeZone: 'America/New_York' })})`} description={freshDescription('NYC happy hours we could verify', [`${plural(s.n, 'bar')} with the deal, hours and date checked.`, "Filter by neighborhood, subway line, price and what's on now."])}
+  jsonld={[crumbs([['YaY NYC', '/'], ['Happy hours', '/happy-hours']]), faqLd(faq), collectionLd('NYC happy hours', '/happy-hours', [...bars].sort(rank).map((b) => `/bars/${b.slug}`), lastRead)]}>
   <h1>NYC Happy Hours</h1>
+  <Fresh inShort={inShort} />
   <p class="lede">{plural(s.n, 'happy hour')} across the five boroughs, each with the deal, the times and the date we checked it. {s.deals} list exactly what is discounted. What a drink costs in each neighborhood: <a href="/nyc-happy-hour-index">the NYC Happy Hour Price Index</a>.</p>
   <Explorer kind="bars" hoods={hoods} heading="Find a happy hour">
     {[...bars].sort(rank).slice(0, 24).map((b, i) => <BarCard bar={b} eager={i < 2} />)}

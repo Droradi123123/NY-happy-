@@ -6,6 +6,7 @@ import MiniMap from '../../components/MiniMap.astro';
 import Photo from '../../components/Photo.astro';
 import { allBars, googleInfo, placeUrl, placePhoto, photoNote, copyOf, paragraphs, alignHood, type PageCopy, DAYS, DAY_NAME, daysLabel, windowLabel, dealLabel, fmtDate, meters, type Bar, type GoogleInfo } from '../../lib/data';
 import { hoodHref } from '../../lib/lists';
+import { partyData, venueOf, nightDate, nyTime, cleanTitle, priceLabel } from '../../lib/data';
 import { barTitle, barKeyword, barDescription, barJsonLd, crumbs, faqLd, SITE } from '../../lib/seo';
 import { barIndexable } from '../../lib/indexScope';
 import { venues as actVenues, trivia as actTrivia, bingo as actBingo, games as actGames, sourceLabel, hhOverlap, GAME_NAME } from '../../lib/activities';
@@ -49,9 +50,17 @@ const faq = [
   { q: `When is happy hour at ${b.name}?`, a: `${b.windows.map((w) => `${daysLabel(w.days)}, ${windowLabel(w)}`).join('; ')}. ${confirmed ? 'Confirmed on' : 'As published on'} ${b.source ? host(b.source) : "the bar's own website"}, read ${fmtDate(b.checked)}.` },
   { q: `What is the happy hour deal at ${b.name}?`, a: deal ? `${deal}.${drinks.length + food.length > 2 ? ' The full list is on this page.' : ''}` : `${b.name} publishes its happy hour times but not what is discounted. Ask the bartender or check their site.` },
   ...(b.subway ? [{ q: `What subway is closest to ${b.name}?`, a: `${b.subway.station} (${b.subway.lines.join(', ')}), about ${b.subway.walk_min} minutes on foot.` }] : []),
+  ...(b.address ? [{ q: `Where is ${b.name}?`, a: `${b.address}, ${b.hood}${b.borough ? `, ${b.borough}` : ''}.${b.subway ? ` The closest subway is ${b.subway.station} (${b.subway.lines.join(', ')}), about ${b.subway.walk_min} minutes on foot.` : ''}` }] : []),
+  ...(mapsUrl && b.address ? [{ q: `What do reviews say about ${b.name}?`, a: `YaY NYC does not score bars: we list when the happy hour runs and what it costs, from ${b.name}'s own menu. Visitor reviews and photos are on its Google Maps listing, linked on this page.` }] : []),
   ...(b.booking ? [{ q: `Can I book a table at ${b.name}?`, a: `Yes, ${b.name} takes reservations online. Happy hour deals are often bar-only, so check when you book.` }] : []),
 ];
 for (const f of copy?.faq ?? []) if (!faq.some((x) => x.q.toLowerCase() === f.q.toLowerCase())) faq.push(f);
+// heading out after: parties within about 1.5 miles (2.4 km) in the next 7 days, soonest first
+const { parties: allParties, venues: pVenues } = await partyData();
+const weekOut = new Date(Date.now() + 7 * 864e5).toISOString().slice(0, 10);
+const after = b.onMap ? allParties.filter((p) => p.night_date <= weekOut && p.event_status !== 'sold_out')
+  .map((p) => ({ p, v: venueOf(p, pVenues) })).filter((x) => x.v?.lat && x.v.lng)
+  .map((x) => ({ ...x, m: meters({ lat: b.lat!, lng: b.lng! }, { lat: x.v!.lat!, lng: x.v!.lng! }) })).filter((x) => x.m <= 2400).slice(0, 3) : [];
 ---
 <Base noindex={!barIndexable(b)} title={barTitle(b, branch)} description={barDescription(b)} keyword={barKeyword(b, branch)} jsonld={[barJsonLd(b, url), crumbs([['YaY NYC', '/'], ['Happy hours', '/happy-hours'], [b.hood, hoodUrl], [b.name, `/bars/${b.slug}`]]), faqLd(faq)]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/happy-hours">Happy hours</a></li><li><a href={hoodUrl}>{b.hood}</a></li><li aria-current="page">{b.name}</li></ol></nav>
@@ -92,7 +101,7 @@ for (const f of copy?.faq ?? []) if (!faq.some((x) => x.q.toLowerCase() === f.q.
       {(drinks.length > 0 || food.length > 0) && (
         <section class="section">
           <h2>What's on the happy hour menu</h2>
-          <div class="menu">
+          <div class="hh-menu">
             {drinks.length > 0 && <div><h3>Drinks</h3><ul class="menu-list">{drinks.map((o) => <li><span>{o.item}</span><span class="price">{o.price}</span></li>)}</ul></div>}
             {food.length > 0 && <div><h3>Food</h3><ul class="menu-list">{food.map((o) => <li><span>{o.item}</span><span class="price">{o.price}</span></li>)}</ul></div>}
           </div>
@@ -139,6 +148,13 @@ for (const f of copy?.faq ?? []) if (!faq.some((x) => x.q.toLowerCase() === f.q.
         </div>
       </section>
 
+      {after.length > 0 && (
+        <section class="section after card">
+          <h2>Heading out after?</h2>
+          <p class="small">Parties within about 1.5 miles of {b.name} this week.</p>
+          <ul>{after.map(({ p, v, m }) => <li><a href={`/parties/${p.slug}`} data-ev="after"><strong>{cleanTitle(p.title)}</strong></a><span>{nightDate(p.night_date, { weekday: 'short', month: 'short', day: 'numeric' })}{nyTime(p.doors_at ?? p.starts_at) ? `, doors ${nyTime(p.doors_at ?? p.starts_at)}` : ''} · {v!.name} · {m < 1000 ? `${Math.max(1, Math.round(m / 80))} min walk` : `${(m / 1609).toFixed(1)} mi`} · {priceLabel(p)}</span></li>)}</ul>
+        </section>
+      )}
       <section class="section faq">
         <h2>Questions</h2>
         {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
@@ -187,14 +203,18 @@ for (const f of copy?.faq ?? []) if (!faq.some((x) => x.q.toLowerCase() === f.q.
   .act-src a { color: inherit; }
   .checked-line { margin: 0; font-size: 15px; }
   .doubt { margin: 6px 0 0; font-size: 15px; background: var(--coral-soft); border-left: 4px solid var(--coral-btn); padding: 8px 12px; border-radius: 8px; }
-  .menu { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+  .hh-menu { display: grid; gap: 24px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
   .menu-list { list-style: none; padding: 0; margin: 0; }
   .menu-list li { display: flex; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px dashed var(--line); }
   .price { font-weight: 800; white-space: nowrap; }
   .hours { list-style: none; padding: 0; margin: 0; }
-  .hours span { display: inline-block; width: 100px; }
+  .hours span { display: inline-block; width: 92px; }
   .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
   .side-card { margin-top: 18px; }
   .h3 { font-size: 20px; }
   aside { min-width: 0; }
+  .after { padding: 16px; }
+  .after ul { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 10px; }
+  .after li { display: grid; gap: 2px; min-width: 0; }
+  .after li span { color: var(--muted); font-size: 14px; overflow-wrap: anywhere; }
 </style>

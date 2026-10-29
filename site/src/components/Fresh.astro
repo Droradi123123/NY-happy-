@@ -1,0 +1,17 @@
+---
+/**
+ * Under the h1 of every list page: when it was last rebuilt from the data (the lists rebuild every few
+ * hours, the deals and parties are re-read daily), and one plain sentence an AI assistant can quote.
+ * Every number in `inShort` comes from the page's own data.
+ */
+interface Props { inShort: string; updated?: string }
+const { inShort, updated = new Date().toISOString() } = Astro.props;
+const day = new Date(updated).toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'America/New_York' });
+---
+<p class="fresh"><span class="fresh-dot" aria-hidden="true"></span>Updated <time datetime={updated.slice(0, 10)}>{day}</time> · refreshes daily</p>
+<p class="in-short"><strong>In short:</strong> {inShort}</p>
+<style>
+  .fresh { display: flex; align-items: center; gap: 8px; margin: 4px 0 6px; color: var(--green); font-size: 14px; font-weight: 600; }
+  .fresh-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); flex: none; }
+  .in-short { max-width: 760px; margin: 0 0 14px; color: var(--ink-2); font-size: 16px; }
+</style>

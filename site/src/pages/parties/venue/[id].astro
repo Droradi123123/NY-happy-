@@ -1,10 +1,13 @@
 ---
 import Base from '../../../layouts/Base.astro';
+import Fresh from '../../../components/Fresh.astro';
 import PartyCard from '../../../components/PartyCard.astro';
 import MiniMap from '../../../components/MiniMap.astro';
 import Photo from '../../../components/Photo.astro';
 import { partyData, googleInfo, placeUrl, placePhoto, photoNote, venueOf, GENRE_NAME, type Party, type Venue, type GoogleInfo } from '../../../lib/data';
-import { crumbs, itemList, SITE } from '../../../lib/seo';
+import { crumbs, itemList, faqLd, postalAddress, SITE } from '../../../lib/seo';
+import HappyHourBefore from '../../../components/HappyHourBefore.astro';
+import { cleanTitle, nightDate, nyTime } from '../../../lib/data';
 import { dateRange } from '../../../lib/partyLists';
 import { venues as actVenues, trivia as actTrivia, bingo as actBingo, games as actGames, sourceLabel, GAME_NAME } from '../../../lib/activities';
 import { DAY_NAME, DAYS } from '../../../lib/data';
@@ -30,16 +33,30 @@ const elsewhere = parties.filter((p) => p.venue_id !== v.id && (p.borough === v.
 const description = nights.length
   ? `${v.name} events, ${where}: ${nights.length} upcoming night${nights.length === 1 ? '' : 's'} (${dateRange(nights)})${genres.length ? `, ${genres.slice(0, 3).join(', ')}` : ''}, with doors, age and tickets.`
   : `${v.name} events, ${where}: no nights listed right now. Address, how to get there, and other NYC parties coming up.`;
+const inShort = nights.length
+  ? `${v.name}${v.neighborhood ? ` in ${v.neighborhood}` : ''} has ${nights.length} upcoming night${nights.length === 1 ? '' : 's'} listed (${dateRange(nights)})${genres.length ? `, mostly ${genres.slice(0, 3).join(', ')}` : ''}.`
+  : `No nights are listed at ${v.name} right now; new ones appear here when tickets go on sale.`;
+// questions answered from the listed nights only (no hours or ratings we have not read)
+const ages = [...new Set(nights.map((p) => p.age_min).filter((a): a is number => a !== null))].sort((a, b) => a - b);
+const priced = nights.filter((p) => p.price_from !== null && p.price_status !== 'free').map((p) => p.price_from!);
+const faq = [
+  ...(v.address ? [{ q: `Where is ${v.name}?`, a: `${v.address.replace(/, United States$|, USA$/, '')}${v.neighborhood ? `, in ${v.neighborhood}` : ''}${v.borough && v.borough !== v.neighborhood ? `, ${v.borough}` : ''}.` }] : []),
+  { q: `What's on at ${v.name}?`, a: nights.length ? `${nights.length} upcoming ${nights.length === 1 ? 'night' : 'nights'}: ${nights.slice(0, 3).map((p) => `${cleanTitle(p.title)}, ${nightDate(p.night_date, { weekday: 'short', month: 'short', day: 'numeric' })}${nyTime(p.doors_at ?? p.starts_at) ? ` (doors ${nyTime(p.doors_at ?? p.starts_at)})` : ''}`).join('; ')}.` : `No nights are listed right now; new ones appear on this page when tickets go on sale.` },
+  ...(genres.length ? [{ q: `What music plays at ${v.name}?`, a: `The nights listed now: ${genres.join(', ')}. Each night's page has its lineup.` }] : []),
+  ...(ages.length ? [{ q: `What is the age limit at ${v.name}?`, a: ages.length === 1 ? `${ages[0]}+ for every night listed now. Bring a government photo ID.` : `It depends on the night: from ${ages[0]}+ to ${ages[ages.length - 1]}+ for the nights listed now. Bring a government photo ID.` }] : []),
+  ...(priced.length ? [{ q: `How much are tickets at ${v.name}?`, a: `From $${Math.round(Math.min(...priced))} to $${Math.round(Math.max(...priced))} for the cheapest ticket on each night listed now, fees included where the seller shows them.` }] : []),
+];
 const placeLd = {
   '@context': 'https://schema.org', '@type': v.kind === 'club' || v.kind === 'nightclub' ? 'NightClub' : 'Place', name: v.name, url: `${SITE}/parties/venue/${v.id}`,
-  ...(v.address ? { address: v.address } : {}), ...(v.lat ? { geo: { '@type': 'GeoCoordinates', latitude: v.lat, longitude: v.lng } } : {}),
+  ...(v.address ? { address: postalAddress(v) } : {}), ...(v.lat ? { geo: { '@type': 'GeoCoordinates', latitude: v.lat, longitude: v.lng } } : {}),
   ...(website ? { sameAs: [website] } : {}),
 };
 ---
 <Base title={`${v.name} Events: Upcoming Parties and Tickets`} keyword={`${v.name} events`} description={description}
-  jsonld={[placeLd, crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [v.name, `/parties/venue/${v.id}`]]), ...(nights.length ? [itemList(`Parties at ${v.name}`, nights.map((p) => `/parties/${p.slug}`))] : [])]}>
+  jsonld={[placeLd, crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [v.name, `/parties/venue/${v.id}`]]), ...(nights.length ? [itemList(`Parties at ${v.name}`, nights.map((p) => `/parties/${p.slug}`))] : []), faqLd(faq)]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li><li aria-current="page">{v.name}</li></ol></nav>
   <h1>{v.name} Events and Parties</h1>
+  <Fresh inShort={inShort} />
   <p class="lede">{v.address?.replace(/, United States$|, USA$/, '')}{v.rooms.length > 0 && ` · Rooms: ${v.rooms.join(', ')}`}</p>
   {vp && <Photo photo={vp.photo} note={photoNote(vp, v.name)} alt={vp.rel === 'own' ? `${v.name}, ${where}` : vp.rel === 'nearby' ? `The street outside ${v.name}, ${where}` : `${where}, the neighborhood around ${v.name}`} hero />}
   {v.lat && <MiniMap lat={v.lat} lng={v.lng!} label={v.name} />}
@@ -78,6 +95,11 @@ const placeLd = {
       <p>We check ticket pages every day; new nights appear here as soon as they go on sale.</p>
     </section>
   )}
+  <HappyHourBefore venues={[v]} heading={`Happy hour before ${v.name}`} max={1} />
+  <section class="section faq">
+    <h2>Questions</h2>
+    {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+  </section>
   {elsewhere.length > 0 && (
     <section class="section">
       <h2>More parties{v.borough ? ` in ${v.borough}` : ''}</h2>

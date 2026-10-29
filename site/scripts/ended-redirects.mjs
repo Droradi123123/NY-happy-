@@ -63,5 +63,18 @@ const page = (u) => existsSync(join(dist, `${u.slice(1)}.html`)) || existsSync(j
 const gone = JSON.parse(readFileSync(fileURLToPath(new URL('../src/data/gone-pages.json', import.meta.url)), 'utf-8')).pages
   .filter((g) => !taken.has(g.from) && !page(g.from)).map((g) => `${g.from} ${page(g.to) ? g.to : g.fallback} 301`);
 lines.push(...gone);
+// a night page (/parties/date/YYYY-MM-DD) stays up for 7 days after the night, then goes to that night of
+// the week (pages exist from Oct 29, 2026; lib/partyLists.ts datePages)
+const WD = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
+const nyDay = (n) => new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(Date.now() + n * 864e5));
+let dates = 0;
+for (let i = 8; i <= 150; i++) {
+  const d = nyDay(-i);
+  if (d < '2026-10-29') break;
+  const from = `/parties/date/${d}`;
+  if (taken.has(from) || page(from)) continue;
+  const wd = `/parties/${WD[new Date(`${d}T12:00:00Z`).getUTCDay()]}`;
+  lines.push(`${from} ${page(wd) ? wd : '/parties'} 301`); dates++;
+}
 writeFileSync(file, `${have.trimEnd()}\n\n# Parties that are over, and pages in src/data/gone-pages.json (scripts/ended-redirects.mjs, ${new Date().toISOString().slice(0, 10)})\n${lines.join('\n')}\n`);
-console.log(`ended redirects: ${lines.length - gone.length} parties, ${gone.length} other pages`);
+console.log(`ended redirects: ${lines.length - gone.length - dates} parties, ${gone.length} other pages, ${dates} past night pages`);
