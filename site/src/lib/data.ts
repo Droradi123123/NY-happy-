@@ -329,7 +329,13 @@ export function meters(a: { lat: number; lng: number }, b: { lat: number; lng: n
   const h = Math.sin(dLat / 2) ** 2 + Math.cos(a.lat * toR) * Math.cos(b.lat * toR) * Math.sin(dLng / 2) ** 2;
   return 2 * R * Math.asin(Math.sqrt(h));
 }
-export async function landmarks(min = 5) {
+const _landmarks = new Map<number, Promise<(typeof LANDMARKS[number] & { bars: { b: Bar; m: number }[] })[]>>();
+/** landmarks with 5+ happy hours within 800 m (computed once per build; every bar page asks) */
+export function landmarks(min = 5) {
+  if (!_landmarks.has(min)) _landmarks.set(min, landmarksOf(min));
+  return _landmarks.get(min)!;
+}
+async function landmarksOf(min: number) {
   const bars = (await allBars()).filter((b) => b.onMap);
   return LANDMARKS.map((l) => ({
     ...l,

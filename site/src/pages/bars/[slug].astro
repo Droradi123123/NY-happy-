@@ -8,7 +8,8 @@ import { allBars, googleInfo, placeUrl, placePhoto, photoNote, copyOf, paragraph
 import { hoodHref } from '../../lib/lists';
 import { partyData, venueOf, nightDate, nyTime, cleanTitle, priceLabel } from '../../lib/data';
 import { barTitle, barKeyword, barDescription, barJsonLd, crumbs, faqLd, SITE } from '../../lib/seo';
-import { barIndexable } from '../../lib/indexScope';
+import { barIndexable, nearIndexable } from '../../lib/indexScope';
+import { landmarks } from '../../lib/data';
 import { venues as actVenues, trivia as actTrivia, bingo as actBingo, games as actGames, sourceLabel, hhOverlap, GAME_NAME } from '../../lib/activities';
 
 export async function getStaticPaths() {
@@ -61,6 +62,8 @@ const weekOut = new Date(Date.now() + 7 * 864e5).toISOString().slice(0, 10);
 const after = b.onMap ? allParties.filter((p) => p.night_date <= weekOut && p.event_status !== 'sold_out')
   .map((p) => ({ p, v: venueOf(p, pVenues) })).filter((x) => x.v?.lat && x.v.lng)
   .map((x) => ({ ...x, m: meters({ lat: b.lat!, lng: b.lng! }, { lat: x.v!.lat!, lng: x.v!.lng! }) })).filter((x) => x.m <= 2400).slice(0, 3) : [];
+// the landmark pages this bar is on ("happy hour near Penn Station & MSG"): links from every bar nearby
+const nearMarks = (await landmarks()).filter((l) => nearIndexable('landmark', l.slug) && l.bars.some((x) => x.b.slug === b.slug)).map((l) => ({ slug: l.slug, name: ('short' in l && l.short ? l.short : l.name) as string, min: Math.max(1, Math.round(l.bars.find((x) => x.b.slug === b.slug)!.m / 80)) }));
 ---
 <Base noindex={!barIndexable(b)} title={barTitle(b, branch)} description={barDescription(b)} keyword={barKeyword(b, branch)} jsonld={[barJsonLd(b, url), crumbs([['YaY NYC', '/'], ['Happy hours', '/happy-hours'], [b.hood, hoodUrl], [b.name, `/bars/${b.slug}`]]), faqLd(faq)]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/happy-hours">Happy hours</a></li><li><a href={hoodUrl}>{b.hood}</a></li><li aria-current="page">{b.name}</li></ol></nav>
@@ -148,6 +151,9 @@ const after = b.onMap ? allParties.filter((p) => p.night_date <= weekOut && p.ev
         </div>
       </section>
 
+      {nearMarks.length > 0 && (
+        <p class="near-marks">More happy hours near {nearMarks.map((l, i) => <>{i > 0 && ' · '}<a href={`/happy-hours/near/${l.slug}`}>{l.name}</a> ({l.min} min walk)</>)}</p>
+      )}
       {after.length > 0 && (
         <section class="section after card">
           <h2>Heading out after?</h2>

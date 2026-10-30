@@ -1,0 +1,109 @@
+---
+/**
+ * An artist's or a promoter's page: the next NYC nights (ticket cards), where they play, the sound the
+ * sellers tag, the artists billed with them, and the nights already over. Every fact is from the ticket
+ * listings on the site. `data-next="1"` marks a page with an upcoming night (scripts/ended-redirects.mjs
+ * sends an ended night to its headliner's page only then).
+ */
+import Base from '../layouts/Base.astro';
+import Fresh from './Fresh.astro';
+import PartyCard from './PartyCard.astro';
+import { partyData, venueOf, nightDate, cleanTitle, nyTime, GENRE_NAME, fmtDate } from '../lib/data';
+import { crumbs, faqLd, itemList } from '../lib/seo';
+import { people, artistSlug, type Person } from '../lib/people';
+import { partyLists } from '../lib/partyLists';
+interface Props { person: Person }
+const { person: x } = Astro.props;
+const { venues, venuePages } = await partyData();
+const hasPage = new Set(venuePages.map((v) => v.id));
+const { artists } = await people();
+const lists = new Set((await partyLists()).map((l) => l.slug));
+const isArtist = x.kind === 'artist';
+const next = x.upcoming[0] ?? null;
+const nv = next ? venueOf(next, venues) : null;
+const last = x.past[0] ?? null;
+const lv = last?.venue_id ? venues.find((v) => v.id === last.venue_id) ?? null : null;
+const short = (d: string) => nightDate(d, { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' });
+const long = (d: string) => nightDate(d, { weekday: 'long', month: 'long', day: 'numeric' });
+const price = (p: typeof next) => (!p ? '' : p.event_status === 'sold_out' ? 'sold out' : p.price_status === 'free' ? 'free' : p.price_from ? `tickets from $${Math.round(p.price_from)}` : 'price not listed');
+const genres = x.genres.slice(0, 4).map(([g]) => GENRE_NAME[g] ?? g);
+const total = x.upcoming.length + x.past.length;
+const plural = (n: number, one: string, many = `${one}s`) => `${n} ${n === 1 ? one : many}`;
+const linked = new Set(artists.map((a) => a.slug));
+const withLinks = x.with.filter(([n]) => linked.has(artistSlug(n))).slice(0, 12);
+const where = (v: typeof nv) => (v ? `${v.name}${v.neighborhood ? ` in ${v.neighborhood}` : ''}` : 'a venue to be announced');
+const keyword = isArtist ? `${x.name} nyc` : `${x.name} events nyc`;
+const h1 = isArtist ? `${x.name} in NYC` : `${x.name} Events in NYC`;
+const inShort = next
+  ? `${isArtist ? `${x.name} plays` : `${x.name} presents`} ${cleanTitle(next.title)} at ${where(nv)} on ${long(next.night_date)}${nyTime(next.doors_at ?? next.starts_at) ? `, doors ${nyTime(next.doors_at ?? next.starts_at)}` : ''}; ${price(next)}.${x.upcoming.length > 1 ? ` ${plural(x.upcoming.length - 1, 'more night')} after that.` : ''}`
+  : last ? `No upcoming NYC ${isArtist ? 'date' : 'night'} on our list right now. The last one was ${cleanTitle(last.title)}${lv ? ` at ${lv.name}` : ''} on ${long(last.night_date)}.`
+  : 'No upcoming NYC nights on our list right now.';
+const description = (next
+  ? `${isArtist ? `${x.name} NYC: next show` : `${x.name} events in NYC: next night`} ${nightDate(next.night_date, { month: 'short', day: 'numeric' })} at ${nv?.name ?? 'TBA'}, ${price(next)}. ${isArtist ? 'Every NYC date' : 'Every night'} on our list, venues and lineups, updated daily.`
+  : `${isArtist ? `${x.name} NYC: no show` : `${x.name} events in NYC: no night`} listed right now. ${plural(total, 'past night')} on our list, the venues${genres.length ? ` and the sound (${genres.slice(0, 2).join(', ')})` : ''}, updated daily.`);
+const desc = description.length <= 160 ? description : `${description.slice(0, 158).replace(/[\s,;:]+\S*$/, '')}…`;
+const titles = isArtist
+  ? [`${x.name} NYC: Next Show, Tickets and Venues`, `${x.name} NYC: Next Show and Tickets`, `${x.name} NYC Tickets`, `${x.name} NYC`]
+  : [`${x.name} Events NYC: Upcoming Parties and Tickets`, `${x.name} Events NYC: Next Parties`, `${x.name} Events NYC`];
+const faq = [
+  { q: isArtist ? `When is ${x.name} playing in NYC next?` : `When is the next ${x.name} event in NYC?`, a: next ? `${long(next.night_date)} at ${where(nv)} (${cleanTitle(next.title)}), ${price(next)}.` : `Not on our list right now. New dates appear on this page when tickets go on sale.` },
+  ...(x.venues.length ? [{ q: isArtist ? `Where does ${x.name} play in NYC?` : `Where does ${x.name} throw parties?`, a: `On our list: ${x.venues.slice(0, 4).map(({ v, n }) => `${v.name}${v.neighborhood ? ` (${v.neighborhood})` : ''}, ${plural(n, 'night')}`).join('; ')}.` }] : []),
+  ...(next && next.price_from ? [{ q: `How much are ${x.name} tickets?`, a: `The cheapest ticket for the next night was $${Math.round(next.price_from)} with fees when we last checked the ${next.ticket_vendor} page. Prices change as tiers sell.` }] : []),
+  ...(isArtist ? [{ q: `What are ${x.name}'s set times?`, a: 'We do not hold set times. Check the ticket page; some promoters post them close to the night.' }] : []),
+  ...(genres.length ? [{ q: isArtist ? `What kind of music does ${x.name} play?` : `What music is at ${x.name} events?`, a: `The sellers tag ${isArtist ? 'these nights' : 'its nights'} ${genres.join(', ')}.` }] : []),
+  ...(next?.age_min ? [{ q: 'What is the age limit?', a: `${next.age_min}+ for the next night. Bring a government photo ID.` }] : []),
+];
+const path = x.path;
+---
+<Base title={titles[0]} titles={titles.slice(1)} keyword={keyword} description={desc} noindex={!x.indexable}
+  jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [x.name, path]]), ...(x.upcoming.length ? [itemList(`${x.name} in NYC`, x.upcoming.map((p) => `/parties/${p.slug}`))] : []), faqLd(faq)]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li><li aria-current="page">{x.name}</li></ol></nav>
+  <h1>{h1}</h1>
+  <Fresh inShort={inShort} />
+  <div data-next={x.upcoming.length ? '1' : '0'} hidden></div>
+
+  {x.upcoming.length > 0 && (
+    <section class="section">
+      <h2>{isArtist ? `Next ${x.name} dates` : `Next ${x.name} nights`}</h2>
+      <div class="xgrid">{x.upcoming.slice(0, 12).map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>
+    </section>
+  )}
+  {x.upcoming.length === 0 && (
+    <section class="section">
+      <h2>Nothing on sale right now</h2>
+      <p>{isArtist ? `${x.name} has no upcoming NYC date on our list.` : `${x.name} has no upcoming night on our list.`} We read the ticket pages every day, and a new date shows up here as soon as it is on sale. Meanwhile: <a href="/parties/tonight">parties tonight</a>{genres[0] && x.genres[0] && lists.has(x.genres[0][0]) ? <>, <a href={`/parties/${x.genres[0][0]}`}>{genres[0].toLowerCase()} parties</a></> : null} or <a href="/parties/this-weekend">this weekend</a>.</p>
+    </section>
+  )}
+
+  <section class="section">
+    <h2>{isArtist ? `Where ${x.name} plays` : `Where ${x.name} throws parties`}</h2>
+    {x.venues.length ? (
+      <ul class="plain">{x.venues.slice(0, 8).map(({ v, n }) => <li>{hasPage.has(v.id) ? <a href={`/parties/venue/${v.id}`}>{v.name}</a> : v.name}{v.neighborhood && `, ${v.neighborhood}`}: {plural(n, 'night')} on our list</li>)}</ul>
+    ) : <p>The venue is not listed yet.</p>}
+    {genres.length > 0 && <p>The sound, as the sellers tag {isArtist ? 'these nights' : 'its nights'}: {x.genres.slice(0, 4).map(([g], i) => <>{i > 0 && ', '}{lists.has(g) ? <a href={`/parties/${g}`}>{GENRE_NAME[g] ?? g}</a> : (GENRE_NAME[g] ?? g)}</>)}.</p>}
+  </section>
+
+  {withLinks.length > 0 && (
+    <section class="section">
+      <h2>{isArtist ? `Billed with ${x.name}` : `Artists ${x.name} has booked`}</h2>
+      <ul class="link-cloud">{withLinks.map(([n, k]) => <li><a href={`/parties/artist/${artistSlug(n)}`}>{n}</a>{k > 1 && ` (${k})`}</li>)}</ul>
+    </section>
+  )}
+
+  {x.past.length > 0 && (
+    <section class="section">
+      <h2>Past nights on our list</h2>
+      <ul class="plain past">{x.past.slice(0, 15).map((n) => { const v = n.venue_id ? venues.find((y) => y.id === n.venue_id) : null; return <li><time datetime={n.night_date}>{short(n.night_date)}</time>: {cleanTitle(n.title)}{v && <> at {hasPage.has(v.id) ? <a href={`/parties/venue/${v.id}`}>{v.name}</a> : v.name}</>}</li>; })}</ul>
+    </section>
+  )}
+
+  <section class="section faq">
+    <h2>Questions</h2>
+    {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+  </section>
+  <p class="small">From the ticket listings we read every day{x.past.length ? ` and the nights we have published since ${fmtDate(x.past[x.past.length - 1].night_date)}` : ''}. Something wrong? <a href="/contact">Tell us</a>.</p>
+</Base>
+<style>
+  .plain { padding-left: 18px; display: grid; gap: 6px; }
+  .past li { color: var(--ink-2); }
+</style>

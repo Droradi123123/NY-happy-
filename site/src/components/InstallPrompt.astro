@@ -1,0 +1,59 @@
+---
+/**
+ * "Add YaY NYC to your home screen", on phones, from the second visit: 93% of visitors came once
+ * (GA4, Oct 2026), and the site is most useful in the evening, on the street. On Android it uses the
+ * browser's own install prompt (only when the browser offers one); on iPhone Safari it says where the
+ * button is. Never shown in the installed app, never again once dismissed. Nothing leaves the browser
+ * except the GA4 events (install_shown, install_click, install_dismiss).
+ */
+---
+<div class="install" id="install" hidden role="dialog" aria-label="Add YaY NYC to your home screen">
+  <img src="/icon-192.png" alt="" width="44" height="44" />
+  <p><strong>YaY NYC on your home screen</strong><span data-install-text>Tonight's parties and happy hours, one tap away.</span></p>
+  <button type="button" class="btn" data-install-add hidden>Add</button>
+  <button type="button" class="install-x" data-install-close aria-label="Not now">×</button>
+</div>
+<script>
+  const el = document.getElementById('install') as HTMLElement;
+  const ga = (e: string) => (window as any).gtag?.('event', e);
+  const store = {
+    get: (k: string) => { try { return localStorage.getItem(k); } catch { return null; } },
+    set: (k: string, v: string) => { try { localStorage.setItem(k, v); } catch { /* private mode */ } },
+  };
+  // one visit per browser session
+  try { if (!sessionStorage.getItem('yay-seen')) { sessionStorage.setItem('yay-seen', '1'); store.set('yay-visits', String(Number(store.get('yay-visits') ?? 0) + 1)); } } catch { /* storage off */ }
+  const standalone = matchMedia('(display-mode: standalone)').matches || (navigator as any).standalone === true;
+  const phone = matchMedia('(max-width: 859px)').matches;
+  const eligible = phone && !standalone && !store.get('yay-install-off') && Number(store.get('yay-visits') ?? 0) >= 2;
+  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent) && /safari/i.test(navigator.userAgent) && !/crios|fxios|edgios/i.test(navigator.userAgent);
+  let deferred: any = null;
+  const show = () => { if (!el.hidden) return; el.hidden = false; ga('install_shown'); };
+  if (eligible && ios) {
+    (el.querySelector('[data-install-text]') as HTMLElement).textContent = 'Tap the Share button, then "Add to Home Screen".';
+    setTimeout(show, 2500);
+  }
+  window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferred = e;
+    if (!eligible) return;
+    (el.querySelector('[data-install-add]') as HTMLElement).hidden = false;
+    setTimeout(show, 2500);
+  });
+  el.querySelector('[data-install-add]')?.addEventListener('click', async () => {
+    ga('install_click');
+    el.hidden = true;
+    if (deferred) { deferred.prompt(); await deferred.userChoice.catch(() => null); deferred = null; }
+    store.set('yay-install-off', '1');
+  });
+  el.querySelector('[data-install-close]')?.addEventListener('click', () => { ga('install_dismiss'); el.hidden = true; store.set('yay-install-off', '1'); });
+</script>
+<style>
+  .install { position: fixed; left: 10px; right: 10px; bottom: calc(var(--tabbar, 64px) + env(safe-area-inset-bottom) + 10px); z-index: 60; display: grid; grid-template-columns: 44px minmax(0, 1fr) auto auto; gap: 10px; align-items: center; padding: 10px 12px; background: #fff; border: 1.5px solid var(--ink); border-radius: 16px; box-shadow: 0 10px 30px rgba(22, 18, 43, 0.18); }
+  .install[hidden] { display: none; }
+  .install img { border-radius: 10px; }
+  .install p { margin: 0; font-size: 14px; line-height: 1.3; display: grid; min-width: 0; }
+  .install span { color: var(--muted); }
+  .install .btn { padding: 8px 14px; min-height: 0; }
+  .install-x { background: none; border: 0; font-size: 26px; line-height: 1; color: var(--muted); padding: 4px 6px; cursor: pointer; }
+  @media (min-width: 860px) { .install { display: none !important; } }
+</style>

@@ -7,7 +7,7 @@ import Base from '../../../layouts/Base.astro';
 import BarCard from '../../../components/BarCard.astro';
 import Line from '../../../components/Line.astro';
 import MiniMap from '../../../components/MiniMap.astro';
-import { stations, landmarks, type Bar } from '../../../lib/data';
+import { stations, landmarks, dealLabel, scheduleLabel, type Bar } from '../../../lib/data';
 import { stats, plural } from '../../../lib/stats';
 import { crumbs, faqLd, itemList, freshDescription } from '../../../lib/seo';
 import { nearIndexable } from '../../../lib/indexScope';
@@ -32,14 +32,32 @@ const description = freshDescription(`Happy hour near ${Name}${short ? ` (${shor
   s.cheapestLabel ? `Cheapest: ${s.cheapestLabel}.` : '',
 ]);
 const inShort = `${plural(s.n, 'bar')} within ${where} of ${name} run a happy hour${items[0] ? `; the closest is ${items[0].b.name} (${items[0].note})` : ''}${s.cheapestLabel ? `, and the cheapest drink on file is ${s.cheapestLabel}` : ''}.`;
-const faq = [
+let faq = [
   { q: `Where can I get a happy hour near ${name}?`, a: `${plural(s.n, 'bar')} within a short walk of ${name} run a happy hour. The closest is ${items[0].b.name} (${items[0].note}).` },
   ...(s.cheapestLabel ? [{ q: `What is the cheapest happy hour near ${name}?`, a: `The cheapest drink we have on file nearby is ${s.cheapestLabel}. Prices are before tax and tip.` }] : []),
   ...(kind === 'landmark' ? [{ q: 'Do I need ID for happy hour in NYC?', a: 'Yes. The drinking age is 21 and bars check ID. Visitors should bring a passport; a foreign driving licence is not always accepted.' }] : []),
 ];
+// the best deals first: a published deal, read in the last 45 days, cheapest drink and most days first
+// (people search "best happy hour near penn station"; the full list below stays closest first)
+const fresh = (b: Bar) => !!b.checked && Date.parse(b.checked) >= Date.now() - 45 * 864e5;
+const score = (b: Bar) => (b.cheapestDrink !== null && b.cheapestDrink >= 2 ? Math.max(0, 12 - b.cheapestDrink) * 10 : 0) + b.days.length * 6 + (b.hasFood ? 8 : 0) + Math.min(5, b.offers.length) * 3;
+const best = items.filter((i) => i.b.dealKnown && !i.b.doubt && fresh(i.b)).sort((x, y) => score(y.b) - score(x.b)).slice(0, 6);
+const mins = (t: string | null) => { const m = t?.match(/^(\d{1,2}):(\d{2})$/); return m ? Number(m[1]) * 60 + Number(m[2]) : null; };
+// still on at 7pm on a weekday (the evening crowd: games, concerts, the train home)
+const at7 = items.filter((i) => i.b.windows.some((w) => w.days.some((d) => ['mon', 'tue', 'wed', 'thu', 'fri'].includes(d)) && (mins(w.start) ?? 0) <= 19 * 60 && (w.end === null || (mins(w.end) ?? 0) > 19 * 60 || (mins(w.end) ?? 99) < 5 * 60)));
+const weekend = items.filter((i) => i.b.weekend);
+const late = items.filter((i) => i.b.late);
+const food = items.filter((i) => i.b.hasFood && i.b.dealKnown);
+const names = (xs: { b: Bar; note: string }[], n = 3) => xs.slice(0, n).map((i) => `${i.b.name} (${i.note})`).join(', ');
+faq.splice(1, 0, ...(best.length ? [{ q: `What is the best happy hour near ${name}?`, a: `On price, days and food, ${best[0].b.name} (${best[0].note}): ${dealLabel(best[0].b)}, ${scheduleLabel(best[0].b)}.${best[1] ? ` Then ${best[1].b.name} and ${best[2]?.b.name ?? best[1].b.name}.`.replace(/ and (.+) and \1\.$/, ' $1.') : ''}` }] : []));
+faq.push(
+  ...(at7.length ? [{ q: `Which happy hours near ${name} are still on at 7pm?`, a: `${plural(at7.length, 'bar')} on weekdays, including ${names(at7)}.` }] : []),
+  ...(weekend.length ? [{ q: `Is there a weekend happy hour near ${name}?`, a: `Yes: ${plural(weekend.length, 'bar')} nearby run one on Saturday or Sunday, including ${names(weekend)}.` }] : [{ q: `Is there a weekend happy hour near ${name}?`, a: 'None of the bars on this page lists a Saturday or Sunday happy hour.' }]),
+  ...(food.length ? [{ q: `Where can I eat at happy hour near ${name}?`, a: `${plural(food.length, 'bar')} list food on the happy hour, including ${names(food)}.` }] : []),
+);
 const pts = items.filter((i) => i.b.onMap).slice(0, 30).map((i) => ({ lat: i.b.lat!, lng: i.b.lng!, name: i.b.name, url: `/bars/${i.b.slug}` }));
 ---
-<Base noindex={!nearIndexable(kind, Astro.params.place)} title={(() => { const t = `Happy Hour Near ${Short}: ${s.n} Bars, Closest First`, m = new Date().toLocaleString('en-US', { month: 'short', year: 'numeric', timeZone: 'America/New_York' }); return t.length + m.length + 3 <= 62 ? `${t} (${m})` : t; })()} keyword={kw}
+<Base noindex={!nearIndexable(kind, Astro.params.place)} title={(() => { const t = best.length >= 3 ? `Happy Hour Near ${Short}: Best Deals and ${s.n} Bars` : `Happy Hour Near ${Short}: ${s.n} Bars, Closest First`, m = new Date().toLocaleString('en-US', { month: 'short', year: 'numeric', timeZone: 'America/New_York' }); return t.length + m.length + 3 <= 62 ? `${t} (${m})` : t; })()} keyword={kw}
   description={description}
   jsonld={[crumbs([['YaY NYC', '/'], ['Happy hours', '/happy-hours'], [`Near ${Name}`, Astro.url.pathname]]), faqLd(faq), itemList(`Happy hours near ${name}`, items.map((i) => `/bars/${i.b.slug}`))]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/happy-hours">Happy hours</a></li><li><a href="/happy-hours/neighborhoods">Near</a></li><li aria-current="page">{Name}</li></ol></nav>
@@ -47,7 +65,25 @@ const pts = items.filter((i) => i.b.onMap).slice(0, 30).map((i) => ({ lat: i.b.l
   <Fresh inShort={inShort} />
   <p class="lede">{kind === 'station' ? <>{lines.map((l) => <Line l={l} />)} </> : ''}{plural(s.n, 'happy hour')} within walking distance of {name}, closest first.{s.cheapestLabel && ` Cheapest drink on file: ${s.cheapestLabel}.`}</p>
   {pts.length > 0 && <MiniMap lat={center?.lat ?? pts[0].lat} lng={center?.lng ?? pts[0].lng} label={`Happy hours near ${name}`} points={pts} />}
-  <div class="xgrid section">{items.map((i) => <BarCard bar={i.b} note={i.note} />)}</div>
+  {best.length >= 3 && (
+    <section class="section">
+      <h2>The best deals near {Short}</h2>
+      <p class="small">A published deal read on the bar's own site in the last 45 days, ranked on drink price, days a week and food.</p>
+      <div class="xgrid">{best.map((i) => <BarCard bar={i.b} note={i.note} />)}</div>
+    </section>
+  )}
+  <section class="section">
+    <h2>Every happy hour near {Short}, closest first</h2>
+    <div class="xgrid">{items.map((i) => <BarCard bar={i.b} note={i.note} />)}</div>
+  </section>
+  {(at7.length > 0 || weekend.length > 0 || late.length > 0) && (
+    <section class="section">
+      <h2>By time</h2>
+      {at7.length > 0 && <><h3>Still on at 7pm on weekdays</h3><ul class="link-cloud">{at7.slice(0, 12).map((i) => <li><a href={`/bars/${i.b.slug}`}>{i.b.name}</a> · {i.note}</li>)}</ul></>}
+      {weekend.length > 0 && <><h3>On Saturday or Sunday</h3><ul class="link-cloud">{weekend.slice(0, 12).map((i) => <li><a href={`/bars/${i.b.slug}`}>{i.b.name}</a> · {i.note}</li>)}</ul></>}
+      {late.length > 0 && <><h3>Late-night happy hour</h3><ul class="link-cloud">{late.slice(0, 12).map((i) => <li><a href={`/bars/${i.b.slug}`}>{i.b.name}</a> · {i.note}</li>)}</ul></>}
+    </section>
+  )}
   <section class="section faq">
     <h2>Questions</h2>
     {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}

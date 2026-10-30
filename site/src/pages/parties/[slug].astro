@@ -1,4 +1,5 @@
 ---
+import { artistHref, promoterHref } from '../../lib/people';
 import Base from '../../layouts/Base.astro';
 import PartyCard from '../../components/PartyCard.astro';
 import MiniMap from '../../components/MiniMap.astro';
@@ -91,6 +92,9 @@ faq.push(
   ...(v && atVenue.length ? [{ q: `What else is on at ${v.name}?`, a: `${atVenue.slice(0, 3).map((o) => `${cleanTitle(o.title)}, ${nightDate(o.night_date, { weekday: 'short', month: 'short', day: 'numeric' })}`).join('; ')}. All of its nights are on the ${v.name} page.` }] : []),
   ...(v ? [{ q: `How do I get home from ${v.name}?`, a: `The New York subway runs all night, with fewer trains after midnight; check the MTA app for weekend changes. Yellow cabs and ride apps work across ${v.borough ?? 'the city'}${ends ? `; the night is listed to end at ${ends}${endsNextDay ? ' the next morning' : ''}` : ''}.` }] : []),
 );
+// the lineup and the promoter link to their pages, which stay after the night is over (lib/people.ts)
+const perfLinks = await Promise.all(p.performers.map(async (n) => [n, await artistHref(n)] as const));
+const promoterLink = await promoterHref(p.organizer);
 ---
 <Base title={partyTitle(p, v, crowded, kw)} description={partyDescription(p, v)} keyword={kw} jsonld={[partyJsonLd(p, v, url), crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [cleanTitle(p.title), `/parties/${p.slug}`]]), faqLd(faq)]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li>{v && <li><a href={`/parties/venue/${v.id}`}>{v.name}</a></li>}<li aria-current="page">{nightDate(p.night_date, { month: 'short', day: 'numeric' })}</li></ol></nav>
@@ -114,7 +118,7 @@ faq.push(
           {v?.address && <><dt>Address</dt><dd>{v.address.replace(/, United States$|, USA$/, '')}</dd></>}
           {x.entrance && <><dt>Entrance</dt><dd>{x.entrance}</dd></>}
           <dt>Price</dt><dd>{priceLabel(p)}{p.price_from ? ` (lowest ${p.ticket_vendor} ticket incl. fees, seen ${fmtDate(lastSeen)})` : ''}</dd>
-          {p.organizer && <><dt>Presented by</dt><dd>{p.organizer}</dd></>}
+          {p.organizer && <><dt>Presented by</dt><dd>{promoterLink ? <a href={promoterLink}>{p.organizer}</a> : p.organizer}</dd></>}
         </dl>
         <p class="countdown" data-night={p.night_date} hidden></p>
         {p.event_status !== 'sold_out' && <a class="btn" href={ticketHref(p)} rel={TICKET_REL} target="_blank" data-ev="tickets">{buyLabel}</a>}
@@ -128,7 +132,7 @@ faq.push(
       {c.expect && <section class="section"><h2>What to expect</h2><p>{c.expect}</p></section>}
       <section class="section"><h2>Music and lineup</h2>
         {c.music && <p>{c.music}</p>}
-        {p.performers.length > 0 && <p><strong>Listed on {p.ticket_vendor}:</strong> {p.performers.join(', ')}.</p>}
+        {p.performers.length > 0 && <p><strong>Listed on {p.ticket_vendor}:</strong> {perfLinks.map(([n, href], i) => <>{i > 0 && ', '}{href ? <a href={href}>{n}</a> : n}</>)}.</p>}
         {!c.music && !p.performers.length && <p>The lineup is not listed yet.</p>}
       </section>
       <section class="section"><h2>Before you go</h2>

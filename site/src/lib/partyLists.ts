@@ -180,7 +180,7 @@ const AGES: [slug: string, h1: string, keyword: string, short: string, min: numb
 ];
 const BOROUGHS: [string, string][] = [['manhattan', 'Manhattan'], ['brooklyn', 'Brooklyn'], ['queens', 'Queens'], ['bronx', 'The Bronx'], ['staten-island', 'Staten Island']];
 // list slugs that belong to other pages under /parties
-const RESERVED = new Set(['halloween', 'venue', 'date', 'genres', 'tonight', 'this-weekend']);
+const RESERVED = new Set(['halloween', 'venue', 'date', 'genres', 'tonight', 'this-weekend', 'artist', 'promoter']);
 
 let cache: Promise<PartyList[]> | null = null;
 export function partyLists(): Promise<PartyList[]> {

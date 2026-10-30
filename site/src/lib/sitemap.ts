@@ -3,6 +3,7 @@
  * tagged with its page type so each type can have its own sitemap (Search Console then reports index
  * coverage per type: bars, parties, lists, guides, other).
  */
+import { people } from './people';
 import { allBars, partyData, landmarks, stations } from './data';
 import { listPages } from './lists';
 import { partyLists, datePages } from './partyLists';
@@ -53,6 +54,7 @@ export function sitemapRows(): Promise<[string, string | null][]> {
       ...bars.filter(barIndexable).map((b) => [`/bars/${b.slug}`, b.checked?.slice(0, 10) ?? null] as [string, string | null]),
       ...parties.map((p) => [`/parties/${p.slug}`, p.last_checked?.slice(0, 10) ?? null] as [string, string | null]),
       ['/parties/genres', null],
+      ...[...(await people()).artists, ...(await people()).promoters].filter((x) => x.indexable).map((x) => [x.path, null] as [string, null]),
       ...(await venueBars()).filter((x) => x.indexable).map((x) => [`/parties/venue/${x.venue.id}/bars`, x.bars.map((i) => i.b.checked).filter(Boolean).sort().pop()?.slice(0, 10) ?? null] as [string, string | null]),
       ...(await datePages()).filter((d) => d.indexable).map((d) => [`/parties/date/${d.date}`, newest(d.parties.map((p) => p.last_checked))] as [string, string | null]),
       ...plists.filter((l) => l.indexable).map((l) => [`/parties/${l.slug}`, newest(l.parties.map((p) => p.last_checked))] as [string, string | null]),

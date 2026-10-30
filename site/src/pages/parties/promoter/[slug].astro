@@ -1,0 +1,10 @@
+---
+/** a promoter's NYC page (lib/people.ts): next nights, venues, artists booked, past nights */
+import PersonPage from '../../../components/PersonPage.astro';
+import { people, type Person } from '../../../lib/people';
+export async function getStaticPaths() {
+  return (await people()).promoters.map((person) => ({ params: { slug: person.slug }, props: { person } }));
+}
+const { person } = Astro.props as { person: Person };
+---
+<PersonPage person={person} />
