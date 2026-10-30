@@ -5,10 +5,11 @@
  */
 import Base from '../../layouts/Base.astro';
 import Photo from '../../components/Photo.astro';
+import PartyCard from '../../components/PartyCard.astro';
 import { allGuides, guideBars, guideCover, prose, livePartySlugs, PARTY_OR_VENUE, type Guide } from '../../lib/guides';
 import { guideTable } from '../../lib/guideTables';
 import { crumbs, faqLd, SITE } from '../../lib/seo';
-import { allBars, checkedRange, fmtDate, dealLabel, scheduleLabel, placePhoto, photoNote, cardCredit, boroughSlug, meters, paragraphs, type Bar } from '../../lib/data';
+import { allBars, checkedRange, fmtDate, dealLabel, scheduleLabel, placePhoto, photoNote, cardCredit, boroughSlug, meters, paragraphs, partyData, venueOf, type Bar } from '../../lib/data';
 
 export async function getStaticPaths() {
   const show = (g: Guide) => g.status === 'published' || process.env.YAY_DRAFTS === '1';
@@ -23,12 +24,16 @@ const url = `${SITE}/blog/${g.slug}`;
 const bars = g.picks?.length ? await allBars() : [];
 const picks = (g.picks ?? []).map((p) => ({ b: bars.find((x) => x.slug === p.slug), why: p.why })).filter((p): p is { b: Bar; why: string } => !!p.b);
 const walk = (a: Bar, b: Bar) => (a.lat && a.lng && b.lat && b.lng ? Math.max(1, Math.round(meters({ lat: a.lat, lng: a.lng }, { lat: b.lat, lng: b.lng }) / 80)) : null);
-const cover = picks.map((p) => placePhoto('bar', p.b.slug, p.b.hood, p.b.hoodSlug, false)).find((pp) => pp && pp.rel === 'own') ?? (await guideCover(g));
+const cover = (g.venues?.length ? null : picks.map((p) => placePhoto('bar', p.b.slug, p.b.hood, p.b.hoodSlug, false)).find((pp) => pp && pp.rel === 'own')) ?? (await guideCover(g));
 // guides built on a table get a strip of the bars in it, with photos, linking to the live pages
 const allB = picks.length ? [] : await allBars();
 const strip = picks.length ? [] : (await guideBars(g)).map((s) => allB.find((b) => b.slug === s)).filter((b): b is Bar => !!b)
   .map((b) => ({ b, pp: placePhoto('bar', b.slug, b.hood, b.hoodSlug, false, b.borough) })).filter((x) => x.pp).slice(0, 6);
-const coverName = picks[0]?.b.name ?? strip[0]?.b.name ?? g.short;
+// party guides: the nights to book, as ticket cards (a night that has ended is not in the data)
+const pd = g.nights?.length ? await partyData() : null;
+const nights = pd ? g.nights!.map((s) => pd.parties.find((p) => p.slug === s)).filter((p): p is NonNullable<typeof p> => !!p) : [];
+const coverVenue = g.venues?.map((id) => pd?.venues.find((v) => v.id === id)).find((v) => v && placePhoto('venue', v.id, null, null, false)?.rel === 'own');
+const coverName = coverVenue?.name ?? picks[0]?.b.name ?? strip[0]?.b.name ?? g.short;
 const words = [g.answer, g.intro ?? '', ...g.sections.flatMap((s) => s.paras), ...picks.map((p) => p.why), ...(g.faq ?? []).map((f) => f.a)].join(' ').replace(/<[^>]+>/g, '').split(/\s+/).length;
 const readMin = Math.max(1, Math.round(words / 230));
 const dealsChecked = checkedRange([...picks.map((p) => p.b), ...strip.map((x) => x.b)]);
@@ -50,6 +55,12 @@ const related = g.related.filter(([, href]) => !PARTY_OR_VENUE(href) || live.has
     {cover && <Photo photo={cover.photo} note={photoNote(cover, coverName)} alt={`${cover.photo.title ?? coverName}`} ratio="21 / 9" hero />}
     <div class="answer"><p>{g.answer}</p></div>
     {g.intro && paragraphs(g.intro).map((p) => <p class="intro" set:html={prose(p, live)} />)}
+    {nights.length > 0 && (
+      <section class="section">
+        <h2>{g.nightsTitle ?? 'Nights to book'}</h2>
+        <div class="xgrid">{nights.map((p) => <PartyCard party={p} venue={venueOf(p, pd!.venues)} />)}</div>
+      </section>
+    )}
     {picks.length > 0 && (
       <section class="section">
         <h2>{g.route ? 'The route, stop by stop' : 'Our picks'}</h2>

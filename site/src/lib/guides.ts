@@ -19,6 +19,8 @@ export interface Guide {
   picks?: { slug: string; why: string }[];
   route?: boolean;
   faq?: { q: string; a: string }[];
+  /** party guides (lib/nightGuides.ts): nights shown as ticket cards, and the venues whose photo can be the cover */
+  nights?: string[]; nightsTitle?: string; venues?: string[];
 }
 
 import { blogPosts, paragraphs, partyData } from './data';
@@ -204,7 +206,10 @@ export function allGuides(): Promise<Guide[]> {
     }));
     const taken = new Set([...own, ...db.map((g) => g.slug)]);
     const { autoGuides } = await import('./autoGuides');
-    return [...GUIDES, ...db, ...(await autoGuides()).filter((g) => !taken.has(g.slug))];
+    const auto = (await autoGuides()).filter((g) => !taken.has(g.slug));
+    for (const g of auto) taken.add(g.slug);
+    const { nightGuides } = await import('./nightGuides');
+    return [...GUIDES, ...db, ...auto, ...(await nightGuides()).filter((g) => !taken.has(g.slug))];
   })();
   return _all;
 }
@@ -220,6 +225,8 @@ export async function guideBars(g: Guide): Promise<string[]> {
 /** a guide's cover: the first of its bars with a photo of the place itself, else a street photo */
 export async function guideCover(g: Guide) {
   const { placePhoto } = await import('./data');
+  // a party guide: the first of its venues with a photo of the place itself
+  for (const id of g.venues ?? []) { const pp = placePhoto('venue', id, null, null, false); if (pp?.rel === 'own') return pp; }
   const slugs = await guideBars(g);
   let fallback = null;
   for (const s of slugs) {
