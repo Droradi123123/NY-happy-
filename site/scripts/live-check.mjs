@@ -20,7 +20,12 @@ const fail = (where, msg) => { report.ok = false; console.log(`✗ ${where}: ${m
 
 // ---- 1. the deploy ----
 const want = arg('--wait-for');
-const isAtOrAfter = (live) => { try { execSync(`git merge-base --is-ancestor ${want} ${live}`, { stdio: 'ignore' }); return true; } catch { return false; } };
+// the live build can be of a commit pushed after this check started (a bridge or scheduled commit on top
+// of ours): fetch it before asking whether it contains ours
+const isAtOrAfter = (live) => {
+  try { execSync(`git cat-file -e ${live}^{commit}`, { stdio: 'ignore' }); } catch { try { execSync(`git fetch -q --depth=100 origin ${live}`, { stdio: 'ignore' }); } catch { /* not fetchable */ } }
+  try { execSync(`git merge-base --is-ancestor ${want} ${live}`, { stdio: 'ignore' }); return true; } catch { return false; }
+};
 for (let t = 0; ; t++) {
   const b = await get(`${SITE}/build.json?t=${Date.now()}`, { cache: 'no-store' }).then((r) => (r.ok ? r.json() : null)).catch(() => null);
   report.deploy = b;

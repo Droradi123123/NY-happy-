@@ -1,90 +1,88 @@
 {
  "steps": [
   {
-   "rpc": "party_add_dice",
+   "rpc": "party_event_status",
    "args": {
-    "p_url": "https://dice.fm/event/3o889x-gryffin-19th-dec-marquee-new-york-new-york-city-tickets",
-    "p_venue_id": "marquee-new-york",
-    "p_room": null,
-    "p_found_via": "web search, holiday inventory 2026-10-30",
-    "p_themes": []
+    "p_id": "dice:6do623-unveiled-31st-dec-unveiled-new-york-city-tickets",
+    "p_status": "rejected",
+    "p_reason": "duplicate of dice:6a6b803c7e922f0001476f4d (unveiled-2026-12-31): same DICE event added by URL on 2026-10-30"
    }
   },
   {
-   "rpc": "party_add_dice",
+   "rpc": "party_event_copy",
    "args": {
-    "p_url": "https://dice.fm/event/6do623-unveiled-31st-dec-unveiled-new-york-city-tickets",
-    "p_venue_id": "unveiled",
-    "p_room": null,
-    "p_found_via": "web search, holiday inventory 2026-10-30",
-    "p_themes": [
-     "nye"
-    ]
+    "p_id": "dice:3o889x-gryffin-19th-dec-marquee-new-york-new-york-city-tickets",
+    "p_copy": {
+     "about": "Gryffin headlines Marquee New York in Chelsea on Saturday, December 19, a night presented by the club itself. DICE bills it as a DJ night with Gryffin as the only name on the listing, which makes it a headline set rather than a festival-style bill.",
+     "expect": "Marquee is a large Chelsea nightclub on 10th Avenue, and this is one of its December headliner nights. The listing does not describe a theme, a dress code or production. My take: this is for people who already know Gryffin and want to see one name for the whole night; check resale or the waiting list, because DICE showed it sold out when we read it on October 30.",
+     "music": "Confirmed by DICE: Gryffin, tagged as a DJ set. The listing names no support acts and gives no set times, so neither is confirmed.",
+     "before_you_go": "DICE lists the night from 11 PM on December 19 to 4 AM, and the club's terms say ticket holders must arrive before 12:30 AM. It is 21+, and the club accepts only original photo ID: a US driver's license, a New York non-driver ID, a US military ID, or a passport or visa from any country. There are no door sales, per DICE. Bag policy, coat check, re-entry and the nearest subway are not confirmed.",
+     "faq": [
+      {
+       "q": "Is the Gryffin show at Marquee sold out?",
+       "a": "DICE showed it sold out on October 30. The ticket button on this page goes to DICE, where resale or a waiting list may open."
+      },
+      {
+       "q": "What time should I arrive?",
+       "a": "Before 12:30 AM: the club's terms say ticket holders must arrive by then. The night is listed from 11 PM to 4 AM."
+      },
+      {
+       "q": "Who else is playing?",
+       "a": "Not confirmed. Gryffin is the only artist on the DICE listing."
+      },
+      {
+       "q": "Can I get a refund?",
+       "a": "The club's own terms say tickets are non-refundable. DICE lists a 24-hour cooling-off window after purchase. Check both before you buy."
+      },
+      {
+       "q": "What ID do I need?",
+       "a": "An original photo ID: a US driver's license, a New York non-driver ID, a US military ID, or a passport or visa from any country. The night is 21+."
+      }
+     ],
+     "refunds_by_seller": {
+      "Marquee New York (event terms)": "All items are non-refundable under any circumstances.",
+      "DICE": "24-hour cooling-off period after purchase, per the DICE listing."
+     },
+     "sources": [
+      "https://dice.fm/event/3o889x-gryffin-19th-dec-marquee-new-york-new-york-city-tickets"
+     ],
+     "verification_note": "Date, times, age, ID list, arrival cutoff, refund terms, sold-out status and the single billed artist were read from the DICE listing on 2026-10-30. No venue or promoter page was checked for a supporting lineup."
+    },
+    "p_author": "claude (nyc-parties skill), 2026-10-30"
    }
   },
   {
-   "insert": "party_leads",
+   "rpc": "party_publish_blockers",
+   "args": {
+    "p_id": "dice:3o889x-gryffin-19th-dec-marquee-new-york-new-york-city-tickets"
+   }
+  },
+  {
+   "rpc": "party_event_status",
+   "args": {
+    "p_id": "dice:3o889x-gryffin-19th-dec-marquee-new-york-new-york-city-tickets",
+    "p_status": "ready"
+   }
+  },
+  {
+   "rpc": "party_event_status",
+   "args": {
+    "p_id": "dice:3o889x-gryffin-19th-dec-marquee-new-york-new-york-city-tickets",
+    "p_status": "published"
+   }
+  },
+  {
+   "dump": "gryffin_after",
+   "path": "party_events?select=id,slug,publish_status&id=in.(%22dice:3o889x-gryffin-19th-dec-marquee-new-york-new-york-city-tickets%22,%22dice:6do623-unveiled-31st-dec-unveiled-new-york-city-tickets%22)"
+  },
+  {
+   "insert": "party_runs",
    "rows": [
     {
-     "source": "dice",
-     "date_text": "2026-12-30",
-     "night_date": "2026-12-30",
-     "time_text": null,
-     "title": "Steve Aoki",
-     "venue_text": "Marquee New York",
-     "url": "https://dice.fm/venue/marquee-new-york-qqwy",
-     "status": "open",
-     "notes": "Seen on the DICE venue page in a search snippet on 2026-10-30; no event page found yet. Add with party_add_dice once the event URL is public.",
-     "checked_at": "2026-10-30T13:00:00Z"
-    },
-    {
-     "source": "dice",
-     "date_text": "2026-12-26",
-     "night_date": "2026-12-26",
-     "time_text": null,
-     "title": "R3HAB",
-     "venue_text": "Marquee New York",
-     "url": "https://dice.fm/venue/marquee-new-york-qqwy",
-     "status": "open",
-     "notes": "Seen on the DICE venue page in a search snippet on 2026-10-30; no event page found yet. Add with party_add_dice once the event URL is public.",
-     "checked_at": "2026-10-30T13:00:00Z"
-    },
-    {
-     "source": "dice",
-     "date_text": "2026-12-24",
-     "night_date": "2026-12-24",
-     "time_text": null,
-     "title": "Timmy Trumpet - Christmas Eve",
-     "venue_text": "Marquee New York",
-     "url": "https://dice.fm/venue/marquee-new-york-qqwy",
-     "status": "open",
-     "notes": "Seen on the DICE venue page in a search snippet on 2026-10-30; no event page found yet. Add with party_add_dice once the event URL is public.",
-     "checked_at": "2026-10-30T13:00:00Z"
-    },
-    {
-     "source": "dice",
-     "date_text": "2026-11-25",
-     "night_date": "2026-11-25",
-     "time_text": null,
-     "title": "Thanksgiving Eve 2026 Party",
-     "venue_text": "Somewhere Nowhere NYC",
-     "url": "https://dice.fm/venue/somewhere-nowhere-nyc",
-     "status": "open",
-     "notes": "Seen on the DICE venue page in a search snippet on 2026-10-30; no event page found yet. Add with party_add_dice once the event URL is public.",
-     "checked_at": "2026-10-30T13:00:00Z"
+     "kind": "skill-summary",
+     "notes": "bridge 2026-10-30: holiday inventory search (36 DICE pages found, 34 already listed), added Gryffin Dec 19 at Marquee (published), rejected a duplicate Unveiled NYE row, 4 holiday nights kept as open leads until their DICE pages are public"
     }
    ]
-  },
-  {
-   "dice_refresh": {
-    "rounds": 12,
-    "n": 40,
-    "older_than": "2 days"
-   }
-  },
-  {
-   "dump": "season_new",
-   "path": "party_events?select=id,slug,title,night_date,venue_id,publish_status,raw,facts,copy&or=(and(venue_id.eq.marquee-new-york,night_date.eq.2026-12-19),and(venue_id.eq.unveiled,night_date.eq.2026-12-31))"
   }
  ]
 }
