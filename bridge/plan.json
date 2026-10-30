@@ -1,6 +1,52 @@
-{"steps": [
- {"dump": "snap_bars", "path": "site_bars?select=*&order=slug"},
- {"dump": "snap_parties", "path": "site_parties?select=*&order=starts_at"},
- {"dump": "snap_venues", "path": "site_venues?select=*"},
- {"dump": "snap_blog", "path": "site_blog_posts?select=*"}
-]}
+{
+ "steps": [
+  {
+   "fetch_ld": {
+    "name": "season_ld",
+    "urls": [
+     "https://dice.fm/event/mxyl3r-new-years-eve-gravagerz-31st-dec-silo-brooklyn-brooklyn-tickets",
+     "https://dice.fm/event/6do623-unveiled-31st-dec-unveiled-new-york-city-tickets",
+     "https://dice.fm/event/bb9d7k-hotel-alameda-nye-27-31st-dec-alameda-hotel-new-york-city-tickets",
+     "https://dice.fm/event/dkdxx6-all-access-party-pass-31st-dec-sony-hall-new-york-5thmad-new-york-city-the-saint-new-york-city-ainsworth-midtown-new-york-city-tickets",
+     "https://dice.fm/event/923d66-5th-mad-31st-dec-5thmad-new-york-city-tickets",
+     "https://dice.fm/event/q2qgq9-common-ground-31st-dec-common-ground-bar-new-york-tickets",
+     "https://dice.fm/event/q2qgwa-sony-hall-31st-dec-sony-hall-new-york-tickets",
+     "https://dice.fm/event/k65ekp-ainsworth-31st-dec-ainsworth-midtown-new-york-city-tickets",
+     "https://dice.fm/event/g5begb-darling-rooftop-31st-dec-darling-rooftop-new-york-city-tickets",
+     "https://dice.fm/event/av862x-superior-ingredients-room-31st-dec-superior-ingredients-main-room-new-york-tickets",
+     "https://dice.fm/event/7d96nv-superior-ingredients-roof-31st-dec-the-roof-at-superior-ingredients-new-york-tickets",
+     "https://dice.fm/event/v3nny7-new-years-eve-family-friendly-fireworks-cruise-31st-dec-skyport-marina-new-york-tickets",
+     "https://dice.fm/event/nvpebl-official-all-ages-times-square-party-pass-31st-dec-margaritaville-time-square-new-york-city-lucky-strike-times-square-new-york-city-tickets",
+     "https://dice.fm/event/xe8r7a-tony-guerra-luquez-b2b-maria-sifontes-25th-nov-silo-brooklyn-brooklyn-tickets",
+     "https://dice.fm/event/6dg283-dirty-circus-stuffed-27th-nov-house-of-yes-new-york-city-tickets",
+     "https://dice.fm/event/mxw2wk-daniel-allan-28th-nov-marquee-new-york-new-york-city-tickets",
+     "https://dice.fm/event/pybr78-mph-new-york-forever-28th-nov-knockdown-center-new-york-tickets",
+     "https://dice.fm/event/oemo2r-bonobo-dj-set-5th-dec-knockdown-center-new-york-tickets",
+     "https://dice.fm/event/yod952-capochino-11th-dec-silo-brooklyn-brooklyn-tickets",
+     "https://dice.fm/event/7d9p37-horse-meat-disco-new-york-december-12th-dec-knockdown-center-new-york-tickets",
+     "https://dice.fm/event/mx9gm9-mason-collective-calussa-shahar-guests-msvon-12th-dec-99-scott-main-room-new-york-tickets",
+     "https://dice.fm/event/yoq632-inner-sin-oliver-koletzki-and-more-tba-12th-dec-house-of-yes-new-york-city-tickets",
+     "https://dice.fm/event/3o889x-gryffin-19th-dec-marquee-new-york-new-york-city-tickets",
+     "https://dice.fm/event/g5b7a6-deathpact-from-darkness-comes-light-eclipsed-19th-dec-the-chocolate-factory-new-york-city-tickets",
+     "https://dice.fm/event/ww9mgp-rinzen-open-to-close-set-26th-dec-silo-brooklyn-brooklyn-tickets",
+     "https://dice.fm/event/eonlp6-mitis-6th-nov-silo-brooklyn-brooklyn-tickets",
+     "https://dice.fm/event/xe8qba-b3k-invites-ny-brutalismus-3000-spfdj-dorian-electra-more-6th-nov-knockdown-center-new-york-tickets",
+     "https://dice.fm/event/pywwwy-kyle-cooke-13th-nov-marquee-new-york-new-york-city-tickets",
+     "https://dice.fm/event/ryowpy-dax-j-open-to-close-14th-nov-knockdown-center-new-york-tickets",
+     "https://dice.fm/event/yo57ba-time-warp-nyc-friday-pass-20th-nov-duggal-greenhouse-brooklyn-navy-yard-new-york-city-tickets",
+     "https://dice.fm/event/6do7r3-time-warp-nyc-2-day-pass-20th-nov-duggal-greenhouse-brooklyn-navy-yard-new-york-city-tickets",
+     "https://dice.fm/event/ryepbw-kasango-with-cristian-arango-osdi-and-jf-20th-nov-somewhere-nowhere-nyc-new-york-tickets",
+     "https://dice.fm/event/pyxe5p-orbe-laia-rolando-jay-york-jesse-dorris-20th-nov-public-records-new-york-tickets",
+     "https://dice.fm/event/bb9dex-playgrnd-series-nyc-20th-nov-xanadu-new-york-city-tickets",
+     "https://dice.fm/event/8e76rv-lavern-21st-nov-marquee-new-york-new-york-city-tickets",
+     "https://dice.fm/event/53k26k-mamacita-a-latinhip-hop-party-21st-nov-deluxx-fluxx-new-york-city-tickets"
+    ],
+    "delay": 2500,
+    "snips": [
+     "\"description\"",
+     "minimumAge|ageRestriction|\\b(18|21)\\+"
+    ]
+   }
+  }
+ ]
+}
