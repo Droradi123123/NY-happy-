@@ -5,6 +5,8 @@
  */
 /** Google Analytics 4 measurement ID (property "YaY NYC"); PUBLIC_GA_ID at build time overrides it */
 export const GA_MEASUREMENT_ID = 'G-4SVKQNG36B';
+/** Microsoft Clarity project (heatmaps and session recordings, inputs masked), Oct 31, 2026; empty = no tag */
+export const CLARITY_ID = 'z67k46swwd';
 export const GOOGLE_SITE_VERIFICATION = '';
 export const BING_SITE_VERIFICATION = '';
 // affiliate network site verification (meta tag "fo-verify" on the home page), Oct 29, 2026

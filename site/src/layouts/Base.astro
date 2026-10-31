@@ -7,7 +7,7 @@
 import InstallPrompt from '../components/InstallPrompt.astro';
 import Logo from '../components/Logo.astro';
 import { fitTitle } from '../lib/seo';
-import { GA_MEASUREMENT_ID, GOOGLE_SITE_VERIFICATION, BING_SITE_VERIFICATION, FO_VERIFY } from '../lib/site';
+import { GA_MEASUREMENT_ID, GOOGLE_SITE_VERIFICATION, BING_SITE_VERIFICATION, FO_VERIFY, CLARITY_ID } from '../lib/site';
 import { allGuides } from '../lib/guides';
 import Newsletter from '../components/Newsletter.astro';
 import { listPages } from '../lib/lists';
@@ -102,6 +102,15 @@ const tabs = [
   <meta property="og:image" content={new URL(ogImage ?? '/og-default.png', Astro.site).href} />
   <meta name="twitter:card" content="summary_large_image" />
   {jsonld.map((o) => <script type="application/ld+json" set:html={JSON.stringify(o)} />)}
+  {CLARITY_ID && (
+    <script is:inline define:vars={{ CLARITY_ID }}>
+      // Microsoft Clarity (the official snippet), loaded after the page so it never delays the first paint
+      window.clarity = window.clarity || function () { (window.clarity.q = window.clarity.q || []).push(arguments); };
+      addEventListener('load', function () { setTimeout(function () {
+        var t = document.createElement('script'); t.async = true; t.src = 'https://www.clarity.ms/tag/' + CLARITY_ID; document.head.appendChild(t);
+      }, 0); });
+    </script>
+  )}
   {GA && (
     <script is:inline define:vars={{ GA }}>
       window.dataLayer = window.dataLayer || [];
