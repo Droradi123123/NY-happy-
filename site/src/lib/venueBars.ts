@@ -20,7 +20,7 @@ export function venueBars(): Promise<VenueBars[]> {
       const near = bars.map((b) => ({ b, m: meters({ lat: v.lat!, lng: v.lng! }, { lat: b.lat!, lng: b.lng! }) })).filter((x) => x.m <= RADIUS).sort((a, b) => a.m - b.m);
       if (near.length < MIN_BUILD) continue;
       const nights = parties.filter((p) => p.venue_id === v.id).length;
-      out.push({ venue: v, bars: near.slice(0, 24), nights, indexable: near.length >= MIN_INDEX && (nights > 0 || pathKept(`/parties/venue/${v.id}/bars`)) });
+      out.push({ venue: v, bars: near.slice(0, 24), nights, indexable: near.length >= MIN_INDEX && pathKept(`/parties/venue/${v.id}/bars`) /* index focus, Oct 31: only with impressions or visits */ });
     }
     return out;
   })();

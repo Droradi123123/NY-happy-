@@ -191,7 +191,9 @@ export function partyLists(): Promise<PartyList[]> {
     const add = (l: Omit<PartyList, 'parties' | 'indexable' | 'standIns'> & { standIns?: Party[] }, list: Party[]) => {
       if (RESERVED.has(l.slug) && l.kind !== 'when') return;
       if (out.some((o) => o.slug === l.slug)) return;
-      const indexable = l.kind === 'when' ? list.length > 0 : list.length >= INDEX_MIN || (list.length > 0 && pathKept(`/parties/${l.slug}`));
+      // index focus (Oct 31): a slice needs 10 nights, a theme, genre, day or area 8, a holiday 5 (lib/indexScope.ts)
+      const need = l.kind === 'slice' ? 10 : l.kind === 'holiday' ? INDEX_MIN : 8;
+      const indexable = l.kind === 'when' ? list.length > 0 : list.length >= need || (list.length > 0 && pathKept(`/parties/${l.slug}`));
       const standIns = list.length >= INDEX_MIN ? [] : soon((l.standIns ?? []).filter((p) => !list.includes(p)));
       out.push({ ...l, parties: list, indexable, standIns });
     };

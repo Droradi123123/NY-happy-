@@ -1,4 +1,5 @@
 ---
+import { venueIndexable } from '../../../lib/indexScope';
 import Base from '../../../layouts/Base.astro';
 import Fresh from '../../../components/Fresh.astro';
 import PartyCard from '../../../components/PartyCard.astro';
@@ -54,7 +55,7 @@ const placeLd = {
   ...(website ? { sameAs: [website] } : {}),
 };
 ---
-<Base title={`${v.name} Events: Upcoming Parties and Tickets`} keyword={`${v.name} events`} description={description}
+<Base noindex={!venueIndexable(v.id, nights.length)} title={`${v.name} Events: Upcoming Parties and Tickets`} keyword={`${v.name} events`} description={description}
   jsonld={[placeLd, crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [v.name, `/parties/venue/${v.id}`]]), ...(nights.length ? [itemList(`Parties at ${v.name}`, nights.map((p) => `/parties/${p.slug}`))] : []), faqLd(faq)]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li><li aria-current="page">{v.name}</li></ol></nav>
   <h1>{v.name} Events and Parties</h1>

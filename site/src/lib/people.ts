@@ -56,11 +56,9 @@ export function people() {
         }
         const path = `/parties/${kind}/${slug}`;
         const total = all.length;
-        // an artist page is worth indexing with two nights on our list, or as the headliner of an upcoming one;
-        // a promoter page with three nights. Pages that already had Google impressions stay indexed.
-        // a headliner: billed first on an upcoming night we have written up
-        const headliner = kind === 'artist' && a.upcoming.some((p) => (p.performers ?? [])[0] && artistSlug(p.performers[0]) === slug && !!p.copy?.about);
-        const indexable = pathKept(path) || (kind === 'artist' ? total >= 2 || headliner : total >= 3);
+        // pages that had Google impressions or visits stay indexed
+        // index focus (Oct 31): three nights for an artist, five for a promoter
+        const indexable = pathKept(path) || (kind === 'artist' ? total >= 3 : total >= 5);
         out.push({
           kind, slug, name, path, upcoming: a.upcoming, past: a.past.sort((x, y) => y.night_date.localeCompare(x.night_date)),
           venues: [...vc].map(([id, n]) => ({ v: venueById.get(id)!, n })).filter((x) => x.v).sort((x, y) => y.n - x.n),

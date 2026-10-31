@@ -1,4 +1,5 @@
 ---
+import { partyIndexable } from '../../lib/indexScope';
 import { artistHref, promoterHref } from '../../lib/people';
 import Base from '../../layouts/Base.astro';
 import PartyCard from '../../components/PartyCard.astro';
@@ -96,7 +97,7 @@ faq.push(
 const perfLinks = await Promise.all(p.performers.map(async (n) => [n, await artistHref(n)] as const));
 const promoterLink = await promoterHref(p.organizer);
 ---
-<Base title={partyTitle(p, v, crowded, kw)} description={partyDescription(p, v)} keyword={kw} jsonld={[partyJsonLd(p, v, url), crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [cleanTitle(p.title), `/parties/${p.slug}`]]), faqLd(faq)]}>
+<Base noindex={!partyIndexable(p)} title={partyTitle(p, v, crowded, kw)} description={partyDescription(p, v)} keyword={kw} jsonld={[partyJsonLd(p, v, url), crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [cleanTitle(p.title), `/parties/${p.slug}`]]), faqLd(faq)]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li>{v && <li><a href={`/parties/venue/${v.id}`}>{v.name}</a></li>}<li aria-current="page">{nightDate(p.night_date, { month: 'short', day: 'numeric' })}</li></ol></nav>
   <div class="cols">
     <div>

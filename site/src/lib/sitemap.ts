@@ -12,7 +12,7 @@ import { halloweenPages } from './halloween';
 import { allGuides } from './guides';
 import { guideTable } from './guideTables';
 import { SITE } from './seo';
-import { barIndexable, pathIndexable, keptNear } from './indexScope';
+import { barIndexable, pathIndexable, keptNear, partyIndexable, venueIndexable } from './indexScope';
 import { DAY_PAGES, BOROUGH_PAGES, GAME_PAGES, daySlugOf, OBSERVED, bingo, games } from './activities';
 
 
@@ -52,7 +52,7 @@ export function sitemapRows(): Promise<[string, string | null][]> {
       ...lists.map((l) => [`/happy-hours/${l.slug}`, newest(l.bars.map((b) => b.checked))] as [string, string | null]),
       ...[...near].map((s) => [`/happy-hours/near/${s}`, null] as [string, null]),
       ...bars.filter(barIndexable).map((b) => [`/bars/${b.slug}`, b.checked?.slice(0, 10) ?? null] as [string, string | null]),
-      ...parties.map((p) => [`/parties/${p.slug}`, p.last_checked?.slice(0, 10) ?? null] as [string, string | null]),
+      ...parties.filter(partyIndexable).map((p) => [`/parties/${p.slug}`, p.last_checked?.slice(0, 10) ?? null] as [string, string | null]),
       ['/parties/genres', null],
       ...[...(await people()).artists, ...(await people()).promoters].filter((x) => x.indexable).map((x) => [x.path, null] as [string, null]),
       ...(await venueBars()).filter((x) => x.indexable).map((x) => [`/parties/venue/${x.venue.id}/bars`, x.bars.map((i) => i.b.checked).filter(Boolean).sort().pop()?.slice(0, 10) ?? null] as [string, string | null]),
@@ -60,7 +60,7 @@ export function sitemapRows(): Promise<[string, string | null][]> {
       ...plists.filter((l) => l.indexable).map((l) => [`/parties/${l.slug}`, newest(l.parties.map((p) => p.last_checked))] as [string, string | null]),
       ...(guides.length ? [['/blog', guides.map((g) => g.updated).sort().pop()!] as [string, string]] : []),
       ...guides.map((g) => [`/blog/${g.slug}`, g.updated] as [string, string]),
-      ...venuePages.map((v) => [`/parties/venue/${v.id}`, newest(parties.filter((p) => p.venue_id === v.id).map((p) => p.last_checked))] as [string, string | null]),
+      ...venuePages.filter((v) => venueIndexable(v.id, parties.filter((p) => p.venue_id === v.id).length)).map((v) => [`/parties/venue/${v.id}`, newest(parties.filter((p) => p.venue_id === v.id).map((p) => p.last_checked))] as [string, string | null]),
       // trivia, music bingo and games: lastmod is the date the listings were read
       ['/trivia', OBSERVED], ...DAY_PAGES.map((d) => [`/trivia/${daySlugOf(d)}`, OBSERVED] as [string, string]),
       ...BOROUGH_PAGES.map(([slug]) => [`/trivia/${slug}`, OBSERVED] as [string, string]),
