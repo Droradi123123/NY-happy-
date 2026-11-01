@@ -196,6 +196,21 @@ for (const [i, s] of plan.steps.entries()) {
       }
       writeFileSync(`bridge/out/${s.fetch_ld.name ?? 'ld'}.json`, JSON.stringify(out));
       console.log(`${tag} fetch_ld: ${out.length} pages, ${out.filter((p) => p.ld?.length).length} with JSON-LD`);
+    } else if (s.fetch_links) {
+      // public pages (a DICE event or venue page): every distinct link matching `pattern`, one page at a time,
+      // `delay` ms apart. For finding a venue's page from one of its events, and the events on a venue page.
+      const out = [];
+      const re = new RegExp(s.fetch_links.pattern, 'g');
+      for (const u of s.fetch_links.urls) {
+        try {
+          const r = await fetch(u, { headers: { 'User-Agent': 'Mozilla/5.0 (compatible; NYHappy/1.0; +https://github.com/Droradi123123/NY-happy-)' }, signal: AbortSignal.timeout(20000) });
+          const html = await r.text();
+          out.push({ url: u, status: r.status, links: [...new Set([...html.matchAll(re)].map((m) => m[0]))] });
+        } catch (e) { out.push({ url: u, error: String(e.message ?? e).slice(0, 100) }); }
+        await sleep((s.fetch_links.delay ?? 1500) / 1000);
+      }
+      writeFileSync(`bridge/out/${s.fetch_links.name ?? 'links'}.json`, JSON.stringify(out));
+      console.log(`${tag} fetch_links: ${out.length} pages, ${out.reduce((n, p) => n + (p.links?.length ?? 0), 0)} links`);
     } else if (s.sleep) {
       await sleep(s.sleep);
     }
