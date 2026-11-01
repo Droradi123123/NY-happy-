@@ -53,7 +53,7 @@ export function sitemapRows(): Promise<[string, string | null][]> {
       ...[...near].map((s) => [`/happy-hours/near/${s}`, null] as [string, null]),
       ...bars.filter(barIndexable).map((b) => [`/bars/${b.slug}`, b.checked?.slice(0, 10) ?? null] as [string, string | null]),
       ...parties.filter(partyIndexable).map((p) => [`/parties/${p.slug}`, p.last_checked?.slice(0, 10) ?? null] as [string, string | null]),
-      ['/parties/genres', null],
+      ['/parties/genres', null], ['/parties/calendar', null],
       ...[...(await people()).artists, ...(await people()).promoters].filter((x) => x.indexable).map((x) => [x.path, null] as [string, null]),
       ...(await venueBars()).filter((x) => x.indexable).map((x) => [`/parties/venue/${x.venue.id}/bars`, x.bars.map((i) => i.b.checked).filter(Boolean).sort().pop()?.slice(0, 10) ?? null] as [string, string | null]),
       ...(await datePages()).filter((d) => d.indexable).map((d) => [`/parties/date/${d.date}`, newest(d.parties.map((p) => p.last_checked))] as [string, string | null]),

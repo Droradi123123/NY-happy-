@@ -1,0 +1,94 @@
+---
+/**
+ * /parties/calendar: the NYC party calendar for the next four months (lib/events.ts): the holidays people
+ * go out for, the seasons with nights on sale, and the big nights (festivals, passes, headline shows).
+ * Each entry links to its own pages (the holiday hub, its night page, the party). Counts are nights on sale.
+ */
+import Base from '../../layouts/Base.astro';
+import Fresh from '../../components/Fresh.astro';
+import PartyCard from '../../components/PartyCard.astro';
+import { nycEvents, type NycEvent } from '../../lib/events';
+import { partyData, venueOf, nightDate } from '../../lib/data';
+import { crumbs, faqLd, freshDescription } from '../../lib/seo';
+import { plural } from '../../lib/stats';
+import { partyLists } from '../../lib/partyLists';
+
+const events = await nycEvents();
+const built = new Set((await partyLists()).map((l) => l.slug));
+const quick = ([['tonight', 'Tonight'], ['tomorrow', 'Tomorrow'], ['this-weekend', 'This weekend'], ['next-weekend', 'Next weekend']] as const).filter(([s]) => built.has(s));
+const { venues } = await partyData();
+const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+const days = (d: string) => Math.round((Date.parse(`${d}T12:00:00Z`) - Date.parse(`${today}T12:00:00Z`)) / 864e5);
+const when = (e: NycEvent) => `${nightDate(e.date, { weekday: 'short', month: 'short', day: 'numeric' })}${e.end && e.end !== e.date ? ` to ${nightDate(e.end, { weekday: 'short', month: 'short', day: 'numeric' })}` : ''}`;
+const soon = (e: NycEvent) => { const n = days(e.date); return n <= 0 ? 'Now' : n === 1 ? 'Tomorrow' : `In ${n} days`; };
+const months = [...new Set(events.map((e) => e.date.slice(0, 7)))];
+const monthName = (m: string) => nightDate(`${m}-15`, { month: 'long', year: 'numeric' });
+const holidays = events.filter((e) => e.kind === 'holiday');
+const withNights = events.filter((e) => e.nights.length);
+const bigs = events.filter((e) => e.kind === 'big');
+const next = holidays.find((e) => days(e.date) >= 0) ?? null;
+const inShort = `${plural(events.length, 'date')} worth planning a night around in the next four months${next ? `; the next is ${next.name} (${nightDate(next.date, { weekday: 'long', month: 'long', day: 'numeric' })}${next.nights.length ? `, ${plural(next.nights.length, 'night')} on sale` : ''})` : ''}. ${plural(withNights.reduce((n, e) => n + e.nights.length, 0), 'night')} are on sale across them so far.`;
+const description = freshDescription('The NYC party calendar', [
+  `${plural(holidays.length, 'holiday')} and ${plural(bigs.length, 'big night')} in the next four months, with dates and nights on sale.`,
+  next ? `Next: ${next.name}, ${nightDate(next.date, { month: 'short', day: 'numeric' })}.` : '',
+]);
+const faq = [
+  ...(next ? [{ q: 'What is the next big party night in NYC?', a: `${next.name}, ${nightDate(next.date, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}${next.nights.length ? `, with ${plural(next.nights.length, 'night')} on sale on our list` : ''}.` }] : []),
+  ...holidays.filter((e) => e !== next).slice(0, 4).map((e) => ({ q: `When is ${e.name} ${e.date.slice(0, 4)}?`, a: `${nightDate(e.date, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}. ${e.nights.length ? `${plural(e.nights.length, 'party', 'parties')} on sale on our list so far.` : 'No parties are on sale on our list yet; they appear on its page as tickets go on sale.'}` })),
+  ...(bigs.length ? [{ q: 'What are the biggest club nights coming up in NYC?', a: `On our list: ${bigs.slice(0, 4).map((e) => `${e.name} (${when(e)}${e.note ? `, ${e.note}` : ''})`).join('; ')}.` }] : []),
+];
+---
+<Base title="NYC Party Calendar: Holidays and Big Nights, Next 4 Months" titles={['NYC Party Calendar: Holidays and Big Nights', 'NYC Party Calendar']} keyword="nyc party calendar" description={description}
+  jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties'], ['Calendar', '/parties/calendar']]), ...(faq.length ? [faqLd(faq)] : [])]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li><li aria-current="page">Calendar</li></ol></nav>
+  <h1>The NYC Party Calendar</h1>
+  <Fresh inShort={inShort} />
+  <p class="lede">Every night worth planning around, month by month: the holidays New York goes out for, the nights already on sale for them, and the big festival and headline nights. {quick.length > 0 && <>Short on time? {quick.map(([s, t], i) => <>{i > 0 && ' · '}<a href={`/parties/${s}`}>{t}</a></>)}.</>}</p>
+
+  {months.map((m) => (
+    <section class="section">
+      <h2>{monthName(m)}</h2>
+      <ol class="cal">
+        {events.filter((e) => e.date.startsWith(m)).map((e) => (
+          <li class={`cal-row cal-${e.kind}`}>
+            <p class="cal-when"><strong>{when(e)}</strong><span>{soon(e)}</span></p>
+            <div>
+              <h3>{e.href ? <a href={e.href}>{e.name}</a> : e.name}</h3>
+              <p class="cal-meta">{e.kind === 'big' ? e.note : e.nights.length ? `${plural(e.nights.length, 'night')} on sale` : 'Nothing on sale yet: the page fills in as tickets go on sale'}{e.datePage && <> · <a href={`/parties/date/${e.date}`}>every party that night</a></>}</p>
+              {e.note && e.kind !== 'big' && <p class="cal-note">{e.note}</p>}
+            </div>
+          </li>
+        ))}
+      </ol>
+    </section>
+  ))}
+
+  {bigs.length > 0 && (
+    <section class="section">
+      <h2>The big nights</h2>
+      <p class="small">Festivals, multi-night passes and headline nights on our list, the most opened first.</p>
+      <div class="xgrid">{bigs.slice(0, 9).map((e) => <PartyCard party={e.nights[0]} venue={venueOf(e.nights[0], venues)} />)}</div>
+    </section>
+  )}
+
+  {faq.length > 0 && (
+    <section class="section faq">
+      <h2>Questions</h2>
+      {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+    </section>
+  )}
+  <p class="small section">Dates are computed for each year; counts are the nights on sale on the site, read from the ticket pages every day. <a href="/contact">Tell us</a> about a night we are missing.</p>
+</Base>
+<style>
+  .cal { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+  .cal-row { display: grid; grid-template-columns: 130px minmax(0, 1fr); gap: 14px; padding: 12px 14px; border: 1px solid var(--line); border-radius: 14px; background: var(--card, #fff); }
+  .cal-holiday { border-left: 6px solid var(--coral-btn, #FF4F64); }
+  .cal-season { border-left: 6px solid var(--brand); }
+  .cal-big { border-left: 6px solid var(--ink); }
+  .cal-when { margin: 0; display: grid; gap: 2px; font-size: 15px; }
+  .cal-when span { color: var(--muted); font-size: 13px; font-weight: 700; }
+  .cal-row h3 { margin: 0 0 2px; font-size: 18px; overflow-wrap: anywhere; }
+  .cal-meta, .cal-note { margin: 0; font-size: 14px; color: var(--ink-2); overflow-wrap: anywhere; }
+  .cal-note { color: var(--muted); }
+  @media (max-width: 520px) { .cal-row { grid-template-columns: 1fr; gap: 6px; } }
+</style>

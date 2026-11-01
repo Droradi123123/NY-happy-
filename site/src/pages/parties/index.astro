@@ -41,6 +41,7 @@ const groups: [string, { href: string; short: string; n: number }[]][] = [
   <h1>Parties in NYC</h1>
   <Fresh inShort={inShort} />
   <p class="lede">Club nights, raves and parties across the five boroughs, with doors time, venue, age and price. Nights that are over leave the list on their own.</p>
+  <nav class="when-pills" aria-label="When">{plists.filter((l) => l.kind === 'when' && l.parties.length > 0).map((l) => <a class="pill" href={`/parties/${l.slug}`}>{l.short} <span>{l.parties.length}</span></a>)}<a class="pill" href="/parties/calendar">Calendar</a></nav>
   <Explorer kind="parties" genres={genres} hoods={hoods} heading="Find a party">
     {parties.slice(0, 24).map((p, i) => <PartyCard party={p} venue={venueOf(p, venues)} eager={i < 2} />)}
   </Explorer>
@@ -60,3 +61,8 @@ const groups: [string, { href: string; short: string; n: number }[]][] = [
   ))}
   <section class="section faq"><h2>Questions</h2>{faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}</section>
 </Base>
+<style>
+  .when-pills { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+  .when-pills .pill { display: inline-flex; gap: 6px; align-items: center; padding: 8px 14px; border: 1.5px solid var(--ink); border-radius: 999px; font-weight: 800; text-decoration: none; background: #fff; }
+  .when-pills .pill span { color: var(--muted); font-weight: 700; }
+</style>

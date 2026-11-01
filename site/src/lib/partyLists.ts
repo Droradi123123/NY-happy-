@@ -180,7 +180,7 @@ const AGES: [slug: string, h1: string, keyword: string, short: string, min: numb
 ];
 const BOROUGHS: [string, string][] = [['manhattan', 'Manhattan'], ['brooklyn', 'Brooklyn'], ['queens', 'Queens'], ['bronx', 'The Bronx'], ['staten-island', 'Staten Island']];
 // list slugs that belong to other pages under /parties
-const RESERVED = new Set(['halloween', 'venue', 'date', 'genres', 'tonight', 'tomorrow', 'this-weekend', 'artist', 'promoter']);
+const RESERVED = new Set(['halloween', 'venue', 'date', 'genres', 'tonight', 'tomorrow', 'this-weekend', 'next-weekend', 'calendar', 'artist', 'promoter']);
 
 let cache: Promise<PartyList[]> | null = null;
 export function partyLists(): Promise<PartyList[]> {
@@ -192,7 +192,8 @@ export function partyLists(): Promise<PartyList[]> {
       if (RESERVED.has(l.slug) && l.kind !== 'when') return;
       if (out.some((o) => o.slug === l.slug)) return;
       // index focus (Oct 31): a slice needs 10 nights, a theme, genre, day or area 8, a holiday 5 (lib/indexScope.ts)
-      const need = l.kind === 'slice' ? 10 : l.kind === 'holiday' ? INDEX_MIN : 8;
+      const timely = /\/(tonight|tomorrow|this-weekend)$/.test(l.slug);
+      const need = timely ? 1 : l.kind === 'slice' ? 10 : l.kind === 'holiday' ? INDEX_MIN : 8;
       const indexable = l.kind === 'when' ? list.length > 0 : list.length >= need || (list.length > 0 && pathKept(`/parties/${l.slug}`));
       const standIns = list.length >= INDEX_MIN ? [] : soon((l.standIns ?? []).filter((p) => !list.includes(p)));
       out.push({ ...l, parties: list, indexable, standIns });
@@ -220,6 +221,11 @@ export function partyLists(): Promise<PartyList[]> {
     const weekend = parties.filter((p) => p.night_date >= from && p.night_date <= to);
     if (weekend.length) add({ slug: 'this-weekend', kind: 'when', h1: 'Parties This Weekend in NYC', label: 'Parties this weekend in NYC', keyword: 'parties this weekend nyc', short: 'This weekend',
       title: `Parties This Weekend in NYC: ${dateRange(weekend)} (${weekend.length} Parties)` }, weekend);
+    // next weekend ("parties next weekend nyc"): the Friday to Sunday after the one on /parties/this-weekend
+    const nextFrom = nyDate(dowToday === 0 ? 5 : 12 - dowToday), nextTo = nyDate(dowToday === 0 ? 7 : 14 - dowToday);
+    const nextWeekend = parties.filter((p) => p.night_date >= nextFrom && p.night_date <= nextTo);
+    if (nextWeekend.length) add({ slug: 'next-weekend', kind: 'when', h1: 'Parties Next Weekend in NYC', label: 'Parties next weekend in NYC', keyword: 'parties next weekend nyc', short: 'Next weekend',
+      title: `Parties Next Weekend in NYC: ${dateRange(nextWeekend)} (${nextWeekend.length} Parties)` }, nextWeekend);
     // music: every genre, always (joined genre strings are split upstream; "other" is never a page)
     for (const [g, name] of Object.entries(GENRE_NAME)) {
       // headings in title case ("Afro House", "Drum & Bass"); the keyword stays lower case
@@ -273,6 +279,9 @@ export function partyLists(): Promise<PartyList[]> {
       const tonightB = inB.filter((p) => p.night_date === today);
       add({ slug: `${slug}/tonight`, kind: 'slice', parent, h1: `Parties Tonight in ${B}`, label: `Parties tonight in ${B}`, keyword: `parties tonight ${bk}`, short: 'Tonight',
         title: `Parties Tonight in ${B}: ${shortDate(today)}`, standIns: tonight, standInLabel: 'Tonight elsewhere in NYC' }, tonightB);
+      const tomorrowB = inB.filter((p) => p.night_date === tomorrowD);
+      add({ slug: `${slug}/tomorrow`, kind: 'slice', parent, h1: `Parties Tomorrow Night in ${B}`, label: `Parties tomorrow night in ${B}`, keyword: `parties tomorrow night ${bk}`, short: 'Tomorrow',
+        title: `Parties Tomorrow Night in ${B}: ${shortDate(tomorrowD)}`, standIns: tomorrow, standInLabel: 'Tomorrow night elsewhere in NYC' }, tomorrowB);
       add({ slug: `${slug}/this-weekend`, kind: 'slice', parent, h1: `Parties This Weekend in ${B}`, label: `Parties this weekend in ${B}`, keyword: `${bk} parties this weekend`, short: 'This weekend',
         ...(weekend.length ? { title: `Parties This Weekend in ${B}: ${dateRange(weekend)}` } : {}), standIns: weekend, standInLabel: 'This weekend elsewhere in NYC' }, inB.filter((p) => weekend.includes(p)));
       for (const [g, G, gk] of BOROUGH_GENRES)
@@ -297,12 +306,19 @@ export const DATE_AHEAD = 14, DATE_KEEP = 7;
 export async function datePages(): Promise<DatePage[]> {
   const { parties } = await partyData();
   const out: DatePage[] = [];
-  for (let i = -DATE_KEEP; i < DATE_AHEAD; i++) {
-    const date = nyDate(i);
+  const page = (date: string, past: boolean) => {
     const list = parties.filter((p) => p.night_date === date);
-    out.push({ date, parties: list, past: i < 0, indexable: i >= 0 && list.length >= INDEX_MIN, weekday: WEEKDAY[new Date(`${date}T12:00:00Z`).getUTCDay()] });
+    out.push({ date, parties: list, past, indexable: !past && list.length >= INDEX_MIN, weekday: WEEKDAY[new Date(`${date}T12:00:00Z`).getUTCDay()] });
+  };
+  for (let i = -DATE_KEEP; i < DATE_AHEAD; i++) page(nyDate(i), i < 0);
+  // a holiday's own night gets its page as soon as it is within 60 days, not two weeks before
+  // (Halloween: /parties/halloween/october-31 was the most visited page of the season)
+  const today = nyDate(), until = nyDate(60), have = new Set(out.map((d) => d.date));
+  for (const H of HOLIDAYS) {
+    const d = next(today, H.at);
+    if (d <= until && !have.has(d)) { page(d, false); have.add(d); }
   }
-  return out;
+  return out.sort((a, b) => a.date.localeCompare(b.date));
 }
 export const dateRange = (list: Party[]) => {
   if (!list.length) return '';

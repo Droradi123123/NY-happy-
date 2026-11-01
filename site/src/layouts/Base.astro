@@ -11,6 +11,8 @@ import { GA_MEASUREMENT_ID, GOOGLE_SITE_VERIFICATION, BING_SITE_VERIFICATION, FO
 import { allGuides } from '../lib/guides';
 import Newsletter from '../components/Newsletter.astro';
 import { listPages } from '../lib/lists';
+import { partyLists } from '../lib/partyLists';
+import { nycEvents } from '../lib/events';
 // the font is self-hosted (no render-blocking request to Google Fonts)
 import '@fontsource-variable/bricolage-grotesque/opsz.css';
 import '../styles/global.css';
@@ -43,7 +45,14 @@ const nav = [
   ...(hasGuides ? [{ href: '/blog', label: 'Guides' }] : []),
 ];
 // the one call to action in the header: the season's big night, otherwise what is on right now
-const seasonal = new Date().toISOString().slice(0, 10) <= '2026-11-01' ? { href: '/parties/halloween', label: 'Halloween' } : { href: '/happy-hours/now', label: 'On now' };
+// tonight, tomorrow and this weekend are linked only while something is listed for them
+const whenBuilt = new Set((await partyLists()).filter((l) => l.kind === 'when').map((l) => l.slug));
+const when = (slug: string, label: string) => (whenBuilt.has(slug) ? [{ href: `/parties/${slug}`, label }] : []);
+// the header button: the next holiday within 30 days with nights on sale (lib/events.ts), else what is on now
+const HEADER_LABEL: Record<string, string> = { 'thanksgiving-eve': 'Thanksgiving Eve', 'thanksgiving-weekend': 'Thanksgiving', 'christmas-eve': 'Christmas Eve', 'new-years-eve': 'NYE', 'new-years-day': "New Year's Day", 'mlk-weekend': 'MLK weekend', 'super-bowl': 'Super Bowl', 'valentines-day': "Valentine's", 'st-patricks-day': "St. Patrick's" };
+const nextHoliday = (await nycEvents()).find((e) => e.kind === 'holiday' && e.nights.length >= 3 && Date.parse(`${e.date}T12:00:00Z`) <= Date.now() + 30 * 864e5);
+const seasonal = new Date().toISOString().slice(0, 10) <= '2026-11-01' ? { href: '/parties/halloween', label: 'Halloween' }
+  : nextHoliday ? { href: nextHoliday.href ?? '/parties/calendar', label: HEADER_LABEL[nextHoliday.slug] ?? nextHoliday.name } : { href: '/happy-hours/now', label: 'On now' };
 const on = (href: string) => (href === '/' ? path === '/' : path === href || path.startsWith(`${href}/`));
 const ICON: Record<string, string> = {
   glass: '<path d="M6 3h12l-1.5 8a4.5 4.5 0 0 1-9 0L6 3zm6 13v5m-4 0h8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>',
@@ -60,8 +69,8 @@ const menu = [
   { h: 'Happy hours', links: [{ href: '/happy-hours/now', label: 'On right now' }, { href: '/happy-hours', label: 'All happy hours' },
     ...hh('cheap-drinks', 'Drinks $6 and under'), ...hh('rooftop', 'Rooftops'), ...hh('food', 'Food deals'), ...hh('oysters', 'Oysters'),
     ...hh('late-night', 'Late night'), { href: '/happy-hours/neighborhoods', label: 'By neighborhood' }] },
-  { h: 'Parties', links: [{ href: '/parties?when=tonight', label: 'Tonight' }, { href: '/parties?when=weekend', label: 'This weekend' },
-    ...(seasonal.href === '/parties/halloween' ? [{ href: '/parties/halloween', label: 'Halloween' }] : []), { href: '/parties', label: 'All parties' }] },
+  { h: 'Parties', links: [...when('tonight', 'Tonight'), ...when('tomorrow', 'Tomorrow'), ...when('this-weekend', 'This weekend'),
+    ...(seasonal.href === '/parties/halloween' ? [{ href: '/parties/halloween', label: 'Halloween' }] : []), { href: '/parties/calendar', label: 'Party calendar' }, { href: '/parties', label: 'All parties' }] },
   { h: 'Trivia and games', links: [{ href: '/trivia', label: 'Trivia nights' }, { href: '/music-bingo', label: 'Music bingo' }, { href: '/bars-with-games', label: 'Bars with games' }] },
   { h: 'Maps', links: [{ href: '/map/happy-hours', label: 'Happy hour map' }, { href: '/map/parties', label: 'Party map' }] },
   ...(guidesMenu.length ? [{ h: 'Guides', links: [...guidesMenu.map((g) => ({ href: `/blog/${g.slug}`, label: g.short })), { href: '/blog', label: 'All guides' }] }] : []),

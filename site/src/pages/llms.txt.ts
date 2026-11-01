@@ -9,6 +9,7 @@ import { nyTime } from '../lib/data';
 import { listPages } from '../lib/lists';
 import { priceIndex, KINDS, money } from '../lib/priceIndex';
 import { stats } from '../lib/stats';
+import { nycEvents } from '../lib/events';
 
 export const GET: APIRoute = async () => {
   const bars = await allBars();
@@ -17,6 +18,8 @@ export const GET: APIRoute = async () => {
   const lists = (await partyLists()).filter((l) => l.indexable && l.parties.length >= 3);
   const hw = (await halloweenPages()).built.filter((b) => b.indexable);
   const guides = (await allGuides()).filter((g) => g.status === 'published');
+  const when = (await partyLists()).filter((l) => l.kind === 'when' && l.parties.length > 0);
+  const events = await nycEvents();
   const hhLists = (await listPages()).filter((l) => l.kind !== 'hood');
   const pi = await priceIndex();
   const st = stats(bars);
@@ -35,7 +38,10 @@ export const GET: APIRoute = async () => {
   const lines = [
     '# YaY NYC', '',
     '> All the fun in NYC in one place: verified happy hours (deal, times, date checked, source) and parties (doors, venue, age, price, tickets) across the five boroughs.', '',
-    `- [All NYC happy hours](${SITE}/happy-hours)`, `- [Happy hour right now](${SITE}/happy-hours/now)`, `- [Parties](${SITE}/parties)`, '',
+    `- [All NYC happy hours](${SITE}/happy-hours)`, `- [Happy hour right now](${SITE}/happy-hours/now)`, `- [Parties](${SITE}/parties)`,
+    ...when.map((l) => `- [${l.h1}](${SITE}/parties/${l.slug}): ${l.parties.length} parties`),
+    `- [NYC party calendar](${SITE}/parties/calendar): holidays and big nights for the next four months`, '',
+    ...(events.length ? ['## Coming up in NYC', '', ...events.map((e) => `- ${e.date}${e.end && e.end !== e.date ? ` to ${e.end}` : ''}: [${e.name}](${SITE}${e.href ?? '/parties/calendar'})${e.nights.length ? `, ${e.nights.length} ${e.nights.length === 1 ? 'night' : 'nights'} on sale` : ', nothing on sale yet'}${e.datePage ? `; every party that night: ${SITE}/parties/date/${e.date}` : ''}`), ''] : []),
     ...facts,
     '## Happy hour lists', '', ...hhLists.map((l) => `- [${l.label}](${SITE}/happy-hours/${l.slug}): ${l.bars.length} bars`), '',
     ...byHood.flatMap(({ h, list }) => [`## Happy hours in ${h.name}`, '', `- [All ${list.length} in ${h.name}](${SITE}/happy-hours/${h.slug})`,

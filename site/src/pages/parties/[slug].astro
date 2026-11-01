@@ -1,4 +1,5 @@
 ---
+import { datePages } from '../../lib/partyLists';
 import { partyIndexable } from '../../lib/indexScope';
 import { artistHref, promoterHref } from '../../lib/people';
 import Base from '../../layouts/Base.astro';
@@ -96,6 +97,8 @@ faq.push(
 // the lineup and the promoter link to their pages, which stay after the night is over (lib/people.ts)
 const perfLinks = await Promise.all(p.performers.map(async (n) => [n, await artistHref(n)] as const));
 const promoterLink = await promoterHref(p.organizer);
+// the night's own page (every party that night), when this build has one
+const nightPage = (await datePages()).some((d) => d.date === p.night_date && !d.past && d.parties.length > 1);
 ---
 <Base noindex={!partyIndexable(p)} title={partyTitle(p, v, crowded, kw)} description={partyDescription(p, v)} keyword={kw} jsonld={[partyJsonLd(p, v, url), crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [cleanTitle(p.title), `/parties/${p.slug}`]]), faqLd(faq)]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li>{v && <li><a href={`/parties/venue/${v.id}`}>{v.name}</a></li>}<li aria-current="page">{nightDate(p.night_date, { month: 'short', day: 'numeric' })}</li></ol></nav>
@@ -126,6 +129,7 @@ const promoterLink = await promoterHref(p.organizer);
         {p.event_status === 'sold_out' && <a class="btn ghost" href={ticketHref(p)} rel={TICKET_REL} target="_blank" data-ev="tickets">Check for resale or waiting list</a>}
         {p.event_status !== 'sold_out' && <p class="secure">You buy on {p.ticket_vendor}'s own secure checkout; YaY NYC never sees your payment.</p>}
         {proofLine && <p class="proof">{proofLine} (as of {fmtDate(proof.updated)}).</p>}
+        {nightPage && <p class="same-night"><a href={`/parties/date/${p.night_date}`}>Every party on {nightDate(p.night_date, { weekday: 'long', month: 'short', day: 'numeric' })} →</a></p>}
         <p class="cal-links">Add to calendar: <a href={gcal} rel="nofollow noopener" target="_blank" data-ev="calendar">Google</a> · <a href={icsHref} download={`${p.slug}.ics`} data-ev="calendar">Apple / Outlook (.ics)</a></p>
       </section>
 
@@ -185,6 +189,7 @@ const promoterLink = await promoterHref(p.organizer);
   .fine-print p { margin: 0 0 6px; max-width: 760px; }
   .fine-print a { color: inherit; }
   .cal-links { font-size: 14px; color: var(--ink-2); margin: 10px 0 0; }
+  .same-night { margin: 10px 0 0; font-weight: 800; }
   .when-big { display: block; font-size: 20px; font-weight: 800; color: var(--coral-ink); margin: 0 0 6px; letter-spacing: 0; }
   .tagrow { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
   .tagrow a.chip { text-decoration: none; }
