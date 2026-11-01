@@ -1,6 +1,1 @@
-[
- {
-  "step": "#2",
-  "error": "GET party_events: 400 {\"code\":\"42703\",\"details\":null,\"hint\":null,\"message\":\"column party_events.status_reason does not exist\"}"
- }
-]
+[]
