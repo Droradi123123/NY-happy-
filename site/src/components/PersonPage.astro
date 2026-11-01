@@ -54,6 +54,13 @@ const faq = [
   ...(next?.age_min ? [{ q: 'What is the age limit?', a: `${next.age_min}+ for the next night. Bring a government photo ID.` }] : []),
 ];
 const path = x.path;
+// links only to list pages this build has (tonight and this weekend can be empty on a quiet week)
+const meanwhile: [string, string][] = [
+  ...(lists.has('tonight') ? [['/parties/tonight', 'parties tonight'] as [string, string]] : []),
+  ...(x.genres[0] && lists.has(x.genres[0][0]) ? [[`/parties/${x.genres[0][0]}`, `${(GENRE_NAME[x.genres[0][0]] ?? x.genres[0][0]).toLowerCase()} parties`] as [string, string]] : []),
+  ...(lists.has('this-weekend') ? [['/parties/this-weekend', 'this weekend'] as [string, string]] : []),
+  ['/parties', 'every NYC party'],
+];
 ---
 <Base title={titles[0]} titles={titles.slice(1)} keyword={keyword} description={desc} noindex={!x.indexable}
   jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [x.name, path]]), ...(x.upcoming.length ? [itemList(`${x.name} in NYC`, x.upcoming.map((p) => `/parties/${p.slug}`))] : []), faqLd(faq)]}>
@@ -71,7 +78,7 @@ const path = x.path;
   {x.upcoming.length === 0 && (
     <section class="section">
       <h2>Nothing on sale right now</h2>
-      <p>{isArtist ? `${x.name} has no upcoming NYC date on our list.` : `${x.name} has no upcoming night on our list.`} We read the ticket pages every day, and a new date shows up here as soon as it is on sale. Meanwhile: <a href="/parties/tonight">parties tonight</a>{genres[0] && x.genres[0] && lists.has(x.genres[0][0]) ? <>, <a href={`/parties/${x.genres[0][0]}`}>{genres[0].toLowerCase()} parties</a></> : null} or <a href="/parties/this-weekend">this weekend</a>.</p>
+      <p>{isArtist ? `${x.name} has no upcoming NYC date on our list.` : `${x.name} has no upcoming night on our list.`} We read the ticket pages every day, and a new date shows up here as soon as it is on sale. Meanwhile, see {meanwhile.map(([href, text], i) => <>{i > 0 && (i === meanwhile.length - 1 ? ' or ' : ', ')}<a href={href}>{text}</a></>)}.</p>
     </section>
   )}
 

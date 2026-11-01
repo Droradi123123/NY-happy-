@@ -25,7 +25,11 @@ const long = nightDate(page.date, { weekday: 'long', month: 'long', day: 'numeri
 const monthDay = nightDate(page.date, { month: 'long', day: 'numeric' });
 const year = page.date.slice(0, 4);
 const D = page.weekday[0].toUpperCase() + page.weekday.slice(1);
-const dayList = (await partyLists()).find((l) => l.kind === 'day' && l.slug === page.weekday) ?? null;
+const lists = await partyLists();
+const dayList = lists.find((l) => l.kind === 'day' && l.slug === page.weekday) ?? null;
+// tonight, tomorrow and this weekend exist only while something is listed for them
+const whenLinks = ([['tonight', 'Parties tonight'], ['tomorrow', 'Tomorrow night'], ['this-weekend', 'This weekend']] as const)
+  .filter(([slug]) => lists.some((l) => l.slug === slug)).map(([slug, text]) => [`/parties/${slug}`, text] as const);
 const priced = ps.filter((p) => p.price_from !== null && p.price_status !== 'free').map((p) => p.price_from!);
 const free = ps.filter((p) => p.price_status === 'free').length;
 const venueIds = [...new Set(ps.map((p) => p.venue_id))];
@@ -85,7 +89,7 @@ const top = venueIds.map((id) => venues.find((v) => v.id === id)).filter((v): v 
       {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
     </section>
   )}
-  <p class="section"><a href="/parties/tonight">Parties tonight</a> · <a href="/parties/tomorrow">Tomorrow night</a> · <a href="/parties/this-weekend">This weekend</a>{dayList && <> · <a href={`/parties/${dayList.slug}`}>{D} night parties</a></>} · <a href="/parties">All parties</a></p>
+  <p class="section">{whenLinks.map(([href, text]) => <><a href={href}>{text}</a> · </>)}{dayList && <><a href={`/parties/${dayList.slug}`}>{D} night parties</a> · </>}<a href="/parties">All parties</a></p>
 </Base>
 <style>
   .date-nav { display: flex; justify-content: space-between; gap: 12px; margin: 8px 0 16px; font-weight: 700; }
