@@ -36,6 +36,7 @@ const id = `nl-${source.replace(/[^a-z0-9]+/gi, '-')}`;
       // 409: already on the list, which is fine
       if (r.ok || r.status === 409) {
         msg.textContent = 'You’re in! See you Thursday.'; f.reset();
+        try { localStorage.setItem('yay-nl', '1'); } catch { /* private mode */ }
         (window as any).gtag?.('event', 'sign_up', { method: 'newsletter', source: f.dataset.source });
       } else msg.textContent = 'Something went wrong. Please try again.';
     } catch { msg.textContent = 'Something went wrong. Please try again.'; }

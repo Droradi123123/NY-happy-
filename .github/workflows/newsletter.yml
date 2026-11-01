@@ -1,0 +1,46 @@
+# The Thursday email (site/scripts/newsletter.mjs), approved Nov 1, 2026. Thursdays 10:17am New York
+# (15:17 UTC in winter); by hand with a mode: preview (no email), test (one email to NEWSLETTER_TEST_TO),
+# send. Without the Resend secrets it only builds the preview. The preview (no addresses in it) is kept
+# as a run artifact; the log shows counts only.
+name: Newsletter
+
+on:
+  schedule:
+    - cron: '17 15 * * 4'
+  workflow_dispatch:
+    inputs:
+      mode:
+        description: 'preview, test or send'
+        default: 'preview'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: newsletter
+  cancel-in-progress: false
+
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build and send
+        env:
+          MODE: ${{ github.event_name == 'schedule' && 'send' || inputs.mode }}
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          RESEND_AUDIENCE_ID: ${{ secrets.RESEND_AUDIENCE_ID }}
+          NEWSLETTER_FROM: ${{ secrets.NEWSLETTER_FROM }}
+          NEWSLETTER_ADDRESS: ${{ secrets.NEWSLETTER_ADDRESS }}
+          NEWSLETTER_TEST_TO: ${{ secrets.NEWSLETTER_TEST_TO }}
+        run: node site/scripts/newsletter.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: newsletter-preview
+          path: newsletter-preview.html
+          retention-days: 14

@@ -1,0 +1,56 @@
+---
+/**
+ * After a ticket click (the seller opens in a new tab), when the visitor comes back to our tab: one offer to
+ * get the Thursday email. 92% of visitors come once (GA4, Oct 2026), mostly from ChatGPT, and the ticket click
+ * is the moment they have just shown what they like. Shown once per session, never after a sign-up, and not
+ * for 30 days after "No thanks". The form is the site's own newsletter form (components/Newsletter.astro).
+ */
+---
+<div class="nudge" id="nl-nudge" hidden role="dialog" aria-labelledby="nl-nudge-h">
+  <button type="button" class="nudge-x" data-nudge-close aria-label="No thanks">×</button>
+  <h2 id="nl-nudge-h">Want next weekend's best parties?</h2>
+  <p>One email every Thursday: the nights worth buying tickets for, holiday parties as they go on sale, and the best happy hours. Unsubscribe anytime.</p>
+  <form class="nl-form" data-nl data-source="after-ticket" novalidate>
+    <label for="nl-nudge-e" class="sr">Email address</label>
+    <input id="nl-nudge-e" type="email" name="email" placeholder="you@email.com" autocomplete="email" required />
+    <input class="nl-hp" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+    <button class="btn coral" type="submit">Send me the picks</button>
+  </form>
+  <p class="nl-msg" role="status" aria-live="polite"></p>
+  <p class="nl-fine">We never share your address. <a href="/privacy">Privacy</a>.</p>
+</div>
+<script>
+  const el = document.getElementById('nl-nudge') as HTMLElement;
+  const ga = (e: string) => (window as any).gtag?.('event', e);
+  const get = (k: string) => { try { return localStorage.getItem(k); } catch { return null; } };
+  const set = (k: string, v: string) => { try { localStorage.setItem(k, v); } catch { /* private mode */ } };
+  const seen = () => { try { return sessionStorage.getItem('yay-nudge') === '1'; } catch { return true; } };
+  const off = () => get('yay-nl') === '1' || Date.now() - Number(get('yay-nl-off') ?? 0) < 30 * 864e5;
+  let armed = false;
+  document.addEventListener('click', (e) => {
+    if ((e.target as HTMLElement).closest?.('a[data-ev="tickets"]') && !off() && !seen()) armed = true;
+  }, true);
+  const show = () => {
+    if (!armed || !el.hidden) return;
+    armed = false;
+    try { sessionStorage.setItem('yay-nudge', '1'); } catch { /* storage off */ }
+    el.hidden = false; ga('nl_prompt_shown');
+  };
+  // back from the seller's tab; or, if the seller opened in the same tab and they came back, on page show
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState === 'visible') setTimeout(show, 600); });
+  el.querySelector('[data-nudge-close]')?.addEventListener('click', () => { el.hidden = true; set('yay-nl-off', String(Date.now())); ga('nl_prompt_dismiss'); });
+  // a sign-up from any form on the site ends the offers (Newsletter.astro sets yay-nl)
+  el.querySelector('form')?.addEventListener('submit', () => setTimeout(() => { if (get('yay-nl') === '1') setTimeout(() => { el.hidden = true; }, 2500); }, 1500));
+</script>
+<style>
+  .nudge { position: fixed; left: 10px; right: 10px; bottom: calc(var(--tabbar, 0px) + env(safe-area-inset-bottom) + 10px); z-index: 70; max-width: 520px; margin: 0 auto; padding: 18px 18px 14px; background: #fff; border: 2px solid var(--ink); border-radius: 18px; box-shadow: 0 16px 40px rgba(22, 18, 43, 0.25); }
+  .nudge[hidden] { display: none; }
+  .nudge h2 { margin: 0 28px 6px 0; font-size: 20px; }
+  .nudge p { margin: 0 0 10px; font-size: 15px; }
+  .nudge .nl-form { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+  .nudge input[type=email] { min-width: 0; width: 100%; border: 1.5px solid var(--ink); border-radius: 12px; padding: 12px 14px; font: inherit; font-size: 16px; background: #fff; }
+  .nudge .nl-fine { font-size: 12px; color: var(--muted); margin: 8px 0 0; }
+  .nudge-x { position: absolute; top: 8px; right: 10px; background: none; border: 0; font-size: 28px; line-height: 1; color: var(--muted); cursor: pointer; }
+  @media (max-width: 420px) { .nudge .nl-form { grid-template-columns: 1fr; } }
+  @media (min-width: 860px) { .nudge { left: auto; right: 24px; bottom: 24px; } }
+</style>
