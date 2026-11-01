@@ -1,5 +1,3 @@
 {"steps": [
- {"dump": "snap_parties", "path": "site_parties?select=*&order=starts_at"},
- {"dump": "pending_events", "path": "party_events?select=id,slug,title,night_date,venue_id,publish_status,status_reason,ticket_url,raw->>description,copy&night_date=gte.2026-11-01&publish_status=in.(draft,review,ready)&order=night_date"},
- {"dump": "open_leads", "path": "party_leads?select=id,source,night_date,title,venue_text,url,status&status=eq.open&order=night_date"}
+ {"dump": "pending_events", "path": "party_events?select=id,slug,title,night_date,venue_id,publish_status,ticket_url,copy,raw->>description&night_date=gte.2026-11-01&publish_status=in.(draft,review,ready)&order=night_date"}
 ]}
