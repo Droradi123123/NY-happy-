@@ -88,6 +88,24 @@ if (sa.client_email) {
       hourOfDay: await ga(['hour'], ['sessions']),
       dayOfWeek: await ga(['dayOfWeek'], ['sessions']),
       browser: await ga(['browser', 'operatingSystem'], ['sessions']),
+      // the last three days against the three before (short-term reads after a change or a holiday)
+      recent: Object.fromEntries(await Promise.all([['last3', '3daysAgo', 'yesterday'], ['prev3', '6daysAgo', '4daysAgo']].map(async ([k, s, e]) => {
+        const r = { dateRanges: [{ startDate: s, endDate: e }] };
+        const ev = (name) => ({ ...r, dimensionFilter: { filter: { fieldName: 'eventName', stringFilter: { value: name } } } });
+        return [k, {
+          range: [s, e],
+          total: await ga([], M, r),
+          byDay: await ga(['date', 'sessionDefaultChannelGroup'], ['sessions', 'engagedSessions'], r),
+          source: await ga(['sessionSource'], ['sessions', 'engagedSessions', 'screenPageViews'], r),
+          landing: await ga(['sessionSource', 'landingPagePlusQueryString'], ['sessions', 'engagedSessions'], r),
+          page: await ga(['pagePath'], ['screenPageViews', 'activeUsers'], r),
+          tickets: await ga(['pagePath'], ['eventCount'], ev('ticket_click')),
+          events: await ga(['eventName'], ['eventCount', 'totalUsers'], r),
+          device: await ga(['deviceCategory'], ['sessions'], r),
+          newVsReturning: await ga(['newVsReturning'], ['activeUsers', 'sessions'], r),
+          hour: await ga(['hour'], ['sessions'], r),
+        }];
+      }))),
     };
     note('ga4', Array.isArray(out.ga4.total) ? 'ok' : `error ${out.ga4.total.error}`);
   } else note('ga4', 'GA4_PROPERTY_ID missing');
