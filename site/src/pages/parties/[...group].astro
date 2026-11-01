@@ -5,6 +5,9 @@
  * guide (page_copy kind 'parties') is prose only. A page with few nights shows the closest ones and
  * asks not to be indexed until it has INDEX_MIN.
  */
+import BarCard from '../../components/BarCard.astro';
+import { allBars } from '../../lib/data';
+import { rank } from '../../lib/lists';
 import Base from '../../layouts/Base.astro';
 import PartyCard from '../../components/PartyCard.astro';
 import Fresh from '../../components/Fresh.astro';
@@ -91,6 +94,11 @@ const related = (await allGuides()).filter((g) => g.status === 'published' && wo
 const playVenues = venueCount.slice(0, 5).map((x) => x.v);
 // night by night: the date pages for the next two weeks (a night of the week: only that night)
 const nights = ['day', 'when', 'holiday'].includes(L.kind) ? (await datePages()).filter((d) => !d.past && d.parties.length > 0 && (L.kind !== 'day' || d.weekday === L.slug) && (L.kind !== 'holiday' || d.parties.some((p) => ps.includes(p)))) : [];
+// tonight on a quiet night (fewer than 6 parties): the happy hours that run today, best deals first
+const todayKey = (['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'] as const)[new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' })).getDay()];
+const hhToday = /^(tonight|[a-z-]+\/tonight)$/.test(L.slug) && n < 6
+  ? (await allBars()).filter((b) => b.dealKnown && !b.doubt && b.windows.some((w) => w.days.includes(todayKey)) && (L.kind === 'when' || !L.parent || b.borough?.toLowerCase().replace(/^the /, '') === L.parent.slug.replace(/-/g, ' '))).sort(rank).slice(0, 6)
+  : [];
 ---
 <Base title={title} titles={titles} description={description} keyword={L.keyword} noindex={!L.indexable}
   jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties'], ...(L.parent ? [[L.parent.short, `/parties/${L.parent.slug}`] as [string, string]] : []), [L.short, `/parties/${L.slug}`]]), collectionLd(L.label, `/parties/${L.slug}`, ps.map((p) => `/parties/${p.slug}`), lastRead), ...(faq.length ? [faqLd(faq)] : [])]}>
@@ -129,6 +137,14 @@ const nights = ['day', 'when', 'holiday'].includes(L.kind) ? (await datePages())
   )}
   {n > 0 && <h2 class="section">{picks.length ? 'Every night' : `${L.short} nights`}</h2>}
   {n > 0 && <div class="xgrid">{ps.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>}
+  {hhToday.length > 0 && (
+    <section class="section">
+      <h2>Happy hours on today</h2>
+      <p class="small">A quiet night for parties is a good night for a deal: these bars run a happy hour today, deal and hours read on their own sites.</p>
+      <div class="xgrid">{hhToday.map((b) => <BarCard bar={b} />)}</div>
+      <p><a href="/happy-hours/now">Happy hours on right now →</a></p>
+    </section>
+  )}
   {L.standIns.length > 0 && (
     <section class="section">
       <h2>{L.standInLabel ?? 'Coming up in NYC'}</h2>

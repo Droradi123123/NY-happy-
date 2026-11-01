@@ -203,8 +203,10 @@ export function partyLists(): Promise<PartyList[]> {
     // tonight and this weekend (when nothing is listed for tonight, the next night with parties, said so)
     const tonight = parties.filter((p) => p.night_date === today);
     const nextNight = tonight.length ? null : parties.find((p) => p.night_date > today)?.night_date ?? null;
+    // a quiet night (a Monday) still shows what comes next: the next nights with parties, said so
+    const after = (d: string) => { const ds = [...new Set(parties.filter((p) => p.night_date > d).map((p) => p.night_date))].slice(0, 2); return parties.filter((p) => ds.includes(p.night_date)); };
     if (tonight.length || nextNight) add({ slug: 'tonight', kind: 'when', h1: 'Parties Tonight in NYC', label: 'Parties tonight in NYC', keyword: 'parties tonight nyc', short: 'Tonight',
-      title: `Parties Tonight in NYC: ${shortDate(today)}`,
+      title: `Parties Tonight in NYC: ${shortDate(today)}`, standIns: after(today), standInLabel: 'The next nights',
       ...(tonight.length ? {} : { note: nextNight ? `Nothing is listed for tonight yet. These are the next parties, on ${shortDate(nextNight)}.` : 'Nothing is listed for tonight yet.' }) },
       tonight.length ? tonight : parties.filter((p) => p.night_date === nextNight));
     // tomorrow ("parties tomorrow night nyc"): the night after tonight, as its own page
@@ -213,7 +215,7 @@ export function partyLists(): Promise<PartyList[]> {
     // like tonight, the page stays up when nothing is listed for tomorrow: it shows the next night, said so
     const afterT = tomorrow.length ? null : parties.find((p) => p.night_date > tomorrowD)?.night_date ?? null;
     if (tomorrow.length || afterT) add({ slug: 'tomorrow', kind: 'when', h1: 'Parties Tomorrow Night in NYC', label: 'Parties tomorrow night in NYC', keyword: 'parties tomorrow night nyc', short: 'Tomorrow',
-      title: `Parties Tomorrow Night in NYC: ${shortDate(tomorrowD)}`,
+      title: `Parties Tomorrow Night in NYC: ${shortDate(tomorrowD)}`, standIns: after(tomorrowD), standInLabel: 'The nights after',
       ...(tomorrow.length ? {} : { note: afterT ? `Nothing is listed for tomorrow yet. These are the next parties, on ${shortDate(afterT)}.` : 'Nothing is listed for tomorrow yet.' }) },
       tomorrow.length ? tomorrow : parties.filter((p) => p.night_date === afterT));
     // Friday to Sunday nights: the coming weekend from Monday to Thursday, the rest of this one from Friday
