@@ -1,1 +1,406 @@
-[]
+[
+ {
+  "step": "#1",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6ae11a3118396c00010f608b",
+   "p_venue_id": "acoustik-garden-lounge",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ae11a3118396c00010f608b"
+ },
+ {
+  "step": "#2",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6ae3a19e7830c8000147bb5a",
+   "p_venue_id": "purgatory",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ae3a19e7830c8000147bb5a"
+ },
+ {
+  "step": "#3",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6ae28e59be58e90001807ae5",
+   "p_venue_id": "silo-brooklyn",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ae28e59be58e90001807ae5"
+ },
+ {
+  "step": "#4",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6ae4c799ed4a670001a01937",
+   "p_venue_id": "altheas-hideaway",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ae4c799ed4a670001a01937"
+ },
+ {
+  "step": "#5",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6ae4c8389bfa8e0001ef1a77",
+   "p_venue_id": "altheas-hideaway",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ae4c8389bfa8e0001ef1a77"
+ },
+ {
+  "step": "#6",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6ae117d9d782cc0001e3ad46",
+   "p_venue_id": "cassette",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ae117d9d782cc0001e3ad46"
+ },
+ {
+  "step": "#7",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6ae65b9209c706000167e974",
+   "p_venue_id": "altheas-hideaway",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ae65b9209c706000167e974"
+ },
+ {
+  "step": "#8",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6ae2944c6a4c9700015f3c9d",
+   "p_venue_id": "silo-brooklyn",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ae2944c6a4c9700015f3c9d"
+ },
+ {
+  "step": "#9",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6ade9eba717d5b0001d05ab9",
+   "p_venue_id": "purgatory",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ade9eba717d5b0001d05ab9"
+ },
+ {
+  "step": "#10",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6ae25c4600d2a20001f5c77e",
+   "p_venue_id": "acoustik-garden-lounge",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ae25c4600d2a20001f5c77e"
+ },
+ {
+  "step": "#11",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6ae29b6b8294f20001d69386",
+   "p_venue_id": "silo-brooklyn",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ae29b6b8294f20001d69386"
+ },
+ {
+  "step": "#12",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6ae29e6ef3fab60001680f6f",
+   "p_venue_id": "silo-brooklyn",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ae29e6ef3fab60001680f6f"
+ },
+ {
+  "step": "#13",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6ae17257eb6af70001b11a9f",
+   "p_venue_id": "1-hotel-brooklyn-bridge",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ae17257eb6af70001b11a9f"
+ },
+ {
+  "step": "#14",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6ae387291f749d00012508a4",
+   "p_venue_id": "deluxx-fluxx",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ae387291f749d00012508a4"
+ },
+ {
+  "step": "#15",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6ae21aaa0263c10001098dfe",
+   "p_venue_id": "tv-eye",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ae21aaa0263c10001098dfe"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6adf75da93b3060001ff7cd2",
+   "p_venue_id": "the-chocolate-factory",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6adf75da93b3060001ff7cd2"
+ },
+ {
+  "step": "#17",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6ae104d2d0057a00011fa6f6",
+   "p_venue_id": "somewhere-nowhere-nyc",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": [
+    "thanksgiving"
+   ]
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ae104d2d0057a00011fa6f6"
+ },
+ {
+  "step": "#18",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6ae22349f3fab600010bb423",
+   "p_venue_id": "nebula",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ae22349f3fab600010bb423"
+ },
+ {
+  "step": "#19",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6ae3ab9b7830c80001c0361b",
+   "p_venue_id": "the-chocolate-factory",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ae3ab9b7830c80001c0361b"
+ },
+ {
+  "step": "#20",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6ae0c06abdb58d0001df920f",
+   "p_venue_id": "nebula",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ae0c06abdb58d0001df920f"
+ },
+ {
+  "step": "#21",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6ae3b36abafbd50001cd30cf",
+   "p_venue_id": "silo-brooklyn",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ae3b36abafbd50001cd30cf"
+ },
+ {
+  "step": "#22",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6a71053cc0310e00019444b4",
+   "p_venue_id": "sleepwalk",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6a71053cc0310e00019444b4"
+ },
+ {
+  "step": "#23",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6ae4a7581243d200015069d8",
+   "p_venue_id": "house-of-yes",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ae4a7581243d200015069d8"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6ae2182ec173cf0001aa2e52",
+   "p_venue_id": "drom",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ae2182ec173cf0001aa2e52"
+ },
+ {
+  "step": "#25",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6ae24fcdf3fab60001e10bfd",
+   "p_venue_id": "marquee-new-york",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ae24fcdf3fab60001e10bfd"
+ },
+ {
+  "step": "#26",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6ae0f28d0de9ee0001fc097e",
+   "p_venue_id": "marquee-new-york",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ae0f28d0de9ee0001fc097e"
+ },
+ {
+  "step": "#27",
+  "rpc": "party_add_dice",
+  "args": {
+   "p_url": "https://dice.fm/event/6ae0f2e6845f100001bd0114",
+   "p_venue_id": "marquee-new-york",
+   "p_room": null,
+   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
+   "p_themes": []
+  },
+  "ok": true,
+  "status": 200,
+  "body": "dice:6ae0f2e6845f100001bd0114"
+ },
+ {
+  "step": "#28",
+  "round": 0,
+  "ingest": {
+   "gone": 0,
+   "read": 8,
+   "waiting": 21,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 0
+ },
+ {
+  "step": "#28",
+  "round": 1,
+  "ingest": {
+   "gone": 0,
+   "read": 21,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
+  },
+  "queued": 0
+ }
+]
