@@ -1,406 +1,2123 @@
 [
  {
   "step": "#1",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_copy",
   "args": {
-   "p_url": "https://dice.fm/event/6ae11a3118396c00010f608b",
-   "p_venue_id": "acoustik-garden-lounge",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6a71053cc0310e00019444b4",
+   "p_copy": {
+    "about": "Sleepwalk hosts an open decks night at its space on Bushwick Avenue in Brooklyn on Tuesday, December 1. The format is the point: whoever puts their name down can get picked to play. Sign-up opens at 7 PM, the first sets begin an hour later, and the players are drawn at random.",
+    "expect": "A low-key weeknight where the people on the decks come from the room rather than a booked bill. The listing gives no theme, dress code or production details. My take: this suits anyone who wants to try playing out in front of a crowd, or friends who want to come and back them up.",
+    "music": "No artists are booked; the sets come from people who sign up on the night and are chosen at random. DICE files the event under gigs, and no genre is stated. Slot length, equipment and set times beyond the 8 PM start are not confirmed.",
+    "before_you_go": "DICE lists doors at 7 PM and an end at 11 PM, and the event is 21+. Sleepwalk is at 251 Bushwick Avenue, Brooklyn. Sign-up starts at 7 PM and sets at 8 PM, so arrive early if you want to play. Whether sign-up happens in person, re-entry, coat check, accessibility and nearest subway are not confirmed.",
+    "faq": [
+     {
+      "q": "How do I get a slot to play?",
+      "a": "Sign-up opens at 7 PM and players are picked at random. How the sign-up works is not confirmed."
+     },
+     {
+      "q": "When do sets start?",
+      "a": "8 PM, according to the listing."
+     },
+     {
+      "q": "What music can I play?",
+      "a": "Not confirmed. No genre is stated."
+     },
+     {
+      "q": "What is the age limit?",
+      "a": "21+."
+     },
+     {
+      "q": "How late does it go?",
+      "a": "DICE lists the end as 11 PM."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "The DICE listing shows no refund policy for this event. Not confirmed."
+    },
+    "verification_note": "Checked against the DICE listing and its structured data (read 1 November 2026). The venue's and promoter's own pages were not checked. The description is short and names no equipment, genre or slot length.",
+    "sources": [
+     "https://dice.fm/event/6a71053cc0310e00019444b4"
+    ]
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae11a3118396c00010f608b"
+  "body": "review"
  },
  {
   "step": "#2",
-  "rpc": "party_add_dice",
+  "rpc": "party_publish_blockers",
   "args": {
-   "p_url": "https://dice.fm/event/6ae3a19e7830c8000147bb5a",
-   "p_venue_id": "purgatory",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6a71053cc0310e00019444b4"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae3a19e7830c8000147bb5a"
+  "body": []
  },
  {
   "step": "#3",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6ae28e59be58e90001807ae5",
-   "p_venue_id": "silo-brooklyn",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6a71053cc0310e00019444b4",
+   "p_status": "ready"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae28e59be58e90001807ae5"
+  "body": "ready"
  },
  {
   "step": "#4",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6ae4c799ed4a670001a01937",
-   "p_venue_id": "altheas-hideaway",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6a71053cc0310e00019444b4",
+   "p_status": "published"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae4c799ed4a670001a01937"
+  "body": "published"
  },
  {
   "step": "#5",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_copy",
   "args": {
-   "p_url": "https://dice.fm/event/6ae4c8389bfa8e0001ef1a77",
-   "p_venue_id": "altheas-hideaway",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6ae0c06abdb58d0001df920f",
+   "p_copy": {
+    "about": "Nebula New York presents Third Party at Nebula, 135 West 41st Street in Midtown, on Saturday, November 28. DICE lists it as a DJ night running from 11 PM to 4 AM.",
+    "expect": "A Midtown club night with a dress code the venue strongly advises. For men, the listing rules out sports gear, shorts, tank tops, sleeveless shirts and sweatpants. For women, it rules out sandals, flip flops, sneakers and any open toe shoes, and suggests dresses and heels. Entry is at the doorman's discretion. My take: this is for people who want a dressed-up Saturday in Manhattan with a single headline name.",
+    "music": "Third Party is the only performer named in the DICE listing, and DICE tags the event as DJ. The description says nothing about the music, so genres, support acts and set times are not confirmed.",
+    "before_you_go": "Doors are listed at 11 PM on Saturday, November 28, with an end at 4 AM. The event is 21+. Follow the dress code, since the door has the final say. Re-entry, coat check, accessibility and nearest subway are not confirmed.",
+    "faq": [
+     {
+      "q": "Who is playing?",
+      "a": "Third Party is the listed performer. No other names are published."
+     },
+     {
+      "q": "Is there a dress code?",
+      "a": "Strongly advised, with entry at the doorman's discretion. No sportswear, shorts, tank tops, sleeveless shirts or sweatpants for men; no sandals, flip flops, sneakers or open toe shoes for women."
+     },
+     {
+      "q": "What time does it start and end?",
+      "a": "11 PM to 4 AM, as listed."
+     },
+     {
+      "q": "What are the set times?",
+      "a": "Not confirmed."
+     },
+     {
+      "q": "What is the age limit?",
+      "a": "21+."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "DICE lists a 24-hour cooling-off refund window after purchase. Check the terms shown with your ticket."
+    },
+    "verification_note": "Checked against the DICE listing and its structured data (read 1 November 2026). The venue's and promoter's own pages were not checked.",
+    "sources": [
+     "https://dice.fm/event/6ae0c06abdb58d0001df920f"
+    ]
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae4c8389bfa8e0001ef1a77"
+  "body": "review"
  },
  {
   "step": "#6",
-  "rpc": "party_add_dice",
+  "rpc": "party_publish_blockers",
   "args": {
-   "p_url": "https://dice.fm/event/6ae117d9d782cc0001e3ad46",
-   "p_venue_id": "cassette",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6ae0c06abdb58d0001df920f"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae117d9d782cc0001e3ad46"
+  "body": []
  },
  {
   "step": "#7",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6ae65b9209c706000167e974",
-   "p_venue_id": "altheas-hideaway",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6ae0c06abdb58d0001df920f",
+   "p_status": "ready"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae65b9209c706000167e974"
+  "body": "ready"
  },
  {
   "step": "#8",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6ae2944c6a4c9700015f3c9d",
-   "p_venue_id": "silo-brooklyn",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6ae0c06abdb58d0001df920f",
+   "p_status": "published"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae2944c6a4c9700015f3c9d"
+  "body": "published"
  },
  {
   "step": "#9",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_copy",
   "args": {
-   "p_url": "https://dice.fm/event/6ade9eba717d5b0001d05ab9",
-   "p_venue_id": "purgatory",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6ae104d2d0057a00011fa6f6",
+   "p_copy": {
+    "about": "Somewhere Nowhere NYC throws a party on Thanksgiving Eve, Wednesday, November 25, at 112 West 25th Street in Chelsea. Six DJ slots are on the bill, including two back to back pairings, from 10 PM until 4 AM.",
+    "expect": "A holiday eve club night at a venue with an upscale, trendy dress code. Shorts, athletic wear, team logos, tank tops, pool flip flops and slides are not allowed, and the door host and management decide who gets in. My take: this suits people who want to go out the night before Thanksgiving and are happy to dress for it.",
+    "music": "The description names Justseb, Macdizzy, Quist b2b Chuck, Sull b2b Ranon, Tyler Reese and Whitefox. DICE tags it as DJ. Genres and set times are not published.",
+    "before_you_go": "Doors are listed at 10 PM on Wednesday, November 25, with an end at 4 AM on Thursday. The event is 21+ and a valid government issued ID is required. The listing says there is no re-entry. It points to the venue FAQ at somewherenowherenyc.com/faq for dress code and policies, and to info@elgruposn.com for questions. Coat check, accessibility and nearest subway are not confirmed.",
+    "faq": [
+     {
+      "q": "Who is playing?",
+      "a": "Justseb, Macdizzy, Quist b2b Chuck, Sull b2b Ranon, Tyler Reese and Whitefox."
+     },
+     {
+      "q": "Is there a dress code?",
+      "a": "Yes, upscale and trendy. No shorts, athletic wear, team logos, tank tops, pool flip flops or slides."
+     },
+     {
+      "q": "Can I leave and come back?",
+      "a": "No. The listing says no re-entry."
+     },
+     {
+      "q": "Do I need ID?",
+      "a": "Yes. 21+ with a valid government issued ID."
+     },
+     {
+      "q": "Can I get a refund?",
+      "a": "The venue says no refunds, and DICE lists no cooling-off window for this event."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "DICE lists the cooling-off refund window as disabled for this event.",
+     "Somewhere Nowhere": "The description states that no refunds are issued."
+    },
+    "verification_note": "Checked against the DICE listing and its structured data (read 1 November 2026). The venue's and promoter's own pages were not checked. The venue FAQ linked in the description was not read.",
+    "sources": [
+     "https://dice.fm/event/6ae104d2d0057a00011fa6f6"
+    ]
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ade9eba717d5b0001d05ab9"
+  "body": "review"
  },
  {
   "step": "#10",
-  "rpc": "party_add_dice",
+  "rpc": "party_publish_blockers",
   "args": {
-   "p_url": "https://dice.fm/event/6ae25c4600d2a20001f5c77e",
-   "p_venue_id": "acoustik-garden-lounge",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6ae104d2d0057a00011fa6f6"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae25c4600d2a20001f5c77e"
+  "body": []
  },
  {
   "step": "#11",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6ae29b6b8294f20001d69386",
-   "p_venue_id": "silo-brooklyn",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6ae104d2d0057a00011fa6f6",
+   "p_status": "ready"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae29b6b8294f20001d69386"
+  "body": "ready"
  },
  {
   "step": "#12",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6ae29e6ef3fab60001680f6f",
-   "p_venue_id": "silo-brooklyn",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6ae104d2d0057a00011fa6f6",
+   "p_status": "published"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae29e6ef3fab60001680f6f"
+  "body": "published"
  },
  {
   "step": "#13",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_copy",
   "args": {
-   "p_url": "https://dice.fm/event/6ae17257eb6af70001b11a9f",
-   "p_venue_id": "1-hotel-brooklyn-bridge",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6ae17257eb6af70001b11a9f",
+   "p_copy": {
+    "about": "Congregation takes over the lounge at 1 Hotel Brooklyn Bridge, 60 Furman Street, on Friday, November 20, under the Après Ski name. The listing gives the time as 10 PM until late, and DICE puts the end at 4 AM.",
+    "expect": "A Friday night in a hotel lounge with a trendy and upscale dress code. Beyond the Après Ski title, the listing does not describe a theme, decor or performers. My take: this is for people who want a dressed-up Friday in a hotel lounge rather than a warehouse.",
+    "music": "DICE tags the event as DJ, but no DJs are named and no genre is given. Lineup and set times are not confirmed.",
+    "before_you_go": "Doors are listed at 10 PM on Friday, November 20, with an end at 4 AM. The event is 21+. It takes place in the hotel lounge at 60 Furman Street, Brooklyn. Dress trendy and upscale. Whether ski wear is expected, re-entry, coat check, accessibility and nearest subway are not confirmed.",
+    "faq": [
+     {
+      "q": "Who is DJing?",
+      "a": "Not confirmed. No names are listed."
+     },
+     {
+      "q": "Is there a dress code?",
+      "a": "Trendy and upscale, according to the listing."
+     },
+     {
+      "q": "Do I need to wear ski gear?",
+      "a": "Not confirmed."
+     },
+     {
+      "q": "How late does it go?",
+      "a": "Billed as 10 PM until late; DICE lists the end as 4 AM."
+     },
+     {
+      "q": "What is the age limit?",
+      "a": "21+."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "DICE lists a 24-hour cooling-off refund window after purchase. Check the terms shown with your ticket."
+    },
+    "verification_note": "Checked against the DICE listing and its structured data (read 1 November 2026). The venue's and promoter's own pages were not checked.",
+    "sources": [
+     "https://dice.fm/event/6ae17257eb6af70001b11a9f"
+    ]
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae17257eb6af70001b11a9f"
+  "body": "review"
  },
  {
   "step": "#14",
-  "rpc": "party_add_dice",
+  "rpc": "party_publish_blockers",
   "args": {
-   "p_url": "https://dice.fm/event/6ae387291f749d00012508a4",
-   "p_venue_id": "deluxx-fluxx",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6ae17257eb6af70001b11a9f"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae387291f749d00012508a4"
+  "body": []
  },
  {
   "step": "#15",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6ae21aaa0263c10001098dfe",
-   "p_venue_id": "tv-eye",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6ae17257eb6af70001b11a9f",
+   "p_status": "ready"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae21aaa0263c10001098dfe"
+  "body": "ready"
  },
  {
   "step": "#16",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6adf75da93b3060001ff7cd2",
-   "p_venue_id": "the-chocolate-factory",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6ae17257eb6af70001b11a9f",
+   "p_status": "published"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6adf75da93b3060001ff7cd2"
+  "body": "published"
  },
  {
   "step": "#17",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_copy",
   "args": {
-   "p_url": "https://dice.fm/event/6ae104d2d0057a00011fa6f6",
-   "p_venue_id": "somewhere-nowhere-nyc",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": [
-    "thanksgiving"
-   ]
+   "p_id": "dice:6ae22349f3fab600010bb423",
+   "p_copy": {
+    "about": "Nebula New York presents Zack Martino at Nebula, 135 West 41st Street in Midtown, on Friday, November 27, the night after Thanksgiving. DICE lists it as a DJ night from 11 PM to 4 AM.",
+    "expect": "A Midtown club night with a dress code the venue strongly advises. Men are asked to skip sports gear, shorts, tank tops, sleeveless shirts and sweatpants. Women are asked to skip sandals, flip flops, sneakers and open toe shoes, with dresses and heels suggested. The doorman decides on entry. My take: this fits people who want a dressed-up Friday in Manhattan built around one headline DJ.",
+    "music": "Zack Martino is the only performer named on DICE, and the event is tagged DJ. The description does not describe the music, so genres, support and set times are not confirmed.",
+    "before_you_go": "Doors are listed at 11 PM on Friday, November 27, with an end at 4 AM. The event is 21+. Dress to the code, since entry is at the door's discretion. Re-entry, coat check, accessibility and nearest subway are not confirmed.",
+    "faq": [
+     {
+      "q": "Who is playing?",
+      "a": "Zack Martino. No other names are published."
+     },
+     {
+      "q": "Is there a dress code?",
+      "a": "Strongly advised, at the doorman's discretion. No sportswear, shorts, tank tops, sleeveless shirts or sweatpants for men; no sandals, flip flops, sneakers or open toe shoes for women."
+     },
+     {
+      "q": "What time does it start and end?",
+      "a": "11 PM to 4 AM, as listed."
+     },
+     {
+      "q": "What time is the headline set?",
+      "a": "Not confirmed."
+     },
+     {
+      "q": "What is the age limit?",
+      "a": "21+."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "DICE lists a 24-hour cooling-off refund window after purchase. Check the terms shown with your ticket."
+    },
+    "verification_note": "Checked against the DICE listing and its structured data (read 1 November 2026). The venue's and promoter's own pages were not checked.",
+    "sources": [
+     "https://dice.fm/event/6ae22349f3fab600010bb423"
+    ]
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae104d2d0057a00011fa6f6"
+  "body": "review"
  },
  {
   "step": "#18",
-  "rpc": "party_add_dice",
+  "rpc": "party_publish_blockers",
   "args": {
-   "p_url": "https://dice.fm/event/6ae22349f3fab600010bb423",
-   "p_venue_id": "nebula",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6ae22349f3fab600010bb423"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae22349f3fab600010bb423"
+  "body": []
  },
  {
   "step": "#19",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6ae3ab9b7830c80001c0361b",
-   "p_venue_id": "the-chocolate-factory",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6ae22349f3fab600010bb423",
+   "p_status": "ready"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae3ab9b7830c80001c0361b"
+  "body": "ready"
  },
  {
   "step": "#20",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6ae0c06abdb58d0001df920f",
-   "p_venue_id": "nebula",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6ae22349f3fab600010bb423",
+   "p_status": "published"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae0c06abdb58d0001df920f"
+  "body": "published"
  },
  {
   "step": "#21",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_copy",
   "args": {
-   "p_url": "https://dice.fm/event/6ae3b36abafbd50001cd30cf",
-   "p_venue_id": "silo-brooklyn",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6ae28e59be58e90001807ae5",
+   "p_copy": {
+    "about": "DJ and musician Steen hosts Open Decks at SILO Brooklyn, 90 Scott Avenue in Bushwick, on Wednesday, November 4. This is the full venue edition: it uses the whole space, runs an hour longer than usual, and brings back three local collectives as co-hosts, Timeless Nexus, Bojaq and Lordoflimbo. DICE lists it from 7 PM to 3 AM.",
+    "expect": "A community night where DJs come to hang out and take turns playing house and techno. Slots are 12 minutes each, so the music changes hands often. My take: this is for DJs who want to play out in a full club space and friends who like watching new selectors, and anyone hoping to play should get there early because slots go quickly.",
+    "music": "There is no booked lineup beyond the host Steen and the co-hosting collectives Timeless Nexus, Bojaq and Lordoflimbo. Players sign up on the night. The listing describes the music as house and techno. Who plays when is not known in advance.",
+    "before_you_go": "Doors are listed at 7 PM on Wednesday, November 4, with an end at 3 AM. The event is 21+. The description asks for an advance RSVP. To play, sign up with Steen in person at the event; there is no advance sign-up. The first three DJs go on in the order they signed up, after which names are drawn at random through the night, with half an hour's notice before your slot. Questions go to Steen on Instagram at @steenschmidt. Re-entry, coat check, accessibility and nearest subway are not confirmed.",
+    "faq": [
+     {
+      "q": "How do I sign up to play?",
+      "a": "In person at the event only, by talking to Steen."
+     },
+     {
+      "q": "How long is each set?",
+      "a": "12 minutes."
+     },
+     {
+      "q": "How are DJs picked?",
+      "a": "The first three sign-ups play in order, then names are drawn at random. You get 30 minutes' notice."
+     },
+     {
+      "q": "What music?",
+      "a": "House and techno, per the listing."
+     },
+     {
+      "q": "What is different about this edition?",
+      "a": "It uses the full venue, runs an extra hour, and has three co-hosting collectives."
+     },
+     {
+      "q": "Do I need a ticket?",
+      "a": "The description asks for an advance RSVP on DICE."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "DICE lists a 24-hour cooling-off refund window after purchase. Check the terms shown with your ticket."
+    },
+    "verification_note": "Checked against the DICE listing and its structured data (read 1 November 2026). The venue's and promoter's own pages were not checked.",
+    "sources": [
+     "https://dice.fm/event/6ae28e59be58e90001807ae5"
+    ]
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae3b36abafbd50001cd30cf"
+  "body": "review"
  },
  {
   "step": "#22",
-  "rpc": "party_add_dice",
+  "rpc": "party_publish_blockers",
   "args": {
-   "p_url": "https://dice.fm/event/6a71053cc0310e00019444b4",
-   "p_venue_id": "sleepwalk",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6ae28e59be58e90001807ae5"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6a71053cc0310e00019444b4"
+  "body": []
  },
  {
   "step": "#23",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6ae4a7581243d200015069d8",
-   "p_venue_id": "house-of-yes",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6ae28e59be58e90001807ae5",
+   "p_status": "ready"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae4a7581243d200015069d8"
+  "body": "ready"
  },
  {
   "step": "#24",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6ae2182ec173cf0001aa2e52",
-   "p_venue_id": "drom",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6ae28e59be58e90001807ae5",
+   "p_status": "published"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae2182ec173cf0001aa2e52"
+  "body": "published"
  },
  {
   "step": "#25",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_copy",
   "args": {
-   "p_url": "https://dice.fm/event/6ae24fcdf3fab60001e10bfd",
-   "p_venue_id": "marquee-new-york",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6ae29e6ef3fab60001680f6f",
+   "p_copy": {
+    "about": "Steen's Open Decks returns to SILO Brooklyn, 90 Scott Avenue in Bushwick, on Wednesday, November 18, with Touch Base as this week's co-host. It runs in SILO's front room, which has limited capacity. DICE lists it from 7 PM to 2 AM.",
+    "expect": "A relaxed night where DJs share house and techno, both favorite tracks and their own productions, on the front room's custom 15,000 watt Danley sound system. Slots are short at 12 minutes. My take: this suits DJs who want to hear their music on a serious rig and friends who come to support, and since capacity is limited, RSVP early.",
+    "music": "No booked lineup beyond host Steen and co-host Touch Base; the players come from the night's sign-up list. The music is described as house and techno. The running order is decided during the night.",
+    "before_you_go": "DICE lists doors at 7 PM on Wednesday, November 18, with an end at 2 AM, and the event is 21+. The description refers to the initial sign-up at 8 PM, so the exact sign-up time is not confirmed. The description asks for an advance RSVP. Sign-up to play is in person with Steen only. The first three DJs play in sign-up order; after that names are drawn at random, with extra weight for earlier arrivals, and you get half an hour's notice. Questions go to Steen on Instagram at @steenschmidt. Re-entry, coat check, accessibility and nearest subway are not confirmed.",
+    "faq": [
+     {
+      "q": "How do I get a set?",
+      "a": "Sign up with Steen in person at the event. Arriving early helps, since earlier sign-ups get extra weight in the draw."
+     },
+     {
+      "q": "How long is a set?",
+      "a": "12 minutes."
+     },
+     {
+      "q": "When does sign-up open?",
+      "a": "Not confirmed. DICE lists doors at 7 PM, while the description mentions an 8 PM initial sign-up."
+     },
+     {
+      "q": "Which room is it in?",
+      "a": "SILO's front room, with limited capacity."
+     },
+     {
+      "q": "What music?",
+      "a": "House and techno, per the listing."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "DICE lists a 24-hour cooling-off refund window after purchase. Check the terms shown with your ticket."
+    },
+    "verification_note": "Checked against the DICE listing and its structured data (read 1 November 2026). The venue's and promoter's own pages were not checked. The DICE door time (7 PM) and the sign-up time in the description (8 PM) do not match.",
+    "sources": [
+     "https://dice.fm/event/6ae29e6ef3fab60001680f6f"
+    ]
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae24fcdf3fab60001e10bfd"
+  "body": "review"
  },
  {
   "step": "#26",
-  "rpc": "party_add_dice",
+  "rpc": "party_publish_blockers",
   "args": {
-   "p_url": "https://dice.fm/event/6ae0f28d0de9ee0001fc097e",
-   "p_venue_id": "marquee-new-york",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6ae29e6ef3fab60001680f6f"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae0f28d0de9ee0001fc097e"
+  "body": []
  },
  {
   "step": "#27",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6ae0f2e6845f100001bd0114",
-   "p_venue_id": "marquee-new-york",
-   "p_room": null,
-   "p_found_via": "DICE venue page, everyday inventory 2026-11-01",
-   "p_themes": []
+   "p_id": "dice:6ae29e6ef3fab60001680f6f",
+   "p_status": "ready"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae0f2e6845f100001bd0114"
+  "body": "ready"
  },
  {
   "step": "#28",
-  "round": 0,
-  "ingest": {
-   "gone": 0,
-   "read": 8,
-   "waiting": 21,
-   "ended_now": 0,
-   "unreadable": 0
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae29e6ef3fab60001680f6f",
+   "p_status": "published"
   },
-  "queued": 0
+  "ok": true,
+  "status": 200,
+  "body": "published"
  },
  {
-  "step": "#28",
-  "round": 1,
-  "ingest": {
-   "gone": 0,
-   "read": 21,
-   "waiting": 0,
-   "ended_now": 0,
-   "unreadable": 0
+  "step": "#29",
+  "rpc": "party_event_copy",
+  "args": {
+   "p_id": "dice:6ae3ab9b7830c80001c0361b",
+   "p_copy": {
+    "about": "AGAPE presents MIJA Invites at The Chocolate Factory, 70 Scott Avenue in Bushwick, on Friday, November 27. The Berlin-based MIJA opens her nine-city US tour here, and for this edition she invites Norwegian producer MRD, AGAPE resident FLASH GEA and local DJ and producer SLOWDANCEXO. DICE lists it from 10 PM to 4 AM.",
+    "expect": "A full night built around MIJA and her guests, from a promoter that says it has sold out dozens of events this year. AGAPE asks people to stay present and keep phones down, to respect the space and each other, and to treat consent as non-negotiable; harassment, discrimination and aggression are not tolerated. If something feels wrong, find the AGAPE team or venue staff. No dress code is mentioned. My take: this is for dancers who want a tour-opening headliner and a promoter that puts the dancefloor first.",
+    "music": "The lineup in the title and description is MIJA, MRD, FLASH GEA and SLOWDANCEXO; the DICE performer field lists the first three. The promoter describes MIJA's sound as wide-ranging, moving between hard disco, soft groove and plenty of other dance music. Set times and running order are not confirmed.",
+    "before_you_go": "Doors are listed at 10 PM on Friday, November 27, with an end at 4 AM. The event is 21+ and you need a valid photo ID. The promoter says all sales are final. Re-entry, coat check, accessibility and nearest subway are not confirmed.",
+    "faq": [
+     {
+      "q": "Who is playing?",
+      "a": "MIJA, MRD, FLASH GEA and SLOWDANCEXO."
+     },
+     {
+      "q": "What kind of music?",
+      "a": "The promoter describes MIJA's sound as spanning hard disco, soft groove and other dance music."
+     },
+     {
+      "q": "What are the set times?",
+      "a": "Not confirmed."
+     },
+     {
+      "q": "Can I take photos and videos?",
+      "a": "The guidelines ask you to keep phone use to a minimum. No outright ban is stated."
+     },
+     {
+      "q": "Can I get a refund?",
+      "a": "The promoter says no refunds, while DICE shows a 24-hour cooling-off window. Check the terms at checkout."
+     },
+     {
+      "q": "What ID do I need?",
+      "a": "A valid photo ID; the event is 21+."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "DICE lists a 24-hour cooling-off refund window after purchase. Check the terms shown with your ticket.",
+     "AGAPE (promoter)": "The description states that all sales are final and no refunds are given. This conflicts with the DICE window, so check the terms shown at checkout."
+    },
+    "verification_note": "Checked against the DICE listing and its structured data (read 1 November 2026). The venue's and promoter's own pages were not checked. The DICE performer field omits SLOWDANCEXO, who is named in the title and description.",
+    "sources": [
+     "https://dice.fm/event/6ae3ab9b7830c80001c0361b"
+    ]
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
   },
-  "queued": 0
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#30",
+  "rpc": "party_publish_blockers",
+  "args": {
+   "p_id": "dice:6ae3ab9b7830c80001c0361b"
+  },
+  "ok": true,
+  "status": 200,
+  "body": []
+ },
+ {
+  "step": "#31",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae3ab9b7830c80001c0361b",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#32",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae3ab9b7830c80001c0361b",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#33",
+  "rpc": "party_event_copy",
+  "args": {
+   "p_id": "dice:6ae4c799ed4a670001a01937",
+   "p_copy": {
+    "about": "Althea's Hideaway Rooftop presents Yalla Yalla at Althea's Hideaway NYC, 603 West 44th Street in Hell's Kitchen, on Thursday, November 5. DICE lists it as a party from 8 PM to 2 AM.",
+    "expect": "The listing says almost nothing about the night: no theme, dress code, performers or production are given. Table bookings are handled by email at altheahideaway@gmail.com. Whether the event takes place on the rooftop is not confirmed.",
+    "music": "No DJs or artists are named, and the description gives no genre. DICE files it under parties. Lineup and set times are not confirmed.",
+    "before_you_go": "Doors are listed at 8 PM on Thursday, November 5, with an end at 2 AM. The event is 21+. The venue is at 603 West 44th Street, Manhattan. For tables, email altheahideaway@gmail.com. Dress code, re-entry, coat check, accessibility and nearest subway are not confirmed.",
+    "faq": [
+     {
+      "q": "Who is playing?",
+      "a": "Not confirmed."
+     },
+     {
+      "q": "How do I book a table?",
+      "a": "Email altheahideaway@gmail.com, per the listing."
+     },
+     {
+      "q": "Is there a dress code?",
+      "a": "Not confirmed."
+     },
+     {
+      "q": "Is it on the rooftop?",
+      "a": "Not confirmed."
+     },
+     {
+      "q": "What is the age limit?",
+      "a": "21+."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "The DICE listing shows no refund policy for this event. Not confirmed."
+    },
+    "verification_note": "Checked against the DICE listing and its structured data (read 1 November 2026). The venue's and promoter's own pages were not checked. The description only contains a table booking email, so almost every detail is unconfirmed.",
+    "sources": [
+     "https://dice.fm/event/6ae4c799ed4a670001a01937"
+    ]
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#34",
+  "rpc": "party_publish_blockers",
+  "args": {
+   "p_id": "dice:6ae4c799ed4a670001a01937"
+  },
+  "ok": true,
+  "status": 200,
+  "body": []
+ },
+ {
+  "step": "#35",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae4c799ed4a670001a01937",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#36",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae4c799ed4a670001a01937",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#37",
+  "rpc": "party_event_copy",
+  "args": {
+   "p_id": "dice:6ade9eba717d5b0001d05ab9",
+   "p_copy": {
+    "about": "DOWNSTAIRS: Solid Selections is an early Thursday dance session at Purgatory, 675 Central Avenue in Bushwick, on November 12. Purgatory presents it itself, and DICE lists it from 8 PM to 10 PM. The pitch is simple: a dance floor running on house, disco, funk and what the promoter calls global grooves.",
+    "expect": "A short, early slot rather than a late club night, built around the record selections. The listing names no theme, dress code or production, and no DJ is named. My take: this suits people who want to dance to house, disco and funk on a Thursday and still be done by 10 PM.",
+    "music": "The promoter's description names the styles: house, disco, funk and global grooves. No DJ or artist is named, and it is not confirmed whether Solid Selections is a DJ, a crew or simply the name of the night. DICE files the event under Gigs rather than DJ. Set times are not published.",
+    "before_you_go": "DICE lists doors and start at 8 PM on Thursday, November 12, and the end at 10 PM. The description talks about dancing all night, but the listed end is 10 PM. 21+. The title says DOWNSTAIRS; which room at Purgatory that means is not spelled out. DICE does not list door sales, so get your ticket on DICE in advance. ID details, re-entry, coat check, accessibility and nearest subway are not confirmed.",
+    "faq": [
+     {
+      "q": "Who is DJing?",
+      "a": "Not confirmed. No DJ is named in the listing."
+     },
+     {
+      "q": "What kind of music is it?",
+      "a": "House, disco, funk and global grooves, according to the description."
+     },
+     {
+      "q": "How late does it go?",
+      "a": "DICE lists 8 PM to 10 PM."
+     },
+     {
+      "q": "What is the age limit?",
+      "a": "21+."
+     },
+     {
+      "q": "Is there a dress code?",
+      "a": "Not confirmed."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "DICE did not list a refund policy for this event when the page was read on 1 November 2026. Check the terms shown at checkout."
+    },
+    "sources": [
+     "https://dice.fm/event/6ade9eba717d5b0001d05ab9"
+    ],
+    "verification_note": "Checked against the DICE listing and its structured data (read 1 November 2026). The venue's and promoter's own pages were not checked. The description says the dancing goes all night while DICE lists a 10 PM end; the DICE times are used here."
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#38",
+  "rpc": "party_publish_blockers",
+  "args": {
+   "p_id": "dice:6ade9eba717d5b0001d05ab9"
+  },
+  "ok": true,
+  "status": 200,
+  "body": []
+ },
+ {
+  "step": "#39",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ade9eba717d5b0001d05ab9",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#40",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ade9eba717d5b0001d05ab9",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#41",
+  "rpc": "party_event_copy",
+  "args": {
+   "p_id": "dice:6ae0f28d0de9ee0001fc097e",
+   "p_copy": {
+    "about": "Marquee New York presents R3HAB at its club at 287 10th Avenue in Chelsea on Saturday, December 26, the weekend after Christmas. DICE lists the night from 11 PM until 4 AM on Sunday, December 27. It is a headliner night under R3HAB's name.",
+    "expect": "A Chelsea club night built around one named headliner. The listing gives no theme, dress code or production details, and Marquee sets a 12:30 AM arrival cutoff for ticket holders. My take: this is for people who want to see R3HAB specifically and can get to the club early in the night.",
+    "music": "R3HAB is named in the event title, and DICE files the event under DJ. DICE's performer field is empty, and no supporting DJs, genres or set times are published. When R3HAB goes on is not confirmed.",
+    "before_you_go": "DICE lists doors and start at 11 PM on Saturday, December 26, and the end at 4 AM. Marquee's terms say ticket holders have to be inside before 12:30 AM. 21+, with valid, original photo ID. Marquee accepts a valid US driver's license from any state, a New York DMV non-driver ID card, US military ID, or a valid passport or visa issued by the US or any other country. DICE does not list door sales. Re-entry, coat check, dress code, accessibility and nearest subway are not confirmed.",
+    "faq": [
+     {
+      "q": "Is there a latest arrival time?",
+      "a": "Yes. Marquee's terms say ticket holders must arrive before 12:30 AM."
+     },
+     {
+      "q": "What ID do I need?",
+      "a": "Valid, original photo ID: a US driver's license, a New York DMV non-driver ID, US military ID, or a passport or visa from any country."
+     },
+     {
+      "q": "When does R3HAB play?",
+      "a": "Not confirmed."
+     },
+     {
+      "q": "Can I get a refund?",
+      "a": "DICE lists a 24-hour cooling-off window after purchase, but Marquee's own terms say no refunds. Check the terms at checkout."
+     },
+     {
+      "q": "Is there a dress code?",
+      "a": "Not confirmed."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "DICE lists a 24-hour cooling-off refund window after purchase. Check the exact terms shown at checkout.",
+     "Marquee New York": "Marquee's event terms state that nothing bought for this event can be refunded, whatever the reason."
+    },
+    "sources": [
+     "https://dice.fm/event/6ae0f28d0de9ee0001fc097e"
+    ],
+    "verification_note": "Checked against the DICE listing and its structured data (read 1 November 2026). The venue's and promoter's own pages were not checked. The DICE refund field (24-hour cooling-off) and Marquee's own terms (no refunds) disagree; both are shown."
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#42",
+  "rpc": "party_publish_blockers",
+  "args": {
+   "p_id": "dice:6ae0f28d0de9ee0001fc097e"
+  },
+  "ok": true,
+  "status": 200,
+  "body": []
+ },
+ {
+  "step": "#43",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae0f28d0de9ee0001fc097e",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#44",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae0f28d0de9ee0001fc097e",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#45",
+  "rpc": "party_event_copy",
+  "args": {
+   "p_id": "dice:6ae117d9d782cc0001e3ad46",
+   "p_copy": {
+    "about": "Cassette in Ridgewood hosts EVERYBODY DANCE, billed as a disco house party with a DJ set, on Friday, November 6. Cassette presents the night itself at 68-38 Forest Avenue, Storefront B. It runs from 10:30 PM to 2 AM, and the description and the DICE data give the same hours.",
+    "expect": "A single-format night: disco house from a DJ for about three and a half hours. No DJ name, theme, dress code or production details are listed. My take: a good fit for anyone who wants a Friday of disco house that wraps up by 2 AM.",
+    "music": "The description calls it a disco house party, and DICE files it under DJ. The title says DJ set, but the DJ is not named. A set schedule is not published.",
+    "before_you_go": "Doors and start at 10:30 PM on Friday, November 6; end at 2 AM. 21+. The address is Storefront B, 68-38 Forest Avenue, Ridgewood, Queens. DICE does not list door sales. ID details, re-entry, coat check, accessibility and nearest subway are not confirmed.",
+    "faq": [
+     {
+      "q": "Who is DJing?",
+      "a": "Not confirmed. The listing does not name the DJ."
+     },
+     {
+      "q": "What music will be played?",
+      "a": "Disco house, according to the description."
+     },
+     {
+      "q": "What are the hours?",
+      "a": "10:30 PM to 2 AM."
+     },
+     {
+      "q": "What is the age limit?",
+      "a": "21+."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "DICE did not list a refund policy for this event when the page was read on 1 November 2026. Check the terms shown at checkout."
+    },
+    "sources": [
+     "https://dice.fm/event/6ae117d9d782cc0001e3ad46"
+    ],
+    "verification_note": "Checked against the DICE listing and its structured data (read 1 November 2026). The venue's and promoter's own pages were not checked. The hours in the description match the DICE start and end."
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#46",
+  "rpc": "party_publish_blockers",
+  "args": {
+   "p_id": "dice:6ae117d9d782cc0001e3ad46"
+  },
+  "ok": true,
+  "status": 200,
+  "body": []
+ },
+ {
+  "step": "#47",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae117d9d782cc0001e3ad46",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#48",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae117d9d782cc0001e3ad46",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#49",
+  "rpc": "party_event_copy",
+  "args": {
+   "p_id": "dice:6ae2182ec173cf0001aa2e52",
+   "p_copy": {
+    "about": "I Bet You Look Good, an indie dance party, returns to DROM at 85 Avenue A in the East Village on Saturday, December 5. Nick Marc plays indie classics from several decades, from 11 PM until 3 AM on Sunday. DICE shows it as presented by GBH Events, with Cheeky Entertainment Inc listed as the organizer.",
+    "expect": "A night of indie favorites rather than new club music: the promoter's examples run from The Smiths and New Order to The Strokes, LCD Soundsystem and Tame Impala. No theme or dress code is listed. My take: this is for people who want to dance to the indie and alternative songs they already know, late on a Saturday.",
+    "music": "Nick Marc is the DJ named in the description. The promoter lists the kind of artists he draws on, including Arctic Monkeys, David Bowie, Blur, Bjork, Radiohead, Gorillaz, The Prodigy, The Chemical Brothers, The Killers, The White Stripes, MGMT and Vampire Weekend, and says there are many more. These are artists whose songs get played, not performers at the event. Other DJs and set times are not confirmed.",
+    "before_you_go": "Doors at 11 PM on Saturday, December 5, in both the description and the DICE data; DICE lists the end at 3 AM. 21+. DROM is at 85 Avenue A, East Village, Manhattan. DICE notes no Covid-19 entry requirements and does not list door sales. ID details, re-entry, coat check, accessibility and nearest subway are not confirmed.",
+    "faq": [
+     {
+      "q": "Who is the DJ?",
+      "a": "Nick Marc, according to the description."
+     },
+     {
+      "q": "Are any of the listed bands playing live?",
+      "a": "No live performers are listed. The bands named are examples of the music Nick Marc plays."
+     },
+     {
+      "q": "What are the hours?",
+      "a": "Doors at 11 PM; DICE lists the end at 3 AM."
+     },
+     {
+      "q": "What is the age limit?",
+      "a": "21+."
+     },
+     {
+      "q": "Is there a dress code?",
+      "a": "Not confirmed."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "DICE lists a 24-hour cooling-off refund window after purchase. Check the exact terms shown at checkout."
+    },
+    "sources": [
+     "https://dice.fm/event/6ae2182ec173cf0001aa2e52"
+    ],
+    "verification_note": "Checked against the DICE listing and its structured data (read 1 November 2026). The venue's and promoter's own pages were not checked. DICE names GBH Events as presenter and Cheeky Entertainment Inc as organizer; both are reported as listed."
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#50",
+  "rpc": "party_publish_blockers",
+  "args": {
+   "p_id": "dice:6ae2182ec173cf0001aa2e52"
+  },
+  "ok": true,
+  "status": 200,
+  "body": []
+ },
+ {
+  "step": "#51",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae2182ec173cf0001aa2e52",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#52",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae2182ec173cf0001aa2e52",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#53",
+  "rpc": "party_event_copy",
+  "args": {
+   "p_id": "dice:6ae24fcdf3fab60001e10bfd",
+   "p_copy": {
+    "about": "Marquee New York presents Timmy Trumpet on Christmas Eve, Thursday, December 24, at its club at 287 10th Avenue in Chelsea. DICE lists the night from 11 PM until 4 AM on Christmas morning. The occasion is the hook: a headliner club night on the night before Christmas.",
+    "expect": "A Chelsea club night with one named headliner on a holiday night. The listing gives no theme, dress code or production details, and Marquee sets a 12:30 AM arrival cutoff for ticket holders. My take: this is for people who want to spend Christmas Eve in a club seeing Timmy Trumpet and can arrive early.",
+    "music": "Timmy Trumpet is named in the title and in DICE's performer data, and DICE files the event under DJ. No supporting DJs, genres or set times are published. When he goes on is not confirmed.",
+    "before_you_go": "DICE lists doors and start at 11 PM on Thursday, December 24, and the end at 4 AM on Friday, December 25. Marquee's terms say ticket holders have to be inside before 12:30 AM. 21+, with valid, original photo ID. Marquee accepts a valid US driver's license from any state, a New York DMV non-driver ID card, US military ID, or a valid passport or visa issued by the US or any other country. DICE does not list door sales. Re-entry, coat check, dress code, accessibility and nearest subway are not confirmed.",
+    "faq": [
+     {
+      "q": "Is there a latest arrival time?",
+      "a": "Yes. Marquee's terms say ticket holders must arrive before 12:30 AM."
+     },
+     {
+      "q": "What ID do I need?",
+      "a": "Valid, original photo ID: a US driver's license, a New York DMV non-driver ID, US military ID, or a passport or visa from any country."
+     },
+     {
+      "q": "When does Timmy Trumpet play?",
+      "a": "Not confirmed."
+     },
+     {
+      "q": "Can I get a refund?",
+      "a": "DICE lists a 24-hour cooling-off window after purchase, but Marquee's own terms say no refunds. Check the terms at checkout."
+     },
+     {
+      "q": "Is there a dress code?",
+      "a": "Not confirmed."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "DICE lists a 24-hour cooling-off refund window after purchase. Check the exact terms shown at checkout.",
+     "Marquee New York": "Marquee's event terms state that nothing bought for this event can be refunded, whatever the reason."
+    },
+    "sources": [
+     "https://dice.fm/event/6ae24fcdf3fab60001e10bfd"
+    ],
+    "verification_note": "Checked against the DICE listing and its structured data (read 1 November 2026). The venue's and promoter's own pages were not checked. The DICE refund field (24-hour cooling-off) and Marquee's own terms (no refunds) disagree; both are shown."
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#54",
+  "rpc": "party_publish_blockers",
+  "args": {
+   "p_id": "dice:6ae24fcdf3fab60001e10bfd"
+  },
+  "ok": true,
+  "status": 200,
+  "body": []
+ },
+ {
+  "step": "#55",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae24fcdf3fab60001e10bfd",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#56",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae24fcdf3fab60001e10bfd",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#57",
+  "rpc": "party_event_copy",
+  "args": {
+   "p_id": "dice:6ae2944c6a4c9700015f3c9d",
+   "p_copy": {
+    "about": "Open Decks is a session in SILO Brooklyn's front room, hosted by DJ and musician Steen, where DJs from the crowd take turns playing house and techno. On Wednesday, November 11, the co-hosts are MZ3 and Spam. The draw is the room's sound system, which SILO describes as a custom 15,000 watt Danley rig.",
+    "expect": "Part DJ night, part community session. Anyone who wants to play signs up with Steen in person, and each slot is 12 minutes. The first three DJs go in order of arrival; after that, names are drawn at random from the list through the night, with earlier arrivals weighted more heavily, and you get 30 minutes' notice before your turn. Capacity is limited. My take: this is mainly for DJs who want to hear their own picks or original tracks on a serious system, in a setting the hosts pitch as creative and fun.",
+    "music": "House and techno, played by the DJs who sign up on the night, according to the description. Steen hosts, with MZ3 and Spam as this week's co-hosts; whether the hosts play sets of their own, and when, is not confirmed. Because the players are chosen on the night, there is no lineup and no set times beyond the 12-minute slots.",
+    "before_you_go": "DICE lists doors at 7 PM on Wednesday, November 11. The description puts the first DJ sign-up at 8 PM, so arrive early if you want one of the first three slots. You can only sign up in person, on the night. The description says entry is by advance RSVP, which the DICE listing handles. 21+. It is in SILO's front room at 90 Scott Avenue, Bushwick, and capacity is limited. DICE lists the end as 2 PM on Thursday, November 12; the description gives no end time, so treat the end as unconfirmed. Questions go to Steen on Instagram at @steenschmidt. Re-entry, coat check, accessibility and nearest subway are not confirmed.",
+    "faq": [
+     {
+      "q": "How do I sign up to play?",
+      "a": "In person with Steen at the event. There is no advance sign-up, and slots are 12 minutes."
+     },
+     {
+      "q": "How are DJs picked?",
+      "a": "The first three play in order of arrival, then names are drawn at random, with extra weight for earlier arrivals. You get 30 minutes' notice."
+     },
+     {
+      "q": "Do I need to RSVP?",
+      "a": "Yes. The description says entry is with an advance RSVP."
+     },
+     {
+      "q": "What music gets played?",
+      "a": "House and techno."
+     },
+     {
+      "q": "When does it end?",
+      "a": "DICE lists 2 PM on Thursday, but the description gives no end time. Not confirmed."
+     },
+     {
+      "q": "What is the age limit?",
+      "a": "21+."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "DICE lists a 24-hour cooling-off refund window after purchase. Check the exact terms shown at checkout."
+    },
+    "sources": [
+     "https://dice.fm/event/6ae2944c6a4c9700015f3c9d"
+    ],
+    "verification_note": "Checked against the DICE listing and its structured data (read 1 November 2026). The venue's and promoter's own pages were not checked. The DICE end time of 2 PM the next day is not supported by the description and may be a listing error. DICE lists doors at 7 PM while the description mentions an 8 PM sign-up."
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#58",
+  "rpc": "party_publish_blockers",
+  "args": {
+   "p_id": "dice:6ae2944c6a4c9700015f3c9d"
+  },
+  "ok": true,
+  "status": 200,
+  "body": []
+ },
+ {
+  "step": "#59",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae2944c6a4c9700015f3c9d",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#60",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae2944c6a4c9700015f3c9d",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#61",
+  "rpc": "party_event_copy",
+  "args": {
+   "p_id": "dice:6ae387291f749d00012508a4",
+   "p_copy": {
+    "about": "Familiar Faces brings its party to Deluxx Fluxx, in the basement at 125 East 11th Street in the East Village, on Friday, November 20. The organizers frame their events as a celebration of Black creativity, culture and community. DICE lists the night from 10 PM to 4 AM.",
+    "expect": "The organizers put the emphasis on a safe, respectful and joyful room where people connect, dance and spend the night with the people close to them. Deluxx Fluxx says harassment, unwanted touching, discrimination and aggressive behavior are not tolerated in any form. Bottle service can be arranged by email. No theme, dress code or production details are listed. My take: this is for people who want a community-minded Friday dance night centered on Black culture, ideally with their own friends along.",
+    "music": "No DJs, artists or genres are named in the listing, and DICE files it under Party. The music and the lineup are not confirmed.",
+    "before_you_go": "Doors and start at 10 PM on Friday, November 20; DICE lists the end at 4 AM. 21+, and everyone needs a physical government-issued ID; photos of an ID are not accepted. The venue is in the basement at 125 East 11th Street, Manhattan. Buying a ticket counts as agreeing to SMS marketing messages about future events. Bottle service requests go to NYVIP@DELUXXFLUXX.COM. DICE does not list door sales. Re-entry, coat check, dress code, accessibility and nearest subway are not confirmed.",
+    "faq": [
+     {
+      "q": "Who is DJing?",
+      "a": "Not confirmed. No DJs are named."
+     },
+     {
+      "q": "What ID do I need?",
+      "a": "A physical government-issued ID. Pictures of an ID are not accepted."
+     },
+     {
+      "q": "Is there bottle service?",
+      "a": "Yes, by email to NYVIP@DELUXXFLUXX.COM."
+     },
+     {
+      "q": "Will I get marketing texts?",
+      "a": "The listing says buying a ticket means consenting to SMS marketing about future events."
+     },
+     {
+      "q": "Is there a dress code?",
+      "a": "Not confirmed."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "DICE lists a 24-hour cooling-off refund window after purchase. Check the exact terms shown at checkout."
+    },
+    "sources": [
+     "https://dice.fm/event/6ae387291f749d00012508a4"
+    ],
+    "verification_note": "Checked against the DICE listing and its structured data (read 1 November 2026). The venue's and promoter's own pages were not checked."
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#62",
+  "rpc": "party_publish_blockers",
+  "args": {
+   "p_id": "dice:6ae387291f749d00012508a4"
+  },
+  "ok": true,
+  "status": 200,
+  "body": []
+ },
+ {
+  "step": "#63",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae387291f749d00012508a4",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#64",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae387291f749d00012508a4",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#65",
+  "rpc": "party_event_copy",
+  "args": {
+   "p_id": "dice:6ae3b36abafbd50001cd30cf",
+   "p_copy": {
+    "about": "Ginja, a party celebrating the African diaspora, takes over SILO Brooklyn at 90 Scott Avenue in Bushwick on Saturday, November 28, with SARZ billed as the special guest. SILO Brooklyn and Furtado Global present it, and DICE lists the night from 10 PM to 4 AM.",
+    "expect": "A diaspora-focused club night with Afrobeats, Amapiano and Afrohouse at its core and a named guest at the top of the bill. Tables can be reserved through SILO's website. No theme, dress code or production details are listed. My take: this is for people who want a full Saturday night of Afrobeats and Amapiano with a headline name in Bushwick.",
+    "music": "SARZ is named in the title as the special guest, and DICE's performer data lists Sarz and Ethan Tomas. Ethan Tomas's role on the night is not stated. The promoter describes the music as Afrobeats, Amapiano, Afrohouse and more. Set times and any other DJs are not confirmed.",
+    "before_you_go": "Doors and start at 10 PM on Saturday, November 28; DICE lists the end at 4 AM on Sunday. 21+. SILO Brooklyn is at 90 Scott Avenue, Bushwick; which room is used is not stated. For tables, the listing points to the tables page on SILO's website. DICE does not list door sales. ID details, re-entry, coat check, dress code, accessibility and nearest subway are not confirmed.",
+    "faq": [
+     {
+      "q": "Who is playing?",
+      "a": "SARZ is the billed special guest. DICE also lists Ethan Tomas as a performer."
+     },
+     {
+      "q": "What music is it?",
+      "a": "Afrobeats, Amapiano, Afrohouse and more, according to the promoter."
+     },
+     {
+      "q": "When does SARZ play?",
+      "a": "Not confirmed."
+     },
+     {
+      "q": "Can I book a table?",
+      "a": "Yes, through the tables page on SILO Brooklyn's website."
+     },
+     {
+      "q": "What is the age limit?",
+      "a": "21+."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "DICE lists a 24-hour cooling-off refund window after purchase. Check the exact terms shown at checkout."
+    },
+    "sources": [
+     "https://dice.fm/event/6ae3b36abafbd50001cd30cf"
+    ],
+    "verification_note": "Checked against the DICE listing and its structured data (read 1 November 2026). The venue's and promoter's own pages were not checked. DICE's performer data lists Ethan Tomas, who is not mentioned in the title or description."
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#66",
+  "rpc": "party_publish_blockers",
+  "args": {
+   "p_id": "dice:6ae3b36abafbd50001cd30cf"
+  },
+  "ok": true,
+  "status": 200,
+  "body": []
+ },
+ {
+  "step": "#67",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae3b36abafbd50001cd30cf",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#68",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae3b36abafbd50001cd30cf",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#69",
+  "rpc": "party_event_copy",
+  "args": {
+   "p_id": "dice:6ae4c8389bfa8e0001ef1a77",
+   "p_copy": {
+    "about": "Althea's Hideaway presents Alejandro Arce playing an extended set on Friday, November 6, at 603 West 44th Street in Hell's Kitchen. DICE lists the night from 8 PM to 3 AM. The extended-set format, one artist holding the room for a long stretch, is the main thing the listing tells you.",
+    "expect": "Beyond the extended-set format, the listing says almost nothing: no theme, dress code, genre or production details. It does offer table bookings by email. My take: this is for people who already know and like Alejandro Arce and want to hear him play a long set.",
+    "music": "Alejandro Arce is named in the title and in DICE's performer data, and DICE files the event under Party. The listing does not say what genre he plays, how long the extended set runs within the 8 PM to 3 AM window, or whether anyone else plays.",
+    "before_you_go": "DICE lists doors and start at 8 PM on Friday, November 6, and the end at 3 AM. 21+. The address is 603 West 44th Street, Manhattan. The presenter is listed as Althea's Hideaway Rooftop, but the listing does not say whether the event is on the roof or indoors. Table requests go to altheahideaway@gmail.com. DICE does not list door sales. ID details, re-entry, coat check, accessibility and nearest subway are not confirmed.",
+    "faq": [
+     {
+      "q": "Who is playing?",
+      "a": "Alejandro Arce, in an extended set."
+     },
+     {
+      "q": "What genre is it?",
+      "a": "Not confirmed."
+     },
+     {
+      "q": "How long is the extended set?",
+      "a": "Not confirmed. The event runs from 8 PM to 3 AM."
+     },
+     {
+      "q": "Is it on the rooftop?",
+      "a": "Not confirmed."
+     },
+     {
+      "q": "Can I book a table?",
+      "a": "Yes, by email to altheahideaway@gmail.com."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "DICE did not list a refund policy for this event when the page was read on 1 November 2026. Check the terms shown at checkout."
+    },
+    "sources": [
+     "https://dice.fm/event/6ae4c8389bfa8e0001ef1a77"
+    ],
+    "verification_note": "Checked against the DICE listing and its structured data (read 1 November 2026). The venue's and promoter's own pages were not checked. The description contains only the table booking email."
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#70",
+  "rpc": "party_publish_blockers",
+  "args": {
+   "p_id": "dice:6ae4c8389bfa8e0001ef1a77"
+  },
+  "ok": true,
+  "status": 200,
+  "body": []
+ },
+ {
+  "step": "#71",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae4c8389bfa8e0001ef1a77",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#72",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae4c8389bfa8e0001ef1a77",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#73",
+  "rpc": "party_event_copy",
+  "args": {
+   "p_id": "dice:6adf75da93b3060001ff7cd2",
+   "p_copy": {
+    "about": "Move Forward Music presents The Sasha Fierce Experience, a Beyonce night that zeroes in on her Sasha Fierce persona, at The Chocolate Factory on Scott Avenue in Bushwick. It runs from 10 PM on Saturday, November 21 until 3:30 AM on Sunday, November 22. The promoter also promises giveaways and prizes during the night.",
+    "expect": "A single-artist theme night with three DJs named in the description and giveaways on the night. The listing mentions no dress code or costume theme. My take: this is for Beyonce fans who want a whole night centered on her music rather than a mixed open format.",
+    "music": "The description names three DJs: DJ Miss Milan, Byrell The Great and Jacob Dior. DICE's structured performer field lists only the first two, so Jacob Dior comes from the event text. The focus is Beyonce, with the promoter singling out Sasha Fierce, and DICE tags the event as a gig. Set times are not confirmed.",
+    "before_you_go": "Doors are listed at 10 PM and the end at 3:30 AM. The event is 21+; the listing does not spell out which IDs are accepted. DICE does not list door sales, so plan to buy ahead. Re-entry, bag and coat check, dress code, accessibility and nearest subway are not confirmed.",
+    "faq": [
+     {
+      "q": "Who is DJing?",
+      "a": "DJ Miss Milan, Byrell The Great and Jacob Dior, according to the description."
+     },
+     {
+      "q": "What time does it start and end?",
+      "a": "10 PM on Saturday, November 21 until 3:30 AM on Sunday."
+     },
+     {
+      "q": "Is there a dress code or costume theme?",
+      "a": "Not confirmed."
+     },
+     {
+      "q": "Can I buy a ticket at the door?",
+      "a": "DICE does not list door sales for this event."
+     },
+     {
+      "q": "What is the age limit?",
+      "a": "21+."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "The cooling-off refund window is not enabled on this DICE listing. Check the terms shown at checkout."
+    },
+    "sources": [
+     "https://dice.fm/event/6adf75da93b3060001ff7cd2"
+    ],
+    "verification_note": "Checked against the DICE listing read on 1 November 2026. The description names three DJs while the structured performer field lists two. The venue's and promoter's own pages were not checked."
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#74",
+  "rpc": "party_publish_blockers",
+  "args": {
+   "p_id": "dice:6adf75da93b3060001ff7cd2"
+  },
+  "ok": true,
+  "status": 200,
+  "body": []
+ },
+ {
+  "step": "#75",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6adf75da93b3060001ff7cd2",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#76",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6adf75da93b3060001ff7cd2",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#77",
+  "rpc": "party_event_copy",
+  "args": {
+   "p_id": "dice:6ae0f2e6845f100001bd0114",
+   "p_copy": {
+    "about": "Marquee New York presents Steve Aoki at its club at 287 10th Avenue in Chelsea on Wednesday, December 30, the night before New Year's Eve. DICE lists the night from 11 PM until 4 AM on Thursday, December 31. The listing text covers entry and ID terms rather than the show itself.",
+    "expect": "A headline DJ night in a Chelsea club. The listing gives no theme, dress code, production details or supporting acts. Entry has a firm cutoff: ticket holders must arrive before 12:30 AM. My take: this is for fans who want to catch Steve Aoki in a club the night before New Year's Eve and can get there early.",
+    "music": "Steve Aoki is named in the event title, and DICE tags the event as DJ. The DICE performer field is empty and the description names no other artists. Supporting DJs, genres and set times are not confirmed.",
+    "before_you_go": "Doors are listed at 11 PM and the end at 4 AM. Under the general terms, ticket holders must arrive before 12:30 AM. Entry is 21+ and every guest needs valid, original photo ID. Accepted IDs: a valid US driver's license from any state, a New York DMV non-driver ID card, a valid US military ID, or a valid passport or visa from the US or any other country. DICE does not list door sales. Re-entry, dress code, coat check, accessibility and nearest subway are not confirmed.",
+    "faq": [
+     {
+      "q": "What time do I need to arrive?",
+      "a": "Before 12:30 AM, according to the listing's general terms."
+     },
+     {
+      "q": "Which IDs are accepted?",
+      "a": "Original photo ID only: a US driver's license from any state, a New York DMV non-driver ID, US military ID, or a valid passport or visa from any country."
+     },
+     {
+      "q": "Who else is playing?",
+      "a": "Not confirmed."
+     },
+     {
+      "q": "Is there a dress code?",
+      "a": "Not confirmed."
+     },
+     {
+      "q": "Can I get a refund?",
+      "a": "DICE shows a 24-hour cooling-off window, but the venue terms in the description say all items are non-refundable. Check at checkout."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "DICE lists a 24-hour cooling-off refund window after purchase. Check the terms shown at checkout.",
+     "Marquee New York (terms in the event description)": "All items are non-refundable under any circumstances."
+    },
+    "sources": [
+     "https://dice.fm/event/6ae0f2e6845f100001bd0114"
+    ],
+    "verification_note": "Checked against the DICE listing read on 1 November 2026. The performer field is empty, so the headliner comes from the title only. The DICE refund setting and the venue's refund terms disagree, so both are shown. Marquee's own site was not checked."
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#78",
+  "rpc": "party_publish_blockers",
+  "args": {
+   "p_id": "dice:6ae0f2e6845f100001bd0114"
+  },
+  "ok": true,
+  "status": 200,
+  "body": []
+ },
+ {
+  "step": "#79",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae0f2e6845f100001bd0114",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#80",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae0f2e6845f100001bd0114",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#81",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae11a3118396c00010f608b",
+   "p_status": "rejected",
+   "p_reason": "Not a party: a monthly AFROJAM DJ LAB community membership (four 15-minute open-deck slots a month, equipment access, a recap video, a venue booking discount) listed from November 4 to November 26, not a single party night."
+  },
+  "ok": true,
+  "status": 200,
+  "body": "rejected"
+ },
+ {
+  "step": "#82",
+  "rpc": "party_event_copy",
+  "args": {
+   "p_id": "dice:6ae21aaa0263c10001098dfe",
+   "p_copy": {
+    "about": "Music For The Masses, which the promoter calls Brooklyn's favorite new wave party, returns with a dark 80s new wave night at TV Eye, 1647 Weirfield Street in Ridgewood on the Bushwick border. It is on Saturday, November 21, with doors at 11 PM and an end listed at 3 AM. DICE names Cheeky Entertainment Inc as organizer, and the listing credits GBH Events as presenter.",
+    "expect": "A themed dance night for dark 80s new wave, led by DJ Alex English with guests. No dress code or theme beyond the music is mentioned. My take: this is for people who want to dance to Depeche Mode, The Cure and New Order style records late on a Saturday.",
+    "music": "DJs: Alex English and guests, per the description; the guests are not named. The promoter points to the artists you will hear: Depeche Mode, New Order, Joy Division, The Cure, Sisters Of Mercy, Bowie, The Smiths, Nitzer Ebb, Siouxsie & The Banshees, Orchestral Manoeuvers In The Dark, Duran Duran, Echo & The Bunnymen and Front 242, among others. These describe the records played, not live acts. Set times are not confirmed.",
+    "before_you_go": "Doors at 11 PM, end listed at 3 AM, 21+. The description says TV Eye is close to Halsey Street on the L train and Myrtle-Wyckoff Avenues on the M train. DICE lists no Covid-19 entry requirements and no door sales. Re-entry, coat check, dress code and accessibility are not confirmed.",
+    "faq": [
+     {
+      "q": "Who are the DJs?",
+      "a": "Alex English and guests. The guests are not named."
+     },
+     {
+      "q": "Is it in Brooklyn or Queens?",
+      "a": "TV Eye is at 1647 Weirfield Street in Ridgewood, Queens, on the Bushwick border."
+     },
+     {
+      "q": "Which subway is closest?",
+      "a": "Halsey Street on the L or Myrtle-Wyckoff Avenues on the M, according to the description."
+     },
+     {
+      "q": "What time does it start and end?",
+      "a": "Doors at 11 PM on Saturday, November 21; the end is listed at 3 AM."
+     },
+     {
+      "q": "Is there a dress code?",
+      "a": "Not confirmed."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "DICE lists a 24-hour cooling-off refund window after purchase. Check the terms shown at checkout."
+    },
+    "sources": [
+     "https://dice.fm/event/6ae21aaa0263c10001098dfe"
+    ],
+    "verification_note": "Checked against the DICE listing read on 1 November 2026. The description's day, date, venue and door time match the DICE facts. The organizer field (Cheeky Entertainment Inc) and the presenter line (GBH Events) name different companies. TV Eye's own calendar was not checked."
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#83",
+  "rpc": "party_publish_blockers",
+  "args": {
+   "p_id": "dice:6ae21aaa0263c10001098dfe"
+  },
+  "ok": true,
+  "status": 200,
+  "body": []
+ },
+ {
+  "step": "#84",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae21aaa0263c10001098dfe",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#85",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae21aaa0263c10001098dfe",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#86",
+  "rpc": "party_event_copy",
+  "args": {
+   "p_id": "dice:6ae25c4600d2a20001f5c77e",
+   "p_copy": {
+    "about": "Acoustik Garden Lounge at 1515 Atlantic Avenue in Bed-Stuy hosts its Afrobeats and Amapiano Fridays on November 13, from 9 PM to 1 AM. The night is powered by AfroJam Room and Amapiano NYC. The venue pitches it as an upscale, intimate gathering for mature adults, with cocktails alongside the music, and birthday groups are welcome.",
+    "expect": "The venue promises a refined, uncrowded room rather than a packed party. Dressing with elegance is encouraged; a strict dress code is not confirmed. Birthday celebrations, whether for the night, week or month, are explicitly invited. My take: this suits people who want Afrobeats and Amapiano in a calmer, dressed-up setting, or a group planning a birthday night out.",
+    "music": "Afrobeats and Amapiano, as named in the title and description. No DJs are named in the description and the DICE performer field is empty. Set times are not confirmed.",
+    "before_you_go": "Doors at 9 PM, end listed at 1 AM. 21+ with valid ID. The description mentions an RSVP or guest list for priority entry and says access is limited, but how that works alongside a DICE ticket is not explained. DICE does not list door sales. Re-entry, coat check, table booking, accessibility and nearest subway are not confirmed.",
+    "faq": [
+     {
+      "q": "Who is DJing?",
+      "a": "Not confirmed."
+     },
+     {
+      "q": "Is there a dress code?",
+      "a": "Elegant dress is encouraged. A strict dress code is not confirmed."
+     },
+     {
+      "q": "Can I bring a group for a birthday?",
+      "a": "Yes, the venue says birthday celebrations are welcome. Table or group booking details are not confirmed."
+     },
+     {
+      "q": "What time does it start and end?",
+      "a": "Doors at 9 PM on Friday, November 13; the end is listed at 1 AM."
+     },
+     {
+      "q": "What is the age limit?",
+      "a": "21+ with valid ID."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "DICE lists a 24-hour cooling-off refund window after purchase. Check the terms shown at checkout."
+    },
+    "sources": [
+     "https://dice.fm/event/6ae25c4600d2a20001f5c77e"
+    ],
+    "verification_note": "Checked against the DICE listing read on 1 November 2026. Date, venue and door time match the description. DJs and the guest list process could not be confirmed. The venue's own pages were not checked."
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#87",
+  "rpc": "party_publish_blockers",
+  "args": {
+   "p_id": "dice:6ae25c4600d2a20001f5c77e"
+  },
+  "ok": true,
+  "status": 200,
+  "body": []
+ },
+ {
+  "step": "#88",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae25c4600d2a20001f5c77e",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#89",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae25c4600d2a20001f5c77e",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#90",
+  "rpc": "party_event_copy",
+  "args": {
+   "p_id": "dice:6ae29b6b8294f20001d69386",
+   "p_copy": {
+    "about": "Open Decks at SILO Brooklyn is a session hosted by DJ and musician Steen, where DJs take short turns playing house and techno on the venue's front room system. This edition, on Tuesday, November 17, is co-hosted by Remniqe. DICE lists it from 7 PM until 2 AM.",
+    "expect": "A participatory DJ night rather than a headline club show: you can listen, hang out with other DJs or put your name down to play. The front room runs on a custom 15,000 watt Danley sound system, according to the description, and capacity is limited. My take: good for DJs who want to hear their own or favorite tracks on a serious system, and for house and techno fans who enjoy a rotating lineup.",
+    "music": "House and techno, played by whoever signs up, with Steen hosting and Remniqe co-hosting. Slots are 12 minutes. The first three DJs play in order of arrival; after that, names are drawn at random from the sign-up list through the night, weighted toward people who arrived earlier, and you get half an hour's notice before your slot. No other DJs are confirmed and there is no timetable.",
+    "before_you_go": "DICE lists 7 PM to 2 AM; the description refers to the first sign-up at 8 PM. Sign-up is in person at the event only, so find Steen when you arrive. An advance RSVP through DICE is required and the front room has limited capacity. 21+. Questions go to the host on Instagram at @steenschmidt. What equipment DJs play on, re-entry, coat check, accessibility and nearest subway are not confirmed.",
+    "faq": [
+     {
+      "q": "How do I get a slot to play?",
+      "a": "Sign up with Steen in person at the event. There is no online sign-up."
+     },
+     {
+      "q": "How long is a set?",
+      "a": "12 minutes."
+     },
+     {
+      "q": "Do I need to RSVP?",
+      "a": "Yes, the description asks for an advance RSVP, and capacity is limited."
+     },
+     {
+      "q": "What music is played?",
+      "a": "House and techno."
+     },
+     {
+      "q": "What equipment is provided?",
+      "a": "Not confirmed."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "DICE lists a 24-hour cooling-off refund window after purchase. Check the terms shown at checkout."
+    },
+    "sources": [
+     "https://dice.fm/event/6ae29b6b8294f20001d69386"
+    ],
+    "verification_note": "Checked against the DICE listing read on 1 November 2026. The DICE start (7 PM) and the sign-up time in the description (8 PM) differ; both are shown. SILO's own calendar was not checked."
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#91",
+  "rpc": "party_publish_blockers",
+  "args": {
+   "p_id": "dice:6ae29b6b8294f20001d69386"
+  },
+  "ok": true,
+  "status": 200,
+  "body": []
+ },
+ {
+  "step": "#92",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae29b6b8294f20001d69386",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#93",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae29b6b8294f20001d69386",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#94",
+  "rpc": "party_event_copy",
+  "args": {
+   "p_id": "dice:6ae3a19e7830c8000147bb5a",
+   "p_copy": {
+    "about": "Purgatory in Bushwick hosts a TCS NYC Marathon after party with a Greek gods, Mount Olympus theme on Wednesday, November 4, billed in the title as DOWNSTAIRS. DICE lists it from 8 PM until midnight. It is open to everyone, runners, spectators and the wider community, and doubles as a fundraiser for the Hetrick-Martin Institute, which provides free mental health care to LGBTQIA+ BIPOC youth in New York.",
+    "expect": "A sweaty dance floor party with games and a raffle. The raffle prizes named in the listing are a trapeze class for two at Circus Academy of NY and tickets to the Area 53 adventure park. Guests are encouraged to dress in their most godly attire; nothing says it is required. The organizer calls it the last event in Tayler's fundraising for the Hetrick-Martin Institute, and donations are invited. My take: this suits marathon finishers and supporters who want a short weeknight celebration that also raises money for a cause.",
+    "music": "The DICE performer field lists Zoobiana and Gatite Gangster. The description promises a big DJ lineup but names nobody, so whether those two are DJs and whether more acts will join is not confirmed. Genres and set times are not published.",
+    "before_you_go": "Doors are listed at 8 PM and the end at midnight. 21+. Purgatory is at 675 Central Avenue in Brooklyn. The title says DOWNSTAIRS; which room that means is not explained. How to enter the raffle, re-entry, coat check, accessibility and nearest subway are not confirmed.",
+    "faq": [
+     {
+      "q": "Do I have to have run the marathon?",
+      "a": "No. The listing says it is for runners, spectators and the community."
+     },
+     {
+      "q": "Who is DJing?",
+      "a": "DICE lists Zoobiana and Gatite Gangster. The rest of the lineup is not named."
+     },
+     {
+      "q": "What can I win in the raffle?",
+      "a": "A trapeze class for two at Circus Academy of NY and tickets to Area 53 adventure park. How to enter is not confirmed."
+     },
+     {
+      "q": "Is there a dress code?",
+      "a": "Godly attire is encouraged. A required dress code is not confirmed."
+     },
+     {
+      "q": "Where does the money go?",
+      "a": "The fundraiser supports the Hetrick-Martin Institute."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "The DICE listing shows no refund policy for this event. Check the terms shown at checkout."
+    },
+    "sources": [
+     "https://dice.fm/event/6ae3a19e7830c8000147bb5a"
+    ],
+    "verification_note": "Checked against the DICE listing read on 1 November 2026. The description gives no date, so the date and times come from DICE only. The DJ lineup in the description is unnamed. Purgatory's own calendar and the fundraiser page were not checked."
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#95",
+  "rpc": "party_publish_blockers",
+  "args": {
+   "p_id": "dice:6ae3a19e7830c8000147bb5a"
+  },
+  "ok": true,
+  "status": 200,
+  "body": []
+ },
+ {
+  "step": "#96",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae3a19e7830c8000147bb5a",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#97",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae3a19e7830c8000147bb5a",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#98",
+  "rpc": "party_event_copy",
+  "args": {
+   "p_id": "dice:6ae4a7581243d200015069d8",
+   "p_copy": {
+    "about": "The Drop is a house-rooted dance party led by Tasha Blank at House of Yes in Bushwick, on Thursday, December 3. It is an early evening session from 6:30 PM to 9:30 PM that opens with a warm-up movement class. The idea behind the name is to drop expectations and inhibitions and dance on instinct, and the floor has firm house rules: no phones anywhere, and no drinks or chatting on the dance floor.",
+    "expect": "A phone-free, body-focused dance floor on what the listing calls the city's best custom sound system, over a floated wood floor. Feelings and catharsis are part of the pitch, and coming alone is explicitly welcome. The listing also teases performances and activations it will not describe in advance. My take: this is for people who want to dance hard early in the evening, without phones or bar chatter, and still be home at a reasonable hour.",
+    "music": "Rooted in house music, ranging from about 100 to 130 BPM, per the description. Schedule from the listing: 6:30 PM warm-up movement class, 7 PM a guest DJ still to be announced, 8 PM Tasha Blank & Friends. The guest DJ and the friends are not named.",
+    "before_you_go": "Doors and start at 6:30 PM, end at 9:30 PM. 21+, no re-entry. No phones anywhere and no drinks on the dance floor; how the phone rule is enforced is not stated. House of Yes runs a safer spaces policy with zero tolerance for harassment, unwanted touch and discrimination, asks guests to ask before touching anyone, and says all restrooms are gender neutral. Groups and reserved tables go through Reservations@houseofyes.org. Coat check, accessibility and nearest subway are not confirmed.",
+    "faq": [
+     {
+      "q": "Is there a class?",
+      "a": "Yes, a warm-up movement class at 6:30 PM before the DJs start."
+     },
+     {
+      "q": "Can I use my phone?",
+      "a": "No. The listing says no phones anywhere."
+     },
+     {
+      "q": "Is there re-entry?",
+      "a": "No."
+     },
+     {
+      "q": "Can I come alone?",
+      "a": "Yes, the listing explicitly welcomes people coming alone."
+     },
+     {
+      "q": "Who is the 7 PM guest DJ?",
+      "a": "Not confirmed. The listing says TBA."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "DICE lists a 24-hour cooling-off refund window after purchase. Check the terms shown at checkout.",
+     "House of Yes (event description)": "The listing's info section says No Refunds."
+    },
+    "sources": [
+     "https://dice.fm/event/6ae4a7581243d200015069d8"
+    ],
+    "verification_note": "Checked against the DICE listing read on 1 November 2026. The DICE refund setting and the venue's No Refunds line disagree, so both are shown. House of Yes's own calendar was not checked."
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#99",
+  "rpc": "party_publish_blockers",
+  "args": {
+   "p_id": "dice:6ae4a7581243d200015069d8"
+  },
+  "ok": true,
+  "status": 200,
+  "body": []
+ },
+ {
+  "step": "#100",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae4a7581243d200015069d8",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#101",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae4a7581243d200015069d8",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#102",
+  "rpc": "party_event_copy",
+  "args": {
+   "p_id": "dice:6ae65b9209c706000167e974",
+   "p_copy": {
+    "about": "Seduction is a Sunday night event at Althea's Hideaway NYC, 603 West 44th Street in Hell's Kitchen, on November 8. DICE lists it from 8 PM until 2 AM on Monday, presented by Althea's Hideaway Rooftop. The listing gives no concept or theme beyond the title.",
+    "expect": "DICE tags it as a party, but the listing describes no theme, dress code or production. Table bookings are handled by email at altheahideaway@gmail.com. Whether it takes place on the rooftop or indoors is not confirmed.",
+    "music": "The DICE performer field lists Phantom. The description names no artists or genres, and whether Phantom is a DJ is not stated. Set times are not published.",
+    "before_you_go": "Doors are listed at 8 PM and the end at 2 AM. 21+. DICE does not list door sales. Dress code, re-entry, coat check, accessibility, nearest subway and whether the rooftop is used are not confirmed.",
+    "faq": [
+     {
+      "q": "Who is playing?",
+      "a": "DICE lists Phantom. Nothing else is confirmed."
+     },
+     {
+      "q": "Can I book a table?",
+      "a": "The listing says to email altheahideaway@gmail.com for tables."
+     },
+     {
+      "q": "Is it on the rooftop?",
+      "a": "Not confirmed."
+     },
+     {
+      "q": "Is there a dress code?",
+      "a": "Not confirmed."
+     },
+     {
+      "q": "What time does it start and end?",
+      "a": "8 PM on Sunday, November 8 until 2 AM on Monday."
+     }
+    ],
+    "refunds_by_seller": {
+     "DICE": "The DICE listing shows no refund policy for this event. Check the terms shown at checkout."
+    },
+    "sources": [
+     "https://dice.fm/event/6ae65b9209c706000167e974"
+    ],
+    "verification_note": "Checked against the DICE listing read on 1 November 2026. The description only gives a table booking email, so all details come from DICE's structured data. The venue's own pages were not checked."
+   },
+   "p_author": "claude (nyc-parties skill), 2026-11-01"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#103",
+  "rpc": "party_publish_blockers",
+  "args": {
+   "p_id": "dice:6ae65b9209c706000167e974"
+  },
+  "ok": true,
+  "status": 200,
+  "body": []
+ },
+ {
+  "step": "#104",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae65b9209c706000167e974",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#105",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae65b9209c706000167e974",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#106",
+  "rpc": "party_lead_set",
+  "args": {
+   "p_id": 972,
+   "p_status": "merged",
+   "p_event_id": "dice:6ae104d2d0057a00011fa6f6",
+   "p_note": "its DICE event page was found on the venue's DICE page on 2026-11-01 and added"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "merged"
+ },
+ {
+  "step": "#107",
+  "rpc": "party_lead_set",
+  "args": {
+   "p_id": 971,
+   "p_status": "merged",
+   "p_event_id": "dice:6ae24fcdf3fab60001e10bfd",
+   "p_note": "its DICE event page was found on the venue's DICE page on 2026-11-01 and added"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "merged"
+ },
+ {
+  "step": "#108",
+  "rpc": "party_lead_set",
+  "args": {
+   "p_id": 970,
+   "p_status": "merged",
+   "p_event_id": "dice:6ae0f28d0de9ee0001fc097e",
+   "p_note": "its DICE event page was found on the venue's DICE page on 2026-11-01 and added"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "merged"
+ },
+ {
+  "step": "#109",
+  "rpc": "party_lead_set",
+  "args": {
+   "p_id": 969,
+   "p_status": "merged",
+   "p_event_id": "dice:6ae0f2e6845f100001bd0114",
+   "p_note": "its DICE event page was found on the venue's DICE page on 2026-11-01 and added"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "merged"
+ },
+ {
+  "step": "#111",
+  "insert": "party_runs",
+  "status": 201,
+  "body": [
+   {
+    "id": 20,
+    "started_at": "2026-11-01T17:20:35.761682+00:00",
+    "finished_at": null,
+    "kind": "skill-summary",
+    "stats": null,
+    "notes": "bridge 2026-11-01: everyday inventory from our venues' DICE pages (64 venue pages, 650 nights listed, 337 not on the site, 247 after a title filter, 31 tagged DJ/party by DICE): 27 added, 26 written up and published, 1 rejected (a DJ membership, not a party), 4 open leads merged"
+   }
+  ]
  }
 ]
