@@ -180,7 +180,7 @@ const AGES: [slug: string, h1: string, keyword: string, short: string, min: numb
 ];
 const BOROUGHS: [string, string][] = [['manhattan', 'Manhattan'], ['brooklyn', 'Brooklyn'], ['queens', 'Queens'], ['bronx', 'The Bronx'], ['staten-island', 'Staten Island']];
 // list slugs that belong to other pages under /parties
-const RESERVED = new Set(['halloween', 'venue', 'date', 'genres', 'tonight', 'this-weekend', 'artist', 'promoter']);
+const RESERVED = new Set(['halloween', 'venue', 'date', 'genres', 'tonight', 'tomorrow', 'this-weekend', 'artist', 'promoter']);
 
 let cache: Promise<PartyList[]> | null = null;
 export function partyLists(): Promise<PartyList[]> {
@@ -206,6 +206,15 @@ export function partyLists(): Promise<PartyList[]> {
       title: `Parties Tonight in NYC: ${shortDate(today)}`,
       ...(tonight.length ? {} : { note: nextNight ? `Nothing is listed for tonight yet. These are the next parties, on ${shortDate(nextNight)}.` : 'Nothing is listed for tonight yet.' }) },
       tonight.length ? tonight : parties.filter((p) => p.night_date === nextNight));
+    // tomorrow ("parties tomorrow night nyc"): the night after tonight, as its own page
+    const tomorrowD = nyDate(1);
+    const tomorrow = parties.filter((p) => p.night_date === tomorrowD);
+    // like tonight, the page stays up when nothing is listed for tomorrow: it shows the next night, said so
+    const afterT = tomorrow.length ? null : parties.find((p) => p.night_date > tomorrowD)?.night_date ?? null;
+    if (tomorrow.length || afterT) add({ slug: 'tomorrow', kind: 'when', h1: 'Parties Tomorrow Night in NYC', label: 'Parties tomorrow night in NYC', keyword: 'parties tomorrow night nyc', short: 'Tomorrow',
+      title: `Parties Tomorrow Night in NYC: ${shortDate(tomorrowD)}`,
+      ...(tomorrow.length ? {} : { note: afterT ? `Nothing is listed for tomorrow yet. These are the next parties, on ${shortDate(afterT)}.` : 'Nothing is listed for tomorrow yet.' }) },
+      tomorrow.length ? tomorrow : parties.filter((p) => p.night_date === afterT));
     // Friday to Sunday nights: the coming weekend from Monday to Thursday, the rest of this one from Friday
     const from = dowToday >= 5 || dowToday === 0 ? today : nyDate(5 - dowToday), to = nyDate(dowToday === 0 ? 0 : 7 - dowToday);
     const weekend = parties.filter((p) => p.night_date >= from && p.night_date <= to);

@@ -12,6 +12,7 @@ import { partyData, venueOf, nightDate, nyTime, cleanTitle, GENRE_NAME, type Ven
 import { datePages, partyLists, type DatePage } from '../../../lib/partyLists';
 import { crumbs, faqLd, collectionLd, freshDescription } from '../../../lib/seo';
 import { plural } from '../../../lib/stats';
+import proof from '../../../data/proof.json';
 
 export async function getStaticPaths() {
   const pages = await datePages();
@@ -46,6 +47,11 @@ const faq = n ? [
   { q: `What parties are on in NYC on ${monthDay}?`, a: `${plural(n, 'party', 'parties')} are listed, including ${ps.slice(0, 3).map((p) => `${cleanTitle(p.title)} at ${venueOf(p, venues)?.name ?? 'a NYC venue'}${nyTime(p.doors_at ?? p.starts_at) ? ` (doors ${nyTime(p.doors_at ?? p.starts_at)})` : ''}`).join('; ')}.` },
   ...(priced.length ? [{ q: `How much are party tickets in NYC on ${monthDay}?`, a: `The cheapest tickets listed run from $${Math.round(Math.min(...priced))} to $${Math.round(Math.max(...priced))}${free ? `, and ${free} ${free === 1 ? 'party is' : 'parties are'} free` : ''}, fees included where the seller shows them, as of when we checked.` }] : []),
 ] : [];
+// our picks, as on the list pages: the nights people opened and clicked through most this month (proof.json);
+// people see about the first screen (Clarity: 24% average scroll depth), so the picks come first
+const pr = (proof.pages ?? {}) as Record<string, { views28?: number; tickets28?: number }>;
+const score = (p: (typeof ps)[number]) => { const x = pr[`/parties/${p.slug}`] ?? {}; return (x.tickets28 ?? 0) * 10 + (x.views28 ?? 0); };
+const picks = !page.past && n >= 6 ? [...ps].filter((p) => p.event_status !== 'sold_out' && score(p) > 0).sort((a, b) => score(b) - score(a) || a.starts_at.localeCompare(b.starts_at)).slice(0, 3) : [];
 const top = venueIds.map((id) => venues.find((v) => v.id === id)).filter((v): v is Venue => !!v).slice(0, 5);
 ---
 <Base title={`NYC Parties on ${long}: ${n} ${n === 1 ? 'Party' : 'Parties'}`} titles={[`NYC Parties ${nightDate(page.date, { month: 'short', day: 'numeric' })}: ${n} ${n === 1 ? 'Party' : 'Parties'}`]} keyword={kw} description={description} noindex={!page.indexable}
@@ -57,7 +63,15 @@ const top = venueIds.map((id) => venues.find((v) => v.id === id)).filter((v): v 
     {prev ? <a href={`/parties/date/${prev.date}`}>← {nightDate(prev.date, { weekday: 'short', month: 'short', day: 'numeric' })}</a> : <span></span>}
     {next ? <a href={`/parties/date/${next.date}`}>{nightDate(next.date, { weekday: 'short', month: 'short', day: 'numeric' })} →</a> : <span></span>}
   </nav>
-  {n > 0 && <div class="xgrid">{ps.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>}
+  {picks.length > 0 && (
+    <section class="section picks-top">
+      <h2>Our picks for {nightDate(page.date, { weekday: 'long' })}</h2>
+      <p class="small">The nights people opened and bought tickets for most this month.</p>
+      <div class="xgrid">{picks.map((p, i) => <PartyCard party={p} venue={venueOf(p, venues)} eager={i < 2} />)}</div>
+    </section>
+  )}
+  {n > 0 && picks.length > 0 && <h2 class="section">Every party on {monthDay}</h2>}
+  {n > 0 && <div class="xgrid">{ps.filter((p) => !picks.includes(p)).map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>}
   {standIns.length > 0 && (
     <section class="section">
       <h2>Next {D} nights</h2>
@@ -71,7 +85,7 @@ const top = venueIds.map((id) => venues.find((v) => v.id === id)).filter((v): v 
       {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
     </section>
   )}
-  <p class="section"><a href="/parties/tonight">Parties tonight</a> · <a href="/parties/this-weekend">This weekend</a>{dayList && <> · <a href={`/parties/${dayList.slug}`}>{D} night parties</a></>} · <a href="/parties">All parties</a></p>
+  <p class="section"><a href="/parties/tonight">Parties tonight</a> · <a href="/parties/tomorrow">Tomorrow night</a> · <a href="/parties/this-weekend">This weekend</a>{dayList && <> · <a href={`/parties/${dayList.slug}`}>{D} night parties</a></>} · <a href="/parties">All parties</a></p>
 </Base>
 <style>
   .date-nav { display: flex; justify-content: space-between; gap: 12px; margin: 8px 0 16px; font-weight: 700; }
