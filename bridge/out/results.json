@@ -1,271 +1,212 @@
 [
  {
   "step": "#1",
-  "insert": "party_venues",
-  "status": 201,
-  "body": [
-   {
-    "id": "ace-hotel-new-york",
-    "name": "Ace Hotel New York",
-    "aliases": [],
-    "rooms": [
-     "Lobby Bar"
-    ],
-    "address": "20 West 29th Street, New York, NY 10001",
-    "zip": "10001",
-    "borough": "Manhattan",
-    "neighborhood": null,
-    "lat": 40.745786,
-    "lng": -73.988279,
-    "kind": null,
-    "facts": {},
-    "copy": {},
-    "sources": [
-     {
-      "url": "https://dice.fm/event/6ae103350f8280000156ad51",
-      "name": "DICE event listing (The Lobby Bar NYE 2027)",
-      "role": "venue",
-      "checked_at": "2026-11-02T18:00:00Z"
-     }
-    ],
-    "status": "active",
-    "google_checked_at": null,
-    "created_at": "2026-11-02T18:03:07.418931+00:00",
-    "updated_at": "2026-11-02T18:03:07.418931+00:00"
-   },
-   {
-    "id": "moxy-williamsburg",
-    "name": "Moxy Williamsburg",
-    "aliases": [],
-    "rooms": [
-     "Jolene Sound Room",
-     "LilliStar",
-     "Bar Bedford"
-    ],
-    "address": "353 Bedford Ave, Brooklyn, NY 11211",
-    "zip": "11211",
-    "borough": "Brooklyn",
-    "neighborhood": null,
-    "lat": 40.71164,
-    "lng": -73.96298,
-    "kind": null,
-    "facts": {},
-    "copy": {},
-    "sources": [
-     {
-      "url": "https://dice.fm/venue/moxy-williamsburg---jolenelillistarbar-bedford-e8pw",
-      "name": "DICE venue page",
-      "role": "venue",
-      "checked_at": "2026-11-02T18:00:00Z"
-     }
-    ],
-    "status": "active",
-    "google_checked_at": null,
-    "created_at": "2026-11-02T18:03:07.418931+00:00",
-    "updated_at": "2026-11-02T18:03:07.418931+00:00"
-   }
-  ]
+  "rpc": "party_event_copy",
+  "key": "dice:6ae4c9139bfa8e000124dbb0",
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#1",
+  "rpc": "party_event_copy",
+  "key": "dice:6ae3aa1a60d2620001815336",
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#1",
+  "rpc": "party_event_copy",
+  "key": "dice:6ae3fba960d2620001db282f",
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#1",
+  "rpc": "party_event_copy",
+  "key": "dice:6adbb364e8b6fe0001cb52b6",
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#1",
+  "rpc": "party_event_copy",
+  "key": "dice:6ae103350f8280000156ad51",
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#1",
+  "rpc": "party_event_copy",
+  "key": "dice:6a3aced48ecaed0001ad39f8",
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#1",
+  "rpc": "party_event_copy",
+  "key": "dice:6ac3ce873e99b10001dda2df",
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#1",
+  "rpc": "party_event_copy",
+  "key": "dice:6abfd92fa7ef550001df20fb",
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#1",
+  "rpc": "party_event_copy",
+  "key": "dice:6a5e3dea126db80001e4de01",
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#1",
+  "rpc": "party_event_copy",
+  "key": "dice:6ad647a0a42bf50001f296ce",
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#1",
+  "rpc": "party_event_copy",
+  "key": "dice:6ad295020d42480001bf691a",
+  "ok": true,
+  "status": 200,
+  "body": "review"
  },
  {
   "step": "#2",
-  "rpc": "party_venue_hoods",
-  "args": {},
+  "rpc": "party_publish_blockers",
+  "args": {
+   "p_id": "dice:6ae4c9139bfa8e000124dbb0"
+  },
   "ok": true,
   "status": 200,
-  "body": 2
+  "body": []
  },
  {
   "step": "#3",
-  "rpc": "party_add_dice",
+  "rpc": "party_publish_blockers",
   "args": {
-   "p_url": "https://dice.fm/event/6adbb364e8b6fe0001cb52b6",
-   "p_venue_id": "silo-brooklyn",
-   "p_room": null,
-   "p_found_via": "DICE NYC lists (nightlife, coming up, genre pages), 2026-11-02",
-   "p_themes": []
+   "p_id": "dice:6ae3aa1a60d2620001815336"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6adbb364e8b6fe0001cb52b6"
+  "body": []
  },
  {
   "step": "#4",
-  "rpc": "party_add_dice",
+  "rpc": "party_publish_blockers",
   "args": {
-   "p_url": "https://dice.fm/event/6a3aced48ecaed0001ad39f8",
-   "p_venue_id": "superior-ingredients",
-   "p_room": "The Roof",
-   "p_found_via": "DICE NYC lists (nightlife, coming up, genre pages), 2026-11-02",
-   "p_themes": []
+   "p_id": "dice:6ae3fba960d2620001db282f"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6a3aced48ecaed0001ad39f8"
+  "body": []
  },
  {
   "step": "#5",
-  "rpc": "party_add_dice",
+  "rpc": "party_publish_blockers",
   "args": {
-   "p_url": "https://dice.fm/event/6a5e3dea126db80001e4de01",
-   "p_venue_id": "knockdown-center",
-   "p_room": null,
-   "p_found_via": "DICE NYC lists (nightlife, coming up, genre pages), 2026-11-02",
-   "p_themes": []
+   "p_id": "dice:6adbb364e8b6fe0001cb52b6"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6a5e3dea126db80001e4de01"
+  "body": []
  },
  {
   "step": "#6",
-  "rpc": "party_add_dice",
+  "rpc": "party_publish_blockers",
   "args": {
-   "p_url": "https://dice.fm/event/6ad647a0a42bf50001f296ce",
-   "p_venue_id": "knockdown-center",
-   "p_room": null,
-   "p_found_via": "DICE NYC lists (nightlife, coming up, genre pages), 2026-11-02",
-   "p_themes": []
+   "p_id": "dice:6ae103350f8280000156ad51"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ad647a0a42bf50001f296ce"
+  "body": []
  },
  {
   "step": "#7",
-  "rpc": "party_add_dice",
+  "rpc": "party_publish_blockers",
   "args": {
-   "p_url": "https://dice.fm/event/6abfd92fa7ef550001df20fb",
-   "p_venue_id": "elsewhere",
-   "p_room": null,
-   "p_found_via": "DICE NYC lists (nightlife, coming up, genre pages), 2026-11-02",
-   "p_themes": []
+   "p_id": "dice:6a3aced48ecaed0001ad39f8"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6abfd92fa7ef550001df20fb"
+  "body": []
  },
  {
   "step": "#8",
-  "rpc": "party_add_dice",
+  "rpc": "party_publish_blockers",
   "args": {
-   "p_url": "https://dice.fm/event/6ac3ce873e99b10001dda2df",
-   "p_venue_id": "elsewhere",
-   "p_room": null,
-   "p_found_via": "DICE NYC lists (nightlife, coming up, genre pages), 2026-11-02",
-   "p_themes": []
+   "p_id": "dice:6ac3ce873e99b10001dda2df"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ac3ce873e99b10001dda2df"
+  "body": []
  },
  {
   "step": "#9",
-  "rpc": "party_add_dice",
+  "rpc": "party_publish_blockers",
   "args": {
-   "p_url": "https://dice.fm/event/6ad295020d42480001bf691a",
-   "p_venue_id": "industry-city",
-   "p_room": null,
-   "p_found_via": "DICE NYC lists (nightlife, coming up, genre pages), 2026-11-02",
-   "p_themes": []
+   "p_id": "dice:6abfd92fa7ef550001df20fb"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ad295020d42480001bf691a"
+  "body": []
  },
  {
   "step": "#10",
-  "rpc": "party_add_dice",
+  "rpc": "party_publish_blockers",
   "args": {
-   "p_url": "https://dice.fm/event/6ae103350f8280000156ad51",
-   "p_venue_id": "ace-hotel-new-york",
-   "p_room": "Lobby Bar",
-   "p_found_via": "DICE NYC lists (nightlife, coming up, genre pages), 2026-11-02",
-   "p_themes": [
-    "nye"
-   ]
+   "p_id": "dice:6a5e3dea126db80001e4de01"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae103350f8280000156ad51"
+  "body": []
  },
  {
   "step": "#11",
-  "rpc": "party_add_dice",
+  "rpc": "party_publish_blockers",
   "args": {
-   "p_url": "https://dice.fm/event/6ae3aa1a60d2620001815336",
-   "p_venue_id": "brooklyn-roots-collective",
-   "p_room": null,
-   "p_found_via": "DICE NYC lists (nightlife, coming up, genre pages), 2026-11-02",
-   "p_themes": []
+   "p_id": "dice:6ad647a0a42bf50001f296ce"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae3aa1a60d2620001815336"
+  "body": []
  },
  {
   "step": "#12",
-  "rpc": "party_add_dice",
+  "rpc": "party_publish_blockers",
   "args": {
-   "p_url": "https://dice.fm/event/6ae3fba960d2620001db282f",
-   "p_venue_id": "moxy-williamsburg",
-   "p_room": null,
-   "p_found_via": "DICE NYC lists (nightlife, coming up, genre pages), 2026-11-02",
-   "p_themes": []
+   "p_id": "dice:6ad295020d42480001bf691a"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae3fba960d2620001db282f"
+  "body": []
  },
  {
   "step": "#13",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6ae4c9139bfa8e000124dbb0",
-   "p_venue_id": "oberon",
-   "p_room": null,
-   "p_found_via": "DICE NYC lists (nightlife, coming up, genre pages), 2026-11-02",
-   "p_themes": []
+   "p_id": "dice:6ae7ee8f79236600017cdf4c",
+   "p_status": "review",
+   "p_reason": "Secret location: the listing calls it a secret spot in Bushwick and sends a door code on the day; held like the other secret-location nights"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae4c9139bfa8e000124dbb0"
- },
- {
-  "step": "#14",
-  "rpc": "party_add_dice",
-  "args": {
-   "p_url": "https://dice.fm/event/6ae7ee8f79236600017cdf4c",
-   "p_venue_id": "the-purple-room",
-   "p_room": null,
-   "p_found_via": "DICE NYC lists (nightlife, coming up, genre pages), 2026-11-02",
-   "p_themes": []
-  },
-  "ok": true,
-  "status": 200,
-  "body": "dice:6ae7ee8f79236600017cdf4c"
- },
- {
-  "step": "#15",
-  "round": 0,
-  "ingest": {
-   "gone": 0,
-   "read": 16,
-   "waiting": 11,
-   "ended_now": 0,
-   "unreadable": 0
-  },
-  "queued": 0
- },
- {
-  "step": "#15",
-  "round": 1,
-  "ingest": {
-   "gone": 0,
-   "read": 11,
-   "waiting": 0,
-   "ended_now": 0,
-   "unreadable": 0
-  },
-  "queued": 0
+  "body": "review"
  }
 ]
