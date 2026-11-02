@@ -1,11 +1,12 @@
 # Weekly DICE discovery (site/scripts/dice-discover.mjs), approved Nov 2, 2026: the nights on sale on our
 # venues' DICE pages that are not in the database yet, as a report (bridge/out/dice_discover.json and the job
-# summary). Publishes nothing. Mondays 10:43am New York (15:43 UTC in winter), and by hand.
+# summary). Publishes nothing new; re-reads the nights listed from a venue's own site and refreshes them (7-day
+# rule). Mondays and Thursdays 10:43am New York (15:43 UTC in winter), and by hand.
 name: DICE discovery
 
 on:
   schedule:
-    - cron: '43 15 * * 1'
+    - cron: '43 15 * * 1,4'
   workflow_dispatch:
 
 permissions:
