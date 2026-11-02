@@ -1,0 +1,38 @@
+# Weekly DICE discovery (site/scripts/dice-discover.mjs), approved Nov 2, 2026: the nights on sale on our
+# venues' DICE pages that are not in the database yet, as a report (bridge/out/dice_discover.json and the job
+# summary). Publishes nothing. Mondays 10:43am New York (15:43 UTC in winter), and by hand.
+name: DICE discovery
+
+on:
+  schedule:
+    - cron: '43 15 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: db-bridge
+  cancel-in-progress: false
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Discover
+        env:
+          SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+        run: node site/scripts/dice-discover.mjs
+      - name: Summary and commit
+        run: |
+          cat dice-discover.md >> "$GITHUB_STEP_SUMMARY" || true
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add bridge/out/dice_discover.json site/src/data/dice-venues.json
+          git commit -m "DICE discovery: $(date -u +%F)" || exit 0
+          for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done
