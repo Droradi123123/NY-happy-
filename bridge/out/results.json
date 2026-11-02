@@ -1,259 +1,82 @@
 [
  {
   "step": "#1",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "dice:6ae4c9139bfa8e000124dbb0",
-   "p_status": "ready"
-  },
+  "rpc": "party_venue_set",
+  "key": "silo-brooklyn",
   "ok": true,
   "status": 200,
-  "body": "ready"
+  "body": "silo-brooklyn"
  },
  {
-  "step": "#2",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "dice:6ae4c9139bfa8e000124dbb0",
-   "p_status": "published"
-  },
+  "step": "#1",
+  "rpc": "party_venue_set",
+  "key": "elsewhere",
   "ok": true,
   "status": 200,
-  "body": "published"
+  "body": "elsewhere"
  },
  {
-  "step": "#3",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "dice:6ae3aa1a60d2620001815336",
-   "p_status": "ready"
-  },
+  "step": "#1",
+  "rpc": "party_venue_set",
+  "key": "somewhere-nowhere-nyc",
   "ok": true,
   "status": 200,
-  "body": "ready"
+  "body": "somewhere-nowhere-nyc"
  },
  {
-  "step": "#4",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "dice:6ae3aa1a60d2620001815336",
-   "p_status": "published"
-  },
+  "step": "#1",
+  "rpc": "party_venue_set",
+  "key": "house-of-yes",
   "ok": true,
   "status": 200,
-  "body": "published"
+  "body": "house-of-yes"
  },
  {
-  "step": "#5",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "dice:6ae3fba960d2620001db282f",
-   "p_status": "ready"
-  },
+  "step": "#1",
+  "rpc": "party_venue_set",
+  "key": "the-onyx-room-at-house-of-yes",
   "ok": true,
   "status": 200,
-  "body": "ready"
+  "body": "the-onyx-room-at-house-of-yes"
  },
  {
-  "step": "#6",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "dice:6ae3fba960d2620001db282f",
-   "p_status": "published"
-  },
+  "step": "#1",
+  "rpc": "party_venue_set",
+  "key": "superior-ingredients",
   "ok": true,
   "status": 200,
-  "body": "published"
+  "body": "superior-ingredients"
  },
  {
-  "step": "#7",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "dice:6adbb364e8b6fe0001cb52b6",
-   "p_status": "ready"
-  },
+  "step": "#1",
+  "rpc": "party_venue_set",
+  "key": "the-sultan-room",
   "ok": true,
   "status": 200,
-  "body": "ready"
+  "body": "the-sultan-room"
  },
  {
-  "step": "#8",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "dice:6adbb364e8b6fe0001cb52b6",
-   "p_status": "published"
-  },
+  "step": "#1",
+  "rpc": "party_venue_set",
+  "key": "c-mon-everybody",
   "ok": true,
   "status": 200,
-  "body": "published"
+  "body": "c-mon-everybody"
  },
  {
-  "step": "#9",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "dice:6ae103350f8280000156ad51",
-   "p_status": "ready"
-  },
+  "step": "#1",
+  "rpc": "party_venue_set",
+  "key": "knockdown-center",
   "ok": true,
   "status": 200,
-  "body": "ready"
+  "body": "knockdown-center"
  },
  {
-  "step": "#10",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "dice:6ae103350f8280000156ad51",
-   "p_status": "published"
-  },
+  "step": "#1",
+  "rpc": "party_venue_set",
+  "key": "xanadu",
   "ok": true,
   "status": 200,
-  "body": "published"
- },
- {
-  "step": "#11",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "dice:6a3aced48ecaed0001ad39f8",
-   "p_status": "ready"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "ready"
- },
- {
-  "step": "#12",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "dice:6a3aced48ecaed0001ad39f8",
-   "p_status": "published"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "published"
- },
- {
-  "step": "#13",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "dice:6ac3ce873e99b10001dda2df",
-   "p_status": "ready"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "ready"
- },
- {
-  "step": "#14",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "dice:6ac3ce873e99b10001dda2df",
-   "p_status": "published"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "published"
- },
- {
-  "step": "#15",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "dice:6abfd92fa7ef550001df20fb",
-   "p_status": "ready"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "ready"
- },
- {
-  "step": "#16",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "dice:6abfd92fa7ef550001df20fb",
-   "p_status": "published"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "published"
- },
- {
-  "step": "#17",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "dice:6a5e3dea126db80001e4de01",
-   "p_status": "ready"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "ready"
- },
- {
-  "step": "#18",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "dice:6a5e3dea126db80001e4de01",
-   "p_status": "published"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "published"
- },
- {
-  "step": "#19",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "dice:6ad647a0a42bf50001f296ce",
-   "p_status": "ready"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "ready"
- },
- {
-  "step": "#20",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "dice:6ad647a0a42bf50001f296ce",
-   "p_status": "published"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "published"
- },
- {
-  "step": "#21",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "dice:6ad295020d42480001bf691a",
-   "p_status": "ready"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "ready"
- },
- {
-  "step": "#22",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "dice:6ad295020d42480001bf691a",
-   "p_status": "published"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "published"
- },
- {
-  "step": "#24",
-  "insert": "party_runs",
-  "status": 201,
-  "body": [
-   {
-    "id": 21,
-    "started_at": "2026-11-02T18:07:59.513301+00:00",
-    "finished_at": null,
-    "kind": "skill-summary",
-    "stats": null,
-    "notes": "Nov 2: 12 new nights from DICE NYC lists; 11 written up and published, The Purple Room held (secret location); 2 venues added (Ace Hotel New York, Moxy Williamsburg); 5 venue pages added to weekly discovery"
-   }
-  ]
+  "body": "xanadu"
  }
 ]
