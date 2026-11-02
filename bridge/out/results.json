@@ -1,261 +1,32 @@
 [
  {
-  "step": "#3",
-  "venue": "mulcahy-s-pub-and-concert-hall",
-  "status": 201,
-  "row": {
-   "id": "mulcahy-s-pub-and-concert-hall",
-   "name": "Mulcahy's Pub and Concert Hall",
-   "address": "1261 NORTH RAILROAD AVENUE",
-   "zip": "10306",
-   "borough": "Staten Island",
-   "lat": 40.57707,
-   "lng": -74.113096,
-   "sources": [
-    {
-     "name": "DICE",
-     "url": "https://dice.fm/event/6aaabbf5e78bd30001f7c316",
-     "checked_at": "2026-11-02T20:44:06.842Z"
-    },
-    {
-     "name": "NYC GeoSearch",
-     "url": "https://geosearch.planninglabs.nyc",
-     "label": "1261 NORTH RAILROAD AVENUE, Staten Island, NY, USA"
+  "step": "#1",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6aaabbf5e78bd30001f7c316",
+   "p_status": "rejected",
+   "p_reason": "Outside the five boroughs: DICE lists Mulcahy's at 3232 Railroad Avenue, Wantagh, NY 11793 (Long Island); the venue row was misplaced by GeoSearch"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "rejected"
+ },
+ {
+  "step": "#2",
+  "rpc": "party_venue_set",
+  "args": {
+   "p_id": "mulcahy-s-pub-and-concert-hall",
+   "p_patch": {
+    "status": "unknown",
+    "facts": {
+     "address": "3232 Railroad Avenue, Wantagh, NY 11793 (Long Island, outside NYC)"
     }
-   ]
-  },
-  "body": [
-   {
-    "id": "mulcahy-s-pub-and-concert-hall",
-    "name": "Mulcahy's Pub and Concert Hall",
-    "aliases": [],
-    "rooms": [],
-    "address": "1261 NORTH RAILROAD AVENUE",
-    "zip": "10306",
-    "borough": "Staten Island",
-    "neighborhood": null,
-    "lat": 40.57707,
-    "lng": -74.113096,
-    "kind": null,
-    "facts": {},
-    "copy": {},
-    "sources": [
-     {
-      "url": "https://dice.fm/event/6aaabbf5e78bd30001f7c316",
-      "name": "DICE",
-      "checked_at": "2026-11-02T20:44:06.842Z"
-     },
-     {
-      "url": "https://geosearch.planninglabs.nyc",
-      "name": "NYC GeoSearch",
-      "label": "1261 NORTH RAILROAD AVENUE, Staten Island, NY, USA"
-     }
-    ],
-    "status": "active",
-    "google_checked_at": null,
-    "created_at": "2026-11-02T20:44:06.994651+00:00",
-    "updated_at": "2026-11-02T20:44:06.994651+00:00"
-   }
-  ]
- },
- {
-  "step": "#4",
-  "rpc": "party_venue_hoods",
-  "args": {},
-  "ok": true,
-  "status": 200,
-  "body": 0
- },
- {
-  "step": "#5",
-  "rpc": "party_add_dice",
-  "args": {
-   "p_url": "https://dice.fm/event/6ae8b5ba346df800013de864",
-   "p_venue_id": "the-sultan-room",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
+   },
+   "p_src": "DICE event listing",
+   "p_url": "https://dice.fm/event/6aaabbf5e78bd30001f7c316"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae8b5ba346df800013de864"
- },
- {
-  "step": "#6",
-  "rpc": "party_add_dice",
-  "args": {
-   "p_url": "https://dice.fm/event/6ae8c07125be9b0001459687",
-   "p_venue_id": "nebula",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
-  },
-  "ok": true,
-  "status": 200,
-  "body": "dice:6ae8c07125be9b0001459687"
- },
- {
-  "step": "#7",
-  "rpc": "party_add_dice",
-  "args": {
-   "p_url": "https://dice.fm/event/6aaabbf5e78bd30001f7c316",
-   "p_venue_id": "mulcahy-s-pub-and-concert-hall",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
-  },
-  "ok": true,
-  "status": 200,
-  "body": "dice:6aaabbf5e78bd30001f7c316"
- },
- {
-  "step": "#8",
-  "rpc": "party_add_dice",
-  "args": {
-   "p_url": "https://dice.fm/event/6ae8b3ab814cb7000128a432",
-   "p_venue_id": "house-of-yes",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
-  },
-  "ok": true,
-  "status": 200,
-  "body": "dice:6ae8b3ab814cb7000128a432"
- },
- {
-  "step": "#9",
-  "rpc": "party_add_dice",
-  "args": {
-   "p_url": "https://dice.fm/event/6aa09925144e060001e4b3db",
-   "p_venue_id": "silo-brooklyn",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
-  },
-  "ok": true,
-  "status": 200,
-  "body": "dice:6aa09925144e060001e4b3db"
- },
- {
-  "step": "#10",
-  "rpc": "party_add_dice",
-  "args": {
-   "p_url": "https://dice.fm/event/6acd58319306a80001880d23",
-   "p_venue_id": "silo-brooklyn",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
-  },
-  "ok": true,
-  "status": 200,
-  "body": "dice:6acd58319306a80001880d23"
- },
- {
-  "step": "#11",
-  "rpc": "party_add_dice",
-  "args": {
-   "p_url": "https://dice.fm/event/6ad7b1026b31ce0001743aea",
-   "p_venue_id": "trans-pecos",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
-  },
-  "ok": true,
-  "status": 200,
-  "body": "dice:6ad7b1026b31ce0001743aea"
- },
- {
-  "step": "#12",
-  "rpc": "party_add_dice",
-  "args": {
-   "p_url": "https://dice.fm/event/6ae8b5fa8184de0001e54722",
-   "p_venue_id": "altheas-hideaway",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
-  },
-  "ok": true,
-  "status": 200,
-  "body": "dice:6ae8b5fa8184de0001e54722"
- },
- {
-  "step": "#13",
-  "rpc": "party_add_dice",
-  "args": {
-   "p_url": "https://dice.fm/event/6ae8b125346df80001c4755b",
-   "p_venue_id": "elsewhere",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
-  },
-  "ok": true,
-  "status": 200,
-  "body": "dice:6ae8b125346df80001c4755b"
- },
- {
-  "step": "#14",
-  "rpc": "party_add_dice",
-  "args": {
-   "p_url": "https://dice.fm/event/6ae22bdb0263c100017483c1",
-   "p_venue_id": "knockdown-center",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
-  },
-  "ok": true,
-  "status": 200,
-  "body": "dice:6ae22bdb0263c100017483c1"
- },
- {
-  "step": "#15",
-  "rpc": "party_add_dice",
-  "args": {
-   "p_url": "https://dice.fm/event/6acd1cbde6cc530001f8d641",
-   "p_venue_id": "knockdown-center",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
-  },
-  "ok": true,
-  "status": 200,
-  "body": "dice:6acd1cbde6cc530001f8d641"
- },
- {
-  "step": "#16",
-  "rpc": "party_add_dice",
-  "args": {
-   "p_url": "https://dice.fm/event/6ab6960ccd3c2b0001fbef1a",
-   "p_venue_id": "99-scott",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
-  },
-  "ok": true,
-  "status": 200,
-  "body": "dice:6ab6960ccd3c2b0001fbef1a"
- },
- {
-  "step": "#17",
-  "round": 0,
-  "ingest": {
-   "gone": 0,
-   "read": 27,
-   "waiting": 0,
-   "ended_now": 0,
-   "unreadable": 0
-  },
-  "queued": 0
- },
- {
-  "step": "#17",
-  "round": 1,
-  "ingest": {
-   "gone": 0,
-   "read": 0,
-   "waiting": 0,
-   "ended_now": 0,
-   "unreadable": 0
-  },
-  "queued": 0
+  "body": "mulcahy-s-pub-and-concert-hall"
  }
 ]
