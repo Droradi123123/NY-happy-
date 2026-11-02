@@ -9,7 +9,8 @@
  * General rules that are the same everywhere (the drinking age, last call, tax, tipping) link to the
  * guides that cite their sources.
  */
-import { allBars, partyData, venueOf, nightDate, cleanTitle, dealLabel, scheduleLabel, fmtDate, slugify, GENRE_NAME, DAYS, type Bar, type Party, type Venue } from './data';
+import { allBars, partyData, venueOf, nightDate, cleanTitle, dealLabel, scheduleLabel, windowLabel, fmtDate, slugify, GENRE_NAME, DAYS, DAY_NAME, type Bar, type Day, type Party, type Venue } from './data';
+import { trivia, venueOf as triviaVenue, DAY_PAGES, daySlugOf } from './activities';
 import type { Guide } from './guides';
 import type { Cell, GuideTable } from './guideTables';
 
@@ -90,6 +91,8 @@ function venueStats(ps: Party[], venues: Venue[]): VStat[] {
 }
 const sound = (s: VStat, n = 2) => (s.genres.length ? list(s.genres.slice(0, n).map(([g]) => genreName(g).toLowerCase())) : 'a mix of sounds');
 const ticketsFrom = (s: VStat) => (s.low !== null ? `from ${money(s.low)}` : s.free ? 'free' : 'price not listed');
+/** "tickets from $20", or the plain fact that no price is listed */
+const tix = (s: VStat) => (s.low !== null ? `tickets from ${money(s.low)}` : s.free ? 'free to get in on the nights listed' : 'no ticket price listed yet');
 /** party stats for a set of nights: what the answer boxes and FAQs quote */
 function nightStats(ps: Party[]) {
   const prices = ps.map((p) => p.price_from).filter((x): x is number => !!x && x > 0);
@@ -172,6 +175,24 @@ export async function nightTable(id: string): Promise<GuideTable | null> {
     return { caption: 'Neighborhoods with the most nights out, next 30 days', head: ['Neighborhood', 'Party nights', 'Venues', 'Happy hours we track', 'Cheapest happy-hour drink'], rows,
       note: `Counted on ${TODAY_LINE(c)}. Party nights are the published nights on the site; happy hours are the bars we track in the same neighborhood, with the lowest drink price their own sites list.` };
   }
+  if (id.startsWith('hood:')) {
+    // hood:<neighborhood slug>: the venues there, ranked by nights in the next 60 days
+    const h = id.slice(5);
+    const ps = hoodNights(c, h);
+    const rows = venueStats(ps, c.venues).slice(0, 30).map((x): Cell[] => [
+      { text: x.v.name, href: `/parties/venue/${x.v.id}` }, { text: String(x.nights.length) }, { text: x.genres.length ? x.genres.slice(0, 2).map(([g]) => genreName(g)).join(', ') : 'mixed' },
+      { text: x.start !== null ? clock(x.start) : 'not listed' }, { text: ticketsFrom(x) }, { text: short(x.next.night_date), href: `/parties/${x.next.slug}` },
+    ]);
+    return { caption: 'Venues ranked by nights on our list in the next 60 days', head: ['Venue', 'Nights', 'Music', 'Usual start', 'Tickets', 'Next night'], rows,
+      note: `Counted on ${TODAY_LINE(c)} from the published nights on the site, refreshed every day. Ticket prices are the lowest seen on the seller's page, with fees, and change.` };
+  }
+  if (id.startsWith('hh-day:')) {
+    const d = id.slice(7) as Day;
+    const rows: Cell[][] = scoredBars(c).filter(({ b }) => runsOn(b, d)).slice(0, 40).map(({ b }) => [{ text: b.name, href: `/bars/${b.slug}` }, { text: b.hood, ...(c.hh.has(b.hoodSlug) ? { href: `/happy-hours/${b.hoodSlug}` } : {}) },
+      { text: dealLabel(b) ?? '' }, { text: dayHours(b, d) }, { text: fmtDate(b.checked) ?? '' }]);
+    return { caption: `The top ${rows.length} happy hours on a ${DAY_NAME[d]}`, head: ['Bar', 'Neighborhood', 'Deal', `${DAY_NAME[d]} hours`, 'Checked'], rows,
+      note: 'Bars whose happy hour we read on their own site in the last 30 days, scored on drink price, days a week, food and weekend or late hours. Menu prices before NYC tax (8.875%) and tip.' };
+  }
   if (id === 'top-hh') {
     const rows: Cell[][] = scoredBars(c).slice(0, 40).map(({ b }) => [{ text: b.name, href: `/bars/${b.slug}` }, { text: b.hood, ...(c.hh.has(b.hoodSlug) ? { href: `/happy-hours/${b.hoodSlug}` } : {}) }, { text: dealLabel(b) ?? '' }, { text: scheduleLabel(b) }, { text: fmtDate(b.checked) ?? '' }]);
     return { caption: 'The 40 highest-scoring happy hours on our list', head: ['Bar', 'Neighborhood', 'Deal', 'When', 'Checked'], rows,
@@ -226,7 +247,7 @@ function clubGuide(c: Ctx, s: ClubSpec): Guide | null {
     ? `${cap(list(st.boroughs.map(([b, n]) => `${b} has ${n} (${pct(n, st.n)}%)`)))}.`
     : s.borough !== 'all' ? `${cap(list(st.hoods.slice(0, 4).map(([h, n]) => `${h} has ${n}`)))}${st.hoods.length > 4 ? `, and ${plural(st.hoods.length - 4, 'more neighborhood')} share the rest` : ''}.` : '';
   const sections: Guide['sections'] = [
-    { h2: `The top ${top.length}, one by one`, paras: top.map((x, i) => `<strong>${i + 1}. ${venueLink(x.v)}</strong>, ${esc(area(x.v))}: ${plural(x.nights.length, s.sound === 'all' ? 'night' : `${SOUNDS[s.sound].name} night`)} in ${span}, ${!x.genres.length ? 'with no genre tagged by the seller' : s.sound === 'all' ? `mostly ${esc(sound(x))}` : `with ${esc(sound(x))} on the bills`}. ${x.start !== null ? `Nights usually start around ${clock(x.start)}; ` : ''}tickets ${ticketsFrom(x)}. Next up: ${partyLink(x.next)} on ${short(x.next.night_date)}${x.next.event_status === 'sold_out' ? ' (sold out)' : `, ${price(x.next)}`}.`) },
+    { h2: `The top ${top.length}, one by one`, paras: top.map((x, i) => `<strong>${i + 1}. ${venueLink(x.v)}</strong>, ${esc(area(x.v))}: ${plural(x.nights.length, s.sound === 'all' ? 'night' : `${SOUNDS[s.sound].name} night`)} in ${span}, ${!x.genres.length ? 'with no genre tagged by the seller' : s.sound === 'all' ? `mostly ${esc(sound(x))}` : `with ${esc(sound(x))} on the bills`}. ${x.start !== null ? `Nights usually start around ${clock(x.start)}; ` : ''}${tix(x)}. Next up: ${partyLink(x.next)} on ${short(x.next.night_date)}${x.next.event_status === 'sold_out' ? ' (sold out)' : `, ${price(x.next)}`}.`) },
     { h2: s.borough === 'all' ? 'Where the nights are' : `Where in ${s.place}`, paras: [
       `We list ${plural(st.n, what.replace(/s$/, ''), what)} at ${plural(vs.length, 'venue')} for ${span}. ${boroughLine}`,
       s.borough === 'all'
@@ -300,7 +321,7 @@ function nightlifeGuide(c: Ctx): Guide | null {
       ] },
       { h2: 'Where to go', paras: [
         `${st.boroughs.map(([b, n], i) => (i ? `${b} ${n}` : `${b} has ${n} of the nights`)).join(', ').replace(/, ([^,]+)$/, ' and $1')}. The neighborhoods with the most are ${list(st.hoods.slice(0, 6).map(([h, n]) => `${esc(h)} (${n})`))}; the table below adds the happy hours in each.`,
-        `The venues with the most nights are ${list(vs.slice(0, 5).map((x) => `${venueLink(x.v)} (${x.nights.length})`))}. The full ranking is in ${a('/blog/best-clubs-in-nyc', 'the best clubs in NYC')}, with ${a('/blog/best-clubs-in-brooklyn', 'Brooklyn')} and ${a('/blog/best-clubs-in-manhattan', 'Manhattan')} on their own. For a neighborhood, see ${a('/blog/best-neighborhoods-for-nightlife-nyc', 'the best neighborhoods for nightlife')}.`,
+        `The venues with the most nights are ${list(vs.slice(0, 5).map((x) => `${venueLink(x.v)} (${x.nights.length})`))}. The full ranking is in ${a('/blog/best-clubs-in-nyc', 'the best clubs in NYC')}, with ${a('/blog/best-clubs-in-brooklyn', 'Brooklyn')} and ${a('/blog/best-clubs-in-manhattan', 'Manhattan')} on their own. For a neighborhood, see ${a('/blog/best-neighborhoods-for-nightlife-nyc', 'the best neighborhoods for nightlife')}${nightlifeHoods(c).length ? `, or the guides to ${list(nightlifeHoods(c).map(([s, n]) => a(`/blog/${s}-nightlife`, `${n} nightlife`)))}` : ''}.`,
         `By sound: ${list(st.genres.slice(0, 6).map(([g, n]) => `${listLink(c, g, genreName(g).toLowerCase())} (${n})`))}. ${a('/parties/genres', 'Every genre')} has a page.`,
       ] },
       { h2: 'What it costs', paras: [
@@ -308,7 +329,7 @@ function nightlifeGuide(c: Ctx): Guide | null {
         `The full budget, with tax and tip, is in ${a('/blog/how-much-does-a-night-out-cost-in-nyc', 'how much a night out costs in NYC')}.`,
       ] },
       { h2: 'Weekends, late nights and the week', paras: [
-        `${plural(wkend, 'bar')} on our list run a happy hour on Saturday or Sunday (${a('/blog/best-weekend-happy-hours-nyc', 'weekend happy hours')}). Midweek is cheaper and easier: ${a('/trivia', 'trivia nights')} fill Monday to Thursday, and ${listLink(c, 'thursday', 'Thursday night parties')} are where the week starts for many.`,
+        `${plural(wkend, 'bar')} on our list run a happy hour on Saturday or Sunday (${a('/blog/best-weekend-happy-hours-nyc', 'weekend happy hours')}). Midweek is cheaper and easier: ${a('/trivia', 'trivia nights')} fill Monday to Thursday, and ${listLink(c, 'thursday', 'Thursday night parties')} are where the week starts for many. Night by night: ${list(WEEKNIGHTS.map((d) => a(`/blog/things-to-do-in-nyc-on-a-${DAY_NAME[d].toLowerCase()}-night`, DAY_NAME[d])))}.`,
         `What is coming up this weekend is in ${a('/blog/things-to-do-in-nyc-this-weekend', 'things to do in NYC this weekend')}; for the holidays, ${a('/blog/things-to-do-in-nyc-in-december', 'December in NYC')}.`,
       ] },
       { h2: 'Rules to know', paras: [
@@ -552,13 +573,7 @@ function bestHappyHours(c: Ctx): Guide | null {
   // one per neighborhood, and one branch per chain
   for (const { b } of all) { if (seen.has(b.hoodSlug) || seen.has(b.name)) continue; seen.add(b.hoodSlug); seen.add(b.name); picks.push(b); if (picks.length >= 10) break; }
   const boroughs = [...new Set(picks.map((b) => b.borough).filter(Boolean))] as string[];
-  const why = (b: Bar) => { const its = [...new Set(b.offers.filter((o) => tidy(o.item) && tidy(o.item).length <= 40).slice(0, 4).map((o) => `${o.price} ${tidy(o.item).toLowerCase()}`))]; return [
-    `${b.name} runs its happy hour ${b.days.length === 7 ? 'every day' : `${plural(b.days.length, 'day')} a week`} (${scheduleLabel(b)}).`,
-    its.length ? `The deal: ${list(its)}.` : '',
-    b.cheapestDrink !== null ? `Its cheapest drink is ${money(b.cheapestDrink)}${b.cheapestDrink <= 6 ? ', which puts it on our list of drinks $6 and under' : ''}.` : '',
-    b.hasFood ? 'There is food on the happy-hour menu too.' : '',
-    b.weekend ? 'It also runs on the weekend.' : '', b.late ? 'There is a late-night window as well.' : '',
-  ].filter(Boolean).join(' '); };
+  const why = (b: Bar) => whyBar(b);
   return {
     slug: 'best-happy-hours-in-nyc', status: 'published', published: '2026-10-30', updated: c.today,
     title: 'The Best Happy Hours in NYC, Scored on Price and Hours', h1: 'The best happy hours in NYC, scored on price, hours and food', short: 'Best happy hours', keyword: 'best happy hours in nyc',
@@ -590,6 +605,195 @@ function bestHappyHours(c: Ctx): Guide | null {
   };
 }
 
+// ---------- weeknights and neighborhoods: shared ----------
+const CODE: Day[] = ['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat']; // by getUTCDay
+const noDash = (t: string) => t.replace(/\s*[–—]\s*/g, ' to ');
+const runsOn = (b: Bar, d: Day) => b.windows.some((w) => w.days.includes(d));
+const dayHours = (b: Bar, d: Day) => noDash(list(b.windows.filter((w) => w.days.includes(d)).map((w) => windowLabel(w).replace(/^open to /, 'until '))));
+/** happy hours we can count: the deal was read on the bar's own site and the last re-check raised no doubt */
+const liveHH = (c: Ctx) => c.bars.filter((b) => b.dealKnown && !b.doubt && b.windows.length);
+/** the case for a scored bar, from its own published deal; with a day, that day's hours first */
+function whyBar(b: Bar, d?: Day): string {
+  const its = [...new Set(b.offers.filter((o) => tidy(o.item) && tidy(o.item).length <= 40).slice(0, 4).map((o) => `${o.price} ${tidy(o.item).toLowerCase()}`))];
+  return [
+    d ? `On ${DAY_NAME[d]}s the happy hour at ${b.name} runs ${dayHours(b, d)}; it is on ${b.days.length === 7 ? 'every day' : `${plural(b.days.length, 'day')} a week`} in all (${noDash(scheduleLabel(b))}).`
+      : `${b.name} runs its happy hour ${b.days.length === 7 ? 'every day' : `${plural(b.days.length, 'day')} a week`} (${scheduleLabel(b)}).`,
+    its.length ? `The deal: ${list(its)}.` : '',
+    b.cheapestDrink !== null ? `Its cheapest drink is ${money(b.cheapestDrink)}${b.cheapestDrink <= 6 ? ', which puts it on our list of drinks $6 and under' : ''}.` : '',
+    b.hasFood ? 'There is food on the happy-hour menu too.' : '',
+    !d && b.weekend ? 'It also runs on the weekend.' : '', b.late ? 'There is a late-night window as well.' : '',
+  ].filter(Boolean).join(' ');
+}
+/** the highest-scored bars that pass keep: one branch per chain, and one per neighborhood when perHood */
+function pickBars(c: Ctx, keep: (b: Bar) => boolean, n: number, perHood: boolean): Bar[] {
+  const seen = new Set<string>(), out: Bar[] = [];
+  for (const { b } of scoredBars(c)) {
+    if (!keep(b) || seen.has(b.name) || (perHood && seen.has(`h:${b.hoodSlug}`))) continue;
+    seen.add(b.name); seen.add(`h:${b.hoodSlug}`); out.push(b);
+    if (out.length >= n) break;
+  }
+  return out;
+}
+const triviaHood = (t: { v: string }) => triviaVenue(t.v)?.hood ?? null;
+
+// ---------- "Things to do in NYC on a Monday night" ----------
+const WEEKNIGHTS: Day[] = ['mon', 'tue', 'wed', 'thu', 'sun'];
+function weeknightGuide(c: Ctx, d: Day): Guide | null {
+  const D = DAY_NAME[d], dl = D.toLowerCase(), idx = CODE.indexOf(d);
+  const hh = liveHH(c).filter((b) => runsOn(b, d));
+  if (hh.length < 10) return null;
+  const ps = within(c, 28).filter((p) => weekday(p.night_date) === idx);
+  const first = addDays(c.today, (idx - weekday(c.today) + 7) % 7);
+  const dates = [0, 7, 14, 21].map((n) => addDays(first, n));
+  const st = nightStats(ps), vs = venueStats(ps, c.venues);
+  const regular = vs.filter((x) => x.nights.length >= 2);
+  const eve = hh.filter((b) => b.windows.some((w) => w.days.includes(d) && (hhMin(w.end) ?? 0) >= 19 * 60));
+  const late = hh.filter((b) => b.windows.some((w) => w.days.includes(d) && (hhMin(w.start) ?? 0) >= 21 * 60));
+  // drink prices only from deals read in the last 30 days (the scored list)
+  const priced = scoredBars(c).filter(({ b }) => runsOn(b, d)).map(({ b }) => drinkPrice(b)).filter((x): x is number => x !== null);
+  const tv = trivia.filter((t) => t.day === d);
+  const tvBars = new Set(tv.map((t) => t.v)).size;
+  const tvStarts = tv.map((t) => hhMin(t.start)).filter((x): x is number => x !== null);
+  const tvHoods = [...tv.reduce((m, t) => { const h = triviaHood(t); return h ? m.set(h, (m.get(h) ?? 0) + 1) : m; }, new Map<string, number>())].sort((x, y) => y[1] - x[1]);
+  const triviaLink = DAY_PAGES.includes(d) ? a(`/trivia/${daySlugOf(d)}`, `${D} trivia`) : a('/trivia', 'the trivia page');
+  const picks = pickBars(c, (b) => runsOn(b, d), 6, true);
+  const perDate = dates.map((x) => [x, ps.filter((p) => p.night_date === x).length] as const);
+  const partyLine = ps.length
+    ? [`We list ${plural(ps.length, `${D} party`, `${D} parties`)} in the next four weeks: ${list(perDate.filter(([, n]) => n).map(([x, n]) => `${dateLink(c, x, short(x))} (${n})`))}${perDate.some(([, n]) => !n) ? `; the other ${D}s have none on our list yet` : ''}.`,
+        st.start !== null ? (ps.length === 1 ? `It starts at ${clock(st.start)}.` : `They typically start around ${clock(st.start)}.`) : '',
+        st.prices.length ? `Tickets start at ${money(st.low!)}, typically ${money(st.med!)} with fees${st.free ? `, and ${plural(st.free, 'night is', 'nights are')} free` : ''}.` : ''].filter(Boolean).join(' ')
+    : `No ${D} parties are on our list for the next four weeks yet. Most NYC club nights are on Friday and Saturday; ${D} nights are added as promoters announce them, and this page updates every day.`;
+  const others = WEEKNIGHTS.filter((x) => x !== d).map((x): [string, string] => [`${DAY_NAME[x]} night in NYC`, `/blog/things-to-do-in-nyc-on-a-${DAY_NAME[x].toLowerCase()}-night`]);
+  const sections: Guide['sections'] = [
+    { h2: `${D} night parties`, paras: [
+      partyLine,
+      ...(ps.length ? [`Coming up: ${list(vs.slice(0, 5).map((x) => `${partyLink(x.nights[0])} at ${venueLink(x.v)} on ${short(x.nights[0].night_date)}`))}.${st.genres.length ? ` The most played sounds on ${D}s: ${list(st.genres.slice(0, 3).map(([g]) => listLink(c, g, genreName(g).toLowerCase())))}.` : ''}`] : []),
+      ...(regular.length ? [`${cap(list(regular.slice(0, 4).map((x) => `${venueLink(x.v)} (${x.nights.length} ${D}s)`)))} ${regular.length === 1 ? 'has' : 'have'} more than one ${D} on the calendar, the closest thing to a regular ${D} night. Every one is on ${listLink(c, dl, `${D} parties`)}.`] : []),
+    ] },
+    { h2: `Happy hour on a ${D}`, paras: [
+      `${plural(hh.length, 'bar')} on our list run a happy hour on ${D}s, and ${eve.length} of them go until 7pm or later, so there is time after work.${priced.length ? ` The cheapest drink among the deals we read in the last 30 days is ${money(Math.min(...priced))}; the typical cheapest is ${money(median(priced)!)}.` : ''}`,
+      `The picks below are one per neighborhood, scored on drink price, days, food and hours; the table at the end has the top 40, and ${c.hh.has(dl) ? a(`/happy-hours/${dl}`, `every ${D} happy hour`) : 'every happy hour'} is on its own page with a map.`,
+    ] },
+    ...(tv.length ? [{ h2: `Trivia on ${D} nights`, paras: [
+      `We track ${plural(tv.length, 'trivia night')} at ${plural(tvBars, 'bar')} on ${D}s${tvStarts.length ? `, the first starting at ${clock(Math.min(...tvStarts))}` : ''}.${tvHoods.length ? ` The most are in ${list(tvHoods.slice(0, 3).map(([h, n]) => `${esc(h)} (${n})`))}.` : ''} The times, hosts and prizes we could confirm are on ${triviaLink}, and some of these bars run a happy hour during the game.`,
+    ] }] : []),
+    ...(late.length ? [{ h2: `Late on a ${D}`, paras: [
+      `${plural(late.length, 'bar')} on our list run a late happy hour on ${D}s, starting at 9pm or later: ${list(late.slice(0, 6).map((b) => `${a(`/bars/${b.slug}`, b.name)} in ${esc(b.hood)} (${dayHours(b, d)})`))}. ${a('/blog/reverse-happy-hour-nyc', 'Reverse happy hours')} has them all.`,
+    ] }] : []),
+    { h2: 'Before you go', paras: RULES(c) },
+  ];
+  return {
+    slug: `things-to-do-in-nyc-on-a-${dl}-night`, status: 'published', published: '2026-11-02', updated: c.today,
+    title: `Things to Do in NYC on a ${D} Night: Parties and Deals`, h1: `Things to do in NYC on a ${D} night: parties, happy hours and trivia`, short: `${D} night in NYC`, keyword: `things to do in nyc on a ${dl} night`,
+    description: fit(`Things to do in NYC on a ${D} night: ${hh.length} happy hours, ${tv.length ? `${tv.length} trivia nights` : 'trivia'} and ${plural(ps.length, 'party', 'parties')} in the next four weeks, from data updated daily.`),
+    answer: `On a ${D} night in NYC there are three ways to go out: happy hour, which ${plural(hh.length, 'bar')} on our list run on ${D}s (${eve.length} until 7pm or later)${priced.length ? `, with drinks from ${money(Math.min(...priced))}` : ''}; trivia, ${tv.length ? `with ${plural(tv.length, 'game')} at ${plural(tvBars, 'bar')}` : 'though we track none on that night yet'}; and parties, ${ps.length ? `${plural(ps.length, 'night')} in the next four weeks${vs.length ? ` at ${list(vs.slice(0, 3).map((x) => x.v.name))}` : ''}` : 'none listed for the next four weeks yet'}. Updated ${TODAY_LINE(c)}.`,
+    intro: [
+      `Most guides to going out in New York are about the weekend. A ${D} is quieter, with fewer club nights, but we track the happy hours, trivia nights and parties that run on one: the deals from the bars' own sites, the games from the bars and hosts, and the parties from the ticket pages. This page puts them together, and it is recomputed every day.`,
+      `Below: the ${D} parties for the next four weeks, the happy hours to start with (one pick per neighborhood), trivia, and the late deals.`,
+    ].join('\n\n'),
+    nights: bookable(ps, 6), nightsTitle: `${D} nights to book`, venues: vs.slice(0, 6).map((x) => x.v.id),
+    picks: picks.map((b) => ({ slug: b.slug, why: whyBar(b, d) })),
+    sections,
+    faq: [
+      { q: `What is there to do in NYC on a ${D} night?`, a: `Happy hour at ${plural(hh.length, 'bar')} on our list, ${tv.length ? `${plural(tv.length, 'trivia night')}, ` : ''}and ${plural(ps.length, 'party', 'parties')} in the next four weeks. The picks and the table on this page have the details.` },
+      { q: `Are there parties on ${D} nights in NYC?`, a: ps.length ? `Yes: ${plural(ps.length, `${D} party`, `${D} parties`)} on our list in the next four weeks${vs.length ? `, at ${plural(vs.length, 'venue')} including ${list(vs.slice(0, 3).map((x) => x.v.name))}` : ''}.` : `None on our list for the next four weeks yet; Friday and Saturday have the most nights. This page updates daily.` },
+      { q: `Which bars have happy hour on ${D}?`, a: `${plural(hh.length, 'bar')} on our list.${picks.length ? ` The highest scored on ${D}: ${list(picks.slice(0, 3).map((b) => `${b.name} in ${b.hood} (${dayHours(b, d)})`))}.` : ''}` },
+      ...(tv.length ? [{ q: `Is there trivia on ${D} nights in NYC?`, a: `Yes: ${plural(tv.length, 'trivia night')} at ${plural(tvBars, 'bar')} on our list${tvStarts.length ? `, the first at ${clock(Math.min(...tvStarts))}` : ''}.` }] : []),
+      ...(late.length ? [{ q: `Where is there a late happy hour on a ${D}?`, a: `${list(late.slice(0, 3).map((b) => `${b.name} in ${b.hood} (${dayHours(b, d)})`))}${late.length > 3 ? `, and ${plural(late.length - 3, 'more bar')}` : ''}.` }] : []),
+    ],
+    table: `hh-day:${d}`, tableTitle: `The top ${D} happy hours`,
+    method: `Computed on ${TODAY_LINE(c)} from the published ${D} nights on the site for the next four weeks, the happy hours bars publish on their own sites (the picks, prices and table use deals read in the last 30 days), and the trivia nights we track. Recomputed every day.`,
+    related: [[`${D} happy hours`, `/happy-hours/${dl}`], [`${D} trivia`, `/trivia/${dl}`], [`${D} parties`, `/parties/${dl}`], ['Parties tonight', '/parties/tonight'], ...others.slice(0, 3), ['NYC nightlife guide', '/blog/nyc-nightlife-guide']],
+  };
+}
+
+// ---------- "<Neighborhood> nightlife" ----------
+const ORD = ['', '', 'second', 'third', 'fourth', 'fifth', 'sixth', 'seventh', 'eighth', 'ninth', 'tenth'];
+const hoodNights = (c: Ctx, h: string) => within(c, 60).filter((p) => slugify(area(venueOf(p, c.venues), p)) === h);
+/** every neighborhood with party nights in the next 60 days, most first: [slug, name, nights] */
+function hoodRanks(c: Ctx): [string, string, number][] {
+  const m = new Map<string, [string, number]>();
+  const skip = new Set(['nyc', ...Object.values(BOROUGH_SLUG), 'the-bronx']);
+  for (const p of within(c, 60)) { const n = area(venueOf(p, c.venues), p), s = slugify(n); if (!skip.has(s)) m.set(s, [n, (m.get(s)?.[1] ?? 0) + 1]); }
+  return [...m].map(([s, [n, k]]): [string, string, number] => [s, n, k]).sort((x, y) => y[2] - x[2]);
+}
+/** the neighborhoods with enough of both halves of a night out: 12+ party nights at 3+ venues, and 8+ bars we track */
+function nightlifeHoods(c: Ctx): [string, string][] {
+  return hoodRanks(c).filter(([s, , n]) => n >= 12 && new Set(hoodNights(c, s).map((p) => p.venue_id)).size >= 3 && c.bars.filter((b) => slugify(b.hood) === s).length >= 8)
+    .slice(0, 8).map(([s, n]) => [s, n]);
+}
+function hoodGuide(c: Ctx, slug: string, name: string, blog: Set<string>, all: [string, string][]): Guide | null {
+  const ps = hoodNights(c, slug);
+  // running text says "the Lower East Side"; titles and the keyword keep the bare name
+  const nm = /^(Lower|Upper|East|West|Financial|Meatpacking)\b/.test(name) ? `the ${name}` : name, Nm = cap(nm);
+  const st = nightStats(ps), vs = venueStats(ps, c.venues);
+  const inHood = (b: Bar) => slugify(b.hood) === slug;
+  const bars = c.bars.filter(inHood);
+  const hh = liveHH(c).filter(inHood);
+  if (vs.length < 3 || hh.length < 3) return null;
+  const fresh = scoredBars(c).map(({ b }) => b).filter(inHood);
+  const priced = fresh.map(drinkPrice).filter((x): x is number => x !== null);
+  const cheapest = fresh.filter((b) => drinkPrice(b) !== null).sort((x, y) => drinkPrice(x)! - drinkPrice(y)!)[0] ?? null;
+  const starts = new Map<number, number>();
+  for (const b of hh) for (const w of b.windows) { const m = hhMin(w.start); if (m !== null && m >= 12 * 60 && m <= 19 * 60) starts.set(m, (starts.get(m) ?? 0) + 1); }
+  const hhStart = [...starts].sort((x, y) => y[1] - x[1])[0]?.[0] ?? null;
+  const wk = hh.filter((b) => b.weekend).length, late = hh.filter((b) => b.late).length;
+  const tv = trivia.filter((t) => slugify(triviaHood(t) ?? '') === slug);
+  const tvDays = [...new Set(DAYS.filter((d) => tv.some((t) => t.day === d)))];
+  const days = busiest(st.byDay);
+  const rank = hoodRanks(c).findIndex(([s]) => s === slug) + 1;
+  const borough = vs[0].v.borough ?? bars[0]?.borough ?? null;
+  const hhSlug = bars[0]?.hoodSlug ?? slug;
+  const hhLink = c.hh.has(hhSlug) ? a(`/happy-hours/${hhSlug}`, `${name} happy hours`) : `the ${a('/happy-hours', 'happy hours page')}`;
+  const crawl = blog.has(`${hhSlug}-bar-crawl`) ? ` The ${a(`/blog/${hhSlug}-bar-crawl`, `${name} bar crawl`)} links several of them on one walk.` : '';
+  const top = vs.slice(0, 6);
+  const neighbors = all.filter(([s]) => s !== slug);
+  const picks = pickBars(c, inHood, 5, false);
+  return {
+    slug: `${slug}-nightlife`, status: 'published', published: '2026-11-02', updated: c.today,
+    title: `${name} Nightlife: Clubs, Parties and Happy Hours`, h1: `${name} nightlife: the clubs, the nights and the happy hours, by the numbers`, short: `${name} nightlife`, keyword: `${name.toLowerCase()} nightlife`,
+    description: fit(`${name} nightlife from our data: ${st.n} party nights at ${vs.length} venues in the next 60 days, ${hh.length} happy hours, start times and ticket prices, updated daily.`),
+    answer: `${Nm} has ${plural(st.n, 'party night')} on our list for the next 60 days at ${plural(vs.length, 'venue')}, led by ${list(vs.slice(0, 3).map((x) => `${x.v.name} (${x.nights.length})`))}, and ${plural(hh.length, 'happy hour')} we track${priced.length ? `, with drinks from ${money(Math.min(...priced))}` : ''}. ${days[0][0]} is the busiest night${st.start !== null ? `, and parties typically start around ${clock(st.start)}` : ''}. Updated ${TODAY_LINE(c)}.`,
+    intro: [
+      `What going out in ${nm} looks like right now, from what is on sale and what the bars publish: the venues with the most nights, when they happen and what they cost, and the happy hours to start with. Every number on this page is computed from the data we refresh daily, so it moves with the calendar.`,
+      `Below: the venues one by one, when to go, happy hour${tv.length ? ', trivia' : ''} and the rules to know, then every ${name} venue in a table with its next night.`,
+    ].join('\n\n'),
+    nights: bookable(ps), nightsTitle: `Next nights in ${nm}`, venues: top.map((x) => x.v.id),
+    picks: picks.map((b) => ({ slug: b.slug, why: whyBar(b) })),
+    sections: [
+      { h2: `The venues, by nights on the calendar`, paras: top.map((x, i) => x.nights.length === 1 ? `<strong>${i + 1}. ${venueLink(x.v)}</strong>: one night in the next 60 days, ${partyLink(x.next)} on ${short(x.next.night_date)}${x.next.event_status === 'sold_out' ? ' (sold out)' : `, ${price(x.next)}`}${x.genres.length ? `, with ${esc(sound(x))} on the bill` : ''}.` : `<strong>${i + 1}. ${venueLink(x.v)}</strong>: ${plural(x.nights.length, 'night')} in the next 60 days, ${x.genres.length ? `mostly ${esc(sound(x))}` : 'with no genre tagged by the seller'}. ${x.start !== null ? `Nights usually start around ${clock(x.start)}; ` : ''}${tix(x)}. Next up: ${partyLink(x.next)} on ${short(x.next.night_date)}${x.next.event_status === 'sold_out' ? ' (sold out)' : `, ${price(x.next)}`}.`) },
+      { h2: 'When to go and what it costs', paras: [
+        `${days[0][0]} is the busiest night with ${plural(days[0][1], 'party', 'parties')}, then ${days[1][0]} (${days[1][1]}) and ${days[2][0]} (${days[2][1]}).${st.start !== null ? ` The typical night starts around ${clock(st.start)}, and ${pct(st.late, st.starts)}% start at 10pm or later.` : ''}`,
+        st.prices.length ? `Tickets start at ${money(st.low!)} and the typical lowest price is ${money(st.med!)}, with fees; ${pct(st.under30, st.prices.length)}% of the priced nights cost $30 or less${st.free ? `, and ${plural(st.free, 'night is', 'nights are')} free` : ''}.` : 'The sellers have not published prices for these nights yet.',
+        st.genres.length ? `The most booked sounds: ${list(st.genres.slice(0, 5).map(([g, n]) => `${listLink(c, g, genreName(g).toLowerCase())} (${n})`))}. Every ${name} night is on ${listLink(c, slug, `${name} parties`)}.` : '',
+      ].filter(Boolean) },
+      { h2: `Happy hour in ${nm}`, paras: [
+        `${plural(hh.length, 'bar')} in ${nm} on our list publish a happy hour${hhStart !== null ? `, most often starting at ${clock(hhStart)}` : ''}.${cheapest ? ` Among the deals we read in the last 30 days, the cheapest drink is ${money(drinkPrice(cheapest)!)} at ${a(`/bars/${cheapest.slug}`, cheapest.name)}${priced.length >= 3 ? `, and the typical cheapest is ${money(median(priced)!)}` : ''}.` : ''}${wk ? ` ${plural(wk, 'bar runs', 'bars run')} one on the weekend${late ? ` and ${plural(late, 'has', 'have')} a late-night window` : ''}.` : late ? ` ${plural(late, 'bar has', 'bars have')} a late-night window.` : ''}`,
+        `The picks below are the highest scored in ${nm}; every deal is on ${hhLink}.${crawl}`,
+      ] },
+      ...(tv.length ? [{ h2: `Trivia in ${nm}`, paras: [
+        `We track ${plural(tv.length, 'trivia night')} at ${plural(new Set(tv.map((t) => t.v)).size, 'bar')} in ${nm}, on ${list(tvDays.map((d) => `${DAY_NAME[d]}s`))}. Times and hosts are on ${a('/trivia', 'the trivia page')}.`,
+      ] }] : []),
+      { h2: 'Around the neighborhood', paras: [
+        [borough === 'Brooklyn' ? `For the rest of the borough, see ${a('/blog/best-clubs-in-brooklyn', 'the best clubs in Brooklyn')}.` : borough === 'Manhattan' ? `For the rest of the borough, see ${a('/blog/best-clubs-in-manhattan', 'the best clubs in Manhattan')}.` : '',
+          neighbors.length ? `Other neighborhood guides: ${list(neighbors.map(([s, n]) => a(`/blog/${s}-nightlife`, `${n} nightlife`)))}.` : '',
+          `For the whole city, ${a('/blog/nyc-nightlife-guide', 'the NYC nightlife guide')}.`].filter(Boolean).join(' '),
+      ] },
+      { h2: 'Before you go', paras: RULES(c) },
+    ],
+    faq: [
+      { q: `Is ${nm} good for nightlife?`, a: `By the numbers, yes: ${plural(st.n, 'party night')} at ${plural(vs.length, 'venue')} on our list for the next 60 days${rank === 1 ? ', the most of any NYC neighborhood' : rank > 1 && rank < ORD.length ? `, the ${ORD[rank]} most of any NYC neighborhood` : ''}, and ${plural(hh.length, 'happy hour')}.` },
+      { q: `What are the best clubs in ${nm}?`, a: `By nights on the calendar: ${list(vs.slice(0, 3).map((x) => `${x.v.name} (${plural(x.nights.length, 'night')})`))} in the next 60 days.` },
+      { q: `What night is busiest in ${nm}?`, a: `${days[0][0]}, with ${days[0][1]} of the ${st.n} nights, then ${days[1][0]} (${days[1][1]}).` },
+      ...(st.start !== null ? [{ q: `What time do parties start in ${nm}?`, a: `Typically around ${clock(st.start)}; ${pct(st.late, st.starts)}% start at 10pm or later. Bars and clubs can serve until 4am.` }] : []),
+      ...(cheapest ? [{ q: `Where is the cheapest happy hour in ${nm}?`, a: `Among the deals we read in the last 30 days, ${cheapest.name}, with drinks from ${money(drinkPrice(cheapest)!)} (${noDash(scheduleLabel(cheapest))}).` }] : []),
+    ],
+    table: `hood:${slug}`, tableTitle: `Every ${name} venue, ranked`,
+    method: `Computed on ${TODAY_LINE(c)} from the ${st.n} published party nights in ${nm} for the next 60 days and the ${hh.length} happy hours we track there (each read from the bar's own site; prices from deals read in the last 30 days), recomputed every day.`,
+    related: [[`${name} parties`, `/parties/${slug}`], [`${name} happy hours`, `/happy-hours/${hhSlug}`], [`${name} bar crawl`, `/blog/${hhSlug}-bar-crawl`], ['Best neighborhoods for nightlife', '/blog/best-neighborhoods-for-nightlife-nyc'], ['NYC nightlife guide', '/blog/nyc-nightlife-guide'], ['Parties tonight', '/parties/tonight']],
+  };
+}
+
 /**
  * The internal pages this build publishes that the guides link to. A link to anything else (a post that
  * did not build today, a list below its minimum) becomes plain text, so a guide never breaks the build.
@@ -612,8 +816,14 @@ let cache: Promise<Guide[]> | null = null;
 export function nightGuides(): Promise<Guide[]> {
   cache ??= (async () => {
     const c = await ctx();
+    const { GUIDES } = await import('./guides');
+    const { blogPosts } = await import('./data');
+    const { autoGuides } = await import('./autoGuides');
+    const blog = new Set([...GUIDES, ...(await autoGuides())].map((g) => g.slug).concat((await blogPosts()).map((p) => p.slug)));
+    const hoods = nightlifeHoods(c);
     const out = [
       ...CLUBS.map((s) => clubGuide(c, s)), nightlifeGuide(c), costGuide(c), youngGuide(c), weekendGuide(c), await decemberGuide(c), bestHappyHours(c),
+      ...WEEKNIGHTS.map((d) => weeknightGuide(c, d)), ...hoods.map(([s, n]) => hoodGuide(c, s, n, blog, hoods)),
     ].filter((g): g is Guide => !!g);
     const ok = await knownPaths(c, out);
     return out.map((g) => ({

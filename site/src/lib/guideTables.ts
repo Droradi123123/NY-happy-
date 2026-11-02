@@ -32,7 +32,7 @@ const min = (t: string | null) => { const m = t?.match(/^(\d{1,2}):(\d{2})$/); r
 
 export async function guideTable(id: string): Promise<GuideTable | null> {
   // the nightlife guides' tables are computed next to the guides (lib/nightGuides.ts)
-  if (/^(clubs:|nights:|prices:|nightlife-hoods$|top-hh$)/.test(id)) return (await import('./nightGuides')).nightTable(id);
+  if (/^(clubs:|nights:|prices:|hood:|hh-day:|nightlife-hoods$|top-hh$)/.test(id)) return (await import('./nightGuides')).nightTable(id);
   const bars = (await allBars()).filter(usable);
 
   if (id === 'cheapest-by-hood') {
