@@ -1,82 +1,11 @@
 [
  {
   "step": "#1",
-  "rpc": "party_venue_set",
-  "key": "silo-brooklyn",
-  "ok": true,
-  "status": 200,
-  "body": "silo-brooklyn"
- },
- {
-  "step": "#1",
-  "rpc": "party_venue_set",
-  "key": "elsewhere",
-  "ok": true,
-  "status": 200,
-  "body": "elsewhere"
- },
- {
-  "step": "#1",
-  "rpc": "party_venue_set",
-  "key": "somewhere-nowhere-nyc",
-  "ok": true,
-  "status": 200,
-  "body": "somewhere-nowhere-nyc"
- },
- {
-  "step": "#1",
-  "rpc": "party_venue_set",
-  "key": "house-of-yes",
-  "ok": true,
-  "status": 200,
-  "body": "house-of-yes"
- },
- {
-  "step": "#1",
-  "rpc": "party_venue_set",
-  "key": "the-onyx-room-at-house-of-yes",
-  "ok": true,
-  "status": 200,
-  "body": "the-onyx-room-at-house-of-yes"
- },
- {
-  "step": "#1",
-  "rpc": "party_venue_set",
-  "key": "superior-ingredients",
-  "ok": true,
-  "status": 200,
-  "body": "superior-ingredients"
- },
- {
-  "step": "#1",
-  "rpc": "party_venue_set",
-  "key": "the-sultan-room",
-  "ok": true,
-  "status": 200,
-  "body": "the-sultan-room"
- },
- {
-  "step": "#1",
-  "rpc": "party_venue_set",
-  "key": "c-mon-everybody",
-  "ok": true,
-  "status": 200,
-  "body": "c-mon-everybody"
- },
- {
-  "step": "#1",
-  "rpc": "party_venue_set",
-  "key": "knockdown-center",
-  "ok": true,
-  "status": 200,
-  "body": "knockdown-center"
- },
- {
-  "step": "#1",
-  "rpc": "party_venue_set",
-  "key": "xanadu",
-  "ok": true,
-  "status": 200,
-  "body": "xanadu"
+  "dice_sweep": {
+   "fetched": 512,
+   "venues": 102,
+   "events": 508,
+   "parties": 61
+  }
  }
 ]
