@@ -1,1173 +1,132 @@
 [
  {
   "step": "#1",
-  "insert": "party_venues",
-  "status": 201,
-  "body": [
-   {
-    "id": "mood-ring",
-    "name": "Mood Ring",
-    "aliases": [],
-    "rooms": [],
-    "address": "1260 Myrtle Avenue, Brooklyn, NY 11221",
-    "zip": "11221",
-    "borough": "Brooklyn",
-    "neighborhood": null,
-    "lat": 40.697743,
-    "lng": -73.926906,
-    "kind": null,
-    "facts": {},
-    "copy": {},
-    "sources": [
-     {
-      "url": "https://www.moodringnyc.club",
-      "name": "Mood Ring (official site)",
-      "role": "venue",
-      "checked_at": "2026-11-02T13:00:00Z"
-     },
-     {
-      "url": "https://geosearch.planninglabs.nyc/v2/search?text=1260%20Myrtle%20Avenue%2C%20Brooklyn%2C%20NY%2011221",
-      "name": "NYC GeoSearch",
-      "role": "coordinates",
-      "checked_at": "2026-11-02T13:00:00Z"
-     }
-    ],
-    "status": "active",
-    "google_checked_at": null,
-    "created_at": "2026-11-02T07:16:45.415223+00:00",
-    "updated_at": "2026-11-02T07:16:45.415223+00:00"
-   }
-  ]
+  "rpc": "party_lead_set",
+  "args": {
+   "p_id": 418,
+   "p_status": "merged",
+   "p_event_id": "venue:db2375e25013ee36",
+   "p_note": "published from Mood Ring's own events page (2026-11-02); RA not read"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "merged"
  },
  {
   "step": "#2",
-  "rpc": "party_venue_hoods",
-  "args": {},
+  "rpc": "party_lead_set",
+  "args": {
+   "p_id": 425,
+   "p_status": "merged",
+   "p_event_id": "venue:12b118c841c0671a",
+   "p_note": "published from Mood Ring's own events page (2026-11-02); RA not read"
+  },
   "ok": true,
   "status": 200,
-  "body": 1
+  "body": "merged"
  },
  {
   "step": "#3",
-  "rpc": "party_venue_set",
+  "rpc": "party_lead_set",
   "args": {
-   "p_id": "mood-ring",
-   "p_patch": {
-    "facts": {
-     "id_required": "21+ with ID for entry, per the venue's site"
-    }
-   },
-   "p_src": "mood-ring",
-   "p_url": "https://www.moodringnyc.club"
+   "p_id": 441,
+   "p_status": "merged",
+   "p_event_id": "venue:b3edb740913e6d54",
+   "p_note": "published from Mood Ring's own events page (2026-11-02); RA not read"
   },
   "ok": true,
   "status": 200,
-  "body": "mood-ring"
+  "body": "merged"
  },
  {
   "step": "#4",
-  "rpc": "party_add_listing",
+  "rpc": "party_lead_set",
   "args": {
-   "p": {
-    "vendor": "Venue",
-    "url": "https://www.moodringnyc.club/events/p3uka6mo14d23c97vi67gc7ocb9ry5",
-    "title": "Beats without Borders",
-    "starts_at": "2026-11-04T22:00:00-05:00",
-    "ends_at": "2026-11-05T02:00:00-05:00",
-    "venue_id": "mood-ring",
-    "age_min": 21,
-    "themes": [],
-    "found_via": "https://www.moodringnyc.club/events"
-   }
+   "p_id": 452,
+   "p_status": "merged",
+   "p_event_id": "venue:f6392547d113a282",
+   "p_note": "published from Mood Ring's own events page (2026-11-02); RA not read"
   },
   "ok": true,
   "status": 200,
-  "body": "venue:db2375e25013ee36"
+  "body": "merged"
  },
  {
   "step": "#5",
-  "rpc": "party_add_listing",
+  "rpc": "party_lead_set",
   "args": {
-   "p": {
-    "vendor": "Venue",
-    "url": "https://www.moodringnyc.club/events/happy-hour-super-sweet",
-    "title": "super sweet with yung_womb (SLIC Unit) b2b Nissa Carrington",
-    "starts_at": "2026-11-05T22:00:00-05:00",
-    "ends_at": "2026-11-06T03:00:00-05:00",
-    "venue_id": "mood-ring",
-    "age_min": 21,
-    "themes": [],
-    "found_via": "https://www.moodringnyc.club/events"
-   }
+   "p_id": 466,
+   "p_status": "merged",
+   "p_event_id": "venue:bb7c63afb410cd73",
+   "p_note": "published from Mood Ring's own events page (2026-11-02); RA not read"
   },
   "ok": true,
   "status": 200,
-  "body": "venue:12b118c841c0671a"
+  "body": "merged"
  },
  {
   "step": "#6",
-  "rpc": "party_add_listing",
+  "rpc": "party_lead_set",
   "args": {
-   "p": {
-    "vendor": "Venue",
-    "url": "https://www.moodringnyc.club/events/5lb5g8z1nok0ak6z2qot07gsafd53t",
-    "title": "DRAMAMA",
-    "starts_at": "2026-11-06T19:00:00-05:00",
-    "ends_at": "2026-11-06T22:00:00-05:00",
-    "venue_id": "mood-ring",
-    "age_min": 21,
-    "themes": [],
-    "found_via": "https://www.moodringnyc.club/events"
-   }
+   "p_id": 510,
+   "p_status": "merged",
+   "p_event_id": "venue:96bfa52a1c451961",
+   "p_note": "published from Mood Ring's own events page (2026-11-02); RA not read"
   },
   "ok": true,
   "status": 200,
-  "body": "venue:b3edb740913e6d54"
+  "body": "merged"
  },
  {
   "step": "#7",
-  "rpc": "party_add_listing",
+  "rpc": "party_lead_set",
   "args": {
-   "p": {
-    "vendor": "Venue",
-    "url": "https://www.moodringnyc.club/events/ts732xhxxfoqzfrlfq5zqofa1s0tsg",
-    "title": "Baddie 2 Baddie",
-    "starts_at": "2026-11-06T22:00:00-05:00",
-    "ends_at": "2026-11-07T04:00:00-05:00",
-    "venue_id": "mood-ring",
-    "age_min": 21,
-    "themes": [],
-    "found_via": "https://www.moodringnyc.club/events"
-   }
+   "p_id": 517,
+   "p_status": "merged",
+   "p_event_id": "venue:e8ae37171285747b",
+   "p_note": "published from Mood Ring's own events page (2026-11-02); RA not read"
   },
   "ok": true,
   "status": 200,
-  "body": "venue:f6392547d113a282"
+  "body": "merged"
  },
  {
   "step": "#8",
-  "rpc": "party_add_listing",
+  "rpc": "party_lead_set",
   "args": {
-   "p": {
-    "vendor": "Venue",
-    "url": "https://www.moodringnyc.club/events/bouncy-by-shetheydj",
-    "title": "BOUNCY by she.they.dj",
-    "starts_at": "2026-11-07T19:00:00-05:00",
-    "ends_at": "2026-11-08T04:00:00-05:00",
-    "venue_id": "mood-ring",
-    "age_min": 21,
-    "themes": [],
-    "found_via": "https://www.moodringnyc.club/events"
-   }
+   "p_id": 534,
+   "p_status": "merged",
+   "p_event_id": "venue:7207733bd8375dc1",
+   "p_note": "published from Mood Ring's own events page (2026-11-02); RA not read"
   },
   "ok": true,
   "status": 200,
-  "body": "venue:bb7c63afb410cd73"
+  "body": "merged"
  },
  {
   "step": "#9",
-  "rpc": "party_add_listing",
+  "rpc": "party_lead_set",
   "args": {
-   "p": {
-    "vendor": "Venue",
-    "url": "https://www.moodringnyc.club/events/hand-to-phone",
-    "title": "Hand to Phone",
-    "starts_at": "2026-11-11T22:00:00-05:00",
-    "ends_at": "2026-11-12T02:00:00-05:00",
-    "venue_id": "mood-ring",
-    "age_min": 21,
-    "themes": [],
-    "found_via": "https://www.moodringnyc.club/events"
-   }
+   "p_id": 726,
+   "p_status": "merged",
+   "p_event_id": "venue:a982e921653f59d9",
+   "p_note": "published from Mood Ring's own events page (2026-11-02); RA not read"
   },
   "ok": true,
   "status": 200,
-  "body": "venue:96bfa52a1c451961"
+  "body": "merged"
  },
  {
   "step": "#10",
-  "rpc": "party_add_listing",
+  "rpc": "party_lead_set",
   "args": {
-   "p": {
-    "vendor": "Venue",
-    "url": "https://www.moodringnyc.club/events/renders003",
-    "title": "RENDERS.003",
-    "starts_at": "2026-11-12T22:00:00-05:00",
-    "ends_at": "2026-11-13T03:00:00-05:00",
-    "venue_id": "mood-ring",
-    "age_min": 21,
-    "themes": [],
-    "found_via": "https://www.moodringnyc.club/events"
-   }
+   "p_id": 794,
+   "p_status": "merged",
+   "p_event_id": "venue:b58efeeb9569dcf2",
+   "p_note": "published from Mood Ring's own events page (2026-11-02); RA not read"
   },
   "ok": true,
   "status": 200,
-  "body": "venue:e8ae37171285747b"
- },
- {
-  "step": "#11",
-  "rpc": "party_add_listing",
-  "args": {
-   "p": {
-    "vendor": "Venue",
-    "url": "https://www.moodringnyc.club/events/cddwkpvch9to3fyx5axbuyrbaqg27t",
-    "title": "Protein 2 Year Celebration",
-    "starts_at": "2026-11-13T22:00:00-05:00",
-    "ends_at": "2026-11-14T04:00:00-05:00",
-    "venue_id": "mood-ring",
-    "age_min": 21,
-    "themes": [],
-    "found_via": "https://www.moodringnyc.club/events"
-   }
-  },
-  "ok": true,
-  "status": 200,
-  "body": "venue:7207733bd8375dc1"
- },
- {
-  "step": "#12",
-  "rpc": "party_add_listing",
-  "args": {
-   "p": {
-    "vendor": "Venue",
-    "url": "https://www.moodringnyc.club/events/84mza7qdvkkvvtjy4bumqfdy3kzlaq",
-    "title": "SWEAT SESSION N°10 with Teqmun, Martini, Vertigo, and Maharam b2b Full Body Stretch",
-    "starts_at": "2026-11-14T22:00:00-05:00",
-    "ends_at": "2026-11-15T04:00:00-05:00",
-    "venue_id": "mood-ring",
-    "age_min": 21,
-    "themes": [],
-    "found_via": "https://www.moodringnyc.club/events"
-   }
-  },
-  "ok": true,
-  "status": 200,
-  "body": "venue:cee747f37f7537b3"
- },
- {
-  "step": "#13",
-  "rpc": "party_add_listing",
-  "args": {
-   "p": {
-    "vendor": "Venue",
-    "url": "https://www.moodringnyc.club/events/02iu682mrsna29uuxyfvrwkwlxn3ja",
-    "title": "✽ she.they.dj ✽",
-    "starts_at": "2026-11-21T19:00:00-05:00",
-    "ends_at": "2026-11-21T22:00:00-05:00",
-    "venue_id": "mood-ring",
-    "age_min": 21,
-    "themes": [],
-    "found_via": "https://www.moodringnyc.club/events"
-   }
-  },
-  "ok": true,
-  "status": 200,
-  "body": "venue:272042a84372d530"
- },
- {
-  "step": "#14",
-  "rpc": "party_add_listing",
-  "args": {
-   "p": {
-    "vendor": "Venue",
-    "url": "https://www.moodringnyc.club/events/happy-hour-juke-new-city",
-    "title": "Juke New City",
-    "starts_at": "2026-12-11T19:00:00-05:00",
-    "ends_at": "2026-12-11T22:00:00-05:00",
-    "venue_id": "mood-ring",
-    "age_min": 21,
-    "themes": [],
-    "found_via": "https://www.moodringnyc.club/events"
-   }
-  },
-  "ok": true,
-  "status": 200,
-  "body": "venue:a982e921653f59d9"
- },
- {
-  "step": "#15",
-  "rpc": "party_add_listing",
-  "args": {
-   "p": {
-    "vendor": "Venue",
-    "url": "https://www.moodringnyc.club/events/llfdkfabiood50r6dm63l8bdvsld6y",
-    "title": "JACOBDIOR PRESENTS NYE 2027",
-    "starts_at": "2026-12-31T22:00:00-05:00",
-    "ends_at": "2027-01-01T04:00:00-05:00",
-    "venue_id": "mood-ring",
-    "age_min": 21,
-    "themes": [
-     "nye"
-    ],
-    "found_via": "https://www.moodringnyc.club/events"
-   }
-  },
-  "ok": true,
-  "status": 200,
-  "body": "venue:b58efeeb9569dcf2"
- },
- {
-  "step": "#16",
-  "rpc": "party_event_copy",
-  "args": {
-   "p_id": "venue:db2375e25013ee36",
-   "p_copy": {
-    "about": "Beats without Borders is a night at Mood Ring, 1260 Myrtle Avenue in Bushwick, on Wednesday, November 4. It is listed on the venue's own events page, from 10 PM to 2 AM.",
-    "expect": "Mood Ring lists the night with its name and hours only; the venue's site does not describe a theme, dress code or production for it. It runs late into the night, as the venue is open until 2 AM on this listing.",
-    "music": "The venue's listing gives the name of the night but no genres, no set times and no full lineup, so none of those are confirmed.",
-    "before_you_go": "Mood Ring says all events are 21+ and asks for ID at entry. The listing runs 10 PM to 2 AM. The venue's listing does not give a price, so entry cost is not confirmed. Re-entry, coat check and accessibility are not confirmed.",
-    "faq": [
-     {
-      "q": "What time does it start?",
-      "a": "10 PM, per the venue's own events page, ending 2 AM."
-     },
-     {
-      "q": "Is it 21+?",
-      "a": "Yes. Mood Ring says all its events are 21+, with ID required for entry."
-     },
-     {
-      "q": "How much is entry?",
-      "a": "Not confirmed. The venue's listing does not give a price."
-     },
-     {
-      "q": "Where is Mood Ring?",
-      "a": "1260 Myrtle Avenue, Brooklyn, NY 11221, in Bushwick."
-     }
-    ],
-    "sources": [
-     "https://www.moodringnyc.club/events/p3uka6mo14d23c97vi67gc7ocb9ry5",
-     "https://www.moodringnyc.club/events"
-    ],
-    "verification_note": "Name, date, start and end read from the structured data on Mood Ring's own event page on 2026-11-02; the 21+ policy from the venue's events and home pages. Not checked against a ticket seller."
-   },
-   "p_author": "claude (nyc-parties skill), 2026-11-02"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "review"
- },
- {
-  "step": "#17",
-  "rpc": "party_publish_blockers",
-  "args": {
-   "p_id": "venue:db2375e25013ee36"
-  },
-  "ok": true,
-  "status": 200,
-  "body": []
- },
- {
-  "step": "#18",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "venue:db2375e25013ee36",
-   "p_status": "ready"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "ready"
- },
- {
-  "step": "#19",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "venue:db2375e25013ee36",
-   "p_status": "published"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "published"
- },
- {
-  "step": "#20",
-  "rpc": "party_event_copy",
-  "args": {
-   "p_id": "venue:12b118c841c0671a",
-   "p_copy": {
-    "about": "super sweet with yung_womb (SLIC Unit) b2b Nissa Carrington is a night at Mood Ring, 1260 Myrtle Avenue in Bushwick, on Thursday, November 5. It is listed on the venue's own events page, from 10 PM to 3 AM.",
-    "expect": "Mood Ring lists the night with its name and hours only; the venue's site does not describe a theme, dress code or production for it. It runs late into the night, as the venue is open until 3 AM on this listing.",
-    "music": "The venue's listing gives the name of the night but no genres, no set times and no full lineup, so none of those are confirmed. The title names yung_womb (SLIC Unit) b2b Nissa Carrington.",
-    "before_you_go": "Mood Ring says all events are 21+ and asks for ID at entry. The listing runs 10 PM to 3 AM. The venue's listing does not give a price, so entry cost is not confirmed. Re-entry, coat check and accessibility are not confirmed.",
-    "faq": [
-     {
-      "q": "What time does it start?",
-      "a": "10 PM, per the venue's own events page, ending 3 AM."
-     },
-     {
-      "q": "Is it 21+?",
-      "a": "Yes. Mood Ring says all its events are 21+, with ID required for entry."
-     },
-     {
-      "q": "How much is entry?",
-      "a": "Not confirmed. The venue's listing does not give a price."
-     },
-     {
-      "q": "Where is Mood Ring?",
-      "a": "1260 Myrtle Avenue, Brooklyn, NY 11221, in Bushwick."
-     }
-    ],
-    "sources": [
-     "https://www.moodringnyc.club/events/happy-hour-super-sweet",
-     "https://www.moodringnyc.club/events"
-    ],
-    "verification_note": "Name, date, start and end read from the structured data on Mood Ring's own event page on 2026-11-02; the 21+ policy from the venue's events and home pages. Not checked against a ticket seller."
-   },
-   "p_author": "claude (nyc-parties skill), 2026-11-02"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "review"
- },
- {
-  "step": "#21",
-  "rpc": "party_publish_blockers",
-  "args": {
-   "p_id": "venue:12b118c841c0671a"
-  },
-  "ok": true,
-  "status": 200,
-  "body": []
- },
- {
-  "step": "#22",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "venue:12b118c841c0671a",
-   "p_status": "ready"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "ready"
- },
- {
-  "step": "#23",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "venue:12b118c841c0671a",
-   "p_status": "published"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "published"
- },
- {
-  "step": "#24",
-  "rpc": "party_event_copy",
-  "args": {
-   "p_id": "venue:b3edb740913e6d54",
-   "p_copy": {
-    "about": "DRAMAMA is a night at Mood Ring, 1260 Myrtle Avenue in Bushwick, on Friday, November 6. It is listed on the venue's own events page, which files it as an early-evening happy hour session, from 7 PM to 10 PM.",
-    "expect": "Mood Ring lists the night with its name and hours only; the venue's site does not describe a theme, dress code or production for it. As a happy hour slot it runs early, before the late part of the night.",
-    "music": "The venue's listing gives the name of the night but no genres, no set times and no full lineup, so none of those are confirmed.",
-    "before_you_go": "Mood Ring says all events are 21+ and asks for ID at entry. The listing runs 7 PM to 10 PM. The venue's listing does not give a price, so entry cost is not confirmed. Re-entry, coat check and accessibility are not confirmed.",
-    "faq": [
-     {
-      "q": "What time does it start?",
-      "a": "7 PM, per the venue's own events page, ending 10 PM."
-     },
-     {
-      "q": "Is it 21+?",
-      "a": "Yes. Mood Ring says all its events are 21+, with ID required for entry."
-     },
-     {
-      "q": "How much is entry?",
-      "a": "Not confirmed. The venue's listing does not give a price."
-     },
-     {
-      "q": "Where is Mood Ring?",
-      "a": "1260 Myrtle Avenue, Brooklyn, NY 11221, in Bushwick."
-     }
-    ],
-    "sources": [
-     "https://www.moodringnyc.club/events/5lb5g8z1nok0ak6z2qot07gsafd53t",
-     "https://www.moodringnyc.club/events"
-    ],
-    "verification_note": "Name, date, start and end read from the structured data on Mood Ring's own event page on 2026-11-02; the 21+ policy from the venue's events and home pages. Not checked against a ticket seller."
-   },
-   "p_author": "claude (nyc-parties skill), 2026-11-02"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "review"
- },
- {
-  "step": "#25",
-  "rpc": "party_publish_blockers",
-  "args": {
-   "p_id": "venue:b3edb740913e6d54"
-  },
-  "ok": true,
-  "status": 200,
-  "body": []
- },
- {
-  "step": "#26",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "venue:b3edb740913e6d54",
-   "p_status": "ready"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "ready"
- },
- {
-  "step": "#27",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "venue:b3edb740913e6d54",
-   "p_status": "published"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "published"
- },
- {
-  "step": "#28",
-  "rpc": "party_event_copy",
-  "args": {
-   "p_id": "venue:f6392547d113a282",
-   "p_copy": {
-    "about": "Baddie 2 Baddie is a night at Mood Ring, 1260 Myrtle Avenue in Bushwick, on Friday, November 6. It is listed on the venue's own events page, from 10 PM to 4 AM.",
-    "expect": "Mood Ring lists the night with its name and hours only; the venue's site does not describe a theme, dress code or production for it. It runs late into the night, as the venue is open until 4 AM on this listing.",
-    "music": "The venue's listing gives the name of the night but no genres, no set times and no full lineup, so none of those are confirmed.",
-    "before_you_go": "Mood Ring says all events are 21+ and asks for ID at entry. The listing runs 10 PM to 4 AM. The venue's listing does not give a price, so entry cost is not confirmed. Re-entry, coat check and accessibility are not confirmed.",
-    "faq": [
-     {
-      "q": "What time does it start?",
-      "a": "10 PM, per the venue's own events page, ending 4 AM."
-     },
-     {
-      "q": "Is it 21+?",
-      "a": "Yes. Mood Ring says all its events are 21+, with ID required for entry."
-     },
-     {
-      "q": "How much is entry?",
-      "a": "Not confirmed. The venue's listing does not give a price."
-     },
-     {
-      "q": "Where is Mood Ring?",
-      "a": "1260 Myrtle Avenue, Brooklyn, NY 11221, in Bushwick."
-     }
-    ],
-    "sources": [
-     "https://www.moodringnyc.club/events/ts732xhxxfoqzfrlfq5zqofa1s0tsg",
-     "https://www.moodringnyc.club/events"
-    ],
-    "verification_note": "Name, date, start and end read from the structured data on Mood Ring's own event page on 2026-11-02; the 21+ policy from the venue's events and home pages. Not checked against a ticket seller."
-   },
-   "p_author": "claude (nyc-parties skill), 2026-11-02"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "review"
- },
- {
-  "step": "#29",
-  "rpc": "party_publish_blockers",
-  "args": {
-   "p_id": "venue:f6392547d113a282"
-  },
-  "ok": true,
-  "status": 200,
-  "body": []
- },
- {
-  "step": "#30",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "venue:f6392547d113a282",
-   "p_status": "ready"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "ready"
- },
- {
-  "step": "#31",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "venue:f6392547d113a282",
-   "p_status": "published"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "published"
- },
- {
-  "step": "#32",
-  "rpc": "party_event_copy",
-  "args": {
-   "p_id": "venue:bb7c63afb410cd73",
-   "p_copy": {
-    "about": "BOUNCY by she.they.dj is a night at Mood Ring, 1260 Myrtle Avenue in Bushwick, on Saturday, November 7. It is listed on the venue's own events page, from 7 PM to 4 AM.",
-    "expect": "Mood Ring lists the night with its name and hours only; the venue's site does not describe a theme, dress code or production for it. It runs late into the night, as the venue is open until 4 AM on this listing.",
-    "music": "The venue's listing gives the name of the night but no genres, no set times and no full lineup, so none of those are confirmed.",
-    "before_you_go": "Mood Ring says all events are 21+ and asks for ID at entry. The listing runs 7 PM to 4 AM. The venue's listing does not give a price, so entry cost is not confirmed. Re-entry, coat check and accessibility are not confirmed.",
-    "faq": [
-     {
-      "q": "What time does it start?",
-      "a": "7 PM, per the venue's own events page, ending 4 AM."
-     },
-     {
-      "q": "Is it 21+?",
-      "a": "Yes. Mood Ring says all its events are 21+, with ID required for entry."
-     },
-     {
-      "q": "How much is entry?",
-      "a": "Not confirmed. The venue's listing does not give a price."
-     },
-     {
-      "q": "Where is Mood Ring?",
-      "a": "1260 Myrtle Avenue, Brooklyn, NY 11221, in Bushwick."
-     }
-    ],
-    "sources": [
-     "https://www.moodringnyc.club/events/bouncy-by-shetheydj",
-     "https://www.moodringnyc.club/events"
-    ],
-    "verification_note": "Name, date, start and end read from the structured data on Mood Ring's own event page on 2026-11-02; the 21+ policy from the venue's events and home pages. Not checked against a ticket seller."
-   },
-   "p_author": "claude (nyc-parties skill), 2026-11-02"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "review"
- },
- {
-  "step": "#33",
-  "rpc": "party_publish_blockers",
-  "args": {
-   "p_id": "venue:bb7c63afb410cd73"
-  },
-  "ok": true,
-  "status": 200,
-  "body": []
- },
- {
-  "step": "#34",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "venue:bb7c63afb410cd73",
-   "p_status": "ready"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "ready"
- },
- {
-  "step": "#35",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "venue:bb7c63afb410cd73",
-   "p_status": "published"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "published"
- },
- {
-  "step": "#36",
-  "rpc": "party_event_copy",
-  "args": {
-   "p_id": "venue:96bfa52a1c451961",
-   "p_copy": {
-    "about": "Hand to Phone is a night at Mood Ring, 1260 Myrtle Avenue in Bushwick, on Wednesday, November 11. It is listed on the venue's own events page, from 10 PM to 2 AM.",
-    "expect": "Mood Ring lists the night with its name and hours only; the venue's site does not describe a theme, dress code or production for it. It runs late into the night, as the venue is open until 2 AM on this listing.",
-    "music": "The venue's listing gives the name of the night but no genres, no set times and no full lineup, so none of those are confirmed.",
-    "before_you_go": "Mood Ring says all events are 21+ and asks for ID at entry. The listing runs 10 PM to 2 AM. The venue's listing does not give a price, so entry cost is not confirmed. Re-entry, coat check and accessibility are not confirmed.",
-    "faq": [
-     {
-      "q": "What time does it start?",
-      "a": "10 PM, per the venue's own events page, ending 2 AM."
-     },
-     {
-      "q": "Is it 21+?",
-      "a": "Yes. Mood Ring says all its events are 21+, with ID required for entry."
-     },
-     {
-      "q": "How much is entry?",
-      "a": "Not confirmed. The venue's listing does not give a price."
-     },
-     {
-      "q": "Where is Mood Ring?",
-      "a": "1260 Myrtle Avenue, Brooklyn, NY 11221, in Bushwick."
-     }
-    ],
-    "sources": [
-     "https://www.moodringnyc.club/events/hand-to-phone",
-     "https://www.moodringnyc.club/events"
-    ],
-    "verification_note": "Name, date, start and end read from the structured data on Mood Ring's own event page on 2026-11-02; the 21+ policy from the venue's events and home pages. Not checked against a ticket seller."
-   },
-   "p_author": "claude (nyc-parties skill), 2026-11-02"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "review"
- },
- {
-  "step": "#37",
-  "rpc": "party_publish_blockers",
-  "args": {
-   "p_id": "venue:96bfa52a1c451961"
-  },
-  "ok": true,
-  "status": 200,
-  "body": []
- },
- {
-  "step": "#38",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "venue:96bfa52a1c451961",
-   "p_status": "ready"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "ready"
- },
- {
-  "step": "#39",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "venue:96bfa52a1c451961",
-   "p_status": "published"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "published"
- },
- {
-  "step": "#40",
-  "rpc": "party_event_copy",
-  "args": {
-   "p_id": "venue:e8ae37171285747b",
-   "p_copy": {
-    "about": "RENDERS.003 is a night at Mood Ring, 1260 Myrtle Avenue in Bushwick, on Thursday, November 12. It is listed on the venue's own events page, from 10 PM to 3 AM.",
-    "expect": "Mood Ring lists the night with its name and hours only; the venue's site does not describe a theme, dress code or production for it. It runs late into the night, as the venue is open until 3 AM on this listing.",
-    "music": "The venue's listing gives the name of the night but no genres, no set times and no full lineup, so none of those are confirmed.",
-    "before_you_go": "Mood Ring says all events are 21+ and asks for ID at entry. The listing runs 10 PM to 3 AM. The venue's listing does not give a price, so entry cost is not confirmed. Re-entry, coat check and accessibility are not confirmed.",
-    "faq": [
-     {
-      "q": "What time does it start?",
-      "a": "10 PM, per the venue's own events page, ending 3 AM."
-     },
-     {
-      "q": "Is it 21+?",
-      "a": "Yes. Mood Ring says all its events are 21+, with ID required for entry."
-     },
-     {
-      "q": "How much is entry?",
-      "a": "Not confirmed. The venue's listing does not give a price."
-     },
-     {
-      "q": "Where is Mood Ring?",
-      "a": "1260 Myrtle Avenue, Brooklyn, NY 11221, in Bushwick."
-     }
-    ],
-    "sources": [
-     "https://www.moodringnyc.club/events/renders003",
-     "https://www.moodringnyc.club/events"
-    ],
-    "verification_note": "Name, date, start and end read from the structured data on Mood Ring's own event page on 2026-11-02; the 21+ policy from the venue's events and home pages. Not checked against a ticket seller."
-   },
-   "p_author": "claude (nyc-parties skill), 2026-11-02"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "review"
- },
- {
-  "step": "#41",
-  "rpc": "party_publish_blockers",
-  "args": {
-   "p_id": "venue:e8ae37171285747b"
-  },
-  "ok": true,
-  "status": 200,
-  "body": []
- },
- {
-  "step": "#42",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "venue:e8ae37171285747b",
-   "p_status": "ready"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "ready"
- },
- {
-  "step": "#43",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "venue:e8ae37171285747b",
-   "p_status": "published"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "published"
- },
- {
-  "step": "#44",
-  "rpc": "party_event_copy",
-  "args": {
-   "p_id": "venue:7207733bd8375dc1",
-   "p_copy": {
-    "about": "Protein 2 Year Celebration is a night at Mood Ring, 1260 Myrtle Avenue in Bushwick, on Friday, November 13. It is listed on the venue's own events page, from 10 PM to 4 AM.",
-    "expect": "Mood Ring lists the night with its name and hours only; the venue's site does not describe a theme, dress code or production for it. It runs late into the night, as the venue is open until 4 AM on this listing.",
-    "music": "The venue's listing gives the name of the night but no genres, no set times and no full lineup, so none of those are confirmed.",
-    "before_you_go": "Mood Ring says all events are 21+ and asks for ID at entry. The listing runs 10 PM to 4 AM. The venue's listing does not give a price, so entry cost is not confirmed. Re-entry, coat check and accessibility are not confirmed.",
-    "faq": [
-     {
-      "q": "What time does it start?",
-      "a": "10 PM, per the venue's own events page, ending 4 AM."
-     },
-     {
-      "q": "Is it 21+?",
-      "a": "Yes. Mood Ring says all its events are 21+, with ID required for entry."
-     },
-     {
-      "q": "How much is entry?",
-      "a": "Not confirmed. The venue's listing does not give a price."
-     },
-     {
-      "q": "Where is Mood Ring?",
-      "a": "1260 Myrtle Avenue, Brooklyn, NY 11221, in Bushwick."
-     }
-    ],
-    "sources": [
-     "https://www.moodringnyc.club/events/cddwkpvch9to3fyx5axbuyrbaqg27t",
-     "https://www.moodringnyc.club/events"
-    ],
-    "verification_note": "Name, date, start and end read from the structured data on Mood Ring's own event page on 2026-11-02; the 21+ policy from the venue's events and home pages. Not checked against a ticket seller."
-   },
-   "p_author": "claude (nyc-parties skill), 2026-11-02"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "review"
- },
- {
-  "step": "#45",
-  "rpc": "party_publish_blockers",
-  "args": {
-   "p_id": "venue:7207733bd8375dc1"
-  },
-  "ok": true,
-  "status": 200,
-  "body": []
- },
- {
-  "step": "#46",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "venue:7207733bd8375dc1",
-   "p_status": "ready"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "ready"
- },
- {
-  "step": "#47",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "venue:7207733bd8375dc1",
-   "p_status": "published"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "published"
- },
- {
-  "step": "#48",
-  "rpc": "party_event_copy",
-  "args": {
-   "p_id": "venue:cee747f37f7537b3",
-   "p_copy": {
-    "about": "SWEAT SESSION N°10 with Teqmun, Martini, Vertigo, and Maharam b2b Full Body Stretch is a night at Mood Ring, 1260 Myrtle Avenue in Bushwick, on Saturday, November 14. It is listed on the venue's own events page, from 10 PM to 4 AM.",
-    "expect": "Mood Ring lists the night with its name and hours only; the venue's site does not describe a theme, dress code or production for it. It runs late into the night, as the venue is open until 4 AM on this listing.",
-    "music": "The venue's listing gives the name of the night but no genres, no set times and no full lineup, so none of those are confirmed. The title names Teqmun, Martini, Vertigo, and Maharam b2b Full Body Stretch.",
-    "before_you_go": "Mood Ring says all events are 21+ and asks for ID at entry. The listing runs 10 PM to 4 AM. The venue's listing does not give a price, so entry cost is not confirmed. Re-entry, coat check and accessibility are not confirmed.",
-    "faq": [
-     {
-      "q": "What time does it start?",
-      "a": "10 PM, per the venue's own events page, ending 4 AM."
-     },
-     {
-      "q": "Is it 21+?",
-      "a": "Yes. Mood Ring says all its events are 21+, with ID required for entry."
-     },
-     {
-      "q": "How much is entry?",
-      "a": "Not confirmed. The venue's listing does not give a price."
-     },
-     {
-      "q": "Where is Mood Ring?",
-      "a": "1260 Myrtle Avenue, Brooklyn, NY 11221, in Bushwick."
-     }
-    ],
-    "sources": [
-     "https://www.moodringnyc.club/events/84mza7qdvkkvvtjy4bumqfdy3kzlaq",
-     "https://www.moodringnyc.club/events"
-    ],
-    "verification_note": "Name, date, start and end read from the structured data on Mood Ring's own event page on 2026-11-02; the 21+ policy from the venue's events and home pages. Not checked against a ticket seller."
-   },
-   "p_author": "claude (nyc-parties skill), 2026-11-02"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "review"
- },
- {
-  "step": "#49",
-  "rpc": "party_publish_blockers",
-  "args": {
-   "p_id": "venue:cee747f37f7537b3"
-  },
-  "ok": true,
-  "status": 200,
-  "body": []
- },
- {
-  "step": "#50",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "venue:cee747f37f7537b3",
-   "p_status": "ready"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "ready"
- },
- {
-  "step": "#51",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "venue:cee747f37f7537b3",
-   "p_status": "published"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "published"
- },
- {
-  "step": "#52",
-  "rpc": "party_event_copy",
-  "args": {
-   "p_id": "venue:272042a84372d530",
-   "p_copy": {
-    "about": "✽ she.they.dj ✽ is a night at Mood Ring, 1260 Myrtle Avenue in Bushwick, on Saturday, November 21. It is listed on the venue's own events page, which files it as an early-evening happy hour session, from 7 PM to 10 PM.",
-    "expect": "Mood Ring lists the night with its name and hours only; the venue's site does not describe a theme, dress code or production for it. As a happy hour slot it runs early, before the late part of the night.",
-    "music": "The venue's listing gives the name of the night but no genres, no set times and no full lineup, so none of those are confirmed.",
-    "before_you_go": "Mood Ring says all events are 21+ and asks for ID at entry. The listing runs 7 PM to 10 PM. The venue's listing does not give a price, so entry cost is not confirmed. Re-entry, coat check and accessibility are not confirmed.",
-    "faq": [
-     {
-      "q": "What time does it start?",
-      "a": "7 PM, per the venue's own events page, ending 10 PM."
-     },
-     {
-      "q": "Is it 21+?",
-      "a": "Yes. Mood Ring says all its events are 21+, with ID required for entry."
-     },
-     {
-      "q": "How much is entry?",
-      "a": "Not confirmed. The venue's listing does not give a price."
-     },
-     {
-      "q": "Where is Mood Ring?",
-      "a": "1260 Myrtle Avenue, Brooklyn, NY 11221, in Bushwick."
-     }
-    ],
-    "sources": [
-     "https://www.moodringnyc.club/events/02iu682mrsna29uuxyfvrwkwlxn3ja",
-     "https://www.moodringnyc.club/events"
-    ],
-    "verification_note": "Name, date, start and end read from the structured data on Mood Ring's own event page on 2026-11-02; the 21+ policy from the venue's events and home pages. Not checked against a ticket seller."
-   },
-   "p_author": "claude (nyc-parties skill), 2026-11-02"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "review"
- },
- {
-  "step": "#53",
-  "rpc": "party_publish_blockers",
-  "args": {
-   "p_id": "venue:272042a84372d530"
-  },
-  "ok": true,
-  "status": 200,
-  "body": []
- },
- {
-  "step": "#54",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "venue:272042a84372d530",
-   "p_status": "ready"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "ready"
- },
- {
-  "step": "#55",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "venue:272042a84372d530",
-   "p_status": "published"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "published"
- },
- {
-  "step": "#56",
-  "rpc": "party_event_copy",
-  "args": {
-   "p_id": "venue:a982e921653f59d9",
-   "p_copy": {
-    "about": "Juke New City is a night at Mood Ring, 1260 Myrtle Avenue in Bushwick, on Friday, December 11. It is listed on the venue's own events page, which files it as an early-evening happy hour session, from 7 PM to 10 PM.",
-    "expect": "Mood Ring lists the night with its name and hours only; the venue's site does not describe a theme, dress code or production for it. As a happy hour slot it runs early, before the late part of the night.",
-    "music": "The venue's listing gives the name of the night but no genres, no set times and no full lineup, so none of those are confirmed.",
-    "before_you_go": "Mood Ring says all events are 21+ and asks for ID at entry. The listing runs 7 PM to 10 PM. The venue's listing does not give a price, so entry cost is not confirmed. Re-entry, coat check and accessibility are not confirmed.",
-    "faq": [
-     {
-      "q": "What time does it start?",
-      "a": "7 PM, per the venue's own events page, ending 10 PM."
-     },
-     {
-      "q": "Is it 21+?",
-      "a": "Yes. Mood Ring says all its events are 21+, with ID required for entry."
-     },
-     {
-      "q": "How much is entry?",
-      "a": "Not confirmed. The venue's listing does not give a price."
-     },
-     {
-      "q": "Where is Mood Ring?",
-      "a": "1260 Myrtle Avenue, Brooklyn, NY 11221, in Bushwick."
-     }
-    ],
-    "sources": [
-     "https://www.moodringnyc.club/events/happy-hour-juke-new-city",
-     "https://www.moodringnyc.club/events"
-    ],
-    "verification_note": "Name, date, start and end read from the structured data on Mood Ring's own event page on 2026-11-02; the 21+ policy from the venue's events and home pages. Not checked against a ticket seller."
-   },
-   "p_author": "claude (nyc-parties skill), 2026-11-02"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "review"
- },
- {
-  "step": "#57",
-  "rpc": "party_publish_blockers",
-  "args": {
-   "p_id": "venue:a982e921653f59d9"
-  },
-  "ok": true,
-  "status": 200,
-  "body": []
- },
- {
-  "step": "#58",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "venue:a982e921653f59d9",
-   "p_status": "ready"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "ready"
- },
- {
-  "step": "#59",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "venue:a982e921653f59d9",
-   "p_status": "published"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "published"
- },
- {
-  "step": "#60",
-  "rpc": "party_event_copy",
-  "args": {
-   "p_id": "venue:b58efeeb9569dcf2",
-   "p_copy": {
-    "about": "JACOBDIOR PRESENTS NYE 2027 is a night at Mood Ring, 1260 Myrtle Avenue in Bushwick, on Thursday, December 31. It is listed on the venue's own events page, from 10 PM to 4 AM.",
-    "expect": "Mood Ring lists the night with its name and hours only; the venue's site does not describe a theme, dress code or production for it. It runs late into the night, as the venue is open until 4 AM on this listing.",
-    "music": "The venue's listing gives the name of the night but no genres, no set times and no full lineup, so none of those are confirmed.",
-    "before_you_go": "Mood Ring says all events are 21+ and asks for ID at entry. The listing runs 10 PM to 4 AM. The venue's listing does not give a price, so entry cost is not confirmed. Re-entry, coat check and accessibility are not confirmed.",
-    "faq": [
-     {
-      "q": "What time does it start?",
-      "a": "10 PM, per the venue's own events page, ending 4 AM."
-     },
-     {
-      "q": "Is it 21+?",
-      "a": "Yes. Mood Ring says all its events are 21+, with ID required for entry."
-     },
-     {
-      "q": "How much is entry?",
-      "a": "Not confirmed. The venue's listing does not give a price."
-     },
-     {
-      "q": "Where is Mood Ring?",
-      "a": "1260 Myrtle Avenue, Brooklyn, NY 11221, in Bushwick."
-     }
-    ],
-    "sources": [
-     "https://www.moodringnyc.club/events/llfdkfabiood50r6dm63l8bdvsld6y",
-     "https://www.moodringnyc.club/events"
-    ],
-    "verification_note": "Name, date, start and end read from the structured data on Mood Ring's own event page on 2026-11-02; the 21+ policy from the venue's events and home pages. Not checked against a ticket seller."
-   },
-   "p_author": "claude (nyc-parties skill), 2026-11-02"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "review"
- },
- {
-  "step": "#61",
-  "rpc": "party_publish_blockers",
-  "args": {
-   "p_id": "venue:b58efeeb9569dcf2"
-  },
-  "ok": true,
-  "status": 200,
-  "body": []
- },
- {
-  "step": "#62",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "venue:b58efeeb9569dcf2",
-   "p_status": "ready"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "ready"
- },
- {
-  "step": "#63",
-  "rpc": "party_event_status",
-  "args": {
-   "p_id": "venue:b58efeeb9569dcf2",
-   "p_status": "published"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "published"
+  "body": "merged"
  }
 ]
