@@ -211,6 +211,53 @@ for (const [i, s] of plan.steps.entries()) {
       }
       writeFileSync(`bridge/out/${s.fetch_links.name ?? 'links'}.json`, JSON.stringify(out));
       console.log(`${tag} fetch_links: ${out.length} pages, ${out.reduce((n, p) => n + (p.links?.length ?? 0), 0)} links`);
+    } else if (s.dice_sweep) {
+      // a wide, read-only sweep of DICE's public pages for NYC nights that are not in party_events: the event
+      // links on the seed pages (DICE's own NYC lists and genre pages), then every venue page those events
+      // point to (plus `venues`), whose structured data lists all its upcoming nights. Each new night's own
+      // page gives its tags (music:dj / music:party / music:gig), venue and address. Writes nothing to the
+      // database; the report goes to bridge/out/dice_sweep.json. One request at a time, `delay` ms apart.
+      const o = s.dice_sweep, delay = (o.delay ?? 1200) / 1000, horizon = Date.now() + (o.horizon_days ?? 120) * 864e5;
+      const UA = { 'User-Agent': 'Mozilla/5.0 (compatible; NYHappy/1.0; +https://github.com/Droradi123123/NY-happy-)' };
+      const page = async (u) => { try { const r = await fetch(u, { headers: UA, signal: AbortSignal.timeout(20000) }); return r.ok ? await r.text() : ''; } catch { return ''; } };
+      const lds = (html) => [...html.matchAll(/<script[^>]*application\/ld\+json[^>]*>([\s\S]*?)<\/script>/g)].map((m) => { try { return JSON.parse(m[1]); } catch { return null; } }).flat().filter(Boolean);
+      const hex = (u) => String(u).match(/\/event\/([A-Za-z0-9-]+)/)?.[1] ?? null;
+      const today = new Date(Date.now() - 6 * 3600e3).toISOString().slice(0, 10);
+      const known = new Set();
+      for (const e of await get(`party_events?select=id,ticket_url&night_date=gte.${today}`)) { known.add(e.id.replace(/^dice:/, '')); const h = hex(e.ticket_url); if (h) known.add(h); }
+      const seen = new Map(); // event key -> record
+      const venuePages = new Set(); // the venues the seed pages point to come first, then `venues`
+      const NOT = /karaoke|skate|class\b|lesson|signing|watch party|viewing|open mic|trivia|bingo|comedy|stand-?up|podcast|reading|screening|workshop|yoga|market|book club|video game/i;
+      let fetched = 0;
+      const readEvent = async (key) => {
+        if (seen.has(key) || known.has(key) || fetched >= (o.max_events ?? 700)) return;
+        const html = await page(`https://dice.fm/event/${key}`); fetched++; await sleep(delay);
+        const ev = lds(html).find((x) => x && /Event$/.test(String(x['@type'])));
+        if (!ev) { seen.set(key, { key, error: 'no event data' }); return; }
+        const loc = Array.isArray(ev.location) ? ev.location[0] : ev.location ?? {};
+        if (loc.url) venuePages.add(String(loc.url).split('?')[0]);
+        const offers = [].concat(ev.offers ?? []);
+        seen.set(key, { key, url: `https://dice.fm/event/${key}`, name: ev.name, start: ev.startDate, end: ev.endDate ?? null, status: String(ev.eventStatus ?? '').split('/').pop(),
+          venue: { name: loc.name ?? null, url: loc.url ? String(loc.url).split('?')[0] : null, address: typeof loc.address === 'string' ? loc.address : loc.address?.streetAddress ?? null, geo: loc.geo ? [loc.geo.latitude, loc.geo.longitude] : null },
+          tags: [...new Set(html.match(/music:(dj|party|gig)/g) ?? [])], low: offers.map((x) => Number(x.price)).filter((x) => x >= 0).sort((a, b) => a - b)[0] ?? null });
+      };
+      for (const u of o.seeds ?? []) {
+        const html = await page(u); await sleep(delay);
+        for (const m of html.matchAll(/\/event\/([A-Za-z0-9-]+)/g)) await readEvent(m[1]);
+      }
+      for (const v of o.venues ?? []) venuePages.add(v);
+      const venueOut = [];
+      for (const vu of venuePages) {
+        const html = await page(vu); await sleep(delay);
+        const place = lds(html).find((x) => x && x['@type'] === 'Place');
+        const evs = (place?.event ?? []).filter((e) => Date.parse(e.startDate) < horizon && Date.parse(e.startDate) > Date.now() - 6 * 3600e3);
+        venueOut.push({ url: vu, name: place?.name ?? null, address: place?.address?.streetAddress ?? (typeof place?.address === 'string' ? place.address : null), events: evs.length });
+        for (const e of evs) { const k = hex(e.url); if (k && !NOT.test(e.name ?? '')) await readEvent(k); }
+      }
+      const events = [...seen.values()].filter((x) => !x.start || Date.parse(x.start) < horizon);
+      writeFileSync('bridge/out/dice_sweep.json', JSON.stringify({ run: new Date().toISOString(), fetched, venues: venueOut, events }));
+      results.push({ step: tag, dice_sweep: { fetched, venues: venueOut.length, events: events.length, parties: events.filter((x) => x.tags?.some((t) => t !== 'music:gig')).length } });
+      console.log(`${tag} dice_sweep: ${fetched} event pages, ${venueOut.length} venue pages, ${events.length} new nights`);
     } else if (s.sleep) {
       await sleep(s.sleep);
     }
