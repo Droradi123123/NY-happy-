@@ -1,200 +1,259 @@
 [
  {
   "step": "#1",
-  "rpc": "party_event_copy",
-  "key": "dice:6ae8b5ba346df800013de864",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae8b5ba346df800013de864",
+   "p_status": "ready"
+  },
   "ok": true,
   "status": 200,
-  "body": "review"
- },
- {
-  "step": "#1",
-  "rpc": "party_event_copy",
-  "key": "dice:6ae8b5fa8184de0001e54722",
-  "ok": true,
-  "status": 200,
-  "body": "review"
- },
- {
-  "step": "#1",
-  "rpc": "party_event_copy",
-  "key": "dice:6ae8c07125be9b0001459687",
-  "ok": true,
-  "status": 200,
-  "body": "review"
- },
- {
-  "step": "#1",
-  "rpc": "party_event_copy",
-  "key": "dice:6ae8b3ab814cb7000128a432",
-  "ok": true,
-  "status": 200,
-  "body": "review"
- },
- {
-  "step": "#1",
-  "rpc": "party_event_copy",
-  "key": "dice:6ae8b125346df80001c4755b",
-  "ok": true,
-  "status": 200,
-  "body": "review"
- },
- {
-  "step": "#1",
-  "rpc": "party_event_copy",
-  "key": "dice:6aa09925144e060001e4b3db",
-  "ok": true,
-  "status": 200,
-  "body": "review"
- },
- {
-  "step": "#1",
-  "rpc": "party_event_copy",
-  "key": "dice:6ae22bdb0263c100017483c1",
-  "ok": true,
-  "status": 200,
-  "body": "review"
- },
- {
-  "step": "#1",
-  "rpc": "party_event_copy",
-  "key": "dice:6ad7b1026b31ce0001743aea",
-  "ok": true,
-  "status": 200,
-  "body": "review"
- },
- {
-  "step": "#1",
-  "rpc": "party_event_copy",
-  "key": "dice:6acd1cbde6cc530001f8d641",
-  "ok": true,
-  "status": 200,
-  "body": "review"
- },
- {
-  "step": "#1",
-  "rpc": "party_event_copy",
-  "key": "dice:6acd58319306a80001880d23",
-  "ok": true,
-  "status": 200,
-  "body": "review"
- },
- {
-  "step": "#1",
-  "rpc": "party_event_copy",
-  "key": "dice:6ab6960ccd3c2b0001fbef1a",
-  "ok": true,
-  "status": 200,
-  "body": "review"
+  "body": "ready"
  },
  {
   "step": "#2",
-  "rpc": "party_publish_blockers",
+  "rpc": "party_event_status",
   "args": {
-   "p_id": "dice:6ae8b5ba346df800013de864"
+   "p_id": "dice:6ae8b5ba346df800013de864",
+   "p_status": "published"
   },
   "ok": true,
   "status": 200,
-  "body": []
+  "body": "published"
  },
  {
   "step": "#3",
-  "rpc": "party_publish_blockers",
+  "rpc": "party_event_status",
   "args": {
-   "p_id": "dice:6ae8b5fa8184de0001e54722"
+   "p_id": "dice:6ae8b5fa8184de0001e54722",
+   "p_status": "ready"
   },
   "ok": true,
   "status": 200,
-  "body": []
+  "body": "ready"
  },
  {
   "step": "#4",
-  "rpc": "party_publish_blockers",
+  "rpc": "party_event_status",
   "args": {
-   "p_id": "dice:6ae8c07125be9b0001459687"
+   "p_id": "dice:6ae8b5fa8184de0001e54722",
+   "p_status": "published"
   },
   "ok": true,
   "status": 200,
-  "body": []
+  "body": "published"
  },
  {
   "step": "#5",
-  "rpc": "party_publish_blockers",
+  "rpc": "party_event_status",
   "args": {
-   "p_id": "dice:6ae8b3ab814cb7000128a432"
+   "p_id": "dice:6ae8c07125be9b0001459687",
+   "p_status": "ready"
   },
   "ok": true,
   "status": 200,
-  "body": []
+  "body": "ready"
  },
  {
   "step": "#6",
-  "rpc": "party_publish_blockers",
+  "rpc": "party_event_status",
   "args": {
-   "p_id": "dice:6ae8b125346df80001c4755b"
+   "p_id": "dice:6ae8c07125be9b0001459687",
+   "p_status": "published"
   },
   "ok": true,
   "status": 200,
-  "body": []
+  "body": "published"
  },
  {
   "step": "#7",
-  "rpc": "party_publish_blockers",
+  "rpc": "party_event_status",
   "args": {
-   "p_id": "dice:6aa09925144e060001e4b3db"
+   "p_id": "dice:6ae8b3ab814cb7000128a432",
+   "p_status": "ready"
   },
   "ok": true,
   "status": 200,
-  "body": []
+  "body": "ready"
  },
  {
   "step": "#8",
-  "rpc": "party_publish_blockers",
+  "rpc": "party_event_status",
   "args": {
-   "p_id": "dice:6ae22bdb0263c100017483c1"
+   "p_id": "dice:6ae8b3ab814cb7000128a432",
+   "p_status": "published"
   },
   "ok": true,
   "status": 200,
-  "body": []
+  "body": "published"
  },
  {
   "step": "#9",
-  "rpc": "party_publish_blockers",
+  "rpc": "party_event_status",
   "args": {
-   "p_id": "dice:6ad7b1026b31ce0001743aea"
+   "p_id": "dice:6ae8b125346df80001c4755b",
+   "p_status": "ready"
   },
   "ok": true,
   "status": 200,
-  "body": []
+  "body": "ready"
  },
  {
   "step": "#10",
-  "rpc": "party_publish_blockers",
+  "rpc": "party_event_status",
   "args": {
-   "p_id": "dice:6acd1cbde6cc530001f8d641"
+   "p_id": "dice:6ae8b125346df80001c4755b",
+   "p_status": "published"
   },
   "ok": true,
   "status": 200,
-  "body": []
+  "body": "published"
  },
  {
   "step": "#11",
-  "rpc": "party_publish_blockers",
+  "rpc": "party_event_status",
   "args": {
-   "p_id": "dice:6acd58319306a80001880d23"
+   "p_id": "dice:6aa09925144e060001e4b3db",
+   "p_status": "ready"
   },
   "ok": true,
   "status": 200,
-  "body": []
+  "body": "ready"
  },
  {
   "step": "#12",
-  "rpc": "party_publish_blockers",
+  "rpc": "party_event_status",
   "args": {
-   "p_id": "dice:6ab6960ccd3c2b0001fbef1a"
+   "p_id": "dice:6aa09925144e060001e4b3db",
+   "p_status": "published"
   },
   "ok": true,
   "status": 200,
-  "body": []
+  "body": "published"
+ },
+ {
+  "step": "#13",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae22bdb0263c100017483c1",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#14",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae22bdb0263c100017483c1",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#15",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ad7b1026b31ce0001743aea",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#16",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ad7b1026b31ce0001743aea",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#17",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6acd1cbde6cc530001f8d641",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#18",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6acd1cbde6cc530001f8d641",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#19",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6acd58319306a80001880d23",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#20",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6acd58319306a80001880d23",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#21",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ab6960ccd3c2b0001fbef1a",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#22",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ab6960ccd3c2b0001fbef1a",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#24",
+  "insert": "party_runs",
+  "status": 201,
+  "body": [
+   {
+    "id": 22,
+    "started_at": "2026-11-02T20:53:08.0311+00:00",
+    "finished_at": null,
+    "kind": "skill-summary",
+    "stats": null,
+    "notes": "Nov 2 evening: DICE sweep (512 event pages, 102 venue pages, 66 seed pages): 12 new parties, 11 published, 1 rejected (Mulcahy's, Long Island). Eventbrite blocks automated reads (405/429). venue_from_dice now cross-checks GeoSearch with DICE zip and coordinates."
+   }
+  ]
  }
 ]
