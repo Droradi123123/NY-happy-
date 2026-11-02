@@ -13,6 +13,8 @@ import { cleanTitle, nightDate, nyTime } from '../../../lib/data';
 import { dateRange } from '../../../lib/partyLists';
 import { venues as actVenues, trivia as actTrivia, bingo as actBingo, games as actGames, sourceLabel, GAME_NAME } from '../../../lib/activities';
 import { DAY_NAME, DAYS } from '../../../lib/data';
+import { artistHref, promoterHref, type LedgerNight } from '../../../lib/people';
+import peopleLedger from '../../../data/people-ledger.json';
 
 /** every club that has had a published night keeps its page, with or without parties right now */
 export async function getStaticPaths() {
@@ -40,7 +42,7 @@ const inShort = nights.length
   : `No nights are listed at ${v.name} right now; new ones appear here when tickets go on sale.`;
 // questions answered from the listed nights only (no hours or ratings we have not read)
 const ages = [...new Set(nights.map((p) => p.age_min).filter((a): a is number => a !== null))].sort((a, b) => a - b);
-const priced = nights.filter((p) => p.price_from !== null && p.price_status !== 'free').map((p) => p.price_from!);
+const priced = nights.filter((p) => p.price_from !== null && p.price_from > 0 && p.price_status !== 'free').map((p) => p.price_from!);
 const faq = [
   ...(v.address ? [{ q: `Where is ${v.name}?`, a: `${v.address.replace(/, United States$|, USA$/, '')}${v.neighborhood ? `, in ${v.neighborhood}` : ''}${v.borough && v.borough !== v.neighborhood ? `, ${v.borough}` : ''}.` }] : []),
   { q: `What's on at ${v.name}?`, a: nights.length ? `${nights.length} upcoming ${nights.length === 1 ? 'night' : 'nights'}: ${nights.slice(0, 3).map((p) => `${cleanTitle(p.title)}, ${nightDate(p.night_date, { weekday: 'short', month: 'short', day: 'numeric' })}${nyTime(p.doors_at ?? p.starts_at) ? ` (doors ${nyTime(p.doors_at ?? p.starts_at)})` : ''}`).join('; ')}.` : `No nights are listed right now; new ones appear on this page when tickets go on sale.` },
@@ -49,6 +51,34 @@ const faq = [
   ...(priced.length ? [{ q: `How much are tickets at ${v.name}?`, a: `From $${Math.round(Math.min(...priced))} to $${Math.round(Math.max(...priced))} for the cheapest ticket on each night listed now, fees included where the seller shows them.` }] : []),
 ];
 const barsPage = (await venueBars()).find((x) => x.venue.id === v.id) ?? null;
+// ---------- the venue by the numbers (its listed nights) and its history (src/data/people-ledger.json) ----------
+const nyMin = (iso: string | null) => { if (!iso) return null; const [h, m] = new Intl.DateTimeFormat('en-GB', { timeZone: 'America/New_York', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).format(new Date(iso)).split(':').map(Number); const t = h * 60 + m; return t < 360 ? t + 1440 : t; };
+const clock = (t: number) => { const x = (Math.round(t / 15) * 15) % 1440, h = Math.floor(x / 60), mm = x % 60; return `${h % 12 || 12}${mm ? `:${String(mm).padStart(2, '0')}` : ''}${h < 12 ? 'am' : 'pm'}`; };
+const starts = nights.map((p) => nyMin(p.doors_at ?? p.starts_at)).filter((x): x is number => x !== null).sort((a, b) => a - b);
+const usualStart = starts.length >= 2 ? starts[Math.floor(starts.length / 2)] : null;
+const WD = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+const byDay = WD.map((_, i) => nights.filter((p) => new Date(`${p.night_date}T12:00:00Z`).getUTCDay() === i).length);
+const busiest = nights.length >= 3 ? WD[byDay.indexOf(Math.max(...byDay))] : null;
+const todayNY = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+const liveSlugs = new Set(nights.map((p) => p.slug));
+const past = (peopleLedger as LedgerNight[]).filter((n) => n.venue_id === v.id && n.night_date < todayNY && !liveSlugs.has(n.slug)).sort((a, b) => b.night_date.localeCompare(a.night_date));
+const tally = (xs: string[]) => [...xs.reduce((m, x) => m.set(x, (m.get(x) ?? 0) + 1), new Map<string, number>())].sort((a, b) => b[1] - a[1] || a[0].localeCompare(b[0]));
+const NOT_NAME = /^(tba|tbd|special guests?|guests?|more|and more|residents?|resident djs?|djs?|b2b)$/i;
+const sameAsVenue = (o: string) => o.toLowerCase().replace(/[^a-z0-9]/g, '').includes(v.name.toLowerCase().replace(/[^a-z0-9]/g, '').slice(0, 8));
+const artistTally = tally([...nights.flatMap((p) => p.performers), ...past.flatMap((n) => n.performers)].map((n) => n.trim()).filter((n) => n && !NOT_NAME.test(n))).slice(0, 10);
+const promoterTally = tally([...nights.map((p) => p.organizer), ...past.map((n) => n.organizer)].filter((o): o is string => !!o && !sameAsVenue(o)).map((o) => o.trim())).slice(0, 6);
+const artistLinks = await Promise.all(artistTally.map(async ([n, k]) => ({ n, k, href: await artistHref(n) })));
+const promoterLinks = await Promise.all(promoterTally.map(async ([n, k]) => ({ n, k, href: await promoterHref(n) })));
+const totalSeen = nights.length + past.length;
+// the venue's own rules, as it states them on its ticket listings (party_venues.copy.rules, each with its source)
+const vc = (v.copy ?? {}) as { about?: string; rules?: { label: string; text: string; url: string }[]; checked?: string };
+const rules = vc.rules ?? [];
+const RULE_Q: Record<string, (n: string) => string> = { ID: (n) => `What ID do I need at ${n}?`, 'Re-entry': (n) => `Is there re-entry at ${n}?`, 'Coat check': (n) => `Does ${n} have a coat check?`, Accessibility: (n) => `Is ${n} wheelchair accessible?`, 'Dress code': (n) => `Is there a dress code at ${n}?`, 'Door tickets': (n) => `Can I buy tickets at the door at ${n}?` };
+faq.push(
+  ...(usualStart !== null ? [{ q: `What time do parties start at ${v.name}?`, a: `Most nights listed now start around ${clock(usualStart)}${busiest ? `, and ${busiest} has the most nights` : ''}. Each night's page has its own doors and end time.` }] : []),
+  ...(artistTally.length >= 3 ? [{ q: `Who plays at ${v.name}?`, a: `On the nights we have listed${past.length ? ', past and upcoming' : ''}: ${artistTally.slice(0, 6).map(([n]) => n).join(', ')}.` }] : []),
+  ...rules.filter((r) => RULE_Q[r.label]).map((r) => ({ q: RULE_Q[r.label](v.name), a: r.text })),
+);
 const placeLd = {
   '@context': 'https://schema.org', '@type': v.kind === 'club' || v.kind === 'nightclub' ? 'NightClub' : 'Place', name: v.name, url: `${SITE}/parties/venue/${v.id}`,
   ...(v.address ? { address: postalAddress(v) } : {}), ...(v.lat ? { geo: { '@type': 'GeoCoordinates', latitude: v.lat, longitude: v.lng } } : {}),
@@ -64,6 +94,21 @@ const placeLd = {
   {vp && <Photo photo={vp.photo} note={photoNote(vp, v.name)} alt={vp.rel === 'own' ? `${v.name}, ${where}` : vp.rel === 'nearby' ? `The street outside ${v.name}, ${where}` : `${where}, the neighborhood around ${v.name}`} hero />}
   {v.lat && <MiniMap lat={v.lat} lng={v.lng!} label={v.name} />}
   {v.copy?.about && <section class="section"><h2>About {v.name}</h2><p>{v.copy.about}</p></section>}
+  {totalSeen >= 2 && (
+    <section class="section">
+      <h2>{v.name} by the numbers</h2>
+      <p>{nights.length > 0 ? `We list ${nights.length} upcoming ${nights.length === 1 ? 'night' : 'nights'} at ${v.name}` : `No nights are listed at ${v.name} right now`}{past.length > 0 ? ` and ${past.length} past ${past.length === 1 ? 'night' : 'nights'} in our records` : ''}.{usualStart !== null ? ` Nights usually start around ${clock(usualStart)}.` : ''}{busiest ? ` ${busiest} is the busiest night on the calendar.` : ''}{genres.length ? ` The sellers tag the music as ${genres.slice(0, 4).join(', ')}.` : ''}</p>
+      {promoterLinks.length > 0 && <p><strong>Who throws parties here:</strong> {promoterLinks.map((x, i) => <>{i > 0 && ', '}{x.href ? <a href={x.href}>{x.n}</a> : x.n} ({x.k})</>)}.</p>}
+      {artistLinks.length > 0 && <p><strong>On the bill{past.length ? ', past and upcoming' : ''}:</strong> {artistLinks.map((x, i) => <>{i > 0 && ', '}{x.href ? <a href={x.href}>{x.n}</a> : x.n}</>)}.</p>}
+    </section>
+  )}
+  {rules.length > 0 && (
+    <section class="section">
+      <h2>{v.name} rules: ID, entry and more</h2>
+      <dl class="facts">{rules.map((r) => <><dt>{r.label}</dt><dd>{r.text} <a class="small" href={r.url} rel="nofollow noopener" target="_blank">Source</a></dd></>)}</dl>
+      <p class="small">As {v.name} states them on its ticket listings{vc.checked ? `, read ${vc.checked}` : ''}. A night's own listing can set different terms.</p>
+    </section>
+  )}
   {(website || g) && (
     <section class="section">
       <h2>Before you go</h2>
@@ -100,6 +145,12 @@ const placeLd = {
   )}
   <HappyHourBefore venues={[v]} heading={`Happy hour before ${v.name}`} max={1} />
   {barsPage && <p><a href={`/parties/venue/${v.id}/bars`}>All {barsPage.bars.length} bars with happy hour near {v.name}</a></p>}
+  {past.length > 0 && (
+    <section class="section">
+      <h2>Past nights at {v.name}</h2>
+      <ul class="past">{past.slice(0, 12).map((n) => <li>{nightDate(n.night_date, { month: 'short', day: 'numeric', year: 'numeric' })}: {cleanTitle(n.title)}</li>)}</ul>
+    </section>
+  )}
   <section class="section faq">
     <h2>Questions</h2>
     {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
@@ -117,6 +168,8 @@ const placeLd = {
   .actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 18px; }
   .acts { padding-left: 18px; }
   .acts li { margin: 6px 0; }
+  .past { padding-left: 18px; }
+  .past li { margin: 4px 0; overflow-wrap: anywhere; }
   .act-src { margin: 2px 0 0; color: var(--muted); overflow-wrap: anywhere; }
   .act-src a { color: inherit; }
 </style>
