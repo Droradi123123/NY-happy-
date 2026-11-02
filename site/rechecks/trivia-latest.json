@@ -1,19 +1,13 @@
 {
- "date": "2026-10-26",
+ "date": "2026-11-02",
  "read": {
-  "NYC Trivia League": 175,
+  "NYC Trivia League": 177,
   "TriviaNYC": 7,
   "Uptown Pub Quiz": 1,
-  "NYC Trivia List": 318,
+  "NYC Trivia List": 319,
   "Brooklyn Trivia Finder": 128
  },
- "removed": [
-  {
-   "night": "The Brew Inn (wed)",
-   "key": "brew-inn--924-manhattan-ave:trivia:wed",
-   "why": "no longer listed by NYC Trivia League"
-  }
- ],
+ "removed": [],
  "time_changed": [],
  "still_listed": 281,
  "new_at_operators": [
