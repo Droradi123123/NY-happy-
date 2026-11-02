@@ -1,132 +1,26 @@
 [
  {
   "step": "#1",
-  "rpc": "party_lead_set",
-  "args": {
-   "p_id": 418,
-   "p_status": "merged",
-   "p_event_id": "venue:db2375e25013ee36",
-   "p_note": "published from Mood Ring's own events page (2026-11-02); RA not read"
+  "round": 0,
+  "ingest": {
+   "gone": 0,
+   "read": 15,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
   },
-  "ok": true,
-  "status": 200,
-  "body": "merged"
+  "queued": 0
  },
  {
-  "step": "#2",
-  "rpc": "party_lead_set",
-  "args": {
-   "p_id": 425,
-   "p_status": "merged",
-   "p_event_id": "venue:12b118c841c0671a",
-   "p_note": "published from Mood Ring's own events page (2026-11-02); RA not read"
+  "step": "#1",
+  "round": 1,
+  "ingest": {
+   "gone": 0,
+   "read": 0,
+   "waiting": 0,
+   "ended_now": 0,
+   "unreadable": 0
   },
-  "ok": true,
-  "status": 200,
-  "body": "merged"
- },
- {
-  "step": "#3",
-  "rpc": "party_lead_set",
-  "args": {
-   "p_id": 441,
-   "p_status": "merged",
-   "p_event_id": "venue:b3edb740913e6d54",
-   "p_note": "published from Mood Ring's own events page (2026-11-02); RA not read"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "merged"
- },
- {
-  "step": "#4",
-  "rpc": "party_lead_set",
-  "args": {
-   "p_id": 452,
-   "p_status": "merged",
-   "p_event_id": "venue:f6392547d113a282",
-   "p_note": "published from Mood Ring's own events page (2026-11-02); RA not read"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "merged"
- },
- {
-  "step": "#5",
-  "rpc": "party_lead_set",
-  "args": {
-   "p_id": 466,
-   "p_status": "merged",
-   "p_event_id": "venue:bb7c63afb410cd73",
-   "p_note": "published from Mood Ring's own events page (2026-11-02); RA not read"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "merged"
- },
- {
-  "step": "#6",
-  "rpc": "party_lead_set",
-  "args": {
-   "p_id": 510,
-   "p_status": "merged",
-   "p_event_id": "venue:96bfa52a1c451961",
-   "p_note": "published from Mood Ring's own events page (2026-11-02); RA not read"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "merged"
- },
- {
-  "step": "#7",
-  "rpc": "party_lead_set",
-  "args": {
-   "p_id": 517,
-   "p_status": "merged",
-   "p_event_id": "venue:e8ae37171285747b",
-   "p_note": "published from Mood Ring's own events page (2026-11-02); RA not read"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "merged"
- },
- {
-  "step": "#8",
-  "rpc": "party_lead_set",
-  "args": {
-   "p_id": 534,
-   "p_status": "merged",
-   "p_event_id": "venue:7207733bd8375dc1",
-   "p_note": "published from Mood Ring's own events page (2026-11-02); RA not read"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "merged"
- },
- {
-  "step": "#9",
-  "rpc": "party_lead_set",
-  "args": {
-   "p_id": 726,
-   "p_status": "merged",
-   "p_event_id": "venue:a982e921653f59d9",
-   "p_note": "published from Mood Ring's own events page (2026-11-02); RA not read"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "merged"
- },
- {
-  "step": "#10",
-  "rpc": "party_lead_set",
-  "args": {
-   "p_id": 794,
-   "p_status": "merged",
-   "p_event_id": "venue:b58efeeb9569dcf2",
-   "p_note": "published from Mood Ring's own events page (2026-11-02); RA not read"
-  },
-  "ok": true,
-  "status": 200,
-  "body": "merged"
+  "queued": 0
  }
 ]
