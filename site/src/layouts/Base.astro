@@ -5,7 +5,6 @@
  * none set = no analytics at all).
  */
 import InstallPrompt from '../components/InstallPrompt.astro';
-import NewsletterNudge from '../components/NewsletterNudge.astro';
 import Logo from '../components/Logo.astro';
 import { fitTitle } from '../lib/seo';
 import { GA_MEASUREMENT_ID, GOOGLE_SITE_VERIFICATION, BING_SITE_VERIFICATION, FO_VERIFY, CLARITY_ID } from '../lib/site';
@@ -197,7 +196,6 @@ const tabs = [
     m.addEventListener('click', (e) => { if (e.target === m || (e.target as HTMLElement).closest('a')) m.close(); });
   </script>
   <InstallPrompt />
-  <NewsletterNudge />
   <nav class="tabbar" aria-label="Sections">
     {tabs.map((t) => <a href={t.href} aria-current={on(t.href) ? 'page' : undefined}><svg viewBox="0 0 24 24" aria-hidden="true" set:html={ICON[t.icon]} />{t.label}</a>)}
   </nav>

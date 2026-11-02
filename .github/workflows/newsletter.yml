@@ -4,9 +4,11 @@
 # as a run artifact; the log shows counts only.
 name: Newsletter
 
+# Paused Nov 2, 2026 at the owner's request: no Thursday run until it is switched back on (restore the
+# schedule below). It can still be run by hand.
 on:
-  schedule:
-    - cron: '17 15 * * 4'
+  # schedule:
+  #   - cron: '17 15 * * 4'
   workflow_dispatch:
     inputs:
       mode:
