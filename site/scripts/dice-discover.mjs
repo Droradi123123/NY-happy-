@@ -5,8 +5,8 @@
  * rejected), with the tags DICE gives each (music:dj / music:party / music:gig). It publishes nothing: the
  * nyc-parties skill adds, writes up and publishes from the report (bridge/out/dice_discover.json).
  *
- * It also re-reads the nights listed from a venue's own site (Mood Ring) and refreshes those listings, so they
- * stay within the 7-day re-read rule (twice a week, Mondays and Thursdays).
+ * It also re-reads the nights listed outside DICE (a venue's own site such as Mood Ring, and Eventbrite) and
+ * refreshes those listings, so they stay within the 7-day re-read rule (twice a week, Mondays and Thursdays).
  *
  * Public pages only, one at a time, never /api/. Reads party_events with SUPABASE_SERVICE_KEY; prints counts only.
  */
@@ -79,19 +79,22 @@ for (const f of found) {
   f.tags = [...new Set(html.match(/music:[a-z_]+/g) ?? [])];
   await sleep(1200);
 }
-// 4. nights listed from a venue's own site (party_add_listing, vendor Venue): re-read the page and refresh the
-// listing, so it stays within the 7-day re-read rule. Only sites whose event pages carry schema.org Event data.
-const READABLE = /^https:\/\/www\.moodringnyc\.club\/events\//;
-const venueNights = await rest(`party_events?select=id,ticket_url,venue_id,age_min,themes&publish_status=eq.published&night_date=gte.${today}&ticket_url=like.https://www.moodringnyc.club/*`);
+// 4. nights listed outside DICE (party_add_listing): a venue's own site (vendor Venue) and Eventbrite. Re-read each
+// published night's public page and refresh the listing, so it stays within the 7-day re-read rule (twice a week,
+// Mondays and Thursdays). Only pages that carry schema.org Event data; a page that no longer has it is left for review.
+const READABLE = /^https:\/\/(www\.moodringnyc\.club\/events\/|www\.eventbrite\.com\/e\/)/;
+const venueNights = await rest(`party_events?select=id,title,ticket_url,ticket_vendor,venue_id,age_min,themes,performers,organizer&publish_status=eq.published&night_date=gte.${today}&or=(ticket_url.like.https://www.moodringnyc.club/*,ticket_url.like.https://www.eventbrite.com/*)`);
 let refreshed = 0, gone = 0;
 for (const e of venueNights.filter((x) => READABLE.test(x.ticket_url))) {
-  const ev = ld(await page(e.ticket_url).catch(() => '')).find((o) => o && o['@type'] === 'Event');
-  await sleep(1200);
+  const ev = ld(await page(e.ticket_url).catch(() => '')).flat().find((o) => o && /Event$/.test(String(o['@type'])));
+  await sleep(e.ticket_url.includes('eventbrite.com') ? 2500 : 1200);
   if (!ev?.startDate) { gone++; continue; }
   const iso = (s) => (s ? s.replace(/([+-]\d\d)(\d\d)$/, '$1:$2') : null);
+  const vendor = e.ticket_url.includes('eventbrite.com') ? 'Eventbrite' : 'Venue';
   const r = await fetch(`${SB}/rest/v1/rpc/party_add_listing`, { method: 'POST', headers: { apikey: KEY, authorization: `Bearer ${KEY}`, 'content-type': 'application/json' },
-    body: JSON.stringify({ p: { vendor: 'Venue', url: e.ticket_url, title: String(ev.name).replace(/\s+—\s+Mood Ring$/, '').replace(/^\[happy hour\]\s*/, ''), starts_at: iso(ev.startDate), ends_at: iso(ev.endDate),
-      venue_id: e.venue_id, age_min: e.age_min, themes: e.themes ?? [] } }) });
+    body: JSON.stringify({ p: { vendor, url: e.ticket_url, title: e.title, starts_at: iso(ev.startDate), ends_at: iso(ev.endDate),
+      venue_id: e.venue_id, ...(e.age_min !== null ? { age_min: e.age_min } : {}), themes: e.themes ?? [], performers: e.performers ?? [], ...(e.organizer ? { organizer: e.organizer } : {}),
+      event_status: /Cancelled/.test(String(ev.eventStatus ?? '')) ? 'cancelled' : undefined } }) });
   if (r.ok) refreshed++;
 }
 console.log(`venue listings: ${refreshed} re-read and refreshed${gone ? `, ${gone} no longer on the venue's site (left for review)` : ''}`);

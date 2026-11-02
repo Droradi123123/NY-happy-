@@ -97,6 +97,11 @@ for (const [i, s] of plan.steps.entries()) {
       const g = await (await fetch(`https://geosearch.planninglabs.nyc/v2/search?size=1&text=${encodeURIComponent(a)}`)).json();
       const f = g.features?.[0], p = f?.properties ?? {};
       const boro = { Manhattan: 'Manhattan', Brooklyn: 'Brooklyn', Queens: 'Queens', Bronx: 'The Bronx', 'Staten Island': 'Staten Island' }[p.borough];
+      // GeoSearch matches fuzzily (a Long Island address once came back as a Staten Island street): the match
+      // must agree with DICE on the zip code and lie within 600 m of DICE's own coordinates when DICE gives them
+      const zipDice = (typeof loc.address === 'string' ? loc.address : `${loc.address?.streetAddress ?? ''} ${loc.address?.postalCode ?? ''}`).match(/\b(1\d{4})\b(?!.*\b1\d{4}\b)/)?.[1] ?? null;
+      const gd = loc.geo && f ? Math.hypot((loc.geo.latitude - f.geometry.coordinates[1]) * 111e3, (loc.geo.longitude - f.geometry.coordinates[0]) * 84e3) : null;
+      if (f && ((zipDice && p.postalcode && zipDice !== p.postalcode) || (gd !== null && gd > 600))) { results.push({ step: tag, venue: id, error: 'GeoSearch disagrees with DICE', address: a, geo: p.label, zip: [zipDice, p.postalcode], meters: gd && Math.round(gd) }); console.log(`${tag} venue ${id}: GeoSearch disagrees with DICE`); continue; }
       if (!f || !boro || (p.confidence ?? 0) < 0.8) { results.push({ step: tag, venue: id, error: 'not geocoded in NYC', address: a, geo: p.label }); console.log(`${tag} venue ${id}: not placed in the five boroughs`); continue; }
       const row = { id, name: loc.name, address: `${p.housenumber ?? ''} ${p.street ?? ''}`.trim() || a, zip: p.postalcode ?? null, borough: boro,
         lat: f.geometry.coordinates[1], lng: f.geometry.coordinates[0], sources: [{ name: 'DICE', url, checked_at: new Date().toISOString() }, { name: 'NYC GeoSearch', url: 'https://geosearch.planninglabs.nyc', label: p.label }] };
