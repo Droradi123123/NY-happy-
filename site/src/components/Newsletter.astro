@@ -4,7 +4,7 @@
  * nobody can read the list through the API). A hidden field catches bots.
  */
 interface Props { source: string; compact?: boolean; heading?: string; text?: string }
-const { source, compact = false, heading = 'The best of NYC, every Thursday', text = 'The week’s best happy hours, new deals and the parties worth buying tickets for. One email a week, no spam, unsubscribe anytime.' } = Astro.props;
+const { source, compact = false, heading = 'Get the best of NYC by email', text = 'The parties worth buying tickets for, holiday nights as they go on sale, and new happy-hour deals. No spam, unsubscribe anytime.' } = Astro.props;
 const id = `nl-${source.replace(/[^a-z0-9]+/gi, '-')}`;
 ---
 <section id="newsletter" class:list={['newsletter', { compact }]} aria-labelledby={`${id}-h`}>
@@ -17,7 +17,7 @@ const id = `nl-${source.replace(/[^a-z0-9]+/gi, '-')}`;
     <button class="btn coral" type="submit">Sign me up</button>
   </form>
   <p class="nl-msg" role="status" aria-live="polite"></p>
-  <p class="nl-fine">By signing up you agree to get our weekly email. We never share your address. <a href="/privacy">Privacy</a>.</p>
+  <p class="nl-fine">By signing up you agree to get emails from YaY NYC. We never share your address. <a href="/privacy">Privacy</a>.</p>
 </section>
 <script>
   const URL_ = 'https://zqfscuwkxcoktpjhaebv.supabase.co/rest/v1/newsletter_signups';
@@ -35,7 +35,7 @@ const id = `nl-${source.replace(/[^a-z0-9]+/gi, '-')}`;
         body: JSON.stringify({ email, source: `${f.dataset.source} ${location.pathname}`.slice(0, 200), consent_text: CONSENT }) });
       // 409: already on the list, which is fine
       if (r.ok || r.status === 409) {
-        msg.textContent = 'You’re in! See you Thursday.'; f.reset();
+        msg.textContent = 'You’re in! Thanks for joining.'; f.reset();
         try { localStorage.setItem('yay-nl', '1'); } catch { /* private mode */ }
         (window as any).gtag?.('event', 'sign_up', { method: 'newsletter', source: f.dataset.source });
       } else msg.textContent = 'Something went wrong. Please try again.';
