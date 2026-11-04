@@ -232,6 +232,7 @@ for (const [i, s] of plan.steps.entries()) {
       for (const e of await get(`party_events?select=id,ticket_url&night_date=gte.${today}`)) { known.add(e.id.replace(/^dice:/, '')); const h = hex(e.ticket_url); if (h) known.add(h); }
       const seen = new Map(); // event key -> record
       const venuePages = new Set(); // the venues the seed pages point to come first, then `venues`
+      const promoterPages = new Set(o.promoters ?? []); // every promoter an event page links to, read like a seed page
       const NOT = /karaoke|skate|class\b|lesson|signing|watch party|viewing|open mic|trivia|bingo|comedy|stand-?up|podcast|reading|screening|workshop|yoga|market|book club|video game/i;
       let fetched = 0;
       const readEvent = async (key) => {
@@ -241,6 +242,7 @@ for (const [i, s] of plan.steps.entries()) {
         if (!ev) { seen.set(key, { key, error: 'no event data' }); return; }
         const loc = Array.isArray(ev.location) ? ev.location[0] : ev.location ?? {};
         if (loc.url) venuePages.add(String(loc.url).split('?')[0]);
+        for (const m of html.matchAll(/(?:https:\/\/dice\.fm)?\/promoters\/([a-z0-9-]+)/g)) promoterPages.add(`https://dice.fm/promoters/${m[1]}`);
         const offers = [].concat(ev.offers ?? []);
         seen.set(key, { key, url: `https://dice.fm/event/${key}`, name: ev.name, start: ev.startDate, end: ev.endDate ?? null, status: String(ev.eventStatus ?? '').split('/').pop(),
           venue: { name: loc.name ?? null, url: loc.url ? String(loc.url).split('?')[0] : null, address: typeof loc.address === 'string' ? loc.address : loc.address?.streetAddress ?? null, geo: loc.geo ? [loc.geo.latitude, loc.geo.longitude] : null },
@@ -248,6 +250,12 @@ for (const [i, s] of plan.steps.entries()) {
       };
       for (const u of o.seeds ?? []) {
         const html = await page(u); await sleep(delay);
+        for (const m of html.matchAll(/\/event\/([A-Za-z0-9-]+)/g)) await readEvent(m[1]);
+      }
+      const promotersRead = [];
+      for (const pu of promoterPages) {
+        if (promotersRead.length >= (o.max_promoters ?? 80)) break;
+        const html = await page(pu); await sleep(delay); promotersRead.push(pu);
         for (const m of html.matchAll(/\/event\/([A-Za-z0-9-]+)/g)) await readEvent(m[1]);
       }
       for (const v of o.venues ?? []) venuePages.add(v);
@@ -260,7 +268,7 @@ for (const [i, s] of plan.steps.entries()) {
         for (const e of evs) { const k = hex(e.url); if (k && !NOT.test(e.name ?? '')) await readEvent(k); }
       }
       const events = [...seen.values()].filter((x) => !x.start || Date.parse(x.start) < horizon);
-      writeFileSync('bridge/out/dice_sweep.json', JSON.stringify({ run: new Date().toISOString(), fetched, venues: venueOut, events }));
+      writeFileSync('bridge/out/dice_sweep.json', JSON.stringify({ run: new Date().toISOString(), fetched, promoters: promotersRead, venues: venueOut, events }));
       results.push({ step: tag, dice_sweep: { fetched, venues: venueOut.length, events: events.length, parties: events.filter((x) => x.tags?.some((t) => t !== 'music:gig')).length } });
       console.log(`${tag} dice_sweep: ${fetched} event pages, ${venueOut.length} venue pages, ${events.length} new nights`);
     } else if (s.sleep) {
