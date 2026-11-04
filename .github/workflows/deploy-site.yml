@@ -1,8 +1,8 @@
 # Builds yaynyc.com from Supabase and deploys it to Cloudflare Workers (static assets).
 # The one scheduled rebuild of the site: every 4 hours (ended parties drop off, new data and photos go
 # live), on every push that changes site/, and on demand from the Actions tab. The database's own
-# twice-daily deploy-hook rebuild is retired (supabase/migrations/20261104120000_one_rebuild_path.sql). Without a Cloudflare token here, the scheduled run checks the
-# build on live data and, if it passes, pushes a one-line stamp (site/.rebuild): the
+# twice-daily deploy-hook rebuild is retired (supabase/migrations/20261104120000_one_rebuild_path.sql).
+# Without a Cloudflare token here, the scheduled run checks the build on live data and, if it passes, pushes a one-line stamp (site/.rebuild): the
 # push is what makes Cloudflare Workers Builds rebuild and deploy the site.
 #
 # Needs, in GitHub > Settings > Secrets and variables > Actions:
