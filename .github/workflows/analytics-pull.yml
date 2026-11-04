@@ -1,10 +1,13 @@
 # Pulls Search Console, GA4, PageSpeed/CrUX and Bing Webmaster data for yaynyc.com and commits it
 # ENCRYPTED (analytics/report.enc): AES-256 with a random key, the key sealed to analytics/reader.pub.
 # The repository is public, so the data is never written in the clear and the log shows only which
-# sources answered. Run by hand.
+# sources answered. Weekly, Mondays 7:53am New York (approved Nov 4, 2026), so each week starts with a fresh
+# analysis, and by hand.
 name: Analytics pull (encrypted)
 
 on:
+  schedule:
+    - cron: '53 12 * * 1'
   workflow_dispatch:
 
 permissions:

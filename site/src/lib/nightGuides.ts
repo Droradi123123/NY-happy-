@@ -207,6 +207,9 @@ const SOUNDS: Record<string, { genres: string[]; name: string }> = {
   house: { genres: ['house', 'afro-house', 'disco', 'garage'], name: 'house music' },
   latin: { genres: ['latin', 'reggaeton'], name: 'Latin and reggaeton' },
   'hip-hop': { genres: ['hip-hop', 'r-and-b'], name: 'hip-hop and R&B' },
+  afro: { genres: ['afrobeats', 'amapiano', 'afro-house', 'dancehall'], name: 'Afrobeats, amapiano and dancehall' },
+  reggaeton: { genres: ['reggaeton'], name: 'reggaeton' },
+  edm: { genres: ['edm', 'trance', 'dubstep'], name: 'EDM and trance' },
 };
 function clubNights(c: Ctx, b: string, s: string, days: number) {
   return within(c, days).filter((p) => (b === 'all' || BOROUGH_SLUG[p.borough ?? ''] === b) && (s === 'all' || p.genres.some((g) => SOUNDS[s].genres.includes(g))));
@@ -228,12 +231,18 @@ const CLUBS: ClubSpec[] = [
     related: [['Latin parties', '/parties/latin'], ['Reggaeton parties', '/parties/reggaeton'], ['Hip-hop clubs', '/blog/hip-hop-clubs-nyc'], ['Best clubs in NYC', '/blog/best-clubs-in-nyc']] },
   { slug: 'hip-hop-clubs-nyc', lead: 'Hip hop clubs in NYC', keyword: 'hip hop clubs nyc', title: 'Hip Hop Clubs NYC: Hip-Hop and R&B Nights', h1: 'Hip hop clubs in NYC: where the hip-hop and R&B nights are', short: 'Hip-hop clubs', borough: 'all', sound: 'hip-hop', days: 60, place: 'NYC',
     related: [['Hip-hop parties', '/parties/hip-hop'], ['R&B parties', '/parties/r-and-b'], ['Latin clubs', '/blog/latin-clubs-nyc'], ['Best clubs in NYC', '/blog/best-clubs-in-nyc']] },
+  { slug: 'afrobeats-clubs-nyc', lead: 'Afrobeats clubs in NYC', keyword: 'afrobeats clubs nyc', title: 'Afrobeats Clubs NYC: Amapiano, Afro House, Dancehall', h1: 'Afrobeats clubs in NYC: where the afrobeats, amapiano and dancehall nights are', short: 'Afrobeats clubs', borough: 'all', sound: 'afro', days: 60, place: 'NYC',
+    related: [['Afrobeats parties', '/parties/afrobeats'], ['Amapiano parties', '/parties/amapiano'], ['Afro house parties', '/parties/afro-house'], ['Dancehall parties', '/parties/dancehall'], ['Hip-hop clubs', '/blog/hip-hop-clubs-nyc'], ['Best clubs in NYC', '/blog/best-clubs-in-nyc']] },
+  { slug: 'reggaeton-clubs-nyc', lead: 'Reggaeton clubs in NYC', keyword: 'reggaeton clubs nyc', title: 'Reggaeton Clubs NYC: Where the Perreo Nights Are', h1: 'Reggaeton clubs in NYC: the venues with the most reggaeton nights', short: 'Reggaeton clubs', borough: 'all', sound: 'reggaeton', days: 60, place: 'NYC',
+    related: [['Reggaeton parties', '/parties/reggaeton'], ['Latin parties', '/parties/latin'], ['Latin clubs', '/blog/latin-clubs-nyc'], ['Best clubs in NYC', '/blog/best-clubs-in-nyc']] },
+  { slug: 'edm-clubs-nyc', lead: 'EDM clubs in NYC', keyword: 'edm clubs nyc', title: 'EDM Clubs NYC: EDM and Trance Nights, Ranked', h1: 'EDM clubs in NYC: where the EDM and trance headliners play', short: 'EDM clubs', borough: 'all', sound: 'edm', days: 60, place: 'NYC',
+    related: [['EDM parties', '/parties/edm'], ['Trance parties', '/parties/trance'], ['Techno clubs', '/blog/techno-clubs-nyc'], ['Best clubs in NYC', '/blog/best-clubs-in-nyc']] },
 ];
 
 function clubGuide(c: Ctx, s: ClubSpec): Guide | null {
   const ps = clubNights(c, s.borough, s.sound, s.days);
   const vs = venueStats(ps, c.venues);
-  if (!vs.length) return null;
+  if (vs.length < (s.sound === 'all' ? 1 : 3)) return null; // a one-sound ranking needs at least three venues
   const st = nightStats(ps);
   const top = vs.slice(0, 10);
   const what = s.sound === 'all' ? 'nights' : `${SOUNDS[s.sound].name} nights`;
@@ -261,7 +270,7 @@ function clubGuide(c: Ctx, s: ClubSpec): Guide | null {
     { h2: 'Before you go', paras: RULES(c) },
   ];
   if (s.sound === 'all') sections.splice(2, 0, { h2: 'By sound', paras: [
-    `The most booked sounds are ${list(st.genres.slice(0, 6).map(([g, n]) => `${listLink(c, g, genreName(g).toLowerCase())} (${n})`))}. For one sound, see ${a('/blog/techno-clubs-nyc', 'techno clubs')}, ${a('/blog/house-music-clubs-nyc', 'house music clubs')}, ${a('/blog/latin-clubs-nyc', 'Latin clubs')} and ${a('/blog/hip-hop-clubs-nyc', 'hip hop clubs')}.`,
+    `The most booked sounds are ${list(st.genres.slice(0, 6).map(([g, n]) => `${listLink(c, g, genreName(g).toLowerCase())} (${n})`))}. For one sound, see ${a('/blog/techno-clubs-nyc', 'techno clubs')}, ${a('/blog/house-music-clubs-nyc', 'house music clubs')}, ${a('/blog/latin-clubs-nyc', 'Latin clubs')}, ${a('/blog/reggaeton-clubs-nyc', 'reggaeton clubs')}, ${a('/blog/hip-hop-clubs-nyc', 'hip hop clubs')}, ${a('/blog/afrobeats-clubs-nyc', 'afrobeats clubs')} and ${a('/blog/edm-clubs-nyc', 'EDM clubs')}.`,
   ] });
   else {
     const pages = SOUNDS[s.sound].genres.filter((g) => c.lists.has(g));
