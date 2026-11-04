@@ -1,244 +1,398 @@
 [
  {
   "step": "#1",
-  "rpc": "party_venue_hoods",
-  "args": {},
+  "rpc": "party_event_copy",
+  "key": "dice:6aea7e9d53eca8000194b4a3",
   "ok": true,
   "status": 200,
-  "body": 0
+  "body": "review"
+ },
+ {
+  "step": "#1",
+  "rpc": "party_event_copy",
+  "key": "dice:6aea80022c05400001ae58a1",
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#1",
+  "rpc": "party_event_copy",
+  "key": "dice:6aea345c73dd350001b1a19b",
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#1",
+  "rpc": "party_event_copy",
+  "key": "dice:6ae90553814cb70001bc149c",
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#1",
+  "rpc": "party_event_copy",
+  "key": "dice:6ae90a6e25be9b0001322acb",
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#1",
+  "rpc": "party_event_copy",
+  "key": "dice:6aea233185f24b00014a5a17",
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#1",
+  "rpc": "party_event_copy",
+  "key": "dice:6ae8ffa73239e700016d865e",
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#1",
+  "rpc": "party_event_copy",
+  "key": "dice:6ae94e8ad94d190001e24ffd",
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#1",
+  "rpc": "party_event_copy",
+  "key": "dice:6ae8f819814cb70001912d4c",
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#1",
+  "rpc": "party_event_copy",
+  "key": "dice:6ae8f4fa25be9b00015b0ccf",
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#1",
+  "rpc": "party_event_copy",
+  "key": "dice:6ae117590f82800001ed7892",
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#1",
+  "rpc": "party_event_copy",
+  "key": "dice:6ae8f84925be9b0001b34163",
+  "ok": true,
+  "status": 200,
+  "body": "review"
  },
  {
   "step": "#2",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6aea7e9d53eca8000194b4a3",
-   "p_venue_id": "listen",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
+   "p_id": "dice:6aea7e9d53eca8000194b4a3",
+   "p_status": "ready"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6aea7e9d53eca8000194b4a3"
+  "body": "ready"
  },
  {
   "step": "#3",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6aea80022c05400001ae58a1",
-   "p_venue_id": "listen",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
+   "p_id": "dice:6aea7e9d53eca8000194b4a3",
+   "p_status": "published"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6aea80022c05400001ae58a1"
+  "body": "published"
  },
  {
   "step": "#4",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6aea233185f24b00014a5a17",
-   "p_venue_id": "h0l0",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
+   "p_id": "dice:6aea80022c05400001ae58a1",
+   "p_status": "ready"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6aea233185f24b00014a5a17"
+  "body": "ready"
  },
  {
   "step": "#5",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6ae90553814cb70001bc149c",
-   "p_venue_id": "moondog-hifi",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
+   "p_id": "dice:6aea80022c05400001ae58a1",
+   "p_status": "published"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae90553814cb70001bc149c"
+  "body": "published"
  },
  {
   "step": "#6",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6ae90a6e25be9b0001322acb",
-   "p_venue_id": "moondog-hifi",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
+   "p_id": "dice:6aea345c73dd350001b1a19b",
+   "p_status": "ready"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae90a6e25be9b0001322acb"
+  "body": "ready"
  },
  {
   "step": "#7",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6ae8ffa73239e700016d865e",
-   "p_venue_id": "purgatory",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
+   "p_id": "dice:6aea345c73dd350001b1a19b",
+   "p_status": "published"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae8ffa73239e700016d865e"
+  "body": "published"
  },
  {
   "step": "#8",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6ae94e8ad94d190001e24ffd",
-   "p_venue_id": "listen",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
+   "p_id": "dice:6ae90553814cb70001bc149c",
+   "p_status": "ready"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae94e8ad94d190001e24ffd"
+  "body": "ready"
  },
  {
   "step": "#9",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6ae8f819814cb70001912d4c",
-   "p_venue_id": "somewhere-nowhere-nyc",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
+   "p_id": "dice:6ae90553814cb70001bc149c",
+   "p_status": "published"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae8f819814cb70001912d4c"
+  "body": "published"
  },
  {
   "step": "#10",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6ae8f5f49ac9250001acda41",
-   "p_venue_id": "somewhere-nowhere-nyc",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
+   "p_id": "dice:6ae90a6e25be9b0001322acb",
+   "p_status": "ready"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae8f5f49ac9250001acda41"
+  "body": "ready"
  },
  {
   "step": "#11",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6ae8f4fa25be9b00015b0ccf",
-   "p_venue_id": "somewhere-nowhere-nyc",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
+   "p_id": "dice:6ae90a6e25be9b0001322acb",
+   "p_status": "published"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae8f4fa25be9b00015b0ccf"
+  "body": "published"
  },
  {
   "step": "#12",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6ae8f84925be9b0001b34163",
-   "p_venue_id": "somewhere-nowhere-nyc",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
+   "p_id": "dice:6aea233185f24b00014a5a17",
+   "p_status": "ready"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae8f84925be9b0001b34163"
+  "body": "ready"
  },
  {
   "step": "#13",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6ae8f6de25be9b000114233d",
-   "p_venue_id": "somewhere-nowhere-nyc",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
+   "p_id": "dice:6aea233185f24b00014a5a17",
+   "p_status": "published"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae8f6de25be9b000114233d"
+  "body": "published"
  },
  {
   "step": "#14",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6ae8f647c8929c0001eb939c",
-   "p_venue_id": "somewhere-nowhere-nyc",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
+   "p_id": "dice:6ae8ffa73239e700016d865e",
+   "p_status": "ready"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae8f647c8929c0001eb939c"
+  "body": "ready"
  },
  {
   "step": "#15",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6aea345c73dd350001b1a19b",
-   "p_venue_id": "cassette",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
+   "p_id": "dice:6ae8ffa73239e700016d865e",
+   "p_status": "published"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6aea345c73dd350001b1a19b"
+  "body": "published"
  },
  {
   "step": "#16",
-  "rpc": "party_add_dice",
+  "rpc": "party_event_status",
   "args": {
-   "p_url": "https://dice.fm/event/6ae117590f82800001ed7892",
-   "p_venue_id": "h0l0",
-   "p_room": null,
-   "p_found_via": "DICE sweep of NYC lists, genre and venue pages, 2026-11-02",
-   "p_themes": []
+   "p_id": "dice:6ae94e8ad94d190001e24ffd",
+   "p_status": "ready"
   },
   "ok": true,
   "status": 200,
-  "body": "dice:6ae117590f82800001ed7892"
+  "body": "ready"
  },
  {
   "step": "#17",
-  "round": 0,
-  "ingest": {
-   "gone": 0,
-   "read": 26,
-   "waiting": 4,
-   "ended_now": 0,
-   "unreadable": 0
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae94e8ad94d190001e24ffd",
+   "p_status": "published"
   },
-  "queued": 0
+  "ok": true,
+  "status": 200,
+  "body": "published"
  },
  {
-  "step": "#17",
-  "round": 1,
-  "ingest": {
-   "gone": 0,
-   "read": 4,
-   "waiting": 0,
-   "ended_now": 0,
-   "unreadable": 0
+  "step": "#18",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae8f819814cb70001912d4c",
+   "p_status": "ready"
   },
-  "queued": 0
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#19",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae8f819814cb70001912d4c",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#20",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae8f4fa25be9b00015b0ccf",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#21",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae8f4fa25be9b00015b0ccf",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#22",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae117590f82800001ed7892",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#23",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae117590f82800001ed7892",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#24",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae8f84925be9b0001b34163",
+   "p_status": "ready"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "ready"
+ },
+ {
+  "step": "#25",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae8f84925be9b0001b34163",
+   "p_status": "published"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "published"
+ },
+ {
+  "step": "#26",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae8f6de25be9b000114233d",
+   "p_status": "review",
+   "p_reason": "TBA placeholder: the listing says music by TBA and gives no artist or concept beyond the title Haus of Joon"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#27",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae8f5f49ac9250001acda41",
+   "p_status": "review",
+   "p_reason": "TBA placeholder: the title still reads 'Loco Carnaval: TBA' and no DJ is named; publish when the lineup is announced"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "review"
+ },
+ {
+  "step": "#28",
+  "rpc": "party_event_status",
+  "args": {
+   "p_id": "dice:6ae8f647c8929c0001eb939c",
+   "p_status": "review",
+   "p_reason": "TBA placeholder: the title still reads 'Loco Carnaval: TBA' and no DJ is named; publish when the lineup is announced"
+  },
+  "ok": true,
+  "status": 200,
+  "body": "review"
  }
 ]
