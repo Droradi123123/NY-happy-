@@ -25,9 +25,16 @@ if (bing) {
   const q = await (await fetch(`${api('GetUrlSubmissionQuota')}&siteUrl=${encodeURIComponent(SITE + '/')}`)).json().catch(() => ({}));
   const daily = q.d?.DailyQuota ?? 0;
   console.log(`bing url quota today: ${daily}`);
-  // the most valuable pages first: hubs, parties, guides, then the rest
-  const order = (u) => (/\/parties\/|\/blog\//.test(u) ? 0 : /\/happy-hours\/?$|\/parties\/?$|yaynyc\.com\/?$/.test(u) ? -1 : 1);
-  const batch = [...urls].sort((a, b) => order(a) - order(b)).slice(0, Math.min(daily, 500));
+  // Bing's quota is small (100 a day for this site). The hubs and the timely lists go every day; the rest of the
+  // sitemap rotates, a new slice each day, parties and guides first, so every page is submitted within about
+  // two weeks instead of the same first 100 every day.
+  const cap = Math.min(daily, 500);
+  const always = urls.filter((u) => /yaynyc\.com\/?$|\/parties\/?$|\/happy-hours\/?$|\/parties\/(tonight|tomorrow|this-weekend|next-weekend|calendar|new-years-eve|thanksgiving-eve|thanksgiving-weekend|christmas)\/?$/.test(u)).slice(0, cap);
+  const order = (u) => (/\/parties\/|\/blog\//.test(u) ? 0 : 1);
+  const rest = urls.filter((u) => !always.includes(u)).sort((a, b) => order(a) - order(b));
+  const n = Math.max(0, cap - always.length), start = rest.length ? (Math.floor(Date.now() / 864e5) * n) % rest.length : 0;
+  const batch = [...always, ...rest.slice(start), ...rest.slice(0, start)].slice(0, cap);
+  console.log(`bing batch: ${always.length} hubs every day + ${batch.length - always.length} rotating from ${start} of ${rest.length}`);
   if (batch.length) {
     const r = await fetch(api('SubmitUrlBatch'), { method: 'POST', headers: { 'Content-Type': 'application/json; charset=utf-8' }, body: JSON.stringify({ siteUrl: `${SITE}/`, urlList: batch }) });
     console.log(`bing url batch: ${batch.length} URLs, HTTP ${r.status}`);
