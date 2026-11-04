@@ -82,15 +82,16 @@ for (const f of found) {
 // 4. nights listed outside DICE (party_add_listing): a venue's own site (vendor Venue) and Eventbrite. Re-read each
 // published night's public page and refresh the listing, so it stays within the 7-day re-read rule (twice a week,
 // Mondays and Thursdays). Only pages that carry schema.org Event data; a page that no longer has it is left for review.
-const READABLE = /^https:\/\/(www\.moodringnyc\.club\/events\/|www\.eventbrite\.com\/e\/)/;
-const venueNights = await rest(`party_events?select=id,title,ticket_url,ticket_vendor,venue_id,age_min,themes,performers,organizer&publish_status=eq.published&night_date=gte.${today}&or=(ticket_url.like.https://www.moodringnyc.club/*,ticket_url.like.https://www.eventbrite.com/*)`);
+const READABLE = /^https:\/\/(www\.moodringnyc\.club\/events\/|www\.eventbrite\.com\/e\/|joonbug\.com\/)/;
+const venueNights = await rest(`party_events?select=id,title,ticket_url,ticket_vendor,venue_id,age_min,themes,performers,organizer&publish_status=eq.published&night_date=gte.${today}&or=(ticket_url.like.https://www.moodringnyc.club/*,ticket_url.like.https://www.eventbrite.com/*,ticket_url.like.https://joonbug.com/*)`);
 let refreshed = 0, gone = 0;
 for (const e of venueNights.filter((x) => READABLE.test(x.ticket_url))) {
-  const ev = ld(await page(e.ticket_url).catch(() => '')).flat().find((o) => o && /Event$/.test(String(o['@type'])));
-  await sleep(e.ticket_url.includes('eventbrite.com') ? 2500 : 1200);
+  // the Event can sit on its own or inside WebPage.mainEntity (Joonbug)
+  const ev = ld(await page(e.ticket_url).catch(() => '')).flat().flatMap((o) => [o, o?.mainEntity]).find((o) => o && /Event$/.test(String(o['@type'])));
+  await sleep(e.ticket_url.includes('joonbug.com') ? 10500 : e.ticket_url.includes('eventbrite.com') ? 2500 : 1200); // Joonbug's robots.txt: 10 s
   if (!ev?.startDate) { gone++; continue; }
   const iso = (s) => (s ? s.replace(/([+-]\d\d)(\d\d)$/, '$1:$2') : null);
-  const vendor = e.ticket_url.includes('eventbrite.com') ? 'Eventbrite' : 'Venue';
+  const vendor = e.ticket_url.includes('eventbrite.com') ? 'Eventbrite' : e.ticket_url.includes('joonbug.com') ? 'Joonbug' : 'Venue';
   const r = await fetch(`${SB}/rest/v1/rpc/party_add_listing`, { method: 'POST', headers: { apikey: KEY, authorization: `Bearer ${KEY}`, 'content-type': 'application/json' },
     body: JSON.stringify({ p: { vendor, url: e.ticket_url, title: e.title, starts_at: iso(ev.startDate), ends_at: iso(ev.endDate),
       venue_id: e.venue_id, ...(e.age_min !== null ? { age_min: e.age_min } : {}), themes: e.themes ?? [], performers: e.performers ?? [], ...(e.organizer ? { organizer: e.organizer } : {}),

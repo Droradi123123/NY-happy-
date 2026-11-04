@@ -79,6 +79,10 @@ Order: nights in the next 14 days first, then seasonal (Halloween, NYE), then by
 ### 6. Publish
 `select party_publish_blockers(id)` must be empty, then `select party_event_status(id, 'ready'), party_event_status(id, 'published')`. Dror authorized publishing directly on 15.10.2026 when the blockers are empty and the copy follows this skill. Hold an event in review yourself (with the reason) when something the blockers cannot see is off: a date or night that disagrees between sources, a venue that does not match the listing, an address you cannot place. Reject what is not a party, outside the five boroughs, or a duplicate: `party_event_status(id, 'rejected', '<why>')`.
 
+**Moved nights.** DICE keeps the status `rescheduled` after a night moves, which blocks publishing. Re-read the listing; if the copy states the CURRENT date (rewrite it if not), record the check with `party_reschedule_ok(id, '<source>', '<url>', '<what was checked>')`, then publish. The check is tied to that date: if DICE moves the night again, it is blocked again. The same DICE event can exist under two ids (hex id and slug id): keep the one with copy, reject the other as a duplicate.
+
+**Sold outside DICE.** `party_add_listing(p)` adds a night from a public listing (vendors RA, Eventbrite, Shotgun, Joonbug, Venue). Joonbug's NYC holiday pages (joonbug.com/newyork/newyearseve) carry schema.org Event data (the list page as an ItemList, an event page inside WebPage.mainEntity); wait 10 seconds between Joonbug requests (its robots.txt). Its coordinates are unreliable: match venues by name and address. Many Joonbug nights are also on DICE: check for the DICE night first. The DICE discovery job re-reads these listings twice a week (7-day rule).
+
 ### 7. Close the run and report
 ```sql
 select publish_status, count(*) from party_events where night_date >= current_date group by 1;
