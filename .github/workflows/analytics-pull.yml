@@ -9,6 +9,11 @@ on:
   schedule:
     - cron: '53 12 * * 1'
   workflow_dispatch:
+    inputs:
+      reader_pub:
+        description: 'Optional: base64 of a one-time RSA public key (PEM). The report is then encrypted to that key and saved as analytics/session/, so a scheduled Claude session can read it without any stored private key'
+        required: false
+        default: ''
 
 permissions:
   contents: write
@@ -35,14 +40,19 @@ jobs:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
         run: node site/scripts/analytics-pull.mjs
       - name: Encrypt and commit
+        env:
+          READER_PUB: ${{ inputs.reader_pub }}
         run: |
+          # default: sealed to analytics/reader.pub; with a one-time key from a session: sealed to that key only
+          OUT=analytics; PUB=analytics/reader.pub
+          if [ -n "$READER_PUB" ]; then mkdir -p analytics/session; echo "$READER_PUB" | base64 -d > session.pub; PUB=session.pub; OUT=analytics/session; fi
           openssl rand -out k.bin 32
           gzip -9 -c report.json > report.json.gz
-          openssl enc -aes-256-cbc -pbkdf2 -salt -in report.json.gz -out analytics/report.enc -pass file:k.bin
-          openssl pkeyutl -encrypt -pubin -inkey analytics/reader.pub -pkeyopt rsa_padding_mode:oaep -in k.bin -out analytics/report.key
-          shred -u k.bin report.json report.json.gz
+          openssl enc -aes-256-cbc -pbkdf2 -salt -in report.json.gz -out $OUT/report.enc -pass file:k.bin
+          openssl pkeyutl -encrypt -pubin -inkey $PUB -pkeyopt rsa_padding_mode:oaep -in k.bin -out $OUT/report.key
+          shred -u k.bin report.json report.json.gz; rm -f session.pub
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add analytics/report.enc analytics/report.key
+          git add $OUT/report.enc $OUT/report.key
           git commit -m "Analytics pull (encrypted): $(date -u +%F)" || exit 0
           for i in 1 2 3; do git pull --rebase -q && git push -q && break; sleep 5; done
