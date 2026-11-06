@@ -27,10 +27,12 @@ interface Props {
   keyword?: string;
   jsonld?: object[];
   noindex?: boolean;
+  /** indexable for Bing and others, skipped by Google only (lib/indexScope.ts, Google core) */
+  googleNoindex?: boolean;
   ogImage?: string | null;
   wide?: boolean;
 }
-const { title, titles = [], description, keyword, jsonld = [], noindex = false, ogImage = null, wide = false } = Astro.props;
+const { title, titles = [], description, keyword, jsonld = [], noindex = false, googleNoindex = false, ogImage = null, wide = false } = Astro.props;
 const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/';
 const canonical = new URL(path, Astro.site).href;
 const fullTitle = path === '/' ? title : fitTitle([title.replace(/ \| YaY NYC$/, ''), ...titles], keyword);
@@ -95,6 +97,7 @@ const tabs = [
   {path === '/' && BING_SITE_VERIFICATION && <meta name="msvalidate.01" content={BING_SITE_VERIFICATION} />}
   {path === '/' && FO_VERIFY && <meta name="fo-verify" content={FO_VERIFY} />}
   {noindex && <meta name="robots" content="noindex, follow" />}
+  {!noindex && googleNoindex && <meta name="googlebot" content="noindex, follow" />}
   <slot name="head" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48" />
@@ -226,6 +229,7 @@ const tabs = [
         <h2 class="foot-h">YaY NYC</h2>
         <ul class="foot-list">
           <li><a href="/about">About and how we check</a></li>
+          <li><a href="/editorial-policy">Editorial policy</a></li>
           <li><a href="/contact">Contact us: tips, fixes, questions</a></li>
           <li><a href="/image-credits">Image credits and takedown</a></li>
           <li><a href="/privacy">Privacy</a></li>

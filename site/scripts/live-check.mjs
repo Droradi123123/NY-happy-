@@ -36,7 +36,7 @@ for (let t = 0; ; t++) {
 }
 
 // ---- 2. the sitemap ----
-const sm = await get(`${SITE}/sitemap.xml`).then((r) => r.text());
+const sm = await get(`${SITE}/sitemap-full.xml`).then((r) => r.text()); // every indexable page (Google core + the rest)
 const urls = [...sm.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1]);
 report.sitemap.urls = urls.length;
 if (urls.length < 500) fail('sitemap', `only ${urls.length} URLs`);

@@ -9,6 +9,7 @@ import PartyCard from '../../components/PartyCard.astro';
 import { allGuides, guideBars, guideCover, prose, livePartySlugs, PARTY_OR_VENUE, type Guide } from '../../lib/guides';
 import { guideTable } from '../../lib/guideTables';
 import { crumbs, faqLd, SITE } from '../../lib/seo';
+import { EDITOR } from '../../lib/site';
 import { allBars, checkedRange, fmtDate, dealLabel, scheduleLabel, placePhoto, photoNote, cardCredit, boroughSlug, meters, paragraphs, partyData, venueOf, type Bar } from '../../lib/data';
 
 export async function getStaticPaths() {
@@ -40,7 +41,7 @@ const dealsChecked = checkedRange([...picks.map((p) => p.b), ...strip.map((x) =>
 const ld = {
   '@context': 'https://schema.org', '@type': 'BlogPosting', headline: g.h1, description: g.description, url,
   mainEntityOfPage: url, datePublished: g.published, dateModified: g.updated, inLanguage: 'en-US',
-  author: { '@type': 'Organization', name: 'YaY NYC', url: SITE }, publisher: { '@type': 'Organization', name: 'YaY NYC', url: SITE },
+  author: EDITOR ? { '@type': 'Person', name: EDITOR.name, description: EDITOR.bio, url: `${SITE}/about` } : { '@type': 'Organization', name: 'YaY NYC', url: SITE }, publisher: { '@type': 'Organization', name: 'YaY NYC', url: SITE },
   image: cover ? `${SITE}${cover.photo.src}` : `${SITE}/og-default.png`, wordCount: words,
 };
 const live = await livePartySlugs();
@@ -51,7 +52,7 @@ const related = g.related.filter(([, href]) => !PARTY_OR_VENUE(href) || live.has
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/blog">Blog</a></li><li aria-current="page">{g.short}</li></ol></nav>
   <article class="guide">
     <h1>{g.h1}</h1>
-    <p class="byline">By the YaY NYC team · Text updated <time datetime={g.updated}>{fmtDate(g.updated)}</time>{dealsChecked && ` · Deals last checked on each bar's own site ${dealsChecked}`} · {readMin} min read</p>
+    <p class="byline">By {EDITOR ? <a href="/about">{EDITOR.name}</a> : 'the YaY NYC team'} (<a href="/editorial-policy">how we check</a>) · Text updated <time datetime={g.updated}>{fmtDate(g.updated)}</time>{dealsChecked && ` · Deals last checked on each bar's own site ${dealsChecked}`} · {readMin} min read</p>
     {cover && <Photo photo={cover.photo} note={photoNote(cover, coverName)} alt={`${cover.photo.title ?? coverName}`} ratio="21 / 9" hero />}
     <div class="answer"><p>{g.answer}</p></div>
     {g.intro && paragraphs(g.intro).map((p) => <p class="intro" set:html={prose(p, live)} />)}

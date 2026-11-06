@@ -35,5 +35,18 @@ export const nearIndexable = (kind: string, slug = '') => kind === 'landmark' ||
 /** the page already had Google impressions */
 export const pathKept = (path: string) => KEPT.has(path);
 export const keptNear = () => [...KEPT].filter((p) => p.startsWith('/happy-hours/near/')).map((p) => p.slice('/happy-hours/near/'.length));
+/*
+ * Google core (Nov 6, 2026, approved by the owner): Google indexes ~10% of a new domain's ~1,200 pages, the pattern
+ * of a site it does not trust yet with many similar pages. Google alone is asked to skip the thinner ones
+ * (<meta name="googlebot" content="noindex, follow">, and they leave sitemap.xml); Bing, IndexNow and ChatGPT
+ * search, which bring most of the traffic, keep every indexable page (sitemap-full.xml). A page with Google
+ * impressions or repeat visits (KEPT) stays in Google whatever the rule. Reversible: loosen these three.
+ */
+/** a bar Google sees: a strong deal (3+ priced items, read in 30 days) that also offers food, a weekend or late window, or a drink at $7 or less */
+export const barGoogle = (b: Bar) => KEPT.has(`/bars/${b.slug}`) || (barIndexable(b) && b.offers.length >= 3 && (b.hasFood || b.weekend || b.late || (b.cheapestDrink ?? 99) <= 7));
+/** a party night Google sees: written up and within the next 14 days */
+export const partyGoogle = (p: Party) => KEPT.has(`/parties/${p.slug}`) || (!!p.copy?.about && Date.parse(`${p.night_date}T12:00:00Z`) <= Date.now() + 14 * 864e5);
+/** a club Google sees: three or more upcoming nights */
+export const venueGoogle = (id: string, upcoming: number) => KEPT.has(`/parties/venue/${id}`) || upcoming >= 3;
 const FIXED = new Set(['/map', '/map/happy-hours', '/map/parties', '/image-credits', '/accessibility', '/bars-with-games']);
 export const pathIndexable = (path: string) => !FIXED.has(path) && !path.startsWith('/bars-with-games/');

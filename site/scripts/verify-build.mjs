@@ -110,20 +110,29 @@ for (const f of pages) {
     else seen[k].set(v, rel);
   }
 }
-// sitemap <-> pages: no "Submitted URL not found / marked noindex", no indexable page left out
-const sm = existsSync(join(DIST, 'sitemap.xml')) ? readFileSync(join(DIST, 'sitemap.xml'), 'utf-8') : '';
-const inMap = new Set([...sm.matchAll(/<loc>https:\/\/yaynyc\.com([^<]*)<\/loc>/g)].map(([, u]) => u || '/'));
-if (!inMap.size) fail.push('sitemap.xml: missing or empty');
+// sitemap <-> pages: no "Submitted URL not found / marked noindex", no indexable page left out.
+// sitemap-full.xml lists every indexable page (Bing, IndexNow); sitemap.xml is the Google core: it must not hold a
+// page that tells Google noindex (<meta name="googlebot" ...>), and such a page must be in the full one only.
+const read = (n) => (existsSync(join(DIST, n)) ? readFileSync(join(DIST, n), 'utf-8') : '');
+const locs = (xml) => new Set([...xml.matchAll(/<loc>https:\/\/yaynyc\.com([^<]*)<\/loc>/g)].map(([, u]) => u || '/'));
+const inMap = locs(read('sitemap-full.xml')), inCore = locs(read('sitemap.xml'));
+if (!inMap.size) fail.push('sitemap-full.xml: missing or empty');
+if (!inCore.size) fail.push('sitemap.xml: missing or empty');
+for (const u of inCore) if (!inMap.has(u)) fail.push(`sitemap.xml: ${u} is not in sitemap-full.xml`);
 for (const u of inMap) {
-  if (!built(u)) { fail.push(`sitemap.xml: ${u} is not a built page`); continue; }
+  if (!built(u)) { fail.push(`sitemap-full.xml: ${u} is not a built page`); continue; }
   const f = u === '/' ? join(DIST, 'index.html') : join(DIST, `${u.slice(1)}.html`);
-  if (existsSync(f) && /<meta name="robots" content="noindex/.test(readFileSync(f, 'utf-8'))) fail.push(`sitemap.xml: ${u} is noindex`);
+  const h = existsSync(f) ? readFileSync(f, 'utf-8') : '';
+  if (/<meta name="robots" content="noindex/.test(h)) fail.push(`sitemap-full.xml: ${u} is noindex`);
+  const g = /<meta name="googlebot" content="noindex/.test(h);
+  if (g && inCore.has(u)) fail.push(`sitemap.xml: ${u} tells Google noindex`);
+  if (!g && !inCore.has(u)) fail.push(`sitemap.xml: Google-indexable page ${u} is missing`);
 }
 for (const f of pages) {
   const html = readFileSync(f, 'utf-8');
   if (/<meta name="robots" content="noindex/.test(html)) continue;
   const u = '/' + relative(DIST, f).replace(/\.html$/, '').replace(/^index$/, '');
-  if (!inMap.has(u)) fail.push(`sitemap.xml: indexable page ${u} is missing`);
+  if (!inMap.has(u)) fail.push(`sitemap-full.xml: indexable page ${u} is missing`);
 }
 // redirects: a line must not hide a page this build has (Cloudflare serves the redirect first), and
 // must not send people to a page that is not there
@@ -164,4 +173,4 @@ try {
   const q = JSON.parse(readFileSync(join(DIST, 'data', 'quality.json'), 'utf-8'));
   console.log(`  data quality: ${q.useful.pct}% of ${q.bars} bars have a deal read in the last ${q.fresh_days} days · no deal ${q.no_deal.pct}% · read over ${q.fresh_days} days ago ${q.stale.pct}% · both ${q.no_deal_and_stale.pct}% · copy names another neighborhood ${q.copy_names_other_hood.count}`);
 } catch { /* fixture builds may not have it */ }
-console.log(`✓ verify-build: ${pages.length} pages, ${inMap.size} in the sitemap, ${seen.kw.size} target keywords (one per page, each in title + h1 + description), no isolation leaks, no broken internal links`);
+console.log(`✓ verify-build: ${pages.length} pages, ${inMap.size} in the full sitemap (${inCore.size} in Google's), ${seen.kw.size} target keywords (one per page, each in title + h1 + description), no isolation leaks, no broken internal links`);

@@ -12,7 +12,7 @@ import { halloweenPages } from './halloween';
 import { allGuides } from './guides';
 import { guideTable } from './guideTables';
 import { SITE } from './seo';
-import { barIndexable, pathIndexable, keptNear, partyIndexable, venueIndexable } from './indexScope';
+import { barIndexable, barGoogle, pathIndexable, keptNear, partyIndexable, partyGoogle, venueIndexable, venueGoogle } from './indexScope';
 import { DAY_PAGES, BOROUGH_PAGES, GAME_PAGES, daySlugOf, OBSERVED, bingo, games } from './activities';
 
 
@@ -26,6 +26,8 @@ export function sitemapType(u: string): SitemapType {
   return 'other';
 }
 let cache: Promise<[string, string | null][]> | null = null;
+let skipGoogle: Set<string> | null = null;
+/** every indexable page (sitemap-full.xml: Bing, IndexNow, the live check) */
 export function sitemapRows(): Promise<[string, string | null][]> {
   cache ??= (async () => {
     const bars = await allBars();
@@ -46,7 +48,7 @@ export function sitemapRows(): Promise<[string, string | null][]> {
     // a list's lastmod is a real date: the newest read among the bars or parties on it
     const newest = (ds: (string | null | undefined)[]) => (ds.filter(Boolean) as string[]).sort().pop()?.slice(0, 10) ?? null;
     const rows: [string, string | null][] = [
-      ['/', null], ['/happy-hours', newest(bars.map((b) => b.checked))], ['/nyc-happy-hour-index', null], ['/happy-hours/now', null], ['/happy-hours/neighborhoods', null], ['/parties', newest(parties.map((p) => p.last_checked))], ['/map', null], ['/map/happy-hours', null], ['/map/parties', null], ['/about', null], ['/contact', null], ['/image-credits', null], ['/privacy', null], ['/accessibility', null],
+      ['/', null], ['/happy-hours', newest(bars.map((b) => b.checked))], ['/nyc-happy-hour-index', null], ['/happy-hours/now', null], ['/happy-hours/neighborhoods', null], ['/parties', newest(parties.map((p) => p.last_checked))], ['/map', null], ['/map/happy-hours', null], ['/map/parties', null], ['/about', null], ['/editorial-policy', null], ['/contact', null], ['/image-credits', null], ['/privacy', null], ['/accessibility', null],
       ...(parties.some((p) => p.themes.includes('halloween')) ? [['/parties/halloween', null] as [string, null]] : []),
       ...(await halloweenPages()).built.filter((b) => b.indexable).map((b) => [`/parties/halloween/${b.page.slug}`, null] as [string, null]),
       ...lists.map((l) => [`/happy-hours/${l.slug}`, newest(l.bars.map((b) => b.checked))] as [string, string | null]),
@@ -67,9 +69,20 @@ export function sitemapRows(): Promise<[string, string | null][]> {
       ...(bingo.length ? [['/music-bingo', OBSERVED] as [string, string]] : []),
       ...(games.length ? [['/bars-with-games', OBSERVED] as [string, string], ...GAME_PAGES.map((g) => [`/bars-with-games/${g.slug}`, OBSERVED] as [string, string])] : []),
     ];
+    // the pages Google alone is asked to skip (lib/indexScope.ts, Google core)
+    skipGoogle = new Set([
+      ...bars.filter((b) => barIndexable(b) && !barGoogle(b)).map((b) => `/bars/${b.slug}`),
+      ...parties.filter((p) => partyIndexable(p) && !partyGoogle(p)).map((p) => `/parties/${p.slug}`),
+      ...venuePages.filter((v) => { const n = parties.filter((p) => p.venue_id === v.id).length; return venueIndexable(v.id, n) && !venueGoogle(v.id, n); }).map((v) => `/parties/venue/${v.id}`),
+    ]);
     return rows.filter(([u]) => pathIndexable(u));
   })();
   return cache;
+}
+/** the pages Google is asked to index (sitemap.xml and the per-type sitemaps, submitted in Search Console) */
+export async function googleRows(): Promise<[string, string | null][]> {
+  const rows = await sitemapRows();
+  return rows.filter(([u]) => !skipGoogle!.has(u));
 }
 export const urlset = (rows: [string, string | null][]) => `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${rows
   .map(([u, m]) => `<url><loc>${SITE}${u}</loc>${m ? `<lastmod>${m}</lastmod>` : ''}</url>`).join('\n')}\n</urlset>`;

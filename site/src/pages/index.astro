@@ -15,6 +15,7 @@ import { partyLists } from '../lib/partyLists';
 import proof from '../data/proof.json';
 import { allGuides, guideCover } from '../lib/guides';
 import { stats } from '../lib/stats';
+import { SAME_AS } from '../lib/site';
 import { SITE } from '../lib/seo';
 import { listPages, rank } from '../lib/lists';
 import { halloweenPages } from '../lib/halloween';
@@ -66,7 +67,8 @@ const weekendPicks = (weekendList?.parties ?? []).filter((p) => !partyPicks.incl
 <Base title="YaY NYC: Happy Hours, Parties and What's On Tonight in NYC" keyword="nyc happy hours and parties" description={`NYC happy hours and parties in one place: ${s.n} verified happy hours with the deal and times, plus parties with doors, age and tickets.`}
   ogImage={hwOn && hwPhoto ? hwPhoto.og ?? null : null}
   jsonld={[{ '@context': 'https://schema.org', '@type': 'WebSite', name: 'YaY NYC', url: SITE },
-    { '@context': 'https://schema.org', '@type': 'Organization', name: 'YaY NYC', url: SITE, logo: `${SITE}/icon-512.png`, slogan: 'All the fun in one place!' }]}>
+    { '@context': 'https://schema.org', '@type': 'Organization', name: 'YaY NYC', url: SITE, logo: `${SITE}/icon-512.png`, slogan: 'All the fun in one place!',
+      publishingPrinciples: `${SITE}/editorial-policy`, ...(SAME_AS.length ? { sameAs: SAME_AS } : {}) }]}>
   <section class="hero-x">
     <div class="hero-in">
       <h1><span class="kicker">NYC happy hours and parties</span> All the fun in one place!</h1>

@@ -13,3 +13,7 @@ export const BING_SITE_VERIFICATION = '';
 export const FO_VERIFY = '97fba4ed-cd66-4c37-aabc-5bf28a8b7cf3';
 /** IndexNow (Bing, Yandex, Seznam...): the key is public by design and served at /<key>.txt */
 export const INDEXNOW_KEY = '71833f93db0dd3c44f0a3e6f2ced42e7';
+/** Official YaY NYC profiles (Instagram, TikTok, X...) for Organization.sameAs; only real, owned profiles */
+export const SAME_AS: string[] = [];
+/** The editor's byline on guides (pen name and true bio lines from the owner); null = "the YaY NYC team" */
+export const EDITOR: { name: string; bio: string } | null = null;

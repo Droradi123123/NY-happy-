@@ -16,7 +16,7 @@ const SITE = 'https://yaynyc.com';
 const key = readFileSync(new URL('../src/lib/site.ts', import.meta.url), 'utf-8').match(/INDEXNOW_KEY = '([0-9a-f]+)'/)?.[1];
 try {
   if (!key) throw new Error('no INDEXNOW_KEY in src/lib/site.ts');
-  const xml = process.argv.includes('--live') ? await (await fetch(`${SITE}/sitemap.xml`, { signal: AbortSignal.timeout(30000) })).text() : readFileSync(new URL('../dist/sitemap.xml', import.meta.url), 'utf-8');
+  const xml = process.argv.includes('--live') ? await (await fetch(`${SITE}/sitemap-full.xml`, { signal: AbortSignal.timeout(30000) })).text() : readFileSync(new URL('../dist/sitemap-full.xml', import.meta.url), 'utf-8');
   const all = process.argv.includes('--all');
   const since = new Date(Date.now() - 3 * 864e5).toISOString().slice(0, 10);
   const urls = [...xml.matchAll(/<url><loc>([^<]+)<\/loc>(?:<lastmod>([^<]+)<\/lastmod>)?<\/url>/g)]

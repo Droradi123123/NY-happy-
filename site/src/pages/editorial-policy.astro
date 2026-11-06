@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import { SITE } from '../lib/seo';
+---
+<Base title="Editorial Policy: How YaY NYC Lists and Checks" keyword="yay nyc editorial policy" description="The YaY NYC editorial policy: how we decide what to list, where every fact comes from, how we date our checks, how we make money and how to get a mistake fixed."
+  jsonld={[{ '@context': 'https://schema.org', '@type': 'WebPage', name: 'YaY NYC editorial policy', url: `${SITE}/editorial-policy`,
+    publisher: { '@type': 'Organization', name: 'YaY NYC', url: SITE } }]}>
+  <h1>YaY NYC editorial policy</h1>
+  <p class="lede">The rules we follow for every happy hour, party and guide on YaY NYC: what gets listed, where the facts come from, and what we never do.</p>
+
+  <h2>What gets listed</h2>
+  <p>Bars come from New York State’s list of active liquor licences, and a happy hour is listed only when the bar publishes it itself, on its own website or menu. A party is listed when it has a public ticket or RSVP page with a date and a venue in the five boroughs. Nothing else decides it: there are no paid listings, no sponsored rankings and no ads, and the order on a page is never for sale.</p>
+  <p>We leave out nights that are not parties (classes, screenings, comedy, markets), events with no venue yet (“location TBA”, secret locations) and anything we cannot confirm from a public source.</p>
+
+  <h2>Where every fact comes from</h2>
+  <p>Every price, time, address, age limit, lineup and ticket term on a listing comes from a named source: the bar’s own page, the ticket seller’s event page, the venue’s calendar, or a public dataset such as the state licence list. Each listing links to that source and shows the date we last read it.</p>
+  <p>When a source does not say something, we say it is not published instead of filling the gap. When two sources disagree, we show both or mark the fact as not confirmed. Prices are the place’s own, before sales tax and tip.</p>
+
+  <h2>How we keep it current</h2>
+  <ul>
+    <li>Upcoming parties are re-read from their ticket pages several times a day. Nights that sold out, moved or were cancelled are marked, and nights that are over come off the site.</li>
+    <li>Happy hours are re-read from each bar’s own page on a rolling schedule, and every bar page shows the date of its last check.</li>
+    <li>A moved party is only shown on its new date after the new date is confirmed on its ticket page.</li>
+  </ul>
+
+  <h2>Guides and written pages</h2>
+  <p>Our guides (“the best techno clubs”, “happy hours in the East Village”) are built from the same checked listings. The numbers in them (how many nights, usual start times, price ranges) are counted from our records and carry an “as of” date. The written parts describe the scene in general terms; they never name a venue, DJ, price or promotion that is not in our checked data.</p>
+
+  <h2>How we make money</h2>
+  <p>YaY NYC is free to use. Ticket links add a small tag so the seller can see the visit came from us, and they are marked as sponsored links for search engines. We have no commission deal with any seller today. If we ever earn from a ticket sale, it will not change which nights we list, how they are ordered, or what we write about them, and this page will say so.</p>
+
+  <h2>Photos</h2>
+  <p>Photos are published by their authors under free licences or come from public map listings, and each one is credited. We never take photos from bar, club or ticketing sites or from social media. The full list, and how to ask for a photo to be removed, is on the <a href="/image-credits">image credits</a> page.</p>
+
+  <h2>Corrections</h2>
+  <p>If something on a page is wrong, <a href="/contact">tell us</a>: readers, bar staff and promoters can all send a fix. We check it against the source, correct the page, and the new check date shows on the listing. Requests to remove a photo are acted on within 24 hours.</p>
+
+  <p class="small">More about who we are: <a href="/about">About YaY NYC and how we check</a>.</p>
+</Base>
