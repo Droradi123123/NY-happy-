@@ -48,6 +48,13 @@ main.wide { padding-bottom: 0; }
 .logo-link { text-decoration: none; display: inline-flex; padding: 8px 0; }
 .site-header nav ul { list-style: none; display: flex; gap: 4px; margin: 0; padding: 0; }
 .site-header nav a { display: inline-block; padding: 8px 14px; border-radius: 999px; font-weight: 800; text-decoration: none; border: 1.5px solid var(--line); background: #fff; }
+/* tighter pills where the header gets crowded, so the nav stays on one line */
+@media (min-width: 1020px) { .site-header nav a { white-space: nowrap; } }
+@media (min-width: 1241px) { .site-header nav a { padding: 8px 13px; } }
+@media (max-width: 1240px) { .site-header nav ul { gap: 3px; } .site-header nav a { padding: 7px 10px; font-size: 15px; } }
+@media (max-width: 1040px) { .site-header nav a { padding: 6px 8px; font-size: 14px; } }
+/* narrow desktops: pills wrap to a second row instead of pushing the page wider */
+@media (max-width: 1019px) { .site-header nav { min-width: 0; } .site-header nav ul { flex-wrap: wrap; justify-content: flex-end; row-gap: 4px; } }
 .site-header nav a:hover { border-color: var(--brand); background: var(--brand-soft); color: var(--ink); }
 .site-header nav a[aria-current] { background: var(--brand); color: #fff; }
 .header-cta { display: none; }

@@ -13,6 +13,7 @@ import { allGuides } from './guides';
 import { guideTable } from './guideTables';
 import { SITE } from './seo';
 import { barIndexable, barGoogle, pathIndexable, keptNear, partyIndexable, partyGoogle, venueIndexable, venueGoogle } from './indexScope';
+import { attractions, attractionCategories } from './attractions';
 import { DAY_PAGES, BOROUGH_PAGES, GAME_PAGES, daySlugOf, OBSERVED, bingo, games } from './activities';
 
 
@@ -69,6 +70,12 @@ export function sitemapRows(): Promise<[string, string | null][]> {
       ...(bingo.length ? [['/music-bingo', OBSERVED] as [string, string]] : []),
       ...(games.length ? [['/bars-with-games', OBSERVED] as [string, string], ...GAME_PAGES.map((g) => [`/bars-with-games/${g.slug}`, OBSERVED] as [string, string])] : []),
     ];
+    // attractions (lib/attractions.ts): only pages this build renders
+    const att = attractions();
+    if (att.length) {
+      const newest = att.reduce((m, a) => (a.verified_at > m ? a.verified_at : m), '');
+      rows.push(['/attractions', newest], ...attractionCategories().map((c) => [`/attractions/${c.slug}`, c.items.reduce((m, a) => (a.verified_at > m ? a.verified_at : m), '')] as [string, string]), ...att.map((a) => [a.path, a.verified_at] as [string, string]));
+    }
     // the pages Google alone is asked to skip (lib/indexScope.ts, Google core)
     skipGoogle = new Set([
       ...bars.filter((b) => barIndexable(b) && !barGoogle(b)).map((b) => `/bars/${b.slug}`),

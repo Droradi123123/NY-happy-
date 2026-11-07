@@ -13,6 +13,7 @@ import Newsletter from '../components/Newsletter.astro';
 import { listPages } from '../lib/lists';
 import { partyLists } from '../lib/partyLists';
 import { nycEvents } from '../lib/events';
+import { attractions } from '../lib/attractions';
 // the font is self-hosted (no render-blocking request to Google Fonts)
 import '@fontsource-variable/bricolage-grotesque/opsz.css';
 import '../styles/global.css';
@@ -41,6 +42,8 @@ const hasGuides = (await allGuides()).some((g) => g.status === 'published');
 const nav = [
   { href: '/happy-hours', label: 'Happy Hours' },
   { href: '/parties', label: 'Parties' },
+  // only while this build has attraction pages (lib/attractions.ts: approved, or a local review build)
+  ...(attractions().length ? [{ href: '/attractions', label: 'Attractions' }] : []),
   { href: '/map', label: 'Map' },
   { href: '/happy-hours/neighborhoods', label: 'Neighborhoods' },
   // the guides link appears once a guide is published

@@ -1,0 +1,322 @@
+---
+/**
+ * /attractions (hub), /attractions/<category> (one per nonempty category) and /attractions/<id>
+ * (one per rendered attraction, lib/attractions.ts). Everything on these pages comes from
+ * src/data/nyc_attractions.json; a blank field shows a link to the official site, never a guess.
+ * With no approved attractions (and no YAY_ATTR_PREVIEW) this route builds nothing.
+ */
+import Base from '../../layouts/Base.astro';
+import AttractionCard from '../../components/AttractionCard.astro';
+import MiniMap from '../../components/MiniMap.astro';
+import { attractions, attractionCategories, observedText, placeLabel, happyHoursFor, lastChecked, type Attraction } from '../../lib/attractions';
+import { fmtDate, dealLabel, type Bar } from '../../lib/data';
+import { crumbs, itemList, SITE } from '../../lib/seo';
+
+export async function getStaticPaths() {
+  const all = attractions();
+  if (!all.length) return [];
+  const cats = attractionCategories();
+  return [
+    { params: { path: undefined }, props: { kind: 'hub' as const } },
+    ...cats.map((c) => ({ params: { path: c.slug }, props: { kind: 'cat' as const, cat: c.slug } })),
+    ...all.map((a) => ({ params: { path: a.id }, props: { kind: 'item' as const, id: a.id } })),
+  ];
+}
+type P = { kind: 'hub' } | { kind: 'cat'; cat: string } | { kind: 'item'; id: string };
+const props = Astro.props as P;
+const all = attractions();
+const cats = attractionCategories();
+const checked = fmtDate(lastChecked());
+
+// ---------- detail page ----------
+const a: Attraction | undefined = props.kind === 'item' ? all.find((x) => x.id === props.id) : undefined;
+const cat = props.kind === 'cat' ? cats.find((c) => c.slug === props.cat) : a ? cats.find((c) => c.slug === a.catSlug) : undefined;
+let bars: Bar[] = [];
+let qa: { q: string; a: string }[] = [];
+let ld: object[] = [];
+if (a) {
+  bars = await happyHoursFor(a);
+  const on = ` (checked ${fmtDate(a.verified_at)})`;
+  const hoursAnswer = a.hours_recurring ? `${a.hours_recurring}.` : a.hours_observed ? `Observed on ${fmtDate(a.verified_at)}: ${observedText(a)}. Hours change, so confirm today's hours on the official site.` : '';
+  qa = [
+    { q: `Where is ${a.name}?`, a: a.address ? `${a.address}, in ${placeLabel(a)}.${on}` : '' },
+    { q: `What are ${a.name}'s hours?`, a: hoursAnswer ? `${hoursAnswer}${on}` : '' },
+    { q: `How much does ${a.name} cost?`, a: a.price_summary ? `${a.price_summary}.${on}` : '' },
+    { q: `Do I need to book ${a.name} in advance?`, a: a.booking_required === 'yes' ? `Yes: per the official information we read, a ticket or reservation is required before you go.${on}` : '' },
+    { q: `What is ${a.name}'s phone number?`, a: a.phone ? `${a.phone}.${on}` : '' },
+    { q: `What accessibility services does ${a.name} list?`, a: a.accessibility ? `${a.accessibility}.${on}` : '' },
+  ].filter((x) => x.a).slice(0, 5);
+  ld = [
+    { '@context': 'https://schema.org', '@type': 'TouristAttraction', name: a.name, description: a.description, url: `${SITE}${a.path}`,
+      ...(a.official_url ? { sameAs: [a.official_url] } : {}),
+      ...(a.address ? { address: a.address } : {}),
+      ...(a.geo ? { geo: { '@type': 'GeoCoordinates', latitude: a.geo.lat, longitude: a.geo.lng } } : {}),
+      ...(a.phone ? { telephone: a.phone } : {}),
+      ...(a.price_flag === 'free' ? { isAccessibleForFree: true } : {}) },
+    crumbs([['YaY NYC', '/'], ['Attractions', '/attractions'], [a.catLabel, `/attractions/${a.catSlug}`], [a.name, a.path]]),
+  ];
+}
+const official = (label = 'See the official site') => a?.official_url ? `<a href="${a.official_url}" rel="noopener" target="_blank" data-ev="attraction_official">${label}</a>` : 'Not captured yet';
+
+// ---------- head ----------
+let title = '', titles: string[] = [], description = '', keyword = '';
+if (props.kind === 'hub') {
+  title = 'NYC Attractions: Hours, Admission and Official Links';
+  keyword = 'nyc attractions';
+  description = `NYC attractions: ${all.length} museums, observation decks, zoos, parks and landmarks with address, hours and admission from each official site.`;
+  ld = [itemList('NYC attractions', all.map((x) => x.path)), crumbs([['YaY NYC', '/'], ['Attractions', '/attractions']])];
+} else if (cat && !a) {
+  title = `${cat.label} in NYC: Hours, Admission and Official Links`;
+  titles = [`${cat.label} in NYC`];
+  keyword = `${cat.label.toLowerCase()} in nyc`;
+  description = `${cat.label} in NYC: ${cat.items.length} ${cat.items.length === 1 ? 'place' : 'places'} with address, hours and admission read from each official site, each with its checked date.`;
+  ld = [itemList(`${cat.label} in NYC`, cat.items.map((x) => x.path)), crumbs([['YaY NYC', '/'], ['Attractions', '/attractions'], [cat.label, `/attractions/${cat.slug}`]])];
+} else if (a) {
+  title = `${a.name} - ${a.catLabel} in ${a.neighborhood}, NYC`;
+  titles = [`${a.name} - ${a.catLabel}, NYC`, `${a.name}, ${a.neighborhood}, NYC`, `${a.name} NYC`];
+  keyword = a.name.toLowerCase();
+  // the data's own sentence, cut at a word to the 160-character limit
+  const full = `${a.name}, ${a.neighborhood}, NYC: ${a.description}`;
+  description = full.length <= 160 ? full : `${full.slice(0, 159).replace(/\s+\S*$/, '').replace(/[\s,;:]+$/, '')}…`;
+}
+const boroughs = [...new Set(all.map((x) => x.borough))];
+---
+<Base title={title} titles={titles} description={description} keyword={keyword} jsonld={ld}>
+  <Fragment slot="head">
+    {/* a URL with filters or search in it is a state of this page, not a page of its own */}
+    {(props.kind !== 'item') && <script is:inline>if (location.search) { var m = document.createElement('meta'); m.name = 'robots'; m.content = 'noindex, follow'; document.head.appendChild(m); }</script>}
+  </Fragment>
+
+  {props.kind === 'hub' && (
+    <>
+      <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">YaY NYC</a></li><li aria-current="page">Attractions</li></ol></nav>
+      <h1>NYC Attractions</h1>
+      <p class="alede">{all.length} NYC attractions with hours and admission from each official site, and the date we checked.</p>
+      <form class="abar" role="search" aria-label="Filter attractions" onsubmit="return false" data-bar>
+        <div class="abar-row">
+          <label class="abar-search"><span class="sr">Search attractions</span><input type="search" name="q" placeholder="Search name or area" autocomplete="off" /></label>
+          <button type="button" class="pill" aria-pressed="false" data-f="open" hidden>Open now <b data-n></b></button>
+          <button type="button" class="pill" aria-pressed="false" data-f="late" hidden>Open till 8pm+ <b data-n></b></button>
+          <button type="button" class="pill" aria-pressed="false" data-f="free">Free <b data-n></b></button>
+          <button type="button" class="pill" aria-pressed="false" data-f="near">📍 Near me</button>
+          <label class="pill pill-select"><span class="sr">Borough</span><select name="boro"><option value="">All boroughs</option>{boroughs.map((b) => <option value={b}>{b}</option>)}</select></label>
+        </div>
+        <div class="abar-row abar-cats" role="group" aria-label="Category">
+          <button type="button" class="pill" aria-pressed="true" data-cat="">All <b data-n>{all.length}</b></button>
+          {cats.map((c) => <button type="button" class="pill" aria-pressed="false" data-cat={c.slug}>{c.label} <b data-n>{c.items.length}</b></button>)}
+        </div>
+        <p class="abar-status" aria-live="polite"><span data-count>{all.length} shown</span><span data-geo-msg></span><button type="button" class="abar-reset" data-reset hidden>Clear filters</button></p>
+      </form>
+      <div class="xgrid agrid" data-grid>{all.map((x) => <AttractionCard a={x} />)}</div>
+      <p class="empty" data-empty hidden>Nothing matches these filters.</p>
+      <section class="section">
+        <h2>Browse by category</h2>
+        <ul class="link-cloud">{cats.map((c) => <li><a href={`/attractions/${c.slug}`}>{c.label} ({c.items.length})</a></li>)}</ul>
+      </section>
+      <p class="small muted section">Facts checked {checked}. "Open now" and "Open till 8pm+" use each place's stated weekly hours, in New York time: holiday closures and special events are not included, and places without a full stated schedule are left out. "Near me" uses your location only in your browser, to sort by approximate distance. Hours and prices change: confirm on each official site before you go. YaY NYC is independent and not affiliated with these attractions.</p>
+    </>
+  )}
+
+  {cat && !a && (
+    <>
+      <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/attractions">Attractions</a></li><li aria-current="page">{cat.label}</li></ol></nav>
+      <h1>{cat.label} in NYC</h1>
+      <p class="lede">{cat.items.length} {cat.items.length === 1 ? 'place' : 'places'} in this category, with the address, hours and admission read from each official site.</p>
+      <div class="xgrid agrid">{cat.items.map((x) => <AttractionCard a={x} />)}</div>
+      <section class="section">
+        <h2>Other categories</h2>
+        <ul class="link-cloud">{cats.filter((c) => c.slug !== cat.slug).map((c) => <li><a href={`/attractions/${c.slug}`}>{c.label} ({c.items.length})</a></li>)}<li><a href="/attractions">All attractions</a></li></ul>
+      </section>
+      <p class="small muted section">Facts checked {checked}. Confirm hours and prices on each official site before you go.</p>
+    </>
+  )}
+
+  {a && (
+    <article class="attraction">
+      <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/attractions">Attractions</a></li><li><a href={`/attractions/${a.catSlug}`}>{a.catLabel}</a></li><li aria-current="page">{a.name}</li></ol></nav>
+      <p class="acat">{a.catLabel} · {placeLabel(a)}</p>
+      <h1>{a.name}</h1>
+      <p class="lede">{a.description}</p>
+      {a.stale && <p class="note">We're re-verifying these details. Everything below is as last checked on {fmtDate(a.verified_at)}; confirm on the official site.</p>}
+
+      <section class="card afacts">
+        <dl class="facts">
+          <dt>Address</dt>
+          <dd>{a.address ? <>{a.address} <span class="chk">Checked {fmtDate(a.verified_at)}</span></> : <Fragment set:html={official()} />}</dd>
+          <dt>Hours</dt>
+          <dd>
+            {a.hours_recurring && <p class="frow"><strong>Schedule:</strong> {a.hours_recurring} <span class="chk">Checked {fmtDate(a.verified_at)}</span></p>}
+            {a.hours_observed && <p class="frow"><strong>Observed on {fmtDate(a.verified_at)}:</strong> {observedText(a)}. Confirm today's hours. <span class="chk">Checked {fmtDate(a.verified_at)}</span></p>}
+            {!a.hours_recurring && !a.hours_observed && <Fragment set:html={official()} />}
+          </dd>
+          <dt>Admission</dt>
+          <dd>{a.price_summary ? <>{a.price_summary} <span class="chk">Checked {fmtDate(a.verified_at)}</span></>
+            : a.price_flag === 'free' ? <>Free <span class="chk">Checked {fmtDate(a.verified_at)}</span></>
+            : <>{a.price_flag === 'public-space' ? 'Public space. ' : a.price_flag === 'paid' ? 'Paid admission. ' : ''}<Fragment set:html={official('See the official site for prices')} /></>}</dd>
+          <dt>Phone</dt>
+          <dd>{a.phone ? <><a href={`tel:+1${a.phone.replace(/\D/g, '')}`}>{a.phone}</a> <span class="chk">Checked {fmtDate(a.verified_at)}</span></> : <Fragment set:html={official()} />}</dd>
+          <dt>Accessibility</dt>
+          <dd>{a.accessibility ? <>{a.accessibility} <span class="chk">Checked {fmtDate(a.verified_at)}</span></> : <Fragment set:html={official()} />}</dd>
+          {a.booking_required === 'yes' && <><dt>Booking</dt><dd>Advance ticket or reservation required <span class="chk">Checked {fmtDate(a.verified_at)}</span></dd></>}
+        </dl>
+        {(a.ticket_url || a.official_url) && (
+          <a class="btn" href={a.ticket_url || a.official_url} rel="noopener" target="_blank" data-ev="attraction_official">{a.ticket_url ? `Tickets on the official site` : 'Official site'}</a>
+        )}
+        <p class="small muted">Prices and hours change. Confirm on the official site before you go. YaY NYC is independent and not affiliated with {a.name}.</p>
+      </section>
+
+      {a.geo && (
+        <section class="section">
+          <h2>On the map</h2>
+          <MiniMap lat={a.geo.lat} lng={a.geo.lng} label={a.name} />
+          <p class="small muted">Approximate position.</p>
+        </section>
+      )}
+
+      {qa.length > 0 && (
+        <section class="section aqa">
+          <h2>Visitor questions</h2>
+          {qa.map((x) => <div class="aq"><h3>{x.q}</h3><p>{x.a}</p></div>)}
+        </section>
+      )}
+
+      {bars.length > 0 && (
+        <section class="section">
+          <h2>After your visit: happy hours in {a.neighborhood.split(/[,/]/).map((s) => s.trim()).find((s) => bars.some((b) => b.hood.toLowerCase() === s.toLowerCase())) ?? a.neighborhood}</h2>
+          <ul class="ahh">
+            {bars.map((b) => <li><a href={`/bars/${b.slug}`}>{b.name}</a>{dealLabel(b) && <span>: {dealLabel(b)}</span>}{b.checked && <span class="chk">deal read {fmtDate(b.checked)}</span>}</li>)}
+          </ul>
+        </section>
+      )}
+
+      <p class="section small"><a href={`/attractions/${a.catSlug}`}>More {a.catLabel.toLowerCase()} in NYC</a> · <a href="/attractions">All NYC attractions</a></p>
+    </article>
+  )}
+</Base>
+
+{(props.kind === 'hub' || (cat && !a)) && (
+  <script>
+    type Seg = { from?: string; to?: string; days: Record<string, [number, number] | 'closed'> };
+    // New York's date, weekday and minute of the day, whatever the visitor's own time zone
+    const nyNow = () => {
+      const p = Object.fromEntries(new Intl.DateTimeFormat('en-US', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit', weekday: 'short', hour: '2-digit', minute: '2-digit', hourCycle: 'h23' }).formatToParts(new Date()).map((x) => [x.type, x.value]));
+      return { date: `${p.year}-${p.month}-${p.day}`, dow: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].indexOf(p.weekday), min: Number(p.hour) * 60 + Number(p.minute) };
+    };
+    const today = (segs: Seg[], now: ReturnType<typeof nyNow>) => {
+      const seg = segs.find((s) => (!s.from || now.date >= s.from) && (!s.to || now.date <= s.to));
+      return seg ? seg.days[String(now.dow)] : undefined; // undefined: the schedule does not say
+    };
+    const hm = (m: number) => (m >= 1440 ? 'midnight' : `${Math.floor(m / 60) % 12 || 12}${m % 60 ? `:${String(m % 60).padStart(2, '0')}` : ''} ${m < 720 ? 'am' : 'pm'}`);
+    const cards = [...document.querySelectorAll<HTMLElement>('.acard')];
+    const now = nyNow();
+    const state = new Map<HTMLElement, { open: boolean; late: boolean; known: boolean; km: number | null }>();
+    for (const c of cards) {
+      const st = { open: false, late: false, known: false, km: null as number | null };
+      const live = c.querySelector<HTMLElement>('[data-live]');
+      if (c.dataset.hours && live) {
+        const h = today(JSON.parse(c.dataset.hours) as Seg[], now);
+        if (Array.isArray(h)) {
+          st.known = true; st.open = now.min >= h[0] && now.min < h[1]; st.late = h[1] >= 20 * 60;
+          live.innerHTML = st.open ? `<span class="on">Open now</span> · until ${hm(h[1])}` : now.min < h[0] ? `<span class="off">Closed now</span> · opens ${hm(h[0])}` : `<span class="off">Closed now</span> · closed at ${hm(h[1])}`;
+          live.hidden = false;
+        } else if (h === 'closed') { st.known = true; live.innerHTML = '<span class="off">Closed today</span>'; live.hidden = false; }
+      }
+      state.set(c, st);
+    }
+    const bar = document.querySelector<HTMLFormElement>('[data-bar]');
+    if (bar) {
+      const grid = document.querySelector<HTMLElement>('[data-grid]')!;
+      const order = [...cards];
+      const on = { open: false, late: false, free: false, near: false, cat: '', boro: '', q: '' };
+      let here: { lat: number; lng: number } | null = null;
+      const q = bar.elements.namedItem('q') as HTMLInputElement, boro = bar.elements.namedItem('boro') as HTMLSelectElement;
+      const count = bar.querySelector<HTMLElement>('[data-count]')!, geoMsg = bar.querySelector<HTMLElement>('[data-geo-msg]')!, reset = bar.querySelector<HTMLButtonElement>('[data-reset]')!;
+      const empty = document.querySelector<HTMLElement>('[data-empty]')!;
+      // the open filters appear only when at least one place has a stated schedule for today
+      for (const f of ['open', 'late']) { const b = bar.querySelector<HTMLElement>(`[data-f="${f}"]`)!; b.hidden = ![...state.values()].some((s) => s.known); }
+      const match = (c: HTMLElement, o: typeof on) => { const s = state.get(c)!;
+        return (!o.open || s.open) && (!o.late || s.late) && (!o.free || c.dataset.free === '1') && (!o.cat || c.dataset.cat === o.cat) && (!o.boro || c.dataset.boro === o.boro) && (!o.q || (c.dataset.q ?? '').includes(o.q)); };
+      const n = (o: typeof on) => cards.filter((c) => match(c, o)).length;
+      const apply = () => {
+        let shown = 0;
+        for (const c of cards) { const ok = match(c, on); c.hidden = !ok; if (ok) shown++; }
+        // every option shows how many places it would leave, given the other filters, and 0 disables it
+        for (const b of bar.querySelectorAll<HTMLButtonElement>('[data-f]')) {
+          const f = b.dataset.f as 'open' | 'late' | 'free' | 'near';
+          b.setAttribute('aria-pressed', String(on[f]));
+          if (f === 'near') continue;
+          const k = n({ ...on, [f]: true }); b.querySelector('[data-n]')!.textContent = String(k); b.disabled = !k && !on[f];
+        }
+        for (const b of bar.querySelectorAll<HTMLButtonElement>('[data-cat]')) {
+          const k = n({ ...on, cat: b.dataset.cat ?? '' }); b.querySelector('[data-n]')!.textContent = String(k);
+          b.setAttribute('aria-pressed', String(on.cat === (b.dataset.cat ?? ''))); b.disabled = !k && on.cat !== b.dataset.cat;
+        }
+        for (const opt of boro.options) { const k = n({ ...on, boro: opt.value }); opt.textContent = `${opt.value || 'All boroughs'} (${k})`; opt.disabled = !k && on.boro !== opt.value; }
+        count.textContent = `${shown} shown${on.near && here ? ', nearest first' : ''}`;
+        empty.hidden = shown > 0;
+        reset.hidden = !(on.open || on.late || on.free || on.near || on.cat || on.boro || on.q);
+      };
+      const km = (a: { lat: number; lng: number }, b: { lat: number; lng: number }) => { const r = Math.PI / 180, x = (b.lng - a.lng) * r * Math.cos(((a.lat + b.lat) / 2) * r), y = (b.lat - a.lat) * r; return 6371 * Math.hypot(x, y); };
+      const sortNear = () => {
+        for (const c of cards) {
+          const s = state.get(c)!; const lat = Number(c.dataset.lat), lng = Number(c.dataset.lng);
+          s.km = here && c.dataset.lat ? km(here, { lat, lng }) : null;
+          let d = c.querySelector<HTMLElement>('[data-dist]');
+          if (!d) { d = document.createElement('p'); d.className = 'acard-dist'; d.dataset.dist = ''; c.querySelector('.acard-place')?.after(d); }
+          d.textContent = s.km === null ? '' : `About ${(s.km / 1.609).toFixed(s.km < 16 ? 1 : 0)} mi away`; d.hidden = s.km === null || !on.near;
+        }
+        const list = on.near && here ? [...order].sort((a, b) => (state.get(a)!.km ?? 1e9) - (state.get(b)!.km ?? 1e9)) : order;
+        for (const c of list) grid.append(c);
+      };
+      bar.querySelectorAll<HTMLButtonElement>('[data-f]').forEach((b) => b.addEventListener('click', () => {
+        const f = b.dataset.f as 'open' | 'late' | 'free' | 'near';
+        if (f !== 'near') { on[f] = !on[f]; apply(); return; }
+        if (on.near) { on.near = false; geoMsg.textContent = ''; sortNear(); apply(); return; }
+        if (!navigator.geolocation) { geoMsg.textContent = ' · Location is not available in this browser'; return; }
+        geoMsg.textContent = ' · Finding your location…';
+        navigator.geolocation.getCurrentPosition((pos) => {
+          here = { lat: pos.coords.latitude, lng: pos.coords.longitude }; on.near = true; geoMsg.textContent = ''; sortNear(); apply();
+          (window as any).gtag?.('event', 'attractions_near_me');
+        }, () => { geoMsg.textContent = ' · Location permission was not given'; }, { enableHighAccuracy: false, timeout: 10000, maximumAge: 300000 });
+      }));
+      bar.querySelectorAll<HTMLButtonElement>('[data-cat]').forEach((b) => b.addEventListener('click', () => { on.cat = b.dataset.cat ?? ''; apply(); }));
+      boro.addEventListener('change', () => { on.boro = boro.value; apply(); });
+      q.addEventListener('input', () => { on.q = q.value.trim().toLowerCase(); apply(); });
+      reset.addEventListener('click', () => { Object.assign(on, { open: false, late: false, free: false, near: false, cat: '', boro: '', q: '' }); q.value = ''; boro.value = ''; geoMsg.textContent = ''; sortNear(); apply(); });
+      // the bar stays in reach under the site header while the list scrolls
+      const hdr = document.querySelector<HTMLElement>('.site-header');
+      if (hdr) bar.style.top = `${hdr.offsetHeight}px`;
+      apply();
+    }
+  </script>
+)}
+
+<style>
+  .alede { margin: 4px 0 0; color: var(--ink-2); font-size: 17px; }
+  .abar { position: sticky; top: 60px; z-index: 30; margin: 14px -16px 16px; padding: 10px 16px 8px; background: var(--paper); border-bottom: 1px solid var(--line); display: grid; grid-template-columns: minmax(0, 1fr); gap: 8px; min-width: 0; }
+  .abar-row { position: relative; display: flex; gap: 8px; align-items: center; min-width: 0; overflow-x: auto; scrollbar-width: none; padding-bottom: 2px; }
+  .abar-row::-webkit-scrollbar { display: none; }
+  .abar-search { flex: 1 0 180px; max-width: 280px; }
+  .abar-search input { width: 100%; font: inherit; font-size: 15px; padding: 7px 12px; border: 1.5px solid var(--line); border-radius: 999px; background: #fff; }
+  .pill { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px; border: 1.5px solid var(--line); border-radius: 999px; background: #fff; color: var(--ink); font: inherit; font-size: 14px; font-weight: 700; white-space: nowrap; cursor: pointer; }
+  .pill b { font-weight: 800; color: var(--brand); font-size: 13px; }
+  .pill[aria-pressed='true'] { background: var(--ink); border-color: var(--ink); color: #fff; }
+  .pill[aria-pressed='true'] b { color: #fff; }
+  .pill:disabled { opacity: 0.4; cursor: default; }
+  .pill-select { padding: 0; }
+  .pill-select select { font: inherit; font-size: 14px; font-weight: 700; border: 0; background: transparent; padding: 6px 10px; border-radius: 999px; color: var(--ink); max-width: 230px; }
+  .abar-status { margin: 0; font-size: 13px; color: var(--muted); display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+  .abar-reset { font: inherit; font-size: 13px; font-weight: 700; color: var(--brand); background: none; border: 0; padding: 0; cursor: pointer; text-decoration: underline; }
+  :global(.acard-dist) { margin: 0; font-size: 14px; font-weight: 700; color: var(--brand); }
+  .link-cloud { display: flex; flex-wrap: wrap; gap: 8px 16px; padding: 0; list-style: none; }
+  .acat { margin: 0 0 4px; font-size: 14px; font-weight: 800; letter-spacing: 0.04em; text-transform: uppercase; color: var(--brand); }
+  .afacts { display: grid; gap: 14px; margin-top: 18px; }
+  .afacts .btn { justify-self: start; }
+  .frow { margin: 0 0 6px; }
+  .chk { display: inline-block; margin-left: 4px; padding: 1px 8px; border-radius: 999px; background: var(--brand-soft); color: var(--ink-2); font-size: 12px; font-weight: 700; white-space: nowrap; }
+  .aq h3 { font-size: 18px; margin: 18px 0 4px; }
+  .aq p { margin: 0; }
+  .ahh { padding-left: 18px; }
+  .ahh li { margin: 6px 0; }
+  @media (max-width: 560px) { .agrid { grid-template-columns: 1fr; } }
+</style>
