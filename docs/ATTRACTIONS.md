@@ -2,9 +2,9 @@
 
 The /attractions section lists NYC attractions with facts read from each attraction's official site. It is additive: it changes no existing page, URL or sitemap entry, and adds one main-nav link ("Attractions") only while attraction pages exist.
 
-## Status (Nov 7, 2026)
+## Status (Nov 8, 2026)
 
-34 of the 38 v7 candidates are approved and live. Held for enrichment: `fraunces-tavern`, `seaport-museum`, `tenement-museum` and `new-york-historical`: none has a captured price, and their hours are partial or vague. Approve them with `attractions-approve.mjs` once a data drop fills those gaps.
+54 attractions are approved and live. On Nov 8, official pages were read for the 4 that had been held and for backlog records: 15 records gained facts, and 5 new attractions were added (Museum of the Moving Image, Children's Museum of Manhattan, Brooklyn Children's Museum, MoMath, Louis Armstrong House Museum), each field marked "official page, read 2026-11-08". Still held: `new-york-historical`, whose official site blocks automated reads (no price captured). Sites that block automated reads or render their hours in JavaScript (the Morgan, the Guggenheim, New Museum, RiseNY, Museum of Sex) stay in the backlog.
 
 ## Files
 

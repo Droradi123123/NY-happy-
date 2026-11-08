@@ -16,7 +16,7 @@ const DAY: Record<string, number> = { sun: 0, sunday: 0, sundays: 0, mon: 1, mon
   wed: 3, wednesday: 3, wednesdays: 3, thu: 4, thur: 4, thurs: 4, thursday: 4, thursdays: 4, fri: 5, friday: 5, fridays: 5, sat: 6, saturday: 6, saturdays: 6 };
 const MON: Record<string, number> = { jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6, jul: 7, aug: 8, sep: 9, sept: 9, oct: 10, nov: 11, dec: 12 };
 const VAGUE = /vary|varies|not captured|partial|select|separate schedule|per site|specific hours|seasonally|shop|dining/i;
-const HOLIDAY = /thanksgiving|christmas|new year|mlk|december 25|holiday(?!s \d)|labor day|memorial day/i;
+const HOLIDAY = /thanksgiving|christmas|new year|mlk|juneteenth|december 25|holiday(?!s \d)|labor day|memorial day/i;
 
 const range = (a: number, b: number) => { const out: number[] = []; for (let d = a; ; d = (d + 1) % 7) { out.push(d); if (d === b) break; } return out; };
 /** "Mon-Fri", "Sun/Mon/Sat", "Mon, Tue, Sat", "daily", "Monday-Sunday", "weekends", "Wednesdays" -> day numbers, or null */

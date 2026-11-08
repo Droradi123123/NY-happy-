@@ -157,6 +157,7 @@ const boroughs = [...new Set(all.map((x) => x.borough))];
           <dd>{a.phone ? <><a href={`tel:+1${a.phone.replace(/\D/g, '')}`}>{a.phone}</a> <span class="chk">Checked {fmtDate(a.verified_at)}</span></> : <Fragment set:html={official()} />}</dd>
           <dt>Accessibility</dt>
           <dd>{a.accessibility ? <>{a.accessibility} <span class="chk">Checked {fmtDate(a.verified_at)}</span></> : <Fragment set:html={official()} />}</dd>
+          {a.typical_visit_duration && a.typical_visit_duration !== 'unknown' && <><dt>Time to allow</dt><dd>{a.typical_visit_duration} <span class="chk">Checked {fmtDate(a.verified_at)}</span></dd></>}
           {a.booking_required === 'yes' && <><dt>Booking</dt><dd>Advance ticket or reservation required <span class="chk">Checked {fmtDate(a.verified_at)}</span></dd></>}
         </dl>
         {(a.ticket_url || a.official_url) && (
