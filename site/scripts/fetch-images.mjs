@@ -112,11 +112,12 @@ async function worker() {
     if (!(await rendition(orig, rel(''), 1280))) continue;
     const mid = await rendition(orig, rel('-m'), 800);
     const sm = await rendition(orig, rel('-s'), 500);
-    // page photos are also share images: a 1200x630 JPEG, which every social network reads
+    // page and attraction photos are also share images: a 1200x630 JPEG, which every social network reads
     let og = null;
-    if (row.subject_kind === 'page') {
-      const o = `page/${base}-og.jpg`;
+    if (row.subject_kind === 'page' || row.subject_kind === 'attraction') {
+      const o = `${row.subject_kind}/${base}-og.jpg`;
       try {
+        mkdirSync(dirname(cached(o)), { recursive: true });
         if (!existsSync(cached(o))) await sharp(orig).rotate().resize(1200, 630, { fit: 'cover' }).jpeg({ quality: 80, mozjpeg: true }).toFile(cached(o));
         copy(cached(o), pub(o)); og = `/img/${o}`;
       } catch { /* the share image falls back to the default */ }
@@ -138,7 +139,7 @@ done.sort((a, b) => (a.kind + a.key).localeCompare(b.kind + b.key));
 // on the site through a cached public/img: delete every file the list does not reference
 const keep = new Set(done.flatMap((p) => [p.src, p.thumb, p.mid, p.og]));
 let removed = 0;
-for (const kind of ['bar', 'venue', 'hood', 'page']) {
+for (const kind of ['bar', 'venue', 'hood', 'page', 'attraction']) {
   const dir = join(root, 'public', 'img', kind);
   if (!existsSync(dir)) continue;
   for (const f of readdirSync(dir)) if (!keep.has(`/img/${kind}/${f}`)) { rmSync(join(dir, f)); removed++; }

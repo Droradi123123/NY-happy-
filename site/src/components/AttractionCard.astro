@@ -1,15 +1,18 @@
 ---
 /** One attraction on the hub and category pages. data-* feed the hub filters (category, borough, free, search). */
 import { priceFlagLabel, placeLabel, type Attraction } from '../lib/attractions';
-import { fmtDate } from '../lib/data';
+import { fmtDate, photoOf, creditShort, boroughSlug } from '../lib/data';
 interface Props { a: Attraction }
 const { a } = Astro.props;
 // the card shows the price summary's first clause (the full summary is on the page)
 const price = priceFlagLabel(a).split(/;\s*/)[0];
 const place = placeLabel(a);
+const photo = photoOf('attraction', a.id);
 ---
 <article class="xcard acard" data-cat={a.catSlug} data-boro={a.borough} data-free={a.price_flag === 'free' ? '1' : '0'} data-q={`${a.name} ${a.neighborhood}`.toLowerCase()}
   data-hours={a.hours ? JSON.stringify(a.hours) : undefined} data-lat={a.geo?.lat} data-lng={a.geo?.lng}>
+  {photo && <figure class="xcard-img"><img src={photo.thumb} alt="" width="500" height="281" loading="lazy" decoding="async" /><figcaption>{creditShort(photo)}</figcaption></figure>}
+  {!photo && <div class={`xcard-art xart-${boroughSlug(a.borough)}`} aria-hidden="true"><span>{a.neighborhood}</span></div>}
   <p class="acard-cat">{a.catLabel}</p>
   <h3><a href={a.path}>{a.name}</a></h3>
   <p class="acard-place">{place}</p>

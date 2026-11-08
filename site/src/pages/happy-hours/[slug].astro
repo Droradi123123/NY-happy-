@@ -13,6 +13,7 @@ import { listPages, type ListPage } from '../../lib/lists';
 import { stats, plural } from '../../lib/stats';
 import { crumbs, faqLd, collectionLd, freshDescription } from '../../lib/seo';
 import Fresh from '../../components/Fresh.astro';
+import { attractionsIn } from '../../lib/attractions';
 
 export async function getStaticPaths() {
   const pages = await listPages();
@@ -29,6 +30,8 @@ const year = new Date().getFullYear();
 const stamp = `${new Date().toLocaleString('en-US', { month: 'short', timeZone: 'America/New_York' })} ${year}`;
 const ph = page.kind === 'hood' ? photoOf('hood', page.slug) : null;
 const day = page.kind === 'day' ? (page.preset.day as Day) : null;
+// things to do in the same neighborhood (attraction pages, matched by neighborhood name)
+const sights = page.kind === 'hood' ? attractionsIn(page.short) : [];
 
 // when happy hour starts on this page's bars (on its day, for a day page)
 const starts = new Map<string, number>();
@@ -167,6 +170,13 @@ const hoods = (await allHoods()).filter((h) => list.some((b) => b.hoodSlug === h
     <h2>Questions</h2>
     {allFaq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
   </section>
+  {sights.length > 0 && (
+    <section class="section">
+      <h2>Attractions in {page.short}</h2>
+      <ul class="link-cloud">{sights.map((a) => <li><a href={a.path}>{a.name}<span class="count">{a.catLabel}</span></a></li>)}</ul>
+      <p class="small"><a href="/attractions">All NYC attractions</a></p>
+    </section>
+  )}
   {nearHoods.length > 0 && (
     <section class="section">
       <h2>More happy hours in {page.borough}</h2>

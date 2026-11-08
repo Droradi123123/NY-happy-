@@ -115,6 +115,11 @@ export const observedText = (a: AttractionRecord) => {
 };
 
 const norm = (s: string) => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+/** the rendered attractions whose neighborhood is this one (the same clean name join as happyHoursFor) */
+export function attractionsIn(hood: string): Attraction[] {
+  const n = norm(hood);
+  return n ? attractions().filter((a) => a.neighborhood.split(/[,/]/).map(norm).includes(n)) : [];
+}
 /** up to 3 happy hours whose neighborhood is one of the attraction's (a clean name join, no guessing) */
 export async function happyHoursFor(a: Attraction): Promise<Bar[]> {
   const parts = new Set(a.neighborhood.split(/[,/]/).map(norm).filter(Boolean));

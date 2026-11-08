@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { photos, allBars, allHoods, partyData } from '../lib/data';
+import { attractions } from '../lib/attractions';
 const allB = await allBars();
 const bars = new Map(allB.map((b) => [b.slug, b]));
 const perHood = new Map<string, number>();
@@ -9,12 +10,14 @@ const hoods = new Map((await allHoods()).map((h) => [h.slug, h]));
 const { venues, venuePages } = await partyData();
 const vmap = new Map(venues.map((v) => [v.id, v]));
 const withNights = new Set(venuePages.map((v) => v.id));
+const attrs = new Map(attractions().map((a) => [a.id, a]));
 // only photos that appear on a built page (same rules as the pages themselves)
 const list = [...photos().values()].filter((p) =>
-  p.kind === 'bar' ? bars.has(p.key) : p.kind === 'venue' ? withNights.has(p.key) : (perHood.get(p.key) ?? 0) >= 5);
+  p.kind === 'bar' ? bars.has(p.key) : p.kind === 'venue' ? withNights.has(p.key) : p.kind === 'attraction' ? attrs.has(p.key) : (perHood.get(p.key) ?? 0) >= 5);
 const where = (kind: string, key: string): [string, string | null] => {
   if (kind === 'bar') { const b = bars.get(key); return [b?.name ?? key, b ? `/bars/${key}` : null]; }
   if (kind === 'venue') { const v = vmap.get(key); return [v?.name ?? key, v ? `/parties/venue/${key}` : null]; }
+  if (kind === 'attraction') { const a = attrs.get(key); return [a?.name ?? key, a ? a.path : null]; }
   const h = hoods.get(key); return [h?.name ?? key, h ? `/happy-hours/${key}` : null];
 };
 ---

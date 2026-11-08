@@ -59,6 +59,12 @@ node scripts/attractions-report.mjs ../docs/attractions-readiness.md
 - `description` is original text and is used as-is, with no padding.
 - No text or images from official sites, Time Out or Wikipedia. No affiliate or monetization links: buttons go only to `official_url` / `ticket_url`. These are not marked `data-ev="tickets"`, so the party ticket-link rule (ref tag + sponsored) does not apply to them.
 
+## Photos, llms.txt and internal links (Nov 8, 2026)
+
+- **Photos**: 51 of 54 live pages have a freely licensed Wikimedia Commons photo of the place (CC0, public domain, CC BY or CC BY-SA 2.0-4.0), chosen from each article's lead image or Wikidata P18 and checked by hand for subject and license. They are rows in `image_rights` (`subject_kind = 'attraction'`, `subject_key` = attraction id); `scripts/fetch-images.mjs` self-hosts them at build like every other photo, plus a 1200x630 share image. A page shows the photo as its hero with author, license and a link to the file; the card shows the thumbnail with a short credit; JSON-LD `image` and `og:image` use it; `/image-credits` lists each one. Without a photo (nybg: license CC BY-SA 2.5 is not on our list; prospect-park-zoo: too small; ny-aquarium: the lead image shows the boardwalk) the card shows the designed borough card. To remove a photo: set its row's `status` to `removed` and rebuild.
+- **llms.txt**: an "NYC attractions" section lists the hub, each category and each attraction with address, stated hours and admission when captured, and the checked date. Blank facts are left out.
+- **Internal links**: a happy-hours neighborhood page lists "Attractions in <neighborhood>" when an attraction's neighborhood has the same name (`attractionsIn()`, the same clean name join as the "After your visit" happy hours on attraction pages). No guessing by distance.
+
 ## Hub filters: open now, open late, near me
 
 The hub's compact filter bar has search, **Open now**, **Open till 8pm+**, **Free**, **Near me**, borough and category. Each option shows how many places it would leave given the other active filters; an option that would leave none is disabled.

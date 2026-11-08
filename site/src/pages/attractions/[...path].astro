@@ -8,8 +8,9 @@
 import Base from '../../layouts/Base.astro';
 import AttractionCard from '../../components/AttractionCard.astro';
 import MiniMap from '../../components/MiniMap.astro';
+import Photo from '../../components/Photo.astro';
 import { attractions, attractionCategories, observedText, placeLabel, happyHoursFor, lastChecked, type Attraction } from '../../lib/attractions';
-import { fmtDate, dealLabel, type Bar } from '../../lib/data';
+import { fmtDate, dealLabel, photoOf, type Bar } from '../../lib/data';
 import { crumbs, itemList, SITE } from '../../lib/seo';
 
 export async function getStaticPaths() {
@@ -30,6 +31,8 @@ const checked = fmtDate(lastChecked());
 
 // ---------- detail page ----------
 const a: Attraction | undefined = props.kind === 'item' ? all.find((x) => x.id === props.id) : undefined;
+// a freely licensed Wikimedia Commons photo of the place (image_rights, self-hosted by fetch-images.mjs)
+const photo = a ? photoOf('attraction', a.id) : null;
 const cat = props.kind === 'cat' ? cats.find((c) => c.slug === props.cat) : a ? cats.find((c) => c.slug === a.catSlug) : undefined;
 let bars: Bar[] = [];
 let qa: { q: string; a: string }[] = [];
@@ -48,6 +51,7 @@ if (a) {
   ].filter((x) => x.a).slice(0, 5);
   ld = [
     { '@context': 'https://schema.org', '@type': 'TouristAttraction', name: a.name, description: a.description, url: `${SITE}${a.path}`,
+      ...(photo ? { image: `${SITE}${photo.src}` } : {}),
       ...(a.official_url ? { sameAs: [a.official_url] } : {}),
       ...(a.address ? { address: a.address } : {}),
       ...(a.geo ? { geo: { '@type': 'GeoCoordinates', latitude: a.geo.lat, longitude: a.geo.lng } } : {}),
@@ -81,7 +85,7 @@ if (props.kind === 'hub') {
 }
 const boroughs = [...new Set(all.map((x) => x.borough))];
 ---
-<Base title={title} titles={titles} description={description} keyword={keyword} jsonld={ld}>
+<Base title={title} titles={titles} description={description} keyword={keyword} jsonld={ld} ogImage={photo ? (photo.og ?? photo.src) : null}>
   <Fragment slot="head">
     {/* a URL with filters or search in it is a state of this page, not a page of its own */}
     {(props.kind !== 'item') && <script is:inline>if (location.search) { var m = document.createElement('meta'); m.name = 'robots'; m.content = 'noindex, follow'; document.head.appendChild(m); }</script>}
@@ -137,6 +141,7 @@ const boroughs = [...new Set(all.map((x) => x.borough))];
       <p class="acat">{a.catLabel} · {placeLabel(a)}</p>
       <h1>{a.name}</h1>
       <p class="lede">{a.description}</p>
+      {photo && <Photo photo={photo} alt={a.name} hero ratio="16 / 9" />}
       {a.stale && <p class="note">We're re-verifying these details. Everything below is as last checked on {fmtDate(a.verified_at)}; confirm on the official site.</p>}
 
       <section class="card afacts">
