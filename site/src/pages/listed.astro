@@ -1,0 +1,44 @@
+---
+/**
+ * For organizers and venues: how a night gets on YaY NYC (free, checked), how to send a fix, and a
+ * "Listed on YaY NYC" badge to link from their own site or bio. The party or club page to link to comes
+ * from the URL hash (/listed#<party-slug> or /listed#venue/<id>), linked from each party and club page.
+ */
+import Base from '../layouts/Base.astro';
+---
+<Base noindex title="Listed on YaY NYC: For Organizers and Venues" keyword="listed on yay nyc" description="Your night is on YaY NYC: how listings work (free, checked against your own page), how to send a fix, and a badge for your site or bio.">
+  <h1>Your night is listed on YaY NYC</h1>
+  <p class="lede">YaY NYC is a free guide to NYC parties and happy hours. Listings are free and no one can pay to be listed or ranked: a night is here because its ticket page checks out, and we re-read it until the night is over.</p>
+
+  <section class="section">
+    <h2>Something wrong or missing?</h2>
+    <p>A changed time, a sold-out tier, a new lineup or a second room: <a href="/contact">send us a fix</a> with a link to your own page, and we update the listing once we have read it there.</p>
+  </section>
+
+  <section class="section">
+    <h2>Add the badge</h2>
+    <p>Link to your listing from your site, link in bio or event page. The badge is a small image hosted by us; the link sends your fans straight to the night with doors, age, price and your ticket link.</p>
+    <p><img src="/badge/listed.svg" width="200" height="48" alt="Listed on YaY NYC" /></p>
+    <label for="badge-code"><strong>Copy this code</strong></label>
+    <textarea id="badge-code" class="badge-code" rows="4" readonly data-badge></textarea>
+    <p><button type="button" class="btn" data-copy>Copy</button> <span class="small muted" data-copied hidden>Copied.</span></p>
+    <p class="small">Prefer a plain link? Use the address of your night's page on YaY NYC, shown in the code above.</p>
+  </section>
+</Base>
+<script is:inline>
+  (function () {
+    var h = decodeURIComponent(location.hash.slice(1)).replace(/[^a-z0-9/-]/gi, '');
+    var url = 'https://yaynyc.com' + (h ? '/parties/' + h : '/parties');
+    var code = '<a href="' + url + '"><img src="https://yaynyc.com/badge/listed.svg" width="200" height="48" alt="Listed on YaY NYC"></a>';
+    var t = document.querySelector('[data-badge]'); if (t) t.value = code;
+    var b = document.querySelector('[data-copy]');
+    if (b) b.addEventListener('click', function () {
+      var ok = function () { var s = document.querySelector('[data-copied]'); if (s) s.hidden = false; };
+      if (navigator.clipboard) navigator.clipboard.writeText(code).then(ok, function () { t.select(); });
+      else { t.select(); try { document.execCommand('copy'); ok(); } catch (e) {} }
+    });
+  })();
+</script>
+<style>
+  .badge-code { width: 100%; font-family: ui-monospace, monospace; font-size: 13px; padding: 10px; border: 1px solid var(--line); border-radius: 10px; box-sizing: border-box; }
+</style>

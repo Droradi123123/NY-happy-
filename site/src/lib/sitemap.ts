@@ -49,7 +49,7 @@ export function sitemapRows(): Promise<[string, string | null][]> {
     // a list's lastmod is a real date: the newest read among the bars or parties on it
     const newest = (ds: (string | null | undefined)[]) => (ds.filter(Boolean) as string[]).sort().pop()?.slice(0, 10) ?? null;
     const rows: [string, string | null][] = [
-      ['/', null], ['/happy-hours', newest(bars.map((b) => b.checked))], ['/nyc-happy-hour-index', null], ['/happy-hours/now', null], ['/happy-hours/neighborhoods', null], ['/parties', newest(parties.map((p) => p.last_checked))], ['/map', null], ['/map/happy-hours', null], ['/map/parties', null], ['/about', null], ['/editorial-policy', null], ['/contact', null], ['/image-credits', null], ['/privacy', null], ['/accessibility', null],
+      ['/', null], ['/happy-hours', newest(bars.map((b) => b.checked))], ['/nyc-happy-hour-index', null], ['/nyc-nye-price-index', newest(parties.filter((p) => p.themes.includes('nye')).map((p) => p.last_checked))], ['/happy-hours/now', null], ['/happy-hours/neighborhoods', null], ['/parties', newest(parties.map((p) => p.last_checked))], ['/map', null], ['/map/happy-hours', null], ['/map/parties', null], ['/about', null], ['/editorial-policy', null], ['/press', null], ['/contact', null], ['/image-credits', null], ['/privacy', null], ['/accessibility', null],
       ...(parties.some((p) => p.themes.includes('halloween')) ? [['/parties/halloween', null] as [string, null]] : []),
       ...(await halloweenPages()).built.filter((b) => b.indexable).map((b) => [`/parties/halloween/${b.page.slug}`, null] as [string, null]),
       ...lists.map((l) => [`/happy-hours/${l.slug}`, newest(l.bars.map((b) => b.checked))] as [string, string | null]),

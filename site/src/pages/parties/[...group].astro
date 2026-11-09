@@ -121,6 +121,7 @@ const hhToday = /^(tonight|[a-z-]+\/tonight)$/.test(L.slug) && n < 6
       <p class="big-date">{nightDate(L.holiday.date, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })} · <span data-countdown={L.holiday.date}>{days === 0 ? 'today' : days === 1 ? 'tomorrow' : `in ${days} days`}</span></p>
       <p>{L.holiday.note}</p>
       <p><strong>{plural(n, 'night')} on sale</strong>{n ? ` so far, from ${range}.` : ' so far: this page fills in as tickets are released.'}</p>
+      {(L.slug === 'new-years-eve' || L.parent?.slug === 'new-years-eve') && <p>What NYE costs this year, by borough and kind of party, with daily price changes: <a href="/nyc-nye-price-index">the NYC New Year's Eve Price Index</a>.</p>}
     </section>
   )}
   {copy && (

@@ -57,7 +57,7 @@ export const GET: APIRoute = async () => {
       ...lists.map((l) => `- [${l.h1}](${SITE}/parties/${l.slug}): ${l.parties.length} upcoming`), ''] : []),
     ...(parties.length ? ['## Upcoming parties', '', ...parties.map((p) => { const v = venueOf(p, venues); const d = nyTime(p.doors_at ?? p.starts_at); return `- [${cleanTitle(p.title)}](${SITE}/parties/${p.slug}): ${nightDate(p.night_date)}${d ? `, doors ${d}` : ''}, ${v?.name ?? ''}${p.neighborhood ? ` (${p.neighborhood})` : ''}; ${priceLabel(p)}${p.age_min ? `, ${p.age_min}+` : ''}${p.event_status === 'sold_out' ? ', sold out' : ''}`; }), ''] : []),
     ...attrLines,
-    '## Data', '', `- [NYC Happy Hour Price Index](${SITE}/nyc-happy-hour-index): median happy-hour price of beer, wine, cocktails and well drinks by borough and neighborhood, from bars' own menus; CSV at ${SITE}/nyc-happy-hour-index.csv`, '',
+    '## Data', '', `- [NYC Happy Hour Price Index](${SITE}/nyc-happy-hour-index): median happy-hour price of beer, wine, cocktails and well drinks by borough and neighborhood, from bars' own menus; CSV at ${SITE}/nyc-happy-hour-index.csv`, `- [NYC New Year's Eve Price Index](${SITE}/nyc-nye-price-index): median NYE party ticket by borough and kind of party, with daily price changes; CSV at ${SITE}/nyc-nye-price-index.csv`, '',
     ...(guides.length ? ['## Guides', '', ...guides.map((g) => `- [${g.title}](${SITE}/blog/${g.slug})`), ''] : []),
   ];
   return new Response(lines.join('\n'), { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });

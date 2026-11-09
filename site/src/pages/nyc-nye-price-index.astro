@@ -1,0 +1,163 @@
+---
+/**
+ * The NYC New Year's Eve Price Index (lib/nyePrices.ts): a citable data page. Every figure is computed
+ * at build from the cheapest ticket each NYE night lists on its ticket site, and from the daily price
+ * watch. The CSV next to it has one row per night.
+ */
+import Base from '../layouts/Base.astro';
+import { nyePrices, usd } from '../lib/nyePrices';
+import { venueOf, partyData, cleanTitle, priceLabel } from '../lib/data';
+import { crumbs, faqLd, SITE } from '../lib/seo';
+
+const ix = await nyePrices();
+const { venues } = await partyData();
+const asOf = new Date(`${ix.built}T12:00:00Z`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+const year = ix.date.slice(0, 4);
+const n = ix.nights.length;
+const pct = (k: number) => (n ? Math.round((k / n) * 100) : 0);
+const since = ix.watch.since ? new Date(`${ix.watch.since}T12:00:00Z`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', timeZone: 'UTC' }) : null;
+const sortedB = [...ix.boroughs].filter((b) => b.median !== null).sort((a, b) => a.median! - b.median!);
+const findings = [
+  ix.median !== null ? `As of ${asOf}, the median cheapest ticket to a New Year's Eve party in New York City is ${usd(ix.median)}, across ${ix.priced} NYE ${year} nights with a listed price (the middle half runs ${usd(ix.p25)} to ${usd(ix.p75)}).` : '',
+  n ? `${pct(ix.under100)}% of the ${n} NYE nights we list have a ticket at $100 or less; ${ix.over200} start above $200.` : '',
+  sortedB.length >= 2 ? `By borough, ${sortedB[0].label} is the cheapest (median ${usd(sortedB[0].median)}) and ${sortedB[sortedB.length - 1].label} the most expensive (median ${usd(sortedB[sortedB.length - 1].median)}).` : '',
+  ix.kinds.find((k) => k.label === 'Open bar' && k.median !== null) ? `Open-bar packages have a median entry price of ${usd(ix.kinds.find((k) => k.label === 'Open bar')!.median)}, against ${usd(ix.kinds.find((k) => k.label.startsWith('Clubs'))?.median ?? null)} for club nights without one.` : '',
+  ix.watch.tracked >= 5 ? `Since ${since}, ${ix.watch.up} of the ${ix.watch.tracked} nights we track have raised their cheapest ticket and ${ix.watch.down} have lowered it (median change ${ix.watch.medianChangePct! >= 0 ? '+' : ''}${Math.round(ix.watch.medianChangePct!)}%).` : '',
+  ix.soldOut ? `${ix.soldOut} NYE ${year} nights are already sold out.` : '',
+  ix.halloween ? `For comparison, Halloween ${year}: ${ix.halloween.nights} nights, median cheapest ticket ${usd(ix.halloween.median)}, and ${ix.halloween.soldOutPct}% sold out before the night.` : '',
+].filter(Boolean);
+const title = `NYE Party Prices in NYC ${year}: The New Year's Eve Price Index`;
+const description = ix.median !== null
+  ? `NYE party prices in NYC for ${year}: median ticket ${usd(ix.median)} across ${ix.priced} nights, by borough and type (open bar, rooftop, boat). Updated ${asOf}.`
+  : `NYE party prices in NYC for ${year}: ticket prices by borough and type (open bar, rooftop, boat), updated ${asOf}.`;
+const faq = [
+  ...(ix.median !== null ? [{ q: `How much are New Year's Eve parties in NYC in ${year}?`, a: `The median cheapest ticket is ${usd(ix.median)} across ${ix.priced} NYE nights with a listed price, as of ${asOf}. The cheapest starts at ${usd(ix.min)} and the most expensive at ${usd(ix.max)}.` }] : []),
+  ...(ix.under100 ? [{ q: `Are there NYE parties in NYC under $100?`, a: `Yes: ${ix.under100} of the ${n} nights we list have a ticket at $100 or less, ${ix.under50} of them at $50 or less (as of ${asOf}). Prices usually rise in tiers as the night gets closer.` }] : []),
+  ...(ix.watch.tracked >= 5 ? [{ q: `Do NYE ticket prices go up closer to the date?`, a: `Since ${since}, ${ix.watch.up} of the ${ix.watch.tracked} nights we track have raised their cheapest ticket, ${ix.watch.down} lowered it and ${ix.watch.same} kept it. Most NYC NYE parties sell in tiers that close as they sell.` }] : [{ q: `Do NYE ticket prices go up closer to the date?`, a: `Most NYC NYE parties sell tickets in tiers that rise as each tier sells. We record every night's cheapest ticket daily from ${since ?? 'November 9'} and publish the changes here.` }]),
+];
+const dataset = {
+  '@context': 'https://schema.org', '@type': 'Dataset', name: "NYC New Year's Eve Price Index", description,
+  url: `${SITE}/nyc-nye-price-index`, creator: { '@type': 'Organization', name: 'YaY NYC', url: SITE }, dateModified: ix.built,
+  temporalCoverage: `${ix.watch.since ?? ix.built}/${ix.date}`, spatialCoverage: { '@type': 'Place', name: 'New York City' },
+  license: 'https://creativecommons.org/licenses/by/4.0/',
+  distribution: [{ '@type': 'DataDownload', encodingFormat: 'text/csv', contentUrl: `${SITE}/nyc-nye-price-index.csv` }],
+  variableMeasured: ["Median cheapest listed ticket, New Year's Eve parties (USD)", 'Share of nights at $100 or less', 'Nights sold out'],
+};
+const maxN = Math.max(1, ...ix.hist.map((b) => b.n));
+const W = 340, H = 150, pad = 8, bw = (W - pad) / ix.hist.length;
+const y = (k: number) => H - 22 - (k / maxN) * (H - 40);
+const binLabel = (b: { from: number; to: number }) => (b.to === Infinity ? `$${b.from}+` : `$${b.from}–${b.to}`);
+---
+<Base title={title} description={description} keyword="nye party prices nyc" jsonld={[dataset, crumbs([['YaY NYC', '/'], ['Parties', '/parties'], ["New Year's Eve", '/parties/new-years-eve'], ['Price index', '/nyc-nye-price-index']]), ...(faq.length ? [faqLd(faq)] : [])]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li><li><a href="/parties/new-years-eve">New Year's Eve</a></li><li aria-current="page">Price index</li></ol></nav>
+  <h1>NYE Party Prices in NYC {year}: The New Year's Eve Price Index</h1>
+  <p class="lede">What a New Year's Eve party actually costs in New York City this year, from the cheapest ticket every NYE night lists on its ticket site. We record each night's price every day until December 31, so the changes show here as they happen. Last update: {asOf}.</p>
+
+  {findings.length > 0 && (
+    <section class="section answer-box">
+      <h2>Key findings, {asOf}</h2>
+      <ul>{findings.map((f) => <li>{f}</li>)}</ul>
+    </section>
+  )}
+
+  {ix.median !== null && (
+    <section class="section">
+      <h2>The numbers</h2>
+      <div class="ix-tiles">
+        <div class="ix-tile"><span class="ix-k">Median ticket</span><span class="ix-v">{usd(ix.median)}</span><span class="ix-n">middle half {usd(ix.p25)} to {usd(ix.p75)}</span></div>
+        <div class="ix-tile"><span class="ix-k">NYE nights</span><span class="ix-v">{n}</span><span class="ix-n">{ix.priced} with a listed price</span></div>
+        <div class="ix-tile"><span class="ix-k">$100 or less</span><span class="ix-v">{pct(ix.under100)}%</span><span class="ix-n">{ix.under100} nights, {ix.under50} at $50 or less</span></div>
+        <div class="ix-tile"><span class="ix-k">Sold out</span><span class="ix-v">{ix.soldOut}</span><span class="ix-n">as of {asOf}</span></div>
+      </div>
+      <figure class="ix-chart">
+        <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label="How many NYE nights start in each price range">
+          <line x1={pad} x2={W} y1={H - 22} y2={H - 22} class="ix-axis" />
+          {ix.hist.map((b, i) => (
+            <g>
+              <rect x={pad + i * bw + 3} y={y(b.n)} width={bw - 6} height={H - 22 - y(b.n)} class="ix-bar" />
+              {b.n > 0 && <text x={pad + i * bw + bw / 2} y={y(b.n) - 4} text-anchor="middle" class="ix-t">{b.n}</text>}
+              <text x={pad + i * bw + bw / 2} y={H - 6} text-anchor="middle" class="ix-t">{binLabel(b)}</text>
+            </g>
+          ))}
+        </svg>
+        <figcaption>NYE {year} nights by cheapest listed ticket</figcaption>
+      </figure>
+    </section>
+  )}
+
+  {ix.boroughs.length > 0 && (
+    <section class="section">
+      <h2>By borough</h2>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="NYE ticket prices by borough">
+        <table>
+          <thead><tr><th>Borough</th><th>Median ticket</th><th>Cheapest</th><th>Nights</th></tr></thead>
+          <tbody>{ix.boroughs.map((b) => <tr><th scope="row"><a href={`/parties/${b.slug}`}>{b.label}</a></th><td>{usd(b.median)}</td><td>{usd(b.from)}</td><td>{b.n}</td></tr>)}</tbody>
+        </table>
+      </div>
+    </section>
+  )}
+
+  {ix.kinds.length > 0 && (
+    <section class="section">
+      <h2>By kind of party</h2>
+      <div class="table-wrap" tabindex="0" role="region" aria-label="NYE ticket prices by kind of party">
+        <table>
+          <thead><tr><th>Kind</th><th>Median ticket</th><th>Cheapest</th><th>Nights</th></tr></thead>
+          <tbody>{ix.kinds.map((k) => <tr><th scope="row">{k.slug ? <a href={`/parties/${k.slug}`}>{k.label}</a> : k.label}</th><td>{usd(k.median)}</td><td>{usd(k.from)}</td><td>{k.n}</td></tr>)}</tbody>
+        </table>
+      </div>
+      <p class="small muted">A night counts as open bar, rooftop or boat when its title, page or venue says so; a night can be in more than one.</p>
+    </section>
+  )}
+
+  {ix.cheapest.length > 0 && (
+    <section class="section">
+      <h2>The cheapest NYE {year} tickets right now</h2>
+      <ol class="ix-list">{ix.cheapest.map((p) => <li><a href={`/parties/${p.slug}`}>{cleanTitle(p.title)}</a> <span class="muted">· {venueOf(p, venues)?.name ?? ''} · {priceLabel(p)}</span></li>)}</ol>
+      <p><a href="/parties/new-years-eve">All NYE parties in NYC</a> · <a href="/parties/new-years-eve/under-50">NYE under $50</a> · <a href="/parties/new-years-eve/open-bar">open bar</a> · <a href="/parties/new-years-eve/rooftop">rooftop</a> · <a href="/parties/new-years-eve/boat">boat parties</a></p>
+    </section>
+  )}
+
+  <section class="section">
+    <h2>The price watch</h2>
+    {ix.watch.tracked >= 5
+      ? <p>Since {since} we have recorded every NYE night's cheapest ticket once a day ({ix.watch.days} days so far). Of the {ix.watch.tracked} nights with a price on both their first and latest day, {ix.watch.up} went up, {ix.watch.down} went down and {ix.watch.same} stayed the same; {ix.watch.newSoldOut} sold out in that time.</p>
+      : <p>We record every NYE night's cheapest ticket once a day, starting {since ?? 'November 9'}. Changes appear here once enough days have passed to compare.</p>}
+  </section>
+
+  {faq.length > 0 && (
+    <section class="section faq">
+      <h2>Questions</h2>
+      {faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}
+    </section>
+  )}
+
+  <section class="section">
+    <h2>How the index is built</h2>
+    <p>Every NYC New Year's Eve party we publish counts: club nights, open-bar packages, rooftops, boats and hotel parties in the five boroughs, each read from its ticket listing (DICE, Eventbrite, Joonbug or the venue's own site). For each night we take the cheapest ticket listed when we last checked, with fees where the seller shows them, and report the median across nights. Sold-out tiers are not counted. Prices are what the seller listed, not what a reseller charges.</p>
+    <p>The index covers the nights we list, not every party in the city; nights without a published price are left out of the price figures.</p>
+  </section>
+
+  <section class="section">
+    <h2>Use this data</h2>
+    <p>Journalists and anyone else are welcome to use these figures with a credit and a link. <a href="/nyc-nye-price-index.csv">Download every night's price (CSV)</a>, licensed CC BY 4.0. For questions, <a href="/contact">contact us</a>.</p>
+    <p class="cite">Cite as: YaY NYC, "NYC New Year's Eve Price Index", {asOf}, https://yaynyc.com/nyc-nye-price-index</p>
+    <p>Related: <a href="/nyc-happy-hour-index">NYC Happy Hour Price Index</a> · <a href="/parties/new-years-eve">New Year's Eve parties in NYC</a> · <a href="/parties/new-years-day">New Year's Day parties</a></p>
+  </section>
+</Base>
+<style>
+  .ix-tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+  .ix-tile { border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; display: grid; gap: 2px; background: #fff; }
+  .ix-k { font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-2); }
+  .ix-v { font-size: 34px; font-weight: 800; font-variant-numeric: tabular-nums; }
+  .ix-n { font-size: 13px; color: var(--ink-2); }
+  .ix-chart { margin: 16px 0 0; border: 1px solid var(--line); border-radius: 14px; padding: 12px; background: #fff; max-width: 560px; }
+  .ix-chart svg { width: 100%; height: auto; display: block; }
+  .ix-bar { fill: var(--brand); }
+  .ix-axis { stroke: var(--line); }
+  .ix-t { font-size: 10px; fill: var(--ink-2); font-variant-numeric: tabular-nums; }
+  .ix-chart figcaption { font-size: 13px; color: var(--ink-2); margin-top: 6px; }
+  .ix-list { padding-left: 22px; display: grid; gap: 6px; }
+  .cite { font-family: ui-monospace, monospace; font-size: 14px; background: var(--brand-soft, #EFEAFD); padding: 10px 12px; border-radius: 10px; overflow-wrap: anywhere; }
+  td { font-variant-numeric: tabular-nums; }
+</style>

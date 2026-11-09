@@ -1,0 +1,82 @@
+---
+/**
+ * Press and data: what YaY NYC publishes that a journalist can cite, with the headline numbers computed
+ * at build from the same data as the index pages. Nothing here is written by hand except the framing.
+ */
+import Base from '../layouts/Base.astro';
+import { priceIndex, money } from '../lib/priceIndex';
+import { nyePrices, usd } from '../lib/nyePrices';
+import { holidayHistory, partyData, allBars } from '../lib/data';
+import { crumbs, SITE } from '../lib/seo';
+
+const hh = await priceIndex();
+const nye = await nyePrices();
+const hist = await holidayHistory();
+const halloween = hist.find((h) => h.theme === 'halloween' && h.nights >= 20) ?? null;
+const { parties, venues } = await partyData();
+const bars = await allBars();
+const asOf = new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'America/New_York' });
+const year = nye.date.slice(0, 4);
+const sets = [
+  { name: 'NYC Happy Hour Price Index', href: '/nyc-happy-hour-index', csv: '/nyc-happy-hour-index.csv',
+    line: `The median happy-hour beer in NYC costs ${money(hh.city.beer.median)} and a cocktail ${money(hh.city.cocktail.median)}, across ${hh.priced} bars that publish their happy-hour prices, by borough and neighborhood.` },
+  { name: "NYC New Year's Eve Price Index", href: '/nyc-nye-price-index', csv: '/nyc-nye-price-index.csv',
+    line: nye.median !== null ? `The median cheapest ticket to an NYE ${year} party in NYC is ${usd(nye.median)} across ${nye.priced} nights, by borough and kind of party, with daily price changes until December 31.` : `NYE ${year} party prices in NYC by borough and kind of party, with daily price changes until December 31.` },
+];
+const facts = [
+  `${bars.length.toLocaleString('en-US')} NYC bars with a happy hour on file, each read from the bar's own website or menu, with the date read.`,
+  `${parties.length} upcoming party nights at ${new Set(parties.map((p) => p.venue_id)).size} venues across the five boroughs, each re-read from its ticket page.`,
+  halloween ? `Halloween ${year} in NYC: ${halloween.nights} party nights at ${halloween.venues} venues; median cheapest ticket ${usd(halloween.median_price)}; ${Math.round((halloween.sold_out / halloween.nights) * 100)}% sold out before the night.` : '',
+].filter(Boolean);
+---
+<Base title="Press and Data: NYC Nightlife Numbers from YaY NYC" keyword="nyc nightlife data" description={`NYC nightlife data for journalists: happy-hour prices, NYE ticket prices and party counts from YaY NYC, free to cite with a link. Updated ${asOf}.`}
+  jsonld={[crumbs([['YaY NYC', '/'], ['Press and data', '/press']])]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/">YaY NYC</a></li><li aria-current="page">Press and data</li></ol></nav>
+  <h1>Press and data: NYC nightlife numbers</h1>
+  <p class="lede">YaY NYC is a free guide to New York City's happy hours and parties. Every price and time on it is read from the bar's, venue's or ticket seller's own page and shown with the date we read it, so the numbers below come from the same data. You are welcome to use them with a credit and a link.</p>
+
+  <section class="section answer-box">
+    <h2>In numbers, {asOf}</h2>
+    <ul>{facts.map((f) => <li>{f}</li>)}</ul>
+  </section>
+
+  <section class="section">
+    <h2>Data sets</h2>
+    {sets.map((s) => (
+      <div class="card press-set">
+        <h3><a href={s.href}>{s.name}</a></h3>
+        <p>{s.line}</p>
+        <p class="small"><a href={s.href}>Read the index</a> · <a href={s.csv}>Download the CSV</a> · CC BY 4.0</p>
+      </div>
+    ))}
+  </section>
+
+  <section class="section">
+    <h2>Story ideas the data can answer</h2>
+    <ul>
+      <li>What does New Year's Eve cost in NYC this year, and how fast do ticket prices rise in December?</li>
+      <li>Which neighborhoods have the cheapest and the most expensive happy hours?</li>
+      <li>Where do New Yorkers go out on Thanksgiving Eve, the busiest bar night of the year?</li>
+      <li>How many parties does a holiday weekend bring, and how many sell out before the night?</li>
+    </ul>
+    <p>Ask us for a cut we have not published (a borough, a neighborhood, a kind of party) through the <a href="/contact">contact form</a>; we answer with the figures and how they were made.</p>
+  </section>
+
+  <section class="section">
+    <h2>How to cite</h2>
+    <p class="cite">Source: YaY NYC (yaynyc.com), "&lt;name of the index&gt;", {asOf}</p>
+    <p>Please link to the index page you used. The CSV files are licensed <a href="https://creativecommons.org/licenses/by/4.0/" rel="license noopener">CC BY 4.0</a>.</p>
+  </section>
+
+  <section class="section">
+    <h2>How we work</h2>
+    <p>No one can pay to be listed or ranked on YaY NYC, and there are no ads. How we check a happy hour or a party, and how we correct mistakes, is in our <a href="/about">about page</a> and <a href="/editorial-policy">editorial policy</a>.</p>
+    <p>Logo: <a href="/icon-512.png">512 px PNG</a> · <a href="/favicon.svg">SVG</a></p>
+  </section>
+</Base>
+<style>
+  .press-set h3 { margin: 0 0 6px; }
+  .press-set p { margin: 6px 0; }
+  .press-set + .press-set { margin-top: 12px; }
+  .cite { font-family: ui-monospace, monospace; font-size: 14px; background: var(--brand-soft, #EFEAFD); padding: 10px 12px; border-radius: 10px; overflow-wrap: anywhere; }
+</style>

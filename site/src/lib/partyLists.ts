@@ -167,6 +167,8 @@ const HOLIDAY_SLICES: Slice[] = [
   { slug: 'lgbtq', short: 'LGBTQ+', h1: (b) => `Queer and LGBTQ+ ${b} Parties in NYC`, kw: (k) => `lgbtq ${k} parties nyc`, test: (p, v) => partyTags(p, v).includes('lgbtq') },
   { slug: 'free', short: 'Free', h1: (b) => `Free ${b} Parties in NYC`, kw: (k) => `free ${k} parties nyc`, test: (p) => p.price_status === 'free' },
   { slug: 'under-50', short: 'Under $50', h1: (b) => `Cheap ${b} Parties in NYC: Under $50`, kw: (k) => `cheap ${k} parties nyc`, test: (p) => p.price_status === 'free' || (p.price_from !== null && p.price_from <= 50) },
+  { slug: 'under-100', short: 'Under $100', h1: (b) => `Affordable ${b} Parties in NYC: Under $100`, kw: (k) => `affordable ${k} parties nyc`, test: (p) => p.price_status === 'free' || (p.price_from !== null && p.price_from <= 100) },
+  { slug: 'times-square', short: 'Times Square', h1: (b) => `${b} Parties in Times Square`, kw: (k) => `times square ${k} parties`, test: (p, v) => /times square|ball drop/i.test(`${p.title} ${p.copy?.about ?? ''} ${v?.name ?? ''} ${v?.neighborhood ?? ''}`) || v?.neighborhood === 'Times Square' },
   { slug: 'raves', short: 'Raves', h1: (b) => `${b} Raves in NYC: Techno, EDM and Drum & Bass`, kw: (k) => `${k} raves nyc`, test: (p) => p.genres.some((g) => RAVE_G.has(g)) || /\brave\b/i.test(p.title) },
   { slug: 'latin', short: 'Latin', h1: (b) => `Latin and Reggaeton ${b} Parties in NYC`, kw: (k) => `latin ${k} parties nyc`, test: (p) => p.genres.some((g) => g === 'latin' || g === 'reggaeton') },
   { slug: 'hip-hop', short: 'Hip-hop', h1: (b) => `Hip-Hop and R&B ${b} Parties in NYC`, kw: (k) => `hip-hop ${k} parties nyc`, test: (p) => p.genres.some((g) => g === 'hip-hop' || g === 'r-and-b') },

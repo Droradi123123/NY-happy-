@@ -542,3 +542,25 @@ export function alignHood(text: string, b: { hood: string }, hoodNames: string[]
 }
 /** does the copy place the bar in a neighborhood other than its record's (for the quality report) */
 export const hoodMismatch = (text: string, b: { hood: string }, hoodNames: string[]) => alignHood(text, b, hoodNames) !== text;
+
+// ---------- price watch (party_price_snapshots, daily since Nov 9, 2026) ----------
+export interface PriceSnap { event_id: string; day: string; price_from: number | null; price_status: string | null; event_status: string | null }
+let _snaps: Promise<PriceSnap[]> | null = null;
+/** one row per published upcoming night per day: the cheapest listed ticket that day */
+export function priceSnapshots(): Promise<PriceSnap[]> {
+  _snaps ??= (async () => {
+    if (FIXTURE) return [];
+    try { return (await rest<PriceSnap>('site_price_snapshots?select=*&order=day')).map((s) => ({ ...s, price_from: s.price_from === null ? null : Number(s.price_from) })); } catch { return []; }
+  })();
+  return _snaps;
+}
+export interface HolidayHistory { theme: string; nights: number; priced: number; median_price: number | null; max_price: number | null; min_price: number | null; sold_out: number; venues: number; first_night: string; last_night: string }
+let _hist: Promise<HolidayHistory[]> | null = null;
+/** aggregates of past published nights by holiday theme (no row data) */
+export function holidayHistory(): Promise<HolidayHistory[]> {
+  _hist ??= (async () => {
+    if (FIXTURE) return [];
+    try { return (await rest<HolidayHistory>('site_holiday_history?select=*')).map((h) => ({ ...h, median_price: h.median_price === null ? null : Number(h.median_price), max_price: h.max_price === null ? null : Number(h.max_price), min_price: h.min_price === null ? null : Number(h.min_price) })); } catch { return []; }
+  })();
+  return _hist;
+}
