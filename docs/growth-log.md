@@ -3,6 +3,22 @@
 One entry per weekly growth run (scheduled Claude session, Mondays). Aggregates only: this repository is
 public, so no search queries, no visitor data and no raw rows go here (those stay in the encrypted report).
 
+## 2026-11-09
+
+- Data (28 days to Nov 8): ~5,900 sessions; AI assistants (ChatGPT) ~77%, direct ~19%, Google organic ~2%. ChatGPT
+  landings: holiday pages ~2,450, single party pages ~1,700, happy-hour pages ~100. ChatGPT sessions peaked at ~790
+  a day on Halloween and run ~110 to 160 a day since. Google impressions still 1 to 6 a day since Oct 25; Bing indexes
+  ~59 pages; 0 inbound links on both.
+- Shipped: NYC New Year's Eve Price Index (/nyc-nye-price-index, CSV) with a daily price watch (party_price_snapshots,
+  pg_cron yay-price-snapshot, from Nov 9); /press (citable numbers); "Listed on YaY NYC" badge (/listed, linked from
+  every party page); NYE slices under-100 and times-square; DICE discovery now scans DICE's NYC listings by date and
+  reads Eventbrite/Joonbug prices.
+- Inventory: NYE published 34 -> 64, Thanksgiving Eve 11 -> 17, plus December holiday nights; 29 duplicate rows rejected.
+- Outreach prepared (sent by the owner): four press pitches as Gmail drafts; a promoter list with badge links.
+- Not changed on purpose: the Google sitemap (pruned Oct 31 and Nov 6). Google's limit is trust (no links), not page
+  count; re-check in two weeks with the links from press and promoters.
+- Watch next week: NYE nights and price changes, press replies and any inbound links, ChatGPT landings on NYE pages.
+
 ## 2026-11-04 (baseline)
 
 - Google: impressions rose from 0 to about 1,100 a day between Oct 15 and Oct 24, then fell to 5 to 30 a day
