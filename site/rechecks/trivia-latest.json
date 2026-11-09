@@ -1,5 +1,5 @@
 {
- "date": "2026-11-02",
+ "date": "2026-11-09",
  "read": {
   "NYC Trivia League": 177,
   "TriviaNYC": 7,
@@ -7,10 +7,23 @@
   "NYC Trivia List": 319,
   "Brooklyn Trivia Finder": 128
  },
- "removed": [],
+ "removed": [
+  {
+   "night": "Third Avenue Ale House (wed)",
+   "key": "third-avenue-ale--1644-3-ave:trivia:wed",
+   "why": "no longer listed by NYC Trivia League"
+  }
+ ],
  "time_changed": [],
- "still_listed": 281,
+ "still_listed": 280,
  "new_at_operators": [
+  {
+   "name": "Cahoots NYC",
+   "day": "wed",
+   "start": null,
+   "kind": "trivia",
+   "source": "NYC Trivia League"
+  },
   {
    "name": "CURRENTLY ON HOLD",
    "day": "tue",
