@@ -47,11 +47,21 @@ const compactWindow = (w: Bar['windows'][number]) => windowLabel(w).replace(/^(\
 const hasMenu = (b: Bar) => b.offers.length >= 2;
 // the title format people search for a bar: "[Name] [Neighborhood]: Happy Hour, Hours & Menu"; "Hours"
 // only when we have its opening hours, "Menu" only when the page lists the items; the deal leads the description
+/** bar pages in Google's top 3 (Search Console, Nov 9, 2026): their titles are not changed without the owner */
+const TOP3_BARS = new Set(['sing-sing-ave-a-east-village']);
 export function barTitle(b: Bar, branch = false): string {
   const parts = ['Happy Hour', b.hours ? 'Hours' : null, hasMenu(b) ? 'Menu' : null].filter(Boolean) as string[];
   const what = parts.length === 1 ? 'Happy Hour Times' : `${parts.slice(0, -1).join(', ')} & ${parts[parts.length - 1]}`;
   const name = branch ? `${b.name} ${b.hood}` : b.name;
+  // Nov 9, 2026 (weekly growth run): bar pages sat at Google positions 5 to 12 with a 0.5% click rate (17 clicks on
+  // 3,339 impressions in 90 days). The title now leads with what the searcher asked, the price and the hours, read
+  // from the bar's own site; a page that already ranks in the top 3 keeps its title.
+  const price = b.dealKnown && !b.doubt && b.cheapestDrink !== null ? `Drinks from $${Number.isInteger(b.cheapestDrink) ? b.cheapestDrink : b.cheapestDrink.toFixed(2)}` : null;
+  const w = b.windows[0];
+  const sched = w && b.windows.length === 1 ? `${daysLabel(w.days)} ${compactWindow(w)}`.replace(/[–—]/g, '-') : null;
+  const hooked = TOP3_BARS.has(b.slug) ? [] : [price && sched ? `${name} Happy Hour: ${price}, ${sched}` : '', price ? `${name} Happy Hour: ${price}` : '', sched ? `${name} Happy Hour: ${sched}` : ''];
   return fitTitle([
+    ...hooked,
     branch ? '' : `${name} ${b.hood}: ${what}`,
     `${name}: ${what}`,
     branch ? '' : `${name} ${b.hood} Happy Hour`,

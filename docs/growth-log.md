@@ -18,6 +18,10 @@ public, so no search queries, no visitor data and no raw rows go here (those sta
 - Not changed on purpose: the Google sitemap (pruned Oct 31 and Nov 6). Google's limit is trust (no links), not page
   count; re-check in two weeks with the links from press and promoters.
 - Watch next week: NYE nights and price changes, press replies and any inbound links, ChatGPT landings on NYE pages.
+- Weekly run (same data): 3 biggest openings: (1) holiday pages, ~2,450 of ChatGPT's landings in 28 days, NYE next;
+  (2) bar pages at Google positions 5 to 12 with a 0.5% click rate (305 pages, 3,339 impressions, 17 clicks in 90 days);
+  (3) ticket clicks, ~1,830 from ~1,200 users in 28 days. Shipped for (2): bar titles lead with the cheapest drink and
+  the hours read on the bar's own site (405 bars); the one bar page in Google's top 3 keeps its title.
 
 ## 2026-11-04 (baseline)
 
