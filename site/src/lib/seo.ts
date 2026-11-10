@@ -151,21 +151,36 @@ export function itemList(name: string, urls: string[]) {
 // ---------- parties ----------
 
 /** the party's name as people search it: the title up to a colon or bar ("Boo Yourself") */
-export const partyName = (p: Party) => cleanTitle(p.title).replace(/\s*[|·]\s*.*$/, '').replace(/:\s.*$/, '').trim();
+export const partyName = (p: Party) => {
+  const t = cleanTitle(p.title).replace(/\s*[|·]\s*.*$/, '');
+  // "BallDrop.com Presents: Lucille Yacht NYE Party Cruise": the name is what follows the presenter (Nov 10, 2026:
+  // two cruises by one promoter shared the name "BallDrop.com Presents", and so a title)
+  const m = t.match(/^[^:]*\bpresents?\s*:\s+(.+)$/i);
+  return (m ? m[1] : t).replace(/:\s.*$/, '').trim();
+};
+/** the party's name as a target phrase: whole when short, cut at a word at about 40 characters */
+export const partyKey = (p: Party) => cutTo(partyName(p), 40).replace(/[\s,;:@&\-–(]+$/, '');
+const norm = (x: string) => x.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+/** the title already names the venue ("New Year's Eve at Musica", "Capitale"): "at Musica" is not said twice */
+const namesVenue = (t: string, v: Venue | null) => !!v && norm(t).includes(norm(v.name.replace(/\s*\(.*\)$/, '')));
+/** a New Year's Eve night whose listing title is only the venue or a room ("Tavern 29", "Superior Ingredients Roof"):
+ *  the page says what it is. Only for nights on December 31 that carry the nye theme. */
+export const nyeSuffix = (p: Party) => (p.themes.includes('nye') && p.night_date.endsWith('-12-31') && !/new year|\bnye\b|ball drop|countdown/i.test(p.title) ? " New Year's Eve Party" : '');
 /** crowded: another party has the same name that night, so the venue is what tells them apart and stays in */
 export function partyTitle(p: Party, v: Venue | null, crowded = false, keyword?: string): string {
-  const t = cleanTitle(p.title).replace(/\s*[|·]\s*.*$/, '');
+  const t = cleanTitle(p.title).replace(/\s*[|·]\s*.*$/, '') + nyeSuffix(p);
   const d = nightDate(p.night_date, { month: 'short', day: 'numeric' });
-  const at = `at ${v?.name ?? 'NYC'}, ${d}`;
-  const name = partyName(p);
-  return fitTitle([`${t} ${at}: Tickets, Time, Lineup`, `${t} ${at}`, crowded && v ? `${name} ${at}` : `${t}, ${d}`,
+  const name = partyName(p) + nyeSuffix(p);
+  // "at <venue>" unless the title already names it
+  const where = (x: string) => (namesVenue(x, v) || !v ? `${x}, ${d}` : `${x} at ${v.name}, ${d}`);
+  return fitTitle([`${where(t)}: Tickets, Time, Lineup`, where(t), crowded && v ? where(name) : `${t}, ${d}`,
     // a long name: cut at a word, the date stays (two nights of one party never share a title)
-    crowded && v ? `${cutTo(name, 60 - at.length - 1)} ${at}` : `${cutTo(t, 60 - d.length - 2)}, ${d}`, `${cutTo(name, 60 - d.length - 2)}, ${d}`], keyword).replace(/ \| YaY NYC$/, '');
+    crowded && v ? `${cutTo(name, 60 - v.name.length - d.length - 6)} at ${v.name}, ${d}` : `${cutTo(t, 60 - d.length - 2)}, ${d}`, `${cutTo(name, 60 - d.length - 2)}, ${d}`], keyword).replace(/ \| YaY NYC$/, '');
 }
 export function partyDescription(p: Party, v: Venue | null): string {
   const lead = p.copy?.about?.split(/(?<=\.)\s/)[0];
   return cut([
-    `${partyName(p)} at ${v?.name ?? 'a NYC venue'}${p.neighborhood ? `, ${p.neighborhood}` : ''}: ${nightDate(p.night_date, { weekday: 'long', month: 'short', day: 'numeric' })}${nyTime(p.doors_at ?? p.starts_at) ? `, doors ${nyTime(p.doors_at ?? p.starts_at)}` : ''}.`,
+    `${partyName(p)}${nyeSuffix(p)}${namesVenue(partyName(p), v) ? '' : ` at ${v?.name ?? 'a NYC venue'}`}${p.neighborhood ? `, ${p.neighborhood}` : ''}: ${nightDate(p.night_date, { weekday: 'long', month: 'short', day: 'numeric' })}${nyTime(p.doors_at ?? p.starts_at) ? `, doors ${nyTime(p.doors_at ?? p.starts_at)}` : ''}.`,
     lead ?? '',
     `${priceLabel(p)}${p.age_min ? `, ${p.age_min}+` : ''}.`,
     // a short listing still gets a useful snippet (search engines want 70+ characters)
@@ -178,13 +193,15 @@ export function postalAddress(v: Venue) {
   const locality = v.borough === 'Manhattan' || !v.borough ? 'New York' : v.borough.replace(/^The /, '');
   return { '@type': 'PostalAddress', streetAddress: a.split(',')[0].trim(), addressLocality: locality, addressRegion: 'NY', ...(zip ? { postalCode: zip } : {}), addressCountry: 'US' };
 }
-export function partyJsonLd(p: Party, v: Venue | null, url: string) {
+/** image: a freely licensed photo of the venue itself, when we hold one (never a street or neighborhood stand-in) */
+export function partyJsonLd(p: Party, v: Venue | null, url: string, image: string | null = null) {
   return {
     '@context': 'https://schema.org', '@type': 'MusicEvent', name: cleanTitle(p.title), url,
     startDate: p.starts_at, ...(p.ends_at ? { endDate: p.ends_at } : {}), ...(p.doors_at ? { doorTime: p.doors_at } : {}),
     eventStatus: `https://schema.org/${{ scheduled: 'EventScheduled', postponed: 'EventPostponed', rescheduled: 'EventRescheduled', cancelled: 'EventCancelled', sold_out: 'EventScheduled' }[p.event_status] ?? 'EventScheduled'}`,
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
     ...(p.copy?.about ? { description: p.copy.about } : {}),
+    ...(image ? { image: [image] } : {}),
     location: { '@type': 'Place', name: v?.name, ...(v?.address ? { address: postalAddress(v) } : {}), ...(v?.lat ? { geo: { '@type': 'GeoCoordinates', latitude: v.lat, longitude: v.lng } } : {}) },
     ...(p.performers.length ? { performer: p.performers.map((n) => ({ '@type': 'PerformingGroup', name: n })) } : {}),
     ...(p.organizer ? { organizer: { '@type': 'Organization', name: p.organizer } } : {}),

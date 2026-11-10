@@ -33,7 +33,7 @@ const halloween = all.filter((p) => p.themes.includes('halloween')).length;
 const ps = L.parties;
 const n = ps.length;
 const venueNames = [...new Set(ps.map((p) => venueOf(p, venues)?.name).filter(Boolean))] as string[];
-const priced = ps.filter((p) => p.price_from !== null && p.price_status !== 'free').map((p) => p.price_from!);
+const priced = ps.filter((p) => p.price_from !== null && p.price_from > 0 && p.price_status !== 'free').map((p) => p.price_from!);
 const free = ps.filter((p) => p.price_status === 'free').length;
 const soldOut = ps.filter((p) => p.event_status === 'sold_out').length;
 const allAges = ps.filter((p) => p.age_min !== null && p.age_min < 21).length;
@@ -74,7 +74,7 @@ const year = L.holiday?.date.slice(0, 4);
 
 // Nov 10: on a holiday page with enough nights, the cheapest night of each kind, as one-line answers (what people,
 // and AI answers, ask first: "cheapest NYE party", "NYE open bar", "NYE rooftop"). Computed from the listed prices.
-const onSale = ps.filter((p) => p.event_status !== 'sold_out' && (p.price_status === 'free' || p.price_from !== null));
+const onSale = ps.filter((p) => p.event_status !== 'sold_out' && (p.price_status === 'free' || (p.price_from !== null && p.price_from > 0)));
 const cheapest = (list: Party[]) => [...list].sort((a, b) => (a.price_status === 'free' ? 0 : a.price_from!) - (b.price_status === 'free' ? 0 : b.price_from!))[0] ?? null;
 const tagged = (t: string) => onSale.filter((p) => partyTags(p, venueOf(p, venues)).includes(t));
 const priceOf = (p: Party) => (p.price_status === 'free' ? 'free' : `from $${Math.round(p.price_from!)}`);
@@ -116,7 +116,7 @@ const hhToday = /^(tonight|[a-z-]+\/tonight)$/.test(L.slug) && n < 6
   ? (await allBars()).filter((b) => b.dealKnown && !b.doubt && b.windows.some((w) => w.days.includes(todayKey)) && (L.kind === 'when' || !L.parent || b.borough?.toLowerCase().replace(/^the /, '') === L.parent.slug.replace(/-/g, ' '))).sort(rank).slice(0, 6)
   : [];
 ---
-<Base title={title} titles={titles} description={description} keyword={L.keyword} noindex={!L.indexable}
+<Base title={title} titles={titles} description={description} keyword={L.keyword} noindex={!L.indexable} googleNoindex={!L.google}
   jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties'], ...(L.parent ? [[L.parent.short, `/parties/${L.parent.slug}`] as [string, string]] : []), [L.short, `/parties/${L.slug}`]]), collectionLd(L.label, `/parties/${L.slug}`, ps.map((p) => `/parties/${p.slug}`), lastRead), ...(faq.length ? [faqLd(faq)] : [])]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li>{L.kind === 'genre' && <li><a href="/parties/genres">Music</a></li>}{L.parent && <li><a href={`/parties/${L.parent.slug}`}>{L.parent.short}</a></li>}<li aria-current="page">{L.short}</li></ol></nav>
   <h1>{L.h1}</h1>

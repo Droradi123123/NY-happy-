@@ -8,7 +8,7 @@ import Base from '../../layouts/Base.astro';
 import Explorer from '../../components/Explorer.astro';
 import PartyCard from '../../components/PartyCard.astro';
 import Photo from '../../components/Photo.astro';
-import { partyData, venueOf, photoOf, copyOf, paragraphs, nightDate, cleanTitle, fmtDate, GENRE_NAME, type Party } from '../../lib/data';
+import { partyData, venueOf, photoOf, copyOf, paragraphs, nightDate, cleanTitle, fmtDate, holidayRecaps, GENRE_NAME, type Party } from '../../lib/data';
 import { partyLists } from '../../lib/partyLists';
 import { allGuides } from '../../lib/guides';
 import { crumbs, itemList, faqLd } from '../../lib/seo';
@@ -56,7 +56,83 @@ const faq = [
 const subs = (await halloweenPages()).built.filter((b) => b.indexable);
 const subOf = (slug: string) => subs.find((b) => b.page.slug === slug) ?? null;
 const latest = list.reduce((m, p) => (p.last_checked && p.last_checked > m ? p.last_checked : m), '');
+
+// ---------- after the season (Nov 10, 2026) ----------
+// Once no Halloween night is left on sale the hub used to say "0 Halloween parties" and ask not to be indexed, though
+// it was the most visited page of the season. It now stays up as the season in numbers (view site_holiday_recap:
+// counts and medians of the nights we published) with next year's date, and fills with nights again as they go on sale.
+const recap = list.length === 0 ? (await holidayRecaps()).filter((r) => r.theme === 'halloween' && r.nights >= 20).sort((a, b) => b.season - a.season)[0] ?? null : null;
+const todayNY = new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
+const nextYear = todayNY > `${todayNY.slice(0, 4)}-10-31` ? Number(todayNY.slice(0, 4)) + 1 : Number(todayNY.slice(0, 4));
+const nextDate = `${nextYear}-10-31`;
+const nextDow = nightDate(nextDate, { weekday: 'long' });
+const usd = (x: number | null) => (x === null ? 'not listed' : `$${Math.round(x)}`);
+const R = recap;
+const rNight = (d: string) => R?.by_night?.find((x) => x.date === d)?.n ?? 0;
+const rPeak = R ? [...(R.by_night ?? [])].sort((a, b) => b.n - a.n).slice(0, 3) : [];
+const rPct = (k: number) => (R && R.nights ? Math.round((k / R.nights) * 100) : 0);
+const { venuePages } = await partyData();
+const hasVenue = new Set(venuePages.map((v) => v.id));
+const nowLists = recap ? (['thanksgiving-eve', 'christmas', 'new-years-eve', 'this-weekend', 'tonight'] as const).map((slug) => groups.find((l) => l.slug === slug && l.parties.length > 0)).filter((l): l is NonNullable<typeof l> => !!l) : [];
+const rFaq = R ? [
+  { q: `When is Halloween ${nextYear}?`, a: `Halloween ${nextYear} is ${nextDow}, October 31, ${nextYear}.${['Friday', 'Saturday', 'Sunday'].includes(nextDow) ? ' It falls on a weekend.' : ''} In ${R.season} the two biggest nights were ${rPeak.slice(0, 2).map((x) => nightDate(x.date, { weekday: 'long', month: 'long', day: 'numeric' })).join(' and ')}. This page lists the ${nextYear} parties as they go on sale.` },
+  { q: `How many Halloween parties were there in NYC in ${R.season}?`, a: `We listed ${R.nights} Halloween parties at ${R.venues} venues in ${R.season}, from ${nightDate(R.first_night, { month: 'long', day: 'numeric' })} to ${nightDate(R.last_night, { month: 'long', day: 'numeric' })}: ${rPeak.map((x) => `${x.n} on ${nightDate(x.date, { weekday: 'long', month: 'long', day: 'numeric' })}`).join(', ')}.` },
+  ...(R.median_price !== null ? [{ q: `How much were Halloween party tickets in NYC in ${R.season}?`, a: `The median cheapest ticket was ${usd(R.median_price)} across the ${R.priced} parties with a listed price (a free-entry tier counts as $0)${R.median_paid !== null ? `; among tickets that cost money it was ${usd(R.median_paid)}` : ''}. The most expensive entry ticket started at ${usd(R.max_price)}.` }] : []),
+  { q: 'Do Halloween parties in NYC sell out?', a: `In ${R.season}, ${R.sold_out} of the ${R.nights} parties we listed (${rPct(R.sold_out)}%) were sold out when we last checked them before the night. The big Friday and Saturday nights went first.` },
+  ...(R.by_borough?.length ? [{ q: 'Where are most Halloween parties in NYC?', a: `In ${R.season}: ${R.by_borough.map((b) => `${b.borough} ${b.n}`).join(', ')}. The venues with the most Halloween nights were ${(R.top_venues ?? []).slice(0, 4).map((v) => `${v.name}${v.neighborhood ? ` (${v.neighborhood})` : ''}`).join(', ')}.` }] : []),
+] : [];
+const rTitle = R ? `Halloween Parties NYC: ${R.season} in Numbers, ${nextYear} Dates` : '';
+const rDesc = R ? `Halloween parties in NYC: ${R.nights} parties at ${R.venues} venues in ${R.season}, what tickets cost and how many sold out. Halloween ${nextYear} is a ${nextDow}.` : '';
 ---
+{R && (
+<Base keyword="halloween parties nyc" title={rTitle} description={rDesc} ogImage={hero?.og ?? null}
+  jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties'], ['Halloween', '/parties/halloween']]), faqLd(rFaq)]}>
+  <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li><li aria-current="page">Halloween</li></ol></nav>
+  <h1>Halloween Parties in NYC: {R.season} in numbers, and Halloween {nextYear}</h1>
+  <p class="lede">Halloween {R.season} is over. We listed {R.nights} Halloween parties at {R.venues} venues across {R.by_borough?.length ?? 0} boroughs, {rNight(`${R.season}-10-31`)} of them on October 31 itself. Halloween {nextYear} is {nextDow}, October 31; this page lists the {nextYear} parties as they go on sale.</p>
+  {hero && <div class="hw-hero"><Photo photo={hero} alt="Costumed crowd at New York's Village Halloween Parade, 2025" ratio="21 / 9" hero /></div>}
+  <section class="section answer-box">
+    <h2>Halloween {R.season} in NYC, in numbers</h2>
+    <ul>
+      <li><strong>{R.nights} parties</strong> at {R.venues} venues, from {nightDate(R.first_night, { month: 'long', day: 'numeric' })} to {nightDate(R.last_night, { month: 'long', day: 'numeric' })}.</li>
+      <li>The biggest nights: {rPeak.map((x) => `${nightDate(x.date, { weekday: 'long', month: 'short', day: 'numeric' })} (${x.n})`).join(', ')}.</li>
+      {R.by_borough && <li>By borough: {R.by_borough.map((b) => `${b.borough} ${b.n}`).join(', ')}.</li>}
+      {R.median_price !== null && <li>Median cheapest ticket: <strong>{usd(R.median_price)}</strong> across {R.priced} parties with a listed price (a free-entry tier counts as $0){R.median_paid !== null && <>; {usd(R.median_paid)} among tickets that cost money</>}.</li>}
+      <li><strong>{rPct(R.sold_out)}% sold out</strong> ({R.sold_out} of {R.nights}) by the time we last checked them before the night.</li>
+      {R.free > 0 && <li>{R.free} had free entry or a free tier.</li>}
+      {R.under_21 > 0 && <li>{R.under_21} let in guests under 21; the rest were 21+ or did not state an age.</li>}
+    </ul>
+    <p class="small muted">Counted from the Halloween nights published on YaY NYC in {R.season}, each read from its ticket page. Prices are the lowest listed when last checked.</p>
+  </section>
+  {R.top_venues && R.top_venues.length > 0 && (
+    <section class="section">
+      <h2>Where the Halloween parties were</h2>
+      <p>The venues with the most Halloween nights in {R.season}:</p>
+      <ul class="more-list">{R.top_venues.map((v) => <li>{hasVenue.has(v.id) ? <a href={`/parties/venue/${v.id}`}>{v.name}</a> : v.name}<span class="small"> · {`${v.neighborhood ? `${v.neighborhood} · ` : ''}${v.n} ${v.n === 1 ? 'night' : 'nights'}`}</span></li>)}</ul>
+    </section>
+  )}
+  {R.by_genre && R.by_genre.length > 0 && (
+    <section class="section">
+      <h2>What they played</h2>
+      <p>The sounds booked most on Halloween nights in {R.season}, as tagged by the ticket sellers:</p>
+      <ul class="link-cloud">{R.by_genre.map((g) => <li>{genrePage(g.genre) ? <a href={`/parties/${g.genre}`}>{GENRE_NAME[g.genre] ?? g.genre}<span class="count">{g.n}</span></a> : <span>{GENRE_NAME[g.genre] ?? g.genre}<span class="count">{g.n}</span></span>}</li>)}</ul>
+    </section>
+  )}
+  <section class="section">
+    <h2>Halloween {nextYear}</h2>
+    <p>Halloween {nextYear} is <strong>{nextDow}, October 31, {nextYear}</strong>. In {R.season} the first Halloween parties on our list were on {nightDate(R.first_night, { month: 'long', day: 'numeric' })}, and {rPct(R.sold_out)}% of the nights sold out, so the popular ones are worth booking early. No {nextYear} Halloween parties are on sale on our list yet; they appear here as soon as they are.</p>
+  </section>
+  {nowLists.length > 0 && (
+    <section class="section">
+      <h2>What is on now</h2>
+      <ul class="link-cloud">{nowLists.map((l) => <li><a href={`/parties/${l.slug}`}>{l.short}<span class="count">{l.parties.length}</span></a></li>)}<li><a href="/parties">All parties</a></li></ul>
+    </section>
+  )}
+  <section class="section faq"><h2>Halloween in NYC: questions</h2>{rFaq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}</section>
+</Base>
+)}
+{!R && (
+
 <Base noindex={list.length < 2} keyword="halloween parties nyc" title={`Halloween Parties NYC ${year}: ${list.length} Parties, Night by Night`} description={`Every Halloween ${year} party in NYC we track: ${list.length} nights across ${boroughs.length} boroughs, night by night, with doors, age, price and tickets.`}
   ogImage={hero?.og ?? null}
   jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties'], ['Halloween', '/parties/halloween']]), itemList(`Halloween parties NYC ${year}`, list.map((p) => `/parties/${p.slug}`)), faqLd(faq)]}>
@@ -102,6 +178,7 @@ const latest = list.reduce((m, p) => (p.last_checked && p.last_checked > m ? p.l
   {post && <section class="section"><h2>Plan the weekend</h2><p><a href={`/blog/${post.slug}`}>{post.h1}</a>: the parade, pre-party happy hours and getting around, night by night.</p></section>}
   <section class="section faq"><h2>Halloween in NYC: questions</h2>{faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}</section>
 </Base>
+)}
 <style>
   .hw-hero { margin: 16px 0 6px; }
   .guide-intro { max-width: 70ch; }

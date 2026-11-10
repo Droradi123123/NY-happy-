@@ -27,10 +27,18 @@ const fresh = (iso: string | null | undefined, days: number) => !!iso && Date.pa
 /** a bar: a priced deal of two or more items, read on its own site in the last 30 days, not contradicted by a
  * re-check, at a known address */
 export const barIndexable = (b: Bar) => KEPT.has(`/bars/${b.slug}`) || (b.dealKnown && !b.doubt && b.cheapestDrink !== null && b.offers.length >= 2 && !!b.address && fresh(b.checked, 30));
-/** a party night: written up (our own copy) and within the next 30 days */
-export const partyIndexable = (p: Party) => KEPT.has(`/parties/${p.slug}`) || (!!p.copy?.about && Date.parse(`${p.night_date}T12:00:00Z`) <= Date.now() + 30 * 864e5);
-/** a club: at least two upcoming nights */
-export const venueIndexable = (id: string, upcoming: number) => KEPT.has(`/parties/venue/${id}`) || upcoming >= 2;
+/*
+ * Two audiences (Nov 10, 2026). 77% of visits come from ChatGPT search, which lands on single party pages (about
+ * 1,780 visits and 1,420 ticket clicks in 28 days), date pages and lists, and an assistant leaves out a page that
+ * says "noindex". The 30-day window below was set for Google and hid 141 written-up nights from every engine,
+ * most of New Year's Eve among them. So: every written-up night, every club with a night coming up, every list
+ * and date page with 3 nights is indexable; Google alone keeps its narrower core (partyGoogle, venueGoogle,
+ * PartyList.google, DatePage.google: <meta name="googlebot" content="noindex, follow"> and out of sitemap.xml).
+ */
+/** a party night: written up (our own copy) */
+export const partyIndexable = (p: Party) => KEPT.has(`/parties/${p.slug}`) || !!p.copy?.about;
+/** a club: at least one upcoming night */
+export const venueIndexable = (id: string, upcoming: number) => KEPT.has(`/parties/venue/${id}`) || upcoming >= 1;
 export const nearIndexable = (kind: string, slug = '') => kind === 'landmark' || KEPT.has(`/happy-hours/near/${slug}`);
 /** the page already had Google impressions */
 export const pathKept = (path: string) => KEPT.has(path);

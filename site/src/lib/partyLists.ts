@@ -15,8 +15,10 @@ export type ListKind = 'genre' | 'day' | 'season' | 'holiday' | 'tag' | 'age' | 
 export interface Holiday { name: string; date: string; note: string }
 export interface PartyList {
   slug: string; kind: ListKind; h1: string; label: string; keyword: string; short: string; parties: Party[]; title?: string; note?: string;
-  /** asks search engines to index it (INDEX_MIN nights, or it already ranks) */
+  /** asks search engines to index it: 3 nights or more (Bing, ChatGPT search and the other AI answer engines) */
   indexable: boolean;
+  /** Google is asked too (the narrower Google core: INDEX_MIN to 10 nights by kind, or it already ranks) */
+  google: boolean;
   /** when it has few nights: the closest ones (nearby genres, the whole borough...), and what they are */
   standIns: Party[]; standInLabel?: string;
   holiday?: Holiday;
@@ -190,15 +192,20 @@ export function partyLists(): Promise<PartyList[]> {
     const { parties, venues, venuePages } = await partyData();
     const out: PartyList[] = [];
     const soon = (list: Party[], n = 6) => list.slice(0, n);
-    const add = (l: Omit<PartyList, 'parties' | 'indexable' | 'standIns'> & { standIns?: Party[] }, list: Party[]) => {
+    const add = (l: Omit<PartyList, 'parties' | 'indexable' | 'google' | 'standIns'> & { standIns?: Party[] }, list: Party[], googleNeed?: number) => {
       if (RESERVED.has(l.slug) && l.kind !== 'when') return;
       if (out.some((o) => o.slug === l.slug)) return;
       // index focus (Oct 31): a slice needs 10 nights, a theme, genre, day or area 8, a holiday 5 (lib/indexScope.ts)
       const timely = /\/(tonight|tomorrow|this-weekend)$/.test(l.slug);
-      const need = timely ? 1 : l.kind === 'slice' ? 10 : l.kind === 'holiday' ? INDEX_MIN : 8;
-      const indexable = l.kind === 'when' ? list.length > 0 : list.length >= need || (list.length > 0 && pathKept(`/parties/${l.slug}`));
+      const need = googleNeed ?? (timely ? 1 : l.kind === 'slice' ? 10 : l.kind === 'holiday' ? INDEX_MIN : 8);
+      const google = l.kind === 'when' ? list.length > 0 : list.length >= need || (list.length > 0 && pathKept(`/parties/${l.slug}`));
+      // Nov 10, 2026: those thresholds were set for Google, which rates a new site on its thinnest pages. ChatGPT search
+      // brings 77% of the visits and lands on these lists (about 9 visits a page in 28 days), and a list of 3 nights
+      // answers the question asked. So a list with 3 or more nights is indexable for everyone but Google, which
+      // keeps the thresholds above (<meta name="googlebot" content="noindex">, and out of sitemap.xml).
+      const indexable = google || list.length >= 3;
       const standIns = list.length >= INDEX_MIN ? [] : soon((l.standIns ?? []).filter((p) => !list.includes(p)));
-      out.push({ ...l, parties: list, indexable, standIns });
+      out.push({ ...l, parties: list, indexable, google, standIns });
     };
     const today = nyDate(), dowToday = new Date(`${today}T12:00:00Z`).getUTCDay();
     const shortDate = (d: string) => nightDate(d, { weekday: 'long', month: 'short', day: 'numeric' });
@@ -237,7 +244,15 @@ export function partyLists(): Promise<PartyList[]> {
       const near = GENRE_NEAR[g] ?? [];
       add({ slug: g, kind: 'genre', h1: `${H} Parties in NYC`, label: sentence(`${H} Parties in NYC`), keyword: `${kw} parties nyc`, short: name,
         standIns: parties.filter((p) => !p.genres.includes(g) && p.genres.some((x) => near.includes(x))),
-        standInLabel: near.length ? `Close in sound: ${near.map((x) => GENRE_NAME[x] ?? x).join(', ')}` : undefined }, parties.filter((p) => p.genres.includes(g)));
+        standInLabel: near.length ? `Close in sound: ${near.map((x) => GENRE_NAME[x] ?? x).join(', ')}` : undefined }, parties.filter((p) => p.genres.includes(g)));      // Nov 10: "techno parties this weekend nyc", "reggaeton parties tonight nyc": the question as people ask an AI
+      // assistant (the genre pages and /parties/tonight are the lists ChatGPT lands on most). Google from INDEX_MIN nights.
+      const ofG = parties.filter((p) => p.genres.includes(g)), parent = { slug: g, short: name };
+      const wkG = ofG.filter((p) => weekend.includes(p));
+      add({ slug: `${g}/this-weekend`, kind: 'slice', parent, h1: `${H} Parties This Weekend in NYC`, label: `${H} parties this weekend in NYC`, keyword: `${kw} parties this weekend nyc`, short: 'This weekend',
+        ...(wkG.length ? { title: `${H} Parties This Weekend in NYC: ${dateRange(wkG)} (${wkG.length})` } : {}), standIns: ofG.length ? ofG : weekend, standInLabel: ofG.length ? `The next ${name} nights` : 'Parties this weekend' }, wkG, INDEX_MIN);
+      const tnG = ofG.filter((p) => p.night_date === today);
+      add({ slug: `${g}/tonight`, kind: 'slice', parent, h1: `${H} Parties Tonight in NYC`, label: `${H} parties tonight in NYC`, keyword: `${kw} parties tonight nyc`, short: 'Tonight',
+        title: `${H} Parties Tonight in NYC: ${shortDate(today)}`, standIns: ofG.length ? ofG : tonight, standInLabel: ofG.length ? `The next ${name} nights` : 'Parties tonight' }, tnG, INDEX_MIN);
     }
     // nights of the week: the title names the next one ("Friday Night Parties in NYC: Oct 30")
     for (const [i, day] of WEEKDAY.entries()) {
@@ -266,8 +281,11 @@ export function partyLists(): Promise<PartyList[]> {
     for (const [slug, h1, keyword, short, min] of AGES) {
       const list = parties.filter((p) => p.age_min !== null && p.age_min >= min);
       add({ slug, kind: 'age', h1, label: sentence(h1), keyword, short, standIns: parties.filter((p) => p.age_min !== null && p.age_min >= 21), standInLabel: '21+ nights coming up' }, list);
-      if (min === 21 && list.length > 0.7 * parties.length) out[out.length - 1].indexable = false;
+      if (min === 21 && list.length > 0.7 * parties.length) { out[out.length - 1].indexable = false; out[out.length - 1].google = false; }
     }
+    // Nov 10: "18+ parties nyc": the nights whose listing lets in guests under 21 (18+ or all ages), as stated by the seller
+    add({ slug: '18-plus', kind: 'age', h1: '18+ Parties in NYC', label: '18+ parties in NYC', keyword: '18+ parties nyc', short: '18+',
+      standIns: parties, standInLabel: 'Coming up in NYC (21+ unless the page says otherwise)' }, parties.filter((p) => p.age_min !== null && p.age_min <= 18));
     // where: the five boroughs, and every neighborhood with a club page (club pages stay between nights)
     for (const [slug, B] of BOROUGHS) {
       const inB = parties.filter((p) => p.borough === B), bk = B.replace(/^The /, '').toLowerCase(), parent = { slug, short: B };
@@ -303,16 +321,18 @@ export function partyLists(): Promise<PartyList[]> {
   return cache;
 }
 // ---------- one page per night: /parties/date/YYYY-MM-DD ----------
-export interface DatePage { date: string; parties: Party[]; past: boolean; indexable: boolean; weekday: string }
+export interface DatePage { date: string; parties: Party[]; past: boolean; indexable: boolean; /** Google is asked too */ google: boolean; weekday: string }
 export const DATE_AHEAD = 14, DATE_KEEP = 7;
 /** the next 14 nights, and the 7 before today (still up, out of the sitemap; after that they 301 to the
  *  night of the week, scripts/ended-redirects.mjs). Indexed from INDEX_MIN parties. */
 export async function datePages(): Promise<DatePage[]> {
   const { parties } = await partyData();
   const out: DatePage[] = [];
-  const page = (date: string, past: boolean) => {
+  // Nov 10: a night's page is indexable from 3 parties for everyone but Google (date pages bring about 18 ChatGPT
+  // visits each in 28 days); Google keeps INDEX_MIN and the two-week window
+  const page = (date: string, past: boolean, core = true) => {
     const list = parties.filter((p) => p.night_date === date);
-    out.push({ date, parties: list, past, indexable: !past && list.length >= INDEX_MIN, weekday: WEEKDAY[new Date(`${date}T12:00:00Z`).getUTCDay()] });
+    out.push({ date, parties: list, past, indexable: !past && list.length >= 3, google: !past && core && list.length >= INDEX_MIN, weekday: WEEKDAY[new Date(`${date}T12:00:00Z`).getUTCDay()] });
   };
   for (let i = -DATE_KEEP; i < DATE_AHEAD; i++) page(nyDate(i), i < 0);
   // a holiday's own night gets its page as soon as it is within 60 days, not two weeks before
@@ -322,6 +342,10 @@ export async function datePages(): Promise<DatePage[]> {
     const d = next(today, H.at);
     if (d <= until && !have.has(d)) { page(d, false); have.add(d); }
   }
+  // Nov 10: every night in the next 60 days with 3 or more parties gets its page now ("nyc parties december 12"),
+  // not two weeks before: people plan a night out, and ask an assistant about it, weeks ahead
+  const count = parties.reduce((m, p) => m.set(p.night_date, (m.get(p.night_date) ?? 0) + 1), new Map<string, number>());
+  for (const [d, k] of count) if (k >= 3 && d > today && d <= until && !have.has(d)) { page(d, false, false); have.add(d); }
   return out.sort((a, b) => a.date.localeCompare(b.date));
 }
 export const dateRange = (list: Party[]) => {

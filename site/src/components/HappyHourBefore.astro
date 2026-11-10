@@ -4,10 +4,11 @@
  * about a 12-minute walk), one per venue, with the deal and times from the data. Renders nothing
  * when no venue has one nearby.
  */
-import { allBars, meters, dealLabel, scheduleLabel, type Venue } from '../lib/data';
-interface Props { venues: Venue[]; heading?: string; max?: number }
-const { venues, heading = 'Happy hour before', max = 3 } = Astro.props;
-const bars = (await allBars()).filter((b) => b.onMap && b.dealKnown && !b.doubt);
+import { allBars, meters, dealLabel, scheduleLabel, type Venue, type Day } from '../lib/data';
+/** day: only bars whose happy hour runs on that day of the week (a page about one night must not offer a Monday deal on a Saturday) */
+interface Props { venues: Venue[]; heading?: string; max?: number; day?: Day }
+const { venues, heading = 'Happy hour before', max = 3, day } = Astro.props;
+const bars = (await allBars()).filter((b) => b.onMap && b.dealKnown && !b.doubt && (!day || b.windows.some((w) => w.days.includes(day))));
 const picks: { v: Venue; b: (typeof bars)[number]; min: number }[] = [];
 for (const v of venues) {
   if (!v.lat || !v.lng || picks.length >= max) continue;

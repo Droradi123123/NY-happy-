@@ -4,7 +4,7 @@
  * coverage per type: bars, parties, lists, guides, other).
  */
 import { people } from './people';
-import { allBars, partyData, landmarks, stations } from './data';
+import { allBars, partyData, landmarks, stations, holidayRecaps } from './data';
 import { listPages } from './lists';
 import { partyLists, datePages } from './partyLists';
 import { venueBars } from './venueBars';
@@ -50,7 +50,7 @@ export function sitemapRows(): Promise<[string, string | null][]> {
     const newest = (ds: (string | null | undefined)[]) => (ds.filter(Boolean) as string[]).sort().pop()?.slice(0, 10) ?? null;
     const rows: [string, string | null][] = [
       ['/', null], ['/happy-hours', newest(bars.map((b) => b.checked))], ['/nyc-happy-hour-index', null], ['/nyc-nye-price-index', newest(parties.filter((p) => p.themes.includes('nye')).map((p) => p.last_checked))], ['/happy-hours/now', null], ['/happy-hours/neighborhoods', null], ['/parties', newest(parties.map((p) => p.last_checked))], ['/map', null], ['/map/happy-hours', null], ['/map/parties', null], ['/about', null], ['/editorial-policy', null], ['/press', null], ['/contact', null], ['/image-credits', null], ['/privacy', null], ['/accessibility', null],
-      ...(parties.some((p) => p.themes.includes('halloween')) ? [['/parties/halloween', null] as [string, null]] : []),
+      ...(parties.some((p) => p.themes.includes('halloween')) || (await holidayRecaps()).some((r) => r.theme === 'halloween' && r.nights >= 20) ? [['/parties/halloween', null] as [string, null]] : []),
       ...(await halloweenPages()).built.filter((b) => b.indexable).map((b) => [`/parties/halloween/${b.page.slug}`, null] as [string, null]),
       ...lists.map((l) => [`/happy-hours/${l.slug}`, newest(l.bars.map((b) => b.checked))] as [string, string | null]),
       ...[...near].map((s) => [`/happy-hours/near/${s}`, null] as [string, null]),
@@ -81,6 +81,8 @@ export function sitemapRows(): Promise<[string, string | null][]> {
       ...bars.filter((b) => barIndexable(b) && !barGoogle(b)).map((b) => `/bars/${b.slug}`),
       ...parties.filter((p) => partyIndexable(p) && !partyGoogle(p)).map((p) => `/parties/${p.slug}`),
       ...venuePages.filter((v) => { const n = parties.filter((p) => p.venue_id === v.id).length; return venueIndexable(v.id, n) && !venueGoogle(v.id, n); }).map((v) => `/parties/venue/${v.id}`),
+      ...plists.filter((l) => l.indexable && !l.google).map((l) => `/parties/${l.slug}`),
+      ...(await datePages()).filter((d) => d.indexable && !d.google).map((d) => `/parties/date/${d.date}`),
     ]);
     return rows.filter(([u]) => pathIndexable(u));
   })();

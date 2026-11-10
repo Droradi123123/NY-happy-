@@ -2,7 +2,7 @@
 import type { APIRoute } from 'astro';
 import { allBars, allHoods, dealLabel, scheduleLabel, partyData, venueOf, cleanTitle, nightDate, priceLabel } from '../lib/data';
 import { SITE } from '../lib/seo';
-import { partyLists } from '../lib/partyLists';
+import { partyLists, datePages } from '../lib/partyLists';
 import { halloweenPages } from '../lib/halloween';
 import { allGuides } from '../lib/guides';
 import { nyTime } from '../lib/data';
@@ -24,6 +24,7 @@ export const GET: APIRoute = async () => {
   const hhLists = (await listPages()).filter((l) => l.kind !== 'hood');
   const pi = await priceIndex();
   const st = stats(bars);
+  const dates = (await datePages()).filter((d) => d.indexable);
   const today = new Date().toISOString().slice(0, 10);
   const tonight = parties.filter((p) => p.night_date === today).length;
   // facts an assistant can quote, each with the date it is true for
@@ -49,6 +50,7 @@ export const GET: APIRoute = async () => {
     ...when.map((l) => `- [${l.h1}](${SITE}/parties/${l.slug}): ${l.parties.length} parties`),
     `- [NYC party calendar](${SITE}/parties/calendar): holidays and big nights for the next four months`, '',
     ...(events.length ? ['## Coming up in NYC', '', ...events.map((e) => `- ${e.date}${e.end && e.end !== e.date ? ` to ${e.end}` : ''}: [${e.name}](${SITE}${e.href ?? '/parties/calendar'})${e.nights.length ? `, ${e.nights.length} ${e.nights.length === 1 ? 'night' : 'nights'} on sale` : ', nothing on sale yet'}${e.datePage ? `; every party that night: ${SITE}/parties/date/${e.date}` : ''}`), ''] : []),
+    ...(dates.length ? ['## Parties by night', '', ...dates.map((d) => `- [NYC parties on ${nightDate(d.date)}](${SITE}/parties/date/${d.date}): ${d.parties.length} parties`), ''] : []),
     ...facts,
     '## Happy hour lists', '', ...hhLists.map((l) => `- [${l.label}](${SITE}/happy-hours/${l.slug}): ${l.bars.length} bars`), '',
     ...byHood.flatMap(({ h, list }) => [`## Happy hours in ${h.name}`, '', `- [All ${list.length} in ${h.name}](${SITE}/happy-hours/${h.slug})`,

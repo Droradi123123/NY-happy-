@@ -9,7 +9,7 @@ import Photo from '../../components/Photo.astro';
 import proof from '../../data/proof.json';
 import { partyData, placePhoto, photoNote, venueOf, cleanTitle, nightDate, nyTime, nyDate, priceLabel, fmtDate, ticketHref, TICKET_REL, GENRE_NAME, allBars, meters, dealLabel, windowLabel, DAYS, type Party, type Venue } from '../../lib/data';
 import { tier } from '../../lib/lists';
-import { partyTitle, partyName, partyDescription, partyJsonLd, crumbs, faqLd, SITE } from '../../lib/seo';
+import { partyTitle, partyName, partyDescription, partyJsonLd, crumbs, faqLd, SITE, nyeSuffix, partyKey } from '../../lib/seo';
 import { halloweenPages } from '../../lib/halloween';
 
 export async function getStaticPaths() {
@@ -28,8 +28,13 @@ export async function getStaticPaths() {
 }
 const { party: p, venue: v, parties, venues, recurring, crowded } = Astro.props as { party: Party; venue: Venue | null; parties: Party[]; venues: Venue[]; recurring: boolean; crowded: boolean };
 const vp = v ? placePhoto('venue', v.id, v.neighborhood ?? p.neighborhood, null, true, v.borough ?? p.borough) : null;
+// the venue's own Commons photo doubles as the share image and the Event's image (not Google Places photos, not stand-ins)
+const ownPhoto = vp && vp.rel === 'own' && vp.photo.source !== 'google_places' ? vp.photo.src : null;
 // a party that repeats (same name, several nights) targets "<name> <Oct 24>" on each night's page
-const kw = crowded && v ? `${partyName(p)} ${v.name}` : `${partyName(p)}${recurring ? ` ${nightDate(p.night_date, { month: 'short', day: 'numeric' })}` : ''}`;
+// the phrase the page targets: the party's name, cut at a word when the listing title runs long (a 110-character
+// listing title cannot fit a 60-character page title; Nov 10, 2026)
+const shortName = partyKey(p);
+const kw = crowded && v ? `${shortName} ${v.name}` : `${shortName}${recurring ? ` ${nightDate(p.night_date, { month: 'short', day: 'numeric' })}` : ''}`;
 const url = `${SITE}/parties/${p.slug}`;
 const c = p.copy ?? {};
 const x = (p.extra ?? {}) as Record<string, any>;
@@ -100,11 +105,11 @@ const promoterLink = await promoterHref(p.organizer);
 // the night's own page (every party that night), when this build has one
 const nightPage = (await datePages()).some((d) => d.date === p.night_date && !d.past && d.parties.length > 1);
 ---
-<Base noindex={!partyIndexable(p)} googleNoindex={!partyGoogle(p)} title={partyTitle(p, v, crowded, kw)} description={partyDescription(p, v)} keyword={kw} jsonld={[partyJsonLd(p, v, url), crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [cleanTitle(p.title), `/parties/${p.slug}`]]), faqLd(faq)]}>
+<Base noindex={!partyIndexable(p)} googleNoindex={!partyGoogle(p)} title={partyTitle(p, v, crowded, kw)} description={partyDescription(p, v)} keyword={kw} ogImage={ownPhoto} jsonld={[partyJsonLd(p, v, url, ownPhoto ? new URL(ownPhoto, 'https://yaynyc.com').href : null), crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [cleanTitle(p.title), `/parties/${p.slug}`]]), faqLd(faq)]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li>{v && <li><a href={`/parties/venue/${v.id}`}>{v.name}</a></li>}<li aria-current="page">{nightDate(p.night_date, { month: 'short', day: 'numeric' })}</li></ol></nav>
   <div class="cols">
     <div>
-      <h1><span class="when-big">{nightDate(p.night_date, { weekday: 'long', month: 'short', day: 'numeric' })}{x.multi_day ? ' (multi-day)' : ''}</span> {cleanTitle(p.title)}{crowded && v ? ` at ${v.name}` : ''}</h1>
+      <h1><span class="when-big">{nightDate(p.night_date, { weekday: 'long', month: 'short', day: 'numeric' })}{x.multi_day ? ' (multi-day)' : ''}</span> {cleanTitle(p.title)}{nyeSuffix(p)}{crowded && v ? ` at ${v.name}` : ''}</h1>
       <p class="lede summary">{summary}</p>
       <p class="ended-note" hidden data-show-after={endsAt}>This night is over. <a href="/parties">See the next parties in NYC</a>{atVenue.length > 0 && <> or <a href="#at-venue">what is next at this venue</a></>}.</p>
       <div class="tagrow">

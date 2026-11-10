@@ -564,3 +564,23 @@ export function holidayHistory(): Promise<HolidayHistory[]> {
   })();
   return _hist;
 }
+
+// ---------- a finished holiday season in numbers (view site_holiday_recap, Nov 10, 2026) ----------
+export interface HolidayRecap {
+  theme: string; season: number; nights: number; venues: number; priced: number; median_price: number | null; median_paid: number | null; max_price: number | null;
+  free: number; sold_out: number; under_21: number; first_night: string; last_night: string;
+  by_night: { date: string; n: number }[] | null; by_borough: { borough: string; n: number }[] | null;
+  top_venues: { id: string; name: string; neighborhood: string | null; n: number }[] | null; by_genre: { genre: string; n: number }[] | null;
+}
+let _recap: Promise<HolidayRecap[]> | null = null;
+/** aggregates of the published nights of a holiday season that is over (counts, medians, venue names) */
+export function holidayRecaps(): Promise<HolidayRecap[]> {
+  _recap ??= (async () => {
+    const num = (x: unknown) => (x === null || x === undefined ? null : Number(x));
+    let rows: HolidayRecap[] = [];
+    if (FIXTURE) { try { rows = fixture<HolidayRecap[]>('holiday_recap.json'); } catch { rows = []; } }
+    else { try { rows = await rest<HolidayRecap>('site_holiday_recap?select=*'); } catch { rows = []; } }
+    return rows.map((r) => ({ ...r, median_price: num(r.median_price), median_paid: num(r.median_paid), max_price: num(r.max_price) }));
+  })();
+  return _recap;
+}
