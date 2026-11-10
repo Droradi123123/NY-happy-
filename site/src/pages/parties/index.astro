@@ -2,8 +2,8 @@
 import Base from '../../layouts/Base.astro';
 import Explorer from '../../components/Explorer.astro';
 import PartyCard from '../../components/PartyCard.astro';
-import { partyData, venueOf, nightDate, cleanTitle } from '../../lib/data';
-import { partyLists } from '../../lib/partyLists';
+import { partyData, venueOf, nightDate, cleanTitle, holidayRecaps } from '../../lib/data';
+import { partyLists, datePages } from '../../lib/partyLists';
 import { crumbs, faqLd, collectionLd, freshDescription } from '../../lib/seo';
 import Fresh from '../../components/Fresh.astro';
 import { plural } from '../../lib/stats';
@@ -26,10 +26,15 @@ const halloween = parties.filter((p) => p.themes.includes('halloween')).length;
 const row = (l: { slug: string; short: string; parties: unknown[] }) => ({ href: `/parties/${l.slug}`, short: l.short, n: l.parties.length });
 // link only the lists that have nights right now (the others stay up, out of the way)
 const live = (k: string) => plists.filter((l) => l.kind === k && l.parties.length > 0).map(row);
+// one page per night for the next 60 days (Nov 10): linked here so people and crawlers reach them
+const nightPages = (await datePages()).filter((d) => d.indexable);
+const hasNight = new Set(nightPages.map((d) => d.date));
+const pastSeasons = halloween < 2 ? (await holidayRecaps()).filter((r) => r.theme === 'halloween' && r.nights >= 20).sort((a, b) => b.season - a.season).slice(0, 1) : [];
 const groups: [string, { href: string; short: string; n: number }[]][] = [
   ['Tonight and this weekend', live('when')],
   ['Parties by music', live('genre')],
   ['Parties by night', live('day')],
+  ['Night by night', nightPages.map((d) => ({ href: `/parties/date/${d.date}`, short: nightDate(d.date, { weekday: 'short', month: 'short', day: 'numeric' }), n: d.parties.length }))],
   ['Holidays and seasons', [...(halloween >= 2 ? [{ href: '/parties/halloween', short: 'Halloween', n: halloween }] : []), ...live('holiday'), ...live('season')]],
   ['Kind of party', [...live('tag'), ...live('age')]],
   ['By borough and neighborhood', live('where')],
@@ -49,7 +54,7 @@ const groups: [string, { href: string; short: string; n: number }[]][] = [
     <details class="az">
       <summary>Every upcoming party, night by night ({parties.length})</summary>
       {[...new Set(parties.map((p) => p.night_date))].map((d) => (
-        <><h3 class="az-day">{nightDate(d, { weekday: 'long', month: 'short', day: 'numeric' })}</h3>
+        <><h3 class="az-day">{hasNight.has(d) ? <a href={`/parties/date/${d}`}>{nightDate(d, { weekday: 'long', month: 'short', day: 'numeric' })}</a> : nightDate(d, { weekday: 'long', month: 'short', day: 'numeric' })}</h3>
         <ul class="az-list">{parties.filter((p) => p.night_date === d).map((p) => <li><a href={`/parties/${p.slug}`}>{cleanTitle(p.title)}</a><span class="az-hood"> · {venueOf(p, venues)?.name ?? ''}</span></li>)}</ul></>
       ))}
     </details>
@@ -59,6 +64,7 @@ const groups: [string, { href: string; short: string; n: number }[]][] = [
       <ul class="link-cloud">{g.map((l) => <li><a href={l.href}>{l.short}<span class="count">{l.n}</span></a></li>)}</ul>
     </section>
   ))}
+  {pastSeasons.map((r) => <p class="section">Past seasons: <a href="/parties/halloween">Halloween {r.season} in NYC in numbers</a> ({r.nights} parties).</p>)}
   <section class="section faq"><h2>Questions</h2>{faq.map((f) => <details><summary>{f.q}</summary><p>{f.a}</p></details>)}</section>
 </Base>
 <style>
