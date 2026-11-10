@@ -15,6 +15,7 @@ import HappyHourBefore from '../../components/HappyHourBefore.astro';
 import { partyData, venueOf, nightDate, nyTime, cleanTitle, copyOf, paragraphs, fmtDate, type Party, type Venue } from '../../lib/data';
 import { partyLists, datePages, dateRange, INDEX_MIN, type PartyList } from '../../lib/partyLists';
 import { allGuides } from '../../lib/guides';
+import { partyTags } from '../../lib/index';
 import { crumbs, faqLd, collectionLd, freshDescription } from '../../lib/seo';
 import { plural } from '../../lib/stats';
 import proof from '../../data/proof.json';
@@ -71,8 +72,23 @@ const stamp = new Date().toLocaleString('en-US', { month: 'short', year: 'numeri
 const days = L.holiday ? Math.round((Date.parse(`${L.holiday.date}T12:00:00Z`) - Date.parse(`${new Date().toISOString().slice(0, 10)}T12:00:00Z`)) / 864e5) : 0;
 const year = L.holiday?.date.slice(0, 4);
 
+// Nov 10: on a holiday page with enough nights, the cheapest night of each kind, as one-line answers (what people,
+// and AI answers, ask first: "cheapest NYE party", "NYE open bar", "NYE rooftop"). Computed from the listed prices.
+const onSale = ps.filter((p) => p.event_status !== 'sold_out' && (p.price_status === 'free' || p.price_from !== null));
+const cheapest = (list: Party[]) => [...list].sort((a, b) => (a.price_status === 'free' ? 0 : a.price_from!) - (b.price_status === 'free' ? 0 : b.price_from!))[0] ?? null;
+const tagged = (t: string) => onSale.filter((p) => partyTags(p, venueOf(p, venues)).includes(t));
+const priceOf = (p: Party) => (p.price_status === 'free' ? 'free' : `from $${Math.round(p.price_from!)}`);
+const quick = L.kind === 'holiday' && n >= 10 ? ([
+  ['The cheapest night', cheapest(onSale)],
+  ['The cheapest open bar', cheapest(tagged('openbar'))],
+  ['The cheapest rooftop', cheapest(tagged('rooftop'))],
+  ['The cheapest boat party', cheapest(tagged('boat'))],
+  ['The cheapest in Brooklyn', cheapest(onSale.filter((p) => p.borough === 'Brooklyn'))],
+  ['The cheapest in Queens', cheapest(onSale.filter((p) => p.borough === 'Queens'))],
+] as [string, Party | null][]).filter((x): x is [string, Party] => !!x[1]) : [];
 const faq = [
   ...(copy?.faq ?? []),
+  ...(quick.length ? [{ q: `What is the cheapest ${subject}${where === 'NYC' ? ' in NYC' : ''}?`, a: `${quick.map(([k, p]) => `${k}: ${cleanTitle(p.title)} at ${venueOf(p, venues)?.name ?? 'a NYC venue'}, ${priceOf(p)}`).join('; ')}. Prices are the lowest listed on the ticket site when we checked, with fees where shown.` }] : []),
   ...(L.holiday ? [{ q: `When is ${L.holiday.name} ${year}?`, a: `${L.holiday.note}${n ? ` We list ${plural(n, 'night')} on sale for it so far.` : ''}` }] : []),
   ...(n ? [{ q: `What are the next ${subject}${where === 'NYC' ? ' in NYC' : ''}?`, a: ps.slice(0, 3).map((p) => `${cleanTitle(p.title)} at ${venueOf(p, venues)?.name ?? 'a NYC venue'}, ${nightDate(p.night_date, { weekday: 'short', month: 'short', day: 'numeric' })}${nyTime(p.doors_at ?? p.starts_at) ? `, doors ${nyTime(p.doors_at ?? p.starts_at)}` : ''}`).join('; ') + '.' }] : []),
   ...(priced.length ? [{ q: `How much are tickets for ${subject}${where === 'NYC' ? ' in NYC' : ''}?`, a: `From $${Math.round(Math.min(...priced))} to $${Math.round(Math.max(...priced))} for the cheapest ticket on each night${free ? `, and ${free} are free` : ''}. Prices are the lowest listed on the ticket site when we checked, with fees.` }] : []),
@@ -122,6 +138,13 @@ const hhToday = /^(tonight|[a-z-]+\/tonight)$/.test(L.slug) && n < 6
       <p>{L.holiday.note}</p>
       <p><strong>{plural(n, 'night')} on sale</strong>{n ? ` so far, from ${range}.` : ' so far: this page fills in as tickets are released.'}</p>
       {(L.slug === 'new-years-eve' || L.parent?.slug === 'new-years-eve') && <p>What NYE costs this year, by borough and kind of party, with daily price changes: <a href="/nyc-nye-price-index">the NYC New Year's Eve Price Index</a>.</p>}
+    </section>
+  )}
+  {quick.length > 0 && (
+    <section class="section">
+      <h2>Quick answers</h2>
+      <ul class="quick">{quick.map(([k, p]) => <li><strong>{k}:</strong> <a href={`/parties/${p.slug}`}>{cleanTitle(p.title)}</a> at {venueOf(p, venues)?.name ?? 'a NYC venue'}, {priceOf(p)}</li>)}</ul>
+      <p class="small muted">Lowest ticket listed when we last checked each seller's page; sold-out nights are left out.</p>
     </section>
   )}
   {copy && (
@@ -206,6 +229,7 @@ const hhToday = /^(tonight|[a-z-]+\/tonight)$/.test(L.slug) && n < 6
   {L.holiday && <script is:inline>document.querySelectorAll('[data-countdown]').forEach(function (e) { var d = Math.round((Date.parse(e.getAttribute('data-countdown') + 'T12:00:00Z') - Date.parse(new Date().toISOString().slice(0, 10) + 'T12:00:00Z')) / 864e5); if (d >= 0) e.textContent = d === 0 ? 'today' : d === 1 ? 'tomorrow' : 'in ' + d + ' days'; });</script>}
 </Base>
 <style>
+  .quick { padding-left: 18px; display: grid; gap: 6px; }
   .h3 { margin-top: 18px; }
   .stat-strip { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 8px 0 4px; }
   .stat-strip li { padding: 6px 12px; border-radius: 999px; background: var(--brand-soft); color: var(--brand-dark); font-size: 14px; }

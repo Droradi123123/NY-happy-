@@ -31,11 +31,16 @@ if (bing) {
   // two weeks instead of the same first 100 every day.
   const cap = Math.min(daily, 500);
   const always = urls.filter((u) => /yaynyc\.com\/?$|\/parties\/?$|\/happy-hours\/?$|\/parties\/(tonight|tomorrow|this-weekend|next-weekend|calendar|new-years-eve|thanksgiving-eve|thanksgiving-weekend|christmas)\/?$/.test(u)).slice(0, cap);
+  // Nov 10: the holiday season first. ChatGPT sends most of its visitors to holiday pages (Halloween: ~2,450 landings
+  // in 28 days), so the NYE and Thanksgiving Eve filter pages, the price index, those nights' date pages and the
+  // nights themselves go right after the hubs, every day, until the night has passed.
+  const HOLIDAY = /\/parties\/(new-years-eve|new-years-day|thanksgiving-eve|christmas-eve|christmas)\/[a-z0-9-]+\/?$|\/nyc-nye-price-index\/?$|\/parties\/date\/\d{4}-(11-2[4-6]|12-2[45]|12-31|01-01)\/?$|-\d{4}-(11-25|12-24|12-31|01-01)\/?$/;
+  const holiday = urls.filter((u) => !always.includes(u) && HOLIDAY.test(u));
   const order = (u) => (/\/parties\/|\/blog\//.test(u) ? 0 : 1);
-  const rest = urls.filter((u) => !always.includes(u)).sort((a, b) => order(a) - order(b));
-  const n = Math.max(0, cap - always.length), start = rest.length ? (Math.floor(Date.now() / 864e5) * n) % rest.length : 0;
-  const batch = [...always, ...rest.slice(start), ...rest.slice(0, start)].slice(0, cap);
-  console.log(`bing batch: ${always.length} hubs every day + ${batch.length - always.length} rotating from ${start} of ${rest.length}`);
+  const rest = urls.filter((u) => !always.includes(u) && !holiday.includes(u)).sort((a, b) => order(a) - order(b));
+  const n2 = Math.max(0, cap - always.length - holiday.length), start2 = rest.length ? (Math.floor(Date.now() / 864e5) * n2) % rest.length : 0;
+  const batch = [...always, ...holiday, ...rest.slice(start2), ...rest.slice(0, start2)].slice(0, cap);
+  console.log(`bing batch: ${always.length} hubs + ${Math.min(holiday.length, Math.max(0, cap - always.length))} holiday pages every day + ${Math.max(0, batch.length - always.length - holiday.length)} rotating from ${start2} of ${rest.length}`);
   if (batch.length) {
     const r = await fetch(api('SubmitUrlBatch'), { method: 'POST', headers: { 'Content-Type': 'application/json; charset=utf-8' }, body: JSON.stringify({ siteUrl: `${SITE}/`, urlList: batch }) });
     console.log(`bing url batch: ${batch.length} URLs, HTTP ${r.status}`);

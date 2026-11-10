@@ -103,8 +103,8 @@ main.wide { padding-bottom: 0; }
 .grid-cards { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
 .card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); }
 .section { margin-top: 48px; }
-.facts { display: grid; grid-template-columns: max-content minmax(0, 1fr); gap: 8px 18px; margin: 0; }
-.facts dt { font-weight: 700; }
+.facts { display: grid; grid-template-columns: fit-content(42%) minmax(0, 1fr); gap: 8px 18px; margin: 0; }
+.facts dt { font-weight: 700; overflow-wrap: anywhere; }
 .facts dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
 .faq details { border-top: 1.5px solid var(--line); padding: 14px 0; }
 .faq summary { font-weight: 700; cursor: pointer; font-size: 18px; }

@@ -71,15 +71,16 @@ export function barTitle(b: Bar, branch = false): string {
 export function barDescription(b: Bar): string {
   const deal = dealLabel(b);
   const sched = b.windows.map((w) => `${daysLabel(w.days)} ${compactWindow(w)}`).join(', ');
-  const menu = b.offers.slice(0, 3).map((o) => `${o.item} ${o.price}`).join(', ');
-  // opens with the focus phrase ("<name> happy hour"), then the deal and the times
-  const bits = hasMenu(b)
-    ? [`${b.name} happy hour, ${b.hood}: ${menu}${b.offers.length > 3 ? ' and more' : ''}.`, `${sched}.`]
-    : [`${b.name} happy hour, ${b.hood}: ${sched}.`, deal ? `The deal: ${deal}.` : b.source || b.website ? 'Times, a link to the bar\'s own menu and nearby deals.' : 'Times and nearby bars with listed deals.'];
-  bits.push(
-    b.subway ? `${b.subway.walk_min} min from ${b.subway.station} (${b.subway.lines.join(', ')}).` : '',
-    b.checked ? `Checked ${new Date(b.checked).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}.` : '',
-  );
+  // Nov 10 (weekly growth run, bar pages at a 0.5% click rate): the times first, then the cleanest menu lines and the
+  // date we read them; menu lines that read as a fragment of a sentence ("days a week Beer") are left out of the snippet
+  const clean = b.offers.filter((o) => /^[A-Z0-9$]/.test(o.item.trim()) && o.item.length <= 40);
+  const menu = clean.slice(0, 3).map((o) => `${o.item} ${o.price}`).join(', ');
+  const checked = b.checked ? `Checked ${new Date(b.checked).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}.` : '';
+  // opens with the focus phrase ("<name> happy hour"), then the times and the deal
+  const bits = hasMenu(b) && menu
+    ? [`${b.name} happy hour, ${b.hood}: ${sched}.`, `${menu}${b.offers.length > clean.slice(0, 3).length ? ' and more' : ''}.`, checked]
+    : [`${b.name} happy hour, ${b.hood}: ${sched}.`, deal ? `The deal: ${deal}.` : b.source || b.website ? 'Times, a link to the bar\'s own menu and nearby deals.' : 'Times and nearby bars with listed deals.', checked];
+  bits.push(b.subway ? `${b.subway.walk_min} min from ${b.subway.station} (${b.subway.lines.join(', ')}).` : '');
   return cut(bits.filter(Boolean).join(' '));
 }
 

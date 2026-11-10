@@ -125,7 +125,7 @@ const nightPage = (await datePages()).some((d) => d.date === p.night_date && !d.
           {p.organizer && <><dt>Presented by</dt><dd>{promoterLink ? <a href={promoterLink}>{p.organizer}</a> : p.organizer}</dd></>}
         </dl>
         <p class="countdown" data-night={p.night_date} hidden></p>
-        {p.event_status !== 'sold_out' && <a class="btn" href={ticketHref(p)} rel={TICKET_REL} target="_blank" data-ev="tickets">{buyLabel}</a>}
+        {p.event_status !== 'sold_out' && <a class="btn" href={ticketHref(p)} rel={TICKET_REL} target="_blank" data-ev="tickets" data-main-ticket>{buyLabel}</a>}
         {p.event_status === 'sold_out' && <a class="btn ghost" href={ticketHref(p)} rel={TICKET_REL} target="_blank" data-ev="tickets">Check for resale or waiting list</a>}
         {p.event_status !== 'sold_out' && <p class="secure">You buy on {p.ticket_vendor}'s own secure checkout; YaY NYC never sees your payment.</p>}
         {proofLine && <p class="proof">{proofLine} (as of {fmtDate(proof.updated)}).</p>}
@@ -133,6 +133,12 @@ const nightPage = (await datePages()).some((d) => d.date === p.night_date && !d.
         <p class="cal-links">Add to calendar: <a href={gcal} rel="nofollow noopener" target="_blank" data-ev="calendar">Google</a> · <a href={icsHref} download={`${p.slug}.ics`} data-ev="calendar">Apple / Outlook (.ics)</a></p>
       </section>
 
+      {p.event_status !== 'sold_out' && (
+        <div class="ticket-bar" data-ticket-bar data-hide-after={endsAt} hidden>
+          <span class="tb-what"><strong>{nightDate(p.night_date, { weekday: 'short', month: 'short', day: 'numeric' })}</strong>{doors ? ` · ${doors}` : ''}</span>
+          <a class="btn" href={ticketHref(p)} rel={TICKET_REL} target="_blank" data-ev="tickets">{p.price_status === 'free' ? 'RSVP' : p.price_from ? `Tickets from $${Math.round(p.price_from)}` : 'Tickets'}</a>
+        </div>
+      )}
       {c.about && <section class="section"><h2>About the party</h2><p>{c.about}</p></section>}
       {c.expect && <section class="section"><h2>What to expect</h2><p>{c.expect}</p></section>}
       <section class="section"><h2>Music and lineup</h2>
@@ -180,7 +186,25 @@ const nightPage = (await datePages()).some((d) => d.date === p.night_date && !d.
   </footer>
   <script is:inline>document.querySelectorAll('[data-night]').forEach(function (e) { var t = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date()); var d = Math.round((Date.parse(e.getAttribute('data-night') + 'T12:00:00Z') - Date.parse(t + 'T12:00:00Z')) / 864e5); if (d < 0 || d > 6) return; e.textContent = d === 0 ? 'Tonight' : d === 1 ? 'Tomorrow' : 'In ' + d + ' days'; e.hidden = false; });</script>
 </Base>
+<script is:inline>
+  // Nov 10: on phones, once the main ticket button scrolls out of view, a slim bar with the date and the ticket link
+  // stays above the tab bar (1,830 ticket clicks in 28 days, most from phones); never after the night is over
+  (function () {
+    var bar = document.querySelector('[data-ticket-bar]'), main = document.querySelector('[data-main-ticket]');
+    if (!bar || !main || !window.matchMedia('(max-width: 859px)').matches) return;
+    var end = Date.parse(bar.getAttribute('data-hide-after') || '');
+    if (end && Date.now() > end) return;
+    var on = false, check = function () { on = false; bar.hidden = main.getBoundingClientRect().bottom > 0; };
+    addEventListener('scroll', function () { if (!on) { on = true; requestAnimationFrame(check); } }, { passive: true });
+    check();
+  })();
+</script>
 <style>
+  .ticket-bar { position: fixed; left: 0; right: 0; bottom: calc(var(--tabbar) + env(safe-area-inset-bottom)); z-index: 49; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 8px max(12px, env(safe-area-inset-left)) 8px max(12px, env(safe-area-inset-right)); background: #fff; border-top: 1px solid var(--line); box-shadow: 0 -6px 20px rgba(22, 18, 43, 0.08); }
+  .ticket-bar[hidden] { display: none; }
+  .ticket-bar .tb-what { font-size: 14px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+  .ticket-bar .btn { flex: none; margin: 0; padding: 10px 14px; font-size: 15px; }
+  @media (min-width: 860px) { .ticket-bar { display: none !important; } }
   .countdown { display: inline-block; margin: 14px 0 0; padding: 3px 10px; border-radius: 999px; background: #fff; color: var(--coral-ink); font-weight: 800; font-size: 14px; }
   .countdown[hidden] { display: none; }
   .secure { font-size: 13px; opacity: .9; margin: 8px 0 0; }
