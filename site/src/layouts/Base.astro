@@ -13,7 +13,7 @@ import Newsletter from '../components/Newsletter.astro';
 import { listPages } from '../lib/lists';
 import { partyLists } from '../lib/partyLists';
 import { nycEvents } from '../lib/events';
-import { attractions } from '../lib/attractions';
+import { attractions, attractionCategories } from '../lib/attractions';
 // the font is self-hosted (no render-blocking request to Google Fonts)
 import '@fontsource-variable/bricolage-grotesque/opsz.css';
 import '../styles/global.css';
@@ -76,6 +76,7 @@ const menu = [
     ...hh('late-night', 'Late night'), { href: '/happy-hours/neighborhoods', label: 'By neighborhood' }] },
   { h: 'Parties', links: [...when('tonight', 'Tonight'), ...when('tomorrow', 'Tomorrow'), ...when('this-weekend', 'This weekend'),
     ...(seasonal.href === '/parties/halloween' ? [{ href: '/parties/halloween', label: 'Halloween' }] : []), { href: '/parties/calendar', label: 'Party calendar' }, { href: '/parties', label: 'All parties' }] },
+  ...(attractions().length ? [{ h: 'Attractions', links: [...attractionCategories().slice(0, 5).map((c) => ({ href: `/attractions/${c.slug}`, label: c.label })), { href: '/attractions', label: 'All attractions' }] }] : []),
   { h: 'Trivia and games', links: [{ href: '/trivia', label: 'Trivia nights' }, { href: '/music-bingo', label: 'Music bingo' }, { href: '/bars-with-games', label: 'Bars with games' }] },
   { h: 'Maps', links: [{ href: '/map/happy-hours', label: 'Happy hour map' }, { href: '/map/parties', label: 'Party map' }] },
   ...(guidesMenu.length ? [{ h: 'Guides', links: [...guidesMenu.map((g) => ({ href: `/blog/${g.slug}`, label: g.short })), { href: '/blog', label: 'All guides' }] }] : []),

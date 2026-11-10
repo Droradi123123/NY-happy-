@@ -20,6 +20,8 @@ import { SITE } from '../lib/seo';
 import { listPages, rank } from '../lib/lists';
 import { halloweenPages } from '../lib/halloween';
 import { trivia, DAY_PAGES, daySlugOf } from '../lib/activities';
+import AttractionCard from '../components/AttractionCard.astro';
+import { attractions, attractionCategories } from '../lib/attractions';
 import { DAY_NAME } from '../lib/data';
 
 const bars = await allBars();
@@ -62,6 +64,10 @@ const partyPicks = oneEach([...soon].sort((a, b) => a.night_date.localeCompare(b
 const cheap = oneEach([...bars].filter((b) => b.dealKnown && !b.doubt && b.cheapestDrink !== null && b.cheapestDrink <= 6).sort((a, b) => a.cheapestDrink! - b.cheapestDrink! || rank(a, b)), (b) => b.hoodSlug, 4);
 const rooftops = (listsAll.find((l) => l.slug === 'rooftop')?.bars ?? []).filter((b) => b.dealKnown && !hhPicks.includes(b)).sort(rank).slice(0, 4);
 const weekendList = plists.find((l) => l.slug === 'this-weekend');
+// attractions: one with a photo from each category first, then any others, 4 cards (only while the build has attraction pages)
+const attrAll = attractions();
+const attrCats = attractionCategories();
+const attrPicks = oneEach([...attrCats.map((c) => c.items.find((a) => photoOf('attraction', a.id)) ?? c.items[0]), ...attrAll], (a) => a.id, 4);
 const weekendPicks = (weekendList?.parties ?? []).filter((p) => !partyPicks.includes(p) && p.event_status !== 'sold_out').sort((a, b) => pscore(b) - pscore(a)).slice(0, 4);
 ---
 <Base title="YaY NYC: Happy Hours, Parties and What's On Tonight in NYC" keyword="nyc happy hours and parties" description={`NYC happy hours and parties in one place: ${s.n} verified happy hours with the deal and times, plus parties with doors, age and tickets.`}
@@ -77,6 +83,7 @@ const weekendPicks = (weekendList?.parties ?? []).filter((p) => !partyPicks.incl
         <a class="btn" href="/happy-hours">🍸 Happy hours</a>
         <a class="btn coral" href="/parties">🪩 Parties</a>
         {season && <a class="btn dark" href={season.href}>{hwOn ? '🎃' : '🎉'} {season.label}</a>}
+        {attrAll.length > 0 && <a class="btn ghost" href="/attractions">🗽 Attractions</a>}
         <a class="btn ghost" href="/happy-hours/now">⏰ On right now</a>
       </div>
     </div>
@@ -93,6 +100,15 @@ const weekendPicks = (weekendList?.parties ?? []).filter((p) => !partyPicks.incl
       <div class="sec-head"><h2 id="pp-h">Parties coming up</h2><span class="sec-sub">Tonight first, then the next nights, with doors, age and tickets</span></div>
       <div class="home-grid">{partyPicks.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>
       <a class="btn coral wide" href="/parties">See all {parties.length} parties →</a>
+    </section>
+  )}
+
+  {attrPicks.length > 0 && (
+    <section class="section home-sec" aria-labelledby="at-h">
+      <div class="sec-head"><h2 id="at-h">🗽 NYC attractions</h2><span class="sec-sub">{attrAll.length} museums, parks and landmarks with hours, admission and the official link</span></div>
+      <div class="home-grid">{attrPicks.map((a) => <AttractionCard a={a} />)}</div>
+      <p class="home-cats">{attrCats.map((c) => <a href={`/attractions/${c.slug}`}>{c.label}</a>)}</p>
+      <a class="btn ghost wide" href="/attractions">See all {attrAll.length} attractions →</a>
     </section>
   )}
 
@@ -228,6 +244,9 @@ const weekendPicks = (weekendList?.parties ?? []).filter((p) => !partyPicks.incl
   .home-grid { display: grid; gap: 14px; grid-template-columns: 1fr 1fr; }
   @media (max-width: 639px) { .home-grid { gap: 10px; } }
   .home-grid > * { min-width: 0; }
+  .home-cats { display: flex; flex-wrap: wrap; gap: 8px; margin: 14px 0 0; }
+  .home-cats a { display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border: 1px solid var(--line); border-radius: 999px; background: #fff; color: var(--ink); font-weight: 700; font-size: 14px; text-decoration: none; }
+  .home-cats a:hover { border-color: var(--brand); color: var(--brand); }
   @media (min-width: 1000px) { .home-grid { grid-template-columns: repeat(3, 1fr); } .home-grid.four { grid-template-columns: repeat(4, 1fr); } }
   @media (max-width: 639px) { .home-grid > :nth-child(n+5) { display: none; } .home-grid.three > :nth-child(n+3) { display: none; } }
   .btn.wide { justify-self: start; }
