@@ -1,0 +1,9 @@
+{"steps": [
+ {"dump": "snap_bars", "path": "site_bars?select=*&order=slug"},
+ {"dump": "snap_parties", "path": "site_parties?select=*&order=starts_at"},
+ {"dump": "snap_venues", "path": "site_venues?select=*"},
+ {"dump": "snap_blog", "path": "site_blog_posts?select=*"},
+ {"dump": "snap_page_copy", "path": "site_page_copy?select=*"},
+ {"dump": "snap_price_snapshots", "path": "site_price_snapshots?select=*&order=day"},
+ {"dump": "snap_holiday_history", "path": "site_holiday_history?select=*"}
+]}
