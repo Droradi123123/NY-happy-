@@ -14,12 +14,14 @@ const { venues } = await partyData();
 const asOf = new Date(`${ix.built}T12:00:00Z`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 const year = ix.date.slice(0, 4);
 const n = ix.nights.length;
-const pct = (k: number) => (n ? Math.round((k / n) * 100) : 0);
+// shares are of the nights whose price we know (a listed price, or free); nights without one are not counted as dear
+const known = ix.priced + ix.free;
+const pct = (k: number) => (known ? Math.round((k / known) * 100) : 0);
 const since = ix.watch.since ? new Date(`${ix.watch.since}T12:00:00Z`).toLocaleDateString('en-US', { month: 'long', day: 'numeric', timeZone: 'UTC' }) : null;
 const sortedB = [...ix.boroughs].filter((b) => b.median !== null).sort((a, b) => a.median! - b.median!);
 const findings = [
   ix.median !== null ? `As of ${asOf}, the median cheapest ticket to a New Year's Eve party in New York City is ${usd(ix.median)}, across ${ix.priced} NYE ${year} nights with a listed price (the middle half runs ${usd(ix.p25)} to ${usd(ix.p75)}).` : '',
-  n ? `${pct(ix.under100)}% of the ${n} NYE nights we list have a ticket at $100 or less; ${ix.over200} start above $200.` : '',
+  known ? `${pct(ix.under100)}% of the ${known} NYE nights with a listed price have a ticket at $100 or less; ${ix.over200} start above $200.` : '',
   sortedB.length >= 2 && sortedB[0].median! < sortedB[sortedB.length - 1].median! ? `By borough, ${sortedB[0].label} is the cheapest (median ${usd(sortedB[0].median)}) and ${sortedB[sortedB.length - 1].label} the most expensive (median ${usd(sortedB[sortedB.length - 1].median)}).` : '',
   ix.kinds.find((k) => k.label === 'Open bar' && k.median !== null) && ix.kinds.find((k) => k.label.startsWith('Clubs') && k.median !== null) ? `Open-bar packages have a median entry price of ${usd(ix.kinds.find((k) => k.label === 'Open bar')!.median)}, against ${usd(ix.kinds.find((k) => k.label.startsWith('Clubs'))?.median ?? null)} for club nights without one.` : '',
   ix.watch.tracked >= 5 ? `Since ${since}, ${ix.watch.up} of the ${ix.watch.tracked} nights we track have raised their cheapest ticket and ${ix.watch.down} have lowered it (median change ${ix.watch.medianChangePct! >= 0 ? '+' : ''}${Math.round(ix.watch.medianChangePct!)}%).` : '',
@@ -32,7 +34,7 @@ const description = ix.median !== null
   : `NYE party prices in NYC for ${year}: ticket prices by borough and type (open bar, rooftop, boat), updated ${asOf}.`;
 const faq = [
   ...(ix.median !== null ? [{ q: `How much are New Year's Eve parties in NYC in ${year}?`, a: `The median cheapest ticket is ${usd(ix.median)} across ${ix.priced} NYE nights with a listed price, as of ${asOf}. The cheapest starts at ${usd(ix.min)} and the most expensive at ${usd(ix.max)}.` }] : []),
-  ...(ix.under100 ? [{ q: `Are there NYE parties in NYC under $100?`, a: `Yes: ${ix.under100} of the ${n} nights we list have a ticket at $100 or less, ${ix.under50} of them at $50 or less (as of ${asOf}). Prices usually rise in tiers as the night gets closer.` }] : []),
+  ...(ix.under100 ? [{ q: `Are there NYE parties in NYC under $100?`, a: `Yes: ${ix.under100} of the ${known} nights with a listed price have a ticket at $100 or less, ${ix.under50} of them at $50 or less (as of ${asOf}). Prices usually rise in tiers as the night gets closer.` }] : []),
   ...(ix.watch.tracked >= 5 ? [{ q: `Do NYE ticket prices go up closer to the date?`, a: `Since ${since}, ${ix.watch.up} of the ${ix.watch.tracked} nights we track have raised their cheapest ticket, ${ix.watch.down} lowered it and ${ix.watch.same} kept it. Most NYC NYE parties sell in tiers that close as they sell.` }] : [{ q: `Do NYE ticket prices go up closer to the date?`, a: `Most NYC NYE parties sell tickets in tiers that rise as each tier sells. We record every night's cheapest ticket daily from ${since ?? 'November 9'} and publish the changes here.` }]),
 ];
 const dataset = {

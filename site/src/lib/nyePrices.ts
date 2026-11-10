@@ -27,12 +27,14 @@ export function nyePrices(): Promise<NyePrices> {
   cache ??= (async () => {
     const { parties, venues } = await partyData();
     const nights = parties.filter((p) => p.themes.includes('nye'));
-    const priceOf = (p: Party) => (p.price_status === 'free' ? 0 : p.price_from);
-    const priced = nights.filter((p) => p.price_status !== 'free' && p.price_from !== null);
+    const priceOf = (p: Party) => (p.price_status === 'free' ? 0 : p.price_from !== null && p.price_from > 0 ? p.price_from : null);
+    // a $0 lowest offer next to paid tickets is an RSVP or deposit ticket type, not an entry price: left out (Nov 10)
+    const priced = nights.filter((p) => p.price_status !== 'free' && p.price_from !== null && p.price_from > 0);
     const xs = priced.map((p) => p.price_from!);
     const group = (label: string, list: Party[], slug?: string): Group => {
-      const ys = list.filter((p) => p.price_status !== 'free' && p.price_from !== null).map((p) => p.price_from!);
-      return { label, slug, n: list.length, median: median(ys), from: ys.length ? Math.min(...ys) : null };
+      const ys = list.filter((p) => p.price_status !== 'free' && p.price_from !== null && p.price_from > 0).map((p) => p.price_from!);
+      // a median needs at least 3 priced nights to mean anything
+      return { label, slug, n: list.length, median: ys.length >= 3 ? median(ys) : null, from: ys.length ? Math.min(...ys) : null };
     };
     const boroughs = ['Manhattan', 'Brooklyn', 'Queens', 'The Bronx', 'Staten Island']
       .map((b) => group(b, nights.filter((p) => p.borough === b), `new-years-eve/${b.toLowerCase()}`)).filter((g) => g.n >= 3);
