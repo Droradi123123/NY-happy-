@@ -55,7 +55,7 @@ const music = p.genres.slice(0, 3).map((g) => GENRE_NAME[g] ?? g).join(', ');
 const summary = [
   `${partyName(p)} is ${music ? `${/^[aeiou]/i.test(music) ? 'an' : 'a'} ${music} party` : 'a party'} at ${where} on ${nightDate(p.night_date, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}.`,
   doors ? `Doors ${doors}${ends ? `, ends ${ends}${endsNextDay ? ' the next morning' : ''}` : ''}.` : '',
-  p.age_min ? `${p.age_min}+ with ID.` : '',
+  p.age_min ? `${p.age_min}+ with ID.` : 'Age not stated on the listing: check with the venue, and bring a photo ID.',
   p.event_status === 'sold_out' ? 'Sold out when we last checked.' : p.price_status === 'free' ? `Free to enter${p.ticket_vendor ? ` (RSVP on ${p.ticket_vendor})` : ''}.` : p.price_from ? `Tickets from $${Math.round(p.price_from)} on ${p.ticket_vendor} when checked ${fmtDate(lastSeen)}.` : '',
 ].filter(Boolean).join(' ');
 const extraFaq = [
@@ -65,7 +65,7 @@ const extraFaq = [
 ];
 // the written FAQ comes first; a generated question is added only when no written one covers its topic
 const faq = c.faq?.length ? [...c.faq, ...extraFaq.filter((e) => !c.faq!.some((f) => e.t.test(f.q))).map(({ q, a }) => ({ q, a }))] : [...extraFaq.map(({ q, a }) => ({ q, a })),   { q: 'What time are doors?', a: doors ? `Doors at ${doors}${ends ? `; the listing ends at ${ends}${endsNextDay ? ' the next morning' : ''}` : ''}.` : 'Not listed.' },
-  { q: 'What is the age limit?', a: p.age_min ? `${p.age_min}+. Bring a government-issued photo ID.` : 'Not listed: check with the venue.' },
+  { q: 'What is the age limit?', a: p.age_min ? `${p.age_min}+. Bring a government-issued photo ID.` : 'Not stated on the listing: check with the venue before you go, and bring a government-issued photo ID.' },
   { q: 'Can I get a refund?', a: p.refund_terms ?? 'Not listed: check the terms on the ticket page.' },
 ];
 // a Halloween night links to the Halloween hub and to every indexed sub-page it appears on
@@ -110,7 +110,7 @@ const nightPage = (await datePages()).some((d) => d.date === p.night_date && !d.
       <div class="tagrow">
         {p.event_status === 'sold_out' && <span class="chip dark">Sold out</span>}
         {p.event_status === 'rescheduled' && <span class="chip dark">Rescheduled: check the date</span>}
-        {p.age_min && <span class="chip outline">{p.age_min}+</span>}
+        {p.age_min ? <span class="chip outline">{p.age_min}+</span> : <span class="chip outline">Age not stated</span>}
         {p.genres.map((g) => <span class="chip">{GENRE_NAME[g] ?? g}</span>)}
         {p.themes.includes('halloween') && <a class="chip" href="/parties/halloween">Halloween</a>}
       </div>
