@@ -2,7 +2,11 @@
 
 The /attractions section lists NYC attractions with facts read from each attraction's official site. It is additive: it changes no existing page, URL or sitemap entry, and adds one main-nav link ("Attractions") only while attraction pages exist.
 
-## Status (Nov 8, 2026)
+## Status (Nov 14, 2026)
+
+99 attractions are approved and live. On Nov 14, official pages were read for 54 backlog records and 14 new attractions (Museum of Sex, Museum of Illusions, ARTECHOUSE, ARTE MUSEUM, Wollman Rink, The Rink at Rockefeller Center, New York Hall of Science, Museum of Chinese in America, Hamilton Grange, Poe Cottage, Queens Botanical Garden, Staten Island Zoo, Sloomoo Institute, Morris-Jumel Mansion), each field marked "official page, read 2026-11-14"; 45 became candidates and were approved, among them the Statue of Liberty, Ellis Island, Central Park, the High Line, Little Island, the Guggenheim and Museum of Ice Cream. Parks without a street address carry the location text their official operator page gives (boundaries or entrances). Held: `morris-jumel-mansion` (closed for restoration), `urbanspace` (its site now shows a different market), `sloomoo-institute` (address only). Still blocked for automated reads: the Met Cloisters, the Morgan, Dia Chelsea, Carnegie Hall, nycgovparks.org pages.
+
+### Nov 8, 2026
 
 54 attractions are approved and live. On Nov 8, official pages were read for the 4 that had been held and for backlog records: 15 records gained facts, and 5 new attractions were added (Museum of the Moving Image, Children's Museum of Manhattan, Brooklyn Children's Museum, MoMath, Louis Armstrong House Museum), each field marked "official page, read 2026-11-08". Still held: `new-york-historical`, whose official site blocks automated reads (no price captured). Sites that block automated reads or render their hours in JavaScript (the Morgan, the Guggenheim, New Museum, RiseNY, Museum of Sex) stay in the backlog.
 
