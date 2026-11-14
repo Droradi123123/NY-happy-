@@ -14,6 +14,7 @@ import { listPages } from '../lib/lists';
 import { partyLists } from '../lib/partyLists';
 import { nycEvents } from '../lib/events';
 import { attractions, attractionCategories } from '../lib/attractions';
+import { inGoogleFocus } from '../lib/googleFocus';
 // the font is self-hosted (no render-blocking request to Google Fonts)
 import '@fontsource-variable/bricolage-grotesque/opsz.css';
 import '../styles/global.css';
@@ -35,6 +36,8 @@ interface Props {
 }
 const { title, titles = [], description, keyword, jsonld = [], noindex = false, googleNoindex = false, ogImage = null, wide = false } = Astro.props;
 const path = Astro.url.pathname.replace(/\.html$/, '').replace(/\/+$/, '') || '/';
+// Google sees only its focus list (lib/googleFocus.ts); every other engine sees every indexable page
+const googleSkip = !(await inGoogleFocus(path));
 const canonical = new URL(path, Astro.site).href;
 const fullTitle = path === '/' ? title : fitTitle([title.replace(/ \| YaY NYC$/, ''), ...titles], keyword);
 const GA = (import.meta.env.PUBLIC_GA_ID as string | undefined) || GA_MEASUREMENT_ID;
@@ -103,7 +106,7 @@ const tabs = [
   {path === '/' && BING_SITE_VERIFICATION && <meta name="msvalidate.01" content={BING_SITE_VERIFICATION} />}
   {path === '/' && FO_VERIFY && <meta name="fo-verify" content={FO_VERIFY} />}
   {noindex && <meta name="robots" content="noindex, follow" />}
-  {!noindex && googleNoindex && <meta name="googlebot" content="noindex, follow" />}
+  {!noindex && googleSkip && <meta name="googlebot" content="noindex, follow" />}
   <slot name="head" />
   <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
   <link rel="icon" href="/favicon-48.png" type="image/png" sizes="48x48" />

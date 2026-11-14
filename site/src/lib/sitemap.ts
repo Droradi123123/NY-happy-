@@ -17,6 +17,7 @@ import { attractions, attractionCategories } from './attractions';
 import { DAY_PAGES, BOROUGH_PAGES, GAME_PAGES, daySlugOf, OBSERVED, bingo, games } from './activities';
 
 
+import { googleFocus } from './googleFocus';
 export type SitemapType = 'bars' | 'parties' | 'lists' | 'guides' | 'other';
 export const SITEMAP_TYPES: SitemapType[] = ['bars', 'parties', 'lists', 'guides', 'other'];
 export function sitemapType(u: string): SitemapType {
@@ -91,7 +92,9 @@ export function sitemapRows(): Promise<[string, string | null][]> {
 /** the pages Google is asked to index (sitemap.xml and the per-type sitemaps, submitted in Search Console) */
 export async function googleRows(): Promise<[string, string | null][]> {
   const rows = await sitemapRows();
-  return rows.filter(([u]) => !skipGoogle!.has(u));
+  const focus = await googleFocus();
+  // the focus list decides for Google (lib/googleFocus.ts); skipGoogle is kept for the record of the older per-type rules
+  return rows.filter(([u]) => focus.has(u));
 }
 export const urlset = (rows: [string, string | null][]) => `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${rows
   .map(([u, m]) => `<url><loc>${SITE}${u}</loc>${m ? `<lastmod>${m}</lastmod>` : ''}</url>`).join('\n')}\n</urlset>`;

@@ -3,6 +3,22 @@
 One entry per weekly growth run (scheduled Claude session, Mondays). Aggregates only: this repository is
 public, so no search queries, no visitor data and no raw rows go here (those stay in the encrypted report).
 
+## 2026-11-14 (Google focus)
+
+- Data (Search Console, 28 days to Nov 12): ~1,000 Google impressions a day from Oct 16 to Oct 24 (122 clicks,
+  position ~10), then ~3 a day from Oct 25 on, with no site change that day. Index sample (Nov 9): 11 of 115 pages
+  indexed, most last crawled Oct 15-20; sitemap.xml last read Oct 23. Bing: 1 -> 189 pages indexed (Oct 18 to Nov 9),
+  impressions peaked at ~530 a day around Halloween. GA4 28 days: ~6,340 sessions, AI assistants ~4,900, organic ~140.
+- Reading: Google tested the new domain for ten days and then judged it on its average page (~1,150 mostly templated
+  pages, no links in). The limit is trust and links, not page count.
+- Shipped: Google focus (lib/googleFocus.ts). Google alone is shown every page it has already shown (kept), the hubs
+  and data pages, the holiday lists, the attraction hub and categories and 40 best-known attractions; every other
+  page gets "googlebot: noindex, follow" and leaves sitemap.xml. Bing, IndexNow and ChatGPT search keep every
+  indexable page (sitemap-full.xml). Also: 48 attractions added (99 -> 102 live with the Cloisters, the Morgan and
+  Carnegie Hall), 55 new party nights.
+- Owner to do: check Manual actions in Search Console; request indexing for the key pages; resubmit sitemap.xml.
+- Watch: Google crawl dates and the index sample (index-check), impressions per day, inbound links.
+
 ## 2026-11-10 (full SEO and AEO audit)
 
 - Data (28 days to Nov 9): ~6,040 sessions; AI assistants ~77% (ChatGPT ~4,800), direct ~19%, Google ~2%.
