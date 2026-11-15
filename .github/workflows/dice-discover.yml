@@ -8,6 +8,16 @@ on:
   schedule:
     - cron: '43 15 * * 1,4'
   workflow_dispatch:
+    inputs:
+      horizon_days:
+        description: 'How many days ahead to list (default 75)'
+        required: false
+      browse_weeks:
+        description: 'Weeks of DICE browse pages to scan (default 3)'
+        required: false
+      browse_dows:
+        description: 'Weekdays to scan, 0=Sun..6=Sat (default 5,6)'
+        required: false
 
 permissions:
   contents: write
@@ -19,7 +29,7 @@ concurrency:
 jobs:
   discover:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 120
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -28,6 +38,9 @@ jobs:
       - name: Discover
         env:
           SUPABASE_SERVICE_KEY: ${{ secrets.SUPABASE_SERVICE_KEY }}
+          HORIZON_DAYS: ${{ inputs.horizon_days }}
+          BROWSE_WEEKS: ${{ inputs.browse_weeks }}
+          BROWSE_DOWS: ${{ inputs.browse_dows }}
         run: node site/scripts/dice-discover.mjs
       - name: Summary and commit
         run: |

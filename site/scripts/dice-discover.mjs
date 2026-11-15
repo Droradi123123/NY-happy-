@@ -20,7 +20,11 @@ const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 const mapFile = new URL('../src/data/dice-venues.json', import.meta.url);
 const venues = JSON.parse(readFileSync(mapFile, 'utf-8'));
 const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
-const until = new Date(Date.now() + 75 * 864e5).toISOString().slice(0, 10);
+// horizon and browse window: 75 days and the next 3 weekends by default; a manual run can widen both (Nov 15)
+const HORIZON = Number(process.env.HORIZON_DAYS || 75);
+const BROWSE_WEEKS = Number(process.env.BROWSE_WEEKS || 3);
+const BROWSE_DOWS = (process.env.BROWSE_DOWS || '5,6').split(',').map(Number);
+const until = new Date(Date.now() + HORIZON * 864e5).toISOString().slice(0, 10);
 
 async function rest(path) {
   const out = [];
@@ -76,7 +80,7 @@ for (const [vid, url] of Object.entries(venues)) {
 const byDiceVenue = new Map(Object.entries(venues).map(([id, u]) => [String(u).replace(/\/$/, ''), id]));
 const ymd = (d) => d.toISOString().slice(0, 10);
 const scanDays = new Set();
-for (let i = 0; i < 21; i++) { const d = new Date(Date.parse(`${today}T12:00:00Z`) + i * 864e5); if ([5, 6].includes(d.getUTCDay())) scanDays.add(ymd(d)); }
+for (let i = 0; i < BROWSE_WEEKS * 7; i++) { const d = new Date(Date.parse(`${today}T12:00:00Z`) + i * 864e5); if (BROWSE_DOWS.includes(d.getUTCDay()) && ymd(d) <= until) scanDays.add(ymd(d)); }
 const y = Number(today.slice(0, 4));
 const thanksgivingEve = (yr) => { const d = new Date(Date.UTC(yr, 10, 1)); const first = (4 - d.getUTCDay() + 7) % 7 + 1; return ymd(new Date(Date.UTC(yr, 10, first + 21 - 1))); };
 for (const d of [thanksgivingEve(y), `${y}-12-24`, `${y}-12-25`, `${y}-12-26`, `${y}-12-31`, `${y + 1}-01-01`]) if (d >= today && d <= until) scanDays.add(d);
