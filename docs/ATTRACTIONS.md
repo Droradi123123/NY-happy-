@@ -2,7 +2,11 @@
 
 The /attractions section lists NYC attractions with facts read from each attraction's official site. It is additive: it changes no existing page, URL or sitemap entry, and adds one main-nav link ("Attractions") only while attraction pages exist.
 
-## Status (Nov 14, 2026)
+## Status (Nov 15, 2026)
+
+129 attractions are live. Nov 15 added 27, chosen by demand (Wikipedia pageviews Sep-Oct 2026 as the public proxy; Google Trends refuses automated reads): St. Patrick's Cathedral, the Madison Square Garden tour, Studio Museum in Harlem, Moynihan Train Hall, TWA Hotel, the Paley Center, The Friends Experience, Nintendo New York, Harry Potter New York, House of Spells, Jane's Carousel, SeaGlass Carousel, Socrates Sculpture Park, AIRE Ancient Baths, QC NY, Bathhouse, Mercado Little Spain, Industry City, and the 2026 holiday season (Rockefeller Center Christmas Tree, Bronx Zoo Holiday Lights, NYBG Holiday Train Show, Radio City Christmas Spectacular, NYCB Nutcracker, Macy's Herald Square, Union Square and Columbus Circle holiday markets, Grand Central Holiday Fair). Seasonal records carry "seasonal 2026" in notes and need a re-check each autumn. Still not live for lack of official hours or price: Times Square, the Brooklyn Bridge, Rockefeller Center, Lincoln Center, Yankee Stadium tours, Color Factory, FAO Schwarz.
+
+### Nov 14, 2026
 
 99 attractions are approved and live. On Nov 14, official pages were read for 54 backlog records and 14 new attractions (Museum of Sex, Museum of Illusions, ARTECHOUSE, ARTE MUSEUM, Wollman Rink, The Rink at Rockefeller Center, New York Hall of Science, Museum of Chinese in America, Hamilton Grange, Poe Cottage, Queens Botanical Garden, Staten Island Zoo, Sloomoo Institute, Morris-Jumel Mansion), each field marked "official page, read 2026-11-14"; 45 became candidates and were approved, among them the Statue of Liberty, Ellis Island, Central Park, the High Line, Little Island, the Guggenheim and Museum of Ice Cream. Parks without a street address carry the location text their official operator page gives (boundaries or entrances). Held: `morris-jumel-mansion` (closed for restoration), `urbanspace` (its site now shows a different market), `sloomoo-institute` (address only). Still blocked for automated reads: the Met Cloisters, the Morgan, Dia Chelsea, Carnegie Hall, nycgovparks.org pages.
 

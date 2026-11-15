@@ -27,7 +27,11 @@ const ATTRACTIONS = ['statue-of-liberty', 'ellis-island', 'empire-state-building
   'one-world-observatory', 'met-museum', 'moma', 'guggenheim', 'amnh', 'nine-eleven-museum', 'intrepid', 'central-park', 'high-line',
   'little-island', 'bryant-park', 'brooklyn-bridge-park', 'grand-central', 'met-cloisters', 'whitney', 'museum-of-ice-cream', 'bronx-zoo',
   'wollman-rink', 'rink-at-rockefeller-center', 'staten-island-ferry', 'vessel', 'oculus', 'chelsea-market', 'radio-city', 'carnegie-hall',
-  'morgan', 'frick', 'brooklyn-museum', 'nybg', 'bbg', 'spyscape', 'museum-of-illusions', 'museum-of-sex', 'riseny'];
+  'morgan', 'frick', 'brooklyn-museum', 'nybg', 'bbg', 'spyscape', 'museum-of-illusions', 'museum-of-sex', 'riseny',
+  // Nov 15: the most-viewed new places and the holiday season (searched most in November and December)
+  'st-patricks', 'msg', 'studio-museum-in-harlem', 'moynihan-train-hall', 'twa-hotel', 'nintendo-new-york', 'harry-potter-new-york',
+  'rockefeller-center-christmas-tree', 'bronx-zoo-holiday-lights', 'nybg-holiday-train-show', 'radio-city-christmas-spectacular',
+  'nycb-nutcracker', 'macys-herald-square-holiday', 'union-square-holiday-market', 'grand-central-holiday-fair'];
 
 let focus: Promise<Set<string>> | null = null;
 export function googleFocus(): Promise<Set<string>> {
