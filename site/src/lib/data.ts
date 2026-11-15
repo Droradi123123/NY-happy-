@@ -391,7 +391,10 @@ export const ticketHref = (p: Party) => {
 };
 export const venueOf = (p: Party, venues: Venue[]) => venues.find((v) => v.id === p.venue_id) ?? null;
 /** "Halloween Weekender: Apollonia,  + many more" -> tidy; "(Fri) SOLD OUT" stays out of titles */
-export const cleanTitle = (t: string) => t.replace(/\s+SOLD OUT\s*$/i, '').replace(/,\s*\+/g, ' +').replace(/\s{2,}/g, ' ').trim();
+// markdown asterisks from listings ("J. Worra *Extended Set*") come off
+export const cleanTitle = (t: string) => t.replace(/\*+/g, '').replace(/\s+SOLD OUT\s*$/i, '').replace(/,\s*\+/g, ' +').replace(/\s{2,}/g, ' ').trim();
+/** sentences of a copy text: a period after an initial ("J. Worra") or a short abbreviation (St., Ave.) does not end one */
+export const sentences = (t: string) => t.split(/(?<!\b(?:[A-Z]|St|Dr|Mr|Ms|Mrs|Mt|Ave|Jr|Sr|No|vs|ft|feat|Pt|Pl)\.)(?<=\.)\s+/);
 export const nyTime = (iso: string | null) => (iso ? new Date(iso).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit', timeZone: 'America/New_York' }).replace(':00', '').replace(' ', '').toLowerCase() : null);
 export const nyDate = (iso: string, opts: Intl.DateTimeFormatOptions = { weekday: 'long', month: 'long', day: 'numeric' }) => new Date(iso).toLocaleDateString('en-US', { ...opts, timeZone: 'America/New_York' });
 export const nightDate = (d: string, opts: Intl.DateTimeFormatOptions = { weekday: 'long', month: 'long', day: 'numeric' }) => new Date(`${d}T12:00:00-05:00`).toLocaleDateString('en-US', { ...opts, timeZone: 'America/New_York' });

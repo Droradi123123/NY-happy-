@@ -4,7 +4,7 @@
  * ("$6 drafts", "2-for-1") is what Google's own listing never shows, so it goes in the
  * title when it is short; every description is built from the page's own facts.
  */
-import { DAYS, DAY_NAME, ampm, daysLabel, dealLabel, windowLabel, type Bar, type Party, type Venue, cleanTitle, nightDate, nyTime, priceLabel } from './data';
+import { DAYS, DAY_NAME, ampm, daysLabel, dealLabel, windowLabel, type Bar, type Party, type Venue, cleanTitle, nightDate, nyTime, priceLabel, sentences } from './data';
 
 export const SITE = 'https://yaynyc.com';
 const BRAND = ' | YaY NYC';
@@ -178,7 +178,7 @@ export function partyTitle(p: Party, v: Venue | null, crowded = false, keyword?:
     crowded && v ? `${cutTo(name, 60 - v.name.length - d.length - 6)} at ${v.name}, ${d}` : `${cutTo(t, 60 - d.length - 2)}, ${d}`, `${cutTo(name, 60 - d.length - 2)}, ${d}`], keyword).replace(/ \| YaY NYC$/, '');
 }
 export function partyDescription(p: Party, v: Venue | null): string {
-  const lead = p.copy?.about?.split(/(?<=\.)\s/)[0];
+  const lead = p.copy?.about ? sentences(p.copy.about)[0] : undefined;
   return cut([
     `${partyName(p)}${nyeSuffix(p)}${namesVenue(partyName(p), v) ? '' : ` at ${v?.name ?? 'a NYC venue'}`}${p.neighborhood ? `, ${p.neighborhood}` : ''}: ${nightDate(p.night_date, { weekday: 'long', month: 'short', day: 'numeric' })}${nyTime(p.doors_at ?? p.starts_at) ? `, doors ${nyTime(p.doors_at ?? p.starts_at)}` : ''}.`,
     lead ?? '',
