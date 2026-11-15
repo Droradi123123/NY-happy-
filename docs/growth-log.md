@@ -3,6 +3,18 @@
 One entry per weekly growth run (scheduled Claude session, Mondays). Aggregates only: this repository is
 public, so no search queries, no visitor data and no raw rows go here (those stay in the encrypted report).
 
+## 2026-11-15 (inventory push)
+
+- Parties: 112 new nights published Dec 2026 to Mar 2027 (Eventbrite 67, venue calendars and DICE 38, DICE wide scan 7);
+  553 upcoming published (311 in the next 30 days, 92 New Year's Eve). DICE discovery can now scan 16 weeks of
+  browse pages by hand (inputs horizon_days, browse_weeks, browse_dows).
+- Copy: "about" opens with who, what, where and when in one sentence; 4-5 pre-purchase FAQs. Snippet fix: a sentence
+  no longer ends at an initial ("J. Worra"); titles drop listing asterisks.
+- Attractions: 129 live (27 added by demand, Wikipedia pageviews as the proxy; Google Trends refuses automated
+  reads), including the 2026 holiday season; 18 new photos.
+- Note: a manual run of deploy-site.yml only builds and checks. The live site is built by Cloudflare on every push
+  and by the scheduled rebuild hook every 4 hours.
+
 ## 2026-11-14 (Google focus)
 
 - Data (Search Console, 28 days to Nov 12): ~1,000 Google impressions a day from Oct 16 to Oct 24 (122 clicks,
