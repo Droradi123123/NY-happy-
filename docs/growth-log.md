@@ -3,6 +3,22 @@
 One entry per weekly growth run (scheduled Claude session, Mondays). Aggregates only: this repository is
 public, so no search queries, no visitor data and no raw rows go here (those stay in the encrypted report).
 
+## 2026-11-16 (weekly run)
+
+- Data (GA4 28 days to Nov 15): ~6,940 sessions (Nov 9: ~5,900; Nov 10: ~6,040); ChatGPT ~5,370 (77%), direct ~1,260,
+  Google organic ~130. Daily sessions ~220 on Nov 13-14 against ~100-155 in early November. Ticket clicks ~2,050
+  (Nov 10: ~1,830). ChatGPT landings: party pages ~2,370 (Nov 10: ~1,780), Halloween ~1,210, party lists ~840,
+  date pages ~390 (Nov 10: ~255; Dec 31 already ~48), guides ~210, /parties/tonight ~150.
+- Google (Search Console, 28 days to Nov 14): still 0 to 4 impressions a day since Oct 25; the focus list (Nov 14)
+  has not been crawled yet. Bing: 189 -> 272 pages indexed (Nov 9 to Nov 14), 15 to 34 impressions a day Nov 12-14.
+- Opportunities: (1) ChatGPT party-page landings grow with inventory (553 -> 564 published upcoming); (2) holiday
+  intent: date pages and the New Year's Eve pages rise before the holidays, Thanksgiving week has 85 nights;
+  (3) the two Thanksgiving blog posts written in October still quote their October counts (40 and 7 nights).
+- Shipped: "What's open on Thanksgiving in NYC" (/blog/whats-open-on-thanksgiving-nyc, keyword "what's open on
+  thanksgiving in nyc"): 19 attractions whose official hours say they close that day, 6 holiday sights in season that
+  weekend (closures and select-date runs flagged), 85 parties Nov 25 to 29; in Google's focus list.
+- Watch: Google crawl of the focus list, Bing index, ChatGPT landings on the Thanksgiving and New Year's Eve pages.
+
 ## 2026-11-15 (inventory push)
 
 - Parties: 112 new nights published Dec 2026 to Mar 2027 (Eventbrite 67, venue calendars and DICE 38, DICE wide scan 7);

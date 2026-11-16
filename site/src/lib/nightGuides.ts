@@ -141,6 +141,7 @@ export async function nightTable(id: string): Promise<GuideTable | null> {
     const ps = key === 'young' ? c.parties.filter((p) => p.age_min !== null && p.age_min < 21)
       : key === 'weekend' ? weekendNights(c).ps
       : key === 'december' ? c.parties.filter((p) => p.night_date.slice(5, 7) === '12' && p.night_date.slice(0, 4) === decemberYear(c))
+      : key === 'thanksgiving' ? (() => { const d = thanksgivingDay(Number(c.today.slice(0, 4))); return c.parties.filter((p) => p.night_date >= addDays(d, -1) && p.night_date <= addDays(d, 3)); })()
       : [];
     const rows = ps.slice(0, 60).map((p): Cell[] => {
       const v = venueOf(p, c.venues);
@@ -566,6 +567,78 @@ async function decemberGuide(c: Ctx): Promise<Guide | null> {
   };
 }
 
+// ---------- Thanksgiving Day: what is open (Nov 16, 2026 weekly run) ----------
+// ChatGPT sends holiday questions to holiday pages (the Halloween guide: 89 landings in 28 days). The weekend's
+// parties already have a guide (thanksgiving-weekend-nyc-2026, keyword "thanksgiving weekend nyc"); this one answers
+// the day itself from the attractions' own stated hours: which say they close on Thanksgiving Day, and which
+// holiday-season ones have 2026 dates that include it. The nights around it link to the party pages.
+const thanksgivingDay = (y: number) => { const d = new Date(Date.UTC(y, 10, 1)); return addDays(d.toISOString().slice(0, 10), ((4 - d.getUTCDay() + 7) % 7) + 21); };
+const MON: Record<string, string> = { Jan: '01', Feb: '02', Mar: '03', Apr: '04', May: '05', Jun: '06', Jul: '07', Aug: '08', Sep: '09', Oct: '10', Nov: '11', Dec: '12' };
+/** the first "Nov 21, 2026-Jan 3, 2027" style range of a schedule, as ISO dates (null when there is none) */
+function seasonRange(h: string): [string, string] | null {
+  const m = h.match(/^(?:[A-Za-z ]*?)\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]* (\d{1,2}), (\d{4})\s*-\s*(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)[a-z]* (\d{1,2}), (\d{4})/);
+  if (!m) return null;
+  const iso = (mo: string, d: string, y: string) => `${y}-${MON[mo]}-${d.padStart(2, '0')}`;
+  return [iso(m[1], m[2], m[3]), iso(m[4], m[5], m[6])];
+}
+async function thanksgivingGuide(c: Ctx): Promise<Guide | null> {
+  const y = Number(c.today.slice(0, 4));
+  const day = thanksgivingDay(y), eve = addDays(day, -1), sun = addDays(day, 3);
+  if (c.today > sun) return null;
+  const ps = c.parties.filter((p) => p.night_date >= eve && p.night_date <= sun);
+  if (ps.length < 10) return null;
+  const { attractions } = await import('./attractions');
+  const att = attractions();
+  // "closed Thanksgiving" in the stated hours or in the official-page note we keep with them
+  const shut = (x: typeof att[number]) => /closed[^;.]*thanksgiving|thanksgiving[^;.]*closed/i.test(`${x.hours_recurring} ${x.notes}`);
+  const closed = att.filter(shut).sort((p, q) => p.name.localeCompare(q.name));
+  const season = att.filter((x) => /seasonal 2026/i.test(x.notes)).map((x) => ({ x, r: seasonRange(x.hours_recurring) }))
+    .filter((o): o is { x: typeof att[number]; r: [string, string] } => !!o.r && o.r[0] <= sun && o.r[1] >= eve).map((o) => o.x).sort((p, q) => p.name.localeCompare(q.name));
+  const seasonShut = season.filter(shut), select = season.filter((x) => /dates only|select dates/i.test(x.hours_recurring));
+  const nights = [eve, day, addDays(day, 1), addDays(day, 2), sun].map((d) => [d, ps.filter((p) => p.night_date === d)] as const);
+  const busiest = [...nights].sort((p, q) => q[1].length - p[1].length)[0];
+  const st = nightStats(ps);
+  const vs = venueStats(ps, c.venues);
+  const aLink = (x: typeof att[number]) => a(x.path, x.name);
+  return {
+    slug: 'whats-open-on-thanksgiving-nyc', status: 'published', published: '2026-11-16', updated: c.today,
+    title: `What's Open on Thanksgiving in NYC ${y}: Sights and Nights`, h1: `What's open on Thanksgiving in NYC ${y}: what closes, what is in season, and the nights around it`, short: 'Open on Thanksgiving', keyword: "what's open on thanksgiving in nyc",
+    description: fit(`What's open on Thanksgiving in NYC ${y}: ${closed.length} attractions that say they close that day, ${season.length} holiday sights in season that weekend, and ${st.n} parties around it.`),
+    answer: [`Thanksgiving is ${long(day)}.`, closed.length ? `${closed.length === 1 ? '1 attraction says on its own site that it closes' : `${closed.length} attractions say on their own sites that they close`} that day, among them ${list(closed.slice(0, 4).map((x) => x.name))}.` : '', season.length ? `${season.length === 1 ? '1 holiday-season attraction is' : `${season.length} holiday-season attractions are`} in season that weekend, such as ${list(season.slice(0, 3).map((x) => x.name))}; check each for the day itself.` : '', `Around it we list ${st.n} parties from Thanksgiving Eve to Sunday: ${list(nights.filter(([, n]) => n.length).map(([d, n]) => `${n.length} on ${WEEKDAY[weekday(d)]}`))}.`].filter(Boolean).join(' '),
+    intro: [
+      'Thanksgiving Day is the one day many New York museums and zoos close, while the holiday-season sights are already up. This page answers what is open from what each place says on its own site, and lists the nights out around the holiday, from the big Wednesday before to the weekend after.',
+      `Updated ${TODAY_LINE(c)}. The parties come from the ticket pages we read every day; the attraction hours from each place's official site, with the date we read them on its page.`,
+    ].join('\n\n'),
+    nights: bookable(ps, 6), nightsTitle: 'Nights out around Thanksgiving', venues: vs.slice(0, 6).map((x) => x.v.id),
+    sections: [
+      { h2: 'The nights around Thanksgiving', paras: [
+        nights.map(([d, n]) => `${dateLink(c, d, long(d))}: ${n.length ? plural(n.length, 'party', 'parties') : 'no parties listed yet'}${d === eve ? ` (${listLink(c, 'thanksgiving-eve', 'Thanksgiving Eve parties')})` : ''}.`).join(' '),
+        `${busiest[1].length ? `The busiest night is ${long(busiest[0])}, with ${busiest[1].length}.` : ''} ${vs.length ? `The venues with the most nights that weekend are ${list(vs.slice(0, 4).map((x) => `${venueLink(x.v)} (${x.nights.length})`))}.` : ''} Every night is on ${listLink(c, 'thanksgiving-weekend', 'Thanksgiving weekend parties')}; for a plan, see ${a('/blog/thanksgiving-eve-nyc-2026', 'Thanksgiving Eve in NYC')} and ${a('/blog/thanksgiving-weekend-nyc-2026', 'Thanksgiving weekend in NYC')}.`.trim(),
+        st.genres.length ? `The sounds with the most nights: ${list(st.genres.slice(0, 5).map(([g, n]) => `${listLink(c, g, genreName(g).toLowerCase())} (${n})`))}.${st.prices.length ? ` Tickets start at ${money(st.low!)}; the typical lowest price is ${money(st.med!)}.` : ''}` : '',
+      ].filter(Boolean) },
+      ...(season.length ? [{ h2: 'Holiday sights in season Thanksgiving weekend', paras: [
+        `These holiday-season attractions have 2026 dates that span Thanksgiving weekend, read on their official sites: ${list(season.map(aLink))}.${seasonShut.length ? ` ${list(seasonShut.map((x) => x.name))} ${seasonShut.length === 1 ? 'says it closes' : 'say they close'} on Thanksgiving Day itself.` : ''}${select.length ? ` ${list(select.map((x) => x.name))} ${select.length === 1 ? 'runs' : 'run'} on select dates only.` : ''} Check each page for the exact days and times.`,
+        `For skating, ${list(att.filter((x) => /rink/i.test(x.id)).map(aLink))} are in season; their pages have the hours. See ${a('/attractions', 'all NYC attractions')} for the rest.`,
+      ] }] : []),
+      ...(closed.length ? [{ h2: 'What closes on Thanksgiving Day', paras: [
+        `These attractions say on their own sites that they close on Thanksgiving Day: ${closed.map(aLink).join('; ')}. A place that is not on this list may still close or change its hours for the holiday: check its official site before you go.`,
+      ] }] : []),
+      { h2: 'Before you go', paras: RULES(c) },
+    ],
+    faq: [
+      { q: `When is Thanksgiving ${y}?`, a: `${long(day)}. Thanksgiving Eve is ${long(eve)}.` },
+      ...(season.length ? [{ q: 'Which holiday sights are on Thanksgiving weekend?', a: `${list(season.slice(0, 6).map((x) => x.name))} are in season that weekend, per their official sites${seasonShut.length ? `; ${list(seasonShut.map((x) => x.name))} ${seasonShut.length === 1 ? 'closes' : 'close'} on Thanksgiving Day itself` : ''}. Check each for the day's hours.` }] : []),
+      { q: 'Are there parties on Thanksgiving weekend?', a: `Yes: we list ${st.n} parties from ${short(eve)} to ${short(sun)}, most of them on Wednesday, Friday and Saturday. The full list is in the table on this page.` },
+      ...(nights[0][1].length ? [{ q: 'How many parties are there on Thanksgiving Eve?', a: `${plural(nights[0][1].length, 'party', 'parties')} on our list for ${long(eve)}, from the ticket pages we read daily.` }] : []),
+      ...(closed.length ? [{ q: 'Which NYC attractions are closed on Thanksgiving?', a: `On their own sites, ${list(closed.slice(0, 8).map((x) => x.name))}${closed.length > 8 ? ` and ${closed.length - 8} more` : ''} say they close on Thanksgiving Day.` }] : []),
+      { q: 'How often is this updated?', a: 'Every day: nights are added as they go on sale, and attraction hours carry the date we read them.' },
+    ],
+    table: 'nights:thanksgiving', tableTitle: `Every party from ${short(eve)} to ${short(sun)}`,
+    method: `Computed on ${TODAY_LINE(c)} from the attraction hours read on each official site ("closed Thanksgiving" in the stated hours or the official-page note; 2026 season dates that span the weekend) and the published nights on the site for ${short(eve)} to ${short(sun)}. Recomputed daily.`,
+    related: [['Thanksgiving weekend in NYC', '/blog/thanksgiving-weekend-nyc-2026'], ['Thanksgiving Eve in NYC', '/blog/thanksgiving-eve-nyc-2026'], ['Thanksgiving Eve parties', '/parties/thanksgiving-eve'], ['NYC attractions', '/attractions'], ['Things to do in December', '/blog/things-to-do-in-nyc-in-december']],
+  };
+}
+
 // ---------- best happy hours ----------
 const FRESH = () => Date.now() - 30 * 864e5;
 function scoredBars(c: Ctx) {
@@ -831,7 +904,7 @@ export function nightGuides(): Promise<Guide[]> {
     const blog = new Set([...GUIDES, ...(await autoGuides())].map((g) => g.slug).concat((await blogPosts()).map((p) => p.slug)));
     const hoods = nightlifeHoods(c);
     const out = [
-      ...CLUBS.map((s) => clubGuide(c, s)), nightlifeGuide(c), costGuide(c), youngGuide(c), weekendGuide(c), await decemberGuide(c), bestHappyHours(c),
+      ...CLUBS.map((s) => clubGuide(c, s)), nightlifeGuide(c), costGuide(c), youngGuide(c), weekendGuide(c), await decemberGuide(c), await thanksgivingGuide(c), bestHappyHours(c),
       ...WEEKNIGHTS.map((d) => weeknightGuide(c, d)), ...hoods.map(([s, n]) => hoodGuide(c, s, n, blog, hoods)),
     ].filter((g): g is Guide => !!g);
     const ok = await knownPaths(c, out);
