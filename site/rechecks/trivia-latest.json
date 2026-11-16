@@ -1,5 +1,5 @@
 {
- "date": "2026-11-09",
+ "date": "2026-11-16",
  "read": {
   "NYC Trivia League": 177,
   "TriviaNYC": 7,
@@ -9,18 +9,38 @@
  },
  "removed": [
   {
-   "night": "Third Avenue Ale House (wed)",
-   "key": "third-avenue-ale--1644-3-ave:trivia:wed",
-   "why": "no longer listed by NYC Trivia League"
+   "night": "Pubkey (sun)",
+   "key": "pubkey--85-washington-pl:trivia:sun",
+   "why": "NYC Trivia League: ON HIATUS during the Holidays for Private Events. Check back soon!"
+  },
+  {
+   "night": "Bird In Hand NYC (sun)",
+   "key": "bird-in-hand--3569-broadway:trivia:sun",
+   "why": "NYC Trivia League: ON HIATUS! Check back soon for updates!"
   }
  ],
- "time_changed": [],
- "still_listed": 280,
+ "time_changed": [
+  {
+   "night": "Time Out Market — Union Square (tue)",
+   "key": "time-out-market-union-square--124-e-14-st:trivia:tue",
+   "from": "19:00",
+   "to": "18:00",
+   "per": "NYC Trivia League"
+  }
+ ],
+ "still_listed": 278,
  "new_at_operators": [
   {
    "name": "Cahoots NYC",
    "day": "wed",
    "start": null,
+   "kind": "trivia",
+   "source": "NYC Trivia League"
+  },
+  {
+   "name": "The Gin Mill",
+   "day": "wed",
+   "start": "19:00",
    "kind": "trivia",
    "source": "NYC Trivia League"
   },
