@@ -142,6 +142,7 @@ export async function nightTable(id: string): Promise<GuideTable | null> {
       : key === 'weekend' ? weekendNights(c).ps
       : key === 'december' ? c.parties.filter((p) => p.night_date.slice(5, 7) === '12' && p.night_date.slice(0, 4) === decemberYear(c))
       : key === 'thanksgiving' ? (() => { const d = thanksgivingDay(Number(c.today.slice(0, 4))); return c.parties.filter((p) => p.night_date >= addDays(d, -1) && p.night_date <= addDays(d, 3)); })()
+      : key === 'christmas' ? (() => { const d = `${c.today.slice(0, 4)}-12-25`; const e = addDays(d, (7 - weekday(d)) % 7 || 7); return c.parties.filter((p) => p.night_date >= addDays(d, -1) && p.night_date <= e); })()
       : [];
     const rows = ps.slice(0, 60).map((p): Cell[] => {
       const v = venueOf(p, c.venues);
@@ -639,6 +640,81 @@ async function thanksgivingGuide(c: Ctx): Promise<Guide | null> {
   };
 }
 
+// ---------- Christmas Day: what is open (Nov 23, 2026 weekly run) ----------
+// The Thanksgiving page answered "what's open" from each attraction's own stated hours; Christmas is the other day
+// most NYC museums and zoos close, and 23 live attractions state something about it. Same method: "closed ...
+// Christmas / Dec 25" (or "except ... Christmas") in the stated hours or the official-page note; early closings on
+// Christmas Eve; holiday-season sights whose 2026 dates span Christmas Day. The nights from Christmas Eve to the
+// Sunday after link to the party pages. Shown from 45 days before, with at least 10 nights listed.
+const XMAS_SHUT = /(?:closed|except)[^;.]*(?:christmas(?! eve)|dec(?:ember)? 25)/i;
+const XMAS_EVE_EARLY = /early clos[^;.]*(?:christmas eve|dec(?:ember)? 24)/i;
+async function christmasGuide(c: Ctx): Promise<Guide | null> {
+  const y = Number(c.today.slice(0, 4));
+  const day = `${y}-12-25`, eve = addDays(day, -1);
+  const end = addDays(day, (7 - weekday(day)) % 7 || 7); // the Sunday after (or a week on, when Christmas is a Sunday)
+  if (c.today > day || c.today < addDays(day, -45)) return null;
+  const ps = c.parties.filter((p) => p.night_date >= eve && p.night_date <= end);
+  if (ps.length < 10) return null;
+  const { attractions } = await import('./attractions');
+  const att = attractions();
+  const text = (x: typeof att[number]) => `${x.hours_recurring} ${x.notes}`;
+  const closed = att.filter((x) => XMAS_SHUT.test(text(x))).sort((p, q) => p.name.localeCompare(q.name));
+  const early = att.filter((x) => XMAS_EVE_EARLY.test(text(x))).sort((p, q) => p.name.localeCompare(q.name));
+  const season = att.filter((x) => /seasonal 2026/i.test(x.notes)).map((x) => ({ x, r: seasonRange(x.hours_recurring) }))
+    .filter((o): o is { x: typeof att[number]; r: [string, string] } => !!o.r && o.r[0] <= day && o.r[1] >= day && !XMAS_SHUT.test(text(o.x)))
+    .map((o) => o.x).sort((p, q) => p.name.localeCompare(q.name));
+  const select = season.filter((x) => /dates only|select dates/i.test(x.hours_recurring));
+  if (closed.length < 5) return null;
+  const days: string[] = []; for (let d = eve; d <= end; d = addDays(d, 1)) days.push(d);
+  const nights = days.map((d) => [d, ps.filter((p) => p.night_date === d)] as const);
+  const busiest = [...nights].sort((p, q) => q[1].length - p[1].length)[0];
+  const onEve = nights[0][1].length, onDay = nights[1][1].length;
+  const st = nightStats(ps);
+  const vs = venueStats(ps, c.venues);
+  const aLink = (x: typeof att[number]) => a(x.path, x.name);
+  return {
+    slug: 'whats-open-on-christmas-nyc', status: 'published', published: '2026-11-23', updated: c.today,
+    title: `What's Open on Christmas in NYC ${y}: Sights and Nights`, h1: `What's open on Christmas in NYC ${y}: what closes, what stays in season, and the nights around it`, short: 'Open on Christmas', keyword: "what's open on christmas in nyc",
+    description: fit(`What's open on Christmas in NYC ${y}: ${closed.length} attractions that say they close on Christmas Day, ${season.length} holiday sights still in season, and ${st.n} parties around it.`),
+    answer: [`Christmas Day is ${long(day)}.`,
+      `${closed.length} attractions say on their own sites that they close that day, among them ${list(closed.slice(0, 4).map((x) => x.name))}.`,
+      season.length ? `${season.length === 1 ? '1 holiday-season attraction has' : `${season.length} holiday-season attractions have`} 2026 dates that include Christmas Day, such as ${list(season.slice(0, 3).map((x) => x.name))}; check each for the day's hours.` : '',
+      `From Christmas Eve to ${WEEKDAY[weekday(end)]} we list ${st.n} parties: ${list(nights.filter(([, n]) => n.length).map(([d, n]) => `${n.length} on ${WEEKDAY[weekday(d)]}`))}.`].filter(Boolean).join(' '),
+    intro: [
+      'Christmas Day is the day most New York museums, zoos and gardens close, and the Statue of Liberty ferry does not run. This page answers what is open from what each place says on its own site, and lists the nights out from Christmas Eve to the weekend after.',
+      `Updated ${TODAY_LINE(c)}. The parties come from the ticket pages we read every day; the attraction hours from each place's official site, with the date we read them on its page.`,
+    ].join('\n\n'),
+    nights: bookable(ps, 6), nightsTitle: 'Nights out around Christmas', venues: vs.slice(0, 6).map((x) => x.v.id),
+    sections: [
+      { h2: 'What closes on Christmas Day', paras: [
+        `These attractions say on their own sites that they close on Christmas Day (or do not run that day): ${closed.map(aLink).join('; ')}.`,
+        `${early.length ? `${list(early.map((x) => x.name))} ${early.length === 1 ? 'says it closes' : 'say they close'} early on Christmas Eve. ` : ''}A place that is not on this list may still close or change its hours for the holiday: check its official site before you go.`,
+      ] },
+      ...(season.length ? [{ h2: 'Holiday sights in season on Christmas Day', paras: [
+        `These holiday-season attractions have 2026 dates that include Christmas Day, read on their official sites: ${list(season.map(aLink))}.${select.length ? ` ${list(select.map((x) => x.name))} ${select.length === 1 ? 'runs' : 'run'} on select dates only.` : ''} Their dates span the holiday, but a season can still skip the day itself: check each page for Christmas hours.`,
+        `See ${a('/attractions', 'all NYC attractions')} for the rest, and ${a('/blog/things-to-do-in-nyc-in-december', 'things to do in NYC in December')} for the month.`,
+      ] }] : []),
+      { h2: 'The nights around Christmas', paras: [
+        nights.map(([d, n]) => `${dateLink(c, d, long(d))}: ${n.length ? plural(n.length, 'party', 'parties') : 'no parties listed yet'}${d === eve ? ` (${listLink(c, 'christmas-eve', 'Christmas Eve parties')})` : ''}.`).join(' '),
+        `${busiest[1].length ? `The busiest night so far is ${long(busiest[0])}, with ${busiest[1].length}.` : ''} ${vs.length ? `The venues with the most nights are ${list(vs.slice(0, 4).map((x) => `${venueLink(x.v)} (${x.nights.length})`))}.` : ''} Holiday nights across December are on ${listLink(c, 'christmas', 'Christmas and holiday parties')}; holiday bars are in ${a('/blog/christmas-bars-nyc-2026', 'our Christmas bars guide')}.`.trim(),
+        st.genres.length ? `The sounds with the most nights: ${list(st.genres.slice(0, 5).map(([g, n]) => `${listLink(c, g, genreName(g).toLowerCase())} (${n})`))}.${st.prices.length ? ` Tickets start at ${money(st.low!)}; the typical lowest price is ${money(st.med!)}.` : ''}` : '',
+      ].filter(Boolean) },
+      { h2: 'Before you go', paras: RULES(c) },
+    ],
+    faq: [
+      { q: `What day is Christmas ${y}?`, a: `${long(day)}. Christmas Eve is ${long(eve)}.` },
+      { q: 'Which NYC attractions are closed on Christmas?', a: `On their own sites, ${list(closed.slice(0, 8).map((x) => x.name))}${closed.length > 8 ? ` and ${closed.length - 8} more` : ''} say they close on Christmas Day.` },
+      ...(season.length ? [{ q: 'Which holiday sights are on at Christmas?', a: `${list(season.slice(0, 6).map((x) => x.name))} have 2026 dates that include Christmas Day, per their official sites. Check each for the day's hours.` }] : []),
+      { q: 'Are there parties on Christmas?', a: `${onDay ? `Yes: ${plural(onDay, 'party', 'parties')} on our list for Christmas night, ` : 'None are listed for Christmas night yet; '}${plural(onEve, 'party', 'parties')} on Christmas Eve, and ${st.n} in all from ${short(eve)} to ${short(end)}. The full list is in the table on this page.` },
+      ...(early.length ? [{ q: 'Do museums close early on Christmas Eve?', a: `${list(early.map((x) => x.name))} ${early.length === 1 ? 'says it closes' : 'say they close'} early that day, per ${early.length === 1 ? 'its' : 'their'} official site${early.length === 1 ? '' : 's'}. Others may too: check before you go.` }] : []),
+      { q: 'How often is this updated?', a: 'Every day: nights are added as they go on sale, and attraction hours carry the date we read them.' },
+    ],
+    table: 'nights:christmas', tableTitle: `Every party from ${short(eve)} to ${short(end)}`,
+    method: `Computed on ${TODAY_LINE(c)} from the attraction hours read on each official site ("closed" or "except" with Christmas or Dec 25 in the stated hours or the official-page note; early closing on Christmas Eve; 2026 season dates that include Dec 25) and the published nights on the site for ${short(eve)} to ${short(end)}. Recomputed daily.`,
+    related: [['Christmas bars', '/blog/christmas-bars-nyc-2026'], ['Christmas parties', '/parties/christmas'], ['Christmas Eve parties', '/parties/christmas-eve'], ['Things to do in December', '/blog/things-to-do-in-nyc-in-december'], ['NYC attractions', '/attractions']],
+  };
+}
+
 // ---------- best happy hours ----------
 const FRESH = () => Date.now() - 30 * 864e5;
 function scoredBars(c: Ctx) {
@@ -904,7 +980,7 @@ export function nightGuides(): Promise<Guide[]> {
     const blog = new Set([...GUIDES, ...(await autoGuides())].map((g) => g.slug).concat((await blogPosts()).map((p) => p.slug)));
     const hoods = nightlifeHoods(c);
     const out = [
-      ...CLUBS.map((s) => clubGuide(c, s)), nightlifeGuide(c), costGuide(c), youngGuide(c), weekendGuide(c), await decemberGuide(c), await thanksgivingGuide(c), bestHappyHours(c),
+      ...CLUBS.map((s) => clubGuide(c, s)), nightlifeGuide(c), costGuide(c), youngGuide(c), weekendGuide(c), await decemberGuide(c), await thanksgivingGuide(c), await christmasGuide(c), bestHappyHours(c),
       ...WEEKNIGHTS.map((d) => weeknightGuide(c, d)), ...hoods.map(([s, n]) => hoodGuide(c, s, n, blog, hoods)),
     ].filter((g): g is Guide => !!g);
     const ok = await knownPaths(c, out);

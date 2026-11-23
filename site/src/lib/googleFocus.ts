@@ -20,7 +20,7 @@ const CORE = [
   '/', '/happy-hours', '/parties', '/attractions', '/blog', '/trivia', '/press', '/about', '/editorial-policy',
   '/nyc-happy-hour-index', '/nyc-nye-price-index', '/happy-hours/neighborhoods', '/happy-hours/now',
   '/happy-hours/manhattan', '/happy-hours/brooklyn', '/happy-hours/queens', '/happy-hours/cheap-drinks', '/happy-hours/rooftop',
-  '/parties/calendar', '/parties/tonight', '/parties/this-weekend', '/parties/halloween', '/parties/new-years-eve', '/parties/thanksgiving-eve', '/blog/whats-open-on-thanksgiving-nyc',
+  '/parties/calendar', '/parties/tonight', '/parties/this-weekend', '/parties/halloween', '/parties/new-years-eve', '/parties/thanksgiving-eve', '/blog/whats-open-on-thanksgiving-nyc', '/blog/whats-open-on-christmas-nyc',
 ];
 /** the attractions people search for by name */
 const ATTRACTIONS = ['statue-of-liberty', 'ellis-island', 'empire-state-building', 'top-of-the-rock', 'edge', 'summit-one-vanderbilt',
