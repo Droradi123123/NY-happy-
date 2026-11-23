@@ -3,6 +3,25 @@
 One entry per weekly growth run (scheduled Claude session, Mondays). Aggregates only: this repository is
 public, so no search queries, no visitor data and no raw rows go here (those stay in the encrypted report).
 
+## 2026-11-23 (weekly run)
+
+- Data (GA4 28 days to Nov 22): ~6,780 sessions (Nov 16: ~6,940, as the Halloween peak leaves the window);
+  ChatGPT ~5,350 (79%), direct ~1,210, organic search ~66 (Google ~27, Bing ~23). Daily sessions ~110 to 145 on
+  Nov 9-12, ~120 to 175 on Nov 16-20, ~270 on Sat Nov 21. Ticket clicks ~1,980 from ~1,330 users.
+  ChatGPT landings: party pages and lists ~3,420, Halloween ~1,190 (still), New Year's Eve list ~140 plus the NYE
+  guide ~30, Thanksgiving lists ~65, club pages ~95, December and Christmas guides ~20.
+- Google (Search Console, 28 days to Nov 21): 141 impressions and 17 clicks (the 28 days before: ~8,330 and 108);
+  0 to 4 impressions a day, no recovery yet. Bing: 335 -> 566 pages indexed (Nov 15 to Nov 22), 15 to 105
+  impressions a day, 0 to 3 clicks a day, crawl about 780 pages a day.
+- Opportunities: (1) holiday intent drives ChatGPT landings (Halloween still ~1,190 three weeks on); Christmas is
+  the next holiday and had no "what's open" answer; (2) Bing is indexing fast (+231 pages in a week): every list
+  and date page it sees needs real nights; (3) Google still needs links, not pages.
+- Inventory (published, next 60 days): 474 nights; New Year's Eve 98; Dec 24-26: 19; Thanksgiving week 99.
+- Shipped: "What's open on Christmas in NYC" (/blog/whats-open-on-christmas-nyc, keyword "what's open on christmas
+  in nyc"): 20 attractions whose official hours say they close on Christmas Day, 2 that close early on Christmas
+  Eve, 5 holiday sights with 2026 dates that include it, 21 parties Dec 24 to 27; in Google's focus list.
+- Watch: Bing index and clicks, ChatGPT landings on the Christmas and New Year's Eve pages, any Google crawl.
+
 ## 2026-11-16 (weekly run)
 
 - Data (GA4 28 days to Nov 15): ~6,940 sessions (Nov 9: ~5,900; Nov 10: ~6,040); ChatGPT ~5,370 (77%), direct ~1,260,
