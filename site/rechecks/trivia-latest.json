@@ -1,35 +1,29 @@
 {
- "date": "2026-11-16",
+ "date": "2026-11-24",
  "read": {
   "NYC Trivia League": 177,
   "TriviaNYC": 7,
   "Uptown Pub Quiz": 1,
-  "NYC Trivia List": 319,
+  "NYC Trivia List": 318,
   "Brooklyn Trivia Finder": 128
  },
  "removed": [
   {
-   "night": "Pubkey (sun)",
-   "key": "pubkey--85-washington-pl:trivia:sun",
-   "why": "NYC Trivia League: ON HIATUS during the Holidays for Private Events. Check back soon!"
-  },
-  {
-   "night": "Bird In Hand NYC (sun)",
-   "key": "bird-in-hand--3569-broadway:trivia:sun",
-   "why": "NYC Trivia League: ON HIATUS! Check back soon for updates!"
+   "night": "The Canuck (tue)",
+   "key": "canuck--202-9-ave:trivia:tue",
+   "why": "no longer listed by NYC Trivia List"
   }
  ],
- "time_changed": [
-  {
-   "night": "Time Out Market — Union Square (tue)",
-   "key": "time-out-market-union-square--124-e-14-st:trivia:tue",
-   "from": "19:00",
-   "to": "18:00",
-   "per": "NYC Trivia League"
-  }
- ],
- "still_listed": 278,
+ "time_changed": [],
+ "still_listed": 277,
  "new_at_operators": [
+  {
+   "name": "CURRENTLY ON HOLD",
+   "day": "tue",
+   "start": "19:30",
+   "kind": "trivia",
+   "source": "TriviaNYC"
+  },
   {
    "name": "Cahoots NYC",
    "day": "wed",
@@ -43,13 +37,6 @@
    "start": "19:00",
    "kind": "trivia",
    "source": "NYC Trivia League"
-  },
-  {
-   "name": "CURRENTLY ON HOLD",
-   "day": "tue",
-   "start": "19:30",
-   "kind": "trivia",
-   "source": "TriviaNYC"
   }
  ],
  "aborted": null
