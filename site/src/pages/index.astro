@@ -58,7 +58,8 @@ const hhPicks = oneEach([...ranked.filter((b) => b.days.includes(today)), ...ran
 // then parties: tonight first, then the next nights, the most clicked first within a night (proof.json), one per venue
 const pr = (proof.pages ?? {}) as Record<string, { views28?: number; tickets28?: number }>;
 const pscore = (p: Party) => { const x = pr[`/parties/${p.slug}`] ?? {}; return (x.tickets28 ?? 0) * 10 + (x.views28 ?? 0); };
-const soon = parties.filter((p) => p.event_status !== 'sold_out' && p.night_date <= new Date(Date.now() + 9 * 864e5).toISOString().slice(0, 10));
+const nyToday = new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
+const soon = parties.filter((p) => p.event_status !== 'sold_out' && p.night_date >= nyToday && p.night_date <=new Date(Date.now() + 9 * 864e5).toISOString().slice(0, 10));
 const partyPicks = oneEach([...soon].sort((a, b) => a.night_date.localeCompare(b.night_date) || pscore(b) - pscore(a) || a.starts_at.localeCompare(b.starts_at)), (p) => p.venue_id, 6);
 // more sections: cheap drinks, rooftops, this weekend's biggest nights
 const cheap = oneEach([...bars].filter((b) => b.dealKnown && !b.doubt && b.cheapestDrink !== null && b.cheapestDrink <= 6).sort((a, b) => a.cheapestDrink! - b.cheapestDrink! || rank(a, b)), (b) => b.hoodSlug, 4);
@@ -80,28 +81,28 @@ const weekendPicks = (weekendList?.parties ?? []).filter((p) => !partyPicks.incl
       <h1><span class="kicker">NYC happy hours and parties</span> All the fun in one place!</h1>
       <p class="lede">{s.n} happy hours with the deal and the hours, and {parties.length} parties with doors, age and tickets.</p>
       <div class="hero-btns">
-        <a class="btn" href="/happy-hours">🍸 Happy hours</a>
         <a class="btn coral" href="/parties">🪩 Parties</a>
-        {season && <a class="btn dark" href={season.href}>{hwOn ? '🎃' : '🎉'} {season.label}</a>}
+        <a class="btn" href="/happy-hours">🍸 Happy hours</a>
+        {season && <a class="btn dark span2" href={season.href}>{hwOn ? '🎃' : '🎉'} {season.label}</a>}
         {attrAll.length > 0 && <a class="btn ghost" href="/attractions">🗽 Attractions</a>}
         <a class="btn ghost" href="/happy-hours/now">⏰ On right now</a>
       </div>
     </div>
   </section>
 
-  <section class="section home-sec" aria-labelledby="hh-h">
-    <div class="sec-head"><h2 id="hh-h">Happy hours today</h2><span class="sec-sub">The best deals running {DAY_NAME[today]}, checked against each bar's own menu</span></div>
-    <div class="home-grid">{hhPicks.map((b, i) => <BarCard bar={b} eager={i < 2} />)}</div>
-    <a class="btn wide" href="/happy-hours">See all {s.n} happy hours →</a>
-  </section>
-
   {partyPicks.length > 0 && (
-    <section class="section home-sec" aria-labelledby="pp-h">
-      <div class="sec-head"><h2 id="pp-h">Parties coming up</h2><span class="sec-sub">Tonight first, then the next nights, with doors, age and tickets</span></div>
-      <div class="home-grid">{partyPicks.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>
+    <section class="section home-sec" aria-labelledby="pp-h" data-cards>
+      <div class="sec-head"><h2 id="pp-h">🪩 Parties coming up</h2><span class="sec-sub">Tonight first, then the next nights, with doors, age and tickets</span></div>
+      <div class="home-grid">{partyPicks.map((p, i) => <PartyCard party={p} venue={venueOf(p, venues)} eager={i < 2} />)}</div>
       <a class="btn coral wide" href="/parties">See all {parties.length} parties →</a>
     </section>
   )}
+
+  <section class="section home-sec" aria-labelledby="hh-h">
+    <div class="sec-head"><h2 id="hh-h">Happy hours today</h2><span class="sec-sub">The best deals running {DAY_NAME[today]}, checked against each bar's own menu</span></div>
+    <div class="home-grid">{hhPicks.map((b) => <BarCard bar={b} />)}</div>
+    <a class="btn wide" href="/happy-hours">See all {s.n} happy hours →</a>
+  </section>
 
   {attrPicks.length > 0 && (
     <section class="section home-sec" aria-labelledby="at-h">
@@ -234,8 +235,9 @@ const weekendPicks = (weekendList?.parties ?? []).filter((p) => !partyPicks.incl
   .hero-x .lede { color: var(--ink-2); max-width: 640px; margin: 14px 0 0; }
   /* the big doors: real buttons, 2 x 2 on phones, one row from tablets */
   .hero-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 20px; max-width: 760px; }
+  .hero-btns .span2 { grid-column: 1 / -1; }
   @media (min-width: 720px) { .hero-btns { display: flex; flex-wrap: wrap; gap: 12px; } }
-  .hero-btns .btn { min-height: 52px; padding: 0 14px; font-size: 16px; white-space: nowrap; box-shadow: 0 2px 0 rgba(22, 18, 43, 0.18); }
+  .hero-btns .btn { min-width: 0; overflow: hidden; text-overflow: ellipsis; min-height: 52px; padding: 0 12px; font-size: 15px; white-space: nowrap; box-shadow: 0 2px 0 rgba(22, 18, 43, 0.18); }
   /* home sections: two rows of cards, then one clear button */
   .home-sec { display: grid; gap: 14px; }
   .sec-head { display: grid; gap: 2px; }

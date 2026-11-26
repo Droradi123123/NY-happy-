@@ -291,9 +291,22 @@ export async function initExplorer(root: HTMLElement) {
     const have = [...list.querySelectorAll<HTMLAnchorElement>('.xcard h3 a')].map((a) => a.getAttribute('href'));
     const keepServer = firstRender && have.length > 0 && have.length === want.length && have.every((h, i) => h === want[i]);
     firstRender = false;
-    if (!keepServer) list.innerHTML = last.length
+    // Nov 26: "Tonight" or "Tomorrow" with few parties: the next nights follow at once (same other filters), so a
+    // quiet night never ends on an empty or two-card list
+    const day = String(st.when ?? '');
+    let next = '';
+    if (kind === 'parties' && (day === 'tonight' || day === 'tomorrow') && last.length < 6) {
+      const after = last.length ? last[last.length - 1].nd : nyNow().date;
+      const pool = filterParties(rows, { ...st, when: '' }, here).filter((r) => r.nd > after && !last.includes(r));
+      const days = [...new Set(pool.map((r) => r.nd))].sort().slice(0, 2);
+      const up = pool.filter((r) => days.includes(r.nd)).sort((a, b) => a.st.localeCompare(b.st)).slice(0, 12);
+      const label = (d: string) => new Date(`${d}T12:00:00`).toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' });
+      if (up.length) next = `<h3 class="ex-next">Next up: ${days.map(label).join(' and ')}</h3>${up.map(partyCard).join('')}`;
+    }
+    const none = kind === 'parties' && day === 'tonight' ? 'No more parties listed for tonight.' : kind === 'parties' && day === 'tomorrow' ? 'No parties listed for tomorrow yet.' : 'Nothing matches all of these filters.';
+    if (!keepServer || next) list.innerHTML = (last.length
       ? last.slice(0, shown).map((r) => (kind === 'bars' ? barCard(r, st) : partyCard(r))).join('')
-      : `<p class="empty">Nothing matches all of these filters. <button type="button" class="linkbtn" data-reset>Clear filters</button></p>`;
+      : `<p class="empty">${none} <button type="button" class="linkbtn" data-reset>Clear filters</button></p>`) + next;
     more.hidden = last.length <= shown;
     more.textContent = `Show more (${(last.length - shown).toLocaleString('en-US')})`;
     if (map) { map.getSource('pts').setData(features(last, kind)); fit(); }

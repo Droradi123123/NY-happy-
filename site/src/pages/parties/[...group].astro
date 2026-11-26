@@ -112,6 +112,15 @@ const playVenues = venueCount.slice(0, 5).map((x) => x.v);
 const nights = ['day', 'when', 'holiday'].includes(L.kind) ? (await datePages()).filter((d) => !d.past && d.parties.length > 0 && (L.kind !== 'day' || d.weekday === L.slug) && (L.kind !== 'holiday' || d.parties.some((p) => ps.includes(p)))) : [];
 // tonight on a quiet night (fewer than 6 parties): the happy hours that run today, best deals first
 const todayKey = (['sun', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat'] as const)[new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' })).getDay()];
+// Nov 26 (owner: "filter today and just see the parties"): a when page (tonight, tomorrow, weekends) leads with a
+// switcher between them and the cards; on a quiet night the next nights follow at once (up to 12 cards), before
+// anything else. The date cloud and the other lists move to the bottom, folded.
+const isWhen = L.kind === 'when';
+const WHEN_TABS = lists.filter((l) => l.kind === 'when' && !l.parent);
+const lastDay = ps.length ? ps[ps.length - 1].night_date : new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
+const nextDays = [...new Set(all.filter((p) => p.night_date > lastDay).map((p) => p.night_date))].slice(0, 2);
+const nextUp = isWhen && n < 6 ? all.filter((p) => nextDays.includes(p.night_date)).slice(0, 12) : [];
+const nextLabel = nextDays.length ? `Next up: ${nextDays.map((d) => nightDate(d, { weekday: 'long', month: 'short', day: 'numeric' })).join(' and ')}` : '';
 const hhToday = /^(tonight|[a-z-]+\/tonight)$/.test(L.slug) && n < 6
   ? (await allBars()).filter((b) => b.dealKnown && !b.doubt && b.windows.some((w) => w.days.includes(todayKey)) && (L.kind === 'when' || !L.parent || b.borough?.toLowerCase().replace(/^the /, '') === L.parent.slug.replace(/-/g, ' '))).sort(rank).slice(0, 6)
   : [];
@@ -120,6 +129,12 @@ const hhToday = /^(tonight|[a-z-]+\/tonight)$/.test(L.slug) && n < 6
   jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties'], ...(L.parent ? [[L.parent.short, `/parties/${L.parent.slug}`] as [string, string]] : []), [L.short, `/parties/${L.slug}`]]), collectionLd(L.label, `/parties/${L.slug}`, ps.map((p) => `/parties/${p.slug}`), lastRead), ...(faq.length ? [faqLd(faq)] : [])]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li>{L.kind === 'genre' && <li><a href="/parties/genres">Music</a></li>}{L.parent && <li><a href={`/parties/${L.parent.slug}`}>{L.parent.short}</a></li>}<li aria-current="page">{L.short}</li></ol></nav>
   <h1>{L.h1}</h1>
+  {isWhen && (
+    <nav class="when-tabs" aria-label="Pick the night">
+      {WHEN_TABS.map((l) => <a href={`/parties/${l.slug}`} aria-current={l.slug === L.slug ? 'page' : undefined}>{l.short} <span>{l.parties.length}</span></a>)}
+      <a href="/parties/calendar">Pick a date</a>
+    </nav>
+  )}
   <Fresh inShort={inShort} />
   {L.note && <p class="lede"><strong>{L.note}</strong></p>}
   {soldOut > 0 && <p class="lede">{soldOut} already sold out.</p>}
@@ -159,20 +174,32 @@ const hhToday = /^(tonight|[a-z-]+\/tonight)$/.test(L.slug) && n < 6
       <div class="xgrid">{picks.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>
     </section>
   )}
-  {n > 0 && <h2 class="section">{picks.length ? 'Every night' : `${L.short} nights`}</h2>}
-  {n > 0 && <div class="xgrid">{ps.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>}
+  {n > 0 && (
+    <section class="section" data-cards>
+      <h2>{picks.length ? 'Every night' : isWhen ? `${L.short}: ${plural(n, 'party', 'parties')}` : `${L.short} nights`}</h2>
+      <p class="none-left" data-none hidden>The parties listed here are over.{nextUp.length || L.standIns.length ? ' The next nights are just below.' : ''}</p>
+      <div class="xgrid">{ps.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>
+    </section>
+  )}
+  {nextUp.length > 0 && (
+    <section class="section" data-cards>
+      <h2>{nextLabel}</h2>
+      <div class="xgrid">{nextUp.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>
+      {nextDays[0] && <p><a class="btn coral" href={nextDays[0] === ps[0]?.night_date ? '/parties' : `/parties/date/${nextDays[0]}`}>All parties on {nightDate(nextDays[0], { weekday: 'long', month: 'short', day: 'numeric' })} →</a></p>}
+    </section>
+  )}
+  {L.standIns.length > 0 && !nextUp.length && (
+    <section class="section" data-cards>
+      <h2>{L.standInLabel ?? 'Coming up in NYC'}</h2>
+      <div class="xgrid">{L.standIns.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>
+    </section>
+  )}
   {hhToday.length > 0 && (
     <section class="section">
       <h2>Happy hours on today</h2>
       <p class="small">A quiet night for parties is a good night for a deal: these bars run a happy hour today, deal and hours read on their own sites.</p>
       <div class="xgrid">{hhToday.map((b) => <BarCard bar={b} />)}</div>
       <p><a href="/happy-hours/now">Happy hours on right now →</a></p>
-    </section>
-  )}
-  {L.standIns.length > 0 && (
-    <section class="section">
-      <h2>{L.standInLabel ?? 'Coming up in NYC'}</h2>
-      <div class="xgrid">{L.standIns.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>
     </section>
   )}
   {n >= 4 && L.kind !== 'day' && L.kind !== 'when' && (
@@ -184,7 +211,7 @@ const hhToday = /^(tonight|[a-z-]+\/tonight)$/.test(L.slug) && n < 6
       </ul>
     </section>
   )}
-  {nights.length > 0 && (
+  {nights.length > 0 && !isWhen && (
     <section class="section">
       <h2>Night by night</h2>
       <ul class="link-cloud">{nights.map((d) => <li><a href={`/parties/date/${d.date}`}>{nightDate(d.date, { weekday: 'short', month: 'short', day: 'numeric' })}<span class="count">{d.parties.length}</span></a></li>)}</ul>
@@ -216,19 +243,37 @@ const hhToday = /^(tonight|[a-z-]+\/tonight)$/.test(L.slug) && n < 6
       <ul>{related.map((g) => <li><a href={`/blog/${g.slug}`}>{g.title}</a></li>)}</ul>
     </section>
   )}
-  <section class="section">
-    <h2>More NYC parties</h2>
+  <details class="section more-links">
+    <summary><h2>More NYC parties: by night, music and borough</h2></summary>
+    {isWhen && nights.length > 0 && (
+      <>
+        <h3 class="h3">The next nights</h3>
+        <ul class="link-cloud">{nights.slice(0, 7).map((d) => <li><a href={`/parties/date/${d.date}`}>{nightDate(d.date, { weekday: 'short', month: 'short', day: 'numeric' })}<span class="count">{d.parties.length}</span></a></li>)}<li><a href="/parties/calendar">Calendar</a></li></ul>
+      </>
+    )}
     {groups.filter(([, g]) => g.length).map(([name, g]) => (
       <>
         <h3 class="h3">{name}</h3>
         <ul class="link-cloud">{g.map((l) => <li><a href={`/parties/${l.slug}`}>{l.short}<span class="count">{l.parties.length}</span></a></li>)}</ul>
       </>
     ))}
-    <p><a href="/parties">All parties</a> · <a href="/parties/genres">All music</a>{halloween >= 2 && <> · <a href="/parties/halloween">Halloween parties</a></>}</p>
-  </section>
+  </details>
+  <p class="section"><a href="/parties">All parties</a> · <a href="/parties/genres">All music</a>{halloween >= 2 && <> · <a href="/parties/halloween">Halloween parties</a></>}</p>
   {L.holiday && <script is:inline>document.querySelectorAll('[data-countdown]').forEach(function (e) { var d = Math.round((Date.parse(e.getAttribute('data-countdown') + 'T12:00:00Z') - Date.parse(new Date().toISOString().slice(0, 10) + 'T12:00:00Z')) / 864e5); if (d >= 0) e.textContent = d === 0 ? 'today' : d === 1 ? 'tomorrow' : 'in ' + d + ' days'; });</script>}
 </Base>
 <style>
+  .when-tabs { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin: 4px 0 10px; padding-bottom: 2px; }
+  .when-tabs::-webkit-scrollbar { display: none; }
+  .when-tabs a { flex: none; display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border: 1.5px solid var(--ink); border-radius: 999px; font-weight: 800; text-decoration: none; color: var(--ink); background: #fff; }
+  .when-tabs a span { color: var(--muted); font-weight: 700; }
+  .when-tabs a[aria-current='page'] { background: var(--ink); color: #fff; }
+  .when-tabs a[aria-current='page'] span { color: #fff; opacity: .75; }
+  .none-left { font-weight: 700; }
+  .more-links > summary { cursor: pointer; list-style: none; }
+  .more-links > summary::-webkit-details-marker { display: none; }
+  .more-links > summary h2 { display: inline; }
+  .more-links > summary::after { content: ' +'; font-weight: 800; color: var(--brand); }
+  .more-links[open] > summary::after { content: ' −'; }
   .quick { padding-left: 18px; display: grid; gap: 6px; }
   .h3 { margin-top: 18px; }
   .stat-strip { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 8px 0 4px; }

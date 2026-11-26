@@ -200,6 +200,8 @@ const WHEN = [['tonight', 'Tonight'], ['tomorrow', 'Tomorrow'], ['weekend', 'Thi
   .check input { width: 20px; height: 20px; accent-color: var(--brand); }
   .linkbtn { background: none; border: 0; padding: 0; font: inherit; font-weight: 700; text-decoration: underline; text-decoration-color: var(--brand); text-underline-offset: 3px; cursor: pointer; min-height: 40px; }
   .ex-body { display: grid; gap: 18px; margin-top: 18px; }
+  .xgrid > .empty, .xgrid > .ex-next { grid-column: 1 / -1; margin: 6px 0 0; }
+  .ex-next { font-size: 20px; }
   .ex-map { position: relative; min-height: 420px; border-radius: var(--radius); overflow: hidden; border: 1.5px solid var(--line); background: #ECE8F6; }
   .explorer[data-mode='list'] .ex-map { display: none; }
   .explorer[data-mode='map'] .ex-list { display: none; }

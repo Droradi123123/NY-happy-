@@ -374,7 +374,11 @@ export function partyData() {
     // is over leaves site_parties, so the ledger of published nights (scripts/ended-redirects.mjs) counts too
     const ever = new Set([...parties.map((p) => p.venue_id), ...(FIXTURE ? [] : (partyLedger as { venue_id: string | null }[]).map((p) => p.venue_id))]);
     const venuePages = venues.filter((v) => ever.has(v.id));
-    return { parties: live.sort((a, b) => a.starts_at.localeCompare(b.starts_at)), venues, venuePages };
+    // a listing that started days ago and runs for weeks (a season pass, a weekly series sold as one ticket) keeps
+    // its page but goes to the end of every list, so "tonight first" really starts with tonight (Nov 26)
+    const nyToday = new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
+    const key = (p: Party) => (p.night_date < nyToday ?`~${p.starts_at}` : p.starts_at);
+    return { parties: live.sort((a, b) => key(a).localeCompare(key(b))), venues, venuePages };
   })();
   return _parties;
 }

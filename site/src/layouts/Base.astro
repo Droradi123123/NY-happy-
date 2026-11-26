@@ -197,6 +197,14 @@ const tabs = [
       const now = Date.now();
       document.querySelectorAll<HTMLElement>('.xcard[data-end]').forEach((el) => { if (Date.parse(el.dataset.end!) < now) el.hidden = true; });
       document.querySelectorAll<HTMLElement>('[data-show-after]').forEach((el) => { if (Date.parse(el.dataset.showAfter!) < now) el.hidden = false; });
+      // a block of party cards whose nights are all over: say so (data-none) or drop the block, never an empty heading
+      document.querySelectorAll<HTMLElement>('[data-cards]').forEach((sec) => {
+        const cards = sec.querySelectorAll<HTMLElement>('.xcard');
+        if (!cards.length) return;
+        const left = [...cards].some((c) => !c.hidden);
+        const none = sec.querySelector<HTMLElement>('[data-none]');
+        if (none) none.hidden = left; else if (!left) sec.hidden = true;
+      });
     };
     hideEnded();
     new MutationObserver(hideEnded).observe(document.body, { childList: true, subtree: true });
