@@ -179,7 +179,8 @@ const esc = (t: string) => t.replace(/&/g, '&amp;').replace(/</g, '&lt;').replac
 /** escaped prose, with only plain internal links (<a href="/path">text</a>) turned back into links */
 // a dated party page (/parties/<name>-2026-10-31) leaves the site once the night is over: a link to one
 // that is no longer listed becomes plain text, so an older post never points at a missing page
-const PARTY_PAGE = /^\/parties\/(.+-\d{4}-\d{2}-\d{2})$/;
+// a night's slug ends with its date, sometimes plus a short id when two nights share a title ("...-2026-11-25-8ad2")
+const PARTY_PAGE = /^\/parties\/(.+-\d{4}-\d{2}-\d{2}(?:-[a-z0-9]{2,8})?)$/;
 /** a party or venue page that this build may not have (nights end, venues without nights drop off) */
 export const PARTY_OR_VENUE = (href: string) => PARTY_PAGE.test(href) || /^\/parties\/venue\/[a-z0-9-]+$/.test(href);
 export const prose = (t: string, live?: Set<string>) => esc(t).replace(/&lt;a href="(\/[a-z0-9\-/]*)"&gt;((?:(?!&lt;|&gt;).)+?)&lt;\/a&gt;/gi,
