@@ -62,7 +62,7 @@ const nyToday = new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_
 const soon = parties.filter((p) => p.event_status !== 'sold_out' && p.night_date >= nyToday && p.night_date <=new Date(Date.now() + 9 * 864e5).toISOString().slice(0, 10));
 const partyPicks = oneEach([...soon].sort((a, b) => a.night_date.localeCompare(b.night_date) || pscore(b) - pscore(a) || a.starts_at.localeCompare(b.starts_at)), (p) => p.venue_id, 6);
 // more sections: cheap drinks, rooftops, this weekend's biggest nights
-const cheap = oneEach([...bars].filter((b) => b.dealKnown && !b.doubt && b.cheapestDrink !== null && b.cheapestDrink <= 6).sort((a, b) => a.cheapestDrink! - b.cheapestDrink! || rank(a, b)), (b) => b.hoodSlug, 4);
+const cheap = oneEach([...bars].filter((b) => b.dealKnown && !b.doubt && !hhPicks.includes(b) && b.cheapestDrink !== null && b.cheapestDrink <= 6).sort((a, b) => a.cheapestDrink! - b.cheapestDrink! || rank(a, b)), (b) => b.hoodSlug, 4);
 const rooftops = (listsAll.find((l) => l.slug === 'rooftop')?.bars ?? []).filter((b) => b.dealKnown && !hhPicks.includes(b)).sort(rank).slice(0, 4);
 const weekendList = plists.find((l) => l.slug === 'this-weekend');
 // attractions: one with a photo from each category first, then any others, 4 cards (only while the build has attraction pages)

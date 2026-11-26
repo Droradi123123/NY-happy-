@@ -118,7 +118,7 @@ export function barJsonLd(b: Bar, url: string) {
 }
 
 /** "Updated Oct 29" for descriptions (the page is rebuilt from the data every few hours) */
-export const updatedLabel = (d = new Date()) => `Updated ${d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'America/New_York' })}`;
+export const updatedLabel = (d = new Date()) => `Updated ${d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'America/New_York' })}`;
 /** a list page's description: the focus phrase first, then "Updated Oct 29", then as many of the facts
  *  as fit in 160 characters (whole sentences, in order) */
 export function freshDescription(focus: string, facts: string[], min = 70): string {
@@ -181,8 +181,9 @@ export function partyDescription(p: Party, v: Venue | null): string {
   const lead = p.copy?.about ? sentences(p.copy.about)[0] : undefined;
   return cut([
     `${partyName(p)}${nyeSuffix(p)}${namesVenue(partyName(p), v) ? '' : ` at ${v?.name ?? 'a NYC venue'}`}${p.neighborhood ? `, ${p.neighborhood}` : ''}: ${nightDate(p.night_date, { weekday: 'long', month: 'short', day: 'numeric' })}${nyTime(p.doors_at ?? p.starts_at) ? `, doors ${nyTime(p.doors_at ?? p.starts_at)}` : ''}.`,
-    lead ?? '',
+    // price and age before the copy sentence: the snippet is cut at 155 characters and 490 of 497 lost them (Nov 26)
     `${priceLabel(p)}${p.age_min ? `, ${p.age_min}+` : ''}.`,
+    lead ?? '',
     // a short listing still gets a useful snippet (search engines want 70+ characters)
   ].filter(Boolean).join(' ').replace(/^(.{0,69})$/s, '$1 Doors, age, tickets and how to get there.'));
 }
@@ -194,10 +195,18 @@ export function postalAddress(v: Venue) {
   return { '@type': 'PostalAddress', streetAddress: a.split(',')[0].trim(), addressLocality: locality, addressRegion: 'NY', ...(zip ? { postalCode: zip } : {}), addressCountry: 'US' };
 }
 /** image: a freely licensed photo of the venue itself, when we hold one (never a street or neighborhood stand-in) */
+/** an instant as New York local time with its offset ("2026-12-31T22:00:00-05:00"): the calendar date a reader of the
+ *  markup sees is then the night's own date (in UTC, 439 of 497 nights carried the next day's date; Nov 26) */
+export function nyIso(iso: string): string {
+  const d = new Date(iso);
+  if (Number.isNaN(d.getTime())) return iso;
+  const f = Object.fromEntries(new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23', timeZoneName: 'longOffset' }).formatToParts(d).map((x) => [x.type, x.value]));
+  return `${f.year}-${f.month}-${f.day}T${f.hour}:${f.minute}:${f.second}${(f.timeZoneName ?? 'GMT-05:00').replace('GMT', '') || '+00:00'}`;
+}
 export function partyJsonLd(p: Party, v: Venue | null, url: string, image: string | null = null) {
   return {
     '@context': 'https://schema.org', '@type': 'MusicEvent', name: cleanTitle(p.title), url,
-    startDate: p.starts_at, ...(p.ends_at ? { endDate: p.ends_at } : {}), ...(p.doors_at ? { doorTime: p.doors_at } : {}),
+    startDate: nyIso(p.starts_at), ...(p.ends_at ? { endDate: nyIso(p.ends_at) } : {}), ...(p.doors_at ? { doorTime: nyIso(p.doors_at) } : {}),
     eventStatus: `https://schema.org/${{ scheduled: 'EventScheduled', postponed: 'EventPostponed', rescheduled: 'EventRescheduled', cancelled: 'EventCancelled', sold_out: 'EventScheduled' }[p.event_status] ?? 'EventScheduled'}`,
     eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode',
     ...(p.copy?.about ? { description: p.copy.about } : {}),
@@ -205,7 +214,7 @@ export function partyJsonLd(p: Party, v: Venue | null, url: string, image: strin
     location: { '@type': 'Place', name: v?.name, ...(v?.address ? { address: postalAddress(v) } : {}), ...(v?.lat ? { geo: { '@type': 'GeoCoordinates', latitude: v.lat, longitude: v.lng } } : {}) },
     ...(p.performers.length ? { performer: p.performers.map((n) => ({ '@type': 'PerformingGroup', name: n })) } : {}),
     ...(p.organizer ? { organizer: { '@type': 'Organization', name: p.organizer } } : {}),
-    offers: { '@type': 'Offer', url: p.ticket_url, ...(p.price_status === 'free' ? { price: 0, priceCurrency: 'USD' } : p.price_from !== null ? { price: p.price_from, priceCurrency: 'USD' } : {}), availability: `https://schema.org/${p.event_status === 'sold_out' ? 'SoldOut' : 'InStock'}`, ...(p.ticket_vendor ? { seller: { '@type': 'Organization', name: p.ticket_vendor } } : {}) },
+    offers: { '@type': 'Offer', url: p.ticket_url, ...(p.price_status === 'free' ? { price: 0, priceCurrency: 'USD' } : p.price_from !== null && p.price_from > 0 ? { price: p.price_from, priceCurrency: 'USD' } : {}), availability: `https://schema.org/${p.event_status === 'sold_out' ? 'SoldOut' : 'InStock'}`, ...(p.ticket_vendor ? { seller: { '@type': 'Organization', name: p.ticket_vendor } } : {}) },
     ...(p.price_status === 'free' ? { isAccessibleForFree: true } : {}),
     ...(p.age_min ? { typicalAgeRange: `${p.age_min}-` } : {}),
     ...(p.genres.length ? { keywords: p.genres.join(', ') } : {}),

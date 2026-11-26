@@ -6,7 +6,7 @@
  */
 interface Props { inShort: string; updated?: string }
 const { inShort, updated = new Date().toISOString() } = Astro.props;
-const day = new Date(updated).toLocaleDateString('en-US', { month: 'short', day: 'numeric', timeZone: 'America/New_York' });
+const day = new Date(updated).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'America/New_York' });
 ---
 <p class="fresh"><span class="fresh-dot" aria-hidden="true"></span>Updated <time datetime={updated.slice(0, 10)}>{day}</time> · refreshes daily</p>
 <p class="in-short"><strong>In short:</strong> {inShort}</p>

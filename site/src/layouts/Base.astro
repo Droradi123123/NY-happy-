@@ -183,7 +183,7 @@ const tabs = [
     <div class="menu-grid">
       {menu.map((g) => (
         <section>
-          <h2>{g.h}</h2>
+          <p class="menu-h">{g.h}</p>
           <ul>{g.links.map((l) => <li><a href={l.href} aria-current={l.href === path ? 'page' : undefined}>{l.label}</a></li>)}</ul>
         </section>
       ))}
@@ -196,14 +196,18 @@ const tabs = [
     const hideEnded = () => {
       const now = Date.now();
       document.querySelectorAll<HTMLElement>('.xcard[data-end]').forEach((el) => { if (Date.parse(el.dataset.end!) < now) el.hidden = true; });
-      document.querySelectorAll<HTMLElement>('[data-show-after]').forEach((el) => { if (Date.parse(el.dataset.showAfter!) < now) el.hidden = false; });
+      document.querySelectorAll<HTMLElement>('[data-show-after]').forEach((el) => {
+        if (!(Date.parse(el.dataset.showAfter!) < now)) return;
+        if (el.dataset.html && !el.firstChild) el.innerHTML = el.dataset.html;
+        el.hidden = false;
+      });
       // a block of party cards whose nights are all over: say so (data-none) or drop the block, never an empty heading
       document.querySelectorAll<HTMLElement>('[data-cards]').forEach((sec) => {
         const cards = sec.querySelectorAll<HTMLElement>('.xcard');
         if (!cards.length) return;
         const left = [...cards].some((c) => !c.hidden);
         const none = sec.querySelector<HTMLElement>('[data-none]');
-        if (none) none.hidden = left; else if (!left) sec.hidden = true;
+        if (none) { if (!left && !none.textContent) none.textContent = none.dataset.msg ?? ''; none.hidden = left; } else if (!left) sec.hidden = true;
       });
     };
     hideEnded();
@@ -248,6 +252,8 @@ const tabs = [
           <li><a href="/about">About and how we check</a></li>
           <li><a href="/editorial-policy">Editorial policy</a></li>
           <li><a href="/press">Press and data</a></li>
+          <li><a href="/nyc-happy-hour-index">NYC Happy Hour Price Index</a></li>
+          <li><a href="/nyc-nye-price-index">New Year's Eve Price Index</a></li>
           <li><a href="/contact">Contact us: tips, fixes, questions</a></li>
           <li><a href="/image-credits">Image credits and takedown</a></li>
           <li><a href="/privacy">Privacy</a></li>

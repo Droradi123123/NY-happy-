@@ -19,8 +19,9 @@ const faq = [
 const plists = await partyLists();
 const tonight = plists.find((l) => l.slug === 'tonight' && !l.note)?.parties.length ?? 0;
 const nVenues = new Set(parties.map((p) => p.venue_id)).size;
-const priced = parties.filter((p) => p.price_from !== null && p.price_status !== 'free').map((p) => p.price_from!);
-const inShort = `${plural(parties.length, 'upcoming party', 'upcoming parties')} at ${plural(nVenues, 'venue')} across the five boroughs${tonight ? `, ${tonight} of them tonight` : ''}${priced.length ? `; tickets from $${Math.round(Math.min(...priced))}` : ''}.`;
+const priced = parties.filter((p) => p.price_from !== null && p.price_from > 0 && p.price_status !== 'free').map((p) => p.price_from!);
+const freeN = parties.filter((p) => p.price_status === 'free').length;
+const inShort = `${plural(parties.length, 'upcoming party', 'upcoming parties')} at ${plural(nVenues, 'venue')} across the five boroughs${tonight ? `, ${tonight} of them tonight` : ''}${priced.length ? `; tickets from $${Math.round(Math.min(...priced))}` : ''}${freeN ? `, ${freeN} free` : ''}.`;
 const lastRead = parties.map((p) => p.last_checked).filter(Boolean).sort().pop() ?? null;
 const halloween = parties.filter((p) => p.themes.includes('halloween')).length;
 const row = (l: { slug: string; short: string; parties: unknown[] }) => ({ href: `/parties/${l.slug}`, short: l.short, n: l.parties.length });
@@ -30,6 +31,12 @@ const live = (k: string) => plists.filter((l) => l.kind === k && l.parties.lengt
 const nightPages = (await datePages()).filter((d) => d.indexable);
 const hasNight = new Set(nightPages.map((d) => d.date));
 const pastSeasons = halloween < 2 ? (await holidayRecaps()).filter((r) => r.theme === 'halloween' && r.nights >= 20).sort((a, b) => b.season - a.season).slice(0, 1) : [];
+// the clubs with the most nights coming up (their pages were linked only from party pages Google is not shown)
+const { venuePages } = await partyData();
+const hasVenue = new Set(venuePages.map((v) => v.id));
+const clubs = [...parties.reduce((m, p) => m.set(p.venue_id, (m.get(p.venue_id) ?? 0) + 1), new Map<string, number>())]
+  .filter(([id, c]) => c >= 2 && hasVenue.has(id)).sort((a, b) => b[1] - a[1]).slice(0, 30)
+  .map(([id, c]) => ({ href: `/parties/venue/${id}`, short: venues.find((v) => v.id === id)?.name ?? id, n: c }));
 const groups: [string, { href: string; short: string; n: number }[]][] = [
   ['Tonight and this weekend', live('when')],
   ['Parties by music', live('genre')],
@@ -37,6 +44,7 @@ const groups: [string, { href: string; short: string; n: number }[]][] = [
   ['Night by night', nightPages.map((d) => ({ href: `/parties/date/${d.date}`, short: nightDate(d.date, { weekday: 'short', month: 'short', day: 'numeric' }), n: d.parties.length }))],
   ['Holidays and seasons', [...(halloween >= 2 ? [{ href: '/parties/halloween', short: 'Halloween', n: halloween }] : []), ...live('holiday'), ...live('season')]],
   ['Kind of party', [...live('tag'), ...live('age')]],
+  ['Clubs with the most nights', clubs],
   ['By borough and neighborhood', live('where')],
 ];
 ---

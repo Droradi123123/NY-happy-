@@ -48,6 +48,8 @@ const where = L.kind === 'where' ? L.short : inNyc ? 'NYC' : '';
 const DOW = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 const byDow = [1, 2, 3, 4, 5, 6, 0].map((d) => ({ d, n: ps.filter((p) => new Date(`${p.night_date}T12:00:00Z`).getUTCDay() === d).length }));
 const topDow = [...byDow].sort((a, b) => b.n - a.n)[0];
+// a list whose nights all fall on one date (New Year's Eve) has no "busiest night" to name
+const oneDate = new Set(ps.map((p) => p.night_date)).size <= 1;
 const maxDow = Math.max(1, ...byDow.map((x) => x.n));
 // where it plays: venues by number of nights here
 const venueCount = [...ps.reduce((m, p) => m.set(p.venue_id, (m.get(p.venue_id) ?? 0) + 1), new Map<string, number>())]
@@ -65,7 +67,7 @@ const description = freshDescription(L.label, n ? [
   venueNames.length ? `At ${venueNames.slice(0, 2).join(', ')} and more.` : '',
 ] : [L.holiday ? `${L.holiday.name}: ${nightDate(L.holiday.date, { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' })}.` : '', 'No nights listed yet; the closest parties, doors, age and tickets.']);
 const inShort = n
-  ? `${plural(n, L.kind === 'when' ? 'party' : 'upcoming night', L.kind === 'when' ? 'parties' : 'upcoming nights')} ${L.kind === 'when' ? 'on' : 'from'} ${range} at ${plural(venueNames.length, 'venue')}${venueNames.length > 1 ? ` including ${venueNames.slice(0, 2).join(' and ')}` : venueNames.length ? ` (${venueNames[0]})` : ''}${!['day', 'when'].includes(L.kind) && topDow.n > 1 && n >= 4 ? `, most on ${DOW[topDow.d]}s` : ''}${priced.length ? `, tickets from $${Math.round(Math.min(...priced))}` : ''}${free ? ` (${free} free)` : ''}.`
+  ? `${plural(n, L.kind === 'when' ? 'party' : 'upcoming night', L.kind === 'when' ? 'parties' : 'upcoming nights')} ${L.kind === 'when' ? 'on' : 'from'} ${range} at ${plural(venueNames.length, 'venue')}${venueNames.length > 1 ? ` including ${venueNames.slice(0, 2).join(' and ')}` : venueNames.length ? ` (${venueNames[0]})` : ''}${!['day', 'when'].includes(L.kind) && !oneDate && topDow.n > 1 && n >= 4 ? `, most on ${DOW[topDow.d]}s` : ''}${priced.length ? `, tickets from $${Math.round(Math.min(...priced))}` : ''}${free ? ` (${free} free)` : ''}.`
   : `No ${subject} are listed right now${L.holiday ? `; ${L.holiday.name} is ${nightDate(L.holiday.date, { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' })}` : ''}.`;
 const lastRead = ps.map((p) => p.last_checked).filter(Boolean).sort().pop() ?? null;
 const stamp = new Date().toLocaleString('en-US', { month: 'short', year: 'numeric', timeZone: 'America/New_York' });
@@ -92,7 +94,7 @@ const faq = [
   ...(L.holiday ? [{ q: `When is ${L.holiday.name} ${year}?`, a: `${L.holiday.note}${n ? ` We list ${plural(n, 'night')} on sale for it so far.` : ''}` }] : []),
   ...(n ? [{ q: `What are the next ${subject}${where === 'NYC' ? ' in NYC' : ''}?`, a: ps.slice(0, 3).map((p) => `${cleanTitle(p.title)} at ${venueOf(p, venues)?.name ?? 'a NYC venue'}, ${nightDate(p.night_date, { weekday: 'short', month: 'short', day: 'numeric' })}${nyTime(p.doors_at ?? p.starts_at) ? `, doors ${nyTime(p.doors_at ?? p.starts_at)}` : ''}`).join('; ') + '.' }] : []),
   ...(priced.length ? [{ q: `How much are tickets for ${subject}${where === 'NYC' ? ' in NYC' : ''}?`, a: `From $${Math.round(Math.min(...priced))} to $${Math.round(Math.max(...priced))} for the cheapest ticket on each night${free ? `, and ${free} are free` : ''}. Prices are the lowest listed on the ticket site when we checked, with fees.` }] : []),
-  ...(n >= 4 && L.kind !== 'day' && L.kind !== 'when' ? [{ q: `What night are most ${subject}${where === 'NYC' ? ' in NYC' : ''}?`, a: `${DOW[topDow.d]}: ${topDow.n} of the ${n} listed. ${byDow.filter((x) => x.n && x.d !== topDow.d).map((x) => `${DOW[x.d]} ${x.n}`).join(', ')}.` }] : []),
+  ...(n >= 4 && L.kind !== 'day' && L.kind !== 'when' && !oneDate ? [{ q: `What night are most ${subject}${where === 'NYC' ? ' in NYC' : ''}?`, a: `${DOW[topDow.d]}: ${topDow.n} of the ${n} listed. ${byDow.filter((x) => x.n && x.d !== topDow.d).map((x) => `${DOW[x.d]} ${x.n}`).join(', ')}.` }] : []),
   ...(venueCount.length >= 2 ? [{ q: `Where do ${subject} happen${where === 'NYC' ? ' in NYC' : ''}?`, a: `Most at ${venueCount.slice(0, 3).map((x) => `${x.v.name}${x.v.neighborhood ? ` (${x.v.neighborhood})` : ''}, ${plural(x.c, 'night')}`).join('; ')}.` }] : []),
   ...(n ? [{ q: `Are ${subject}${where === 'NYC' ? ' in NYC' : ''} 21+?`, a: allAges ? `Most are 21+, but ${plural(allAges, 'night')} let in younger guests; the age is on each party's page.` : 'Every night we list here is 21+, unless its page says otherwise. Bring a government photo ID; tourists should bring a passport.' }] : []),
 ];
@@ -143,31 +145,10 @@ const hhToday = /^(tonight|[a-z-]+\/tonight)$/.test(L.slug) && n < 6
       <li><strong>{n}</strong> {n === 1 ? 'night' : 'nights'}</li>
       <li><strong>{venueNames.length}</strong> {venueNames.length === 1 ? 'venue' : 'venues'}</li>
       {priced.length > 0 && <li>from <strong>${Math.round(Math.min(...priced))}</strong></li>}
-      {L.kind !== 'day' && L.kind !== 'when' && topDow.n > 0 && <li>busiest: <strong>{DOW[topDow.d]}</strong></li>}
+      {L.kind !== 'day' && L.kind !== 'when' && oneDate === false && topDow.n > 0 && <li>busiest: <strong>{DOW[topDow.d]}</strong></li>}
     </ul>
   )}
-  {L.holiday && (
-    <section class="section holiday card">
-      <h2>When is {L.holiday.name} {year}?</h2>
-      <p class="big-date">{nightDate(L.holiday.date, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })} · <span data-countdown={L.holiday.date}>{days === 0 ? 'today' : days === 1 ? 'tomorrow' : `in ${days} days`}</span></p>
-      <p>{L.holiday.note}</p>
-      <p><strong>{plural(n, 'night')} on sale</strong>{n ? ` so far, from ${range}.` : ' so far: this page fills in as tickets are released.'}</p>
-      {(L.slug === 'new-years-eve' || L.parent?.slug === 'new-years-eve') && <p>What NYE costs this year, by borough and kind of party, with daily price changes: <a href="/nyc-nye-price-index">the NYC New Year's Eve Price Index</a>.</p>}
-    </section>
-  )}
-  {quick.length > 0 && (
-    <section class="section">
-      <h2>Quick answers</h2>
-      <ul class="quick">{quick.map(([k, p]) => <li><strong>{k}:</strong> <a href={`/parties/${p.slug}`}>{cleanTitle(p.title)}</a> at {venueOf(p, venues)?.name ?? 'a NYC venue'}, {priceOf(p)}</li>)}</ul>
-      <p class="small muted">Lowest ticket listed when we last checked each seller's page; sold-out nights are left out.</p>
-    </section>
-  )}
-  {copy && (
-    <section class="section prose">
-      <p class="byline">By the YaY NYC team · Updated {fmtDate(copy.written)}</p>
-      {paragraphs(copy.intro).map((p) => <p>{p}</p>)}
-    </section>
-  )}
+  {L.holiday && n > 0 && <p class="hol-line"><strong>{L.holiday.name}: {nightDate(L.holiday.date, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}</strong> · {plural(n, 'night')} on sale</p>}
   {picks.length > 0 && (
     <section class="section">
       <h2>Our picks</h2>
@@ -176,8 +157,8 @@ const hhToday = /^(tonight|[a-z-]+\/tonight)$/.test(L.slug) && n < 6
   )}
   {n > 0 && (
     <section class="section" data-cards>
-      <h2>{picks.length ? 'Every night' : isWhen ? `${L.short}: ${plural(n, 'party', 'parties')}` : `${L.short} nights`}</h2>
-      <p class="none-left" data-none hidden>The parties listed here are over.{nextUp.length || L.standIns.length ? ' The next nights are just below.' : ''}</p>
+      <h2>{picks.length ? `Every night (${n})` : isWhen ? `${L.short}: ${plural(n, 'party', 'parties')}` : /part(y|ies)|raves?|nights?$/i.test(L.short) ? `${L.short} (${n})` : `${L.short}: ${plural(n, 'night')}`}</h2>
+      <p class="none-left" data-none hidden data-msg={`The parties listed here are over.${nextUp.length || L.standIns.length ? ' The next nights are just below.' : ''}`}></p>
       <div class="xgrid">{ps.map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>
     </section>
   )}
@@ -202,7 +183,30 @@ const hhToday = /^(tonight|[a-z-]+\/tonight)$/.test(L.slug) && n < 6
       <p><a href="/happy-hours/now">Happy hours on right now →</a></p>
     </section>
   )}
-  {n >= 4 && L.kind !== 'day' && L.kind !== 'when' && (
+  {/* Nov 26: the date card, quick answers and the written intro follow the parties (the first card was 2,282px down on the New Year's Eve page) */}
+  {L.holiday && (
+    <section class="section holiday card">
+      <h2>When is {L.holiday.name} {year}?</h2>
+      <p class="big-date">{nightDate(L.holiday.date, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })} · <span data-countdown={L.holiday.date}>{days === 0 ? 'today' : days === 1 ? 'tomorrow' : `in ${days} days`}</span></p>
+      <p>{L.holiday.note}</p>
+      <p><strong>{plural(n, 'night')} on sale</strong>{n ? ` so far, from ${range}.` : ' so far: this page fills in as tickets are released.'}</p>
+      {(L.slug === 'new-years-eve' || L.parent?.slug === 'new-years-eve') && <p>What NYE costs this year, by borough and kind of party, with daily price changes: <a href="/nyc-nye-price-index">the NYC New Year's Eve Price Index</a>.</p>}
+    </section>
+  )}
+  {quick.length > 0 && (
+    <section class="section">
+      <h2>Quick answers</h2>
+      <ul class="quick">{quick.map(([k, p]) => <li><strong>{k}:</strong> <a href={`/parties/${p.slug}`}>{cleanTitle(p.title)}</a> at {venueOf(p, venues)?.name ?? 'a NYC venue'}, {priceOf(p)}</li>)}</ul>
+      <p class="small muted">Lowest ticket listed when we last checked each seller's page; sold-out nights are left out.</p>
+    </section>
+  )}
+  {copy && (
+    <section class="section prose">
+      <p class="byline">By the YaY NYC team · Updated {fmtDate(copy.written)}</p>
+      {paragraphs(copy.intro).map((p) => <p>{p}</p>)}
+    </section>
+  )}
+  {n >= 4 && L.kind !== 'day' && L.kind !== 'when' && !oneDate && (
     <section class="section">
       <h2>In numbers</h2>
       <p class="muted">Nights listed for each day of the week, from {range}.</p>
@@ -279,6 +283,7 @@ const hhToday = /^(tonight|[a-z-]+\/tonight)$/.test(L.slug) && n < 6
   .stat-strip { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 8px 0 4px; }
   .stat-strip li { padding: 6px 12px; border-radius: 999px; background: var(--brand-soft); color: var(--brand-dark); font-size: 14px; }
   .holiday { padding: 18px; }
+  .hol-line { margin: 0 0 10px; }
   .big-date { font-size: 20px; font-weight: 700; }
   .dow-chart { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 6px; max-width: 520px; }
   .dow-chart li { display: grid; grid-template-columns: 40px 1fr 32px; align-items: center; gap: 8px; }

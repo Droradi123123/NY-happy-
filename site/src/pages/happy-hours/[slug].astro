@@ -104,12 +104,10 @@ const hoods = (await allHoods()).filter((h) => list.some((b) => b.hoodSlug === h
   <h1>{page.h1}</h1>
   <Fresh inShort={inShort} />
   {ph && <div class="hood-hero"><Photo photo={ph} alt={`${page.short}, ${page.borough}${ph.title ? `: ${ph.title}` : ''}`} ratio="21 / 9" hero /></div>}
-  {copy && (
-    <section class="guide-intro">
-      <p class="byline">Words by the YaY NYC team, {fmtDate(copy.written)} · Deals last checked on each bar's own site {checkedRange(list)} · {readMinutes(copy)} min read</p>
-      {paragraphs(copy.intro).map((p) => <p>{p}</p>)}
-    </section>
-  )}
+  {/* Nov 26: the list comes first (it was ~5,600px down on phones, after the essay and the picks); the picks and the written guide follow */}
+  <Explorer kind="bars" preset={page.preset} hide={page.kind === 'hood' ? ['where'] : []} hoods={hoods} heading={page.label}>
+    {list.slice(0, 24).map((b, i) => <BarCard bar={b} eager={i < 2} />)}
+  </Explorer>
   {picks.length > 0 && (
     <section class="section">
       <h2>{page.kind === 'hood' ? `Our picks for happy hour in ${page.short}` : `Our picks: ${subject}`}</h2>
@@ -119,7 +117,7 @@ const hoods = (await allHoods()).filter((h) => list.some((b) => b.hoodSlug === h
           return (
             <li class="pick">
               {pp ? <Photo photo={pp.photo} note={photoNote(pp, b.name)} alt={pp.rel === 'own' ? `${b.name}, ${b.hood}` : photoNote(pp, b.name)!} ratio="16 / 9" />
-                : <div class={`xcard-art pick-art xart-${boroughSlug(b.borough)}`} aria-hidden="true"><span>{b.name}</span></div>}
+                : null}
               <div class="pick-body">
                 <h3><span class="pick-n">{i + 1}.</span> <a href={`/bars/${b.slug}`}>{b.name}</a></h3>
                 <p class="pick-facts"><strong>{dealLabel(b) ?? 'Times published, deal not listed'}</strong><br />{scheduleLabel(b)}{b.address ? ` · ${b.address}` : ''}</p>
@@ -132,10 +130,13 @@ const hoods = (await allHoods()).filter((h) => list.some((b) => b.hoodSlug === h
       </ol>
     </section>
   )}
+  {copy && (
+    <section class="guide-intro">
+      <p class="byline">Words by the YaY NYC team, {fmtDate(copy.written)} · Deals last checked on each bar's own site {checkedRange(list)} · {readMinutes(copy)} min read</p>
+      {paragraphs(copy.intro).map((p) => <p>{p}</p>)}
+    </section>
+  )}
   {copy?.sections.map((s) => <section class="section"><h2>{s.h}</h2>{paragraphs(s.body).map((p) => <p>{p}</p>)}</section>)}
-  <Explorer kind="bars" preset={page.preset} hide={page.kind === 'hood' ? ['where'] : []} hoods={hoods} heading={page.label}>
-    {list.slice(0, 24).map((b, i) => <BarCard bar={b} eager={i < 2} />)}
-  </Explorer>
   {list.length > 24 && (
     <details class="az">
       <summary>All {list.length} happy hours in {page.short}, A to Z</summary>

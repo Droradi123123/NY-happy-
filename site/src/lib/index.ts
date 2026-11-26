@@ -2,7 +2,7 @@
  * The compact rows the explorer (filters, list, map) works on in the browser.
  * Short keys keep /data/*.json small: ~740 bars in well under 200 KB before gzip.
  */
-import { DAYS, ampm, placePhoto, cardCredit, dealLabel, daysLabel, windowLabel, cleanTitle, priceLabel, nyTime, venueOf, type Bar, type Party, type Venue } from './data';
+import { DAYS, ampm, placePhoto, cardCredit, dealLabel, daysLabel, windowLabel, cleanTitle, priceLabel, nyTime, venueOf, ticketHref, type Bar, type Party, type Venue } from './data';
 
 const min = (t: string | null) => { const m = t?.match(/^(\d{1,2}):(\d{2})$/); return m ? Number(m[1]) * 60 + Number(m[2]) : null; };
 const has = (b: Bar, t: string) => b.tags.includes(t);
@@ -12,7 +12,7 @@ export interface BarRow {
   s: string; n: string; h: string; hn: string; bo: string | null; la: number | null; lo: number | null;
   w: [number[], number | null, number | null][]; sch: string; d: string | null; c: number | null;
   f: string[]; ln: string[]; st: string | null; wm: number | null; ck: string | null; bk: 0 | 1;
-  im?: [string, string]; // [thumbnail, short credit]
+  im?: [string, string]; tu?: string; tl?: string; // [thumbnail, short credit]
 }
 export function barRow(b: Bar): BarRow {
   const f: string[] = [];
@@ -39,7 +39,7 @@ export function barRow(b: Bar): BarRow {
 export interface PartyRow {
   s: string; t: string; nd: string; st: string; en: string | null; tm: string | null; v: string; vn: string; h: string | null; bo: string | null;
   la: number | null; lo: number | null; g: string[]; th: string[]; tg: string[]; p: number | null; pl: string; a: number | null; so: 0 | 1; rich: 0 | 1;
-  im?: [string, string];
+  im?: [string, string]; tu?: string; tl?: string;
 }
 export const PARTY_TAGS: [string, RegExp][] = [
   ['rooftop', /rooftop|\broof\b|skydeck/i], ['lgbtq', /queer|lgbt|\bgay\b|lesbian|\bdrag\b|pride|dyke/i], ['day', /day ?party|daytime|brunch|sunday funday/i],
@@ -58,6 +58,8 @@ export function partyRow(p: Party, venues: Venue[]): PartyRow {
     g: p.genres, th: p.themes, tg: partyTags(p, v),
     p: p.price_status === 'free' ? 0 : p.price_from, pl: priceLabel(p), a: p.age_min, so: p.event_status === 'sold_out' ? 1 : 0,
     rich: p.copy?.about ? 1 : 0,
+    // the seller link and the button's words, so a card drawn in the browser keeps the same ticket button as PartyCard.astro
+    ...(p.event_status !== 'sold_out' && p.ticket_url ? { tu: ticketHref(p), tl: p.price_status === 'free' ? 'Free: RSVP' : p.price_from ? `Tickets from $${Math.round(p.price_from)}` : 'Tickets' } : {}),
     ...photoRow('venue', p.venue_id, v?.neighborhood ?? p.neighborhood, null, v?.borough ?? p.borough),
   };
 }

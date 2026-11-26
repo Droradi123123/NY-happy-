@@ -1,15 +1,27 @@
 ---
 import Base from '../../layouts/Base.astro';
 import Explorer from '../../components/Explorer.astro';
-import { allHoods, allBars } from '../../lib/data';
-import { crumbs } from '../../lib/seo';
+import BarCard from '../../components/BarCard.astro';
+import Fresh from '../../components/Fresh.astro';
+import { allHoods, allBars, DAYS, DAY_NAME } from '../../lib/data';
+import { rank } from '../../lib/lists';
+import { crumbs, itemList } from '../../lib/seo';
 const bars = await allBars();
+// Nov 26: the page had no list at all in its HTML (the browser fills it). The build now writes the happy hours that
+// run today in New York, best deals first; the browser then narrows them to this minute.
+const today = DAYS[(new Date(new Date().toLocaleString('en-US', { timeZone: 'America/New_York' })).getDay() + 6) % 7];
+const todays = bars.filter((b) => !b.doubt && b.days.includes(today)).sort(rank);
+const withDeal = todays.filter((b) => b.dealKnown).length;
+const inShort = `${todays.length} happy hours on our list run on ${DAY_NAME[today]}s, ${withDeal} of them with the deal listed. The list below narrows to the ones on at this minute, New York time.`;
 const hoods = (await allHoods()).filter((h) => bars.some((b) => b.hoodSlug === h.slug)).sort((a, b) => a.name.localeCompare(b.name));
 ---
 <Base title="Happy Hour Right Now in NYC: What's On Near You" keyword="happy hour right now nyc" description="NYC happy hours on right now, by New York time, with when each one ends. Tap 'Near me' for the closest happy hour right now."
-  jsonld={[crumbs([['YaY NYC', '/'], ['Happy hours', '/happy-hours'], ['Right now', '/happy-hours/now']])]}>
+  jsonld={[crumbs([['YaY NYC', '/'], ['Happy hours', '/happy-hours'], ['Right now', '/happy-hours/now']]), itemList('Happy hours in NYC today', todays.slice(0, 24).map((b) => `/bars/${b.slug}`))]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/happy-hours">Happy hours</a></li><li aria-current="page">Right now</li></ol></nav>
   <h1>Happy Hour Right Now in NYC</h1>
   <p class="lede">Happy hours on at this minute, New York time, sorted by which ends first. Tap <strong>Near me</strong> for the closest.</p>
-  <Explorer kind="bars" preset={{ day: 'now' }} hoods={hoods} heading="Happy hours on now" />
+  <Fresh inShort={inShort} />
+  <Explorer kind="bars" preset={{ day: 'now' }} hoods={hoods} heading="Happy hours on now">
+    {todays.slice(0, 24).map((b, i) => <BarCard bar={b} eager={i < 2} />)}
+  </Explorer>
 </Base>

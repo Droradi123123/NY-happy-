@@ -41,7 +41,7 @@ const dealsChecked = checkedRange([...picks.map((p) => p.b), ...strip.map((x) =>
 const ld = {
   '@context': 'https://schema.org', '@type': 'BlogPosting', headline: g.h1, description: g.description, url,
   mainEntityOfPage: url, datePublished: g.published, dateModified: g.updated, inLanguage: 'en-US',
-  author: EDITOR ? { '@type': 'Person', name: EDITOR.name, description: EDITOR.bio, url: `${SITE}/about` } : { '@type': 'Organization', name: 'YaY NYC', url: SITE }, publisher: { '@type': 'Organization', name: 'YaY NYC', url: SITE },
+  author: EDITOR ? { '@type': 'Person', name: EDITOR.name, description: EDITOR.bio, url: `${SITE}/about` } : { '@type': 'Organization', name: 'YaY NYC', url: SITE }, publisher: { '@type': 'Organization', name: 'YaY NYC', url: SITE, logo: { '@type': 'ImageObject', url: `${SITE}/icon-512.png` } },
   image: cover ? `${SITE}${cover.photo.src}` : `${SITE}/og-default.png`, wordCount: words,
 };
 const live = await livePartySlugs();

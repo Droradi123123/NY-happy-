@@ -71,7 +71,9 @@ const have = existsSync(file) ? readFileSync(file, 'utf-8') : '';
 const taken = new Set(have.split('\n').map((l) => l.trim().split(/\s+/)[0]).filter(Boolean));
 const base = taken.size, lines = [];
 for (const p of rows) {
-  const end = p.ends_at ? Date.parse(p.ends_at) : Date.parse(p.starts_at) + 6 * 3600e3;
+  // the same rule as lib/data.ts: an end at or before the start, or more than 18 hours after it, is not a real end
+  const span = p.ends_at ? (Date.parse(p.ends_at) - Date.parse(p.starts_at)) / 36e5 : 0;
+  const end = p.ends_at && span > 0 && span <= 18 ? Date.parse(p.ends_at) : Date.parse(p.starts_at) + 6 * 3600e3;
   if (!(end < cutoff)) continue;
   const from = `/parties/${p.slug}`;
   if (taken.has(from) || existsSync(join(dist, 'parties', `${p.slug}.html`))) continue;

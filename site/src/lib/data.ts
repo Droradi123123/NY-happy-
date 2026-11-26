@@ -366,7 +366,16 @@ export function partyData() {
     const cutoff = FIXTURE ? 0 : Date.now() - 2 * 3600e3;
     // a night sold outside DICE is re-read by hand (party_add_listing): 10 days without a read takes it off the site
     const stale = (p: Party) => p.ticket_vendor !== 'DICE' && !FIXTURE && (!p.last_checked || Date.parse(p.last_checked) < Date.now() - 10 * 864e5);
-    const live = parties.filter((p) => new Date(p.ends_at ?? p.starts_at).getTime() > cutoff && p.event_status !== 'cancelled' && !stale(p))
+    // an end time that cannot be right is treated as not listed (Nov 26): 20 nights had an end before their start (a
+    // date-only end stored as midnight UTC: "doors 10pm, ends 7pm", and the page left the site before doors), and a
+    // weekly series sold as one listing "ended" 11 weeks after its date. Multi-day events keep their end.
+    const sane = (p: Party): Party => {
+      if (!p.ends_at) return p;
+      const h = (Date.parse(p.ends_at) - Date.parse(p.starts_at)) / 36e5;
+      return h <= 0 || (h > 18 && !(p.extra as { multi_day?: boolean } | null)?.multi_day) ? { ...p, ends_at: null } : p;
+    };
+    const endOf = (p: Party) => (p.ends_at ? Date.parse(p.ends_at) : Date.parse(p.starts_at) + 6 * 3600e3);
+    const live = parties.map(sane).filter((p) => endOf(p) > cutoff && p.event_status !== 'cancelled' && !stale(p))
       // the NYE rule matches text ("NYE tickets on sale"); only the nights around New Year's Eve are NYE parties
       .map((p) => (p.themes.includes('nye') && !/-(12-3[01]|01-01)$/.test(p.night_date) ? { ...p, themes: p.themes.filter((t) => t !== 'nye') } : p));
     // a club keeps its page once it has had a published night, even between parties

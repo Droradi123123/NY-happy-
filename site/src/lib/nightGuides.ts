@@ -961,8 +961,15 @@ async function knownPaths(c: Ctx, own: Guide[]): Promise<Set<string>> {
   const { blogPosts } = await import('./data');
   const { autoGuides } = await import('./autoGuides');
   const { venuePages } = await partyData();
+  // Nov 26: attraction and trivia pages were missing here, so the "what's open" guides named 26 attractions and
+  // linked none of them (the attraction pages had 2 internal links each)
+  const { attractions, attractionCategories } = await import('./attractions');
+  const { DAY_PAGES, BOROUGH_PAGES, daySlugOf } = await import('./activities');
   return new Set([
-    '/', '/blog', '/parties', '/parties/genres', '/happy-hours', '/happy-hours/now', '/trivia', '/map', '/map/happy-hours', '/map/parties', '/contact',
+    '/', '/blog', '/parties', '/parties/genres', '/parties/calendar', '/happy-hours', '/happy-hours/now', '/happy-hours/neighborhoods', '/trivia', '/map', '/map/happy-hours', '/map/parties', '/contact',
+    '/attractions', '/nyc-happy-hour-index', '/nyc-nye-price-index', '/press', '/about', '/editorial-policy',
+    ...attractions().map((x) => x.path), ...attractionCategories().map((x) => `/attractions/${x.slug}`),
+    ...DAY_PAGES.map((d) => `/trivia/${daySlugOf(d)}`), ...BOROUGH_PAGES.map(([slug]) => `/trivia/${slug}`),
     ...[...GUIDES, ...(await autoGuides()), ...own].map((g) => `/blog/${g.slug}`), ...(await blogPosts()).map((p) => `/blog/${p.slug}`),
     ...[...c.lists].map((x) => `/parties/${x}`), ...[...c.hh].map((x) => `/happy-hours/${x}`), ...[...c.dates].map((d) => `/parties/date/${d}`),
     ...c.parties.map((p) => `/parties/${p.slug}`), ...venuePages.map((v) => `/parties/venue/${v.id}`), ...c.bars.map((b) => `/bars/${b.slug}`),

@@ -4,7 +4,7 @@ import BarCard from '../../components/BarCard.astro';
 import Line from '../../components/Line.astro';
 import MiniMap from '../../components/MiniMap.astro';
 import Photo from '../../components/Photo.astro';
-import { allBars, googleInfo, placeUrl, placePhoto, photoNote, copyOf, paragraphs, alignHood, type PageCopy, DAYS, DAY_NAME, daysLabel, windowLabel, dealLabel, fmtDate, meters, type Bar, type GoogleInfo } from '../../lib/data';
+import { allBars, googleInfo, placeUrl, placePhoto, photoNote, copyOf, paragraphs, alignHood, type PageCopy, DAYS, DAY_NAME, daysLabel, windowLabel, dealLabel, fmtDate, meters, type Bar, type GoogleInfo, sentences } from '../../lib/data';
 import { hoodHref } from '../../lib/lists';
 import { partyData, venueOf, nightDate, nyTime, cleanTitle, priceLabel } from '../../lib/data';
 import { barTitle, barKeyword, barDescription, barJsonLd, crumbs, faqLd, SITE } from '../../lib/seo';
@@ -63,6 +63,12 @@ const after = b.onMap ? allParties.filter((p) => p.night_date <= weekOut && p.ev
   .map((p) => ({ p, v: venueOf(p, pVenues) })).filter((x) => x.v?.lat && x.v.lng)
   .map((x) => ({ ...x, m: meters({ lat: b.lat!, lng: b.lng! }, { lat: x.v!.lat!, lng: x.v!.lng! }) })).filter((x) => x.m <= 2400).slice(0, 3) : [];
 // the landmark pages this bar is on ("happy hour near Penn Station & MSG"): links from every bar nearby
+// Nov 26: one sentence with the name, the days, the times and the deal as stored, and when it was read (the facts were
+// only separate fragments on the card); ranges are spelled out, so the sentence can be quoted as it stands
+const spell = (t: string) => t.replace(/\s*[–-]\s*(?=\d|[A-Z])/g, ' to ');
+const answer = b.windows.length ? `${b.name}'s happy hour runs ${b.windows.map((w) => `${spell(daysLabel(w.days))} ${spell(windowLabel(w))}`).join(' and ')}${deal && !b.doubt ? `: ${deal.replace(/ · /g, ', ')}` : '; the bar publishes the times but not the deal'}. ${confirmed ? 'Confirmed' : 'Read'} ${fmtDate(b.checked)} on ${b.source ? host(b.source) : "the bar's own website"}.` : '';
+// the written text is older than the data: when a deal is on the card, a stored sentence saying none is listed is dropped
+const current = (t: string) => (deal ? t.split(/\n\n/).map((para) => sentences(para).filter((x) => !/times but not the deal|no (specific )?(deals?|offers?)( (is|are) listed)?\b|lists? no |deal is not listed/i.test(x)).join(' ')).filter(Boolean).join('\n\n') : t);
 const nearMarks = (await landmarks()).filter((l) => nearIndexable('landmark', l.slug) && l.bars.some((x) => x.b.slug === b.slug)).map((l) => ({ slug: l.slug, name: ('short' in l && l.short ? l.short : l.name) as string, min: Math.max(1, Math.round(l.bars.find((x) => x.b.slug === b.slug)!.m / 80)) }));
 ---
 <Base noindex={!barIndexable(b)} googleNoindex={!barGoogle(b)} title={barTitle(b, branch)} description={barDescription(b)} keyword={barKeyword(b, branch)} jsonld={[barJsonLd(b, url), crumbs([['YaY NYC', '/'], ['Happy hours', '/happy-hours'], [b.hood, hoodUrl], [b.name, `/bars/${b.slug}`]]), faqLd(faq)]}>
@@ -71,6 +77,7 @@ const nearMarks = (await landmarks()).filter((l) => nearIndexable('landmark', l.
     <div>
       <h1>{b.name}{branch && ` ${b.hood}`} Happy Hour</h1>
       <p class="lede">{b.category === 'restaurant' ? 'Restaurant and bar' : b.category === 'pub' ? 'Pub' : 'Bar'} in {b.hood}{b.borough && b.borough !== b.hood ? `, ${b.borough}` : ''}{b.cuisine ? ` · ${b.cuisine}` : ''}</p>
+      {answer && <p class="in-short"><strong>In short:</strong> {answer}</p>}
 
       <section class="dealcard" aria-label="Happy hour">
         <p class="deal-big">{deal ?? 'Happy hour times are published; the deal is not listed'}</p>
@@ -91,11 +98,18 @@ const nearMarks = (await landmarks()).filter((l) => nearIndexable('landmark', l.
         {b.doubt === 'partial' && <p class="doubt">When we re-read the bar's page on {fmtDate(b.recheck!.at)}, it still showed {b.recheck!.found!.map((x) => `$${x}`).join(', ')}, but we could not find {b.recheck!.missing!.map((x) => `$${x}`).join(', ')}.</p>}
       </section>
 
+      {(mapsUrl || b.booking || b.website) && (
+        <div class="actions top-actions">
+          {mapsUrl && <a class="btn" href={mapsUrl} rel="noopener" target="_blank" data-ev="directions">Directions</a>}
+          {b.booking ? <a class="btn ghost" href={b.booking} rel="noopener" target="_blank" data-ev="booking">Book a table</a> : b.website && <a class="btn ghost" href={b.website} rel="noopener" target="_blank" data-ev="website">Website</a>}
+        </div>
+      )}
+
       {copy && (
         <section class="section about">
           <h2>About {b.name}</h2>
-          {paragraphs(copy.intro).map((p) => <p>{p}</p>)}
-          {copy.sections.map((s) => <><h3>{s.h}</h3>{paragraphs(s.body).map((p) => <p>{p}</p>)}</>)}
+          {paragraphs(current(copy.intro)).map((p) => <p>{p}</p>)}
+          {copy.sections.map((s) => <><h3>{s.h}</h3>{paragraphs(current(s.body)).map((p) => <p>{p}</p>)}</>)}
         </section>
       )}
 
@@ -223,4 +237,6 @@ const nearMarks = (await landmarks()).filter((l) => nearIndexable('landmark', l.
   .after ul { list-style: none; padding: 0; margin: 8px 0 0; display: grid; gap: 10px; }
   .after li { display: grid; gap: 2px; min-width: 0; }
   .after li span { color: var(--muted); font-size: 14px; overflow-wrap: anywhere; }
+  .in-short { max-width: 760px; margin: 0 0 14px; color: var(--ink-2); font-size: 16px; }
+  .top-actions { margin: 14px 0 0; }
 </style>

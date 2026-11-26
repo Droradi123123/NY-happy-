@@ -86,21 +86,15 @@ const score = (p: (typeof ps)[number]) => { const x = pr[`/parties/${p.slug}`] ?
 const picks = !page.past && n >= 6 ? [...ps].filter((p) => p.event_status !== 'sold_out' && score(p) > 0).sort((a, b) => score(b) - score(a) || a.starts_at.localeCompare(b.starts_at)).slice(0, 3) : [];
 const top = venueIds.map((id) => venues.find((v) => v.id === id)).filter((v): v is Venue => !!v).slice(0, 5);
 ---
-<Base title={`NYC Parties on ${long}: ${n} ${n === 1 ? 'Party' : 'Parties'}`} titles={[`NYC Parties ${nightDate(page.date, { month: 'short', day: 'numeric' })}: ${n} ${n === 1 ? 'Party' : 'Parties'}`]} keyword={kw} description={description} noindex={!page.indexable} googleNoindex={!page.google}
+<Base title={`NYC Parties on ${long}, ${year}: ${n} ${n === 1 ? 'Party' : 'Parties'}`} titles={[`NYC Parties on ${long}, ${year}`, `NYC Parties ${nightDate(page.date, { month: 'short', day: 'numeric' })}, ${year}: ${n} ${n === 1 ? 'Party' : 'Parties'}`, `NYC Parties ${nightDate(page.date, { month: 'short', day: 'numeric' })}, ${year}`]} keyword={kw} description={description} noindex={!page.indexable} googleNoindex={!page.google}
   jsonld={[crumbs([['YaY NYC', '/'], ['Parties', '/parties'], [long, `/parties/date/${page.date}`]]), collectionLd(`NYC parties on ${long}`, `/parties/date/${page.date}`, ps.map((p) => `/parties/${p.slug}`)), ...(faq.length ? [faqLd(faq)] : [])]}>
   <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="/parties">Parties</a></li>{dayList && <li><a href={`/parties/${dayList.slug}`}>{D}s</a></li>}<li aria-current="page">{nightDate(page.date, { month: 'short', day: 'numeric' })}</li></ol></nav>
-  <h1>NYC Parties on {long}</h1>
+  <h1>NYC Parties on {long}, {year}</h1>
   <Fresh inShort={inShort} />
   <nav class="date-nav" aria-label="Other nights">
     {prev ? <a href={`/parties/date/${prev.date}`}>← {nightDate(prev.date, { weekday: 'short', month: 'short', day: 'numeric' })}</a> : <span></span>}
     {next ? <a href={`/parties/date/${next.date}`}>{nightDate(next.date, { weekday: 'short', month: 'short', day: 'numeric' })} →</a> : <span></span>}
   </nav>
-  {glance.length > 0 && (
-    <section class="section card glance">
-      <h2>The night at a glance</h2>
-      <dl class="facts">{glance.map(([k, v]) => <><dt>{k}</dt><dd>{v}</dd></>)}</dl>
-    </section>
-  )}
   {picks.length > 0 && (
     <section class="section picks-top">
       <h2>Our picks for {nightDate(page.date, { weekday: 'long' })}</h2>
@@ -110,6 +104,13 @@ const top = venueIds.map((id) => venues.find((v) => v.id === id)).filter((v): v 
   )}
   {n > 0 && picks.length > 0 && <h2 class="section">Every party on {monthDay}</h2>}
   {n > 0 && <div class="xgrid">{ps.filter((p) => !picks.includes(p)).map((p) => <PartyCard party={p} venue={venueOf(p, venues)} />)}</div>}
+  {/* Nov 26: the table follows the parties (it stood 750 to 1,250px tall before the first card on phones) */}
+  {glance.length > 0 && (
+    <section class="section card glance">
+      <h2>The night at a glance</h2>
+      <dl class="facts">{glance.map(([k, v]) => <><dt>{k}</dt><dd>{v}</dd></>)}</dl>
+    </section>
+  )}
   {standIns.length > 0 && (
     <section class="section">
       <h2>Next {D} nights</h2>
@@ -128,4 +129,5 @@ const top = venueIds.map((id) => venues.find((v) => v.id === id)).filter((v): v 
 <style>
   .glance h2 { margin-top: 0; }
   .date-nav { display: flex; justify-content: space-between; gap: 12px; margin: 8px 0 16px; font-weight: 700; }
+  .date-nav a { display: inline-flex; align-items: center; min-height: 40px; }
 </style>

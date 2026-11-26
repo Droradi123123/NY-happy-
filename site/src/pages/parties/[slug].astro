@@ -111,7 +111,8 @@ const nightPage = (await datePages()).some((d) => d.date === p.night_date && !d.
     <div>
       <h1><span class="when-big">{nightDate(p.night_date, { weekday: 'long', month: 'short', day: 'numeric' })}{x.multi_day ? ' (multi-day)' : ''}</span> {cleanTitle(p.title)}{nyeSuffix(p)}{crowded && v ? ` at ${v.name}` : ''}</h1>
       <p class="lede summary">{summary}</p>
-      <p class="ended-note" hidden data-show-after={endsAt}>This night is over. <a href="/parties">See the next parties in NYC</a>{atVenue.length > 0 && <> or <a href="#at-venue">what is next at this venue</a></>}.</p>
+      {/* the words live in an attribute until the night is over: a reader that ignores "hidden" (an AI fetcher turning HTML into text) must not read an upcoming night as ended */}
+      <p class="ended-note" hidden data-show-after={endsAt} data-html={`This night is over. <a href="/parties">See the next parties in NYC</a>${atVenue.length > 0 ? ' or <a href="#at-venue">what is next at this venue</a>' : ''}.`}></p>
       <div class="tagrow">
         {p.event_status === 'sold_out' && <span class="chip dark">Sold out</span>}
         {p.event_status === 'rescheduled' && <span class="chip dark">Rescheduled: check the date</span>}
@@ -121,6 +122,10 @@ const nightPage = (await datePages()).some((d) => d.date === p.night_date && !d.
       </div>
 
       <section class="ticket card">
+        <p class="countdown" data-night={p.night_date} hidden></p>
+        {p.event_status !== 'sold_out' && <a class="btn" href={ticketHref(p)} rel={TICKET_REL} target="_blank" data-ev="tickets" data-main-ticket>{buyLabel}</a>}
+        {p.event_status === 'sold_out' && <a class="btn ghost" href={ticketHref(p)} rel={TICKET_REL} target="_blank" data-ev="tickets">Check for resale or waiting list</a>}
+        {p.event_status !== 'sold_out' && <p class="secure">You buy on {p.ticket_vendor}'s own secure checkout; YaY NYC never sees your payment.</p>}
         <dl class="facts">
           <dt>Doors</dt><dd>{doors ?? 'not listed'}{ends && <> · ends {ends}{endsNextDay ? ' (next morning)' : ''}</>}</dd>
           <dt>Venue</dt><dd>{v ? <a href={`/parties/venue/${v.id}`}>{v.name}</a> : 'not listed'}{p.room && ` · ${p.room}`}{p.neighborhood && `, ${p.neighborhood}`}</dd>
@@ -129,10 +134,6 @@ const nightPage = (await datePages()).some((d) => d.date === p.night_date && !d.
           <dt>Price</dt><dd>{priceLabel(p)}{p.price_from ? ` (lowest ${p.ticket_vendor} ticket incl. fees, seen ${fmtDate(lastSeen)})` : ''}</dd>
           {p.organizer && <><dt>Presented by</dt><dd>{promoterLink ? <a href={promoterLink}>{p.organizer}</a> : p.organizer}</dd></>}
         </dl>
-        <p class="countdown" data-night={p.night_date} hidden></p>
-        {p.event_status !== 'sold_out' && <a class="btn" href={ticketHref(p)} rel={TICKET_REL} target="_blank" data-ev="tickets" data-main-ticket>{buyLabel}</a>}
-        {p.event_status === 'sold_out' && <a class="btn ghost" href={ticketHref(p)} rel={TICKET_REL} target="_blank" data-ev="tickets">Check for resale or waiting list</a>}
-        {p.event_status !== 'sold_out' && <p class="secure">You buy on {p.ticket_vendor}'s own secure checkout; YaY NYC never sees your payment.</p>}
         {proofLine && <p class="proof">{proofLine} (as of {fmtDate(proof.updated)}).</p>}
         {nightPage && <p class="same-night"><a href={`/parties/date/${p.night_date}`}>Every party on {nightDate(p.night_date, { weekday: 'long', month: 'short', day: 'numeric' })} →</a></p>}
         <p class="cal-links">Add to calendar: <a href={gcal} rel="nofollow noopener" target="_blank" data-ev="calendar">Google</a> · <a href={icsHref} download={`${p.slug}.ics`} data-ev="calendar">Apple / Outlook (.ics)</a></p>
@@ -174,7 +175,7 @@ const nightPage = (await datePages()).some((d) => d.date === p.night_date && !d.
     <aside>
       {v && vp && <Photo photo={vp.photo} note={photoNote(vp, v.name)} alt={vp.rel === 'own' ? `${v.name}, ${v.neighborhood ?? v.borough ?? 'New York'}` : vp.rel === 'nearby' ? `The street outside ${v.name}` : `${v.neighborhood ?? 'The neighborhood'} around ${v.name}`} ratio="4 / 3" />}
       {v?.lat && <MiniMap lat={v.lat} lng={v.lng!} label={v.name} />}
-      {atVenue.length > 0 && <div class="section" id="at-venue"><h2 class="h3">More at {v?.name}</h2><div class="xgrid one">{atVenue.map((o) => <PartyCard party={o} venue={v} />)}</div></div>}
+      {atVenue.length > 0 && <div class="section" id="at-venue"><h2 class="h3">More at {v?.name}</h2><div class="xgrid at-venue">{atVenue.map((o) => <PartyCard party={o} venue={v} />)}</div></div>}
     </aside>
   </div>
   {p.themes.includes('halloween') && (
@@ -192,14 +193,14 @@ const nightPage = (await datePages()).some((d) => d.date === p.night_date && !d.
   <script is:inline>document.querySelectorAll('[data-night]').forEach(function (e) { var t = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/New_York', year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date()); var d = Math.round((Date.parse(e.getAttribute('data-night') + 'T12:00:00Z') - Date.parse(t + 'T12:00:00Z')) / 864e5); if (d < 0 || d > 6) return; e.textContent = d === 0 ? 'Tonight' : d === 1 ? 'Tomorrow' : 'In ' + d + ' days'; e.hidden = false; });</script>
 </Base>
 <script is:inline>
-  // Nov 10: on phones, once the main ticket button scrolls out of view, a slim bar with the date and the ticket link
+  // Nov 10 (Nov 26: also while it is still below the first screen): on phones, whenever the main ticket button is out of view, a slim bar with the date and the ticket link
   // stays above the tab bar (1,830 ticket clicks in 28 days, most from phones); never after the night is over
   (function () {
     var bar = document.querySelector('[data-ticket-bar]'), main = document.querySelector('[data-main-ticket]');
     if (!bar || !main || !window.matchMedia('(max-width: 859px)').matches) return;
     var end = Date.parse(bar.getAttribute('data-hide-after') || '');
     if (end && Date.now() > end) return;
-    var on = false, check = function () { on = false; bar.hidden = main.getBoundingClientRect().bottom > 0; };
+    var on = false, check = function () { on = false; var r = main.getBoundingClientRect(); bar.hidden = r.bottom > 0 && r.top < innerHeight - 70; };
     addEventListener('scroll', function () { if (!on) { on = true; requestAnimationFrame(check); } }, { passive: true });
     check();
   })();
@@ -210,21 +211,25 @@ const nightPage = (await datePages()).some((d) => d.date === p.night_date && !d.
   .ticket-bar .tb-what { font-size: 14px; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
   .ticket-bar .btn { flex: none; margin: 0; padding: 10px 14px; font-size: 15px; }
   @media (min-width: 860px) { .ticket-bar { display: none !important; } }
-  .countdown { display: inline-block; margin: 14px 0 0; padding: 3px 10px; border-radius: 999px; background: #fff; color: var(--coral-ink); font-weight: 800; font-size: 14px; }
+  .countdown { display: inline-block; margin: 0 0 10px; padding: 3px 10px; border-radius: 999px; background: #fff; color: var(--coral-ink); font-weight: 800; font-size: 14px; }
   .countdown[hidden] { display: none; }
-  .secure { font-size: 13px; opacity: .9; margin: 8px 0 0; }
+  .secure { font-size: 13px; margin: 8px 0 14px; }
   .proof { font-size: 14px; font-weight: 700; margin: 8px 0 0; }
   .fine-print { margin-top: 40px; padding-top: 14px; border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; line-height: 1.5; }
   .fine-print p { margin: 0 0 6px; max-width: 760px; }
   .fine-print a { color: inherit; }
-  .cal-links { font-size: 14px; color: var(--ink-2); margin: 10px 0 0; }
+  .cal-links { font-size: 14px; margin: 10px 0 0; }
   .same-night { margin: 10px 0 0; font-weight: 800; }
   .when-big { display: block; font-size: 20px; font-weight: 800; color: var(--coral-ink); margin: 0 0 6px; letter-spacing: 0; }
   .tagrow { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; }
   .tagrow a.chip { text-decoration: none; }
   .ticket { background: var(--coral-btn); color: #fff; border: 0; }
-  .ticket .btn { margin-top: 16px; }
-  .xgrid.one { grid-template-columns: 1fr; }
+  /* on the coral card: a white button with coral text (7:1) and white links, not purple on coral (1.4:1) */
+  .ticket .btn { display: flex; margin: 0; background: #fff; color: var(--coral-ink); }
+  .ticket .btn:hover { background: #FFF1F3; color: var(--coral-ink); }
+  .ticket .btn.ghost { border-color: #fff; }
+  .ticket a:not(.btn) { color: #fff; }
+  @media (min-width: 960px) { .xgrid.at-venue { grid-template-columns: 1fr; } }
   .h3 { font-size: 20px; }
   .pregame ul { list-style: none; padding: 0; margin: 10px 0 0; display: grid; gap: 10px; }
   .pregame li { border: 1.5px solid var(--line); border-radius: 12px; padding: 10px 12px; background: #fff; }

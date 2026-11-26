@@ -103,7 +103,8 @@ export function filterBars(rows: Row[], st: State, here: [number, number] | null
   out.sort((a, b) =>
     sort === 'near' ? (a._dist ?? 1e9) - (b._dist ?? 1e9)
     : sort === 'cheap' ? (a.c ?? 99) - (b.c ?? 99)
-    : sort === 'ending' ? (a._until ?? 9e9) - (b._until ?? 9e9)
+    // on right now: the bars with the deal listed first, then by which ends first
+    : sort === 'ending' ? (a.f.includes('deal') ? 0 : 1) - (b.f.includes('deal') ? 0 : 1) || (a._until ?? 9e9) - (b._until ?? 9e9)
     // today first, then the server's order (lib/lists.ts rank): deal listed and read in the last 30 days first, then
     // cheapest drink, most recently checked, name
     : todayFirst(a) - todayFirst(b) || tier(a) - tier(b) || (a.c ?? 99) - (b.c ?? 99) || (b.ck ?? '').localeCompare(a.ck ?? '') || a.n.localeCompare(b.n));
@@ -176,7 +177,9 @@ export function partyCard(r: Row) {
   const end = r.en ?? new Date(Date.parse(r.st) + 6 * 3600e3).toISOString();
   return `<article class="xcard party" data-end="${esc(end)}">${thumb(r)}<div class="xcard-top"><p class="when">${esc(date)}${r.tm ? ` · ${esc(r.tm)}` : ''}</p>${dist}</div>
   <h3><a href="/parties/${esc(r.s)}">${esc(r.t)}</a></h3><p class="where">${esc(r.vn)}${r.h ? ` · ${esc(r.h)}` : ''}</p>
-  <div class="xcard-foot">${r.so ? '<span class="chip dark">Sold out</span>' : `<span class="chip outline">${esc(r.pl)}</span>`}${r.a ? `<span class="chip outline">${r.a}+</span>` : ''}${genres}</div><p class="xcard-cta" aria-hidden="true">${r.so ? 'Details' : 'Tickets and details'} <span>→</span></p></article>`;
+  <div class="xcard-foot">${r.so ? '<span class="chip dark">Sold out</span>' : `<span class="chip outline">${esc(r.pl)}</span>`}${r.a ? `<span class="chip outline">${r.a}+</span>` : ''}${genres}</div>${r.tu
+    ? `<div class="xcard-cta"><a class="xcard-buy" href="${esc(r.tu)}" rel="sponsored nofollow noopener" target="_blank" data-ev="tickets">${esc(r.tl ?? 'Tickets')}</a><span aria-hidden="true">Details →</span></div>`
+    : '<p class="xcard-cta" aria-hidden="true">Details <span>→</span></p>'}</article>`;
 }
 
 // ---------- map ----------

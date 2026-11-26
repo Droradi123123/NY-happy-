@@ -53,8 +53,9 @@ const WHEN = [['tonight', 'Tonight'], ['tomorrow', 'Tomorrow'], ['weekend', 'Thi
     {kind === 'parties' && <button type="button" class="xpill" data-pop="vibe" data-keys="th,tag,max,age,avail" aria-expanded="false">Vibe &amp; price<b class="pc" hidden></b><span class="car" aria-hidden="true"></span></button>}
     <button type="button" class="xpill" data-pop="sort" data-keys="sort" aria-expanded="false">Sort<b class="pc" hidden></b><span class="car" aria-hidden="true"></span></button>
     <button type="button" class="xclear" data-reset hidden>Clear all</button>
-    <span class="ex-count" data-count aria-live="polite"></span>
   </div>
+  {/* on its own line: inside the scrolling pill row it sat off-screen on phones */}
+  <p class="ex-count" data-count aria-live="polite"></p>
 
   <div class="ex-pops">
     {kind === 'bars' && show('day') && (
@@ -176,7 +177,7 @@ const WHEN = [['tonight', 'Tonight'], ['tomorrow', 'Tomorrow'], ['weekend', 'Thi
   .xpill .pc { background: var(--brand); color: #fff; border-radius: 999px; font-size: 12px; min-width: 20px; height: 20px; padding: 0 6px; display: inline-grid; place-items: center; }
   .xpill .car { width: 8px; height: 8px; border-right: 2px solid currentColor; border-bottom: 2px solid currentColor; transform: rotate(45deg) translateY(-2px); opacity: .6; }
   .xclear { flex: none; background: none; border: 0; font: inherit; font-size: 15px; font-weight: 700; color: var(--brand); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; min-height: 40px; padding: 0 4px; }
-  .ex-count { flex: none; margin-left: auto; font-weight: 700; color: var(--ink-2); font-size: 15px; padding-left: 8px; white-space: nowrap; }
+  .ex-count { margin: 10px 0 0; font-weight: 700; color: var(--ink-2); font-size: 15px; min-height: 1.4em; }
   .ex-pops { position: relative; }
   .pop { position: absolute; z-index: 30; top: 8px; left: 0; width: min(520px, 100%); background: #fff; border: 1px solid var(--line); border-radius: 16px; box-shadow: 0 18px 50px rgba(22,18,43,.18); padding: 16px; display: grid; gap: 12px; }
   .pop-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; border-top: 1px solid var(--line); padding-top: 12px; }

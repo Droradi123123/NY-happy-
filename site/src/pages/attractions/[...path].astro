@@ -11,7 +11,7 @@ import MiniMap from '../../components/MiniMap.astro';
 import Photo from '../../components/Photo.astro';
 import { attractions, attractionCategories, observedText, placeLabel, happyHoursFor, lastChecked, type Attraction } from '../../lib/attractions';
 import { fmtDate, dealLabel, photoOf, type Bar } from '../../lib/data';
-import { crumbs, itemList, SITE } from '../../lib/seo';
+import { crumbs, itemList, faqLd, SITE } from '../../lib/seo';
 
 export async function getStaticPaths() {
   const all = attractions();
@@ -25,6 +25,15 @@ export async function getStaticPaths() {
 }
 type P = { kind: 'hub' } | { kind: 'cat'; cat: string } | { kind: 'item'; id: string };
 const props = Astro.props as P;
+/** the stated weekly schedule in force today (lib/attractions parseHours) as schema.org opening hours */
+function hoursLd(x: Attraction) {
+  const today = new Date().toLocaleDateString('en-CA', { timeZone: 'America/New_York' });
+  const seg = (x.hours ?? []).find((s) => (!s.from || today >= s.from) && (!s.to || today <= s.to));
+  if (!seg) return [];
+  const DOW = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+  const hm = (m: number) => (m >= 1440 ? '23:59' : `${String(Math.floor(m / 60)).padStart(2, '0')}:${String(m % 60).padStart(2, '0')}`);
+  return Object.entries(seg.days).filter(([, v]) => Array.isArray(v)).map(([d, v]) => ({ '@type': 'OpeningHoursSpecification', dayOfWeek: `https://schema.org/${DOW[Number(d)]}`, opens: hm((v as [number, number])[0]), closes: hm((v as [number, number])[1]) }));
+}
 const all = attractions();
 const cats = attractionCategories();
 const checked = fmtDate(lastChecked());
@@ -37,7 +46,23 @@ const cat = props.kind === 'cat' ? cats.find((c) => c.slug === props.cat) : a ? 
 let bars: Bar[] = [];
 let qa: { q: string; a: string }[] = [];
 let ld: object[] = [];
+// Nov 26: the three closest other attractions (no attraction page linked another one), and one sentence with the
+// address, hours and admission as stored, for a reader or an assistant that wants the answer first
+let nearby: { x: Attraction; mi: number }[] = [];
+let inShort = '';
 if (a) {
+  if (a.geo) {
+    const mi = (b: { lat: number; lng: number }) => { const r = Math.PI / 180, dx = (b.lng - a.geo!.lng) * r * Math.cos(((a.geo!.lat + b.lat) / 2) * r), dy = (b.lat - a.geo!.lat) * r; return (6371 * Math.hypot(dx, dy)) / 1.609; };
+    nearby = all.filter((x) => x.id !== a.id && x.geo).map((x) => ({ x, mi: mi(x.geo!) })).sort((p, q) => p.mi - q.mi).slice(0, 3);
+  }
+  const end = (t: string) => t.replace(/[.\s]+$/, '');
+  inShort = [
+    a.address ? `${a.name} is at ${end(a.address)}${a.address.includes(a.borough.replace(/^The /, '')) ? (a.address.includes(a.neighborhood.split(/[,/]/)[0].trim()) ? '' : `, in ${a.neighborhood.split(/[,/]/)[0].trim()}`) : `, in ${placeLabel(a)}`}.` : '',
+    a.hours_recurring ? `Hours: ${end(a.hours_recurring)}.` : a.hours_observed ? `Hours seen on ${fmtDate(a.verified_at)}: ${end(observedText(a))}; confirm today's hours.` : '',
+    a.price_summary ? `Admission: ${end(a.price_summary)}.` : a.price_flag === 'free' ? 'Admission is free.' : '',
+    a.booking_required === 'yes' ? 'A ticket or reservation is required in advance.' : '',
+    `Read on the official site on ${fmtDate(a.verified_at)}.`,
+  ].filter(Boolean).join(' ');
   bars = await happyHoursFor(a);
   const on = ` (checked ${fmtDate(a.verified_at)})`;
   const hoursAnswer = a.hours_recurring ? `${a.hours_recurring}.` : a.hours_observed ? `Observed on ${fmtDate(a.verified_at)}: ${observedText(a)}. Hours change, so confirm today's hours on the official site.` : '';
@@ -53,11 +78,13 @@ if (a) {
     { '@context': 'https://schema.org', '@type': 'TouristAttraction', name: a.name, description: a.description, url: `${SITE}${a.path}`,
       ...(photo ? { image: `${SITE}${photo.src}` } : {}),
       ...(a.official_url ? { sameAs: [a.official_url] } : {}),
-      ...(a.address ? { address: a.address } : {}),
+      ...(a.address ? { address: { '@type': 'PostalAddress', streetAddress: a.address.split(',')[0].trim(), addressLocality: a.borough === 'Manhattan' ? 'New York' : a.borough.replace(/^The /, ''), addressRegion: 'NY', ...(a.address.match(/\b(1\d{4})\b/) ? { postalCode: a.address.match(/\b(1\d{4})\b/)![1] } : {}), addressCountry: 'US' } } : {}),
+      ...(hoursLd(a).length ? { openingHoursSpecification: hoursLd(a) } : {}),
       ...(a.geo ? { geo: { '@type': 'GeoCoordinates', latitude: a.geo.lat, longitude: a.geo.lng } } : {}),
       ...(a.phone ? { telephone: a.phone } : {}),
       ...(a.price_flag === 'free' ? { isAccessibleForFree: true } : {}) },
     crumbs([['YaY NYC', '/'], ['Attractions', '/attractions'], [a.catLabel, `/attractions/${a.catSlug}`], [a.name, a.path]]),
+    ...(qa.length ? [faqLd(qa)] : []),
   ];
 }
 const official = (label = 'See the official site') => a?.official_url ? `<a href="${a.official_url}" rel="noopener" target="_blank" data-ev="attraction_official">${label}</a>` : 'Not captured yet';
@@ -76,8 +103,12 @@ if (props.kind === 'hub') {
   description = `${cat.label} in NYC: ${cat.items.length} ${cat.items.length === 1 ? 'place' : 'places'} with address, hours and admission read from each official site, each with its checked date.`;
   ld = [itemList(`${cat.label} in NYC`, cat.items.map((x) => x.path)), crumbs([['YaY NYC', '/'], ['Attractions', '/attractions'], [cat.label, `/attractions/${cat.slug}`]])];
 } else if (a) {
-  title = `${a.name} - ${a.catLabel} in ${a.neighborhood}, NYC`;
-  titles = [`${a.name} - ${a.catLabel}, NYC`, `${a.name}, ${a.neighborhood}, NYC`, `${a.name} NYC`];
+  // Nov 26: the title names what people look up ("moma hours", "moma tickets") when the page has it; no attraction
+  // page had been shown by Google yet, so no ranking title changes
+  const has = [a.hours_recurring || a.hours_observed ? 'Hours' : '', a.price_summary || a.price_flag === 'free' ? 'Admission' : ''].filter(Boolean).join(' and ');
+  const hood = a.neighborhood.split(/[,/]/)[0].trim();
+  title = has ? `${a.name} ${has} (${hood}, NYC)` : `${a.name} - ${a.catLabel} in ${a.neighborhood}, NYC`;
+  titles = [...(has ? [`${a.name} ${has}, NYC`, `${a.name}: ${has}`] : []), `${a.name} - ${a.catLabel}, NYC`, `${a.name}, ${a.neighborhood}, NYC`, `${a.name} NYC`];
   keyword = a.name.toLowerCase();
   // the data's own sentence, cut at a word to the 160-character limit
   const full = `${a.name}, ${a.neighborhood}, NYC: ${a.description}`;
@@ -141,34 +172,33 @@ const boroughs = [...new Set(all.map((x) => x.borough))];
       <p class="acat">{a.catLabel} · {placeLabel(a)}</p>
       <h1>{a.name}</h1>
       <p class="lede">{a.description}</p>
+      {inShort && <p class="in-short"><strong>In short:</strong> {inShort}</p>}
+      {(a.ticket_url || a.official_url) && (
+        <p class="acta"><a class="btn" href={a.ticket_url || a.official_url} rel="noopener" target="_blank" data-ev="attraction_official">{a.ticket_url ? 'Tickets on the official site' : 'Official site'}</a></p>
+      )}
       {photo && <Photo photo={photo} alt={a.name} hero ratio="16 / 9" />}
       {a.stale && <p class="note">We're re-verifying these details. Everything below is as last checked on {fmtDate(a.verified_at)}; confirm on the official site.</p>}
 
       <section class="card afacts">
         <dl class="facts">
           <dt>Address</dt>
-          <dd>{a.address ? <>{a.address} <span class="chk">Checked {fmtDate(a.verified_at)}</span></> : <Fragment set:html={official()} />}</dd>
+          <dd>{a.address ? <>{a.address}</> : <Fragment set:html={official()} />}</dd>
           <dt>Hours</dt>
           <dd>
-            {a.hours_recurring && <p class="frow"><strong>Schedule:</strong> {a.hours_recurring} <span class="chk">Checked {fmtDate(a.verified_at)}</span></p>}
-            {a.hours_observed && <p class="frow"><strong>Observed on {fmtDate(a.verified_at)}:</strong> {observedText(a)}. Confirm today's hours. <span class="chk">Checked {fmtDate(a.verified_at)}</span></p>}
+            {a.hours_recurring && <p class="frow"><strong>Schedule:</strong> {a.hours_recurring}</p>}
+            {a.hours_observed && <p class="frow"><strong>Observed on {fmtDate(a.verified_at)}:</strong> {observedText(a)}. Confirm today's hours.</p>}
             {!a.hours_recurring && !a.hours_observed && <Fragment set:html={official()} />}
           </dd>
           <dt>Admission</dt>
-          <dd>{a.price_summary ? <>{a.price_summary} <span class="chk">Checked {fmtDate(a.verified_at)}</span></>
-            : a.price_flag === 'free' ? <>Free <span class="chk">Checked {fmtDate(a.verified_at)}</span></>
+          <dd>{a.price_summary ? <>{a.price_summary}</>
+            : a.price_flag === 'free' ? <>Free</>
             : <>{a.price_flag === 'public-space' ? 'Public space. ' : a.price_flag === 'paid' ? 'Paid admission. ' : ''}<Fragment set:html={official('See the official site for prices')} /></>}</dd>
-          <dt>Phone</dt>
-          <dd>{a.phone ? <><a href={`tel:+1${a.phone.replace(/\D/g, '')}`}>{a.phone}</a> <span class="chk">Checked {fmtDate(a.verified_at)}</span></> : <Fragment set:html={official()} />}</dd>
-          <dt>Accessibility</dt>
-          <dd>{a.accessibility ? <>{a.accessibility} <span class="chk">Checked {fmtDate(a.verified_at)}</span></> : <Fragment set:html={official()} />}</dd>
-          {a.typical_visit_duration && a.typical_visit_duration !== 'unknown' && <><dt>Time to allow</dt><dd>{a.typical_visit_duration} <span class="chk">Checked {fmtDate(a.verified_at)}</span></dd></>}
-          {a.booking_required === 'yes' && <><dt>Booking</dt><dd>Advance ticket or reservation required <span class="chk">Checked {fmtDate(a.verified_at)}</span></dd></>}
+          {a.phone && <><dt>Phone</dt><dd><a href={`tel:+1${a.phone.replace(/\D/g, '')}`}>{a.phone}</a></dd></>}
+          {a.accessibility && <><dt>Accessibility</dt><dd>{a.accessibility}</dd></>}
+          {a.typical_visit_duration && a.typical_visit_duration !== 'unknown' && <><dt>Time to allow</dt><dd>{a.typical_visit_duration}</dd></>}
+          {a.booking_required === 'yes' && <><dt>Booking</dt><dd>Advance ticket or reservation required</dd></>}
         </dl>
-        {(a.ticket_url || a.official_url) && (
-          <a class="btn" href={a.ticket_url || a.official_url} rel="noopener" target="_blank" data-ev="attraction_official">{a.ticket_url ? `Tickets on the official site` : 'Official site'}</a>
-        )}
-        <p class="small muted">Prices and hours change. Confirm on the official site before you go. YaY NYC is independent and not affiliated with {a.name}.</p>
+        <p class="small muted"><span class="chk">Checked {fmtDate(a.verified_at)}</span> on the official site. Prices and hours change. Confirm on the official site before you go. YaY NYC is independent and not affiliated with {a.name}.</p>
       </section>
 
       {a.geo && (
@@ -180,9 +210,16 @@ const boroughs = [...new Set(all.map((x) => x.borough))];
       )}
 
       {qa.length > 0 && (
-        <section class="section aqa">
+        <section class="section faq aqa">
           <h2>Visitor questions</h2>
-          {qa.map((x) => <div class="aq"><h3>{x.q}</h3><p>{x.a}</p></div>)}
+          {qa.map((x) => <details><summary>{x.q}</summary><p>{x.a}</p></details>)}
+        </section>
+      )}
+
+      {nearby.length > 0 && (
+        <section class="section">
+          <h2>Attractions near {a.name}</h2>
+          <ul class="ahh">{nearby.map(({ x, mi }) => <li><a href={x.path}>{x.name}</a><span>: {x.catLabel.toLowerCase()}, about {mi < 0.1 ? 'a block' : `${mi.toFixed(1)} mi`} away</span></li>)}</ul>
         </section>
       )}
 
@@ -291,7 +328,7 @@ const boroughs = [...new Set(all.map((x) => x.borough))];
       reset.addEventListener('click', () => { Object.assign(on, { open: false, late: false, free: false, near: false, cat: '', boro: '', q: '' }); q.value = ''; boro.value = ''; geoMsg.textContent = ''; sortNear(); apply(); });
       // the bar stays in reach under the site header while the list scrolls
       const hdr = document.querySelector<HTMLElement>('.site-header');
-      if (hdr) bar.style.top = `${hdr.offsetHeight}px`;
+      if (hdr && matchMedia('(min-width: 720px)').matches) bar.style.top = `${hdr.offsetHeight}px`;
       apply();
     }
   </script>
@@ -320,9 +357,16 @@ const boroughs = [...new Set(all.map((x) => x.borough))];
   .afacts .btn { justify-self: start; }
   .frow { margin: 0 0 6px; }
   .chk { display: inline-block; margin-left: 4px; padding: 1px 8px; border-radius: 999px; background: var(--brand-soft); color: var(--ink-2); font-size: 12px; font-weight: 700; white-space: nowrap; }
-  .aq h3 { font-size: 18px; margin: 18px 0 4px; }
-  .aq p { margin: 0; }
+  .acta { margin: 0 0 16px; }
+  .in-short { max-width: 760px; margin: 0 0 14px; color: var(--ink-2); font-size: 16px; }
   .ahh { padding-left: 18px; }
   .ahh li { margin: 6px 0; }
-  @media (max-width: 560px) { .agrid { grid-template-columns: 1fr; } }
+  /* phones: the same compact two-column grid as the rest of the site (it was one 367px card per screen), 40px pills,
+     and the filter bar scrolls away with the page (header + bar + tab bar took 257 of 844px) */
+  .pill, .pill-select select { min-height: 40px; }
+  @media (max-width: 719px) {
+    .abar { position: static; }
+    .agrid :global(.acard-cat), .agrid :global(.acard-checked) { display: none; }
+    .agrid :global(.acard-place), .agrid :global(.acard-price), .agrid :global(.acard-live) { font-size: 13px; }
+  }
 </style>

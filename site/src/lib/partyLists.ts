@@ -266,7 +266,10 @@ export function partyLists(): Promise<PartyList[]> {
     // holidays: always up, with when it is and how many nights are on sale
     for (const H of HOLIDAYS) {
       const date = next(today, H.at);
-      const list = parties.filter((p) => H.match(p, date));
+      // a night counts toward the holiday it is near: once this year's date has passed, `date` is next year's, and
+      // nights that only mention the holiday (the weekend after Thanksgiving Eve) no longer sit under next year's page
+      const span = (d: string) => (Date.parse(`${d}T12:00:00Z`) - Date.parse(`${date}T12:00:00Z`)) / 864e5;
+      const list = parties.filter((p) => H.match(p, date) && span(p.night_date) >= -45 && span(p.night_date) <= 7);
       add({ slug: H.slug, kind: 'holiday', h1: H.h1, label: sentence(H.h1), keyword: H.keyword, short: H.short, holiday: { name: H.name, date, note: H.note(date) }, standIns: weekend.length ? weekend : parties, standInLabel: weekend.length ? 'Parties this weekend' : 'Coming up in NYC' }, list);
       const parent = { slug: H.slug, short: H.short };
       for (const S of HOLIDAY_SLICES)
