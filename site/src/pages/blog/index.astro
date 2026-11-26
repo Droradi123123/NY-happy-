@@ -5,6 +5,16 @@ import { crumbs, itemList } from '../../lib/seo';
 import { fmtDate, creditShort } from '../../lib/data';
 const posts = (await allGuides()).filter((g) => g.status === 'published').sort((a, b) => b.updated.localeCompare(a.updated));
 const covers = await Promise.all(posts.map((p) => guideCover(p)));
+const cover = new Map(posts.map((p, i) => [p.slug, covers[i]]));
+// one group per guide, the first rule that matches its slug
+const RULES: [string, string, RegExp][] = [
+  ['now', 'This week and the holidays', /weekend|tonight|monday-night|thanksgiving|christmas|new-years|halloween|december|november|whats-open|santacon|things-to-do/],
+  ['clubs', 'Clubs and nightlife', /clubs|nightlife|night-out|18-plus|rave|parties/],
+  ['crawls', 'Bar crawls', /bar-crawl/],
+  ['happy-hours', 'Happy hours and deals', /happy-hour|oyster|drinks|cheap|rooftop|after-work|pre-theater|reverse|beer|wine|cocktail|food/],
+];
+const groupOf = (slug: string) => RULES.find(([, , re]) => re.test(slug))?.[0] ?? 'know';
+const groups = [...RULES.map(([id, name]) => ({ id, name })), { id: 'know', name: 'Good to know' }].map((g) => ({ ...g, posts: posts.filter((p) => groupOf(p.slug) === g.id) })).filter((g) => g.posts.length);
 ---
 <Base title="The YaY NYC Blog: NYC Happy Hour and Party Guides" keyword="nyc happy hour and party guides"
   description="NYC happy hour and party guides built from verified data: the cheapest drinks by neighborhood, dollar oysters, late-night deals and the parties worth knowing."
@@ -12,17 +22,32 @@ const covers = await Promise.all(posts.map((p) => guideCover(p)));
   jsonld={[crumbs([['YaY NYC', '/'], ['Blog', '/blog']]), itemList('YaY NYC guides', posts.map((p) => `/blog/${p.slug}`))]}>
   <h1>NYC Happy Hour and Party Guides</h1>
   <p class="lede">Guides built from the deals and parties we check: every price and date comes from the bar's or the promoter's own page, and every table updates with the site.</p>
-  <div class="xgrid section">
-    {posts.map((p, i) => (
-      <article class="xcard">
-        {covers[i] ? <figure class="xcard-img"><img src={covers[i]!.photo.thumb} alt="" width="500" height="281" loading="lazy" decoding="async" /><figcaption>{creditShort(covers[i]!.photo)}</figcaption></figure>
-          : <div class="xcard-art" aria-hidden="true"><span>{p.short}</span></div>}
-        <p class="when">{fmtDate(p.updated)}</p>
-        <h2 class="h3"><a href={`/blog/${p.slug}`}>{p.h1}</a></h2>
-        <p class="where">{p.description}</p>
-        <p class="xcard-cta" aria-hidden="true">Read the guide <span>→</span></p>
-      </article>
-    ))}
-  </div>
+  {/* Nov 26: grouped, with a jump row (82 identical cards in one 14,000px column had no structure) */}
+  <nav class="jump" aria-label="Guide topics">{groups.map((g) => <a href={`#${g.id}`}>{g.name} <span>{g.posts.length}</span></a>)}</nav>
+  {groups.map((g) => (
+    <section class="section" id={g.id}>
+      <h2>{g.name}</h2>
+      <div class="xgrid">
+        {g.posts.map((p) => (
+          <article class="xcard">
+            {cover.get(p.slug) ? <figure class="xcard-img"><img src={cover.get(p.slug)!.photo.thumb} alt="" width="500" height="281" loading="lazy" decoding="async" /><figcaption>{creditShort(cover.get(p.slug)!.photo)}</figcaption></figure>
+              : <div class="xcard-art" aria-hidden="true"><span>{p.short}</span></div>}
+            <p class="when">{fmtDate(p.updated)}</p>
+            <h3 class="h3"><a href={`/blog/${p.slug}`}>{p.h1}</a></h3>
+            <p class="where">{p.description}</p>
+            <p class="xcard-cta" aria-hidden="true">Read the guide <span>→</span></p>
+          </article>
+        ))}
+      </div>
+    </section>
+  ))}
 </Base>
-<style>.h3 { font-size: 20px; margin: 0; }</style>
+<style>
+  .h3 { font-size: 20px; margin: 0; }
+  @media (max-width: 639px) { .h3 { font-size: 15px; line-height: 1.25; } }
+  .jump { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; margin: 6px 0 0; padding-bottom: 2px; }
+  .jump::-webkit-scrollbar { display: none; }
+  .jump a { flex: none; display: inline-flex; align-items: center; gap: 6px; min-height: 40px; padding: 0 14px; border: 1.5px solid var(--line); border-radius: 999px; background: #fff; font-weight: 700; text-decoration: none; color: var(--ink); }
+  .jump a span { color: var(--muted); font-weight: 600; }
+  section[id] { scroll-margin-top: 80px; }
+</style>

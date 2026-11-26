@@ -3,6 +3,29 @@
 One entry per weekly growth run (scheduled Claude session, Mondays). Aggregates only: this repository is
 public, so no search queries, no visitor data and no raw rows go here (those stay in the encrypted report).
 
+## 2026-11-26 (full UX and SEO pass)
+
+- Method: two audits of a full build with live data (3,435 pages): every page type at 390px and 1280px, and a
+  technical SEO crawl of the built HTML (titles, canonicals, markup, link graph, performance).
+- Already sound (left alone): 0 duplicate or missing titles and descriptions, self-referencing canonicals everywhere,
+  both sitemaps exact, 0 broken internal links, lab LCP 0.5 to 0.75 s and CLS 0.
+- UX, measured on a phone: the first card or main button sat far below the first screen on most page types. After:
+  neighborhood happy hour lists ~5,600px -> ~520px, New Year's Eve list 2,282 -> 547, date pages 1,267 -> 525, the
+  ticket button on a party page ~770 (below the fold on ~70% of pages) -> ~600 with the sticky bar from the start.
+  Cards keep the price and ticket button after "Show more"; attractions use the two-column grid; the guides index
+  is grouped; /parties/tonight, /parties and the home page lead with the parties (owner request).
+- SEO and answers: event markup dates were UTC (439 of 497 nights carried the next day's date, every New Year's Eve
+  night said Jan 1), now New York time with offset; 20 nights had an end before their start (their pages left the
+  site before doors); "This night is over" sat hidden in the HTML of every upcoming night; price 0 in markup for
+  nights with no listed price; guides named 26 attractions and linked none (allowlist); attraction pages had 2
+  internal links each and no hours or admission in the title; /happy-hours/now had no list in its HTML and
+  robots.txt blocked the data the lists render from. All fixed in this pass.
+- Also fixed on the way: a blog link to an ended night failed every build on Nov 26 (the 4-hourly rebuild too).
+- Open, for the owner or a next pass: the Google focus list is 72% pages with 0 views in 28 days (278 bars shown
+  once); 11 Halloween slice pages that held ~26% of recent Google impressions are noindex until next season; ended
+  party redirects reach Cloudflare's static limit around Feb-Mar 2027; near-page titles cut mid-phrase (need Search
+  Console positions first); Organization markup has no profiles to point to.
+
 ## 2026-11-23 (weekly run)
 
 - Data (GA4 28 days to Nov 22): ~6,780 sessions (Nov 16: ~6,940, as the Halloween peak leaves the window);

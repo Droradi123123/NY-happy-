@@ -47,10 +47,10 @@ export const GET: APIRoute = async () => {
     '# YaY NYC', '',
     '> All the fun in NYC in one place: verified happy hours (deal, times, date checked, source) and parties (doors, venue, age, price, tickets) across the five boroughs.', '',
     `- [All NYC happy hours](${SITE}/happy-hours)`, `- [Happy hour right now](${SITE}/happy-hours/now)`, `- [Parties](${SITE}/parties)`, ...(attractions().length ? [`- [NYC attractions](${SITE}/attractions)`] : []),
-    ...when.map((l) => `- [${l.h1}](${SITE}/parties/${l.slug}): ${l.parties.length} parties`),
+    ...when.map((l) => `- [${l.h1}](${SITE}/parties/${l.slug}): ${l.parties.length === 1 ? '1 party' : `${l.parties.length} parties`}`),
     `- [NYC party calendar](${SITE}/parties/calendar): holidays and big nights for the next four months`, '',
     ...(events.length ? ['## Coming up in NYC', '', ...events.map((e) => `- ${e.date}${e.end && e.end !== e.date ? ` to ${e.end}` : ''}: [${e.name}](${SITE}${e.href ?? '/parties/calendar'})${e.nights.length ? `, ${e.nights.length} ${e.nights.length === 1 ? 'night' : 'nights'} on sale` : ', nothing on sale yet'}${e.datePage ? `; every party that night: ${SITE}/parties/date/${e.date}` : ''}`), ''] : []),
-    ...(dates.length ? ['## Parties by night', '', ...dates.map((d) => `- [NYC parties on ${nightDate(d.date)}](${SITE}/parties/date/${d.date}): ${d.parties.length} parties`), ''] : []),
+    ...(dates.length ? ['## Parties by night', '', ...dates.map((d) => `- [NYC parties on ${nightDate(d.date, { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' })}](${SITE}/parties/date/${d.date}): ${d.parties.length === 1 ? '1 party' : `${d.parties.length} parties`}`), ''] : []),
     ...facts,
     '## Happy hour lists', '', ...hhLists.map((l) => `- [${l.label}](${SITE}/happy-hours/${l.slug}): ${l.bars.length} bars`), '',
     ...byHood.flatMap(({ h, list }) => [`## Happy hours in ${h.name}`, '', `- [All ${list.length} in ${h.name}](${SITE}/happy-hours/${h.slug})`,
@@ -62,5 +62,6 @@ export const GET: APIRoute = async () => {
     '## Data', '', `- [NYC Happy Hour Price Index](${SITE}/nyc-happy-hour-index): median happy-hour price of beer, wine, cocktails and well drinks by borough and neighborhood, from bars' own menus; CSV at ${SITE}/nyc-happy-hour-index.csv`, `- [NYC New Year's Eve Price Index](${SITE}/nyc-nye-price-index): median NYE party ticket by borough and kind of party, with daily price changes; CSV at ${SITE}/nyc-nye-price-index.csv`, '',
     ...(guides.length ? ['## Guides', '', ...guides.map((g) => `- [${g.title}](${SITE}/blog/${g.slug})`), ''] : []),
   ];
-  return new Response(lines.join('\n'), { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
+  // plain hyphens in ranges ("Mon-Fri 4pm-7pm"): the file is read by machines
+  return new Response(lines.join('\n').replace(/[–—]/g, '-'), { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
 };
